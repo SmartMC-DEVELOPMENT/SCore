@@ -1,0 +1,3 @@
+us\smartmc\addon\ChatModule.class
+us\smartmc\addon\listener\ChatModeListener.class
+us\smartmc\addon\handler\ChatModeHandler.class

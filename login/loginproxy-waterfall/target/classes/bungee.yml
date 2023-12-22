@@ -1,0 +1,5 @@
+name: LoginProxy-Waterfall
+version: '1.0-SNAPSHOT'
+main: me.imsergioh.loginproxywaterfall.LoginProxyWaterfall
+depends:
+  - SmartCore-Waterfall

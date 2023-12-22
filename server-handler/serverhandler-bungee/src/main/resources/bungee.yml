@@ -1,0 +1,4 @@
+main: us.smartmc.serverhandler.ServerHandlerMain
+name: ServerHandler-Bungee
+version: 1.0
+author: ImSergioh

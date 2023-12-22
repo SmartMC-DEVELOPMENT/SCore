@@ -3,6 +3,18 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SCore.iml" filepath="$PROJECT_DIR$/SCore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addons.iml" filepath="$PROJECT_DIR$/addons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addons/chat-module/chat-module.iml" filepath="$PROJECT_DIR$/addons/chat-module/chat-module.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core-plugins/core-plugins.iml" filepath="$PROJECT_DIR$/core-plugins/core-plugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addons/lobby-module/lobby-module.iml" filepath="$PROJECT_DIR$/addons/lobby-module/lobby-module.iml" />
+      <module fileurl="file://$PROJECT_DIR$/login/login-spigot/login-spigot.iml" filepath="$PROJECT_DIR$/login/login-spigot/login-spigot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/login/loginproxy-waterfall/loginproxy-waterfall.iml" filepath="$PROJECT_DIR$/login/loginproxy-waterfall/loginproxy-waterfall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addons/npcs-module/npcs-module.iml" filepath="$PROJECT_DIR$/addons/npcs-module/npcs-module.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins-api/plugins-api.iml" filepath="$PROJECT_DIR$/plugins-api/plugins-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-handler/serverhandler-bukkit/serverhandler-bukkit.iml" filepath="$PROJECT_DIR$/server-handler/serverhandler-bukkit/serverhandler-bukkit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-handler/serverhandler-bungee/serverhandler-bungee.iml" filepath="$PROJECT_DIR$/server-handler/serverhandler-bungee/serverhandler-bungee.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core-plugins/smartcore-spigot/smartcore-spigot.iml" filepath="$PROJECT_DIR$/core-plugins/smartcore-spigot/smartcore-spigot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core-plugins/smartcore-waterfall/smartcore-waterfall.iml" filepath="$PROJECT_DIR$/core-plugins/smartcore-waterfall/smartcore-waterfall.iml" />
     </modules>
   </component>
 </project>

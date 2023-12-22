@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="chat-module" />
+        <module name="addons" />
+        <module name="loginproxy-waterfall" />
+        <module name="serverhandler-bungee" />
+        <module name="login" />
+        <module name="npcs-module" />
+        <module name="login-spigot" />
+        <module name="smartbot" />
+        <module name="smartcore-waterfall" />
+        <module name="orchestrator" />
+        <module name="common" />
+        <module name="serverhandler-bukkit" />
+        <module name="core-plugins" />
+        <module name="plugins-api" />
+        <module name="smartcore-spigot" />
+        <module name="lobby-module" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="SmartBot" target="17" />
+      <module name="SmartCore-Spigot" target="1.8" />
+      <module name="SmartCore-Waterfall" target="16" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

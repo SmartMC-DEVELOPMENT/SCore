@@ -1,0 +1,10 @@
+me\imsergioh\loginproxywaterfall\command\RegisterCMD.class
+me\imsergioh\loginproxywaterfall\manager\LoginPlayersFactory.class
+me\imsergioh\loginproxywaterfall\command\LoginCMD.class
+me\imsergioh\loginproxywaterfall\instance\CommandExecutor.class
+me\imsergioh\loginproxywaterfall\scheduler\AuthAnnouncer.class
+me\imsergioh\loginproxywaterfall\listener\AuthPlayersListeners.class
+me\imsergioh\loginproxywaterfall\manager\PluginCommandsHandler.class
+me\imsergioh\loginproxywaterfall\instance\LoginPlayer.class
+me\imsergioh\loginproxywaterfall\LoginProxyWaterfall.class
+me\imsergioh\loginproxywaterfall\listener\LoginPlayersFactoryListeners.class

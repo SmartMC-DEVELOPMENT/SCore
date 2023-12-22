@@ -1,0 +1,5 @@
+name: LoginSpigot
+version: '1.0-SNAPSHOT'
+main: me.imsergioh.loginspigot.LoginSpigot
+commands:
+  toggle:

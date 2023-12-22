@@ -4,6 +4,32 @@
     <option name="show" value="ASK" />
     <option name="description" value="" />
   </component>
+  <component name="EntryPointsManager">
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="org.bukkit.event.EventHandler" />
+      <item index="1" class="java.lang.String" itemvalue="net.md_5.bungee.event.EventHandler" />
+    </list>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/core-plugins/smartcore-spigot/pom.xml" />
+        <option value="$PROJECT_DIR$/plugins-api/pom.xml" />
+        <option value="$PROJECT_DIR$/core-plugins/smartcore-waterfall/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/addons/lobby-module/pom.xml" />
+        <option value="$PROJECT_DIR$/addons/chat-module/pom.xml" />
+        <option value="$PROJECT_DIR$/addons/npcs-module/pom.xml" />
+        <option value="$PROJECT_DIR$/login/login-spigot/pom.xml" />
+        <option value="$PROJECT_DIR$/login/loginproxy-waterfall/pom.xml" />
+        <option value="$PROJECT_DIR$/smartbot/pom.xml" />
+        <option value="$PROJECT_DIR$/server-handler/serverhandler-bukkit/pom.xml" />
+        <option value="$PROJECT_DIR$/server-handler/pom.xml" />
+        <option value="$PROJECT_DIR$/server-handler/serverhandler-bungee/pom.xml" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/addons/chat-module/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addons/chat-module/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addons/lobby-module/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addons/lobby-module/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addons/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addons/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/core-plugins/smartcore-spigot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/core-plugins/smartcore-spigot/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/core-plugins/smartcore-waterfall/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/core-plugins/smartcore-waterfall/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/core-plugins/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/core-plugins/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/login/login-spigot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/login/login-spigot/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/login/loginproxy-waterfall/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/login/loginproxy-waterfall/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/login/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/login/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/orchestrator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/orchestrator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/serverhandler-bukkit/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/serverhandler-bukkit/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/serverhandler-bungee/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/serverhandler-bungee/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/smartbot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/smartbot/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

@@ -4,7 +4,6 @@ import me.imsergioh.jbackend.BackendConnection;
 import me.imsergioh.jbackend.api.manager.BackendActionManager;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
-import us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
 import us.smartmc.serverhandler.registration.CommandsRegistration;
 import us.smartmc.serverhandler.registration.CommonListenerRegistration;
 import us.smartmc.serverhandler.util.ConnectionUtil;

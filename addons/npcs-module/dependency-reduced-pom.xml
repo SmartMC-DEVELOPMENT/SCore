@@ -47,10 +47,6 @@
       <id>aikar-release-repo</id>
       <url>https://repo.aikar.co/nexus/content/repositories/aikar-release/</url>
     </repository>
-    <repository>
-      <id>dmulloy2-repo</id>
-      <url>https://repo.dmulloy2.net/repository/public/</url>
-    </repository>
   </repositories>
   <dependencies>
     <dependency>

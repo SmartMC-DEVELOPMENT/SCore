@@ -88,7 +88,7 @@ public class GameSession implements IGameSession {
     public void deathPlayer(GamePlayer player) {
         String title = ChatUtil.parse(player.getPlayer(), GameMessages.getMessageVariable("death_title"));
         String subtitle = ChatUtil.parse(player.getPlayer(), GameMessages.getMessageVariable("death_subtitle"));
-        player.getPlayer().sendTitle(title, subtitle, 5, 20 * 2, 5);
+        player.getPlayer().sendTitle(title, subtitle);
     }
 
     @Override

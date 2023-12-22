@@ -17,38 +17,24 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.0</version>
-                <configuration>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot1.8</artifactId>
-            <scope>system</scope>
             <version>1.8</version>
-            <systemPath>${project.basedir}/../../lib/spigot-1.8.8-R.jar</systemPath>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/../../lib/spigot-1.8.8-R.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>me.imsergioh.jbackend</groupId>
             <artifactId>client-implement</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.28</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

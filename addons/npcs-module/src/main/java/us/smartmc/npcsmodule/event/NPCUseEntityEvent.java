@@ -3,8 +3,6 @@ package us.smartmc.npcsmodule.event;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
 import us.smartmc.npcsmodule.instance.NPC;
 
 public class NPCUseEntityEvent extends NPCEvent {

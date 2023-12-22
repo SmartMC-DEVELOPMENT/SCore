@@ -1,5 +1,6 @@
 package us.smartmc.serverhandler;
 
+import lombok.Getter;
 import me.imsergioh.jbackend.BackendConnection;
 import me.imsergioh.jbackend.api.ConnectionHandler;
 import me.imsergioh.jbackend.api.manager.BackendActionManager;
@@ -14,8 +15,10 @@ import java.io.FileReader;
 
 public class ServerHandlerMain extends JavaPlugin {
 
+    @Getter
     private static ServerHandlerMain plugin;
 
+    @Getter
     private static BackendConnection connection;
     private static ConnectionHandler handler;
     private static String serverID;
@@ -62,17 +65,5 @@ public class ServerHandlerMain extends JavaPlugin {
             }
         }
         return null;
-    }
-
-    public static ConnectionHandler getHandler() {
-        return handler;
-    }
-
-    public static BackendConnection getConnection() {
-        return connection;
-    }
-
-    public static ServerHandlerMain getPlugin() {
-        return plugin;
     }
 }

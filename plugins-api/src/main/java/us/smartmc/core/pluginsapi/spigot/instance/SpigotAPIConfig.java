@@ -1,5 +1,6 @@
 package us.smartmc.core.pluginsapi.spigot.instance;
 
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Getter
 public class SpigotAPIConfig {
 
     private FileConfiguration config;
@@ -146,11 +148,4 @@ public class SpigotAPIConfig {
         }
     }
 
-    public File getFile() {
-        return file;
-    }
-
-    public FileConfiguration getConfig() {
-        return config;
-    }
 }

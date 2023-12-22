@@ -1,6 +1,7 @@
 package us.smartmc.core.pluginsapi.instance;
 
 import com.google.gson.GsonBuilder;
+import lombok.Getter;
 import org.bson.Document;
 import us.smartmc.core.pluginsapi.util.ConfigUtil;
 import us.smartmc.core.pluginsapi.util.FileUtil;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+@Getter
 public class FilePluginConfig extends Document implements IPluginConfig {
 
     private final String filePath;
@@ -53,10 +55,6 @@ public class FilePluginConfig extends Document implements IPluginConfig {
     public FilePluginConfig registerDefault(String path, Object value) {
         putIfAbsent(path, value);
         return this;
-    }
-
-    public String getFilePath() {
-        return filePath;
     }
 
 }

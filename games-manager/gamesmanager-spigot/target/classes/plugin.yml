@@ -1,0 +1,6 @@
+name: gamesmanager-spigot
+version: '1.0-SNAPSHOT'
+main: us.smartmc.gamesmanager.GamesManagerSpigot
+
+depend:
+  - SmartCore23

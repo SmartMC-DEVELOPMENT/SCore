@@ -88,7 +88,7 @@
             <artifactId>bukkit-1.8</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/spigot-1.8.8-R0.1-SNAPSHOT-latest.jar</systemPath>
+            <systemPath>${pom.basedir}/../lib/spigot-1.8.8-R.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>

@@ -12,6 +12,8 @@
         <module>addons</module>
         <module>core-plugins</module>
         <module>login</module>
+        <module>snowgames</module>
+        <module>games-manager</module>
     </modules>
 
     <properties>

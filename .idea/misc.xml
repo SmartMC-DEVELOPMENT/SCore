@@ -27,7 +27,14 @@
         <option value="$PROJECT_DIR$/server-handler/serverhandler-bukkit/pom.xml" />
         <option value="$PROJECT_DIR$/server-handler/pom.xml" />
         <option value="$PROJECT_DIR$/server-handler/serverhandler-bungee/pom.xml" />
+        <option value="$PROJECT_DIR$/snowgames/snowgames-ffa/pom.xml" />
+        <option value="$PROJECT_DIR$/games-manager/gamesmanager-spigot/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/game-manager/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">

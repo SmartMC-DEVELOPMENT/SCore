@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="chat-module" />
+        <module name="snowgames" />
         <module name="addons" />
         <module name="loginproxy-waterfall" />
         <module name="serverhandler-bungee" />
@@ -16,11 +17,14 @@
         <module name="smartbot" />
         <module name="smartcore-waterfall" />
         <module name="orchestrator" />
+        <module name="snowgames-ffa" />
         <module name="common" />
         <module name="serverhandler-bukkit" />
+        <module name="gamesmanager-spigot" />
         <module name="core-plugins" />
         <module name="plugins-api" />
         <module name="smartcore-spigot" />
+        <module name="games-manager" />
         <module name="lobby-module" />
       </profile>
     </annotationProcessing>

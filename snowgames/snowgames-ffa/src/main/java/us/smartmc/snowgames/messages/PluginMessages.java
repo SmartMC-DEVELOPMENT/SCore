@@ -1,6 +1,6 @@
 package us.smartmc.snowgames.messages;
 
-import us.smartmc.core.pluginsapi.language.MultiLanguageRegistry;
+import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 
 public class PluginMessages extends MultiLanguageRegistry {
 

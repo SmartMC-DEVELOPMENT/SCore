@@ -1,21 +1,18 @@
 package us.smartmc.snowgames.util;
 
+import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import us.smartmc.core.pluginsapi.language.Language;
-import us.smartmc.core.pluginsapi.spigot.item.ClickHandler;
-import us.smartmc.core.pluginsapi.spigot.menu.CoreMenu;
-import us.smartmc.core.pluginsapi.spigot.player.CorePlayer;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.config.DefaultConfig;
 import us.smartmc.snowgames.config.LanguageConfig;
 import us.smartmc.snowgames.inventory.GameHotbar;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class GameItemUtils {
 

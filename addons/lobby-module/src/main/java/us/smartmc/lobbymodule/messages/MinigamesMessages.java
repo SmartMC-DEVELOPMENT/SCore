@@ -1,9 +1,8 @@
 package us.smartmc.lobbymodule.messages;
 
-import us.smartmc.core.pluginsapi.language.LanguageMessagesHolder;
-import us.smartmc.core.pluginsapi.language.MultiLanguageRegistry;
+import me.imsergioh.pluginsapi.language.LanguageMessagesHolder;
+import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 import org.bson.Document;
-import org.bukkit.entity.Player;
 
 import static us.smartmc.lobbymodule.messages.LobbyMessages.item;
 
@@ -15,7 +14,7 @@ public class MinigamesMessages extends MultiLanguageRegistry {
             holder.registerDefault("inventory_title", "Minigames");
             holder.registerDefault("prototype_title", "&5&lPROTOTYPE");
 
-            holder.registerDefault("click_to_connect", "&aClick to connect");
+            holder.registerDefault("click_to_connect", "&aClick to connect!");
             holder.registerDefault("current_playing", "{0} currently playing!");
             holder.registerDefault("in_maintenance", "&c&lIN MAINTENANCE!");
 

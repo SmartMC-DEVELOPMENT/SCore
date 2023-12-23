@@ -2,14 +2,13 @@
 package us.smartmc.gamesmanager.game;
 
 import lombok.Getter;
-import us.smartmc.core.pluginsapi.instance.FilePluginConfig;
+import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import us.smartmc.gamesmanager.game.map.GameMap;
 import us.smartmc.gamesmanager.manager.GamePresetManager;
 import us.smartmc.gamesmanager.util.LogUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Getter

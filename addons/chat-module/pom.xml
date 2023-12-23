@@ -22,8 +22,8 @@
             <version>2.0</version>
         </dependency>
         <dependency>
-            <groupId>us.smartmc.core</groupId>
-            <artifactId>plugins-api</artifactId>
+            <groupId>me.imsergioh.pluginsapi</groupId>
+            <artifactId>spigot-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

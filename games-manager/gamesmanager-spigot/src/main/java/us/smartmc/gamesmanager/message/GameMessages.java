@@ -1,6 +1,6 @@
 package us.smartmc.gamesmanager.message;
 
-import us.smartmc.core.pluginsapi.language.MultiLanguageRegistry;
+import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 
 public class GameMessages extends MultiLanguageRegistry {
     public GameMessages() {

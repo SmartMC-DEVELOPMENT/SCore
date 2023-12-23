@@ -1,24 +1,22 @@
 package us.smartmc.lobbymodule.menu;
 
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
+import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import us.smartmc.core.pluginsapi.spigot.SpigotPluginsAPI;
-import us.smartmc.core.pluginsapi.spigot.instance.SpigotAPIConfig;
-import us.smartmc.core.pluginsapi.spigot.item.ItemBuilder;
-import us.smartmc.core.pluginsapi.spigot.menu.ConfigurableMenu;
-import us.smartmc.core.pluginsapi.spigot.player.CorePlayer;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
 import us.smartmc.lobbymodule.handler.FlyManager;
 import us.smartmc.lobbymodule.instance.PlayerVisibility;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class SettingsMenu extends ConfigurableMenu {
 
     public SettingsMenu(Player player) {
-        super(player, new SpigotAPIConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus", "settings.yml")));
+        super(player, new SpigotYmlConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus", "settings.yml")));
     }
 
     @Override

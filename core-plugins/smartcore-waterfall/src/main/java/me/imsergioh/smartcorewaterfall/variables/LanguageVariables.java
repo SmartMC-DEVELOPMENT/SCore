@@ -1,8 +1,8 @@
 package me.imsergioh.smartcorewaterfall.variables;
 
-import us.smartmc.core.pluginsapi.handler.LanguagesHandler;
-import us.smartmc.core.pluginsapi.instance.VariableListener;
-import us.smartmc.core.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.instance.VariableListener;
+import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.smartcorewaterfall.instance.PlayerLanguages;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 

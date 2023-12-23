@@ -2,12 +2,11 @@ package us.smartmc.npcsmodule;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
-import us.smartmc.core.pluginsapi.handler.VariablesHandler;
+import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import us.smartmc.npcsmodule.instance.NPCSConfig;
 import us.smartmc.npcsmodule.listener.NPCListeners;
 import us.smartmc.npcsmodule.listener.PlayerClickListener;
 import us.smartmc.npcsmodule.manager.NPCCommandManager;
-
 import us.smartmc.npcsmodule.manager.NPCManager;
 import us.smartmc.npcsmodule.messages.PluginMessages;
 import us.smartmc.npcsmodule.npccommand.ServerCommand;

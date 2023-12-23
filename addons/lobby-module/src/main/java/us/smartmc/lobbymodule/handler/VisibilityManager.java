@@ -1,13 +1,12 @@
 package us.smartmc.lobbymodule.handler;
 
-import us.smartmc.core.SmartCore;
-import us.smartmc.core.instance.player.SmartCorePlayer;
-import us.smartmc.core.pluginsapi.spigot.event.PlayerDataLoadedEvent;
-import us.smartmc.core.pluginsapi.spigot.player.CorePlayer;
+import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import us.smartmc.core.SmartCore;
+import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.lobbymodule.instance.PlayerVisibility;
 import us.smartmc.smartaddons.plugin.AddonListener;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;

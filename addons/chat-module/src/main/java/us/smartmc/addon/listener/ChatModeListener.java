@@ -1,10 +1,10 @@
 package us.smartmc.addon.listener;
 
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import us.smartmc.addon.handler.ChatModeHandler;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
 public class ChatModeListener extends AddonListener implements Listener {

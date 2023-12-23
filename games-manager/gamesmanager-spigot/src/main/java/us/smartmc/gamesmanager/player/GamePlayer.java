@@ -1,9 +1,9 @@
 package us.smartmc.gamesmanager.player;
 
 import lombok.Data;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
-import us.smartmc.core.pluginsapi.spigot.player.CorePlayer;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
 import us.smartmc.gamesmanager.player.annotations.GamePlayerData;
 import us.smartmc.gamesmanager.player.annotations.MongoPlayerData;
 import us.smartmc.gamesmanager.team.GameTeam;

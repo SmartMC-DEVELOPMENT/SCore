@@ -1,9 +1,8 @@
 package us.smartmc.lobbymodule.command;
 
-import us.smartmc.core.instance.player.SmartCorePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import us.smartmc.core.pluginsapi.spigot.player.CorePlayer;
+import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.lobbymodule.handler.FlyManager;
 import us.smartmc.smartaddons.plugin.AddonPluginCommand;
 

@@ -1,9 +1,9 @@
 package us.smartmc.lobbymodule.listener;
 
-import org.bukkit.Sound;
-import us.smartmc.core.pluginsapi.spigot.event.PlayerDataLoadedEvent;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

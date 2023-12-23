@@ -2,11 +2,11 @@ package us.smartmc.core.instance;
 
 import fr.minuskube.netherboard.Netherboard;
 import fr.minuskube.netherboard.bukkit.BPlayerBoard;
-import us.smartmc.core.SmartCore;
+import me.imsergioh.pluginsapi.instance.FilePluginConfig;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import us.smartmc.core.pluginsapi.instance.FilePluginConfig;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
+import us.smartmc.core.SmartCore;
 
 import java.io.File;
 import java.util.ArrayList;

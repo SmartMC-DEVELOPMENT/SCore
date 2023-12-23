@@ -1,7 +1,7 @@
 package us.smartmc.core.util;
 
+import me.imsergioh.pluginsapi.language.Language;
 import us.smartmc.core.messages.GeneralMessages;
-import us.smartmc.core.pluginsapi.language.Language;
 
 public class TimeFormatter {
 

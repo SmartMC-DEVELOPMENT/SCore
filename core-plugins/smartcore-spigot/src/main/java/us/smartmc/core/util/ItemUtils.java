@@ -2,9 +2,7 @@ package us.smartmc.core.util;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import us.smartmc.core.pluginsapi.spigot.item.ItemBuilder;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
-import org.bukkit.Material;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

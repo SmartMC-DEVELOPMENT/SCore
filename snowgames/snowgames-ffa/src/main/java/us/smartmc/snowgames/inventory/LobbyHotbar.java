@@ -1,16 +1,14 @@
 package us.smartmc.snowgames.inventory;
 
+import me.imsergioh.pluginsapi.item.ItemBuilder;
+import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import us.smartmc.core.pluginsapi.language.Language;
-import us.smartmc.core.pluginsapi.spigot.item.ItemBuilder;
-import us.smartmc.core.pluginsapi.spigot.menu.CoreMenu;
-import us.smartmc.core.pluginsapi.spigot.player.CorePlayer;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.config.LanguageConfig;
-import us.smartmc.snowgames.util.GameItemUtils;
 
 public class LobbyHotbar extends FFAMenu {
 

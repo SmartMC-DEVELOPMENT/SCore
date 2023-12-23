@@ -1,10 +1,10 @@
 package us.smartmc.core.listener;
 
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import us.smartmc.core.instance.CommandIntermediate;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
 
 
 public class CommandListeners implements Listener {

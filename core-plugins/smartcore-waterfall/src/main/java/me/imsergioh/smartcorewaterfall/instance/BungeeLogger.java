@@ -1,6 +1,6 @@
 package me.imsergioh.smartcorewaterfall.instance;
 
-import us.smartmc.core.pluginsapi.instance.ConsoleLogger;
+import me.imsergioh.pluginsapi.instance.ConsoleLogger;
 import me.imsergioh.smartcorewaterfall.SmartCoreWaterfall;
 import net.md_5.bungee.api.ChatColor;
 

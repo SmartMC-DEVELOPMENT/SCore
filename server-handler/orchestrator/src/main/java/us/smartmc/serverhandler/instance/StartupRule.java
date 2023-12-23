@@ -2,7 +2,7 @@ package us.smartmc.serverhandler.instance;
 
 import java.util.HashMap;
 
-public class StartupRule implements IStartupRule {
+public class StartupRule {
 
     private final HashMap<String, Object> replacements = new HashMap<>();
 

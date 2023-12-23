@@ -1,34 +1,34 @@
 package us.smartmc.core;
 
 import lombok.Getter;
-import org.bukkit.command.defaults.BukkitCommand;
-import org.bukkit.plugin.SimplePluginManager;
-import us.smartmc.core.commands.*;
-import us.smartmc.core.itemcommands.BungeeCommandAction;
-import us.smartmc.core.listener.CommandListeners;
-import us.smartmc.core.messages.GeneralMessages;
-import us.smartmc.core.messages.ItemUtilsMessages;
-import us.smartmc.core.pluginsapi.connection.*;
-import us.smartmc.core.pluginsapi.handler.*;
-import us.smartmc.core.pluginsapi.instance.FilePluginConfig;
-import us.smartmc.core.pluginsapi.language.Language;
-import us.smartmc.core.pluginsapi.spigot.SpigotPluginsAPI;
-import us.smartmc.core.pluginsapi.util.SyncUtil;
-import us.smartmc.core.handler.*;
-import us.smartmc.core.instance.SpigotLogger;
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
+import me.imsergioh.pluginsapi.connection.RedisConnection;
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.handler.VariablesHandler;
+import me.imsergioh.pluginsapi.instance.FilePluginConfig;
+import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.manager.ItemActionsManager;
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.smartmc.core.commands.*;
+import us.smartmc.core.handler.*;
+import us.smartmc.core.instance.SpigotLogger;
+import us.smartmc.core.itemcommands.BungeeCommandAction;
 import us.smartmc.core.listener.AdminModeListeners;
+import us.smartmc.core.listener.CommandListeners;
 import us.smartmc.core.listener.CorePlayersListener;
+import us.smartmc.core.messages.GeneralMessages;
+import us.smartmc.core.messages.ItemUtilsMessages;
 import us.smartmc.core.util.ServerUtils;
 import us.smartmc.core.variables.*;
 
 import java.io.File;
 import java.util.Objects;
-import java.util.UUID;
 
 public class SmartCore extends JavaPlugin {
 

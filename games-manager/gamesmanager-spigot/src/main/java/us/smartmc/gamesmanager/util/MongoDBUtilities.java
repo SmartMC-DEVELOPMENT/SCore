@@ -1,8 +1,8 @@
 package us.smartmc.gamesmanager.util;
 
 import com.mongodb.client.MongoCollection;
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import org.bson.Document;
-import us.smartmc.core.pluginsapi.connection.MongoDBConnection;
 
 public class MongoDBUtilities {
 

@@ -1,9 +1,8 @@
 package us.smartmc.lobbymodule.itemcommand;
 
-import us.smartmc.core.pluginsapi.spigot.instance.ItemActionExecutor;
-import us.smartmc.core.pluginsapi.spigot.item.ClickHandler;
-import us.smartmc.core.pluginsapi.spigot.menu.CoreMenu;
-import us.smartmc.core.pluginsapi.spigot.player.CorePlayer;
+import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
+import me.imsergioh.pluginsapi.instance.item.ClickHandler;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import us.smartmc.lobbymodule.menu.SettingsMenu;
 
 public class AlternateVisibilityAction implements ItemActionExecutor {

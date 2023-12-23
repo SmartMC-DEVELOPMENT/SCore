@@ -1,12 +1,12 @@
 package us.smartmc.core.commands;
 
-import us.smartmc.core.pluginsapi.util.ChatUtil;
-import us.smartmc.core.handler.SpawnHandler;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import us.smartmc.core.handler.SpawnHandler;
 
 public class SpawnCommand implements CommandExecutor {
 

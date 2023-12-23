@@ -2,17 +2,17 @@ package us.smartmc.core.handler;
 
 import fr.minuskube.netherboard.Netherboard;
 import fr.minuskube.netherboard.bukkit.BPlayerBoard;
-import us.smartmc.core.pluginsapi.language.Language;
-import us.smartmc.core.pluginsapi.spigot.event.PlayerDataLoadedEvent;
-import us.smartmc.core.pluginsapi.spigot.event.PlayerLanguageChangedEvent;
-import us.smartmc.core.pluginsapi.util.SyncUtil;
-import us.smartmc.core.instance.PluginScoreboard;
-import us.smartmc.core.instance.player.SmartCorePlayer;
+import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
+import me.imsergioh.pluginsapi.event.PlayerLanguageChangedEvent;
+import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import us.smartmc.core.instance.PluginScoreboard;
+import us.smartmc.core.instance.player.SmartCorePlayer;
 
 import java.util.HashMap;
 

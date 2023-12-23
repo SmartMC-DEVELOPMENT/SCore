@@ -1,6 +1,6 @@
 package us.smartmc.core.util;
 
-import us.smartmc.core.pluginsapi.instance.FilePluginConfig;
+import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

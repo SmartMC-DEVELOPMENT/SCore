@@ -1,31 +1,64 @@
 package us.smartmc.lobbymodule.menu;
 
-import us.smartmc.core.pluginsapi.spigot.SpigotPluginsAPI;
-import us.smartmc.core.pluginsapi.spigot.instance.SpigotAPIConfig;
-import us.smartmc.core.pluginsapi.spigot.menu.ConfigurableMenu;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
-import us.smartmc.core.util.PluginUtils;
-import us.smartmc.core.pluginsapi.spigot.item.ItemBuilder;
-import us.smartmc.core.pluginsapi.spigot.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import us.smartmc.lobbymodule.util.PlayerUtil;
+import us.smartmc.core.SmartCore;
+import us.smartmc.core.variables.CountVariables;
+import us.smartmc.lobbymodule.LobbyModule;
+import us.smartmc.lobbymodule.handler.LobbiesInfoManager;
+import us.smartmc.lobbymodule.handler.MaxSlotsInfoManager;
 
-import java.io.File;
 import java.util.Arrays;
 
 
 public class LobbiesMenu extends ConfigurableMenu {
 
     public LobbiesMenu(Player player) {
-        super(player, new SpigotAPIConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus", "lobbies.yml")));
+        super(player, LobbyModule.getLobbiesMenuConfig());
+        LobbiesInfoManager.registerMenu(this);
     }
 
     @Override
     public void load() {
-        for (int slot = 0; slot < inventory.getSize(); slot++) {
-            set(slot, ItemBuilder.of(Material.BARRIER).name("<lang.lobby.items_not_available_name>").get(player));
+        inventory.clear();
+        int slot = 0;
+        String serverServerID = SmartCore.getServerID();
+        for (String serverID : CountVariables.getKeysByPrefix(LobbiesInfoManager.getIDPrefix())) {
+            boolean isSelf = serverID.equals(serverServerID);
+            Material material = Material.QUARTZ_BLOCK;
+            byte materialData = 0;
+            String variableConnect = "<lang.lobby_miniGames.click_to_connect>";
+            String labelCommand = "connectTo " + serverID;
+            if (isSelf) {
+                material = Material.STAINED_CLAY;
+                materialData = 14;
+                variableConnect = "<lang.lobby.already_connected>";
+                labelCommand = "closeInv";
+            }
+
+            int number = Integer.parseInt(serverID.split("-")[serverID.split("-").length - 1]);
+            String count = CountVariables.getCountOf(serverID);
+
+            set(slot, ItemBuilder.of(material).data(materialData).name(getItemNamePrefix(isSelf) + getItemName(number))
+                    .lore(Arrays.asList("&7" + count + "/" + MaxSlotsInfoManager.getMaxSlotsOf(serverID), "&r",
+                            variableConnect))
+                    .get(player),labelCommand);
+            slot++;
         }
     }
-}
 
+    public String getItemNamePrefix(boolean isSelf) {
+        String prefixPath = "lobby_name_prefix";
+        if (isSelf) {
+            prefixPath = "current_lobby_name_prefix";
+        }
+        return ChatUtil.parse(player, "<lang.lobby." + prefixPath + ">");
+    }
+
+    public String getItemName(int lobbyNumber) {
+        return ChatUtil.parse(player, LobbyModule.getLobbiesMenuConfig().getString("item_name"), lobbyNumber);
+    }
+}

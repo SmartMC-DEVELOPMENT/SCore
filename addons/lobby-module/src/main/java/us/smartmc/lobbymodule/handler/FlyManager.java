@@ -1,9 +1,8 @@
 package us.smartmc.lobbymodule.handler;
 
-import us.smartmc.core.pluginsapi.spigot.event.PlayerDataLoadedEvent;
-
-import us.smartmc.core.pluginsapi.spigot.player.CorePlayer;
-import us.smartmc.core.pluginsapi.util.SyncUtil;
+import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bson.Document;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

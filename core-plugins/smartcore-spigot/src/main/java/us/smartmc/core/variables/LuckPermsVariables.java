@@ -1,9 +1,9 @@
 package us.smartmc.core.variables;
 
-import us.smartmc.core.pluginsapi.instance.VariableListener;
+import me.imsergioh.pluginsapi.instance.VariableListener;
+import org.bukkit.entity.Player;
 import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.core.util.VariableUtil;
-import org.bukkit.entity.Player;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -46,6 +46,7 @@ public class LuckPermsVariables extends VariableListener<Player> {
 
     @Override
     public String parse(Player player, String message) {
+        if (message == null) return null;
         if (!message.contains("<rank>") && !message.contains("<chat.prefix")) return message;
         String prefix = getPrefix(player, true);
         // <RANK>

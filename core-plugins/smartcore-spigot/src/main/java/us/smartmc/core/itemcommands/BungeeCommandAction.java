@@ -1,8 +1,8 @@
 package us.smartmc.core.itemcommands;
 
+import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
+import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import us.smartmc.core.instance.player.SmartCorePlayer;
-import us.smartmc.core.pluginsapi.spigot.instance.ItemActionExecutor;
-import us.smartmc.core.pluginsapi.spigot.item.ClickHandler;
 
 public class BungeeCommandAction implements ItemActionExecutor {
 

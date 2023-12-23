@@ -1,6 +1,6 @@
 package us.smartmc.npcsmodule.listener;
 
-import us.smartmc.core.pluginsapi.spigot.event.PlayerDataLoadedEvent;
+import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

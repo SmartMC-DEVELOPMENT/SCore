@@ -1,7 +1,7 @@
 package us.smartmc.addon.handler;
 
+import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import us.smartmc.addon.listener.ChatModeListener;
-import us.smartmc.core.pluginsapi.instance.FilePluginConfig;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 
 import java.io.File;

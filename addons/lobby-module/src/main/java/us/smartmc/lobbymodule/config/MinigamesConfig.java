@@ -1,23 +1,23 @@
 package us.smartmc.lobbymodule.config;
 
-import us.smartmc.core.variables.CountVariables;
-import us.smartmc.core.pluginsapi.handler.LanguagesHandler;
-import us.smartmc.core.pluginsapi.instance.MongoDBPluginConfig;
-import us.smartmc.core.pluginsapi.language.Language;
-import us.smartmc.core.pluginsapi.spigot.item.ClickHandler;
-import us.smartmc.core.pluginsapi.spigot.item.ItemBuilder;
-import us.smartmc.core.pluginsapi.spigot.player.CorePlayer;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
-import us.smartmc.core.pluginsapi.util.LineLimiter;
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.instance.MongoDBPluginConfig;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.LineLimiter;
 import org.bson.Document;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import us.smartmc.core.variables.CountVariables;
 import us.smartmc.lobbymodule.LobbyModule;
 
 import java.text.MessageFormat;
-import java.util.*;
-import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class MinigamesConfig extends MongoDBPluginConfig {
 

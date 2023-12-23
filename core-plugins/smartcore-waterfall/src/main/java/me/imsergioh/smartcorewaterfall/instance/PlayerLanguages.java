@@ -1,11 +1,10 @@
 
 package me.imsergioh.smartcorewaterfall.instance;
 
-import us.smartmc.core.pluginsapi.connection.MongoDBConnection;
-
-import us.smartmc.core.pluginsapi.handler.LanguagesHandler;
-import us.smartmc.core.pluginsapi.language.Language;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.bson.Document;
 
@@ -40,7 +39,7 @@ public class PlayerLanguages {
             try {
                 Language language = Language.valueOf(document.getString("lang"));
                 langSetMap.put(id, language);
-                us.smartmc.core.pluginsapi.instance.PlayerLanguages.register(UUID.fromString(id), language);
+                me.imsergioh.pluginsapi.instance.PlayerLanguages.register(UUID.fromString(id), language);
                 return language;
             } catch (Exception ignore) {
             }
@@ -50,7 +49,7 @@ public class PlayerLanguages {
 
     public static void set(ProxiedPlayer player, Language language) {
         langSetMap.put(player.getUniqueId().toString(), language);
-        us.smartmc.core.pluginsapi.instance.PlayerLanguages.register(player.getUniqueId(), language);
+        me.imsergioh.pluginsapi.instance.PlayerLanguages.register(player.getUniqueId(), language);
     }
 
     public static Language get(String id) {

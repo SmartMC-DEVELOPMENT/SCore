@@ -1,9 +1,9 @@
 package us.smartmc.core.instance;
 
-import us.smartmc.core.SmartCore;
-import us.smartmc.core.pluginsapi.instance.ConsoleLogger;
+import me.imsergioh.pluginsapi.instance.ConsoleLogger;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import us.smartmc.core.SmartCore;
 
 public class SpigotLogger implements ConsoleLogger {
 

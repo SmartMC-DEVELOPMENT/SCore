@@ -1,25 +1,10 @@
 package me.imsergioh.smartcorewaterfall.command;
 
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.smartcorewaterfall.instance.CoreCommand;
-import me.imsergioh.smartcorewaterfall.messages.HelpMessages;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.plugin.Command;
-import us.smartmc.core.pluginsapi.handler.LanguagesHandler;
-import us.smartmc.core.pluginsapi.instance.ClickableComponent;
-import us.smartmc.core.pluginsapi.instance.PlayerLanguages;
-import us.smartmc.core.pluginsapi.language.Language;
-import us.smartmc.core.pluginsapi.language.LanguageHolder;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
-
-import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
-
-import static me.imsergioh.smartcorewaterfall.messages.HelpMessages.*;
 
 public class HelpCommand extends CoreCommand {
     public HelpCommand() {

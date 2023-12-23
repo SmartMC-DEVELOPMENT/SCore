@@ -1,6 +1,6 @@
 package us.smartmc.lobbymodule.command;
 
-import us.smartmc.core.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.smartmc.lobbymodule.LobbyModule;

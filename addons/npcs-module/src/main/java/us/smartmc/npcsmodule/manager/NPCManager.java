@@ -1,7 +1,7 @@
 package us.smartmc.npcsmodule.manager;
 
-import us.smartmc.core.pluginsapi.instance.FilePluginConfig;
-import us.smartmc.core.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.instance.FilePluginConfig;
+import me.imsergioh.pluginsapi.language.Language;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -12,7 +12,10 @@ import us.smartmc.npcsmodule.instance.NPC;
 import us.smartmc.npcsmodule.util.ConfigUtil;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class NPCManager extends ManagerRegistry<String, NPC> {

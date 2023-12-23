@@ -1,6 +1,6 @@
 package us.smartmc.lobbymodule.config;
 
-import us.smartmc.core.pluginsapi.instance.FilePluginConfig;
+import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 
 import java.io.File;

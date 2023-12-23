@@ -1,9 +1,8 @@
 package me.imsergioh.smartcorewaterfall.messages;
 
-import us.smartmc.core.pluginsapi.handler.LanguagesHandler;
-import us.smartmc.core.pluginsapi.language.Language;
-import us.smartmc.core.pluginsapi.language.MultiLanguageRegistry;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 
 public class SanctionsManagerMessages extends MultiLanguageRegistry {
 

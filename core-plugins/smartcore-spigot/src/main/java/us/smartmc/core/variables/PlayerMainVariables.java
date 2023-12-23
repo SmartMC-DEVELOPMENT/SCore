@@ -1,10 +1,10 @@
 package us.smartmc.core.variables;
 
+import me.imsergioh.pluginsapi.instance.VariableListener;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
-import us.smartmc.core.pluginsapi.instance.VariableListener;
+import org.bukkit.entity.Player;
 import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.core.util.VariableUtil;
-import org.bukkit.entity.Player;
 
 public class PlayerMainVariables extends VariableListener<Player> {
 

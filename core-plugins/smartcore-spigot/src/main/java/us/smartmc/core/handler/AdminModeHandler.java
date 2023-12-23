@@ -1,8 +1,8 @@
 package us.smartmc.core.handler;
 
-import us.smartmc.core.pluginsapi.util.ChatUtil;
-import us.smartmc.core.instance.data.ListRegistry;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
+import us.smartmc.core.instance.data.ListRegistry;
 
 import java.util.UUID;
 

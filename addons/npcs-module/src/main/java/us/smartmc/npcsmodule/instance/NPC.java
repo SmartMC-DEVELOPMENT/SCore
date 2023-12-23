@@ -1,9 +1,9 @@
 package us.smartmc.npcsmodule.instance;
 
 import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
-import us.smartmc.core.pluginsapi.util.SyncUtil;
+import com.mojang.authlib.properties.Property;
+import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -15,6 +15,8 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
 import java.util.*;
+
+;
 
 public class NPC {
 

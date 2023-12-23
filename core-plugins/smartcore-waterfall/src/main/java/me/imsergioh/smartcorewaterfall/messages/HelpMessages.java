@@ -1,17 +1,10 @@
 package me.imsergioh.smartcorewaterfall.messages;
 
-import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
-import us.smartmc.core.pluginsapi.handler.LanguagesHandler;
-import us.smartmc.core.pluginsapi.instance.ClickableComponent;
-import us.smartmc.core.pluginsapi.instance.PlayerLanguages;
-import us.smartmc.core.pluginsapi.language.Language;
-import us.smartmc.core.pluginsapi.language.LanguageMessagesHolder;
-import us.smartmc.core.pluginsapi.language.MultiLanguageRegistry;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class HelpMessages extends MultiLanguageRegistry {
 

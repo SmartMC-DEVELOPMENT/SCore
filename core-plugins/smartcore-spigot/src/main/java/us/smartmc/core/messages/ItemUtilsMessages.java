@@ -1,6 +1,6 @@
 package us.smartmc.core.messages;
 
-import us.smartmc.core.pluginsapi.language.MultiLanguageRegistry;
+import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 
 public class ItemUtilsMessages extends MultiLanguageRegistry {
 

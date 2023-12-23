@@ -2,8 +2,8 @@ package me.imsergioh.loginproxywaterfall.instance;
 
 import me.imsergioh.loginproxywaterfall.LoginProxyWaterfall;
 import me.imsergioh.loginproxywaterfall.listener.AuthPlayersListeners;
-import us.smartmc.core.pluginsapi.connection.MongoDBConnection;
-import us.smartmc.core.pluginsapi.data.storage.DocumentLoader;
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
+import me.imsergioh.pluginsapi.data.storage.DocumentLoader;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.bson.Document;
 import org.mindrot.jbcrypt.BCrypt;

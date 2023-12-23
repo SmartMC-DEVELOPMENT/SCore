@@ -1,7 +1,7 @@
 package me.imsergioh.smartcorewaterfall.manager;
 
-import us.smartmc.core.pluginsapi.instance.MongoDBPluginConfig;
-import us.smartmc.core.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.instance.MongoDBPluginConfig;
+import me.imsergioh.pluginsapi.language.Language;
 import net.md_5.bungee.api.plugin.Listener;
 import org.bson.Document;
 

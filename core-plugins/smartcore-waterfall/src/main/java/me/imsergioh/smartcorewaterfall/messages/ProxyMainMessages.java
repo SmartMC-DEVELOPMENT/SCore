@@ -1,8 +1,8 @@
 package me.imsergioh.smartcorewaterfall.messages;
 
-import us.smartmc.core.pluginsapi.handler.LanguagesHandler;
-import us.smartmc.core.pluginsapi.language.Language;
-import us.smartmc.core.pluginsapi.language.MultiLanguageRegistry;
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 
 public class ProxyMainMessages extends MultiLanguageRegistry {
 

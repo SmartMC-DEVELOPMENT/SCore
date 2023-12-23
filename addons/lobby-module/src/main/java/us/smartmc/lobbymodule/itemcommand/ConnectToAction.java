@@ -1,12 +1,8 @@
 package us.smartmc.lobbymodule.itemcommand;
 
-import us.smartmc.core.SmartCore;
-import us.smartmc.core.pluginsapi.spigot.instance.ItemActionExecutor;
-import us.smartmc.core.pluginsapi.spigot.item.ClickHandler;
-import us.smartmc.core.pluginsapi.spigot.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
+import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import us.smartmc.core.util.PluginUtils;
-import us.smartmc.lobbymodule.menu.SettingsMenu;
-import us.smartmc.lobbymodule.util.PlayerUtil;
 
 public class ConnectToAction implements ItemActionExecutor {
 

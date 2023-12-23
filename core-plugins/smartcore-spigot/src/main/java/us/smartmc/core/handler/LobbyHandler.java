@@ -1,9 +1,9 @@
 package us.smartmc.core.handler;
 
-import us.smartmc.core.pluginsapi.instance.FilePluginConfig;
-import us.smartmc.core.listener.LobbyHandlerListeners;
+import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.smartmc.core.listener.LobbyHandlerListeners;
 
 import java.io.File;
 

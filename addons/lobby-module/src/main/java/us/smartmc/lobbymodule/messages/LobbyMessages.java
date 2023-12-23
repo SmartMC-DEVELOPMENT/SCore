@@ -1,8 +1,7 @@
 package us.smartmc.lobbymodule.messages;
 
-import us.smartmc.core.pluginsapi.language.LanguageMessagesHolder;
-import us.smartmc.core.pluginsapi.language.MultiLanguageRegistry;
-import org.bukkit.entity.Player;
+import me.imsergioh.pluginsapi.language.LanguageMessagesHolder;
+import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 import us.smartmc.lobbymodule.instance.PlayerVisibility;
 
 public class LobbyMessages extends MultiLanguageRegistry {
@@ -34,6 +33,13 @@ public class LobbyMessages extends MultiLanguageRegistry {
 
             holder.registerDefault("unknown_command", "&cUnknown command. Type &e/help &cfor help.");
 
+            holder.registerDefault("main_lobby_name", "&aLobby principal #{0}");
+            holder.registerDefault("sg_lobby_name", "&aLobby #{0} de SnowGames");
+
+            holder.registerDefault("lobby_name_prefix", "&a");
+            holder.registerDefault("current_lobby_name_prefix", "&c");
+
+            holder.registerDefault("already_connected", "&cAlready connected!");
 
             for (PlayerVisibility visibility : PlayerVisibility.values()) {
                 holder.registerDefault("visibility_" + visibility.name() + "_name", "visibility");

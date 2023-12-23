@@ -1,9 +1,9 @@
 package us.smartmc.lobbymodule.itemcommand;
 
+import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
+import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import org.bukkit.entity.Player;
 import us.smartmc.core.instance.player.PlayerServerConnect;
-import us.smartmc.core.pluginsapi.spigot.instance.ItemActionExecutor;
-import us.smartmc.core.pluginsapi.spigot.item.ClickHandler;
 import us.smartmc.lobbymodule.config.MinigamesConfig;
 
 public class MinigamesActions implements ItemActionExecutor {

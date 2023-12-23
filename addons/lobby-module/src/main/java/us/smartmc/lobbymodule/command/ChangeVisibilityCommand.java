@@ -1,7 +1,7 @@
 package us.smartmc.lobbymodule.command;
 
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.Sound;
-import us.smartmc.core.pluginsapi.spigot.player.CorePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.smartmc.lobbymodule.handler.VisibilityManager;

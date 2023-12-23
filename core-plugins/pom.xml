@@ -13,13 +13,4 @@
     <groupId>us.smartmc.core</groupId>
     <artifactId>core-plugins</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-    <dependencies>
-        <dependency>
-            <groupId>us.smartmc.core</groupId>
-            <artifactId>plugins-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 </project>

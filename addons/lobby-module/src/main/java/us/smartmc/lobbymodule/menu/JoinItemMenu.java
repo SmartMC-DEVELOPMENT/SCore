@@ -3,34 +3,22 @@ package us.smartmc.lobbymodule.menu;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import org.bukkit.Bukkit;
-import org.bukkit.Sound;
-import us.smartmc.core.SmartCore;
-import us.smartmc.core.pluginsapi.instance.PlayerLanguages;
-import us.smartmc.core.pluginsapi.spigot.SpigotPluginsAPI;
-import us.smartmc.core.pluginsapi.spigot.instance.SpigotAPIConfig;
-import us.smartmc.core.pluginsapi.spigot.item.ClickHandler;
-import us.smartmc.core.pluginsapi.spigot.item.ItemBuilder;
-import us.smartmc.core.pluginsapi.spigot.menu.ConfigurableMenu;
-import us.smartmc.core.pluginsapi.spigot.menu.CoreMenu;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
+import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
-import us.smartmc.core.pluginsapi.util.SyncUtil;
-import us.smartmc.lobbymodule.LobbyModule;
 
 import java.io.File;
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
+import java.util.Arrays;
 
 public class JoinItemMenu extends ConfigurableMenu {
 
     public JoinItemMenu(Player player) {
-        super(player, new SpigotAPIConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus/", "join_items.yml")));
+        super(player, new SpigotYmlConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus/", "join_items.yml")));
         loadInv();
     }
 

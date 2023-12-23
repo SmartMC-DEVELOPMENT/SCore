@@ -1,20 +1,23 @@
 package us.smartmc.core.variables;
 
-import us.smartmc.core.SmartCore;
-import us.smartmc.core.pluginsapi.connection.RedisConnection;
-import us.smartmc.core.pluginsapi.instance.VariableListener;
+import me.imsergioh.pluginsapi.connection.RedisConnection;
+import me.imsergioh.pluginsapi.instance.VariableListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import us.smartmc.core.SmartCore;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CountVariables extends VariableListener<Player> {
 
-    private static final HashMap<String, Long> counts = new HashMap<>();
+    public static final HashMap<String, Long> counts = new HashMap<>();
 
     private static int lastPushed = -1;
 
@@ -29,7 +32,7 @@ public class CountVariables extends VariableListener<Player> {
     }
 
     private static void deleteUnregisteredCacheServers() {
-        for (String key : counts.keySet()) {
+        for (String key : new HashSet<>(counts.keySet())) {
             boolean exists = RedisConnection.mainConnection.getResource().exists(key);
             if (exists) continue;
             counts.remove(key);
@@ -42,8 +45,8 @@ public class CountVariables extends VariableListener<Player> {
     }
 
     public static String getCountOf(String idName) {
-        String path = "online." + idName;
-
+        String path = idName;
+        if (!path.startsWith("online.")) path = "online." + idName;
         int online = 0;
         for (String key : counts.keySet()) {
             if (key.startsWith(path) || key.equalsIgnoreCase(path)) {
@@ -65,6 +68,29 @@ public class CountVariables extends VariableListener<Player> {
         symbols.setGroupingSeparator('.');
         DecimalFormat format = new DecimalFormat("#,###", symbols);
         return format.format(count);
+    }
+
+    public static List<String> getKeysByPrefix(String prefix) {
+        return counts.keySet().stream()
+                .filter(key -> key.startsWith("online." + prefix))
+                .map(s -> s.replaceFirst("online.", ""))
+                .sorted(Comparator.comparingInt(CountVariables::extractNumber))
+                .collect(Collectors.toList());
+    }
+
+    private static int extractNumber(String str) {
+        // Encuentra el número al final de la cadena
+        int numberStart = str.lastIndexOf('-') + 1;
+        if (numberStart > 0 && numberStart < str.length()) {
+            String numberPart = str.substring(numberStart);
+            try {
+                return Integer.parseInt(numberPart);
+            } catch (NumberFormatException e) {
+                // Si no es un número, retorna un valor alto para que vaya al final
+                return Integer.MAX_VALUE;
+            }
+        }
+        return Integer.MAX_VALUE; // En caso de que no haya número
     }
 
     private void updateCount() {

@@ -1,17 +1,14 @@
 package us.smartmc.core.instance.player;
 
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
+import me.imsergioh.pluginsapi.connection.RedisConnection;
+import me.imsergioh.pluginsapi.event.PlayerUnloadEvent;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.core.messages.GeneralMessages;
-import us.smartmc.core.pluginsapi.connection.RedisConnection;
-import us.smartmc.core.pluginsapi.instance.PlayerLanguages;
-import us.smartmc.core.pluginsapi.spigot.event.PlayerUnloadEvent;
-import us.smartmc.core.pluginsapi.spigot.player.CorePlayer;
 
 import java.util.HashMap;
 import java.util.UUID;

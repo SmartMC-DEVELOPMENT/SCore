@@ -1,8 +1,8 @@
 package us.smartmc.snowgames.actions;
 
+import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
+import me.imsergioh.pluginsapi.item.ClickHandler;
 import org.bukkit.entity.Player;
-import us.smartmc.core.pluginsapi.spigot.instance.ItemActionExecutor;
-import us.smartmc.core.pluginsapi.spigot.item.ClickHandler;
 import us.smartmc.snowgames.util.GameItemUtils;
 
 public class GameActions implements ItemActionExecutor {

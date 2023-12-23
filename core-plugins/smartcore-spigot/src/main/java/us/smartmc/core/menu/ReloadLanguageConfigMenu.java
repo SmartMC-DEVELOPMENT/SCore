@@ -1,17 +1,13 @@
 package us.smartmc.core.menu;
 
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import us.smartmc.core.pluginsapi.instance.FilePluginConfig;
-import us.smartmc.core.pluginsapi.language.MultiLanguageRegistry;
-import us.smartmc.core.pluginsapi.spigot.item.ItemBuilder;
-import us.smartmc.core.pluginsapi.spigot.menu.CoreMenu;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
 
-import java.io.File;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Set;
 
 public class ReloadLanguageConfigMenu extends CoreMenu {

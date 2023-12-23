@@ -1,8 +1,8 @@
 package me.imsergioh.smartcorewaterfall.rediscommand;
 
-import me.imsergioh.smartcorewaterfall.manager.ServersHandler;
-import us.smartmc.core.pluginsapi.instance.handler.RedisPubSubListener;
+import me.imsergioh.pluginsapi.instance.handler.RedisPubSubListener;
 import me.imsergioh.smartcorewaterfall.SmartCoreWaterfall;
+import me.imsergioh.smartcorewaterfall.manager.ServersHandler;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ServerConnectEvent;

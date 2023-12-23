@@ -1,9 +1,9 @@
 package us.smartmc.gamesmanager.game.map;
 
 import lombok.Getter;
+import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import org.bukkit.Location;
 import org.bukkit.World;
-import us.smartmc.core.pluginsapi.instance.FilePluginConfig;
 import us.smartmc.gamesmanager.game.teams.PlayerTeam;
 import us.smartmc.gamesmanager.manager.GameMapManager;
 import us.smartmc.gamesmanager.util.WorldUtils;

@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.imsergioh.jbackend.BackendConnection;
 import me.imsergioh.jbackend.api.ConnectionHandler;
 import me.imsergioh.jbackend.api.manager.BackendActionManager;
+import me.imsergioh.pluginsapi.connection.RedisConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
@@ -49,6 +50,7 @@ public class ServerHandlerMain extends JavaPlugin {
             ConnectionUtil.sendCommand(handler,
                     "serverStatus active " + serverID);
         });
+        RedisConnection.mainConnection.getResource().set("maxSlots." + serverID, String.valueOf(Bukkit.getServer().getMaxPlayers()));
     }
 
     @Override

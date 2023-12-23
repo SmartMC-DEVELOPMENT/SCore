@@ -1,7 +1,7 @@
 package me.imsergioh.smartcorewaterfall.instance;
 
 import com.mongodb.client.MongoCollection;
-import us.smartmc.core.pluginsapi.connection.MongoDBConnection;
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import org.bson.Document;
 
 public class MongoDataManager {

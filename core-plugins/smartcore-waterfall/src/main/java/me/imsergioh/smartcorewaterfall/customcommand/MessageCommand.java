@@ -1,6 +1,6 @@
 package me.imsergioh.smartcorewaterfall.customcommand;
 
-import us.smartmc.core.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.smartcorewaterfall.instance.commandmanager.CustomCommandExecutor;
 import net.md_5.bungee.api.CommandSender;
 

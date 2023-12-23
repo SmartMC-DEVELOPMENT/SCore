@@ -4,9 +4,6 @@ import me.imsergioh.smartcorewaterfall.instance.CoreCommand;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
-
-import java.util.Collections;
 
 public class BroadcastCommand extends CoreCommand {
 

@@ -1,15 +1,12 @@
 package me.imsergioh.smartcorewaterfall.instance;
 
-import com.google.common.base.Preconditions;
-import me.imsergioh.smartcorewaterfall.messages.HelpMessages;
-import me.imsergioh.smartcorewaterfall.messages.SanctionsManagerMessages;
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
+import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
-import us.smartmc.core.pluginsapi.handler.LanguagesHandler;
-import us.smartmc.core.pluginsapi.instance.PlayerLanguages;
-import us.smartmc.core.pluginsapi.language.Language;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
 
 import java.util.List;
 

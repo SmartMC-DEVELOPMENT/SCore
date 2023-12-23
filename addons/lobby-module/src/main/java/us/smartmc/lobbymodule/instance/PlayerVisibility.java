@@ -1,8 +1,8 @@
 package us.smartmc.lobbymodule.instance;
 
-import us.smartmc.core.pluginsapi.handler.LanguagesHandler;
-import us.smartmc.core.pluginsapi.language.Language;
-import us.smartmc.core.pluginsapi.spigot.player.CorePlayer;
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;

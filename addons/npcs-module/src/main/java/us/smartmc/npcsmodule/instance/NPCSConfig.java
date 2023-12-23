@@ -1,12 +1,14 @@
 package us.smartmc.npcsmodule.instance;
 
-import us.smartmc.core.pluginsapi.instance.FilePluginConfig;
+import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import org.bson.Document;
 import us.smartmc.npcsmodule.NPCSModule;
 
-import javax.print.Doc;
 import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.UUID;
 
 public class NPCSConfig extends FilePluginConfig {
 

@@ -1,18 +1,19 @@
 package us.smartmc.core.handler;
 
-import us.smartmc.core.SmartCore;
-import us.smartmc.core.pluginsapi.instance.FilePluginConfig;
-import us.smartmc.core.util.ConfigUtils;
+import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import us.smartmc.core.SmartCore;
+import us.smartmc.core.util.ConfigUtils;
 
 import java.io.File;
 
 public class SpawnHandler implements Listener {
 
-    private static final SmartCore plugin = SmartCore.getPlugin();
+    private static final JavaPlugin plugin = SmartCore.getPlugin();
 
     private static FilePluginConfig config;
     private static Location location;

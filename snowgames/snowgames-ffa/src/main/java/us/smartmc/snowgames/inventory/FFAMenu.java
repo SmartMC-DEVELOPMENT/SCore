@@ -1,11 +1,11 @@
 package us.smartmc.snowgames.inventory;
 
+import me.imsergioh.pluginsapi.item.ItemBuilder;
+import me.imsergioh.pluginsapi.menu.CoreMenu;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import us.smartmc.core.pluginsapi.spigot.item.ItemBuilder;
-import us.smartmc.core.pluginsapi.spigot.menu.CoreMenu;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
 
 public abstract class FFAMenu extends CoreMenu {
 

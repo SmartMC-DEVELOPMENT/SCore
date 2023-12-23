@@ -2,7 +2,7 @@
 package us.smartmc.gamesmanager.game;
 
 import lombok.Getter;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import us.smartmc.gamesmanager.game.map.GameMap;
 import us.smartmc.gamesmanager.game.map.GameMapSession;
 import us.smartmc.gamesmanager.game.task.GameStartTask;

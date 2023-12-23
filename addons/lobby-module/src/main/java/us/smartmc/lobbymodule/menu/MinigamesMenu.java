@@ -1,24 +1,17 @@
 package us.smartmc.lobbymodule.menu;
 
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
+import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-import us.smartmc.core.SmartCore;
-import us.smartmc.core.instance.player.PlayerServerConnect;
-import us.smartmc.core.pluginsapi.spigot.SpigotPluginsAPI;
-import us.smartmc.core.pluginsapi.spigot.instance.SpigotAPIConfig;
-import us.smartmc.core.pluginsapi.spigot.item.ItemBuilder;
-import us.smartmc.core.pluginsapi.spigot.menu.ConfigurableMenu;
-import us.smartmc.core.pluginsapi.spigot.menu.CoreUpdatableMenu;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
+import org.bukkit.inventory.ItemStack;
 import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.config.MinigamesConfig;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class MinigamesMenu extends ConfigurableMenu {
 
@@ -28,7 +21,7 @@ public class MinigamesMenu extends ConfigurableMenu {
     private final int[] slots = {12, 13, 14, 15, 21, 22, 23, 24};
 
     public MinigamesMenu(Player player) {
-        super(player, new SpigotAPIConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus", "minigames.yml")));
+        super(player, new SpigotYmlConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus", "minigames.yml")));
         config.getMiniGames().forEach((name, document) -> {
             int slot = slots[currentSlotIndex];
             set(slot, MinigamesConfig.getItemOf(player, name), "connectTo " + name);

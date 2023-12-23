@@ -1,7 +1,7 @@
 package me.imsergioh.smartcorewaterfall.manager;
 
 import com.mongodb.client.MongoCollection;
-import us.smartmc.core.pluginsapi.connection.MongoDBConnection;
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.smartcorewaterfall.instance.OfflinePlayerData;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;

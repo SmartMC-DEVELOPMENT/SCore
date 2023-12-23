@@ -1,11 +1,11 @@
 package us.smartmc.npcsmodule.variables;
 
 
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.instance.VariableListener;
+import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.entity.Player;
 import us.smartmc.core.instance.player.SmartCorePlayer;
-import us.smartmc.core.pluginsapi.handler.LanguagesHandler;
-import us.smartmc.core.pluginsapi.instance.VariableListener;
-import us.smartmc.core.pluginsapi.language.Language;
 import us.smartmc.core.variables.CountVariables;
 
 import java.util.regex.Matcher;

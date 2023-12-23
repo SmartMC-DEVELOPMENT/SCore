@@ -71,8 +71,15 @@ public class ServerManager {
     public static void deleteIfNotTemporalAndUnregister(String name) {
         ServerInfo serverInfo = get(name);
         if (serverInfo.getConfig().getData().isTemporal()) {
-            FileUtil.deleteDirectory(serverInfo.getDirectory());
-            System.out.println("Server " + name + " has inactivated! Deleted all files!");
+            new Thread(() -> {
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                FileUtil.deleteDirectory(serverInfo.getDirectory());
+                System.out.println("Server " + name + " has inactivated! Deleted all files!");
+            }).start();
         }
 
         unregister(name);

@@ -1,11 +1,11 @@
 package us.smartmc.snowgames;
 
 import lombok.Getter;
+import me.imsergioh.pluginsapi.handler.ItemActionsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import us.smartmc.core.pluginsapi.handler.ItemActionsManager;
 import us.smartmc.gamesmanager.game.GamePreset;
 import us.smartmc.gamesmanager.manager.GamePresetManager;
 import us.smartmc.snowgames.actions.GameActions;

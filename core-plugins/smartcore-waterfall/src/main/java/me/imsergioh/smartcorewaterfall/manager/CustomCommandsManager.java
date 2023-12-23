@@ -1,7 +1,7 @@
 
 package me.imsergioh.smartcorewaterfall.manager;
 
-import us.smartmc.core.pluginsapi.instance.MongoDBPluginConfig;
+import me.imsergioh.pluginsapi.instance.MongoDBPluginConfig;
 import me.imsergioh.smartcorewaterfall.instance.commandmanager.CustomCommandExecutor;
 import net.md_5.bungee.api.CommandSender;
 import org.bson.Document;

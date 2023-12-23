@@ -1,11 +1,10 @@
 package me.imsergioh.smartcorewaterfall.instance;
 
-import us.smartmc.core.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.smartcorewaterfall.SmartCoreWaterfall;
 import me.imsergioh.smartcorewaterfall.manager.OfflinePlayerDataManager;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.bson.Document;
-import us.smartmc.core.pluginsapi.util.SyncUtil;
 
 import java.util.HashMap;
 import java.util.UUID;

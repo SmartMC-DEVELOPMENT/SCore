@@ -1,8 +1,7 @@
 package us.smartmc.core.handler;
 
-import us.smartmc.core.SmartCore;
-import us.smartmc.core.pluginsapi.util.ChatUtil;
-import us.smartmc.core.pluginsapi.util.SyncUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,9 +9,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import us.smartmc.core.SmartCore;
 
 import java.util.HashMap;
 

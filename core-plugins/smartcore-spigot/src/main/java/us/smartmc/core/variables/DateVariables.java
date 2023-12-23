@@ -1,7 +1,7 @@
 package us.smartmc.core.variables;
 
+import me.imsergioh.pluginsapi.instance.VariableListener;
 import org.bukkit.entity.Player;
-import us.smartmc.core.pluginsapi.instance.VariableListener;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

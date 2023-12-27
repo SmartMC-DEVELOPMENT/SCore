@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class LobbiesMenu extends ConfigurableMenu {
 
     public LobbiesMenu(Player player) {
-        super(player, LobbyModule.getLobbiesMenuConfig());
+        super(player, getDynamicInventorySize(), LobbyModule.getLobbiesMenuConfig());
         LobbiesInfoManager.registerMenu(this);
     }
 
@@ -61,4 +61,24 @@ public class LobbiesMenu extends ConfigurableMenu {
     public String getItemName(int lobbyNumber) {
         return ChatUtil.parse(player, LobbyModule.getLobbiesMenuConfig().getString("item_name"), lobbyNumber);
     }
+
+    public static int getDynamicInventorySize() {
+        int size = CountVariables.getKeysByPrefix(LobbiesInfoManager.getIDPrefix()).size();
+
+        // Limitar el tamaño a un máximo de 54
+        if (size > 54) size = 54;
+
+        // Ajustar el tamaño para que sea un múltiplo de 9
+        int remainder = size % 9;
+        if (remainder != 0) {
+            size += 9 - remainder;
+        }
+
+        // Asegurar que el tamaño sea al menos 9 si el original es mayor que 0
+        if (size == 0 && !CountVariables.getKeysByPrefix(LobbiesInfoManager.getIDPrefix()).isEmpty()) {
+            size = 9;
+        }
+        return size;
+    }
+
 }

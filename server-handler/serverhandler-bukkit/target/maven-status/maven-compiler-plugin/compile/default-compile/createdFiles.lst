@@ -1,1 +1,3 @@
+us\smartmc\serverhandler\command\ExecuteServerMessageCommand.class
 us\smartmc\serverhandler\ServerHandlerMain.class
+us\smartmc\serverhandler\registration\CommandRegistration.class

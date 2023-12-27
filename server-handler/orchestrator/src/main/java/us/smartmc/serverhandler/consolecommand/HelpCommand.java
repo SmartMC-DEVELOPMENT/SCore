@@ -1,12 +1,13 @@
 package us.smartmc.serverhandler.consolecommand;
 
-import us.smartmc.serverhandler.executor.ConsoleCommandInfo;
 import us.smartmc.serverhandler.executor.ConsoleCommand;
+import us.smartmc.serverhandler.executor.ConsoleCommandInfo;
 import us.smartmc.serverhandler.manager.ConsoleCommandManager;
 
 @ConsoleCommandInfo(
         name = "help",
-        description = "Show all available commands"
+        description = "Show all available commands",
+        maxArgs = 0
 )
 public class HelpCommand extends ConsoleCommand {
 

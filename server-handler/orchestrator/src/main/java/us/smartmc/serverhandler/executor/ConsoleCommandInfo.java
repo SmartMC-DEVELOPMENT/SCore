@@ -10,6 +10,14 @@ import java.lang.annotation.Target;
 public @interface ConsoleCommandInfo {
 
     String name();
+
+    String[] aliases() default {}; // [alias1, alias2, ..., aliasN]
+
     String description() default "No description.";
 
+    String usage() default "No usage found.";
+
+    int minArgs() default 0;
+
+    int maxArgs() default -1;
 }

@@ -4,6 +4,7 @@ us\smartmc\serverhandler\consolecommand\TestCommand.class
 us\smartmc\serverhandler\manager\BackendProxyConnectionHandler.class
 us\smartmc\serverhandler\OrchestratorMain.class
 us\smartmc\serverhandler\instance\ConfigurationData.class
+us\smartmc\serverhandler\consolecommand\ExecuteCommand$ExecuteType.class
 us\smartmc\serverhandler\executor\IConsoleCommand.class
 us\smartmc\serverhandler\util\ServerUtil.class
 us\smartmc\serverhandler\instance\ServerInfo.class
@@ -17,8 +18,11 @@ us\smartmc\serverhandler\registration\CommandRegistration.class
 us\smartmc\serverhandler\manager\ConfigManager.class
 us\smartmc\serverhandler\consolecommand\ExitCommand.class
 us\smartmc\serverhandler\manager\ConsoleCommandManager.class
+us\smartmc\serverhandler\util\CommandUtilities.class
 us\smartmc\serverhandler\manager\ServerManager.class
 us\smartmc\serverhandler\backendcommand\IAmAProxyCommand.class
+us\smartmc\serverhandler\consolecommand\DeleteCommand.class
 us\smartmc\serverhandler\instance\StartupRule.class
 us\smartmc\serverhandler\backendcommand\ServerStatusCommand.class
+us\smartmc\serverhandler\consolecommand\ExecuteCommand.class
 us\smartmc\serverhandler\executor\ConsoleCommand.class

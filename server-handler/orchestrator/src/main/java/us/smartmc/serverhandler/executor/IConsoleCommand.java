@@ -5,6 +5,14 @@ public interface IConsoleCommand {
     void execute(String label, String[] args);
 
     String getName();
+
     String getDescription();
 
+    int getMinArgs();
+
+    int getMaxArgs();
+
+    String getUsage();
+
+    String[] getAliases();
 }

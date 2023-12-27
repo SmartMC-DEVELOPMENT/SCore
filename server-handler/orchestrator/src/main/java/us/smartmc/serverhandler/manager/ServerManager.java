@@ -10,9 +10,11 @@ import us.smartmc.serverhandler.instance.ServerInfo;
 import us.smartmc.serverhandler.util.FileUtil;
 import us.smartmc.serverhandler.util.ServerUtil;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 public class ServerManager {
@@ -57,11 +59,14 @@ public class ServerManager {
     }
 
     public static void register(String name, String hostname, int port) {
-        Configuration configuration = ConfigManager.getByServerName(name);
+        final Configuration configuration = ConfigManager.getByServerName(name);
+        if (configuration == null) {
+            return;
+        }
+
         ServerInfo serverInfo = new ServerInfo(configuration, name, hostname, port);
         servers.put(name, serverInfo);
-        BackendProxyConnectionHandler
-                .broadcast("registerServer " + name + " " + hostname + " " + port);
+        BackendProxyConnectionHandler.broadcast("registerServer " + name + " " + hostname + " " + port);
     }
 
     public static ServerInfo get(String name) {
@@ -83,8 +88,7 @@ public class ServerManager {
         }
 
         unregister(name);
-        BackendProxyConnectionHandler
-                .broadcast("unregisterServer " + name);
+        BackendProxyConnectionHandler.broadcast("unregisterServer " + name);
     }
 
     private static void unregister(String name) {
@@ -102,6 +106,25 @@ public class ServerManager {
             currentName = prefix + number;
         }
         return number;
+    }
+
+    public static boolean sendConsole(String command) {
+        try {
+            final Process sentCommandProcess = Runtime.getRuntime().exec(command);
+            sentCommandProcess.getOutputStream().close();
+            return true;
+        } catch (IOException ignored) {
+        }
+        return false;
+    }
+
+    public static CompletableFuture<Boolean> sendConsoleMessage(String screenName, String command) {
+        return CompletableFuture.supplyAsync(() -> sendConsole("screen -S " + screenName + " -X stuff " + command + "^M"));
+    }
+
+    public static boolean stopServer(ServerInfo serverInfo) {
+        final String screenName = serverInfo.getDirectory().getName();
+        return ServerManager.sendConsole("screen -XS " + screenName + " quit");
     }
 
     public static String getServersAsJsonText() {

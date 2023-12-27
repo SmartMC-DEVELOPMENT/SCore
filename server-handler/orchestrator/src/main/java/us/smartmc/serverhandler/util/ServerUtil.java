@@ -20,7 +20,7 @@ public class ServerUtil {
 
     public static void startServer(File dir) {
         try {
-            Process process = Runtime.getRuntime().exec("screen -Sdm " + dir.getName() + " sh start.sh", null, dir);
+            final Process process = Runtime.getRuntime().exec("screen -Sdm " + dir.getName() + " sh start.sh", null, dir);
             process.waitFor();
         } catch (Exception e) {
             throw new RuntimeException(e);

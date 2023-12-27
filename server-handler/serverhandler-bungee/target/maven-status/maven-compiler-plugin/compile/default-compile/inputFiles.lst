@@ -1,6 +1,6 @@
-D:\workspace2024\SCore\server-handler\serverhandler-bungee\src\main\java\us\smartmc\serverhandler\manager\BungeeServerManager.java
-D:\workspace2024\SCore\server-handler\serverhandler-bungee\src\main\java\us\smartmc\serverhandler\ServerHandlerMain.java
-D:\workspace2024\SCore\server-handler\serverhandler-bungee\src\main\java\us\smartmc\serverhandler\backendcommand\RegisterServerCommand.java
-D:\workspace2024\SCore\server-handler\serverhandler-bungee\src\main\java\us\smartmc\serverhandler\backendcommand\RegisterServersCommand.java
-D:\workspace2024\SCore\server-handler\serverhandler-bungee\src\main\java\us\smartmc\serverhandler\backendcommand\UnregisterServerCommand.java
-D:\workspace2024\SCore\server-handler\serverhandler-bungee\src\main\java\us\smartmc\serverhandler\registration\CommandsRegistration.java
+C:\Users\Marcos\Projects\SmartMC\SCore\server-handler\serverhandler-bungee\src\main\java\us\smartmc\serverhandler\manager\BungeeServerManager.java
+C:\Users\Marcos\Projects\SmartMC\SCore\server-handler\serverhandler-bungee\src\main\java\us\smartmc\serverhandler\registration\CommandsRegistration.java
+C:\Users\Marcos\Projects\SmartMC\SCore\server-handler\serverhandler-bungee\src\main\java\us\smartmc\serverhandler\backendcommand\UnregisterServerCommand.java
+C:\Users\Marcos\Projects\SmartMC\SCore\server-handler\serverhandler-bungee\src\main\java\us\smartmc\serverhandler\backendcommand\RegisterServersCommand.java
+C:\Users\Marcos\Projects\SmartMC\SCore\server-handler\serverhandler-bungee\src\main\java\us\smartmc\serverhandler\backendcommand\RegisterServerCommand.java
+C:\Users\Marcos\Projects\SmartMC\SCore\server-handler\serverhandler-bungee\src\main\java\us\smartmc\serverhandler\ServerHandlerMain.java

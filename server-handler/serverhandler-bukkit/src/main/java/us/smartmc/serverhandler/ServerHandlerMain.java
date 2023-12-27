@@ -8,6 +8,7 @@ import me.imsergioh.pluginsapi.connection.RedisConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
+import us.smartmc.serverhandler.registration.CommandRegistration;
 import us.smartmc.serverhandler.registration.CommonListenerRegistration;
 import us.smartmc.serverhandler.util.ConnectionUtil;
 
@@ -29,7 +30,10 @@ public class ServerHandlerMain extends JavaPlugin {
         plugin = this;
         getDataFolder().mkdirs();
 
-        Registrations.register(CommonListenerRegistration.class);
+        Registrations.register(
+                CommonListenerRegistration.class,
+                CommandRegistration.class
+        );
 
         connection = new BackendConnection("localhost", 55777);
         connection.start();

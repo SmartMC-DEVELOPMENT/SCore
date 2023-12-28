@@ -1,6 +1,6 @@
 package us.smartmc.snowgames.object;
 
-import me.imsergioh.pluginsapi.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;

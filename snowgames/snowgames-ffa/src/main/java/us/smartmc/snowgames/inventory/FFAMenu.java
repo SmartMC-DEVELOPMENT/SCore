@@ -1,7 +1,7 @@
 package us.smartmc.snowgames.inventory;
 
-import me.imsergioh.pluginsapi.item.ItemBuilder;
-import me.imsergioh.pluginsapi.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

@@ -1,6 +1,6 @@
 package us.smartmc.snowgames.inventory;
 
-import me.imsergioh.pluginsapi.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.util.ChatUtil;

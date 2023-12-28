@@ -1,7 +1,7 @@
 package us.smartmc.snowgames.actions;
 
 import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
-import me.imsergioh.pluginsapi.item.ClickHandler;
+import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import org.bukkit.entity.Player;
 import us.smartmc.snowgames.util.GameItemUtils;
 

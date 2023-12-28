@@ -1,7 +1,7 @@
 package us.smartmc.snowgames.util;
 
+import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
@@ -44,7 +44,8 @@ public class GameItemUtils {
             Language language = CorePlayer.get(player).getLanguage();
             LanguageConfig config = FFAPlugin.getPlugin().getLanguageConfig();
 
-            player.getInventory().setItem(8, GameHotbar.parseItem(player, config.getItemConfig(language, "item.regeneration").get(), "&a"));
+            player.getInventory().setItem(8, GameHotbar.parseItem(player,
+                    config.getItemConfig(language, "item.regeneration").get(), "&a"));
         }
     }
 

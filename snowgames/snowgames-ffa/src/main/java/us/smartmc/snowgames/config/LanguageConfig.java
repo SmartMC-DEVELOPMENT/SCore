@@ -1,6 +1,6 @@
 package us.smartmc.snowgames.config;
 
-import me.imsergioh.pluginsapi.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import org.bukkit.Material;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.object.PluginConfig;

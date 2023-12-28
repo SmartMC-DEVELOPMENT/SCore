@@ -1,6 +1,7 @@
 package me.imsergioh.smartcorewaterfall.manager;
 
 import com.mongodb.client.MongoCollection;
+import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.smartcorewaterfall.instance.OfflinePlayerData;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -12,6 +13,7 @@ import org.bson.Document;
 
 public class OfflinePlayerDataManager implements Listener {
 
+    @Getter
     private static MongoCollection<Document> colletion;
 
     public OfflinePlayerDataManager() {
@@ -31,11 +33,7 @@ public class OfflinePlayerDataManager implements Listener {
         data.removeCache();
     }
 
-    private static OfflinePlayerData get(ProxiedPlayer player) {
+    public static OfflinePlayerData get(ProxiedPlayer player) {
         return OfflinePlayerData.get(player);
-    }
-
-    public static MongoCollection<Document> getColletion() {
-        return colletion;
     }
 }

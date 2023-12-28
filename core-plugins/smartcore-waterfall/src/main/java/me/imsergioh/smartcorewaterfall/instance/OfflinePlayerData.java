@@ -79,6 +79,10 @@ public class OfflinePlayerData {
         return cache.get(player.getUniqueId());
     }
 
+    public static OfflinePlayerData get(UUID playerUuid) {
+        return cache.get(playerUuid);
+    }
+
     public static OfflinePlayerData get(String name) {
         name = name.toLowerCase();
         Document document = OfflinePlayerDataManager.getColletion().find(new Document().append("lowercase_name", name)).first();

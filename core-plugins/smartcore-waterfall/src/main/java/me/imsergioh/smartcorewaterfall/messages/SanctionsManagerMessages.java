@@ -33,5 +33,4 @@ public class SanctionsManagerMessages extends MultiLanguageRegistry {
     public static String get(Language language, String path) {
         return LanguagesHandler.get(language).get(NAME).getString(path);
     }
-
 }

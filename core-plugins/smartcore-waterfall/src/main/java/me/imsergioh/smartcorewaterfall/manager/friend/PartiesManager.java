@@ -1,4 +1,4 @@
-package me.imsergioh.smartcorewaterfall.manager;
+package me.imsergioh.smartcorewaterfall.manager.friend;
 
 public class PartiesManager {
 

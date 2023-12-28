@@ -19,12 +19,14 @@ public class ServerUtil {
     }
 
     public static void startServer(File dir) {
-        try {
-            final Process process = Runtime.getRuntime().exec("screen -Sdm " + dir.getName() + " sh start.sh", null, dir);
-            process.waitFor();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        new Thread(() -> {
+            try {
+                final Process process = Runtime.getRuntime().exec("screen -Sdm " + dir.getName() + " sh start.sh", null, dir);
+                process.waitFor();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
     }
 
 }

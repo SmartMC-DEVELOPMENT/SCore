@@ -34,6 +34,16 @@ public class FFAGame extends GameSession {
     }
 
     @Override
+    public void quitPlayer(GamePlayer player) {
+        if (isInGame(player.getPlayer())) return;
+        players.remove(player.getUuid());
+
+        if (!player.getPlayer().isOnline()) return;
+        LobbyHotbar.give(player.getPlayer());
+        player.getPlayer().teleport(getSpawn());
+    }
+
+    @Override
     public void deathPlayer(GamePlayer player) {
         Player bPlayer = player.getPlayer();
         bPlayer.spigot().respawn();

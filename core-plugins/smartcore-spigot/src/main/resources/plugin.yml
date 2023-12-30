@@ -14,3 +14,4 @@ commands:
   gamemode:
     aliases: [gm]
     description: Change your gamemode
+  region:

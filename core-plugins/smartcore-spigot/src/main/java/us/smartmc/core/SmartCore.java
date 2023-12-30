@@ -25,7 +25,6 @@ import us.smartmc.core.listener.CorePlayersListener;
 import us.smartmc.core.listener.RegionSetterListener;
 import us.smartmc.core.messages.GeneralMessages;
 import us.smartmc.core.messages.ItemUtilsMessages;
-import us.smartmc.core.regions.Cuboid;
 import us.smartmc.core.regions.CuboidManager;
 import us.smartmc.core.regions.controller.RegionModeManager;
 import us.smartmc.core.util.ServerUtils;
@@ -99,6 +98,8 @@ public class SmartCore extends JavaPlugin {
         regionModeManager = new RegionModeManager();
         cuboidManager = new CuboidManager();
 
+        cuboidManager.load();
+
         registerListeners();
         registerCommands();
         registerVariables();
@@ -114,6 +115,7 @@ public class SmartCore extends JavaPlugin {
     @Override
     public void onDisable() {
         CountVariables.removeCacheCount();
+        cuboidManager.unload();
     }
 
     private void registerCommands() {

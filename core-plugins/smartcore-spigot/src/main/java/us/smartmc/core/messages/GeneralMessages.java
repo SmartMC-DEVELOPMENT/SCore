@@ -44,6 +44,9 @@ public class GeneralMessages extends MultiLanguageRegistry {
             holder.registerDefault("second", "second");
             holder.registerDefault("seconds", "seconds");
 
+            holder.registerDefault("region_pos1", "&aSelected position 1 &e{0}");
+            holder.registerDefault("region_pos2", "&aSelected position 2 &e{0}");
+
             holder.save();
         });
     }

@@ -1,5 +1,6 @@
 package us.smartmc.core.instance.player;
 
+import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.pluginsapi.event.PlayerUnloadEvent;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.core.messages.GeneralMessages;
+import us.smartmc.core.regions.controller.PlayerRegionSubscriber;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -19,9 +21,12 @@ public class SmartCorePlayer extends CorePlayer {
 
     public static final String COINS_PATH = "coins";
     private static final HashMap<UUID, SmartCorePlayer> players = new HashMap<>();
+    @Getter
+    private final PlayerRegionSubscriber playerRegionSubscriber;
 
     protected SmartCorePlayer(UUID uuid) {
         super(uuid);
+        playerRegionSubscriber = new PlayerRegionSubscriber(this);
     }
 
     @Override

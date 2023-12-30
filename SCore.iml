@@ -12,7 +12,6 @@
       <configuration>
         <autoDetectTypes>
           <platformType>SPIGOT</platformType>
-          <platformType>WATERFALL</platformType>
         </autoDetectTypes>
         <projectReimportVersion>1</projectReimportVersion>
       </configuration>

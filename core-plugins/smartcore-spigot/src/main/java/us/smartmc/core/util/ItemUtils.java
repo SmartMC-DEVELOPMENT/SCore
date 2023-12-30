@@ -2,7 +2,9 @@ package us.smartmc.core.util;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.util.ChatUtil;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -15,6 +17,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class ItemUtils {
+
+    public static final ItemStack wand = ItemBuilder.of(Material.GOLD_AXE).name("Hacha mágica de regiones").get();
 
     public static ItemStack parsePlayerItem(Player player, ItemStack item) {
         item = item.clone();
@@ -64,5 +68,7 @@ public class ItemUtils {
         head.setItemMeta(meta);
         return head;
     }
+
+
 
 }

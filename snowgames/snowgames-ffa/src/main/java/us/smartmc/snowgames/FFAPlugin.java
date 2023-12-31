@@ -18,6 +18,7 @@ import us.smartmc.snowgames.listener.BlockListeners;
 import us.smartmc.snowgames.listener.DamageListeners;
 import us.smartmc.snowgames.listener.GameListeners;
 import us.smartmc.snowgames.listener.PlayerListeners;
+import us.smartmc.snowgames.manager.ArenaManager;
 import us.smartmc.snowgames.messages.PluginMessages;
 import us.smartmc.snowgames.variables.PlayerVariables;
 
@@ -37,6 +38,9 @@ public class FFAPlugin extends JavaPlugin {
     @Getter
     private DefaultConfig defaultConfig;
 
+    @Getter
+    private ArenaManager arenaManager;
+
 
     @Override
     public void onEnable() {
@@ -45,6 +49,7 @@ public class FFAPlugin extends JavaPlugin {
 
         setupConfig();
         languageConfig = new LanguageConfig();
+        arenaManager = new ArenaManager();
 
         new PluginMessages();
 
@@ -62,6 +67,8 @@ public class FFAPlugin extends JavaPlugin {
 
         ItemActionsManager.registerCommand("game", new GameActions());
         ItemActionsManager.registerCommand("hotbar", new HotbarActions());
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, this::rotateMapTask, 0L, game.getMap().getMaxArenaTime() - 600);
     }
 
     @Override
@@ -93,4 +100,7 @@ public class FFAPlugin extends JavaPlugin {
         return plugin.getConfig();
     }
 
+    private void rotateMapTask() {
+        arenaManager.rotateMap();
+    }
 }

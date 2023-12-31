@@ -5,6 +5,7 @@ import us.smartmc.gamesmanager.GamesManagerSpigot;
 import us.smartmc.gamesmanager.game.map.GameMap;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -43,5 +44,9 @@ public class GameMapManager {
 
     public static File getMapsDir() {
         return mapsDirectory;
+    }
+
+    public static Collection<GameMap> values() {
+        return maps.values();
     }
 }

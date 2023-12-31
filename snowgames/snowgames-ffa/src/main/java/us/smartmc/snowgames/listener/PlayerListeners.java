@@ -1,6 +1,7 @@
 package us.smartmc.snowgames.listener;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -42,19 +43,24 @@ public class PlayerListeners implements Listener {
     public void giveLobbyHotbar(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         LobbyHotbar.give(player);
+        player.setGameMode(GameMode.ADVENTURE);
     }
 
     @EventHandler
     public void onDisconnect(PlayerQuitEvent event) {
         Player player = event.getPlayer();
+
+        FFAPlayer ffaPlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
+        if (ffaPlayer == null) return;
+        ffaPlayer.saveStats();
+
         GamePlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
         if (gamePlayer == null) return;
         FFAPlugin.getGame().quitPlayer(gamePlayer);
         GamePlayerRepository.remove(player.getUniqueId());
         ItemCooldownManager.clear(player);
-        FFAPlayer ffaPlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
-        if (ffaPlayer == null) return;
-        ffaPlayer.saveStats();
+
+        event.setQuitMessage(null);
     }
 
     @EventHandler
@@ -95,20 +101,25 @@ public class PlayerListeners implements Listener {
         Location location = player.getLocation();
         double playerY = location.getBlockY();
         if (playerY < 20) {
+
             game.quitPlayer(gamePlayer);
             teleportingSpawn.add(player.getUniqueId());
-            UUID attackerUUID = getAttacked.get(player.getUniqueId());
-            if (attackerUUID == null) return;
-            Player attackerPlayer = Bukkit.getPlayer(attackerUUID);
-            GameItemUtils.handlePlayerKill(attackerPlayer);
-            getAttacked.remove(player.getUniqueId());
-            // add Death to MongoDB
-            FFAPlayer killer = GamePlayerRepository.provide(FFAPlayer.class, player);
             FFAPlayer victim = GamePlayerRepository.provide(FFAPlayer.class, player);
-            if (killer == null) return;
             if (victim == null) return;
-            killer.addKill();
-            victim.addDeath();
+
+            UUID attackerUUID = getAttacked.get(player.getUniqueId()); // Coje el UUID del atacante
+            if (attackerUUID == null) {
+                victim.addDeath();
+                return;
+            }
+
+            Player attackerPlayer = Bukkit.getPlayer(attackerUUID); // Coje el jugador del UUID del atacante
+            FFAPlayer killer = GamePlayerRepository.provide(FFAPlayer.class, attackerPlayer); // Killer FFAPlayer
+            GameItemUtils.handlePlayerKill(attackerPlayer); // Le handlea la kill al atacante
+            getAttacked.remove(player.getUniqueId()); // Elimina a la victima del Mapa getAttacked
+
+            if (killer == null) return; // Returna si es null
+            killer.addKill(); // le da la kill al killer
         }
 
     }

@@ -2,6 +2,7 @@ package us.smartmc.snowgames.game;
 
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import us.smartmc.core.handler.SpawnHandler;
@@ -28,6 +29,8 @@ public class FFAGame extends GameSession {
 
         players.add(player.getUuid());
         GameHotbar.give(player.getPlayer());
+
+        player.getPlayer().setGameMode(GameMode.SURVIVAL);
     }
 
     @Override
@@ -39,6 +42,8 @@ public class FFAGame extends GameSession {
             if (!player.getPlayer().isOnline()) return;
             player.getPlayer().teleport(getSpawn());
             LobbyHotbar.give(player.getPlayer());
+
+            player.getPlayer().setGameMode(GameMode.ADVENTURE);
         });
     }
 

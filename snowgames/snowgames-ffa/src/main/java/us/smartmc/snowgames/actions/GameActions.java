@@ -12,7 +12,6 @@ public class GameActions implements ItemActionExecutor {
     public void execute(ClickHandler handler, String s, String[] args) {
         Player player = handler.getPlayer();
         String arg = args[0].toLowerCase();
-        System.out.println("Executing " + s);
 
         if (arg.equals("weapon")) {
             GameItemUtils.handleWeaponAction(player);

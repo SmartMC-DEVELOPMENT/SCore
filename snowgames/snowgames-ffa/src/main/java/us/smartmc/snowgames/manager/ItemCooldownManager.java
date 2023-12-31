@@ -6,7 +6,6 @@ import us.smartmc.snowgames.object.ItemCooldownTask;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -31,13 +30,14 @@ public class ItemCooldownManager {
     public void registerAt(int slot, long period) {
         if (activeTasks.containsKey(slot)) return;
         ItemCooldownTask task = new ItemCooldownTask(this, slot, period);
+
         activeTasks.put(slot, task);
         executorService.scheduleAtFixedRate(task, 0, 1000, TimeUnit.MILLISECONDS);
     }
 
     public void cancelAll(boolean complete) {
         if (complete) {
-            for (ItemCooldownTask task : activeTasks.values()) {
+            for (ItemCooldownTask task : new HashSet<>(activeTasks.values())) {
                 task.completeTask();
             }
         }

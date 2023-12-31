@@ -1,7 +1,10 @@
 package us.smartmc.snowgames.object;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import us.smartmc.snowgames.FFAPlugin;
+import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
 
 public class ItemCooldownTask extends PluginRepeatingTask {
@@ -22,13 +25,32 @@ public class ItemCooldownTask extends PluginRepeatingTask {
         recoverItem = item.clone();
 
         onDelay(() -> {
+            FFAGame game = FFAPlugin.getGame();
+            if (!game.isInGame(player)) {
+                completeTask();
+                return;
+            }
             int remainingSeconds = (int) getRemainingTimeInSeconds();
-            ItemStack delayItem = recoverItem.clone();
-            delayItem.setAmount(-1 * remainingSeconds);
-            player.getInventory().setItem(slot, delayItem);
+            if (recoverItem.getType().equals(Material.GOLD_PLATE)) {
+                ItemStack delayItem = new ItemStack(Material.STONE_PLATE);
+                delayItem.setAmount(-1 * remainingSeconds);
+                player.getInventory().setItem(slot, delayItem);
+                return;
+            }
+            if (recoverItem.getType().equals(Material.FEATHER)) {
+                ItemStack delayItem = new ItemStack(Material.SUGAR);
+                delayItem.setAmount(-1 * remainingSeconds);
+                player.getInventory().setItem(slot, delayItem);
+            }
         });
 
         onComplete(() -> {
+            FFAGame game = FFAPlugin.getGame();
+            if (!game.isInGame(player)) {
+                completeTask();
+                manager.remove(slot);
+                return;
+            }
             player.getInventory().setItem(slot, recoverItem);
             manager.remove(slot);
         });

@@ -11,8 +11,6 @@ import us.smartmc.gamesmanager.game.map.GameMapSession;
 import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.snowgames.inventory.GameHotbar;
 import us.smartmc.snowgames.inventory.LobbyHotbar;
-import us.smartmc.snowgames.manager.ItemCooldownManager;
-import us.smartmc.snowgames.messages.PluginMessages;
 
 public class FFAGame extends GameSession {
 
@@ -25,35 +23,20 @@ public class FFAGame extends GameSession {
 
     @Override
     public void joinPlayer(GamePlayer player) {
-        if (!canPlayerJoin(player)) {
-            player.sendLanguageMessage(PluginMessages.NAME, "error_cant_join");
-            return;
-        }
+        if (isInGame(player.getPlayer())) return;
+
         players.add(player.getUuid());
         GameHotbar.give(player.getPlayer());
     }
 
     @Override
     public void quitPlayer(GamePlayer player) {
-        if (isInGame(player.getPlayer())) return;
+        if (!isInGame(player.getPlayer())) return;
         players.remove(player.getUuid());
 
         if (!player.getPlayer().isOnline()) return;
-        LobbyHotbar.give(player.getPlayer());
         player.getPlayer().teleport(getSpawn());
-    }
-
-    @Override
-    public void deathPlayer(GamePlayer player) {
-        Player bPlayer = player.getPlayer();
-        bPlayer.spigot().respawn();
-        bPlayer.teleport(getSpawn());
-        players.remove(player.getUuid());
-
-        // Cancel & complete all tasks
-        ItemCooldownManager.from(player.getPlayer()).cancelAll(true);
-
-        LobbyHotbar.give(bPlayer);
+        LobbyHotbar.give(player.getPlayer());
     }
 
     @Override

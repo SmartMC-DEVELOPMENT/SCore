@@ -1,8 +1,8 @@
 package us.smartmc.snowgames.inventory;
 
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -45,7 +45,6 @@ public class LobbyHotbar extends FFAMenu {
         hotBar.set(player);
         player.setHealthScale(20);
         player.setFoodLevel(20);
-        CorePlayer.get(player).setCurrentMenuSet(hotBar);
     }
 
 }

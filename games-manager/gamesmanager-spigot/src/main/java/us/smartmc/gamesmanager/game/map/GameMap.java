@@ -6,7 +6,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import us.smartmc.gamesmanager.game.teams.PlayerTeam;
 import us.smartmc.gamesmanager.manager.GameMapManager;
-import us.smartmc.gamesmanager.util.LocationUtils;
 import us.smartmc.gamesmanager.util.WorldUtils;
 
 import java.io.File;
@@ -141,10 +140,5 @@ public class GameMap {
 
     public static String locationsPath(PlayerTeam team) {
         return "locations_" + team.name();
-    }
-
-    public Location getSpawn() {
-        String loc = config.getString("spawn_location");
-        return LocationUtils.stringToLocation(loc);
     }
 }

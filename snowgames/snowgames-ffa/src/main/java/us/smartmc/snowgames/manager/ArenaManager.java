@@ -7,6 +7,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.gamesmanager.game.map.GameMap;
 import us.smartmc.snowgames.FFAPlugin;
+import us.smartmc.snowgames.game.FFAMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +16,9 @@ import static us.smartmc.gamesmanager.manager.GameMapManager.values;
 
 public class ArenaManager {
 
-    private static FFAPlugin plugin = FFAPlugin.getPlugin();
+    private static final FFAPlugin plugin = FFAPlugin.getPlugin();
 
-    private List<GameMap> maps;
+    private final List<GameMap> maps;
     private int currentIndex;
 
     public ArenaManager() {
@@ -33,7 +34,8 @@ public class ArenaManager {
         }
 
         GameMap currentMap = getCurrentMap();
-        if (currentMap == null) return;
+        if (!(currentMap instanceof FFAMap)) return;
+        currentMap = FFAMap.get(getCurrentMap().getName());
 
         new BukkitRunnable() {
             @Override

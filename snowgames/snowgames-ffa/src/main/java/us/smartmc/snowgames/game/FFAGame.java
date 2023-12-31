@@ -1,5 +1,6 @@
 package us.smartmc.snowgames.game;
 
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -34,9 +35,11 @@ public class FFAGame extends GameSession {
         if (!isInGame(player.getPlayer())) return;
         players.remove(player.getUuid());
 
-        if (!player.getPlayer().isOnline()) return;
-        player.getPlayer().teleport(getSpawn());
-        LobbyHotbar.give(player.getPlayer());
+        SyncUtil.sync(() -> {
+            if (!player.getPlayer().isOnline()) return;
+            player.getPlayer().teleport(getSpawn());
+            LobbyHotbar.give(player.getPlayer());
+        });
     }
 
     @Override

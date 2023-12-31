@@ -6,9 +6,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import us.smartmc.core.SmartCore;
+import us.smartmc.core.handler.AdminModeHandler;
 import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.gamesmanager.player.GamePlayerRepository;
 import us.smartmc.snowgames.FFAPlugin;
@@ -21,6 +24,12 @@ import us.smartmc.snowgames.util.GameItemUtils;
 import static us.smartmc.snowgames.listener.GameListeners.teleportingSpawn;
 
 public class PlayerListeners implements Listener {
+
+    @EventHandler
+    public void cancelDropItem(PlayerDropItemEvent event) {
+        if (SmartCore.getPlugin().getAdminModeHandler().isActive(event.getPlayer())) return;
+        event.setCancelled(true);
+    }
 
     @EventHandler
     public void giveLobbyHotbar(PlayerJoinEvent event) {

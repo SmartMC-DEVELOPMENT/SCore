@@ -20,9 +20,9 @@ public class GameMap {
     private static final String MAX_ARENA_TIME = "max_arena_time";
 
     @Getter
-    private final String name;
+    protected final String name;
 
-    private final FilePluginConfig config;
+    protected final FilePluginConfig config;
 
     // LOAD
     public GameMap(String name) {

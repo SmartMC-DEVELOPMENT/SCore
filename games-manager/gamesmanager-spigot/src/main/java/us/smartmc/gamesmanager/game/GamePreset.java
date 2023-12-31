@@ -27,7 +27,6 @@ public class GamePreset implements IGamePreset {
 
     private void registerDefaults() {
         registerConfigDefault("in_development", true);
-        registerConfigDefault("map_spawn", "world 0 0 0 0 0");
     }
 
     public void registerConfigDefault(String path, Object value) {

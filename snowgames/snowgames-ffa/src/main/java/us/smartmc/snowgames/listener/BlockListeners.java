@@ -11,9 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import us.smartmc.snowgames.FFAPlugin;
-import us.smartmc.snowgames.config.DefaultConfig;
 import us.smartmc.snowgames.manager.BlocksResetManager;
-import us.smartmc.snowgames.manager.ItemCooldownManager;
 
 public class BlockListeners implements Listener {
 
@@ -21,6 +19,12 @@ public class BlockListeners implements Listener {
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         BlocksResetManager.registerBlockPlace(event.getBlockReplacedState());
+        if (event.getBlock().getType().name().contains("PLATE")) {
+            if (event.getPlayer().getInventory().getItem(4).getAmount() > 1) {
+                event.setCancelled(true);
+                return;
+            }
+        }
         if (event.getBlock().getType().name().contains("PLATE")) return;
         ItemStack item = player.getItemInHand();
         player.setItemInHand(item);
@@ -42,21 +46,4 @@ public class BlockListeners implements Listener {
             }, 0);
         }
     }
-
-    @EventHandler
-    public void onPlatePlace(BlockPlaceEvent event) {
-        Player player = event.getPlayer();
-        int amount = event.getItemInHand().getAmount();
-
-        // CHECK PLATE
-        if (!event.getItemInHand().getType().name().contains("PLATE")) return;
-        // CHECK > NO COOLDOWN:
-        if (amount >= 1) {
-            ItemCooldownManager.from(player).registerAt(player.getInventory().getHeldItemSlot(), DefaultConfig.getCooldown("propeller"));
-            return;
-        }
-        // IF COOLDOWN ACTIVE:
-        event.setCancelled(true);
-    }
-
 }

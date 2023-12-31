@@ -12,6 +12,8 @@ import us.smartmc.snowgames.config.LanguageConfig;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
 
+import static us.smartmc.snowgames.inventory.FFAMenu.parseItem;
+
 public class ItemCooldownTask extends PluginRepeatingTask {
 
     protected final ItemCooldownManager manager;
@@ -40,21 +42,21 @@ public class ItemCooldownTask extends PluginRepeatingTask {
             int remainingSeconds = (int) getRemainingTimeInSeconds();
             if (recoverItem.getType().equals(Material.GOLD_PLATE)) {
                 Language language = CorePlayer.get(player).getLanguage();
-                ItemStack itemStack = config.getItemConfig(language, "propeller").get();
+                ItemStack itemStack = parseItem(player, config.getItemConfig(language, "propeller_reloading").get(), "&e");
                 ItemMeta meta = itemStack.getItemMeta();
                 String name = meta.getDisplayName();
                 ItemStack delayItem = ItemBuilder.of(Material.STONE_PLATE).name(name).get();
-                delayItem.setAmount(-1 * remainingSeconds);
+                delayItem.setAmount(remainingSeconds);
                 player.getInventory().setItem(slot, delayItem);
                 return;
             }
             if (recoverItem.getType().equals(Material.FEATHER)) {
                 Language language = CorePlayer.get(player).getLanguage();
-                ItemStack itemStack = config.getItemConfig(language, "speed").get();
+                ItemStack itemStack = parseItem(player, config.getItemConfig(language, "speed_reloading").get(), "&a");
                 ItemMeta meta = itemStack.getItemMeta();
                 String name = meta.getDisplayName();
                 ItemStack delayItem = ItemBuilder.of(Material.SUGAR).name(name).get();
-                delayItem.setAmount(-1 * remainingSeconds);
+                delayItem.setAmount(remainingSeconds);
                 player.getInventory().setItem(slot, delayItem);
             }
         });

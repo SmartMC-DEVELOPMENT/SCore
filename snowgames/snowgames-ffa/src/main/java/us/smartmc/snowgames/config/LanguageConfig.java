@@ -41,4 +41,8 @@ public class LanguageConfig extends PluginConfig {
         return title == null ? "Error Title(" + name + ")" : title;
     }
 
+    public static String getName(String path) {
+        return path;
+    }
+
 }

@@ -1,11 +1,13 @@
 package us.smartmc.snowgames.listener;
 
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
@@ -20,6 +22,9 @@ import us.smartmc.snowgames.util.RegionUtils;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+
+import static us.smartmc.snowgames.config.DefaultConfig.getJoinMessage;
+import static us.smartmc.snowgames.config.DefaultConfig.isJoinMessageEnabled;
 
 public class GameListeners implements Listener {
 
@@ -56,15 +61,10 @@ public class GameListeners implements Listener {
         Player player = event.getPlayer();
         FFAGame game = FFAPlugin.getGame();
 
-        System.out.println(event.getPlayer() + " moved. Is in game? " + game.isInGame(player));
-
         if (!game.isInGame(player) && !RegionUtils.isAtSpawn(player)) {
 
             GamePlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
-            if (gamePlayer == null) {
-                System.out.println("[DEBUG] (GameListeners.java/59) Gameplayer is null!!");
-                return;
-            }
+            if (gamePlayer == null) return;
 
             if (teleportingSpawn.contains(player.getUniqueId())) return;
             game.joinPlayer(gamePlayer);
@@ -76,10 +76,7 @@ public class GameListeners implements Listener {
             teleportingSpawn.remove(player.getUniqueId());
 
             GamePlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
-            if (gamePlayer == null) {
-                System.out.println("[DEBUG] (GameListeners.java/70) Gameplayer is null!!");
-                return;
-            }
+            if (gamePlayer == null) return;
             if (game.isInGame(player)) game.quitPlayer(gamePlayer);
             if (!hasItemsInInventory(player)) {
                 LobbyHotbar.give(player);
@@ -94,5 +91,14 @@ public class GameListeners implements Listener {
             }
         }
         return false;
+    }
+
+    @EventHandler
+    public void JoinServerMessage(PlayerJoinEvent event) {
+        if (isJoinMessageEnabled()) {
+            event.setJoinMessage(ChatUtil.parse(event.getPlayer(), getJoinMessage(), event.getPlayer().getDisplayName()));
+        } else {
+            event.setJoinMessage(null);
+        }
     }
 }

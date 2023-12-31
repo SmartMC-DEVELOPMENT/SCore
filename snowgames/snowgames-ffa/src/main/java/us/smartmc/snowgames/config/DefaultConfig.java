@@ -14,6 +14,9 @@ public class DefaultConfig extends PluginConfig {
         registerCooldown("speed", 15);
         registerCooldown("blockRestoration", 20);
 
+        registerDefault("enabled-join-message", false);
+        registerDefault("join-message", "&8[&a+&8] &7{0}");
+
         save();
     }
 
@@ -27,6 +30,19 @@ public class DefaultConfig extends PluginConfig {
 
     private static String getCooldownPath(String path) {
         return "cooldown." + path;
+    }
+
+
+    public static String getJoinMessage() {
+        return FFAPlugin.getPlugin().getDefaultConfig().getString("join-message");
+    }
+
+    public static boolean isJoinMessageEnabled() {
+        return isBoolean("enabled-join-message");
+    }
+
+    public static boolean isBoolean(String path) {
+        return FFAPlugin.getPlugin().getDefaultConfig().getBoolean(path);
     }
 
 }

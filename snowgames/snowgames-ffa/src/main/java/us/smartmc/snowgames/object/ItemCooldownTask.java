@@ -1,15 +1,22 @@
 package us.smartmc.snowgames.object;
 
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import us.smartmc.snowgames.FFAPlugin;
+import us.smartmc.snowgames.config.LanguageConfig;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
 
 public class ItemCooldownTask extends PluginRepeatingTask {
 
     protected final ItemCooldownManager manager;
+
+    private static final LanguageConfig config = FFAPlugin.getPlugin().getLanguageConfig();
 
     protected final Player player;
     protected final int slot, recoverAmount;
@@ -32,13 +39,21 @@ public class ItemCooldownTask extends PluginRepeatingTask {
             }
             int remainingSeconds = (int) getRemainingTimeInSeconds();
             if (recoverItem.getType().equals(Material.GOLD_PLATE)) {
-                ItemStack delayItem = new ItemStack(Material.STONE_PLATE);
+                Language language = CorePlayer.get(player).getLanguage();
+                ItemStack itemStack = config.getItemConfig(language, "propeller").get();
+                ItemMeta meta = itemStack.getItemMeta();
+                String name = meta.getDisplayName();
+                ItemStack delayItem = ItemBuilder.of(Material.STONE_PLATE).name(name).get();
                 delayItem.setAmount(-1 * remainingSeconds);
                 player.getInventory().setItem(slot, delayItem);
                 return;
             }
             if (recoverItem.getType().equals(Material.FEATHER)) {
-                ItemStack delayItem = new ItemStack(Material.SUGAR);
+                Language language = CorePlayer.get(player).getLanguage();
+                ItemStack itemStack = config.getItemConfig(language, "speed").get();
+                ItemMeta meta = itemStack.getItemMeta();
+                String name = meta.getDisplayName();
+                ItemStack delayItem = ItemBuilder.of(Material.SUGAR).name(name).get();
                 delayItem.setAmount(-1 * remainingSeconds);
                 player.getInventory().setItem(slot, delayItem);
             }

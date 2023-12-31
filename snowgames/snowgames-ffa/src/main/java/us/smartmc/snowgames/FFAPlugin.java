@@ -1,6 +1,7 @@
 package us.smartmc.snowgames;
 
 import lombok.Getter;
+import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -18,6 +19,7 @@ import us.smartmc.snowgames.listener.DamageListeners;
 import us.smartmc.snowgames.listener.GameListeners;
 import us.smartmc.snowgames.listener.PlayerListeners;
 import us.smartmc.snowgames.messages.PluginMessages;
+import us.smartmc.snowgames.variables.PlayerVariables;
 
 import java.io.File;
 
@@ -56,6 +58,8 @@ public class FFAPlugin extends JavaPlugin {
                 BlockListeners.class,
                 DamageListeners.class);
 
+        registerVariables();
+
         ItemActionsManager.registerCommand("game", new GameActions());
         ItemActionsManager.registerCommand("hotbar", new HotbarActions());
     }
@@ -74,6 +78,10 @@ public class FFAPlugin extends JavaPlugin {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    private void registerVariables() {
+        VariablesHandler.register(new PlayerVariables());
     }
 
     private void setupConfig() {

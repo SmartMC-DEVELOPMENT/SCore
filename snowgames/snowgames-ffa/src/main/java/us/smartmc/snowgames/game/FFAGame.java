@@ -56,4 +56,8 @@ public class FFAGame extends GameSession {
         return SpawnHandler.getLocation();
     }
 
+    public GameMap getMap() {
+        return map;
+    }
+
 }

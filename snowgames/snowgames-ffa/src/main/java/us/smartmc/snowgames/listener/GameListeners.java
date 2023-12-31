@@ -9,6 +9,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import us.smartmc.gamesmanager.player.GamePlayer;
@@ -100,5 +101,12 @@ public class GameListeners implements Listener {
         } else {
             event.setJoinMessage(null);
         }
+    }
+
+    @EventHandler
+    public void QuitMessage(PlayerQuitEvent event) {
+        event.setQuitMessage(
+                null
+        );
     }
 }

@@ -7,7 +7,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.gamesmanager.game.map.GameMap;
 import us.smartmc.snowgames.FFAPlugin;
-import us.smartmc.snowgames.game.FFAMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +32,8 @@ public class ArenaManager {
             currentIndex = (currentIndex + 1) % maps.size();
         }
 
-        FFAMap currentMap = (FFAMap) FFAMap.get(getCurrentMap().getName());
+        GameMap currentMap = getCurrentMap();
         if (currentMap == null) return;
-        broadcastCountdownMessages(currentMap.getName(), 30, 15, 5, 4, 3, 2, 1);
 
         new BukkitRunnable() {
             @Override
@@ -47,17 +45,6 @@ public class ArenaManager {
                 }
             }
         }.runTaskLater(plugin, 30 * 20);
-    }
-
-    private void broadcastCountdownMessages(String mapName, int... countdowns) {
-        for (int countdown : countdowns) {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    Bukkit.broadcastMessage("¡Cambiando a mapa " + mapName + " en " + countdown + " segundos!");
-                }
-            }.runTaskLater(plugin, (30 - countdown) * 20L);
-        }
     }
 
     public GameMap getCurrentMap() {

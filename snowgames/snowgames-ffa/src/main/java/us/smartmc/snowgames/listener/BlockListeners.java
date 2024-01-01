@@ -11,7 +11,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import us.smartmc.snowgames.FFAPlugin;
+import us.smartmc.snowgames.config.DefaultConfig;
 import us.smartmc.snowgames.manager.BlocksResetManager;
+import us.smartmc.snowgames.manager.ItemCooldownManager;
 
 public class BlockListeners implements Listener {
 
@@ -24,6 +26,9 @@ public class BlockListeners implements Listener {
                 event.setCancelled(true);
                 return;
             }
+            ItemCooldownManager.from(player)
+                    .registerAt(player.getInventory().getHeldItemSlot(),
+                            DefaultConfig.getCooldown("propeller"));
         }
         if (event.getBlock().getType().name().contains("PLATE")) return;
         ItemStack item = player.getItemInHand();

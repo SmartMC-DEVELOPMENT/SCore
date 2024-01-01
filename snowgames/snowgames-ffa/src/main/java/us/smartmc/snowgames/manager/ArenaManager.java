@@ -6,6 +6,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.gamesmanager.game.map.GameMap;
+import us.smartmc.gamesmanager.manager.GameMapManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAMap;
 
@@ -18,30 +19,34 @@ public class ArenaManager {
 
     private static final FFAPlugin plugin = FFAPlugin.getPlugin();
 
-    private final List<GameMap> maps;
+    private final List<String> mapsName;
     private int currentIndex;
 
     public ArenaManager() {
-        this.maps = new ArrayList<>();
+        this.mapsName = new ArrayList<>();
         this.currentIndex = 0;
 
-        maps.addAll(values());
+        values().forEach(gameMap -> {
+            if (gameMap instanceof FFAMap ffaMap) {
+                mapsName.add(ffaMap.getName());
+            }
+        });
     }
 
     public void rotateMap() {
-        if (!maps.isEmpty()) {
-            currentIndex = (currentIndex + 1) % maps.size();
+        if (!mapsName.isEmpty()) {
+            currentIndex = (currentIndex + 1) % mapsName.size();
         }
 
         GameMap currentMap = getCurrentMap();
-        if (!(currentMap instanceof FFAMap)) return;
-        currentMap = FFAMap.get(getCurrentMap().getName());
+        if (!(currentMap instanceof FFAMap ffaMap)) return;
+        FFAPlugin.getGame().setMap(ffaMap);
 
         new BukkitRunnable() {
             @Override
             public void run() {
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-                    player.teleport(currentMap.getSpawn());
+                    player.teleport(ffaMap.getSpawn());
                     player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 3, 100));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 3, 100));
                 }
@@ -50,8 +55,9 @@ public class ArenaManager {
     }
 
     public GameMap getCurrentMap() {
-        if (maps.isEmpty()) return null;
-        return maps.get(currentIndex);
+        if (mapsName.isEmpty()) return null;
+        String name = mapsName.get(currentIndex);
+        return GameMapManager.get(name);
     }
 }
 

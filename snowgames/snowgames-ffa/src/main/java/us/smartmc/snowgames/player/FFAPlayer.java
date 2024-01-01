@@ -7,6 +7,7 @@ import org.bson.Document;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import us.smartmc.gamesmanager.player.GamePlayer;
+import us.smartmc.snowgames.manager.ItemCooldownManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,6 +67,8 @@ public class FFAPlayer extends GamePlayer {
         player.playSound(player.getLocation(), Sound.CAT_PURR, 10F, 10F);
         setMaxStreak();
         setStreakTo0();
+        // Clear cooldown from items
+        ItemCooldownManager.clear(player);
     }
 
     public int getDeaths() {

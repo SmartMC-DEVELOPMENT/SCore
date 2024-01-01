@@ -53,6 +53,10 @@ public class FFAGame extends GameSession {
         return getSpawn() != null;
     }
 
+    public void setMap(FFAMap map) {
+        this.map = map;
+    }
+
     public boolean isInGame(Player player) {
         return players.contains(player.getUniqueId());
     }

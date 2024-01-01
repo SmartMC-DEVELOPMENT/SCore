@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ItemCooldownManager {
 
-    private static final HashMap<UUID, ItemCooldownManager> manager = new HashMap<>();
+    private static final HashMap<UUID, ItemCooldownManager> managers = new HashMap<>();
 
     @Getter
     private final Player player;
@@ -41,7 +41,6 @@ public class ItemCooldownManager {
                 task.completeTask();
             }
         }
-
         executorService.shutdown();
         executorService = Executors.newScheduledThreadPool(10);
     }
@@ -55,11 +54,14 @@ public class ItemCooldownManager {
     }
 
     public static void clear(Player player) {
-        manager.remove(player.getUniqueId());
+        ItemCooldownManager manager = managers.get(player.getUniqueId());
+        if (manager == null) return;
+        manager.cancelAll(false);
+        managers.remove(player.getUniqueId());
     }
 
     public static ItemCooldownManager from(Player player) {
-        return manager.computeIfAbsent(player.getUniqueId(), uuid -> new ItemCooldownManager(player));
+        return managers.computeIfAbsent(player.getUniqueId(), uuid -> new ItemCooldownManager(player));
     }
 
 }

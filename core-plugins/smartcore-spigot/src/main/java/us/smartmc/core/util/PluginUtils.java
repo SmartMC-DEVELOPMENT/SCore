@@ -13,12 +13,13 @@ public class PluginUtils {
         try {
             ByteArrayOutputStream b = new ByteArrayOutputStream();
             DataOutputStream out = new DataOutputStream(b);
-            out.writeUTF("Connect");
+            out.writeUTF("ConnectTo");
             out.writeUTF(server);
             player.sendPluginMessage(SmartCore.getPlugin(), "BungeeCord", b.toByteArray());
             b.close();
             out.close();
         } catch (Exception e) {
+            e.printStackTrace();
             player.sendMessage(ChatColor.RED + "Error when trying to connect to " + server);
         }
     }

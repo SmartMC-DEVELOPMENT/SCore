@@ -74,7 +74,7 @@ public class PlayerSanction extends MongoDBPluginConfig {
             if (created) {
                 String message = LanguagesHandler.get(Language.getDefault()).get(SanctionsManagerMessages.NAME)
                         .getString("message_been_warned");
-                player.sendMessage(ChatUtil.parse(message, getReason()));
+                player.sendMessage(ChatUtil.parse(player, message, getReason()));
             }
         }
     }

@@ -56,10 +56,10 @@ public class MinigamesConfig extends MongoDBPluginConfig {
 
         Material material = Material.BEDROCK;
         int amount = 1;
-        String serverID = null;
+        String serverPrefixId = null;
         String titleCustom = null;
 
-        if (configDoc.containsKey("serverID")) serverID = configDoc.getString("serverID");
+        if (configDoc.containsKey("serverPrefixId")) serverPrefixId = configDoc.getString("serverPrefixId");
         if (configDoc.containsKey("material")) material = Material.valueOf(configDoc.getString("material"));
         if (configDoc.containsKey("amount")) amount = configDoc.getInteger("amount");
         if (configDoc.containsKey("title_custom")) titleCustom = configDoc.getString("title_custom");
@@ -85,7 +85,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
         list.addAll(description);
         description = list;
 
-        String count = CountVariables.getCountOf("online." + serverID);
+        String count = CountVariables.getCountOf("online." + serverPrefixId);
         description.addAll(Arrays.asList("", clickToConnect));
         if (Long.parseLong(count) >= 1) {
             connected = MessageFormat.format(connected, count);

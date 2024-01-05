@@ -24,7 +24,8 @@ public class MinigamesMenu extends ConfigurableMenu {
         super(player, new SpigotYmlConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus", "minigames.yml")));
         config.getMiniGames().forEach((name, document) -> {
             int slot = slots[currentSlotIndex];
-            set(slot, MinigamesConfig.getItemOf(player, name), "connectTo " + name);
+            String serverPrefixId = document.getString("serverPrefixId");
+            set(slot, MinigamesConfig.getItemOf(player, name), "connectTo " + serverPrefixId);
             currentSlotIndex++;
         });
         setNotAvailableItems();

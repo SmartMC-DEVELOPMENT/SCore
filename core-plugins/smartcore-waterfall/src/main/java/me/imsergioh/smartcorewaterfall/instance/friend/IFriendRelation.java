@@ -20,13 +20,13 @@ public interface IFriendRelation {
   }
 
   default Document toDocument() {
-    return new Document("_id", this.getPlayer())
+    return new Document("_id", this.getPlayer().toString())
             .append("timestamp", this.getFriendTimestamp())
             .append("bestFriend", this.isBestFriend());
   }
 
   static IFriendRelation fromDocument(Document document) {
-    final UUID playerId = document.get("_id", UUID.class);
+    final UUID playerId = UUID.fromString(document.getString("_id"));
 
     final long timestamp = document.getLong("timestamp");
     final boolean bestFriend = document.getBoolean("bestFriend", false);

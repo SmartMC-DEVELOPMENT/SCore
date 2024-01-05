@@ -31,21 +31,8 @@ public interface IFriendRelation {
     final long timestamp = document.getLong("timestamp");
     final boolean bestFriend = document.getBoolean("bestFriend", false);
 
-    return new IFriendRelation() {
-      @Override
-      public UUID getPlayer() {
-        return playerId;
-      }
-
-      @Override
-      public boolean isBestFriend() {
-        return bestFriend;
-      }
-
-      @Override
-      public long getFriendTimestamp() {
-        return timestamp;
-      }
-    };
+    final FriendRelation friendRelation = new FriendRelation(playerId, timestamp);
+    friendRelation.setBestFriend(bestFriend);
+    return friendRelation;
   }
 }

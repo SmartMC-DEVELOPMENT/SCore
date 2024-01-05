@@ -1,6 +1,6 @@
 package us.smartmc.snowgames.config;
 
-import me.imsergioh.pluginsapi.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import org.bukkit.Material;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.object.PluginConfig;
@@ -17,6 +17,9 @@ public class LanguageConfig extends PluginConfig {
         registerMultiLanguageItem("propeller", ItemBuilder.of(Material.GOLD_PLATE).name("Propeller"));
         registerMultiLanguageItem("speed", ItemBuilder.of(Material.FEATHER).name("Speed"));
         registerMultiLanguageItem("regeneration", ItemBuilder.of(Material.GOLDEN_APPLE).name("Regeneration"));
+
+        registerMultiLanguageItem("propeller_reloading", ItemBuilder.of(Material.STONE_PLATE).name("Propeller &7&o(reloading...)"));
+        registerMultiLanguageItem("speed_reloading", ItemBuilder.of(Material.SUGAR).name("Speed &7&o(reloading...)"));
 
         registerMultiLanguageItem("lobby.tops", ItemBuilder.of(Material.DIAMOND).name("&6Tops"));
         registerMultiLanguageItem("lobby.settings", ItemBuilder.of(Material.WATCH).name("&bSettings"));
@@ -39,6 +42,10 @@ public class LanguageConfig extends PluginConfig {
     public static String getMenuTitle(String name) {
         String title = plugin.getLanguageConfig().getString("menu_title." + name);
         return title == null ? "Error Title(" + name + ")" : title;
+    }
+
+    public static String getName(String path) {
+        return path;
     }
 
 }

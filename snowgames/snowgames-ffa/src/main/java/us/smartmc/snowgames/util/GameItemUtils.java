@@ -1,8 +1,8 @@
 package us.smartmc.snowgames.util;
 
-import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.inventory.ItemStack;
@@ -44,13 +44,16 @@ public class GameItemUtils {
             Language language = CorePlayer.get(player).getLanguage();
             LanguageConfig config = FFAPlugin.getPlugin().getLanguageConfig();
 
-            player.getInventory().setItem(8, GameHotbar.parseItem(player, config.getItemConfig(language, "item.regeneration").get(), "&a"));
+            player.getInventory().setItem(8, GameHotbar.parseItem(player,
+                    config.getItemConfig(language, "item.regeneration").get(), "&a"));
         }
     }
 
     public static void handleVelocityAction(Player clicker) {
-        clicker.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,
-                20 * 5, 1));
+
+        if (clicker.getInventory().getItem(7).getAmount() > 1) return;
+
+        clicker.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 5, 1));
         ItemCooldownManager.from(clicker)
                 .registerAt(clicker.getInventory().getHeldItemSlot(),
                         DefaultConfig.getCooldown("speed"));

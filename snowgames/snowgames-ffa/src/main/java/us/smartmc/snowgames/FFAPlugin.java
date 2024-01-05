@@ -1,7 +1,8 @@
 package us.smartmc.snowgames;
 
 import lombok.Getter;
-import me.imsergioh.pluginsapi.handler.ItemActionsManager;
+import me.imsergioh.pluginsapi.handler.VariablesHandler;
+import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
@@ -17,7 +18,9 @@ import us.smartmc.snowgames.listener.BlockListeners;
 import us.smartmc.snowgames.listener.DamageListeners;
 import us.smartmc.snowgames.listener.GameListeners;
 import us.smartmc.snowgames.listener.PlayerListeners;
+import us.smartmc.snowgames.manager.ArenaManager;
 import us.smartmc.snowgames.messages.PluginMessages;
+import us.smartmc.snowgames.variables.PlayerVariables;
 
 import java.io.File;
 
@@ -35,6 +38,9 @@ public class FFAPlugin extends JavaPlugin {
     @Getter
     private DefaultConfig defaultConfig;
 
+    @Getter
+    private ArenaManager arenaManager;
+
 
     @Override
     public void onEnable() {
@@ -43,6 +49,7 @@ public class FFAPlugin extends JavaPlugin {
 
         setupConfig();
         languageConfig = new LanguageConfig();
+        arenaManager = new ArenaManager();
 
         new PluginMessages();
 
@@ -56,8 +63,12 @@ public class FFAPlugin extends JavaPlugin {
                 BlockListeners.class,
                 DamageListeners.class);
 
+        registerVariables();
+
         ItemActionsManager.registerCommand("game", new GameActions());
         ItemActionsManager.registerCommand("hotbar", new HotbarActions());
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, this::rotateMapTask, 0L, game.getMap().getMaxArenaTime() - 600);
     }
 
     @Override
@@ -76,6 +87,10 @@ public class FFAPlugin extends JavaPlugin {
         }
     }
 
+    private void registerVariables() {
+        VariablesHandler.register(new PlayerVariables());
+    }
+
     private void setupConfig() {
         defaultConfig = new DefaultConfig();
         defaultConfig.save();
@@ -85,4 +100,7 @@ public class FFAPlugin extends JavaPlugin {
         return plugin.getConfig();
     }
 
+    private void rotateMapTask() {
+        arenaManager.rotateMap();
+    }
 }

@@ -6,7 +6,6 @@ import us.smartmc.snowgames.object.ItemCooldownTask;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -14,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ItemCooldownManager {
 
-    private static final HashMap<UUID, ItemCooldownManager> manager = new HashMap<>();
+    private static final HashMap<UUID, ItemCooldownManager> managers = new HashMap<>();
 
     @Getter
     private final Player player;
@@ -31,17 +30,17 @@ public class ItemCooldownManager {
     public void registerAt(int slot, long period) {
         if (activeTasks.containsKey(slot)) return;
         ItemCooldownTask task = new ItemCooldownTask(this, slot, period);
+
         activeTasks.put(slot, task);
         executorService.scheduleAtFixedRate(task, 0, 1000, TimeUnit.MILLISECONDS);
     }
 
     public void cancelAll(boolean complete) {
         if (complete) {
-            for (ItemCooldownTask task : activeTasks.values()) {
+            for (ItemCooldownTask task : new HashSet<>(activeTasks.values())) {
                 task.completeTask();
             }
         }
-
         executorService.shutdown();
         executorService = Executors.newScheduledThreadPool(10);
     }
@@ -55,11 +54,14 @@ public class ItemCooldownManager {
     }
 
     public static void clear(Player player) {
-        manager.remove(player.getUniqueId());
+        ItemCooldownManager manager = managers.get(player.getUniqueId());
+        if (manager == null) return;
+        manager.cancelAll(false);
+        managers.remove(player.getUniqueId());
     }
 
     public static ItemCooldownManager from(Player player) {
-        return manager.computeIfAbsent(player.getUniqueId(), uuid -> new ItemCooldownManager(player));
+        return managers.computeIfAbsent(player.getUniqueId(), uuid -> new ItemCooldownManager(player));
     }
 
 }

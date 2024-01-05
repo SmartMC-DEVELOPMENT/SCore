@@ -1,6 +1,8 @@
 package us.smartmc.snowgames.game;
 
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import us.smartmc.core.handler.SpawnHandler;
@@ -11,8 +13,6 @@ import us.smartmc.gamesmanager.game.map.GameMapSession;
 import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.snowgames.inventory.GameHotbar;
 import us.smartmc.snowgames.inventory.LobbyHotbar;
-import us.smartmc.snowgames.manager.ItemCooldownManager;
-import us.smartmc.snowgames.messages.PluginMessages;
 
 public class FFAGame extends GameSession {
 
@@ -25,25 +25,26 @@ public class FFAGame extends GameSession {
 
     @Override
     public void joinPlayer(GamePlayer player) {
-        if (!canPlayerJoin(player)) {
-            player.sendLanguageMessage(PluginMessages.NAME, "error_cant_join");
-            return;
-        }
+        if (isInGame(player.getPlayer())) return;
+
         players.add(player.getUuid());
         GameHotbar.give(player.getPlayer());
+
+        player.getPlayer().setGameMode(GameMode.SURVIVAL);
     }
 
     @Override
-    public void deathPlayer(GamePlayer player) {
-        Player bPlayer = player.getPlayer();
-        bPlayer.spigot().respawn();
-        bPlayer.teleport(getSpawn());
+    public void quitPlayer(GamePlayer player) {
+        if (!isInGame(player.getPlayer())) return;
         players.remove(player.getUuid());
 
-        // Cancel & complete all tasks
-        ItemCooldownManager.from(player.getPlayer()).cancelAll(true);
+        SyncUtil.sync(() -> {
+            if (!player.getPlayer().isOnline()) return;
+            player.getPlayer().teleport(getSpawn());
+            LobbyHotbar.give(player.getPlayer());
 
-        LobbyHotbar.give(bPlayer);
+            player.getPlayer().setGameMode(GameMode.ADVENTURE);
+        });
     }
 
     @Override
@@ -52,12 +53,20 @@ public class FFAGame extends GameSession {
         return getSpawn() != null;
     }
 
+    public void setMap(FFAMap map) {
+        this.map = map;
+    }
+
     public boolean isInGame(Player player) {
         return players.contains(player.getUniqueId());
     }
 
     public Location getSpawn() {
         return SpawnHandler.getLocation();
+    }
+
+    public GameMap getMap() {
+        return map;
     }
 
 }

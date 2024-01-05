@@ -17,11 +17,12 @@ public class GameMap {
     private static final String MIN_PLAYERS_PATH = "min_players";
     private static final String MAX_PLAYERS_PATH = "max_players";
     private static final String MAX_TEAM_SIZE = "max_team_size";
+    private static final String MAX_ARENA_TIME = "max_arena_time";
 
     @Getter
-    private final String name;
+    protected final String name;
 
-    private final FilePluginConfig config;
+    protected final FilePluginConfig config;
 
     // LOAD
     public GameMap(String name) {
@@ -30,6 +31,7 @@ public class GameMap {
         registerConfigDefault(MIN_PLAYERS_PATH, 2);
         registerConfigDefault(MAX_PLAYERS_PATH, 12);
         config.registerDefault(MAX_TEAM_SIZE, 2);
+        registerConfigDefault(MAX_ARENA_TIME, 15 * 60 * 20);
     }
 
     // CREATE
@@ -94,6 +96,14 @@ public class GameMap {
         return config.getInteger(MAX_TEAM_SIZE);
     }
 
+    public void setMaxArenaTime(int time) {
+        config.put(MAX_ARENA_TIME, time);
+    }
+
+    public int getMaxArenaTime() {
+        return config.getInteger(MAX_ARENA_TIME);
+    }
+
     public static GameMap get(String name) {
         return GameMapManager.get(name);
     }
@@ -131,5 +141,4 @@ public class GameMap {
     public static String locationsPath(PlayerTeam team) {
         return "locations_" + team.name();
     }
-
 }

@@ -22,8 +22,11 @@ import us.smartmc.core.itemcommands.BungeeCommandAction;
 import us.smartmc.core.listener.AdminModeListeners;
 import us.smartmc.core.listener.CommandListeners;
 import us.smartmc.core.listener.CorePlayersListener;
+import us.smartmc.core.listener.RegionSetterListener;
 import us.smartmc.core.messages.GeneralMessages;
 import us.smartmc.core.messages.ItemUtilsMessages;
+import us.smartmc.core.regions.CuboidManager;
+import us.smartmc.core.regions.controller.RegionModeManager;
 import us.smartmc.core.util.ServerUtils;
 import us.smartmc.core.variables.*;
 
@@ -42,6 +45,10 @@ public class SmartCore extends JavaPlugin {
     private LobbyHandler lobbyHandler;
     @Getter
     private AdminModeHandler adminModeHandler;
+    @Getter
+    private RegionModeManager regionModeManager;
+    @Getter
+    private CuboidManager cuboidManager;
 
     private static String serverID;
 
@@ -88,6 +95,10 @@ public class SmartCore extends JavaPlugin {
         scoreboardHandler = new ScoreboardHandler();
         lobbyHandler = new LobbyHandler(this);
         adminModeHandler = new AdminModeHandler();
+        regionModeManager = new RegionModeManager();
+        cuboidManager = new CuboidManager();
+
+        cuboidManager.load();
 
         registerListeners();
         registerCommands();
@@ -104,6 +115,7 @@ public class SmartCore extends JavaPlugin {
     @Override
     public void onDisable() {
         CountVariables.removeCacheCount();
+        cuboidManager.unload();
     }
 
     private void registerCommands() {
@@ -112,7 +124,8 @@ public class SmartCore extends JavaPlugin {
                 .regCMD("spawn", new SpawnCommand())
                 .regCMD("admin", new AdminCommand())
                 .regCMD("reloadLanguageConfig", new LanguageHandleConfigs())
-                .regCMD("gamemode", new GameModeCommand());
+                .regCMD("gamemode", new GameModeCommand())
+                .regCMD("region", new RegionCommand());
 
         ItemActionsManager.registerCommand("bungeeCMD", new BungeeCommandAction());
     }
@@ -123,7 +136,8 @@ public class SmartCore extends JavaPlugin {
                 new TagsHandler(),
                 new AdminModeListeners(),
                 new CorePlayersListener(),
-                new CommandListeners());
+                new CommandListeners(),
+                new RegionSetterListener());
     }
 
     private void registerVariables() {

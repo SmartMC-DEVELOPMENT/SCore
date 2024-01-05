@@ -37,3 +37,4 @@ us\smartmc\gamesmanager\event\PlayerGameAPIEvent.class
 us\smartmc\gamesmanager\game\task\GameStartTask.class
 us\smartmc\gamesmanager\GamesManagerAPI.class
 us\smartmc\gamesmanager\game\IGamePreset.class
+us\smartmc\gamesmanager\util\LocationUtils.class

@@ -35,6 +35,7 @@ me\imsergioh\smartcorewaterfall\variables\LanguageVariables.class
 me\imsergioh\smartcorewaterfall\manager\cooldown\implementation\friend\event\FriendRequestEventHandler.class
 me\imsergioh\smartcorewaterfall\instance\BungeeLogger.class
 me\imsergioh\smartcorewaterfall\manager\ServersHandler.class
+me\imsergioh\smartcorewaterfall\util\DebugUtil.class
 me\imsergioh\smartcorewaterfall\command\BroadcastCommand.class
 me\imsergioh\smartcorewaterfall\listener\FriendAndPartyListeners.class
 me\imsergioh\smartcorewaterfall\listener\CustomCommandsListeners.class

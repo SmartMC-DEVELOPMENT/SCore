@@ -100,7 +100,7 @@ public final class SmartCoreWaterfall extends Plugin {
         registerCommands(
                 new SmartCoreWaterfallCommand("bsmartcore"),
                 new SetPrefixCommand(),
-                //new FriendCommand(),
+                new FriendCommand(),
                 new LobbyCommand(),
                 new BanCommand(),
                 new KickCommand(),

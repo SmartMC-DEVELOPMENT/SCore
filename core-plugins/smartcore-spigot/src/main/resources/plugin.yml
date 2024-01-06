@@ -15,3 +15,4 @@ commands:
     aliases: [gm]
     description: Change your gamemode
   region:
+  executeAtBungeeCommand:

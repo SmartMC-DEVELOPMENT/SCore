@@ -23,9 +23,6 @@ public class PlayerUtil {
         // Quit player from game
         game.quitPlayer(gamePlayer);
 
-        // Fix to not teleport 100100000100120210912091201290129 veces
-        GameListeners.getTeleportingSpawn().add(victim.getUniqueId());
-
         FFAPlayer ffaVictim = GamePlayerRepository.provide(FFAPlayer.class, victim);
         if (ffaVictim == null) return;
         ffaVictim.addDeath();

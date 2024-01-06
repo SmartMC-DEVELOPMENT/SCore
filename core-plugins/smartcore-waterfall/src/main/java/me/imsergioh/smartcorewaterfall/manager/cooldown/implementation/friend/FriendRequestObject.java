@@ -28,7 +28,6 @@ public class FriendRequestObject implements IFriendRequest {
   private FriendCooldownStatus status = FriendCooldownStatus.PENDING;
 
   public static IFriendRequest fromString(String data) {
-
     final String[] dataInput = data.split("\\.");
     if (dataInput.length != 3) {
       return null;
@@ -132,6 +131,9 @@ public class FriendRequestObject implements IFriendRequest {
         continue;
       }
       currentComponent.append(letter);
+    }
+    if (!currentComponent.toString().isEmpty()) {
+      finalComponent.addExtra(ChatUtil.parse(currentComponent.toString()));
     }
 
     if (!currentComponent.toString().isEmpty()) {

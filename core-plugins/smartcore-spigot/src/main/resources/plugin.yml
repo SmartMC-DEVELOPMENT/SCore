@@ -16,3 +16,5 @@ commands:
     description: Change your gamemode
   region:
   executeAtBungeeCommand:
+  friend:
+    aliases: [friends]

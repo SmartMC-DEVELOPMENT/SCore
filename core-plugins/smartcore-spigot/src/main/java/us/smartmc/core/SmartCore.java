@@ -126,7 +126,8 @@ public class SmartCore extends JavaPlugin {
                 .regCMD("reloadLanguageConfig", new LanguageHandleConfigs())
                 .regCMD("gamemode", new GameModeCommand())
                 .regCMD("region", new RegionCommand())
-                .regCMD("executeAtBungeeCommand", new ExecuteAtBungeeCommand());
+                .regCMD("executeAtBungeeCommand", new ExecuteAtBungeeCommand())
+                .regCMD("friend", new FriendCommand());
 
         ItemActionsManager.registerCommand("bungeeCMD", new BungeeCommandAction());
     }

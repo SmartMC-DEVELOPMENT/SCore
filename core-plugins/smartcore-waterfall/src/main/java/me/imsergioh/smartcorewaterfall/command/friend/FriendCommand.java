@@ -3,6 +3,7 @@ package me.imsergioh.smartcorewaterfall.command.friend;
 import me.imsergioh.smartcorewaterfall.instance.CoreCommand;
 import me.imsergioh.smartcorewaterfall.instance.OfflinePlayerData;
 import me.imsergioh.smartcorewaterfall.instance.friend.PlayerFriends;
+import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.FriendCooldownStatus;
 import me.imsergioh.smartcorewaterfall.manager.friend.FriendsManager;
 import me.imsergioh.smartcorewaterfall.util.AsyncUtilities;
 import net.md_5.bungee.api.CommandSender;
@@ -78,14 +79,31 @@ public class FriendCommand extends CoreCommand {
           FriendsManager.scheduleFriendRequest(player.getUniqueId(), friend.getUUID());
           sender.sendMessage(TextComponent.fromLegacyText("Friend request sent to " + friendName + "."));
         }
-        case "accept" -> {
+        case "accept", "deny", "ignore" -> {
           if (args.length != 2) {
             sender.sendMessage(TextComponent.fromLegacyText("You have provided invalid argument amount."));
             return;
           }
           final String friendName = args[1];
+          final OfflinePlayerData friend;
+          try {
+            friend = OfflinePlayerData.get(friendName);
+          } catch (Exception e) {
+            sender.sendMessage(TextComponent.fromLegacyText("This player has never joined the server."));
+            return;
+          }
 
-          
+          if (!FriendsManager.isRequestPending(player.getUniqueId(), friend.getUUID())) {
+            sender.sendMessage(TextComponent.fromLegacyText("The player didn't send you a friend request."));
+            return;
+          }
+
+          final FriendCooldownStatus status = subCommand.equals("accept")
+                  ? FriendCooldownStatus.ACCEPTED
+                  : subCommand.equals("deny")
+                  ? FriendCooldownStatus.DENIED
+                  : FriendCooldownStatus.REMOVED;
+          FriendsManager.setStatusFriendRequest(friend.getUUID(), player.getUniqueId(), status);
         }
         default -> sender.sendMessage(TextComponent.fromLegacyText("Invalid subcommand."));
       }

@@ -8,6 +8,7 @@ import me.imsergioh.smartcorewaterfall.manager.cooldown.CooldownManager;
 import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.event.FriendRequestEventHandler;
 import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.event.FriendResponseEventHandler;
 import me.imsergioh.smartcorewaterfall.manager.exception.RedisConnectionNotInitializedException;
+import me.imsergioh.smartcorewaterfall.manager.friend.FriendsManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,13 @@ public class FriendCooldownImpl extends CooldownImplementation {
     final RedisConnection redisConnection = RedisConnection.mainConnection;
     if (redisConnection == null) {
       return;
+    }
+
+    if (status == FriendCooldownStatus.ACCEPTED) {
+      final long timestamp = System.currentTimeMillis();
+
+      FriendsManager.addFriend(senderUUID, receiverUUID, false, timestamp);
+      FriendsManager.addFriend(receiverUUID, senderUUID, false, timestamp);
     }
 
     redisConnection.getResource().publish(

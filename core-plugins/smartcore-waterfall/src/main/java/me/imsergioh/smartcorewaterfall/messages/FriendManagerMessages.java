@@ -18,7 +18,11 @@ public class FriendManagerMessages extends MultiLanguageRegistry {
     }
 
     private static void registerDefaultMessages(LanguageMessagesHolder holder) {
-        holder.registerDefault("request_received", "&aYou received a friend request of {0}.");
+        holder.registerDefault("request_received", "&aYou received a friend request of {0}.\n{1} {2} {3}");
+        holder.registerDefault("request_received_accept", "&aACCEPT");
+        holder.registerDefault("request_received_ignore", "&7IGNORE");
+        holder.registerDefault("request_received_deny", "&cDENY");
+
         holder.registerDefault("response_received", "&aYou received a response from {0}.");
         holder.registerDefault("join_pending", "&aYou have {0} notification pending.");
 

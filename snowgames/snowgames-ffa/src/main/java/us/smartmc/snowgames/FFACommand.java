@@ -17,7 +17,7 @@ public class FFACommand implements CommandExecutor {
     private void execute(CommandSender sender, String[] args) {
 
         if (args.length == 0) {
-            sender.sendMessage("Available commands: /ffa setSpawn <*map name>, teleport <map name>");
+            sender.sendMessage("Available commands: /ffa setSpawn <*map name>, teleport <map name>, ");
             return;
         }
 

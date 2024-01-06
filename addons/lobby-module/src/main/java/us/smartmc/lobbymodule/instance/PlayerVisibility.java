@@ -1,6 +1,7 @@
 package us.smartmc.lobbymodule.instance;
 
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ public enum PlayerVisibility {
 
     public static List<String> getOptionItemLore(Player player) {
         CorePlayer corePlayer = CorePlayer.get(player);
-        Language language = corePlayer.getLanguage();
+        Language language = PlayerLanguages.get(player.getUniqueId());
         String visibilityName = corePlayer.getPlayerData().getDocument().get("visibility", String.class);
 
         if (visibilityName == null) visibilityName = DEFAULT.toString();

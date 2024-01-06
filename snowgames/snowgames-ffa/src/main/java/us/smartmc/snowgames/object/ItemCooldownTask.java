@@ -1,5 +1,6 @@
 package us.smartmc.snowgames.object;
 
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.Material;
@@ -39,13 +40,13 @@ public class ItemCooldownTask extends PluginRepeatingTask {
             }
             int remainingSeconds = (int) getRemainingTimeInSeconds();
             if (recoverItem.getType().equals(Material.GOLD_PLATE)) {
-                Language language = CorePlayer.get(player).getLanguage();
+                Language language = PlayerLanguages.get(player.getUniqueId());
                 ItemStack delayItem = parseItem(player, config.getItemConfig(language, "propeller_reloading").get(), "&e");
                 delayItem.setAmount(remainingSeconds);
                 player.getInventory().setItem(slot, delayItem);
             }
             if (recoverItem.getType().equals(Material.FEATHER)) {
-                Language language = CorePlayer.get(player).getLanguage();
+                Language language = PlayerLanguages.get(player.getUniqueId());
                 ItemStack delayItem = parseItem(player, config.getItemConfig(language, "speed_reloading").get(), "&a");
                 delayItem.setAmount(remainingSeconds);
                 player.getInventory().setItem(slot, delayItem);

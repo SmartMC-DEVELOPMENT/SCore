@@ -1,5 +1,6 @@
 package us.smartmc.snowgames.config;
 
+import me.imsergioh.pluginsapi.connection.RedisConnection;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.object.PluginConfig;
 

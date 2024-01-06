@@ -25,6 +25,7 @@ public class FriendRequestObject implements IFriendRequest {
   private FriendCooldownStatus status = FriendCooldownStatus.PENDING;
 
   public static IFriendRequest fromString(String data) {
+    System.out.println("Data fromString into FriendRequestObject is " + data);
     final String[] dataInput = data.split("\\.");
     if (dataInput.length != 3) {
       return null;

@@ -1,11 +1,11 @@
 package me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.event;
 
-import com.google.common.base.Charsets;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.pluginsapi.instance.handler.RedisPubSubListener;
 import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.FriendRequestObject;
 import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.IFriendRequest;
 import me.imsergioh.smartcorewaterfall.util.AsyncUtilities;
+import redis.clients.jedis.params.GetExParams;
 
 import java.util.UUID;
 
@@ -33,18 +33,14 @@ public class FriendRequestEventHandler extends RedisPubSubListener {
   }
 
   protected static void trigger(String data) {
-    final RedisConnection redisConnection = RedisConnection.mainConnection;
-    if (redisConnection == null) {
-      return;
-    }
-    final byte[] dataResource = redisConnection.getResource().get(data.getBytes(Charsets.UTF_8));
-    if (dataResource.length < 1) {
+    String path = "cooldown." + data;
+    String string = RedisConnection.mainConnection.getResource().get(path);
+    if (string.isEmpty()) {
       return;
     }
 
-    final byte status = dataResource[0];
     trigger(FriendRequestObject.fromString(
-            data.replaceFirst("friend", Byte.toString(status))
+            data.replaceFirst("friend", string)
     ), true);
   }
 }

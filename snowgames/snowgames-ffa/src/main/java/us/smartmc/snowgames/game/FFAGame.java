@@ -38,13 +38,11 @@ public class FFAGame extends GameSession {
         if (!isInGame(player.getPlayer())) return;
         players.remove(player.getUuid());
 
-        SyncUtil.sync(() -> {
-            if (!player.getPlayer().isOnline()) return;
-            player.getPlayer().teleport(getSpawn());
-            LobbyHotbar.give(player.getPlayer());
+        if (!player.getPlayer().isOnline()) return;
+        player.getPlayer().teleport(getSpawn());
+        LobbyHotbar.give(player.getPlayer());
 
-            player.getPlayer().setGameMode(GameMode.ADVENTURE);
-        });
+        player.getPlayer().setGameMode(GameMode.ADVENTURE);
     }
 
     @Override

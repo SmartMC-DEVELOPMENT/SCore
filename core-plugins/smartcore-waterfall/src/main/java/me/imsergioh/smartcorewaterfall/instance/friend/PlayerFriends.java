@@ -35,7 +35,8 @@ public class PlayerFriends extends MongoDBPluginConfig {
   public void loadDocument() {
     this.load();
 
-    final var friends = this.getQueryDocument().get("friends", List.class);
+    final var friends = get("friends", List.class);
+    if (friends == null) return;
     for (Object friend : friends) {
       if (!(friend instanceof Document friendDocument)) {
         continue;

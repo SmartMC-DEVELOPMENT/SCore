@@ -13,7 +13,7 @@ public class CooldownImplementation implements ICooldown {
   private final long duration;
 
   private long timestamp;
-  private byte[] identification = new byte[0];
+  private String identification = "";
 
   public CooldownImplementation(long timestamp, long duration, String dataDirectory) {
     this.timestamp = timestamp;

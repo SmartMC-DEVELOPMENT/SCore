@@ -6,7 +6,6 @@ import us.smartmc.core.util.VariableUtil;
 import us.smartmc.gamesmanager.player.GamePlayerRepository;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
-import us.smartmc.snowgames.game.FFAMap;
 import us.smartmc.snowgames.player.FFAPlayer;
 
 public class PlayerVariables extends VariableListener<Player> {
@@ -23,7 +22,7 @@ public class PlayerVariables extends VariableListener<Player> {
         FFAGame game = FFAPlugin.getGame();
         message = VariableUtil.replace(message, "<map>", game.getMap().getName());
 
-        String formattedTime = formatSecondsToTime(game.getMap().getAliveTime());
+        String formattedTime = formatSecondsToTime(game.getMap().getTimeAlive());
         message = VariableUtil.replace(message, "<time_remaining>", formattedTime);
 
         message = VariableUtil.replace(message, "<kills>", String.valueOf(ffaPlayer.getKills()));

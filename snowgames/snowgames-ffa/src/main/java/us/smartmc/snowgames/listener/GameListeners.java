@@ -1,5 +1,6 @@
 package us.smartmc.snowgames.listener;
 
+import lombok.Getter;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,7 +30,8 @@ import static us.smartmc.snowgames.config.DefaultConfig.isJoinMessageEnabled;
 
 public class GameListeners implements Listener {
 
-    public static Set<UUID> teleportingSpawn = new HashSet<>();
+    @Getter
+    private static final Set<UUID> teleportingSpawn = new HashSet<>();
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
@@ -58,8 +60,8 @@ public class GameListeners implements Listener {
 
     @EventHandler
     public void joinGameAtLeaveSpawn(PlayerMoveEvent event) {
-
         Player player = event.getPlayer();
+        if (teleportingSpawn.contains(player.getUniqueId())) return;
         FFAGame game = FFAPlugin.getGame();
 
         if (!game.isInGame(player) && !RegionUtils.isAtSpawn(player)) {
@@ -67,15 +69,13 @@ public class GameListeners implements Listener {
             GamePlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
             if (gamePlayer == null) return;
 
-            if (teleportingSpawn.contains(player.getUniqueId())) return;
+
             game.joinPlayer(gamePlayer);
             return;
         }
 
         if (RegionUtils.isAtSpawn(player)) {
-
             teleportingSpawn.remove(player.getUniqueId());
-
             GamePlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
             if (gamePlayer == null) return;
             if (game.isInGame(player)) game.quitPlayer(gamePlayer);

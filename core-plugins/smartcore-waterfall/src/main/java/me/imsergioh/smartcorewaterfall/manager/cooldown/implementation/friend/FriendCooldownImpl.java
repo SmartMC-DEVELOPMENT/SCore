@@ -35,7 +35,7 @@ public class FriendCooldownImpl extends CooldownImplementation {
   protected FriendCooldownImpl(UUID senderUUID, UUID receiverUUID) {
     super(
             System.currentTimeMillis(),
-            TimeUnit.MINUTES.convert(REQUEST_EXPIRATION_MINUTES, TimeUnit.MILLISECONDS),
+            TimeUnit.MINUTES.toMillis(REQUEST_EXPIRATION_MINUTES),
             prepareDataDirectory(senderUUID, receiverUUID)
     );
     this.senderUUID = senderUUID;
@@ -52,18 +52,17 @@ public class FriendCooldownImpl extends CooldownImplementation {
   public void schedule() {
     /* Update required information */
     this.setTimestamp(System.currentTimeMillis());
-    this.setIdentification(new byte[]{
-            (byte) this.getStatus().ordinal()
-    });
+    this.setIdentification(String.valueOf(status.ordinal()));
 
     super.schedule();
 
     /* Send redis notification if posible */
     final RedisConnection redisConnection = RedisConnection.mainConnection;
     if (redisConnection == null) {
+      System.out.println("RedisConnection is null");
       return;
     }
-    redisConnection.send(FriendRequestEventHandler.KEY, this.getDataDirectory());
+    redisConnection.getResource().publish(FriendRequestEventHandler.KEY, this.getDataDirectory());
   }
 
   protected static void responseRequest(FriendCooldownStatus status, UUID senderUUID, UUID receiverUUID) {
@@ -72,7 +71,7 @@ public class FriendCooldownImpl extends CooldownImplementation {
       return;
     }
 
-    redisConnection.send(
+    redisConnection.getResource().publish(
             FriendResponseEventHandler.KEY,
             "%s.%s.%s".formatted(status.ordinal(), senderUUID, receiverUUID)
     );
@@ -103,8 +102,8 @@ public class FriendCooldownImpl extends CooldownImplementation {
       return;
     }
     redisConnection.getResource().set(
-            "cooldown.%s".formatted(prepareDataDirectory(senderUUID, receiverUUID)).getBytes(Charsets.UTF_8),
-            new byte[]{(byte) status.ordinal()}
+            "cooldown.%s".formatted(prepareDataDirectory(senderUUID, receiverUUID)),
+            String.valueOf(status.ordinal())
     );
   }
 

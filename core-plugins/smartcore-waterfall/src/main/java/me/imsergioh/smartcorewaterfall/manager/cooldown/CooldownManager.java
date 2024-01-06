@@ -19,10 +19,8 @@ public class CooldownManager {
       throw new RedisConnectionNotInitializedException();
     }
 
-    final byte[] key = "cooldown.%s"
-            .formatted(cooldown.getDataDirectory())
-            .getBytes(Charsets.UTF_8);
-    final byte[] value = cooldown.getIdentification();
+    String key = "cooldown.%s".formatted(cooldown.getDataDirectory());
+    String value = cooldown.getIdentification();
 
     final long endMillis = cooldown.getTimestamp() + cooldown.getDuration();
     final long remainingMillis = endMillis - System.currentTimeMillis();

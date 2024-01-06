@@ -1,9 +1,13 @@
 package us.smartmc.core.instance.player;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import lombok.Getter;
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.pluginsapi.event.PlayerUnloadEvent;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -114,6 +118,20 @@ public class SmartCorePlayer extends CorePlayer {
     public static void register(UUID uuid) {
         if (players.containsKey(uuid)) return;
         players.put(uuid, new SmartCorePlayer(uuid));
+    }
+
+    public static SmartCorePlayer get(String name) {
+        name = name.toLowerCase();
+
+        final MongoDatabase database = MongoDBConnection.mainConnection.getDatabase("player_data");
+        final MongoCollection<Document> mongoCollection = database.getCollection("offline_player_data");
+
+        final Document document = mongoCollection.find(new Document().append("lowercase_name", name)).first();
+        if (document == null) {
+            return null;
+        }
+        final UUID uuid = UUID.fromString(document.getString("_id"));
+        return get(uuid);
     }
 
     public static SmartCorePlayer get(UUID uuid) {

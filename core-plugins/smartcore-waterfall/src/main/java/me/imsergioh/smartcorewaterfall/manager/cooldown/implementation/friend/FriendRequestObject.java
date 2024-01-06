@@ -28,6 +28,7 @@ public class FriendRequestObject implements IFriendRequest {
   private FriendCooldownStatus status = FriendCooldownStatus.PENDING;
 
   public static IFriendRequest fromString(String data) {
+
     final String[] dataInput = data.split("\\.");
     if (dataInput.length != 3) {
       return null;
@@ -90,7 +91,7 @@ public class FriendRequestObject implements IFriendRequest {
 
       clickableAcceptComponent.setClickEvent(new ClickEvent(
               ClickEvent.Action.RUN_COMMAND,
-              "/friends %s %s".formatted(action, senderPlayerData.getName())
+              "/executeAtBungee friends %s %s".formatted(action, senderPlayerData.getName())
       ));
       return clickableAcceptComponent;
     };
@@ -113,12 +114,16 @@ public class FriendRequestObject implements IFriendRequest {
         final boolean isThird = currentComponent.toString().endsWith("{3");
 
         final boolean isOne = isFirst || isSecond || isThird;
-        if (isOne) {
-          finalComponent.addExtra(ChatUtil.parse(
-                  currentComponent.substring(0, currentComponent.length() - 2)
-          ));
-          currentComponent = new StringBuilder();
+        if (!isOne) {
+          currentComponent.append(letter);
+          continue;
         }
+
+        finalComponent.addExtra(ChatUtil.parse(
+                currentComponent.substring(0, currentComponent.length() - 2),
+                senderPlayerData.getName()
+        ));
+        currentComponent = new StringBuilder();
 
         if (isFirst) finalComponent.addExtra(acceptComponent);
         if (isSecond) finalComponent.addExtra(ignoreComponent);
@@ -127,6 +132,13 @@ public class FriendRequestObject implements IFriendRequest {
         continue;
       }
       currentComponent.append(letter);
+    }
+
+    if (!currentComponent.toString().isEmpty()) {
+      finalComponent.addExtra(ChatUtil.parse(
+              currentComponent.toString(),
+              senderPlayerData.getName()
+      ));
     }
 
     receiver.sendMessage(finalComponent);

@@ -48,6 +48,13 @@ public class FriendRequestEventHandler extends RedisPubSubListener {
       return;
     }
 
-    trigger(FriendRequestObject.fromString(data.replaceFirst("friend", dataResource)), true);
+    try {
+      final String[] dataSplit = data.split("\\.");
+      final String dataResult = "%s.%s.%s".formatted(dataResource, dataSplit[2], dataSplit[3]);
+      trigger(FriendRequestObject.fromString(dataResult), true);
+
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace(System.out);
+    }
   }
 }

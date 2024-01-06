@@ -118,7 +118,17 @@ public class FriendCooldownImpl extends CooldownImplementation {
 
   public static boolean isPending(UUID senderUUID, UUID receiverUUID) {
     try {
-      return CooldownManager.hasActiveCooldown(prepareDataDirectory(senderUUID, receiverUUID));
+      final String data = prepareDataDirectory(senderUUID, receiverUUID);
+      if (!CooldownManager.hasActiveCooldown(data)) {
+        return false;
+      }
+      final RedisConnection redisConnection = RedisConnection.mainConnection;
+      if (redisConnection == null) {
+        throw new RedisConnectionNotInitializedException();
+      }
+
+      final String value = redisConnection.getResource().get("cooldown.%s".formatted(data));
+      return value.equalsIgnoreCase(FriendCooldownStatus.PENDING.name());
     } catch (RedisConnectionNotInitializedException e) {
       e.printStackTrace(System.out);
     }

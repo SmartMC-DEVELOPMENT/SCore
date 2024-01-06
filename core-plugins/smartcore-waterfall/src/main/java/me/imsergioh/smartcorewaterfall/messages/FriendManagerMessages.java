@@ -23,11 +23,12 @@ public class FriendManagerMessages extends MultiLanguageRegistry {
         holder.registerDefault("request_received_ignore", "&7IGNORE");
         holder.registerDefault("request_received_deny", "&cDENY");
 
-        holder.registerDefault("response_received", "&aYou received a response from {0}.");
+        holder.registerDefault("request_sent", "&aFriend request sent to the player {0}.");
         holder.registerDefault("join_pending", "&aYou have {0} notification pending.");
 
-        holder.registerDefault("response_status_accepted", "&aaccepted");
-        holder.registerDefault("response_status_denied", "&cdenied");
+        holder.registerDefault("already_friend_error", "&cThis player is already your friend.");
+        holder.registerDefault("already_requested_error", "&cYou have already requested this player as a friend.");
+        holder.registerDefault("self_request_error", "&cWe understand that you may have few friends, and we understand your pain, but you cannot alleviate it by adding yourself as a friend. Go and play with other people, talk and chat so you can fill this list as soon as possible.");
     }
 
     public static String get(Language language, String path) {

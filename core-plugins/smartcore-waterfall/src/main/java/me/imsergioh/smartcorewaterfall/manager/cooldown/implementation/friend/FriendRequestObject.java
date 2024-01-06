@@ -25,24 +25,17 @@ public class FriendRequestObject implements IFriendRequest {
   private FriendCooldownStatus status = FriendCooldownStatus.PENDING;
 
   public static IFriendRequest fromString(String data) {
-    System.out.println("Data fromString into FriendRequestObject is " + data);
     final String[] dataInput = data.split("\\.");
     if (dataInput.length != 3) {
       return null;
     }
 
-    final int status = Integer.parseInt(dataInput[0]);
-    final FriendCooldownStatus statusEnum = status < 0
-            || status >= FriendCooldownStatus.values().length
-
-            ? FriendCooldownStatus.PENDING
-            : FriendCooldownStatus.values()[status];
-
     final FriendRequestObject object = new FriendRequestObject(
             UUID.fromString(dataInput[1]),
             UUID.fromString(dataInput[2])
     );
-    object.setStatus(statusEnum);
+    object.setStatus(FriendCooldownStatus.valueOf(dataInput[0]));
+    
     return object;
   }
 

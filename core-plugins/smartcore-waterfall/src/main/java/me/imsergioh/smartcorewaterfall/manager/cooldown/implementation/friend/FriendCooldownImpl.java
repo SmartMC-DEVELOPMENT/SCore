@@ -51,14 +51,11 @@ public class FriendCooldownImpl extends CooldownImplementation {
   public void schedule() {
     /* Update required information */
     this.setTimestamp(System.currentTimeMillis());
-    this.setIdentification(this.getStatus().name());
-
     super.schedule();
 
     /* Send redis notification if posible */
     final RedisConnection redisConnection = RedisConnection.mainConnection;
     if (redisConnection == null) {
-      System.out.println("RedisConnection is null");
       return;
     }
 
@@ -66,7 +63,6 @@ public class FriendCooldownImpl extends CooldownImplementation {
             FriendRequestEventHandler.KEY,
             "cooldown.%s".formatted(this.getDataDirectory())
     );
-    redisConnection.getResource().publish(FriendRequestEventHandler.KEY, this.getDataDirectory());
   }
 
   protected static void responseRequest(FriendCooldownStatus status, UUID senderUUID, UUID receiverUUID) {
@@ -106,8 +102,9 @@ public class FriendCooldownImpl extends CooldownImplementation {
       return;
     }
     redisConnection.getResource().set(
-            "cooldown.%s".formatted(prepareDataDirectory(senderUUID, receiverUUID)),
-            status.name()
+            "cooldown.%s".formatted(
+                    prepareDataDirectory(senderUUID, receiverUUID)
+            ), status.name()
     );
   }
 
@@ -148,6 +145,11 @@ public class FriendCooldownImpl extends CooldownImplementation {
     }
 
     return requests.stream().filter(Objects::nonNull).collect(Collectors.toList());
+  }
+
+  @Override
+  public String getIdentification() {
+    return this.getStatus().name();
   }
 
   public static void schedule(UUID senderUUID, UUID receiverUUID) {

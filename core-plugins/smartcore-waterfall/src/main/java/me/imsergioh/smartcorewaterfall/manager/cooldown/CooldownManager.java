@@ -9,24 +9,31 @@ import java.util.stream.Collectors;
 
 public class CooldownManager {
 
-  public static String registerCooldown(ICooldown cooldown) throws
-          RedisConnectionNotInitializedException,
-          CooldownAlreadyFinishedException {
+  public static String setCooldownKeyValue(ICooldown cooldown, long remainingMillis) throws RedisConnectionNotInitializedException {
+    final String key = "cooldown.%s".formatted(cooldown.getDataDirectory());
+    final String value = cooldown.getIdentification();
+
     final RedisConnection redisConnection = RedisConnection.mainConnection;
     if (redisConnection == null) {
       throw new RedisConnectionNotInitializedException();
     }
 
-    final String key = "cooldown.%s".formatted(cooldown.getDataDirectory());
-    final String value = cooldown.getIdentification();
-    
+    if (remainingMillis <= 0) {
+      return redisConnection.getResource().set(key, value);
+    }
+    return redisConnection.getResource().psetex(key, remainingMillis, value);
+  }
+
+  public static String registerCooldown(ICooldown cooldown) throws
+          RedisConnectionNotInitializedException,
+          CooldownAlreadyFinishedException {
     final long endMillis = cooldown.getTimestamp() + cooldown.getDuration();
     final long remainingMillis = endMillis - System.currentTimeMillis();
 
     if (remainingMillis <= 0) {
       throw new CooldownAlreadyFinishedException(cooldown.getDataDirectory());
     }
-    return redisConnection.getResource().psetex(key, remainingMillis, value);
+    return setCooldownKeyValue(cooldown, remainingMillis);
   }
 
   public static long stopCooldowns(String dataPattern) throws

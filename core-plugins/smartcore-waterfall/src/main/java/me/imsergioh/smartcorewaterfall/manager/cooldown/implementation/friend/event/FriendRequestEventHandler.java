@@ -33,14 +33,21 @@ public class FriendRequestEventHandler extends RedisPubSubListener {
 
   protected static void trigger(String data) {
     final RedisConnection redisConnection = RedisConnection.mainConnection;
-    if (redisConnection == null) {
+    if (redisConnection == null || !redisConnection.getResource().exists(data)) {
       return;
     }
-    final String dataResource = redisConnection.getResource().get(data);
-    if (dataResource == null) {
+
+    final String dataResource;
+    try {
+      dataResource = redisConnection.getResource().get(data);
+      if (dataResource == null) {
+        return;
+      }
+    } catch (ClassCastException ignored) {
+      System.out.println("An invalid redis friend status value was provided.");
       return;
     }
-    
+
     trigger(FriendRequestObject.fromString(data.replaceFirst("friend", dataResource)), true);
   }
 }

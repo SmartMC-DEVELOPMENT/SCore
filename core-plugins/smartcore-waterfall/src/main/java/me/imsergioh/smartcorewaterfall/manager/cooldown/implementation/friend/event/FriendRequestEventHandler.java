@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.instance.handler.RedisPubSubListener;
 import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.FriendRequestObject;
 import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.IFriendRequest;
 import me.imsergioh.smartcorewaterfall.util.AsyncUtilities;
+import me.imsergioh.smartcorewaterfall.util.DebugUtil;
 
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ public class FriendRequestEventHandler extends RedisPubSubListener {
 
   @Override
   public void onMessage(String message) {
+    DebugUtil.debug("friends", "NEW MESSAGE RECEIVED FROM FriendRequestEventHandler " + message);
     FriendRequestEventHandler.trigger(message);
   }
 

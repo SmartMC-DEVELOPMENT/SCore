@@ -9,6 +9,7 @@ import me.imsergioh.smartcorewaterfall.SmartCoreWaterfall;
 import me.imsergioh.smartcorewaterfall.instance.OfflinePlayerData;
 import me.imsergioh.smartcorewaterfall.instance.PlayerLanguages;
 import me.imsergioh.smartcorewaterfall.messages.FriendManagerMessages;
+import me.imsergioh.smartcorewaterfall.util.DebugUtil;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -28,6 +29,7 @@ public class FriendRequestObject implements IFriendRequest {
   private FriendCooldownStatus status = FriendCooldownStatus.PENDING;
 
   public static IFriendRequest fromString(String data) {
+    DebugUtil.debug("friends", "executing fromString - " + data);
     final String[] dataInput = data.split("\\.");
     if (dataInput.length != 3) {
       return null;
@@ -127,6 +129,9 @@ public class FriendRequestObject implements IFriendRequest {
         continue;
       }
       currentComponent.append(letter);
+    }
+    if (!currentComponent.toString().isEmpty()) {
+      finalComponent.addExtra(ChatUtil.parse(currentComponent.toString()));
     }
 
     receiver.sendMessage(finalComponent);

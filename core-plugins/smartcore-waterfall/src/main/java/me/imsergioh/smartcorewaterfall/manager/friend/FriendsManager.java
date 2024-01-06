@@ -10,6 +10,7 @@ import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.Fr
 import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.IFriendRequest;
 import me.imsergioh.smartcorewaterfall.messages.FriendManagerMessages;
 import me.imsergioh.smartcorewaterfall.util.AsyncUtilities;
+import me.imsergioh.smartcorewaterfall.util.DebugUtil;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.List;
@@ -126,6 +127,7 @@ public class FriendsManager {
   /* Cooldown Implementation */
 
   public static void scheduleFriendRequest(UUID playerUuid, UUID friendUuid) {
+    DebugUtil.debug("friends", "scheduleFriendRequest");
     FriendCooldownImpl.schedule(playerUuid, friendUuid);
   }
 

@@ -9,6 +9,7 @@ import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.ev
 import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.event.FriendResponseEventHandler;
 import me.imsergioh.smartcorewaterfall.manager.exception.RedisConnectionNotInitializedException;
 import me.imsergioh.smartcorewaterfall.manager.friend.FriendsManager;
+import me.imsergioh.smartcorewaterfall.util.DebugUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class FriendCooldownImpl extends CooldownImplementation {
     );
     this.senderUUID = senderUUID;
     this.receiverUUID = receiverUUID;
+    DebugUtil.debug("friends", "CREATE INSTANCE FriendCooldownImpl");
   }
 
   protected void setStatus(FriendCooldownStatus status) {
@@ -60,10 +62,14 @@ public class FriendCooldownImpl extends CooldownImplementation {
       return;
     }
 
+    DebugUtil.debug("friends", "schedule FriendsCooldownImpl after");
+
     redisConnection.getResource().publish(
             FriendRequestEventHandler.KEY,
             "cooldown.%s".formatted(this.getDataDirectory())
     );
+
+    DebugUtil.debug("friends", "Published FriendsCooldownImpl schedule");
   }
 
   protected static void responseRequest(FriendCooldownStatus status, UUID senderUUID, UUID receiverUUID) {

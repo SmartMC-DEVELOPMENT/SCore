@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.imsergioh.smartcorewaterfall.manager.cooldown.exception.CooldownAlreadyFinishedException;
 import me.imsergioh.smartcorewaterfall.manager.exception.RedisConnectionNotInitializedException;
+import me.imsergioh.smartcorewaterfall.util.DebugUtil;
 
 @Getter
 @Setter
@@ -23,6 +24,7 @@ public class CooldownImplementation implements ICooldown {
 
   @Override
   public void schedule() {
+    DebugUtil.debug("friends", "schedule from CooldownImplementation (super)");
     try {
       CooldownManager.registerCooldown(this);
     } catch (

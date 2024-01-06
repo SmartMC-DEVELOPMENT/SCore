@@ -1,6 +1,5 @@
 package us.smartmc.snowgames.listener;
 
-import lombok.Getter;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,17 +20,10 @@ import us.smartmc.snowgames.inventory.LobbyHotbar;
 import us.smartmc.snowgames.player.FFAPlayer;
 import us.smartmc.snowgames.util.RegionUtils;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
 import static us.smartmc.snowgames.config.DefaultConfig.getJoinMessage;
 import static us.smartmc.snowgames.config.DefaultConfig.isJoinMessageEnabled;
 
 public class GameListeners implements Listener {
-
-    @Getter
-    private static final Set<UUID> teleportingSpawn = new HashSet<>();
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
@@ -52,6 +44,7 @@ public class GameListeners implements Listener {
     public void blockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         FFAGame game = FFAPlugin.getGame();
+
         if (!game.isInGame(player)) return;
         if (RegionUtils.isAtSpawn(player)) {
             event.setCancelled(true);
@@ -61,7 +54,6 @@ public class GameListeners implements Listener {
     @EventHandler
     public void joinGameAtLeaveSpawn(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        if (teleportingSpawn.contains(player.getUniqueId())) return;
         FFAGame game = FFAPlugin.getGame();
 
         if (!game.isInGame(player) && !RegionUtils.isAtSpawn(player)) {
@@ -69,20 +61,18 @@ public class GameListeners implements Listener {
             GamePlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
             if (gamePlayer == null) return;
 
-
             game.joinPlayer(gamePlayer);
             return;
         }
 
-        if (RegionUtils.isAtSpawn(player)) {
-            teleportingSpawn.remove(player.getUniqueId());
+        /*if (RegionUtils.isAtSpawn(player)) {
             GamePlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
             if (gamePlayer == null) return;
             if (game.isInGame(player)) game.quitPlayer(gamePlayer);
             if (!hasItemsInInventory(player)) {
                 LobbyHotbar.give(player);
             }
-        }
+        }*/
     }
 
     public boolean hasItemsInInventory(Player player) {

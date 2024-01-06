@@ -8,7 +8,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.gamesmanager.game.GamePreset;
-import us.smartmc.gamesmanager.manager.GameMapManager;
 import us.smartmc.gamesmanager.manager.GamePresetManager;
 import us.smartmc.snowgames.actions.GameActions;
 import us.smartmc.snowgames.actions.HotbarActions;
@@ -16,7 +15,7 @@ import us.smartmc.snowgames.config.DefaultConfig;
 import us.smartmc.snowgames.config.LanguageConfig;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.listener.BlockListeners;
-import us.smartmc.snowgames.listener.DamageListeners;
+import us.smartmc.snowgames.listener.SnowBallDamageListener;
 import us.smartmc.snowgames.listener.GameListeners;
 import us.smartmc.snowgames.listener.PlayerListeners;
 import us.smartmc.snowgames.manager.ArenaManager;
@@ -61,7 +60,7 @@ public class FFAPlugin extends JavaPlugin {
                 PlayerListeners.class,
                 GameListeners.class,
                 BlockListeners.class,
-                DamageListeners.class);
+                SnowBallDamageListener.class);
 
         registerVariables();
 

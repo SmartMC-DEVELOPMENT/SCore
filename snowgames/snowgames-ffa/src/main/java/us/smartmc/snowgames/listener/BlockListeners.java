@@ -10,6 +10,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
+import us.smartmc.core.SmartCore;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.config.DefaultConfig;
 import us.smartmc.snowgames.manager.BlocksResetManager;
@@ -20,6 +21,7 @@ public class BlockListeners implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
+        if (SmartCore.getPlugin().getAdminModeHandler().isActive(player)) return;
         BlocksResetManager.registerBlockPlace(event.getBlockReplacedState());
         if (event.getBlock().getType().name().contains("PLATE")) {
             ItemCooldownManager cooldownManager = ItemCooldownManager.from(player);

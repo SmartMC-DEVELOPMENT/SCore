@@ -22,7 +22,6 @@ import us.smartmc.snowgames.game.FFAMap;
 import us.smartmc.snowgames.inventory.LobbyHotbar;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
 import us.smartmc.snowgames.player.FFAPlayer;
-import us.smartmc.snowgames.util.GameItemUtils;
 import us.smartmc.snowgames.util.PlayerUtil;
 
 import java.util.HashMap;
@@ -31,6 +30,7 @@ import java.util.UUID;
 
 public class PlayerListeners implements Listener {
 
+    // KEY = VICTIM & VALUE = ATTACKER
     public static Map<UUID, UUID> getAttacked = new HashMap<>();
 
     @EventHandler
@@ -100,7 +100,6 @@ public class PlayerListeners implements Listener {
     public void addKillerToMap(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player attacker)) return;
         if (!(event.getEntity() instanceof Player victim)) return;
-
         getAttacked.put(victim.getUniqueId(), attacker.getUniqueId());
         Bukkit.getScheduler().runTaskLater(FFAPlugin.getPlugin(), () -> {
             getAttacked.remove(victim.getUniqueId());

@@ -5,10 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import us.smartmc.core.handler.SpawnHandler;
 import us.smartmc.gamesmanager.game.GamePreset;
 import us.smartmc.gamesmanager.game.GameSession;
-import us.smartmc.gamesmanager.game.map.GameMap;
 import us.smartmc.gamesmanager.game.map.GameMapSession;
 import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.snowgames.inventory.GameHotbar;
@@ -62,7 +60,7 @@ public class FFAGame extends GameSession {
     }
 
     public Location getSpawn() {
-        return SpawnHandler.getLocation();
+        return ((FFAMap) map).getSpawn();
     }
 
     public FFAMap getMap() {

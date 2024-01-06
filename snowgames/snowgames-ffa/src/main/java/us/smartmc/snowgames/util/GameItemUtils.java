@@ -45,7 +45,7 @@ public class GameItemUtils {
             LanguageConfig config = FFAPlugin.getPlugin().getLanguageConfig();
 
             player.getInventory().setItem(8, GameHotbar.parseItem(player,
-                    config.getItemConfig(language, "item.regeneration").get(), "&a"));
+                    config.getItemConfig(language, "regeneration").get(), "&a"));
         }
     }
 

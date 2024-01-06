@@ -1,26 +1,38 @@
 package us.smartmc.core.util;
 
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.*;
-import us.smartmc.core.SmartCore;
 import org.bukkit.entity.Player;
+import us.smartmc.core.SmartCore;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class PluginUtils {
 
-    public static void sendTo(Player player, String server) {
+    private static final Set<UUID> sendingPlayers = new HashSet<>();
+
+    public static void sendTo(Player player, String serverPrefix) {
+        if (sendingPlayers.contains(player.getUniqueId())) return;
+        sendingPlayers.add(player.getUniqueId());
+        SyncUtil.later(() -> {
+            sendingPlayers.remove(player.getUniqueId());
+        }, 100);
         try {
+            System.out.println("Redirecting " + player.getName() + " to " + serverPrefix);
             ByteArrayOutputStream b = new ByteArrayOutputStream();
             DataOutputStream out = new DataOutputStream(b);
-            out.writeUTF("ConnectTo");
-            out.writeUTF(server);
+            out.writeUTF("RedirectTo");
+            out.writeUTF(serverPrefix);
             player.sendPluginMessage(SmartCore.getPlugin(), "BungeeCord", b.toByteArray());
             b.close();
             out.close();
         } catch (Exception e) {
-            e.printStackTrace();
-            player.sendMessage(ChatColor.RED + "Error when trying to connect to " + server);
+            e.printStackTrace(System.out);
+            player.sendMessage(ChatColor.RED + "Error when trying to connect to a server of '" + serverPrefix + "'");
         }
     }
 

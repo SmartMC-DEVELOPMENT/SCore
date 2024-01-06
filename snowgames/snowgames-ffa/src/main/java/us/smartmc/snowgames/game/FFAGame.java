@@ -18,7 +18,7 @@ public class FFAGame extends GameSession {
 
     public FFAGame(GamePreset instance) {
         super(instance);
-        map = new GameMap("ffa-main");
+        map = new FFAMap("ffa-main");
         map.setMaxPlayers(Bukkit.getMaxPlayers());
         mapSession = new GameMapSession(map);
     }
@@ -65,8 +65,8 @@ public class FFAGame extends GameSession {
         return SpawnHandler.getLocation();
     }
 
-    public GameMap getMap() {
-        return map;
+    public FFAMap getMap() {
+        return (FFAMap) map;
     }
 
 }

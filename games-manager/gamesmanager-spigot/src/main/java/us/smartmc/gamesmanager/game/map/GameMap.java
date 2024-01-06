@@ -17,7 +17,7 @@ public class GameMap {
     private static final String MIN_PLAYERS_PATH = "min_players";
     private static final String MAX_PLAYERS_PATH = "max_players";
     private static final String MAX_TEAM_SIZE = "max_team_size";
-    private static final String MAX_ARENA_TIME = "max_arena_time";
+    private static final String MAX_ARENA_TIME = "max_time";
 
     @Getter
     protected final String name;
@@ -32,6 +32,7 @@ public class GameMap {
         registerConfigDefault(MAX_PLAYERS_PATH, 12);
         config.registerDefault(MAX_TEAM_SIZE, 2);
         registerConfigDefault(MAX_ARENA_TIME, 15 * 60 * 20);
+        config.save();
     }
 
     // CREATE

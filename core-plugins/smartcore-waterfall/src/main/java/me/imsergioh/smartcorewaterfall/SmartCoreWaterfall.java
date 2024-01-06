@@ -92,7 +92,8 @@ public final class SmartCoreWaterfall extends Plugin {
                 new OfflinePlayerDataManager(),
                 new CustomCommandsListeners(),
                 new SanctionsListeners(),
-                new RankListeners());
+                new RankListeners(),
+                new BungeeMessagingListeners());
     }
 
     private void registerCommands() {

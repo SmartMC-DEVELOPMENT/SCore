@@ -23,7 +23,7 @@ public class TagsHandler implements Listener {
         if (areDisabled()) return;
         Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
             Bukkit.getOnlinePlayers().forEach(this::checkUpdate);
-        }, 0, 0);
+        }, 0, 20 * 3);
     }
 
     public boolean areDisabled() {

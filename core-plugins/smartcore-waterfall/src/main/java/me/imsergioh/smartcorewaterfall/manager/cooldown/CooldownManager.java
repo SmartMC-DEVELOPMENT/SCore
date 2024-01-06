@@ -1,11 +1,9 @@
 package me.imsergioh.smartcorewaterfall.manager.cooldown;
 
-import com.google.common.base.Charsets;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.smartcorewaterfall.manager.cooldown.exception.CooldownAlreadyFinishedException;
 import me.imsergioh.smartcorewaterfall.manager.exception.RedisConnectionNotInitializedException;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,10 +17,8 @@ public class CooldownManager {
       throw new RedisConnectionNotInitializedException();
     }
 
-    final byte[] key = "cooldown.%s"
-            .formatted(cooldown.getDataDirectory())
-            .getBytes(Charsets.UTF_8);
-    final byte[] value = cooldown.getIdentification();
+    final String key = "cooldown.%s".formatted(cooldown.getDataDirectory());
+    final String value = cooldown.getIdentification();
 
     final long endMillis = cooldown.getTimestamp() + cooldown.getDuration();
     final long remainingMillis = endMillis - System.currentTimeMillis();
@@ -40,8 +36,7 @@ public class CooldownManager {
 
     long result = 1L;
     for (String key : keys) {
-      final long requestResult = redisConnection.getResource().del(key.getBytes(StandardCharsets.UTF_8));
-
+      final long requestResult = redisConnection.getResource().del("cooldown.%s".formatted(key));
       if (result == 1L && requestResult <= 0) {
         result = 0L;
       }
@@ -55,10 +50,7 @@ public class CooldownManager {
     if (redisConnection == null) {
       throw new RedisConnectionNotInitializedException();
     }
-
-    return redisConnection.getResource().exists("cooldown.%s"
-            .formatted(dataDirectory)
-            .getBytes(Charsets.UTF_8));
+    return redisConnection.getResource().exists("cooldown.%s".formatted(dataDirectory));
   }
 
   public static boolean hasSimilarActiveCooldown(String dataDirectory) throws
@@ -68,10 +60,7 @@ public class CooldownManager {
       throw new RedisConnectionNotInitializedException();
     }
 
-    return !redisConnection.getResource().keys("cooldown.%s"
-            .formatted(dataDirectory)
-            .getBytes(Charsets.UTF_8)
-    ).isEmpty();
+    return !redisConnection.getResource().keys("cooldown.%s".formatted(dataDirectory)).isEmpty();
   }
 
   public static Set<String> getActiveCooldowns(String dataPattern) throws
@@ -81,9 +70,8 @@ public class CooldownManager {
       throw new RedisConnectionNotInitializedException();
     }
 
-    return redisConnection.getResource().keys("cooldown.%s"
-            .formatted(dataPattern)
-            .getBytes(Charsets.UTF_8)
-    ).stream().map(String::new).collect(Collectors.toSet());
+    return redisConnection.getResource().keys("cooldown.%s".formatted(dataPattern))
+            .stream().map(String::new)
+            .collect(Collectors.toSet());
   }
 }

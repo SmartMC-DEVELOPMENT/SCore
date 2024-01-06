@@ -1,6 +1,5 @@
 package me.imsergioh.smartcorewaterfall.instance.friend;
 
-import com.google.common.base.Charsets;
 import lombok.AccessLevel;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
@@ -76,7 +75,7 @@ public class PlayerFriends extends MongoDBPluginConfig {
 
   @Override
   public MongoDBPluginConfig save() {
-    final var redisCache = "cache.friend.%s".formatted(this.getPlayerUuid()).getBytes(Charsets.UTF_8);
+    final var redisCache = "cache.friend.%s".formatted(this.getPlayerUuid());
 
     final RedisConnection redisConnection = RedisConnection.mainConnection;
     if (redisConnection != null) {

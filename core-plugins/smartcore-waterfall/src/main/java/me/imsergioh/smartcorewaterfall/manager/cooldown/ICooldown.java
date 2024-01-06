@@ -10,7 +10,7 @@ public interface ICooldown {
 
   String getDataDirectory();
 
-  byte[] getIdentification();
+  String getIdentification();
 
   void schedule();
 }

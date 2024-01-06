@@ -1,6 +1,5 @@
 package me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend;
 
-import com.google.common.base.Charsets;
 import lombok.AccessLevel;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
@@ -52,9 +51,7 @@ public class FriendCooldownImpl extends CooldownImplementation {
   public void schedule() {
     /* Update required information */
     this.setTimestamp(System.currentTimeMillis());
-    this.setIdentification(new byte[]{
-            (byte) this.getStatus().ordinal()
-    });
+    this.setIdentification(this.getStatus().name());
 
     super.schedule();
 
@@ -63,7 +60,10 @@ public class FriendCooldownImpl extends CooldownImplementation {
     if (redisConnection == null) {
       return;
     }
-    redisConnection.send(FriendRequestEventHandler.KEY, this.getDataDirectory());
+    redisConnection.getResource().publish(
+            FriendRequestEventHandler.KEY,
+            "cooldown.%s".formatted(this.getDataDirectory())
+    );
   }
 
   protected static void responseRequest(FriendCooldownStatus status, UUID senderUUID, UUID receiverUUID) {
@@ -72,9 +72,9 @@ public class FriendCooldownImpl extends CooldownImplementation {
       return;
     }
 
-    redisConnection.send(
+    redisConnection.getResource().publish(
             FriendResponseEventHandler.KEY,
-            "%s.%s.%s".formatted(status.ordinal(), senderUUID, receiverUUID)
+            "%s.%s.%s".formatted(status.name(), senderUUID, receiverUUID)
     );
     try {
       CooldownManager.stopCooldowns(prepareDataDirectory(senderUUID, receiverUUID));
@@ -103,8 +103,8 @@ public class FriendCooldownImpl extends CooldownImplementation {
       return;
     }
     redisConnection.getResource().set(
-            "cooldown.%s".formatted(prepareDataDirectory(senderUUID, receiverUUID)).getBytes(Charsets.UTF_8),
-            new byte[]{(byte) status.ordinal()}
+            "cooldown.%s".formatted(prepareDataDirectory(senderUUID, receiverUUID)),
+            status.name()
     );
   }
 
@@ -129,12 +129,8 @@ public class FriendCooldownImpl extends CooldownImplementation {
       for (String activeCooldown : CooldownManager.getActiveCooldowns("friend.*.%s".formatted(receiverUUID))) {
         final String[] data = activeCooldown.split("\\.");
 
-        final byte[] value = redisConnection.getResource().get(activeCooldown.getBytes(Charsets.UTF_8));
-        final FriendCooldownStatus statusEnum = value.length < 1 || value[0] < 0
-                || value[0] >= FriendCooldownStatus.values().length
-
-                ? FriendCooldownStatus.PENDING
-                : FriendCooldownStatus.values()[value[0]];
+        final String value = redisConnection.getResource().get(activeCooldown);
+        final FriendCooldownStatus statusEnum = FriendCooldownStatus.valueOf(value);
 
         final IFriendRequest request = new FriendRequestObject(
                 UUID.fromString(data[2]),

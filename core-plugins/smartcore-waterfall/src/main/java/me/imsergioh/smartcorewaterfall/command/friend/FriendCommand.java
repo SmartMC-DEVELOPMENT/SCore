@@ -78,6 +78,15 @@ public class FriendCommand extends CoreCommand {
           FriendsManager.scheduleFriendRequest(player.getUniqueId(), friend.getUUID());
           sender.sendMessage(TextComponent.fromLegacyText("Friend request sent to " + friendName + "."));
         }
+        case "accept" -> {
+          if (args.length != 2) {
+            sender.sendMessage(TextComponent.fromLegacyText("You have provided invalid argument amount."));
+            return;
+          }
+          final String friendName = args[1];
+
+          
+        }
         default -> sender.sendMessage(TextComponent.fromLegacyText("Invalid subcommand."));
       }
     });

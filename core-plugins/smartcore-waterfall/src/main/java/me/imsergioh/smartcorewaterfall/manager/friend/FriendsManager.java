@@ -1,6 +1,5 @@
 package me.imsergioh.smartcorewaterfall.manager.friend;
 
-import com.google.common.base.Charsets;
 import lombok.AccessLevel;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
@@ -55,7 +54,7 @@ public class FriendsManager {
 
   public static CompletableFuture<PlayerFriends> getFriends(UUID playerUuid) {
 
-    final var redisCache = "cache.friend.%s".formatted(playerUuid).getBytes(Charsets.UTF_8);
+    final var redisCache = "cache.friend.%s".formatted(playerUuid);
     final RedisConnection redisConnection = RedisConnection.mainConnection;
 
     if (containsFriend(playerUuid)) {
@@ -89,7 +88,7 @@ public class FriendsManager {
                 redisConnection.getResource().psetex(
                         redisCache,
                         TimeUnit.MINUTES.toMillis(10),
-                        Long.toString(System.currentTimeMillis()).getBytes(Charsets.UTF_8)
+                        Long.toString(System.currentTimeMillis())
                 );
               }
 

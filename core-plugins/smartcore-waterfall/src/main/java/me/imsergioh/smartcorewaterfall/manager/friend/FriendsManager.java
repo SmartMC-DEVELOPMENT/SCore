@@ -53,7 +53,6 @@ public class FriendsManager {
   }
 
   public static CompletableFuture<PlayerFriends> getFriends(UUID playerUuid) {
-
     final var redisCache = "cache.friend.%s".formatted(playerUuid);
     final RedisConnection redisConnection = RedisConnection.mainConnection;
 

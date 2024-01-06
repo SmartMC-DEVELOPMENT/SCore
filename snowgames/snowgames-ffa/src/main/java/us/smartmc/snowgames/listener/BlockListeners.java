@@ -22,7 +22,8 @@ public class BlockListeners implements Listener {
         Player player = event.getPlayer();
         BlocksResetManager.registerBlockPlace(event.getBlockReplacedState());
         if (event.getBlock().getType().name().contains("PLATE")) {
-            if (event.getPlayer().getInventory().getItem(4).getAmount() > 1) {
+            ItemCooldownManager cooldownManager = ItemCooldownManager.from(player);
+            if (cooldownManager.hasActiveAtSlot(4)) {
                 event.setCancelled(true);
                 return;
             }

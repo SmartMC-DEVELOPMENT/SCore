@@ -34,7 +34,7 @@ public class FriendCooldownImpl extends CooldownImplementation {
   protected FriendCooldownImpl(UUID senderUUID, UUID receiverUUID) {
     super(
             System.currentTimeMillis(),
-            TimeUnit.MINUTES.convert(REQUEST_EXPIRATION_MINUTES, TimeUnit.MILLISECONDS),
+            TimeUnit.MINUTES.toMillis(REQUEST_EXPIRATION_MINUTES),
             prepareDataDirectory(senderUUID, receiverUUID)
     );
     this.senderUUID = senderUUID;
@@ -58,12 +58,15 @@ public class FriendCooldownImpl extends CooldownImplementation {
     /* Send redis notification if posible */
     final RedisConnection redisConnection = RedisConnection.mainConnection;
     if (redisConnection == null) {
+      System.out.println("RedisConnection is null");
       return;
     }
+
     redisConnection.getResource().publish(
             FriendRequestEventHandler.KEY,
             "cooldown.%s".formatted(this.getDataDirectory())
     );
+    redisConnection.getResource().publish(FriendRequestEventHandler.KEY, this.getDataDirectory());
   }
 
   protected static void responseRequest(FriendCooldownStatus status, UUID senderUUID, UUID receiverUUID) {

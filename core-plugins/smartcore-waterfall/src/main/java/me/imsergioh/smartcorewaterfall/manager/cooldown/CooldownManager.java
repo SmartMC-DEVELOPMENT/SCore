@@ -19,7 +19,7 @@ public class CooldownManager {
 
     final String key = "cooldown.%s".formatted(cooldown.getDataDirectory());
     final String value = cooldown.getIdentification();
-
+    
     final long endMillis = cooldown.getTimestamp() + cooldown.getDuration();
     final long remainingMillis = endMillis - System.currentTimeMillis();
 

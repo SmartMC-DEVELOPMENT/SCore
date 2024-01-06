@@ -33,7 +33,6 @@ public class GameItemUtils {
      */
     public static void handlePlayerKill(Player player) {
         ItemStack regenerationItem = player.getInventory().getItem(8);
-
         if (regenerationItem != null) {
             int amount = regenerationItem.getAmount();
             if (amount <= 4) {

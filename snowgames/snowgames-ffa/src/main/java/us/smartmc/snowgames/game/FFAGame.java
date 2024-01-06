@@ -18,7 +18,7 @@ public class FFAGame extends GameSession {
 
     public FFAGame(GamePreset instance) {
         super(instance);
-        map = new GameMap("ffa-main");
+        map = new FFAMap("ffa-main");
         map.setMaxPlayers(Bukkit.getMaxPlayers());
         mapSession = new GameMapSession(map);
     }
@@ -38,13 +38,11 @@ public class FFAGame extends GameSession {
         if (!isInGame(player.getPlayer())) return;
         players.remove(player.getUuid());
 
-        SyncUtil.sync(() -> {
-            if (!player.getPlayer().isOnline()) return;
-            player.getPlayer().teleport(getSpawn());
-            LobbyHotbar.give(player.getPlayer());
+        if (!player.getPlayer().isOnline()) return;
+        player.getPlayer().teleport(getSpawn());
+        LobbyHotbar.give(player.getPlayer());
 
-            player.getPlayer().setGameMode(GameMode.ADVENTURE);
-        });
+        player.getPlayer().setGameMode(GameMode.ADVENTURE);
     }
 
     @Override
@@ -65,8 +63,8 @@ public class FFAGame extends GameSession {
         return SpawnHandler.getLocation();
     }
 
-    public GameMap getMap() {
-        return map;
+    public FFAMap getMap() {
+        return (FFAMap) map;
     }
 
 }

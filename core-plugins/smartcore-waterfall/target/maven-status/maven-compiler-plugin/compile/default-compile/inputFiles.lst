@@ -27,6 +27,7 @@ D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergi
 D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\rediscommand\LanguageChangeCommand.java
 D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\command\TwitterCommand.java
 D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\instance\MongoDataManager.java
+D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\listener\BungeeMessagingListeners.java
 D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\manager\cooldown\CooldownManager.java
 D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\command\BanCommand.java
 D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\SmartCoreWaterfall.java

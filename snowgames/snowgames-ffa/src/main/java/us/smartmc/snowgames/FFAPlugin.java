@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.gamesmanager.game.GamePreset;
+import us.smartmc.gamesmanager.manager.GameMapManager;
 import us.smartmc.gamesmanager.manager.GamePresetManager;
 import us.smartmc.snowgames.actions.GameActions;
 import us.smartmc.snowgames.actions.HotbarActions;
@@ -49,7 +50,6 @@ public class FFAPlugin extends JavaPlugin {
 
         setupConfig();
         languageConfig = new LanguageConfig();
-        arenaManager = new ArenaManager();
 
         new PluginMessages();
 
@@ -68,7 +68,9 @@ public class FFAPlugin extends JavaPlugin {
         ItemActionsManager.registerCommand("game", new GameActions());
         ItemActionsManager.registerCommand("hotbar", new HotbarActions());
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, this::rotateMapTask, 0L, game.getMap().getMaxArenaTime() - 600);
+        getCommand("ffa").setExecutor(new FFACommand());
+
+        arenaManager = new ArenaManager();
     }
 
     @Override

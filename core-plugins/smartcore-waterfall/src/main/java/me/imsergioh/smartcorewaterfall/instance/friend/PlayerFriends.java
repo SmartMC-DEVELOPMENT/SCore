@@ -26,7 +26,7 @@ public class PlayerFriends extends MongoDBPluginConfig {
     super(
             PlayerFriends.DATABASE,
             PlayerFriends.COLLECTION,
-            new Document("_id", playerUuid)
+            new Document("_id", playerUuid.toString())
     );
     this.playerUuid = playerUuid;
   }
@@ -34,7 +34,8 @@ public class PlayerFriends extends MongoDBPluginConfig {
   public void loadDocument() {
     this.load();
 
-    final var friends = this.getQueryDocument().get("friends", List.class);
+    final var friends = get("friends", List.class);
+    if (friends == null) return;
     for (Object friend : friends) {
       if (!(friend instanceof Document friendDocument)) {
         continue;
@@ -47,7 +48,7 @@ public class PlayerFriends extends MongoDBPluginConfig {
 
   public PlayerFriends(Document document) {
     super(PlayerFriends.DATABASE, PlayerFriends.COLLECTION, document);
-    this.playerUuid = this.getQueryDocument().get("_id", UUID.class);
+    this.playerUuid = UUID.fromString(this.getQueryDocument().getString("_id"));
 
     this.loadDocument();
   }

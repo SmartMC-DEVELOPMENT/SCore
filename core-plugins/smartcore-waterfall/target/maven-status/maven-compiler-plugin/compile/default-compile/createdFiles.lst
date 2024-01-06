@@ -52,6 +52,7 @@ me\imsergioh\smartcorewaterfall\manager\cooldown\implementation\friend\FriendCoo
 me\imsergioh\smartcorewaterfall\command\TwitterCommand.class
 me\imsergioh\smartcorewaterfall\manager\OfflinePlayerDataManager.class
 me\imsergioh\smartcorewaterfall\manager\exception\RedisConnectionNotInitializedException.class
+me\imsergioh\smartcorewaterfall\listener\BungeeMessagingListeners.class
 me\imsergioh\smartcorewaterfall\instance\MongoDataManager.class
 me\imsergioh\smartcorewaterfall\messages\FriendManagerMessages.class
 me\imsergioh\smartcorewaterfall\instance\CoreCommand.class

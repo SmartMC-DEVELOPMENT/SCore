@@ -9,32 +9,23 @@ import org.bukkit.entity.Player;
 import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
+@Getter
 public class FFAPlayer extends GamePlayer {
 
 
-    private static final MongoCollection<Document> collection = MongoDBConnection.mainConnection.getDatabase("SnowMatch").getCollection("playerStats");
-    public Map<UUID, Integer> currentStreak;
-    public int streak;
+    private static final MongoCollection<Document> collection = MongoDBConnection.mainConnection.getDatabase("player_data").getCollection("snowgames_ffa");
 
-    @Getter
     private Document statsDocument;
+
+    private int killStreak;
 
     protected FFAPlayer(Player player) {
         super(player);
-        // Intenta buscar el documento de stats, si no encuentra se establece a el query que solo tiene el _id
         statsDocument = collection.find(getQuery()).first();
         if (statsDocument == null) statsDocument = getQuery();
 
-        currentStreak = new HashMap<>();
-        streak = 0;
+        killStreak = 0;
     }
-
-    // Escribe aqui las stats que quieres poner:: kills, deaths, racha, maxima racha
-    // Y ahora puedes hacer todos los metodos o dejarlo asi, lo importante es cuando un player se sale llamar metodo saveStats
 
     // Obtener / Returnar 0
     public int getIntStat(String name) {
@@ -53,9 +44,10 @@ public class FFAPlayer extends GamePlayer {
     }
 
     public void addKill() {
+        killStreak++;
+        setIntStat("max_kill_streak", Math.max(killStreak, getMaxStreak()));
         sumIntStat("kills");
         player.playSound(player.getLocation(), Sound.NOTE_PLING, 10F, 10F);
-        addStreak();
     }
 
     public int getKills() {
@@ -64,9 +56,8 @@ public class FFAPlayer extends GamePlayer {
 
     public void addDeath() {
         sumIntStat("deaths");
-        player.playSound(player.getLocation(), Sound.CAT_PURR, 10F, 10F);
-        setMaxStreak();
-        setStreakTo0();
+        player.playSound(player.getLocation(), Sound.CAT_MEOW, 1, 1);
+        killStreak = 0;
         // Clear cooldown from items
         ItemCooldownManager.clear(player);
     }
@@ -75,25 +66,12 @@ public class FFAPlayer extends GamePlayer {
         return getIntStat("deaths");
     }
 
-    public void addStreak() {
-        streak = currentStreak.get(player.getUniqueId());
-    }
-
-    public void setStreakTo0() {
-        currentStreak.remove(player.getUniqueId());
-    }
-
     public int getCurrentStreak() {
-        return streak;
-    }
-
-    public void setMaxStreak() {
-        if (getMaxStreak() > streak) return;
-        setIntStat("max_streak", streak);
+        return killStreak;
     }
 
     public int getMaxStreak() {
-        return getIntStat("max_streak");
+        return getIntStat("max_kill_streak");
     }
 
     @Override

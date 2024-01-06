@@ -37,6 +37,10 @@ public class FriendRequestEventHandler extends RedisPubSubListener {
       return;
     }
     final String dataResource = redisConnection.getResource().get(data);
+    if (dataResource == null) {
+      return;
+    }
+    
     trigger(FriendRequestObject.fromString(data.replaceFirst("friend", dataResource)), true);
   }
 }

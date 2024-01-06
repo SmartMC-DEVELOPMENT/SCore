@@ -20,12 +20,9 @@ public class PlayerVariables extends VariableListener<Player> {
         FFAPlayer ffaPlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
         if (ffaPlayer == null) return null;
         FFAGame game = FFAPlugin.getGame();
-
         message = VariableUtil.replace(message, "<map>", game.getMap().getName());
 
-        int ticks = game.getMap().getMaxArenaTime();
-        String formattedTime = formatTicksToTime(ticks);
-
+        String formattedTime = formatSecondsToTime(game.getMap().getTimeAlive());
         message = VariableUtil.replace(message, "<time_remaining>", formattedTime);
 
         message = VariableUtil.replace(message, "<kills>", String.valueOf(ffaPlayer.getKills()));
@@ -37,10 +34,9 @@ public class PlayerVariables extends VariableListener<Player> {
         return message;
     }
 
-    private static String formatTicksToTime(int ticks) {
-        int totalSeconds = ticks / 20;
-        int minutes = totalSeconds / 60;
-        int seconds = totalSeconds % 60;
+    private static String formatSecondsToTime(int secondsRemaining) {
+        int minutes = secondsRemaining / 60;
+        int seconds = secondsRemaining % 60;
 
         return String.format("%02d:%02d", minutes, seconds);
     }

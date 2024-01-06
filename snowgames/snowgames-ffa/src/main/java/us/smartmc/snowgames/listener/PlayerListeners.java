@@ -18,20 +18,20 @@ import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.gamesmanager.player.GamePlayerRepository;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
+import us.smartmc.snowgames.game.FFAMap;
 import us.smartmc.snowgames.inventory.LobbyHotbar;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
 import us.smartmc.snowgames.player.FFAPlayer;
 import us.smartmc.snowgames.util.GameItemUtils;
+import us.smartmc.snowgames.util.PlayerUtil;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static us.smartmc.snowgames.listener.GameListeners.teleportingSpawn;
-
 public class PlayerListeners implements Listener {
 
-    public static Map<UUID, UUID> getAttacked = new HashMap<>(); // victim, attacker
+    public static Map<UUID, UUID> getAttacked = new HashMap<>();
 
     @EventHandler
     public void cancelDropItem(PlayerDropItemEvent event) {
@@ -74,15 +74,6 @@ public class PlayerListeners implements Listener {
     }
 
     @EventHandler
-    public void onKill(PlayerDeathEvent event) {
-        Player player = event.getEntity();
-        Player killer = player.getKiller();
-        if (killer == null) return;
-
-        GameItemUtils.handlePlayerKill(killer);
-    }
-
-    @EventHandler
     public void damageInSpawn(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
         FFAGame game = FFAPlugin.getGame();
@@ -95,33 +86,14 @@ public class PlayerListeners implements Listener {
     public void killPlayerUnderY20(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         FFAGame game = FFAPlugin.getGame();
-        GamePlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
-        if (gamePlayer == null) return;
+        if (!game.isInGame(player)) return;
+        FFAMap map = game.getMap();
 
         Location location = player.getLocation();
         double playerY = location.getBlockY();
-        if (playerY < 20) {
-
-            game.quitPlayer(gamePlayer);
-            teleportingSpawn.add(player.getUniqueId());
-            FFAPlayer victim = GamePlayerRepository.provide(FFAPlayer.class, player);
-            if (victim == null) return;
-
-            UUID attackerUUID = getAttacked.get(player.getUniqueId()); // Coje el UUID del atacante
-            if (attackerUUID == null) {
-                victim.addDeath();
-                return;
-            }
-
-            Player attackerPlayer = Bukkit.getPlayer(attackerUUID); // Coje el jugador del UUID del atacante
-            FFAPlayer killer = GamePlayerRepository.provide(FFAPlayer.class, attackerPlayer); // Killer FFAPlayer
-            GameItemUtils.handlePlayerKill(attackerPlayer); // Le handlea la kill al atacante
-            getAttacked.remove(player.getUniqueId()); // Elimina a la victima del Mapa getAttacked
-
-            if (killer == null) return; // Returna si es null
-            killer.addKill(); // le da la kill al killer
+        if (playerY < map.getDeathYLocation()) {
+            PlayerUtil.kill(player);
         }
-
     }
 
     @EventHandler
@@ -132,6 +104,6 @@ public class PlayerListeners implements Listener {
         getAttacked.put(victim.getUniqueId(), attacker.getUniqueId());
         Bukkit.getScheduler().runTaskLater(FFAPlugin.getPlugin(), () -> {
             getAttacked.remove(victim.getUniqueId());
-        }, 20 * 10L);
+        }, 20 * 10);
     }
 }

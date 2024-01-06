@@ -34,6 +34,10 @@ public class GameMapManager {
         maps.put(world.getName(), new GameMap(name, world));
     }
 
+    public static void register(GameMap map) {
+        maps.put(map.getName(), map);
+    }
+
     public static void unregister(String name) {
         maps.remove(name);
     }

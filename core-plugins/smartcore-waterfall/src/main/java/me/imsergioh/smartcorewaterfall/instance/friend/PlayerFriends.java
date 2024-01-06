@@ -1,5 +1,7 @@
 package me.imsergioh.smartcorewaterfall.instance.friend;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.AccessLevel;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
@@ -14,6 +16,11 @@ import java.util.UUID;
 
 @Getter
 public class PlayerFriends extends MongoDBPluginConfig {
+
+  public static final Gson GSON = new GsonBuilder()
+          .disableHtmlEscaping()
+          .setPrettyPrinting()
+          .create();
 
   protected static final String DATABASE = "proxy_data";
   protected static final String COLLECTION = "player_friends";
@@ -53,6 +60,17 @@ public class PlayerFriends extends MongoDBPluginConfig {
     this.loadDocument();
   }
 
+  @Override
+  public MongoDBPluginConfig save() {
+    final var redisCache = "cache:friend:%s".formatted(this.getPlayerUuid());
+
+    final RedisConnection redisConnection = RedisConnection.mainConnection;
+    if (redisConnection != null && redisConnection.getResource().exists(redisCache)) {
+      redisConnection.getResource().del(redisCache);
+    }
+    return super.save();
+  }
+
   @Getter(AccessLevel.PRIVATE)
   private long lastUpdateFriends;
 
@@ -72,18 +90,6 @@ public class PlayerFriends extends MongoDBPluginConfig {
       this.put("friends", friendList);
       this.save();
     });
-  }
-
-  @Override
-  public MongoDBPluginConfig save() {
-    final var redisCache = "cache.friend.%s".formatted(this.getPlayerUuid());
-
-    final RedisConnection redisConnection = RedisConnection.mainConnection;
-    if (redisConnection != null) {
-      redisConnection.getResource().del(redisCache);
-    }
-
-    return super.save();
   }
 
   /* Can be nullable */

@@ -1,7 +1,5 @@
 package me.imsergioh.smartcorewaterfall.manager.friend;
 
-import lombok.AccessLevel;
-import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.smartcorewaterfall.instance.PlayerLanguages;
 import me.imsergioh.smartcorewaterfall.instance.friend.PlayerFriends;
@@ -15,21 +13,12 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class FriendsManager {
-
-  @Getter(AccessLevel.PROTECTED)
-  private static final ConcurrentMap<UUID, PlayerFriends> friends = new ConcurrentHashMap<>();
-
-  protected static boolean containsFriend(ProxiedPlayer player) {
-    return FriendsManager.getFriends().containsKey(player.getUniqueId());
-  }
-
-  protected static boolean containsFriend(UUID playerUuid) {
-    return FriendsManager.getFriends().containsKey(playerUuid);
-  }
 
   public static CompletableFuture<Void> addFriend(UUID playerUuid, UUID friendUuid, boolean best, long timestamp) {
     return AsyncUtilities.schedule(() -> {
@@ -54,26 +43,12 @@ public class FriendsManager {
   }
 
   public static CompletableFuture<PlayerFriends> getFriends(UUID playerUuid) {
-    final var redisCache = "cache.friend.%s".formatted(playerUuid);
+    final var redisCache = "cache:friend:%s".formatted(playerUuid);
     final RedisConnection redisConnection = RedisConnection.mainConnection;
 
-    if (containsFriend(playerUuid)) {
-      final var currentCache = CompletableFuture.completedFuture(
-              FriendsManager.getFriends().get(playerUuid)
-      );
-
-      if (redisConnection == null) {
-        FriendsManager.getFriends().remove(playerUuid);
-      } else {
-        CompletableFuture.runAsync(() -> {
-          if (!redisConnection.getResource().exists(redisCache)
-                  && FriendsManager.containsFriend(playerUuid)) {
-            FriendsManager.getFriends().remove(playerUuid);
-          }
-        });
-      }
-
-      return currentCache;
+    if (redisConnection != null && redisConnection.getResource().exists(redisCache)) {
+      final String cache = redisConnection.getResource().get(redisCache);
+      return CompletableFuture.completedFuture(PlayerFriends.GSON.fromJson(cache, PlayerFriends.class));
     }
 
     final CompletableFuture<PlayerFriends> friendsFuture = fetchFriends(playerUuid);
@@ -84,16 +59,13 @@ public class FriendsManager {
                 return;
               }
 
-              if (redisConnection != null) {
+              if (redisConnection != null && friend != null) {
                 redisConnection.getResource().psetex(
                         redisCache,
                         TimeUnit.MINUTES.toMillis(10),
-                        Long.toString(System.currentTimeMillis())
+                        PlayerFriends.GSON.toJsonTree(friend).getAsString()
                 );
               }
-
-              if (friend == null || containsFriend(playerUuid)) return;
-              FriendsManager.getFriends().put(playerUuid, friend);
             }
     );
     return friendsFuture;
@@ -125,7 +97,6 @@ public class FriendsManager {
   }
 
   /* Cooldown Implementation */
-
   public static void scheduleFriendRequest(UUID playerUuid, UUID friendUuid) {
     DebugUtil.debug("friends", "scheduleFriendRequest");
     FriendCooldownImpl.schedule(playerUuid, friendUuid);

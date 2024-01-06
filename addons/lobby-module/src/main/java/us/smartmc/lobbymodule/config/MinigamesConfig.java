@@ -2,6 +2,7 @@ package us.smartmc.lobbymodule.config;
 
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.MongoDBPluginConfig;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
@@ -49,7 +50,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
 
     public static ItemStack getItemOf(Player player, String name) {
         CorePlayer corePlayer = CorePlayer.get(player.getUniqueId());
-        Language language = corePlayer.getLanguage();
+        Language language = PlayerLanguages.get(player.getUniqueId());
         Document configDoc = LobbyModule.getMinigamesConfig().get(name, Document.class);
         Document document = LanguagesHandler.get(language).get("lobby_miniGames").get(name, Document.class);
         String itemName = document.getString("name");

@@ -1,5 +1,6 @@
 package us.smartmc.snowgames.inventory;
 
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
@@ -22,7 +23,7 @@ public class LobbyHotbar extends FFAMenu {
 
     @Override
     public void load() {
-        Language language = CorePlayer.get(player).getLanguage();
+        Language language = PlayerLanguages.get(player.getUniqueId());
 
         set(0, parseItem(player, config.getItemConfig(language, "lobby.tops").get(player)),
                 "hotbar tops");

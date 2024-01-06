@@ -1,5 +1,6 @@
 package us.smartmc.snowgames.inventory;
 
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.entity.Player;
@@ -18,7 +19,7 @@ public class GameHotbar extends FFAMenu {
 
     @Override
     public void load() {
-        Language language = CorePlayer.get(player).getLanguage();
+        Language language = PlayerLanguages.get(player.getUniqueId());
         set(0, parseItem(player, config.getItemConfig(language, "weapon").get(), "&b"), "game weapon");
 
         set(1, parseItem(player, config.getItemConfig(language, "blocks").get(), "&b"));

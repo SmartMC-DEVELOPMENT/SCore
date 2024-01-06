@@ -4,6 +4,7 @@ import fr.minuskube.netherboard.Netherboard;
 import fr.minuskube.netherboard.bukkit.BPlayerBoard;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.event.PlayerLanguageChangedEvent;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.entity.Player;
@@ -54,7 +55,7 @@ public class ScoreboardHandler implements Listener {
 
     public void register(Player player, String name) {
         unregister(player);
-        get(name, SmartCorePlayer.get(player).getLanguage()).register(player);
+        get(name, PlayerLanguages.get(player.getUniqueId())).register(player);
     }
 
     public void unregister(Player player) {

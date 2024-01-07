@@ -15,8 +15,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.core.SmartCore;
-import us.smartmc.gamesmanager.player.GamePlayer;
-import us.smartmc.gamesmanager.player.GamePlayerRepository;
+import us.smartmc.gamesmanager.player.GamePlayerManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.game.FFAMap;
@@ -43,7 +42,7 @@ public class PlayerListeners implements Listener {
     @EventHandler
     public void giveLobbyHotbar(PlayerDataLoadedEvent event) {
         Player player = event.getPlayer();
-        LobbyHotbar.give(player);
+        //LobbyHotbar.give(player);
         player.setGameMode(GameMode.ADVENTURE);
     }
 
@@ -51,11 +50,11 @@ public class PlayerListeners implements Listener {
     public void onDisconnect(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        FFAPlayer ffaPlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
+        FFAPlayer ffaPlayer = (FFAPlayer) GamePlayerManager.get(player);
         if (ffaPlayer == null) return;
         ffaPlayer.saveStats();
         FFAPlugin.getGame().quitPlayer(ffaPlayer);
-        GamePlayerRepository.remove(ffaPlayer.getUUID());
+        GamePlayerManager.remove(ffaPlayer.getUUID());
         ItemCooldownManager.clear(player);
 
         event.setQuitMessage(null);
@@ -66,7 +65,7 @@ public class PlayerListeners implements Listener {
         event.getDrops().clear();
         event.setDeathMessage("");
         event.setKeepInventory(false);
-        FFAPlayer ffaPlayer = GamePlayerRepository.provide(FFAPlayer.class, event.getEntity());
+        FFAPlayer ffaPlayer = (FFAPlayer) GamePlayerManager.get(event.getEntity());
         if (ffaPlayer == null) return;
         FFAPlugin.getGame().deathPlayer(ffaPlayer);
     }

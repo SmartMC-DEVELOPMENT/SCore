@@ -12,11 +12,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
-import us.smartmc.gamesmanager.player.GamePlayer;
-import us.smartmc.gamesmanager.player.GamePlayerRepository;
+import us.smartmc.gamesmanager.player.GamePlayerManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
-import us.smartmc.snowgames.inventory.LobbyHotbar;
 import us.smartmc.snowgames.player.FFAPlayer;
 import us.smartmc.snowgames.util.RegionUtils;
 
@@ -56,7 +54,7 @@ public class GameListeners implements Listener {
         Player player = event.getPlayer();
         FFAGame game = FFAPlugin.getGame();
         if (!game.isInGame(player) && !RegionUtils.isAtSpawn(player)) {
-            FFAPlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
+            FFAPlayer gamePlayer = (FFAPlayer) GamePlayerManager.get(player);
             if (gamePlayer == null) return;
             game.joinPlayer(gamePlayer);
         }

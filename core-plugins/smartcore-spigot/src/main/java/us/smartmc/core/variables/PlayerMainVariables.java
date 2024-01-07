@@ -15,8 +15,13 @@ public class PlayerMainVariables extends VariableListener<Player> {
 
     @Override
     public String parse(Player player, String message) {
-        message = VariableUtil.replace(message, "<name>", player.getName());
-        message = VariableUtil.replace(message, "<ping>", String.valueOf(((CraftPlayer) player).getHandle().ping));
+        if (message.contains("<ping>")) {
+            message = message.replace("<ping>", String.valueOf(((CraftPlayer) player).getHandle().ping));
+        }
+
+        if (message.contains("<name>")) {
+            message = message.replace("<name>", player.getName());
+        }
 
         if (message.contains("<coins>")) {
             SmartCorePlayer corePlayer = SmartCorePlayer.get(player);

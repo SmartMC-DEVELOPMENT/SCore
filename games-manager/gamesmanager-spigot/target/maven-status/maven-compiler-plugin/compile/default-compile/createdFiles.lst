@@ -1,4 +1,5 @@
 us\smartmc\gamesmanager\manager\GameMapManager.class
+us\smartmc\gamesmanager\player\GamePlayerManager.class
 us\smartmc\gamesmanager\team\GameTeam.class
 us\smartmc\gamesmanager\game\task\GameDelayedTask.class
 us\smartmc\gamesmanager\util\LogUtils.class
@@ -19,7 +20,6 @@ us\smartmc\gamesmanager\game\task\GameRepeatingTask.class
 us\smartmc\gamesmanager\game\teams\TeamSelector.class
 us\smartmc\gamesmanager\game\GamePreset.class
 us\smartmc\gamesmanager\player\GamePlayer.class
-us\smartmc\gamesmanager\player\GamePlayerRepository.class
 us\smartmc\gamesmanager\team\event\PlayerLeaveTeamEvent.class
 us\smartmc\gamesmanager\util\MongoDBUtilities.class
 us\smartmc\gamesmanager\game\map\GameMap.class

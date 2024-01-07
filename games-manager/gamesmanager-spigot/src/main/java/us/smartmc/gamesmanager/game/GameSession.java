@@ -9,7 +9,7 @@ import us.smartmc.gamesmanager.game.task.GameStartTask;
 import us.smartmc.gamesmanager.manager.GameSessionManager;
 import us.smartmc.gamesmanager.message.GameMessages;
 import us.smartmc.gamesmanager.player.GamePlayer;
-import us.smartmc.gamesmanager.player.GamePlayerRepository;
+import us.smartmc.gamesmanager.player.GamePlayerManager;
 import us.smartmc.gamesmanager.player.PlayerStatus;
 import us.smartmc.gamesmanager.util.LogUtils;
 import us.smartmc.gamesmanager.util.WorldUtils;
@@ -117,7 +117,7 @@ public class GameSession<P extends GamePlayer> implements IGameSession<P> {
 
     @Override
     public void broadcast(String message, Object... args) {
-        forEachGamePlayer((Class<? extends P>) GamePlayer.class, player -> {
+        forEachGamePlayer(player -> {
             try {
                 player.sendMessage(message, args);
             } catch (Exception e) {
@@ -127,9 +127,9 @@ public class GameSession<P extends GamePlayer> implements IGameSession<P> {
     }
 
     @Override
-    public void forEachGamePlayer(Class<? extends P> type, Consumer<P> consumer) {
+    public void forEachGamePlayer(Consumer<P> consumer) {
         players.forEach(uuid ->  {
-            P gamePlayer = GamePlayerRepository.provide(type, uuid);
+            P gamePlayer = (P) GamePlayerManager.get(uuid);
             consumer.accept(gamePlayer);
         });
     }

@@ -22,6 +22,7 @@ public class FFAMap extends GameMap {
 
     public FFAMap(String name) {
         super(name);
+
         registerConfigDefault("spawn_location", "world 0 0 0 0 0");
         registerConfigDefault("death_y_loc", 20);
         GameMapManager.register(this);

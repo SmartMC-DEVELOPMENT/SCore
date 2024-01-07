@@ -97,6 +97,7 @@ public class CountVariables extends VariableListener<Player> {
         int count = Bukkit.getOnlinePlayers().size();
 
         if (lastPushed == count) return;
+        if (lastPushed == count) return;
 
         String key = "online." + SmartCore.getServerID();
         RedisConnection.mainConnection.getResource().set(key, String.valueOf(count));

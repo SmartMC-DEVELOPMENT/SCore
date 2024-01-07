@@ -3,7 +3,6 @@ D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartm
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\team\math\DistributePlayersAlgorithm.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\GamesManagerSpigot.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\util\LogUtils.java
-D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\player\GamePlayerRepository.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\event\PlayerGameAPIEvent.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\util\MongoDBUtilities.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\game\map\GameMapSession.java
@@ -20,6 +19,7 @@ D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartm
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\game\map\GameMap.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\game\task\GameDelayedTask.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\GamesManagerAPI.java
+D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\player\GamePlayerManager.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\team\event\PlayerJoinTeamEvent.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\team\TeamColor.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\game\task\GameStartTask.java

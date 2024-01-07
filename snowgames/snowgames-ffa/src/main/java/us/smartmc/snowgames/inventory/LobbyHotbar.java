@@ -11,14 +11,15 @@ import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.config.LanguageConfig;
 import us.smartmc.snowgames.menu.FFAMenu;
 
+import java.util.UUID;
+
 public class LobbyHotbar extends FFAMenu {
 
     private static final FFAPlugin plugin = FFAPlugin.getPlugin();
     private static final LanguageConfig config = plugin.getLanguageConfig();
 
-
     private LobbyHotbar(Player player) {
-        super(player, 9, "lobby_hotbar");
+        super(player, 9, UUID.randomUUID().toString());
     }
 
     @Override

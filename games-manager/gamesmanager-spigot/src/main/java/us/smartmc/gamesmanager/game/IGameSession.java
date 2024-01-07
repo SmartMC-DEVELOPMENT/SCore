@@ -26,7 +26,7 @@ public interface IGameSession<P extends GamePlayer> {
 
     void broadcast(String message, Object... args);
 
-    void forEachGamePlayer(Class<? extends P> type, Consumer<P> consumer);
+    void forEachGamePlayer(Consumer<P> consumer);
 
     void setStatus(GameStatus status);
     GameStatus getStatus();

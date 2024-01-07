@@ -5,9 +5,7 @@ import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import us.smartmc.gamesmanager.game.GameSession;
-import us.smartmc.gamesmanager.player.GamePlayer;
-import us.smartmc.gamesmanager.player.GamePlayerRepository;
+import us.smartmc.gamesmanager.player.GamePlayerManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.manager.DeathMessagesManager;
@@ -24,13 +22,13 @@ public class PlayerUtil {
     public static void kill(Player victim) {
         DebugUtil.debug(PlayerUtil.class.getSimpleName(), "kill start");
         FFAGame game = FFAPlugin.getGame();
-        FFAPlayer ffaPlayer = GamePlayerRepository.provide(FFAPlayer.class, victim);
+        FFAPlayer ffaPlayer = (FFAPlayer) GamePlayerManager.get(victim);
         if (ffaPlayer == null) return;
 
         // Quit player from game
         game.quitPlayer(ffaPlayer);
 
-        FFAPlayer ffaVictim = GamePlayerRepository.provide(FFAPlayer.class, victim);
+        FFAPlayer ffaVictim = (FFAPlayer) GamePlayerManager.get(victim);
         if (ffaVictim == null) return;
         ffaVictim.addDeath();
 
@@ -54,7 +52,7 @@ public class PlayerUtil {
             Player victim,
             Player killer) {
         int messageIndex = manager.getRandomMessageIndex();
-        game.forEachGamePlayer(FFAPlayer.class, player -> {
+        game.forEachGamePlayer(player -> {
             Language language = PlayerLanguages.get(player.getUUID());
 
             String message = killer == null ?
@@ -68,7 +66,7 @@ public class PlayerUtil {
 
     public static void addKillTo(Player player) {
         if (player == null) return;
-        FFAPlayer killer = GamePlayerRepository.provide(FFAPlayer.class, player);
+        FFAPlayer killer = (FFAPlayer) GamePlayerManager.get(player);
         if (killer == null) return;
         killer.addKill();
         GameItemUtils.handlePlayerKill(player);

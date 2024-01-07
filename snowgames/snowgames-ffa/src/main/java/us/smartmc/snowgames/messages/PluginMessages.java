@@ -14,6 +14,7 @@ public class PluginMessages extends MultiLanguageRegistry {
             holder.registerDefault("error_cant_join", "&cError while trying to join to the ffa game");
             holder.registerDefault("cant_join_spawn_ingame", "&cYou can't join at spawn in-game!");
             holder.registerDefault("kill_messages_list", List.of("&bEl jugador &c{0}&b ha sido matado por &a{1}&b!"));
+            holder.registerDefault("death_messages_list", List.of("&bEl jugador &c{0}&b ha muerto!"));
         });
     }
 }

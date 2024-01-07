@@ -1,4 +1,4 @@
-package us.smartmc.snowgames.inventory;
+package us.smartmc.snowgames.menu;
 
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;

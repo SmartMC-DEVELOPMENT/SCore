@@ -1,7 +1,6 @@
 package us.smartmc.snowgames.object;
 
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
-import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,7 +10,7 @@ import us.smartmc.snowgames.config.LanguageConfig;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
 
-import static us.smartmc.snowgames.inventory.FFAMenu.parseItem;
+import static us.smartmc.snowgames.menu.FFAMenu.parseItem;
 
 public class ItemCooldownTask extends PluginRepeatingTask {
 

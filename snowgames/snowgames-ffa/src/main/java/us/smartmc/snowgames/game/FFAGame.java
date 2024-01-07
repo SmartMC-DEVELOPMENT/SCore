@@ -11,8 +11,10 @@ import us.smartmc.gamesmanager.game.map.GameMapSession;
 import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.snowgames.inventory.GameHotbar;
 import us.smartmc.snowgames.inventory.LobbyHotbar;
+import us.smartmc.snowgames.player.FFAPlayer;
+import us.smartmc.snowgames.util.DebugUtil;
 
-public class FFAGame extends GameSession {
+public class FFAGame extends GameSession<FFAPlayer> {
 
     public FFAGame(GamePreset instance) {
         super(instance);
@@ -22,7 +24,7 @@ public class FFAGame extends GameSession {
     }
 
     @Override
-    public void joinPlayer(GamePlayer player) {
+    public void joinPlayer(FFAPlayer player) {
         if (isInGame(player.getPlayer())) return;
 
         players.add(player.getUuid());
@@ -32,21 +34,22 @@ public class FFAGame extends GameSession {
     }
 
     @Override
-    public void quitPlayer(GamePlayer player) {
+    public void quitPlayer(FFAPlayer player) {
+        DebugUtil.debug(getClass().getSimpleName(), "quitPlayer start");
         if (!isInGame(player.getPlayer())) return;
-        players.remove(player.getUuid());
 
         SyncUtil.later(() -> {
             if (!player.getPlayer().isOnline()) return;
             player.getPlayer().teleport(getSpawn());
             LobbyHotbar.give(player.getPlayer());
-
             player.getPlayer().setGameMode(GameMode.ADVENTURE);
+            players.remove(player.getUuid());
         }, 25);
+        DebugUtil.debug(getClass().getSimpleName(), "quitPlayer end");
     }
 
     @Override
-    public boolean canPlayerJoin(GamePlayer player) {
+    public boolean canPlayerJoin(FFAPlayer player) {
         if (players.size() >= map.getMaxPlayers()) return false;
         return getSpawn() != null;
     }
@@ -56,6 +59,7 @@ public class FFAGame extends GameSession {
     }
 
     public boolean isInGame(Player player) {
+        DebugUtil.debug(getClass().getSimpleName(), "isInGame " + players);
         return players.contains(player.getUniqueId());
     }
 

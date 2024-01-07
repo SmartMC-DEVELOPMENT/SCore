@@ -1,6 +1,7 @@
 package us.smartmc.gamesmanager.player;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
@@ -11,8 +12,8 @@ import us.smartmc.gamesmanager.team.GameTeam;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-@Data
-public abstract class GamePlayer implements GamePlayerData {
+@Getter @Setter
+public abstract class GamePlayer extends CorePlayer implements GamePlayerData {
 
     @MongoPlayerData
     protected final UUID uuid;
@@ -23,10 +24,11 @@ public abstract class GamePlayer implements GamePlayerData {
     protected GameTeam team;
 
     protected GamePlayer(Player player) {
+        super(player.getUniqueId());
         this.uuid = player.getUniqueId();
         this.player = player;
 
-        if (!player.isOnline()) this.setStatus(PlayerStatus.DISCONNECTED);
+        if (!player.isOnline()) setStatus(PlayerStatus.DISCONNECTED);
         this.load();
     }
 
@@ -40,6 +42,6 @@ public abstract class GamePlayer implements GamePlayerData {
 
     @Override
     public Object getId() {
-        return this.getUuid();
+        return getUuid();
     }
 }

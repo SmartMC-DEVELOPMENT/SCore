@@ -55,24 +55,11 @@ public class GameListeners implements Listener {
     public void joinGameAtLeaveSpawn(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         FFAGame game = FFAPlugin.getGame();
-
         if (!game.isInGame(player) && !RegionUtils.isAtSpawn(player)) {
-
-            GamePlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
+            FFAPlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
             if (gamePlayer == null) return;
-
             game.joinPlayer(gamePlayer);
-            return;
         }
-
-        /*if (RegionUtils.isAtSpawn(player)) {
-            GamePlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
-            if (gamePlayer == null) return;
-            if (game.isInGame(player)) game.quitPlayer(gamePlayer);
-            if (!hasItemsInInventory(player)) {
-                LobbyHotbar.give(player);
-            }
-        }*/
     }
 
     public boolean hasItemsInInventory(Player player) {

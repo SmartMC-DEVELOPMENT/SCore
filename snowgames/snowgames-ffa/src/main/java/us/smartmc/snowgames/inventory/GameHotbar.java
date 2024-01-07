@@ -6,6 +6,7 @@ import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.entity.Player;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.config.LanguageConfig;
+import us.smartmc.snowgames.menu.FFAMenu;
 
 public class GameHotbar extends FFAMenu {
 

@@ -3,8 +3,8 @@ package us.smartmc.snowgames.actions;
 import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import org.bukkit.entity.Player;
-import us.smartmc.snowgames.inventory.SettingsMenu;
-import us.smartmc.snowgames.inventory.TopsMenu;
+import us.smartmc.snowgames.menu.SettingsMenu;
+import us.smartmc.snowgames.menu.TopsMenu;
 import us.smartmc.snowgames.util.GameItemUtils;
 
 public class HotbarActions implements ItemActionExecutor {

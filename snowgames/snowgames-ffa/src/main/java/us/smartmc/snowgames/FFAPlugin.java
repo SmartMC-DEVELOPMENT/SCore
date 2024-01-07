@@ -20,6 +20,7 @@ import us.smartmc.snowgames.listener.GameListeners;
 import us.smartmc.snowgames.listener.PlayerListeners;
 import us.smartmc.snowgames.manager.ArenaManager;
 import us.smartmc.snowgames.messages.PluginMessages;
+import us.smartmc.snowgames.util.DebugUtil;
 import us.smartmc.snowgames.variables.PlayerVariables;
 
 import java.io.File;
@@ -70,11 +71,14 @@ public class FFAPlugin extends JavaPlugin {
         getCommand("ffa").setExecutor(new FFACommand());
 
         arenaManager = new ArenaManager();
+
+        DebugUtil.setEnabled(false);
     }
 
     @Override
     public void onDisable() {
         // ON DISABLE GAME LOGIC HERE
+
     }
 
     private void registerListeners(Class<? extends Listener>... classes) {

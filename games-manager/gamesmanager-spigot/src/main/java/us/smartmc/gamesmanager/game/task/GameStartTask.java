@@ -13,7 +13,7 @@ public class GameStartTask extends GameRepeatingTask {
 
     private final int seconds;
 
-    public GameStartTask(IGameSession gameSession, int seconds) {
+    public GameStartTask(IGameSession<GamePlayer> gameSession, int seconds) {
         super(gameSession, 0, 1, TimeUnit.SECONDS);
         this.seconds = seconds;
 

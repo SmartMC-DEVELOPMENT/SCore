@@ -12,12 +12,7 @@ public class RegionUtils {
     public static boolean isAtSpawn(Player player) {
         SmartCorePlayer sPlayer = SmartCorePlayer.get(player);
         PlayerRegionSubscriber subscriber = sPlayer.getPlayerRegionSubscriber();
-        for (RegionConfig region : subscriber.getRegionsAt()) {
-            if (region.getName().startsWith("spawn")) {
-                return true;
-            }
-        }
-        return false;
+        return !subscriber.getRegionsAt().isEmpty();
     }
 
     public static Set<RegionConfig> getRegionsAt(Player player) {

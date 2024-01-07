@@ -1,16 +1,17 @@
 package us.smartmc.snowgames.listener;
 
+import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.core.SmartCore;
@@ -40,7 +41,7 @@ public class PlayerListeners implements Listener {
     }
 
     @EventHandler
-    public void giveLobbyHotbar(PlayerJoinEvent event) {
+    public void giveLobbyHotbar(PlayerDataLoadedEvent event) {
         Player player = event.getPlayer();
         LobbyHotbar.give(player);
         player.setGameMode(GameMode.ADVENTURE);
@@ -53,11 +54,8 @@ public class PlayerListeners implements Listener {
         FFAPlayer ffaPlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
         if (ffaPlayer == null) return;
         ffaPlayer.saveStats();
-
-        GamePlayer gamePlayer = GamePlayerRepository.provide(FFAPlayer.class, player);
-        if (gamePlayer == null) return;
-        FFAPlugin.getGame().quitPlayer(gamePlayer);
-        GamePlayerRepository.remove(player.getUniqueId());
+        FFAPlugin.getGame().quitPlayer(ffaPlayer);
+        GamePlayerRepository.remove(ffaPlayer.getUUID());
         ItemCooldownManager.clear(player);
 
         event.setQuitMessage(null);
@@ -73,7 +71,7 @@ public class PlayerListeners implements Listener {
         FFAPlugin.getGame().deathPlayer(ffaPlayer);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void damageInSpawn(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
         FFAGame game = FFAPlugin.getGame();

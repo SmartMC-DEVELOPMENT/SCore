@@ -2,7 +2,6 @@ package us.smartmc.snowgames.inventory;
 
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
@@ -10,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.config.LanguageConfig;
+import us.smartmc.snowgames.menu.FFAMenu;
 
 public class LobbyHotbar extends FFAMenu {
 

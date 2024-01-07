@@ -1,11 +1,13 @@
-package us.smartmc.snowgames.inventory;
+package us.smartmc.snowgames.menu;
 
 import org.bukkit.entity.Player;
 import us.smartmc.snowgames.config.LanguageConfig;
 
 public class SettingsMenu extends FFAMenu {
+
+
     public SettingsMenu(Player player) {
-        super(player, 9*5, LanguageConfig.getMenuTitle("settings"));
+        super(player, 9*3, LanguageConfig.getMenuTitle("settings"));
     }
 
     @Override

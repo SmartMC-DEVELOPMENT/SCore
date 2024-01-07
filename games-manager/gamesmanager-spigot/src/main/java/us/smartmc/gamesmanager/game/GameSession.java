@@ -21,7 +21,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 
-public class GameSession implements IGameSession {
+public class GameSession<P extends GamePlayer> implements IGameSession<P> {
 
     private final UUID sessionID;
     protected final GamePreset gameInstance;
@@ -69,23 +69,21 @@ public class GameSession implements IGameSession {
     }
 
     @Override
-    public void joinPlayer(GamePlayer player) {
+    public void joinPlayer(P player) {
         selectRandomWhitelistedMap();
         if (!canPlayerJoin(player)) return;
-        players.add(player.getPlayer().getUniqueId());
+        players.add(player.getUuid());
         broadcast(GameMessages.getMessageVariable("player_joined"), player.getPlayer().getName(),
                 players.size(), map.getMaxPlayers());
         checkStart();
     }
 
     @Override
-    public void quitPlayer(GamePlayer player) {
-        broadcast(GameMessages.getMessageVariable("player_quited"), player.getPlayer().getName(),
-                players.size(), map.getMaxPlayers());
+    public void quitPlayer(P player) {
     }
 
     @Override
-    public void deathPlayer(GamePlayer player) {
+    public void deathPlayer(P player) {
         String title = ChatUtil.parse(player.getPlayer(), GameMessages.getMessageVariable("death_title"));
         String subtitle = ChatUtil.parse(player.getPlayer(), GameMessages.getMessageVariable("death_subtitle"));
         player.getPlayer().sendTitle(title, subtitle);
@@ -95,11 +93,11 @@ public class GameSession implements IGameSession {
     public void checkStart() {
         System.out.println("Checking start " + players.size() + " " + map.getMinPlayers());
         if (players.size() < map.getMinPlayers()) return;
-        new GameStartTask(this, 3);
+        new GameStartTask((IGameSession<GamePlayer>) this, 3);
     }
 
     @Override
-    public boolean canPlayerJoin(GamePlayer player) {
+    public boolean canPlayerJoin(P player) {
         if (!((player.getStatus().equals(PlayerStatus.LOBBY) || !player.getStatus().equals(PlayerStatus.SPECTATING)))) return false;
 
         // If it is starting and don't exceed player max amount: true
@@ -108,7 +106,7 @@ public class GameSession implements IGameSession {
     }
 
     @Override
-    public boolean canSpectatorJoin(GamePlayer player) {
+    public boolean canSpectatorJoin(P player) {
         return getStatus().equals(GameStatus.STARTING);
     }
 
@@ -119,8 +117,7 @@ public class GameSession implements IGameSession {
 
     @Override
     public void broadcast(String message, Object... args) {
-        forEachGamePlayer(GamePlayer.class, player -> {
-            if (player == null) return;
+        forEachGamePlayer((Class<? extends P>) GamePlayer.class, player -> {
             try {
                 player.sendMessage(message, args);
             } catch (Exception e) {
@@ -130,9 +127,10 @@ public class GameSession implements IGameSession {
     }
 
     @Override
-    public <T extends GamePlayer> void forEachGamePlayer(Class<T> type, Consumer<T> consumer) {
-        players.forEach(id -> {
-            consumer.accept(GamePlayerRepository.provide(type, id));
+    public void forEachGamePlayer(Class<? extends P> type, Consumer<P> consumer) {
+        players.forEach(uuid ->  {
+            P gamePlayer = GamePlayerRepository.provide(type, uuid);
+            consumer.accept(gamePlayer);
         });
     }
 

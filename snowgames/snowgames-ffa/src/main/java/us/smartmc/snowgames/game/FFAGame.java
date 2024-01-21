@@ -18,7 +18,7 @@ public class FFAGame extends GameSession<FFAPlayer> {
 
     public FFAGame(GamePreset instance) {
         super(instance);
-        map = new FFAMap("ffa-main");
+        map = new FFAMap("ffa_china");
         map.setMaxPlayers(Bukkit.getMaxPlayers());
         mapSession = new GameMapSession(map);
     }

@@ -40,7 +40,7 @@ public class GameListeners implements Listener {
     }
 
     @EventHandler
-    public void blockPlace(BlockPlaceEvent event) {
+    public void cancelBlockPlaceAtSpawn(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         FFAGame game = FFAPlugin.getGame();
 

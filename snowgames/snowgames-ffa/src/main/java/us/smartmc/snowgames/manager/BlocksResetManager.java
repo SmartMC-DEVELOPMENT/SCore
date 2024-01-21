@@ -1,8 +1,11 @@
 package us.smartmc.snowgames.manager;
 
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import us.smartmc.snowgames.config.DefaultConfig;
 import us.smartmc.snowgames.object.BlockCooldownTask;
+import us.smartmc.snowgames.util.WorldUtil;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,4 +24,13 @@ public class BlocksResetManager {
         executorService.schedule(task, DefaultConfig.getCooldown("blockRestoration"), TimeUnit.SECONDS);
         tasks.add(task);
     }
+
+    public static void completeAllByWorldName(String worldName) {
+        World world = Bukkit.getWorld(worldName);
+        for (BlockCooldownTask task : tasks) {
+            if (!task.getLocation().getWorld().equals(world)) continue;
+            task.run();
+        }
+    }
+
 }

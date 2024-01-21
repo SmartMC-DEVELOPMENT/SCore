@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,6 +20,7 @@ import us.smartmc.snowgames.listener.SnowBallDamageListener;
 import us.smartmc.snowgames.listener.GameListeners;
 import us.smartmc.snowgames.listener.PlayerListeners;
 import us.smartmc.snowgames.manager.ArenaManager;
+import us.smartmc.snowgames.manager.BlocksResetManager;
 import us.smartmc.snowgames.messages.PluginMessages;
 import us.smartmc.snowgames.util.DebugUtil;
 import us.smartmc.snowgames.variables.PlayerVariables;
@@ -78,7 +80,9 @@ public class FFAPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         // ON DISABLE GAME LOGIC HERE
-
+        for (World world : Bukkit.getWorlds()) {
+            BlocksResetManager.completeAllByWorldName(world.getName());
+        }
     }
 
     @SafeVarargs

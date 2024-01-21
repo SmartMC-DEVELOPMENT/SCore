@@ -1,5 +1,6 @@
 package us.smartmc.snowgames.object;
 
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,6 +11,7 @@ import java.util.TimerTask;
 
 public class BlockCooldownTask extends TimerTask {
 
+    @Getter
     private final Location location;
     private final Material recoverMaterial;
     private final byte recoverMaterialData;

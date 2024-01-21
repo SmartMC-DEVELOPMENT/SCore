@@ -19,7 +19,7 @@ import us.smartmc.snowgames.manager.ItemCooldownManager;
 public class BlockListeners implements Listener {
 
     @EventHandler
-    public void onBlockPlace(BlockPlaceEvent event) {
+    public void handleBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         if (SmartCore.getPlugin().getAdminModeHandler().isActive(player)) return;
         BlocksResetManager.registerBlockPlace(event.getBlockReplacedState());

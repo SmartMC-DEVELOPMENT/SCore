@@ -31,7 +31,7 @@ public class ArenaManager {
     }
 
     public void rotateMap() {
-        GameMap currentMap = getCurrentMap();
+        FFAMap currentMap = getCurrentMap();
         // Update currentIndex
         if (!mapsName.isEmpty()) {
             currentIndex = (currentIndex + 1) % mapsName.size();
@@ -48,6 +48,7 @@ public class ArenaManager {
         }
 
         if (!(nextMap instanceof FFAMap ffaMap)) return;
+        ffaMap.loadWorld();
         FFAPlugin.getGame().setMap(ffaMap);
 
         // Same Map (Only 1 FFA-Map)
@@ -64,18 +65,18 @@ public class ArenaManager {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 2, 1));
                     player.teleport(ffaMap.getSpawn());
                 }
+                currentMap.unloadWorld();
             }
         }.runTaskLater(plugin, 10);
     }
 
     public GameMap getNextMap() {
-        System.out.println("getNextMap -> " + mapsName);
         if (mapsName.isEmpty()) return null;
         String name = mapsName.get(currentIndex);
         return GameMapManager.get(name);
     }
 
-    public GameMap getCurrentMap() {
+    public FFAMap getCurrentMap() {
         return FFAPlugin.getGame().getMap();
     }
 }

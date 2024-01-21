@@ -20,6 +20,7 @@ public class PlayerVariables extends VariableListener<Player> {
         FFAPlayer ffaPlayer = (FFAPlayer) GamePlayerManager.get(player);
         if (ffaPlayer == null) return null;
         FFAGame game = FFAPlugin.getGame();
+        if (game == null) return null;
         message = VariableUtil.replace(message, "<map>", game.getMap().getName());
 
         String formattedTime = formatSecondsToTime(game.getMap().getTimeAlive());

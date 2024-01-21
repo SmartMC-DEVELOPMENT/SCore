@@ -16,6 +16,7 @@ import us.smartmc.gamesmanager.player.GamePlayerManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.player.FFAPlayer;
+import us.smartmc.snowgames.util.DebugUtil;
 import us.smartmc.snowgames.util.RegionUtils;
 
 import static us.smartmc.snowgames.config.DefaultConfig.getJoinMessage;
@@ -53,7 +54,12 @@ public class GameListeners implements Listener {
     public void joinGameAtLeaveSpawn(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         FFAGame game = FFAPlugin.getGame();
-        if (!game.isInGame(player) && !RegionUtils.isAtSpawn(player)) {
+        boolean inGame = game.isInGame(player);
+        boolean atSpawn = RegionUtils.isAtSpawn(player);
+
+        DebugUtil.debug("GameListeners", "ingame = " + inGame + "  atspawn = " + atSpawn);
+
+        if (!inGame && !atSpawn) {
             FFAPlayer gamePlayer = (FFAPlayer) GamePlayerManager.get(player);
             if (gamePlayer == null) return;
             game.joinPlayer(gamePlayer);

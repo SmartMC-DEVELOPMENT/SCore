@@ -19,7 +19,7 @@ public class FFAPlayer extends GamePlayer {
 
     private int killStreak;
 
-    protected FFAPlayer(Player player) {
+    public FFAPlayer(Player player) {
         super(player);
         statsDocument = collection.find(getQuery()).first();
         if (statsDocument == null) statsDocument = getQuery();

@@ -12,9 +12,11 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.core.SmartCore;
+import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.gamesmanager.player.GamePlayerManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
@@ -32,6 +34,11 @@ public class PlayerListeners implements Listener {
 
     // KEY = VICTIM & VALUE = ATTACKER
     public static Map<UUID, UUID> getAttacked = new HashMap<>();
+
+    @EventHandler
+    public void registerGamePlayer(PlayerJoinEvent event) {
+        GamePlayerManager.register(new FFAPlayer(event.getPlayer()));
+    }
 
     @EventHandler
     public void cancelDropItem(PlayerDropItemEvent event) {

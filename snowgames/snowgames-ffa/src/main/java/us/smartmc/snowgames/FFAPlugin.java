@@ -81,6 +81,7 @@ public class FFAPlugin extends JavaPlugin {
 
     }
 
+    @SafeVarargs
     private void registerListeners(Class<? extends Listener>... classes) {
 
         for (Class<? extends Listener> listenerClass : classes) {

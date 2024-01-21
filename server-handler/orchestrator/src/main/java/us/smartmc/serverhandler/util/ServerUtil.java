@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 
 public class ServerUtil {
 
-    public static char COUNT_SEPARATOR = '-';
+    public static String COUNT_SEPARATOR = "";
 
     public static boolean isPortInUse(int port) {
         try {

@@ -39,7 +39,7 @@ public class LobbiesMenu extends ConfigurableMenu {
                 labelCommand = "closeInv";
             }
 
-            int number = Integer.parseInt(serverID.split("-")[serverID.split("-").length - 1]);
+            int number = Integer.parseInt(serverID.replaceAll("[^0-9]", ""));
             String count = CountVariables.getCountOf(serverID);
 
             set(slot, ItemBuilder.of(material).data(materialData).name(getItemNamePrefix(isSelf) + getItemName(number))
@@ -63,6 +63,7 @@ public class LobbiesMenu extends ConfigurableMenu {
     }
 
     public static int getDynamicInventorySize() {
+
         int size = CountVariables.getKeysByPrefix(LobbiesInfoManager.getIDPrefix()).size();
 
         // Limitar el tamaño a un máximo de 54
@@ -78,6 +79,12 @@ public class LobbiesMenu extends ConfigurableMenu {
         if (size == 0 && !CountVariables.getKeysByPrefix(LobbiesInfoManager.getIDPrefix()).isEmpty()) {
             size = 9;
         }
+
+        if (size == 0) {
+            size = 9;
+        }
+
+        System.out.println("getDynamicInventorySize lobbiesMenu: " + size);
         return size;
     }
 

@@ -19,17 +19,17 @@ import us.smartmc.core.regions.controller.PlayerRegionSubscriber;
 import java.util.HashMap;
 import java.util.UUID;
 
+@Getter
 public class SmartCorePlayer extends CorePlayer {
 
     private static final SmartCore plugin = SmartCore.getPlugin();
 
     public static final String COINS_PATH = "coins";
     private static final HashMap<UUID, SmartCorePlayer> players = new HashMap<>();
-    @Getter
     private final PlayerRegionSubscriber playerRegionSubscriber;
 
-    protected SmartCorePlayer(UUID uuid) {
-        super(uuid);
+    protected SmartCorePlayer(Player player) {
+        super(player);
         playerRegionSubscriber = new PlayerRegionSubscriber(this);
     }
 
@@ -115,9 +115,9 @@ public class SmartCorePlayer extends CorePlayer {
         return uuid;
     }
 
-    public static void register(UUID uuid) {
-        if (players.containsKey(uuid)) return;
-        players.put(uuid, new SmartCorePlayer(uuid));
+    public static void register(Player player) {
+        if (players.containsKey(player.getUniqueId())) return;
+        players.put(player.getUniqueId(), new SmartCorePlayer(player));
     }
 
     public static SmartCorePlayer get(String name) {

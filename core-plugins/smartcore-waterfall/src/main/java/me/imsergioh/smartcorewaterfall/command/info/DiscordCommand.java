@@ -1,0 +1,16 @@
+package me.imsergioh.smartcorewaterfall.command.info;
+
+import me.imsergioh.smartcorewaterfall.instance.CoreCommand;
+import me.imsergioh.smartcorewaterfall.messages.HelpMessages;
+import net.md_5.bungee.api.CommandSender;
+
+public class DiscordCommand extends CoreCommand {
+    public DiscordCommand() {
+        super("discord", null, "dc");
+    }
+
+    @Override
+    public void execute(CommandSender sender, String[] args) {
+        sendFormattedList(HelpMessages.NAME, sender, "discord");
+    }
+}

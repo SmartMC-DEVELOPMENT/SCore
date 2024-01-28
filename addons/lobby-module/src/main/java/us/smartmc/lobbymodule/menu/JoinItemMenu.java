@@ -4,9 +4,11 @@ package us.smartmc.lobbymodule.menu;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -51,6 +53,8 @@ public class JoinItemMenu extends ConfigurableMenu {
 
         String namePath = "<lang.lobby.items_" + name + "_name>";
         String lorePath = "<lang.lobby.items_" + name + "_description>";
+
+        System.out.println("setItem JoinItemMenu -> " + PlayerLanguages.get(player.getUniqueId()));
 
         ItemBuilder builder = ItemBuilder.of(material)
                 .name(namePath)

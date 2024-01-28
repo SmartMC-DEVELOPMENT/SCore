@@ -12,7 +12,7 @@ public class CorePlayersListener implements Listener {
 
     @EventHandler
     public void registerSmartCorePlayer(PlayerJoinEvent event)  {
-        SmartCorePlayer.register(event.getPlayer().getUniqueId());
+        SmartCorePlayer.register(event.getPlayer());
     }
 
     @EventHandler

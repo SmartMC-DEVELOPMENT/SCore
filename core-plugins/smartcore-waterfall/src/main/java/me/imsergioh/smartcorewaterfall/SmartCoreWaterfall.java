@@ -9,7 +9,18 @@ import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.smartcorewaterfall.command.*;
+import me.imsergioh.smartcorewaterfall.command.admin.BroadcastCommand;
+import me.imsergioh.smartcorewaterfall.command.admin.ServerHandlerCommand;
+import me.imsergioh.smartcorewaterfall.command.admin.SetPrefixCommand;
 import me.imsergioh.smartcorewaterfall.command.friend.FriendCommand;
+import me.imsergioh.smartcorewaterfall.command.info.DiscordCommand;
+import me.imsergioh.smartcorewaterfall.command.info.HelpCommand;
+import me.imsergioh.smartcorewaterfall.command.info.StoreCommand;
+import me.imsergioh.smartcorewaterfall.command.info.TwitterCommand;
+import me.imsergioh.smartcorewaterfall.command.moderation.BanCommand;
+import me.imsergioh.smartcorewaterfall.command.moderation.KickCommand;
+import me.imsergioh.smartcorewaterfall.command.moderation.MuteCommand;
+import me.imsergioh.smartcorewaterfall.command.moderation.WarnCommand;
 import me.imsergioh.smartcorewaterfall.customcommand.MessageCommand;
 import me.imsergioh.smartcorewaterfall.customcommand.TestCommand;
 import me.imsergioh.smartcorewaterfall.instance.BungeeLogger;
@@ -111,7 +122,8 @@ public final class SmartCoreWaterfall extends Plugin {
                 new DiscordCommand(),
                 new TwitterCommand(),
                 new StoreCommand(),
-                new SmartCoreWaterfallCommand("smartcorewaterfall"));
+                new SmartCoreWaterfallCommand("smartcorewaterfall"),
+                new ServerHandlerCommand());
     }
 
     private void registerCommands(Command... commands) {

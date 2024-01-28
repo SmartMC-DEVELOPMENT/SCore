@@ -23,7 +23,10 @@ public class LanguageVariables extends VariableListener<Player> {
 
     private String get(Player player, String message) {
         Language language = Language.getDefault();
-        if (player != null) language = PlayerLanguages.get(player.getUniqueId());
+
+        // If player not null -> set language to player's language
+        if (player != null)
+            language = PlayerLanguages.get(player.getUniqueId());
 
         String[] args = message.split(" ");
         for (int i = 0; i < args.length; i++) {

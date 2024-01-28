@@ -10,7 +10,6 @@ D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartm
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\game\teams\EnumSelector.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\manager\CancellableEvent.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\game\GamePreset.java
-D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\player\GamePlayer.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\editor\EditSession.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\player\annotations\GamePlayerData.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\manager\GameMapManager.java
@@ -19,7 +18,6 @@ D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartm
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\game\map\GameMap.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\game\task\GameDelayedTask.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\GamesManagerAPI.java
-D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\player\GamePlayerManager.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\team\event\PlayerJoinTeamEvent.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\team\TeamColor.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\game\task\GameStartTask.java

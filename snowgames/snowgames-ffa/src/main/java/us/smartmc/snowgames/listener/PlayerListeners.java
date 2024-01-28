@@ -16,12 +16,10 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.core.SmartCore;
-import us.smartmc.gamesmanager.player.GamePlayer;
-import us.smartmc.gamesmanager.player.GamePlayerManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.game.FFAMap;
-import us.smartmc.snowgames.inventory.LobbyHotbar;
+import us.smartmc.snowgames.manager.FFAPlayerManager;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
 import us.smartmc.snowgames.player.FFAPlayer;
 import us.smartmc.snowgames.util.PlayerUtil;
@@ -37,7 +35,7 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void registerGamePlayer(PlayerJoinEvent event) {
-        GamePlayerManager.register(new FFAPlayer(event.getPlayer()));
+        FFAPlayerManager.INSTANCE.register(event.getPlayer().getUniqueId(), new FFAPlayer(event.getPlayer()));
     }
 
     @EventHandler
@@ -57,11 +55,11 @@ public class PlayerListeners implements Listener {
     public void onDisconnect(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        FFAPlayer ffaPlayer = (FFAPlayer) GamePlayerManager.get(player);
+        FFAPlayer ffaPlayer = FFAPlayerManager.INSTANCE.get(player.getUniqueId());
         if (ffaPlayer == null) return;
         ffaPlayer.saveStats();
         FFAPlugin.getGame().quitPlayer(ffaPlayer);
-        GamePlayerManager.remove(ffaPlayer.getUUID());
+        FFAPlayerManager.INSTANCE.unregister(ffaPlayer.getPlayer().getUniqueId());
         ItemCooldownManager.clear(player);
 
         event.setQuitMessage(null);
@@ -72,7 +70,7 @@ public class PlayerListeners implements Listener {
         event.getDrops().clear();
         event.setDeathMessage("");
         event.setKeepInventory(false);
-        FFAPlayer ffaPlayer = (FFAPlayer) GamePlayerManager.get(event.getEntity());
+        FFAPlayer ffaPlayer = FFAPlayerManager.INSTANCE.get(event.getEntity().getUniqueId());
         if (ffaPlayer == null) return;
         FFAPlugin.getGame().deathPlayer(ffaPlayer);
     }

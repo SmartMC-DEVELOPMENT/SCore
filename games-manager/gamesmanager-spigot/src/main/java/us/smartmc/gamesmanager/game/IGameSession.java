@@ -1,12 +1,12 @@
 package us.smartmc.gamesmanager.game;
 
-import us.smartmc.gamesmanager.player.GamePlayer;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public interface IGameSession<P extends GamePlayer> {
+public interface IGameSession<P extends Player> {
 
     void unload();
 

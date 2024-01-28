@@ -3,13 +3,12 @@ package us.smartmc.gamesmanager.game;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.util.ChatUtil;
+import org.bukkit.entity.Player;
 import us.smartmc.gamesmanager.game.map.GameMap;
 import us.smartmc.gamesmanager.game.map.GameMapSession;
 import us.smartmc.gamesmanager.game.task.GameStartTask;
 import us.smartmc.gamesmanager.manager.GameSessionManager;
 import us.smartmc.gamesmanager.message.GameMessages;
-import us.smartmc.gamesmanager.player.GamePlayer;
-import us.smartmc.gamesmanager.player.GamePlayerManager;
 import us.smartmc.gamesmanager.player.PlayerStatus;
 import us.smartmc.gamesmanager.util.LogUtils;
 import us.smartmc.gamesmanager.util.WorldUtils;
@@ -21,7 +20,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 
-public class GameSession<P extends GamePlayer> implements IGameSession<P> {
+public class GameSession<P extends Player> implements IGameSession<P> {
 
     private final UUID sessionID;
     protected final GamePreset gameInstance;
@@ -72,7 +71,7 @@ public class GameSession<P extends GamePlayer> implements IGameSession<P> {
     public void joinPlayer(P player) {
         selectRandomWhitelistedMap();
         if (!canPlayerJoin(player)) return;
-        players.add(player.getUuid());
+        players.add(player.getUniqueId());
         broadcast(GameMessages.getMessageVariable("player_joined"), player.getPlayer().getName(),
                 players.size(), map.getMaxPlayers());
         checkStart();
@@ -93,7 +92,7 @@ public class GameSession<P extends GamePlayer> implements IGameSession<P> {
     public void checkStart() {
         System.out.println("Checking start " + players.size() + " " + map.getMinPlayers());
         if (players.size() < map.getMinPlayers()) return;
-        new GameStartTask((IGameSession<GamePlayer>) this, 3);
+        new GameStartTask((IGameSession<Player>) this, 3);
     }
 
     @Override

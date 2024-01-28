@@ -6,7 +6,6 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import us.smartmc.gamesmanager.manager.CancellableEvent;
-import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.gamesmanager.team.GameTeam;
 
 @Getter

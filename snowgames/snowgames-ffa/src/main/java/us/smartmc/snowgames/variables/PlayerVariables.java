@@ -3,9 +3,9 @@ package us.smartmc.snowgames.variables;
 import me.imsergioh.pluginsapi.instance.VariableListener;
 import org.bukkit.entity.Player;
 import us.smartmc.core.util.VariableUtil;
-import us.smartmc.gamesmanager.player.GamePlayerManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
+import us.smartmc.snowgames.manager.FFAPlayerManager;
 import us.smartmc.snowgames.player.FFAPlayer;
 
 public class PlayerVariables extends VariableListener<Player> {
@@ -17,7 +17,7 @@ public class PlayerVariables extends VariableListener<Player> {
     @Override
     public String parse(Player player, String message) {
 
-        FFAPlayer ffaPlayer = (FFAPlayer) GamePlayerManager.get(player);
+        FFAPlayer ffaPlayer = FFAPlayerManager.INSTANCE.get(player.getUniqueId());
         if (ffaPlayer == null) return null;
         FFAGame game = FFAPlugin.getGame();
         if (game == null) return null;

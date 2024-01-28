@@ -6,21 +6,20 @@ import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import org.bson.Document;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
 
 @Getter
-public class FFAPlayer extends GamePlayer {
-
+public class FFAPlayer {
 
     private static final MongoCollection<Document> collection = MongoDBConnection.mainConnection.getDatabase("player_data").getCollection("snowgames_ffa");
 
+    protected final Player player;
     private Document statsDocument;
 
     private int killStreak;
 
     public FFAPlayer(Player player) {
-        super(player);
+        this.player = player;
         statsDocument = collection.find(getQuery()).first();
         if (statsDocument == null) statsDocument = getQuery();
 
@@ -72,11 +71,6 @@ public class FFAPlayer extends GamePlayer {
 
     public int getMaxStreak() {
         return getIntStat("max_kill_streak");
-    }
-
-    @Override
-    public void load() {
-
     }
 
     public void saveStats() {

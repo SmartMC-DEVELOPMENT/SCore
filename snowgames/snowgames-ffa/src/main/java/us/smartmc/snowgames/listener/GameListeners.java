@@ -12,9 +12,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
-import us.smartmc.gamesmanager.player.GamePlayerManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
+import us.smartmc.snowgames.manager.FFAPlayerManager;
 import us.smartmc.snowgames.player.FFAPlayer;
 import us.smartmc.snowgames.util.DebugUtil;
 import us.smartmc.snowgames.util.RegionUtils;
@@ -60,7 +60,7 @@ public class GameListeners implements Listener {
         DebugUtil.debug("GameListeners", "ingame = " + inGame + "  atspawn = " + atSpawn);
 
         if (!inGame && !atSpawn) {
-            FFAPlayer gamePlayer = (FFAPlayer) GamePlayerManager.get(player);
+            FFAPlayer gamePlayer = FFAPlayerManager.INSTANCE.get(player.getUniqueId());
             if (gamePlayer == null) return;
             game.joinPlayer(gamePlayer);
         }

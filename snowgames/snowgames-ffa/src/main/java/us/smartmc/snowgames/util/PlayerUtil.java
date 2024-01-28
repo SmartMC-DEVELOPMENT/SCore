@@ -5,10 +5,11 @@ import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import us.smartmc.gamesmanager.player.GamePlayerManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
+import us.smartmc.snowgames.game.FFAMap;
 import us.smartmc.snowgames.manager.DeathMessagesManager;
+import us.smartmc.snowgames.manager.FFAPlayerManager;
 import us.smartmc.snowgames.manager.KillMessagesManager;
 import us.smartmc.snowgames.manager.ListMessagesManager;
 import us.smartmc.snowgames.player.FFAPlayer;
@@ -22,15 +23,16 @@ public class PlayerUtil {
     public static void kill(Player victim) {
         DebugUtil.debug(PlayerUtil.class.getSimpleName(), "kill start");
         FFAGame game = FFAPlugin.getGame();
-        FFAPlayer ffaPlayer = (FFAPlayer) GamePlayerManager.get(victim);
-        if (ffaPlayer == null) return;
+        FFAPlayer ffaVictim = FFAPlayerManager.INSTANCE.get(victim.getUniqueId());
+        if (ffaVictim == null) return;
 
         // Quit player from game
-        game.quitPlayer(ffaPlayer);
+        game.quitPlayer(ffaVictim);
 
-        FFAPlayer ffaVictim = (FFAPlayer) GamePlayerManager.get(victim);
-        if (ffaVictim == null) return;
         ffaVictim.addDeath();
+
+        FFAMap map = FFAPlugin.getPlugin().getArenaManager().getCurrentMap();
+        ffaVictim.getPlayer().teleport(map.getSpawn());
 
         // Tries to get last player damage if not null then calls method addKillTo
         UUID attackerUUID = getAttacked.get(victim.getUniqueId());
@@ -53,20 +55,20 @@ public class PlayerUtil {
             Player killer) {
         int messageIndex = manager.getRandomMessageIndex();
         game.forEachGamePlayer(player -> {
-            Language language = PlayerLanguages.get(player.getUUID());
+            Language language = PlayerLanguages.get(player.getPlayer().getUniqueId());
 
             String message = killer == null ?
                     ChatUtil.parse(player.getPlayer(), manager.getRandomMessageFromList(messageIndex, language),
                     victim.getName()) :
                     ChatUtil.parse(player.getPlayer(), manager.getRandomMessageFromList(messageIndex, language),
                     victim.getName(), killer.getName());
-            player.sendMessage(message);
+            player.getPlayer().sendMessage(message);
         });
     }
 
     public static void addKillTo(Player player) {
         if (player == null) return;
-        FFAPlayer killer = (FFAPlayer) GamePlayerManager.get(player);
+        FFAPlayer killer = FFAPlayerManager.INSTANCE.get(player.getUniqueId());
         if (killer == null) return;
         killer.addKill();
         GameItemUtils.handlePlayerKill(player);

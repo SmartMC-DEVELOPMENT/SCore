@@ -2,7 +2,6 @@ package us.smartmc.gamesmanager.team;
 
 import lombok.Getter;
 import lombok.Setter;
-import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.gamesmanager.team.event.PlayerJoinTeamEvent;
 import us.smartmc.gamesmanager.team.event.PlayerLeaveTeamEvent;
 

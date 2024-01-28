@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.gamesmanager.manager.GameMapManager;
 import us.smartmc.gamesmanager.message.GameMessages;
-import us.smartmc.gamesmanager.player.GamePlayerManager;
 import us.smartmc.gamesmanager.util.WorldUtils;
 
 public class GamesManagerSpigot extends JavaPlugin {
@@ -24,13 +23,6 @@ public class GamesManagerSpigot extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            try {
-                GamePlayerManager.remove(player.getUniqueId());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        WorldUtils.deleteAllTempWorlds();
+
     }
 }

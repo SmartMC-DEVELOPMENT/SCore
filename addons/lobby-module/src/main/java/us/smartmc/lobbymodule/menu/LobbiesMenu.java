@@ -83,8 +83,6 @@ public class LobbiesMenu extends ConfigurableMenu {
         if (size == 0) {
             size = 9;
         }
-
-        System.out.println("getDynamicInventorySize lobbiesMenu: " + size);
         return size;
     }
 

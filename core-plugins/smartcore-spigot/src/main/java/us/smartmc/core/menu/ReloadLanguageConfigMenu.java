@@ -13,7 +13,7 @@ import java.util.Set;
 public class ReloadLanguageConfigMenu extends CoreMenu {
 
     public ReloadLanguageConfigMenu(Player player) {
-        super(player, 6*9, "Handle language configs - Admin menu");
+        super(player, 6*9, "Handle: Lang configs");
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ReloadLanguageConfigMenu extends CoreMenu {
             ItemStack item = ItemBuilder.of(Material.PAPER).name(name)
                     .lore(Arrays.asList("&eDrop to reload!"))
                     .get();
-            set(slot, item, "msg &cEn mantenimiento manito");
+            set(slot, item, "reloadLanguageConfig " + name);
             slot++;
         }
     }

@@ -66,7 +66,6 @@ public class TagsHandler implements Listener {
 
     private String getFormattedTag(Player player) {
         String unformattedTag = "<chat.prefix><name>";
-        System.out.println("getFormattedTag ->"  + unformattedTag);
         if (unformattedTag == null) {
 
         }

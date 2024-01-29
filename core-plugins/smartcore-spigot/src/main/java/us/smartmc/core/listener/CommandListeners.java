@@ -10,7 +10,7 @@ import us.smartmc.core.instance.CommandIntermediate;
 public class CommandListeners implements Listener {
 
     @EventHandler
-    public void onPreProcessCommand(PlayerCommandPreprocessEvent event) throws Exception {
+    public void onPreProcessCommand(PlayerCommandPreprocessEvent event) {
         String name = event.getMessage().split(" ")[0];
 
         CommandIntermediate intermediate = new CommandIntermediate(name);

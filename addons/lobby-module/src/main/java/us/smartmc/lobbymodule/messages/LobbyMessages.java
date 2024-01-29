@@ -1,8 +1,12 @@
 package us.smartmc.lobbymodule.messages;
 
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.language.LanguageMessagesHolder;
 import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
+import org.bukkit.Material;
 import us.smartmc.lobbymodule.instance.PlayerVisibility;
+
+import java.util.Arrays;
 
 public class LobbyMessages extends MultiLanguageRegistry {
 
@@ -55,8 +59,18 @@ public class LobbyMessages extends MultiLanguageRegistry {
             item(holder, "visibility", "&bChange visibility", "");
             item(holder, "flying", "&bToggle flying", "");
             item(holder, "not_available", "&c&lNot available", "&7This game is in development and\n&7it will be published soon.\n\n&eStay tuned!");
+            item(holder, "terms", "&aTerms and Conditions", "&7Accept our terms and conditions to continue");
             holder.save();
         });
+    }
+
+    public static ItemBuilder getItem(Material material, String name) {
+        String namePath = "<lang.lobby.items_" + name + "_name>";
+        String lorePath = "<lang.lobby.items_" + name + "_description>";
+
+        return ItemBuilder.of(material)
+                .name(namePath)
+                .lore(Arrays.asList(lorePath));
     }
 
     static void item(LanguageMessagesHolder holder, String name, String displayName, String description) {

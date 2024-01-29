@@ -31,9 +31,9 @@ public class CommandIntermediate {
             commandMap = (SimpleCommandMap) field.get(Bukkit.getServer());
 
             for (Command command : commandMap.getCommands()) {
-                if (cmdName.equals(command.getName())) return true;
+                if (cmdName.equalsIgnoreCase(command.getName())) return true;
                 for (String alias : command.getAliases()) {
-                    if (alias.equals(cmdName)) return true;
+                    if (alias.equalsIgnoreCase(cmdName)) return true;
                 }
             }
 

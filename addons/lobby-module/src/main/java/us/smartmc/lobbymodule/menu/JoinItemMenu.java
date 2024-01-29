@@ -8,11 +8,11 @@ import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
-import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import us.smartmc.lobbymodule.messages.LobbyMessages;
 
 import java.io.File;
 import java.util.Arrays;
@@ -50,21 +50,10 @@ public class JoinItemMenu extends ConfigurableMenu {
     }
 
     public void setItem(int slot, Material material, String name) {
-
-        String namePath = "<lang.lobby.items_" + name + "_name>";
-        String lorePath = "<lang.lobby.items_" + name + "_description>";
-
-        System.out.println("setItem JoinItemMenu -> " + PlayerLanguages.get(player.getUniqueId()));
-
-        ItemBuilder builder = ItemBuilder.of(material)
-                .name(namePath)
-                .lore(Arrays.asList(lorePath));
-
-        ItemStack item = builder.get(player);
+        ItemStack item = LobbyMessages.getItem(material, name).get(player);
         set(slot, item);
         actionManager.registerItemAction(slot, item, config.getStringList("items." + slot + ".actions"));
     }
-
 
     public static String getSkullTexture(Player player) {
         GameProfile gameProfile = ((CraftPlayer) player).getProfile();

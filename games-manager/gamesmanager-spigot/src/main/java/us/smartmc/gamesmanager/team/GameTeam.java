@@ -2,6 +2,8 @@ package us.smartmc.gamesmanager.team;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.entity.Player;
+import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.gamesmanager.team.event.PlayerJoinTeamEvent;
 import us.smartmc.gamesmanager.team.event.PlayerLeaveTeamEvent;
 
@@ -15,43 +17,43 @@ public class GameTeam {
   @Getter
   @Setter
   private TeamColor color;
-  private final List<GamePlayer> players;
+  private final List<Player> players;
 
   public GameTeam(TeamColor color) {
     this.players = new ArrayList<>();
     this.color = color;
   }
 
-  public void joinPlayer(GamePlayer player) {
-    if (this.hasPlayer(player.getUuid())) return;
+  public void joinPlayer(Player player) {
+    if (this.hasPlayer(player.getUniqueId())) return;
 
     final PlayerJoinTeamEvent event = PlayerJoinTeamEvent.triggerEvent(player, this);
     if (event.isCancelled()) return;
 
     this.players.add(player);
-    player.setTeam(this);
+    GamePlayer.get(player).setGameTeam(this);
   }
 
   /* Unmodifiable */
-  public List<GamePlayer> getPlayers() {
+  public List<Player> getPlayers() {
     return Collections.unmodifiableList(this.players);
   }
 
-  public void leavePlayer(GamePlayer player) {
-    if (!this.hasPlayer(player.getUuid())) return;
+  public void leavePlayer(Player player) {
+    if (!this.hasPlayer(player.getUniqueId())) return;
 
     final PlayerLeaveTeamEvent event = PlayerLeaveTeamEvent.triggerEvent(player, this);
     if (event.isCancelled()) return;
 
-    this.players.removeIf(p -> p.getUuid().equals(player.getUuid()));
-    player.setTeam(null);
+    this.players.removeIf(p -> p.getUniqueId().equals(player.getUniqueId()));
+    GamePlayer.get(player).setGameTeam(null);
   }
 
-  public boolean hasPlayer(GamePlayer player) {
+  public boolean hasPlayer(Player player) {
     return this.players.contains(player);
   }
 
   public boolean hasPlayer(UUID uuid) {
-    return this.players.stream().anyMatch(p -> p.getUuid().equals(uuid));
+    return this.players.stream().anyMatch(p -> p.getUniqueId().equals(uuid));
   }
 }

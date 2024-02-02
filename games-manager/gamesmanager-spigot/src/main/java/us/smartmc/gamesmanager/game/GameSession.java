@@ -3,12 +3,14 @@ package us.smartmc.gamesmanager.game;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.util.ChatUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import us.smartmc.gamesmanager.game.map.GameMap;
 import us.smartmc.gamesmanager.game.map.GameMapSession;
 import us.smartmc.gamesmanager.game.task.GameStartTask;
 import us.smartmc.gamesmanager.manager.GameSessionManager;
 import us.smartmc.gamesmanager.message.GameMessages;
+import us.smartmc.gamesmanager.player.GamePlayer;
 import us.smartmc.gamesmanager.player.PlayerStatus;
 import us.smartmc.gamesmanager.util.LogUtils;
 import us.smartmc.gamesmanager.util.WorldUtils;
@@ -27,7 +29,7 @@ public class GameSession<P extends Player> implements IGameSession<P> {
     @Getter
     protected GameStatus status = GameStatus.WAITING;
 
-    protected final Set<UUID> players = new HashSet<>();
+    protected final Set<Player> players = new HashSet<>();
 
     protected GameMap map;
     protected GameMapSession mapSession;
@@ -97,7 +99,8 @@ public class GameSession<P extends Player> implements IGameSession<P> {
 
     @Override
     public boolean canPlayerJoin(P player) {
-        if (!((player.getStatus().equals(PlayerStatus.LOBBY) || !player.getStatus().equals(PlayerStatus.SPECTATING)))) return false;
+        GamePlayer gamePlayer = GamePlayer.get(player);
+        if (!((gamePlayer.getStatus().equals(PlayerStatus.LOBBY) || !gamePlayer.getStatus().equals(PlayerStatus.SPECTATING)))) return false;
 
         // If it is starting and don't exceed player max amount: true
         return (status.equals(GameStatus.STARTING) || status.equals(GameStatus.WAITING)) &&
@@ -116,9 +119,9 @@ public class GameSession<P extends Player> implements IGameSession<P> {
 
     @Override
     public void broadcast(String message, Object... args) {
-        forEachGamePlayer(player -> {
+        forEachPlayer(player -> {
             try {
-                player.sendMessage(message, args);
+                GamePlayer.get(player).sendMessage(message, args);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -126,9 +129,9 @@ public class GameSession<P extends Player> implements IGameSession<P> {
     }
 
     @Override
-    public void forEachGamePlayer(Consumer<P> consumer) {
+    public void forEachPlayer(Consumer<P> consumer) {
         players.forEach(uuid ->  {
-            P gamePlayer = (P) GamePlayerManager.get(uuid);
+            P gamePlayer = (P) Bukkit.getPlayer(uuid);
             consumer.accept(gamePlayer);
         });
     }

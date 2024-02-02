@@ -3,10 +3,13 @@ package me.imsergioh.smartcorewaterfall.command;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.smartcorewaterfall.SmartCoreWaterfall;
 import me.imsergioh.smartcorewaterfall.manager.CustomCommandsManager;
+import me.imsergioh.smartcorewaterfall.manager.TabHandler;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 
 public class SmartCoreWaterfallCommand extends Command {
+
+    private static final SmartCoreWaterfall plugin = SmartCoreWaterfall.getPlugin();
 
     public SmartCoreWaterfallCommand(String name) {
         super(name);
@@ -20,12 +23,18 @@ public class SmartCoreWaterfallCommand extends Command {
             return;
         }
         if (args.length == 0) {
-            sender.sendMessage("Available Subcommands:\n" +
-                    "reloadcustomcmds");
+            sender.sendMessage("Available Subcommands:\nreloadConfig\n\nreloadCustomCmds\nreloadMessages\nreloadTabs");
             return;
         }
 
-        if (args[0].equalsIgnoreCase("reloadcustomcmds")) {
+        if (args[0].contains("config")) {
+            plugin.loadConfig();
+            sender.sendMessage(ChatUtil.parse("&aConfiguración recargada!"));
+        }
+
+        if (args[0].contains("cmd")) {
+            CustomCommandsManager.unregisterAll();
+            plugin.loadCustomCommands();
             CustomCommandsManager.forEach(customCommandsManager -> {
                 customCommandsManager.load();
                 sender.sendMessage(ChatUtil.parse("&aRecargado: &e" + customCommandsManager.getName()));
@@ -33,5 +42,14 @@ public class SmartCoreWaterfallCommand extends Command {
             sender.sendMessage(ChatUtil.parse("&aRecargados!"));
         }
 
+        if (args[0].contains("mess") || args[0].contains("msg")) {
+            plugin.loadMessages();
+            sender.sendMessage(ChatUtil.parse("&aMensajes Recargados!"));
+        }
+
+        if (args[0].contains("tab")) {
+            TabHandler.register();
+            sender.sendMessage(ChatUtil.parse("&aTabs Recargados!"));
+        }
     }
 }

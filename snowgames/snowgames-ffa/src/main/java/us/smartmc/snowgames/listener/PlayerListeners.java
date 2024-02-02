@@ -19,6 +19,7 @@ import us.smartmc.core.SmartCore;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.game.FFAMap;
+import us.smartmc.snowgames.inventory.LobbyHotbar;
 import us.smartmc.snowgames.manager.FFAPlayerManager;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
 import us.smartmc.snowgames.player.FFAPlayer;
@@ -47,7 +48,7 @@ public class PlayerListeners implements Listener {
     @EventHandler
     public void giveLobbyHotbar(PlayerDataLoadedEvent event) {
         Player player = event.getPlayer();
-        //LobbyHotbar.give(player);
+        LobbyHotbar.give(player);
         player.setGameMode(GameMode.ADVENTURE);
     }
 
@@ -58,7 +59,7 @@ public class PlayerListeners implements Listener {
         FFAPlayer ffaPlayer = FFAPlayerManager.INSTANCE.get(player.getUniqueId());
         if (ffaPlayer == null) return;
         ffaPlayer.saveStats();
-        FFAPlugin.getGame().quitPlayer(ffaPlayer);
+        FFAPlugin.getGame().quitPlayer(player);
         FFAPlayerManager.INSTANCE.unregister(ffaPlayer.getPlayer().getUniqueId());
         ItemCooldownManager.clear(player);
 
@@ -72,7 +73,7 @@ public class PlayerListeners implements Listener {
         event.setKeepInventory(false);
         FFAPlayer ffaPlayer = FFAPlayerManager.INSTANCE.get(event.getEntity().getUniqueId());
         if (ffaPlayer == null) return;
-        FFAPlugin.getGame().deathPlayer(ffaPlayer);
+        FFAPlugin.getGame().deathPlayer(event.getEntity());
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

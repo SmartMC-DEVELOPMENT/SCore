@@ -1,6 +1,8 @@
 
 package me.imsergioh.smartcorewaterfall.manager;
 
+import lombok.Getter;
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.instance.MongoDBPluginConfig;
 import me.imsergioh.smartcorewaterfall.instance.commandmanager.CustomCommandExecutor;
 import net.md_5.bungee.api.CommandSender;
@@ -9,14 +11,16 @@ import org.bson.Document;
 import java.util.*;
 import java.util.function.Consumer;
 
+@Getter
 public class CustomCommandsManager extends MongoDBPluginConfig {
+
 
     private static final Set<CustomCommandsManager> managers = new HashSet<>();
     private static final HashMap<String, CustomCommandExecutor> commands = new HashMap<>();
 
     private final String name;
-    public CustomCommandsManager(String name) {
-        super("SmartCore", "custom_proxy_commands", new Document("_id", name));
+    public CustomCommandsManager(String name, String database, String collection) {
+        super(database, collection, new Document("_id", name));
         this.name = name;
         load();
         if (keySet().size() == 1 && containsKey("_id")) {
@@ -30,7 +34,7 @@ public class CustomCommandsManager extends MongoDBPluginConfig {
         if (!containsLabel(message)) return false;
 
         boolean executed = false;
-        for (String cmdLabel : new ArrayList<String>(get(message, ArrayList.class))) {
+        for (String cmdLabel : new ArrayList<>(getList(message, String.class))) {
             if (!containsCommand(cmdLabel)) continue;
             executeCommand(sender, cmdLabel);
             executed = true;
@@ -40,10 +44,6 @@ public class CustomCommandsManager extends MongoDBPluginConfig {
 
     public boolean containsLabel(String message) {
         return containsKey(message);
-    }
-
-    public String getName() {
-        return name;
     }
 
     public static boolean containsCommand(String label) {
@@ -73,6 +73,17 @@ public class CustomCommandsManager extends MongoDBPluginConfig {
 
     public static void forEach(Consumer<CustomCommandsManager> consumer) {
         managers.forEach(consumer);
+    }
+
+    public static void unregisterAll() {
+        managers.forEach(managers::remove);
+    }
+
+    public static void load(String database, String collection) {
+        for (Document document : MongoDBConnection.mainConnection.getDatabase(database).getCollection(collection)
+                .find()) {
+            new CustomCommandsManager(document.getString("_id"), database, collection);
+        }
     }
 
 }

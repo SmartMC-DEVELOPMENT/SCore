@@ -45,6 +45,7 @@ public class GameHotbar extends FFAMenu {
         hotBar.set(player);
         player.setHealthScale(20);
         player.setFoodLevel(20);
+        player.updateInventory();
     }
 
 }

@@ -24,18 +24,26 @@ public class ArenaManager {
         this.mapsName = new ArrayList<>();
         this.currentIndex = 0;
         GameMapManager.values().forEach(gameMap -> {
-            if (gameMap instanceof FFAMap ffaMap) {
-                mapsName.add(ffaMap.getName());
-            }
+            String name = gameMap.getName();
+            GameMapManager.register(new FFAMap(name));
+            mapsName.add(name);
         });
+
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, () -> {
+            boolean hasToChange = (System.currentTimeMillis() / 1000) >= getCurrentMap().getEndTimestamp();
+            if (!hasToChange) return;
+            rotateMap();
+        }, 10, 20);
+
     }
 
     public void rotateMap() {
-        FFAMap currentMap = getCurrentMap();
         // Update currentIndex
         if (!mapsName.isEmpty()) {
             currentIndex = (currentIndex + 1) % mapsName.size();
         }
+
+        FFAMap currentMap = getCurrentMap();
 
         GameMap nextMap = getNextMap();
         if (nextMap == null) {
@@ -48,14 +56,8 @@ public class ArenaManager {
         }
 
         if (!(nextMap instanceof FFAMap ffaMap)) return;
-        ffaMap.loadWorld();
         FFAPlugin.getGame().setMap(ffaMap);
-
-        // Same Map (Only 1 FFA-Map)
-        if (currentMap.equals(ffaMap)) {
-            ffaMap.setTimeAlive(ffaMap.getMaxArenaTime());
-            ffaMap.startChangeMapTask();
-        }
+        ffaMap.registerMapChange();
 
         new BukkitRunnable() {
             @Override
@@ -65,7 +67,6 @@ public class ArenaManager {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 2, 1));
                     player.teleport(ffaMap.getSpawn());
                 }
-                currentMap.unloadWorld();
             }
         }.runTaskLater(plugin, 10);
     }

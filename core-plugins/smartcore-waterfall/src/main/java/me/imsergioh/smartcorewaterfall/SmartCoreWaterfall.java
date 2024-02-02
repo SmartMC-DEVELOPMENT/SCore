@@ -61,39 +61,42 @@ public final class SmartCoreWaterfall extends Plugin {
     public void onEnable() {
         plugin = this;
         getDataFolder().mkdirs();
-        config = new FilePluginConfig(getDataFolder() + "/config.json").load();
-        config.registerDefault("authServers", Arrays.asList("auth", "auth1", "auth2"));
-        config.registerDefault("hubRules", new Document().append("sg-*", "sg-l*"));
-        config.save();
 
+        loadConfig();
         setupBackendConnections();
         registerDefaultLanguages();
-        mainCommandsManager = new CustomCommandsManager("main");
+
+        loadCustomCommands();
+        // Register commands
         CustomCommandsManager.register("test", new TestCommand());
         CustomCommandsManager.register("message", new MessageCommand());
 
-        new SanctionsManagerMessages();
-        new FriendManagerMessages();
-        new HelpMessages();
-        new ProxyMainMessages();
-
+        loadMessages();
         registerCommands();
-
         TabHandler.register();
         registerListeners();
-
-        for (Language language : Language.values()) {
-            LanguagesHandler.register(language);
-        }
-
         VariablesHandler.register(new LanguageVariables());
 
         logger.info("Plugin enabled successfully!");
     }
 
-    @Override
-    public void onDisable() {
+    public void loadConfig() {
+        config = new FilePluginConfig(getDataFolder() + "/config.json").load();
+        config.registerDefault("authServers", Arrays.asList("auth", "auth1", "auth2"));
+        config.registerDefault("hubRules", new Document().append("sg-*", "sg-l*"));
+        config.save();
+    }
 
+    public void loadMessages() {
+        new SanctionsManagerMessages();
+        new FriendManagerMessages();
+        new HelpMessages();
+        new ProxyMainMessages();
+    }
+
+    public void loadCustomCommands() {
+        // Load collection
+        CustomCommandsManager.load("proxy_data", "custom_proxy_commands");
     }
 
     private void registerListeners() {

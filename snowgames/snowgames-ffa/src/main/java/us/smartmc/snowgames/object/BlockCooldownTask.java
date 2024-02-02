@@ -24,9 +24,12 @@ public class BlockCooldownTask extends TimerTask {
 
     @Override
     public void run() {
-        Bukkit.getScheduler().runTask(FFAPlugin.getPlugin(), () -> {
-            location.getWorld().getBlockAt(location).setType(recoverMaterial);
-            location.getWorld().getBlockAt(location).setData(recoverMaterialData);
-        });
+        Bukkit.getScheduler().runTask(FFAPlugin.getPlugin(), this::reset);
     }
+
+    public void reset() {
+        location.getWorld().getBlockAt(location).setType(recoverMaterial);
+        location.getWorld().getBlockAt(location).setData(recoverMaterialData);
+    }
+
 }

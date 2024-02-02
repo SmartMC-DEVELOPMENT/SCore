@@ -13,42 +13,74 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class TermsListeners extends AddonListener implements Listener {
 
-    private static final Set<UUID> toAcceptPlayers = new HashSet<>();
+    private static final HashMap<UUID, UUID> toAcceptPlayers = new HashMap<>();
 
     private void acceptTerms(CorePlayer player) {
-        player.getPlayerData().setData("accepted_terms", true);
+        player.getPlayerData().getDocument().put("accepted_terms", System.currentTimeMillis() / 1000);
+        toAcceptPlayers.remove(player.getUUID());
     }
 
     private void declineTerms(CorePlayer player) {
         Player bukkitPlayer = player.get();
-        player.getPlayerData().setData("accepted_terms", false);
-        openTermsBook(bukkitPlayer);
+        player.getPlayerData().getDocument().remove("accepted_terms");
+        UUID uuid = UUID.randomUUID();
+        toAcceptPlayers.put(player.getUUID(), uuid);
+        openTermsBook(bukkitPlayer, uuid.toString());
     }
 
-    @EventHandler
-    public void onChat(AsyncPlayerChatEvent event) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void cancelInvOpen(InventoryOpenEvent event) {
+        if (!isEnabled()) return;
+        Player player = (Player) event.getPlayer();
+        if (!hasAcceptedTerms(CorePlayer.get(player))) event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void cancelInteract(PlayerInteractEvent event) {
         if (!isEnabled()) return;
         Player player = event.getPlayer();
-        if (!toAcceptPlayers.contains(player.getUniqueId())) return;
-        event.setCancelled(true);
+        if (!hasAcceptedTerms(CorePlayer.get(player))) event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onChat(PlayerCommandPreprocessEvent event) {
+        if (!isEnabled()) return;
+        Player player = event.getPlayer();
+        if (!toAcceptPlayers.containsKey(player.getUniqueId())) return;
         String message = event.getMessage();
-        if (message.equals("acceptTerms")) {
-            acceptTerms(CorePlayer.get(player));
-        } else {
+        event.setCancelled(true);
+
+        if (!message.contains("acceptTerms")) {
             declineTerms(CorePlayer.get(player));
+            return;
+        }
+        message = message.replaceFirst("/", "");
+        String[] args = event.getMessage().split(" ");
+        if (args.length == 0) return;
+        try {
+            UUID commandUUID = UUID.fromString(args[1]);
+            UUID uuid = toAcceptPlayers.get(player.getUniqueId());
+
+            if (commandUUID.equals(uuid)) {
+                event.setCancelled(true);
+                acceptTerms(CorePlayer.get(player));
+            }
+        } catch (Exception ignore) {
         }
     }
 
@@ -57,14 +89,15 @@ public class TermsListeners extends AddonListener implements Listener {
         if (!isEnabled()) return;
         Player player = event.getPlayer();
         if (hasAcceptedTerms(event.getCorePlayer())) return;
-        toAcceptPlayers.add(player.getUniqueId());
 
-        openTermsBook(player);
+        UUID uuid = UUID.randomUUID();
+        toAcceptPlayers.put(player.getUniqueId(), uuid);
+        openTermsBook(player, uuid.toString());
     }
 
-    private void openTermsBook(Player player) {
+    private void openTermsBook(Player player, String acceptID) {
         ItemStack book = LobbyMessages.getItem(Material.WRITTEN_BOOK, "terms").get(player);
-        BookMeta bookMeta = getBookTermsAndConditions(player, book);
+        BookMeta bookMeta = getBookTermsAndConditions(player, book, acceptID);
 
         book.setItemMeta(bookMeta);
 
@@ -85,13 +118,11 @@ public class TermsListeners extends AddonListener implements Listener {
         craftP.getHandle().playerConnection.sendPacket(packet);
     }
 
-    private static boolean hasAcceptedTerms(CorePlayer corePlayer) {
-        return corePlayer.getPlayerData().getDocument().containsKey("accepted_terms") ?
-                corePlayer.getPlayerData().getDocument().getBoolean("accepted_terms") :
-                false;
+    public static boolean hasAcceptedTerms(CorePlayer corePlayer) {
+        return corePlayer.getPlayerData().getDocument().containsKey("accepted_terms");
     }
 
-    private static BookMeta getBookTermsAndConditions(Player player, ItemStack book) {
+    private static BookMeta getBookTermsAndConditions(Player player, ItemStack book, String acceptID) {
         BookMeta bookMeta = (BookMeta) book.getItemMeta();
         bookMeta.setAuthor("Administration");
 
@@ -103,17 +134,16 @@ public class TermsListeners extends AddonListener implements Listener {
                 Accept the terms and conditions to be able to play and enjoy our services and our Minecraft Network :D
                 &r
                 """;
-
         bookMeta.addPage(ChatUtil.parse(player, text));
 
         ClickableComponent webComponent = new ClickableComponent();
-        webComponent.addURL("   &3&nRead terms here\n\n", "https://www.youtube.com/watch?t=105&v=6rAo_W4BWRo&feature=youtu.be");
+        webComponent.addURL("   &3&nRead terms here\n\n", "https://smartmc.us/terms");
 
         ClickableComponent acceptComponent = new ClickableComponent();
-        acceptComponent.addRunCommand("   &a&nAccept&r    ", "acceptTerms");
+        acceptComponent.addRunCommand("   &a&nAccept&r    ", "/acceptTerms " + acceptID);
 
         ClickableComponent denyComponent = new ClickableComponent();
-        denyComponent.addRunCommand("&4&nDecline", "declineTerms");
+        denyComponent.addRunCommand("&4&nDecline", "/declineTerms");
 
         BukkitUtil.addComponentToBook(bookMeta, webComponent.getBuilder().create());
         BukkitUtil.addComponentToBook(bookMeta, acceptComponent.getBuilder().create());

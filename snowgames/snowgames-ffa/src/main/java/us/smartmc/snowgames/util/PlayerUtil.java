@@ -27,7 +27,7 @@ public class PlayerUtil {
         if (ffaVictim == null) return;
 
         // Quit player from game
-        game.quitPlayer(ffaVictim);
+        game.quitPlayer(ffaVictim.getPlayer());
 
         ffaVictim.addDeath();
 
@@ -54,8 +54,8 @@ public class PlayerUtil {
             Player victim,
             Player killer) {
         int messageIndex = manager.getRandomMessageIndex();
-        game.forEachGamePlayer(player -> {
-            Language language = PlayerLanguages.get(player.getPlayer().getUniqueId());
+        game.forEachPlayer(player -> {
+            Language language = PlayerLanguages.get(player.getUniqueId());
 
             String message = killer == null ?
                     ChatUtil.parse(player.getPlayer(), manager.getRandomMessageFromList(messageIndex, language),

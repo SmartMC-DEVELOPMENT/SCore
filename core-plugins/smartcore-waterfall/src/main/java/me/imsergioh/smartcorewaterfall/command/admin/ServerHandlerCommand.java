@@ -50,8 +50,7 @@ public class ServerHandlerCommand extends CoreCommand {
     }
 
     public void saveConfig() {
-        ProxyConfig
-        proxy.server
+
     }
 
     public void unregister(String name) {

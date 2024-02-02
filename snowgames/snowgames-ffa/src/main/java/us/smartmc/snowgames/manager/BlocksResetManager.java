@@ -29,7 +29,7 @@ public class BlocksResetManager {
         World world = Bukkit.getWorld(worldName);
         for (BlockCooldownTask task : tasks) {
             if (!task.getLocation().getWorld().equals(world)) continue;
-            task.run();
+            task.reset();
         }
     }
 

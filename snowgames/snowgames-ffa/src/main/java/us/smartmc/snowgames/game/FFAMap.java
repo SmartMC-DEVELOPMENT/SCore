@@ -2,6 +2,7 @@ package us.smartmc.snowgames.game;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -25,9 +26,8 @@ public class FFAMap extends GameMap {
 
     private final FFAMap mapInstance;
 
-    @Setter
-    private int timeAlive = getMaxArenaTime();
-    private BukkitTask timeTask;
+    private long startTimestamp;
+    private long endTimestamp;
 
     public FFAMap(String name) {
         super(name);
@@ -38,22 +38,11 @@ public class FFAMap extends GameMap {
         registerConfigDefault(DEATH_Y_LOC_PATH, 0);
         config.save();
         GameMapManager.register(this);
-        startChangeMapTask();
     }
 
-    public void startChangeMapTask() {
-        timeTask = new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (!plugin.getArenaManager().getCurrentMap().equals(mapInstance)) return;
-                if (timeAlive == 0) {
-                    plugin.getArenaManager().rotateMap();
-                    cancel();
-                    return;
-                }
-                timeAlive--;
-            }
-        }.runTaskTimer(plugin, 0, 20);
+    public void registerMapChange() {
+        startTimestamp = System.currentTimeMillis() / 1000;
+        endTimestamp = startTimestamp + getMaxArenaTime();
     }
 
     public Location getSpawn() {
@@ -66,23 +55,8 @@ public class FFAMap extends GameMap {
         config.save();
     }
 
-    public void unloadWorld() {
-        // Reset all blocks placements:
-        BlocksResetManager.completeAllByWorldName(getWorldName());
-        // Unload world by name and not save the world:
-        WorldUtil.unloadWorldByName(getWorldName(), false);
-    }
-
-    public void loadWorld() {
-        WorldUtil.loadWorldByName(getWorldName());
-    }
-
-    public World getWorld() {
-        return WorldUtil.getWorldOrLoadByName(getWorldName());
-    }
-
     private String getWorldName() {
-        return config.getString(DISPLAY_NAME_PATH);
+        return config.getString(WORLD_NAME_PATH);
     }
 
     public int getDeathYLocation() {

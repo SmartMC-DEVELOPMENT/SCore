@@ -1,6 +1,5 @@
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\manager\GamePresetManager.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\game\GameStatus.java
-D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\team\math\DistributePlayersAlgorithm.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\GamesManagerSpigot.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\util\LogUtils.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\event\PlayerGameAPIEvent.java
@@ -10,6 +9,7 @@ D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartm
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\game\teams\EnumSelector.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\manager\CancellableEvent.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\game\GamePreset.java
+D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\player\GamePlayer.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\editor\EditSession.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\player\annotations\GamePlayerData.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\manager\GameMapManager.java

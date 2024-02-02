@@ -21,9 +21,9 @@ public class PlayerVariables extends VariableListener<Player> {
         if (ffaPlayer == null) return null;
         FFAGame game = FFAPlugin.getGame();
         if (game == null) return null;
-        message = VariableUtil.replace(message, "<map>", game.getMap().getName());
+        message = VariableUtil.replace(message, "<map>", game.getMap().getDisplayName());
 
-        String formattedTime = formatSecondsToTime(game.getMap().getTimeAlive());
+        String formattedTime = formatSecondsToTime((int) (game.getMap().getEndTimestamp() - game.getMap().getStartTimestamp()));
         message = VariableUtil.replace(message, "<time_remaining>", formattedTime);
 
         message = VariableUtil.replace(message, "<kills>", String.valueOf(ffaPlayer.getKills()));

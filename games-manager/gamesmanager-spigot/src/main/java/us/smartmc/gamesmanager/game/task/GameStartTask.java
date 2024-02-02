@@ -27,7 +27,7 @@ public class GameStartTask extends GameRepeatingTask {
             }
 
             if (seconds >= 1) {
-                gameSession.forEachGamePlayer(gamePlayer -> {
+                gameSession.forEachPlayer(gamePlayer -> {
                     gamePlayer.sendMessage(ChatUtil.parse(gamePlayer, "Game starting in {0}!", seconds));
                 });
             }

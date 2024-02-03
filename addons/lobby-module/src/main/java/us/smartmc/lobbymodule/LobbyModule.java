@@ -12,10 +12,7 @@ import us.smartmc.lobbymodule.command.LobbyCommand;
 import us.smartmc.lobbymodule.config.LobbyConfig;
 import us.smartmc.lobbymodule.config.MinigamesConfig;
 import us.smartmc.lobbymodule.handler.*;
-import us.smartmc.lobbymodule.itemcommand.ConnectToAction;
-import us.smartmc.lobbymodule.itemcommand.LobbyModuleAction;
-import us.smartmc.lobbymodule.itemcommand.MinigamesActions;
-import us.smartmc.lobbymodule.itemcommand.ToggleFlyAction;
+import us.smartmc.lobbymodule.itemcommand.*;
 import us.smartmc.lobbymodule.listener.*;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
 import us.smartmc.lobbymodule.messages.MinigamesMessages;
@@ -36,6 +33,9 @@ public class LobbyModule extends AddonPlugin {
 
     @Getter
     private static SpigotYmlConfig lobbiesMenuConfig;
+
+    @Getter
+    private static LinkSocialsManager linkSocialsManager;
 
     @Override
     public void start() {
@@ -74,6 +74,8 @@ public class LobbyModule extends AddonPlugin {
         registerCommand(new ChangeVisibilityCommand());
 
         new WorldConfigManager();
+        linkSocialsManager = new LinkSocialsManager();
+        linkSocialsManager.load();
 
         new LobbyMessages();
         new MinigamesMessages();
@@ -88,6 +90,7 @@ public class LobbyModule extends AddonPlugin {
         ItemActionsManager.registerCommand("minigamesExecutor", new MinigamesActions());
         ItemActionsManager.registerCommand("lobbyModule", new LobbyModuleAction());
         ItemActionsManager.registerCommand("connectTo", new ConnectToAction());
+        ItemActionsManager.registerCommand("linkSocial", new LinkSocialAction());
     }
 
     @Override

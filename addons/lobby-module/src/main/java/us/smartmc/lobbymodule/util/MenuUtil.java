@@ -20,6 +20,14 @@ public class MenuUtil {
         }
     }
 
+    public static void setBorder(ItemStack item, Inventory inventory) {
+        int lastRow = (inventory.getSize() / 9) - 1;
+        MenuUtil.setRow(0, item, inventory);
+        MenuUtil.setRow(lastRow, item, inventory);
+        MenuUtil.setColumn(0, item, inventory);
+        MenuUtil.setColumn(8, item, inventory);
+    }
+
     public static void setColumn(int columLine, ItemStack item, Inventory inventory) {
         int rows = inventory.getSize() / 9;
         int times = 0;

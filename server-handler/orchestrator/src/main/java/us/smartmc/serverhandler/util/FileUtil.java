@@ -8,11 +8,16 @@ import java.util.*;
 
 public class FileUtil {
 
-    public static List<File> copyTemplates(File serverDestination, LinkedList<File> templates) {
+    public static List<File> copyTemplates(File serverDestination, LinkedList<File> templates, int port, String name) {
         List<File> list = new ArrayList<>();
         for (File templateFile : templates) {
             list.addAll(copyDirToDir(templateFile, serverDestination));
         }
+
+        list.forEach(file -> {
+            if (!file.getName().equals("server.properties")) return;
+            parseServerProperties(file, port, name);
+        });
         return list;
     }
 
@@ -20,28 +25,32 @@ public class FileUtil {
         List<File> list = copyDirToDir(startupDir, destinationDir);
         for (File file : list) {
             if (!file.getName().equals("server.properties")) continue;
-            try {
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                String line;
-                StringBuilder newContent = new StringBuilder();
+            parseServerProperties(file, port, name);
+        }
+    }
 
-                while ((line = reader.readLine()) != null) {
-                    if (line.startsWith("server-port=")) {
-                        line = "server-port=" + port;
-                    }
-                    if (line.startsWith("server-id=")) {
-                        line = "server-id=" + name;
-                    }
-                    newContent.append(line).append(System.lineSeparator());
+    public static void parseServerProperties(File file, int port, String name) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            StringBuilder newContent = new StringBuilder();
+
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("server-port=")) {
+                    line = "server-port=" + port;
                 }
-                reader.close();
-
-                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                writer.write(newContent.toString());
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+                if (line.startsWith("server-id=")) {
+                    line = "server-id=" + name;
+                }
+                newContent.append(line).append(System.lineSeparator());
             }
+            reader.close();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write(newContent.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

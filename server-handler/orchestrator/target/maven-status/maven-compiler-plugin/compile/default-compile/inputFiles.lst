@@ -7,6 +7,7 @@ D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serv
 D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\consolecommand\ExecuteCommand.java
 D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\instance\Configuration.java
 D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\consolecommand\TestCommand.java
+D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\consolecommand\RestartCommand.java
 D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\instance\StartupRule.java
 D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\OrchestratorMain.java
 D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\executor\ConsoleCommandInfo.java

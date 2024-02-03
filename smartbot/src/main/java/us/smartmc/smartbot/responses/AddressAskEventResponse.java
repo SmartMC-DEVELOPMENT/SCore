@@ -4,6 +4,9 @@ import net.dv8tion.jda.api.entities.Message;
 import us.smartmc.smartbot.instance.ReplyListener;
 import us.smartmc.smartbot.util.RegexUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AddressAskEventResponse implements ReplyListener {
 
     @Override
@@ -16,15 +19,24 @@ public class AddressAskEventResponse implements ReplyListener {
         if (message.getAuthor().isBot()) return;
         String raw = message.getContentRaw().toLowerCase();
 
+        String onlyLetters = raw.replaceAll("[^a-zA-Z ]", "").toLowerCase();
+
+        if (onlyLetters.split(" ").length == 1 && containsKeyword(onlyLetters, "ip")) {
+            accept(message);
+            return;
+        }
+
         final String[] messageIps = RegexUtils.getIpAddresses(raw);
         if (messageIps.length > 0) return;
 
-        if ((containsKeyword(raw, " ip ") || containsKeyword(raw, " ip")) ||
-                (containsKeyword(raw, "dirección ip") || containsKeyword(raw, "direccion ip"))||
-                containsKeyword(raw, "ip address") ||
-                (containsKeyword(raw, "address") && (containsKeyword(raw, "ip") || containsKeyword(raw, "server"))) ||
-                ((containsKeyword(raw, "conectar") || containsKeyword(raw, "connect"))  && (containsKeyword(raw, "como")) || (containsKeyword(raw, "how")))) {
+        if ((containsKeyword(raw, "cual") || containsKeyword(raw, "cúal")) && containsKeyword(raw, "ip")) {
             accept(message);
+            return;
+        }
+
+        if ((containsKeyword(raw, "what") || containsKeyword(raw, "which")) && (containsKeyword(raw, "ip") || containsKeyword(raw, "address"))) {
+            accept(message);
+            return;
         }
     }
 

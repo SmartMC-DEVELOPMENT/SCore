@@ -27,7 +27,7 @@ public class DeleteCommand extends ConsoleCommand {
     CommandUtilities.sendFeedback("Server %s has been deleted.", name);
   }
 
-  protected static boolean deleteServer(String serverName) {
+  public static boolean deleteServer(String serverName) {
     final ServerInfo serverInfo = ServerManager.get(serverName);
     if (serverInfo == null) {
       return false;

@@ -23,14 +23,8 @@ public class SettingsMenu extends ConfigurableMenu {
     public void load() {
         setFlyingItem();
         ItemBuilder relleno = ItemBuilder.of(Material.STAINED_GLASS_PANE).data(3).name(" ");
+        MenuUtil.setBorder(relleno.get(), inventory);
 
-        MenuUtil.setRow(0, relleno.get(), inventory);
-
-        int lastRow = (inventory.getSize() / 9) - 1;
-        MenuUtil.setRow(lastRow, relleno.get(), inventory);
-
-        MenuUtil.setColumn(0, relleno.get(), inventory);
-        MenuUtil.setColumn(8, relleno.get(), inventory);
 
         set(20, ItemBuilder.of(Material.SKULL_ITEM)
                 .data((byte) 3)

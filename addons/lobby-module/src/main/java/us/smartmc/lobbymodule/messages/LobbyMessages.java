@@ -47,6 +47,11 @@ public class LobbyMessages extends MultiLanguageRegistry {
 
             holder.registerDefault("feature_in_development", "&cThis feature is currently in development.");
 
+            holder.registerDefault("menu_link_socials_title", "Link socials");
+            holder.registerDefault("link_socials_invalid_url", "You introduced an invalid URL!");
+            holder.registerDefault("link_socials_linked_correctly", "You have successfully linked the social network!");
+            holder.registerDefault("link_socials_introduce_url", "&8➤ &bPlease introduce your social network link in the chat");
+
             for (PlayerVisibility visibility : PlayerVisibility.values()) {
                 holder.registerDefault("visibility_" + visibility.name() + "_name", "visibility");
             }

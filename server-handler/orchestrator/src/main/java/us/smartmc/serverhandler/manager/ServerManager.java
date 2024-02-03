@@ -21,14 +21,14 @@ public class ServerManager {
 
     private static final HashMap<String, ServerInfo> servers = new HashMap<>();
 
-    public static void create(String name) {
-        Configuration configuration = Configuration.get(name);
+    public static void create(String templateName) {
+        Configuration configuration = Configuration.get(templateName);
         if (configuration == null) {
-            OrchestratorMain.log(ConsoleColors.RED + "Not config with name " + name + " found!");
+            OrchestratorMain.log(ConsoleColors.RED + "Not config with name " + templateName + " found!");
             return;
         }
 
-        int count = getCountByConfigName(name);
+        int count = getCountByConfigName(templateName);
         int portToHost = configuration.getData().getMinPort() + count;
 
         // Incrementa el puerto hasta encontrar uno disponible
@@ -38,17 +38,20 @@ public class ServerManager {
 
         // Comprueba si el puerto está dentro del rango
         if (portToHost > configuration.getData().getMaxPort()) {
-            OrchestratorMain.log(ConsoleColors.RED + "Create of server " + name + " has been cancelled due to max port exceeded!");
+            OrchestratorMain.log(ConsoleColors.RED + "Create of server " + templateName + " has been cancelled due to max port exceeded!");
             return;
         }
 
-        ServerInfo serverInfo = new ServerInfo(configuration, ServerInfo.getNextServerName(configuration), "127.0.0.1", portToHost);
+        String serverName = ServerInfo.getNextServerName(configuration);
+
+        ServerInfo serverInfo = new ServerInfo(configuration, serverName, "127.0.0.1", portToHost);
         // COPY STARTUP
         FileUtil.createStartup(configuration.getData().getStartupDirectory(), serverInfo.getDirectory(),
                 portToHost, serverInfo.getName());
 
-        // COPY TEMPLATES
-        FileUtil.copyTemplates(serverInfo.getDirectory(), configuration.getData().getTemplateDirectories());
+        // COPY TEMPLATES (INCLUDING SERVER.PROPERTIES IF AVAILABLE)
+        FileUtil.copyTemplates(serverInfo.getDirectory(), configuration.getData().getTemplateDirectories(), portToHost,
+                serverName);
 
         // START SERVER SCRIPT (START.SH)
         ServerUtil.startServer(serverInfo.getDirectory());

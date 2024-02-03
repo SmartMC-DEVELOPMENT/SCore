@@ -21,6 +21,7 @@ import us.smartmc.snowgames.listener.GameListeners;
 import us.smartmc.snowgames.listener.PlayerListeners;
 import us.smartmc.snowgames.manager.ArenaManager;
 import us.smartmc.snowgames.manager.BlocksResetManager;
+import us.smartmc.snowgames.manager.WorldConfigManager;
 import us.smartmc.snowgames.messages.PluginMessages;
 import us.smartmc.snowgames.util.DebugUtil;
 import us.smartmc.snowgames.variables.PlayerVariables;
@@ -56,6 +57,7 @@ public class FFAPlugin extends JavaPlugin {
         new PluginMessages();
 
         new GamePresetManager(new File(getDataFolder() + "/games"));
+        new WorldConfigManager();
         GamePreset preset = new GamePreset("ffa");
         game = new FFAGame(preset);
 

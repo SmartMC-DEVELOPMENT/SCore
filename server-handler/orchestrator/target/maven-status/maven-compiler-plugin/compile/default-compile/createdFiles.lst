@@ -5,6 +5,7 @@ us\smartmc\serverhandler\manager\BackendProxyConnectionHandler.class
 us\smartmc\serverhandler\OrchestratorMain.class
 us\smartmc\serverhandler\instance\ConfigurationData.class
 us\smartmc\serverhandler\consolecommand\ExecuteCommand$ExecuteType.class
+us\smartmc\serverhandler\consolecommand\RestartCommand$1.class
 us\smartmc\serverhandler\executor\IConsoleCommand.class
 us\smartmc\serverhandler\util\ServerUtil.class
 us\smartmc\serverhandler\instance\ServerInfo.class
@@ -16,6 +17,7 @@ us\smartmc\serverhandler\consolecommand\CreateCommand.class
 us\smartmc\serverhandler\consolecommand\HelpCommand.class
 us\smartmc\serverhandler\registration\CommandRegistration.class
 us\smartmc\serverhandler\manager\ConfigManager.class
+us\smartmc\serverhandler\consolecommand\RestartCommand.class
 us\smartmc\serverhandler\consolecommand\ExitCommand.class
 us\smartmc\serverhandler\manager\ConsoleCommandManager.class
 us\smartmc\serverhandler\util\CommandUtilities.class

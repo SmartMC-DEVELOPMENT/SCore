@@ -1,16 +1,17 @@
-package us.smartmc.lobbymodule.handler;
+package us.smartmc.snowgames.manager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-
-import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
+import us.smartmc.snowgames.FFAPlugin;
 
 import java.util.function.Consumer;
 
 public class WorldConfigManager {
 
+    private static final FFAPlugin plugin = FFAPlugin.getPlugin();
+
     public WorldConfigManager() {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartAddonsSpigot.getPlugin(), () -> {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             forEachWorld(world -> {
                 world.setTime(1000);
                 if (world.hasStorm()) {
@@ -23,7 +24,7 @@ public class WorldConfigManager {
             });
         }, 0, 10);
 
-        Bukkit.getScheduler().runTaskLater(SmartAddonsSpigot.getPlugin(), () -> {
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
             // Day cycle
         forEachWorld(world -> world.setGameRuleValue("doWeatherCycle", "true"));
 

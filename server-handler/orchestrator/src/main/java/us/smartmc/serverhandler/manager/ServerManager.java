@@ -21,6 +21,10 @@ public class ServerManager {
 
     private static final HashMap<String, ServerInfo> servers = new HashMap<>();
 
+    public static boolean exists(String name) {
+        return servers.containsKey(name);
+    }
+
     public static void create(String templateName) {
         Configuration configuration = Configuration.get(templateName);
         if (configuration == null) {
@@ -77,6 +81,7 @@ public class ServerManager {
     }
 
     public static void deleteIfNotTemporalAndUnregister(String name) {
+        BackendProxyConnectionHandler.broadcast("unregisterServer " + name);
         ServerInfo serverInfo = get(name);
         if (serverInfo.getConfig().getData().isTemporal()) {
             new Thread(() -> {
@@ -89,9 +94,7 @@ public class ServerManager {
                 System.out.println("Server " + name + " has inactivated! Deleted all files!");
             }).start();
         }
-
         unregister(name);
-        BackendProxyConnectionHandler.broadcast("unregisterServer " + name);
     }
 
     private static void unregister(String name) {
@@ -125,9 +128,9 @@ public class ServerManager {
         return CompletableFuture.supplyAsync(() -> sendConsole("screen -S " + screenName + " -X stuff " + command + "^M"));
     }
 
-    public static boolean stopServer(ServerInfo serverInfo) {
+    public static void stopServer(ServerInfo serverInfo) {
         final String screenName = serverInfo.getDirectory().getName();
-        return ServerManager.sendConsole("screen -XS " + screenName + " quit");
+        ServerManager.sendConsole("screen -XS " + screenName + " quit");
     }
 
     public static String getServersAsJsonText() {

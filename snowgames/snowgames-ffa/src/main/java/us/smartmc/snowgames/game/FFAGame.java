@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import us.smartmc.gamesmanager.game.GamePreset;
 import us.smartmc.gamesmanager.game.GameSession;
 import us.smartmc.gamesmanager.game.map.GameMapSession;
+import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.inventory.GameHotbar;
 import us.smartmc.snowgames.inventory.LobbyHotbar;
 import us.smartmc.snowgames.util.DebugUtil;
@@ -45,7 +46,9 @@ public class FFAGame extends GameSession<Player> {
             player.getPlayer().teleport(getSpawn());
             LobbyHotbar.give(player.getPlayer());
             player.getPlayer().setGameMode(GameMode.ADVENTURE);
-            players.remove(player);
+            Bukkit.getScheduler().runTaskLater(FFAPlugin.getPlugin(), () -> {
+                players.remove(player);
+            }, 10);
         }, 25);
         DebugUtil.debug(getClass().getSimpleName(), "quitPlayer end");
     }

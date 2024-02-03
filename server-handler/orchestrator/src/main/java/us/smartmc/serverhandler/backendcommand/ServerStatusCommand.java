@@ -36,5 +36,4 @@ public class ServerStatusCommand extends BackendCommand {
         }
         return false;
     }
-
 }

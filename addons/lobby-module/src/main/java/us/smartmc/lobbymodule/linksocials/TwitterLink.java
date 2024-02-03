@@ -25,7 +25,7 @@ public class TwitterLink extends LinkSocialAction {
 
     @Override
     public boolean isValidURL(String url) {
-        if (url.startsWith("www.")) url = url.replaceFirst("www.", "");
+        if (url.startsWith("https://www.")) url = url.replaceFirst("https://www.", "");
         return super.isValidURL(url);
     }
 

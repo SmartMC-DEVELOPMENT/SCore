@@ -72,8 +72,6 @@ public class GameListeners implements Listener {
         boolean inGame = game.isInGame(player);
         boolean atSpawn = RegionUtils.isAtSpawn(player);
 
-        DebugUtil.debug("GameListeners", "ingame = " + inGame + "  atspawn = " + atSpawn);
-
         if (!inGame && !atSpawn) {
             FFAPlayer gamePlayer = FFAPlayerManager.INSTANCE.get(player.getUniqueId());
             if (gamePlayer == null) return;

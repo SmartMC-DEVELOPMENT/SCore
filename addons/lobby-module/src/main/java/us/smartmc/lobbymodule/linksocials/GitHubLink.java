@@ -6,7 +6,7 @@ import us.smartmc.lobbymodule.instance.LinkSocialType;
 public class GitHubLink extends LinkSocialAction {
 
     public GitHubLink() {
-        super(LinkSocialType.DISCORD);
+        super(LinkSocialType.GITHUB);
     }
 
     @Override

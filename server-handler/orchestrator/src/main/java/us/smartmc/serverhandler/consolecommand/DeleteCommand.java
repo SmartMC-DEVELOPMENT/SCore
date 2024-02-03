@@ -3,6 +3,7 @@ package us.smartmc.serverhandler.consolecommand;
 import us.smartmc.serverhandler.executor.ConsoleCommand;
 import us.smartmc.serverhandler.executor.ConsoleCommandInfo;
 import us.smartmc.serverhandler.instance.ServerInfo;
+import us.smartmc.serverhandler.manager.BackendProxyConnectionHandler;
 import us.smartmc.serverhandler.manager.ServerManager;
 import us.smartmc.serverhandler.util.CommandUtilities;
 
@@ -19,20 +20,28 @@ public class DeleteCommand extends ConsoleCommand {
   public void execute(String label, String[] args) {
     final String name = args[0];
 
-    final boolean status = deleteServer(name);
+    final boolean status = ServerManager.exists(name);
     if (!status) {
       CommandUtilities.sendError("Server with name %s not found.", name);
       return;
     }
-    CommandUtilities.sendFeedback("Server %s has been deleted.", name);
+    deleteServer(name);
   }
 
-  public static boolean deleteServer(String serverName) {
-    final ServerInfo serverInfo = ServerManager.get(serverName);
-    if (serverInfo == null) {
-      return false;
-    }
+  public static void deleteServer(String serverName) {
+    new Thread(() -> {
+      final ServerInfo serverInfo = ServerManager.get(serverName);
+      if (serverInfo == null) return;
 
-    return ServerManager.stopServer(serverInfo);
+      BackendProxyConnectionHandler.broadcast("unregisterServer " + serverName);
+      try {
+        Thread.sleep(500);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+      ServerManager.stopServer(serverInfo);
+      CommandUtilities.sendFeedback("Server %s has been deleted.", serverName);
+    }).start();
   }
+
 }

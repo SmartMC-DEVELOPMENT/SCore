@@ -1,13 +1,10 @@
 package us.smartmc.serverhandler.backendcommand;
 
-import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
 import me.imsergioh.jbackend.api.ConnectionHandler;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import us.smartmc.serverhandler.ServerHandlerMain;
 import us.smartmc.serverhandler.executor.BackendCommand;
-import us.smartmc.serverhandler.manager.BungeeServerManager;
-
-import java.util.Set;
+import us.smartmc.serverhandler.request.ServerUnregisterRequest;
 
 public class UnregisterServerCommand extends BackendCommand {
 
@@ -19,12 +16,6 @@ public class UnregisterServerCommand extends BackendCommand {
     @Override
     public void execute(ConnectionHandler connectionHandler, String label, String[] args) {
         String name = args[0];
-
-        // TODO: CONNECT TO SAME TYPE OF SERVER OR ANOTHER AVAILABLE (MAYBE: CREATE FALLBACK SERVER)
-        ServerHandlerMain.proxy.getServerInfo(name).getPlayers().forEach(player -> {
-            player.disconnect("Disconnected from the server. F in the chat");
-        });
-
-        ServerHandlerMain.proxy.getServers().remove(name);
+        new ServerUnregisterRequest(name);
     }
 }

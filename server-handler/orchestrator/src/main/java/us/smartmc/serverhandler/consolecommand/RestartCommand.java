@@ -2,6 +2,7 @@ package us.smartmc.serverhandler.consolecommand;
 
 import us.smartmc.serverhandler.executor.ConsoleCommand;
 import us.smartmc.serverhandler.executor.ConsoleCommandInfo;
+import us.smartmc.serverhandler.manager.BackendProxyConnectionHandler;
 import us.smartmc.serverhandler.manager.ServerManager;
 import us.smartmc.serverhandler.util.CommandUtilities;
 
@@ -21,12 +22,13 @@ public class RestartCommand extends ConsoleCommand {
     public void execute(String label, String[] args) {
         final String name = args[0];
 
-        final boolean status = DeleteCommand.deleteServer(name);
-        if (!status) {
+        boolean exists = ServerManager.exists(name);
+        if (!exists) {
             CommandUtilities.sendError("Server with name %s not found.", name);
             return;
         }
-        CommandUtilities.sendFeedback("Server %s has been deleted.", name);
+
+        DeleteCommand.deleteServer(name);
 
         new Timer().schedule(new TimerTask() {
             @Override

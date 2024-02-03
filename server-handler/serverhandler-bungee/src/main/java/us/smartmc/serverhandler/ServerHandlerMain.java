@@ -4,6 +4,7 @@ import me.imsergioh.jbackend.BackendConnection;
 import me.imsergioh.jbackend.api.manager.BackendActionManager;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
+import us.smartmc.serverhandler.listener.RequestsListeners;
 import us.smartmc.serverhandler.registration.CommandsRegistration;
 import us.smartmc.serverhandler.registration.CommonListenerRegistration;
 import us.smartmc.serverhandler.util.ConnectionUtil;
@@ -31,6 +32,8 @@ public class ServerHandlerMain extends Plugin {
 
         backendConnection = new BackendConnection("localhost", 55777);
         backendConnection.start();
+
+        proxy.getPluginManager().registerListener(this, new RequestsListeners());
     }
 
     public static BackendConnection getBackendConnection() {

@@ -45,6 +45,8 @@ public class LobbyMessages extends MultiLanguageRegistry {
 
             holder.registerDefault("already_connected", "&cAlready connected!");
 
+            holder.registerDefault("feature_in_development", "&cThis feature is currently in development.");
+
             for (PlayerVisibility visibility : PlayerVisibility.values()) {
                 holder.registerDefault("visibility_" + visibility.name() + "_name", "visibility");
             }
@@ -60,6 +62,10 @@ public class LobbyMessages extends MultiLanguageRegistry {
             item(holder, "flying", "&bToggle flying", "");
             item(holder, "not_available", "&c&lNot available", "&7This game is in development and\n&7it will be published soon.\n\n&eStay tuned!");
             item(holder, "terms", "&aTerms and Conditions", "&7Accept our terms and conditions to continue");
+
+            item(holder, "cosmetics", "&bCosmetics <lang.lobby.items_right_click>", "&7Open cosmetics menu and change your current cosmetics.");
+            item(holder, "link_socials", "&aLink your social networks", "&7You can link your social networks to SmartMC\nto promote your personal brand");
+
             holder.save();
         });
     }

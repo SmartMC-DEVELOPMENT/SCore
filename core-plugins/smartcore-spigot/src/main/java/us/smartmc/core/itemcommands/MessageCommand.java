@@ -1,0 +1,16 @@
+package us.smartmc.core.itemcommands;
+
+import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
+import me.imsergioh.pluginsapi.instance.item.ClickHandler;
+import me.imsergioh.pluginsapi.util.ChatUtil;
+import us.smartmc.core.instance.player.SmartCorePlayer;
+
+public class MessageCommand implements ItemActionExecutor {
+
+    @Override
+    public void execute(ClickHandler clickHandler, String label, String[] args) {
+        label = label.replaceFirst("message ", "");
+        String message = ChatUtil.parse(clickHandler.player(), label);
+        clickHandler.clicker().sendMessage(message);
+    }
+}

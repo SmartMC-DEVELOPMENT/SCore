@@ -73,7 +73,7 @@ public class GameSession<P extends Player> implements IGameSession<P> {
     public void joinPlayer(P player) {
         selectRandomWhitelistedMap();
         if (!canPlayerJoin(player)) return;
-        players.add(player.getUniqueId());
+        players.add(player);
         broadcast(GameMessages.getMessageVariable("player_joined"), player.getPlayer().getName(),
                 players.size(), map.getMaxPlayers());
         checkStart();
@@ -130,9 +130,8 @@ public class GameSession<P extends Player> implements IGameSession<P> {
 
     @Override
     public void forEachPlayer(Consumer<P> consumer) {
-        players.forEach(uuid ->  {
-            P gamePlayer = (P) Bukkit.getPlayer(uuid);
-            consumer.accept(gamePlayer);
+        players.forEach(player ->  {
+            consumer.accept((P) player);
         });
     }
 

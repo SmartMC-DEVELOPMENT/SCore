@@ -13,7 +13,6 @@ public class GameHotbar extends FFAMenu {
     private static final FFAPlugin plugin = FFAPlugin.getPlugin();
     private static final LanguageConfig config = plugin.getLanguageConfig();
 
-
     protected GameHotbar(Player player) {
         super(player, 9, "game_hotbar");
     }

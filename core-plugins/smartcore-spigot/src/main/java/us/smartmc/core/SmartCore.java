@@ -19,6 +19,7 @@ import us.smartmc.core.commands.*;
 import us.smartmc.core.handler.*;
 import us.smartmc.core.instance.SpigotLogger;
 import us.smartmc.core.itemcommands.BungeeCommandAction;
+import us.smartmc.core.itemcommands.MessageCommand;
 import us.smartmc.core.listener.AdminModeListeners;
 import us.smartmc.core.listener.CommandListeners;
 import us.smartmc.core.listener.CorePlayersListener;
@@ -130,6 +131,7 @@ public class SmartCore extends JavaPlugin {
                 .regCMD("friend", new FriendCommand());
 
         ItemActionsManager.registerCommand("bungeeCMD", new BungeeCommandAction());
+        ItemActionsManager.registerCommand("message", new MessageCommand());
     }
 
     private void registerListeners() {

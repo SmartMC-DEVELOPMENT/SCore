@@ -23,7 +23,7 @@ public class PlayerVariables extends VariableListener<Player> {
         if (game == null) return null;
         message = VariableUtil.replace(message, "<map>", game.getMap().getDisplayName());
 
-        String formattedTime = formatSecondsToTime((int) (game.getMap().getEndTimestamp() - game.getMap().getStartTimestamp()));
+        String formattedTime = formatSecondsToTime((int) (game.getMap().getEndTimestamp() - System.currentTimeMillis() / 1000));
         message = VariableUtil.replace(message, "<time_remaining>", formattedTime);
 
         message = VariableUtil.replace(message, "<kills>", String.valueOf(ffaPlayer.getKills()));

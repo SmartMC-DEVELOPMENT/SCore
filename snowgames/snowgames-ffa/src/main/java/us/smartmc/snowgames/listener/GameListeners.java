@@ -101,6 +101,7 @@ public class GameListeners implements Listener {
         } else {
             event.setJoinMessage(null);
         }
+        player.teleport(FFAPlugin.getGame().getSpawn());
     }
 
     @EventHandler

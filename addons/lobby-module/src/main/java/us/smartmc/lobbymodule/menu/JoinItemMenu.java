@@ -8,10 +8,14 @@ import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import us.smartmc.lobbymodule.command.ChangeVisibilityCommand;
+import us.smartmc.lobbymodule.handler.VisibilityManager;
+import us.smartmc.lobbymodule.instance.PlayerVisibility;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
 
 import java.io.File;
@@ -26,8 +30,15 @@ public class JoinItemMenu extends ConfigurableMenu {
 
     private void loadInv() {
         setItem(0, Material.COMPASS, "minigames");
+        set(1, ItemBuilder.of(Material.SKULL_ITEM).data(3)
+                .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjYzMDI5Y2M4MTY3ODk3ZTY1MzVhM2M1NzM0YmJhYmFmZjE4OGQwOTA1ZjlkOTM1M2FmYWM2MmEwNmRhZGY4NiJ9fX0=")
+                .name("<lang.lobby.items_cosmetics_name>")
+                .lore(Arrays.asList("<lang.lobby.items_cosmetics_description>")).get(player), "message <lang.lobby.feature_in_development>");
 
         set(4, headItem("settings"), "lobbyModule settings");
+
+        PlayerVisibility visibility = VisibilityManager.getVisibility(player);
+        set(7, VisibilityManager.getVisibilityItem(visibility).get(player), "cmd changeVisibility");
 
         setItem(8, Material.PAPER, "lobbies");
 

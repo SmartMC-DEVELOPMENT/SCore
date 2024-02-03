@@ -56,6 +56,7 @@ public class PlayerUtil {
         int messageIndex = manager.getRandomMessageIndex();
         game.forEachPlayer(player -> {
             Language language = PlayerLanguages.get(player.getUniqueId());
+            if (language == null) language = Language.getDefault();
 
             String message = killer == null ?
                     ChatUtil.parse(player.getPlayer(), manager.getRandomMessageFromList(messageIndex, language),

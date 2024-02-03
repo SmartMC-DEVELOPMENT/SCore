@@ -7,11 +7,15 @@ import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import us.smartmc.core.SmartCore;
 import us.smartmc.lobbymodule.command.ChangeVisibilityCommand;
 import us.smartmc.lobbymodule.command.FlyCommand;
+import us.smartmc.lobbymodule.command.LinkSocialsCommand;
 import us.smartmc.lobbymodule.command.LobbyCommand;
 import us.smartmc.lobbymodule.config.LobbyConfig;
 import us.smartmc.lobbymodule.config.MinigamesConfig;
 import us.smartmc.lobbymodule.handler.*;
-import us.smartmc.lobbymodule.itemcommand.*;
+import us.smartmc.lobbymodule.itemcommand.ConnectToAction;
+import us.smartmc.lobbymodule.itemcommand.LobbyModuleAction;
+import us.smartmc.lobbymodule.itemcommand.MinigamesActions;
+import us.smartmc.lobbymodule.itemcommand.ToggleFlyAction;
 import us.smartmc.lobbymodule.listener.*;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
 import us.smartmc.lobbymodule.messages.MinigamesMessages;
@@ -51,9 +55,12 @@ public class LobbyModule extends AddonPlugin {
         registerCommand(new LobbyCommand());
         registerListeners(new DefaultConfigListeners(lobbyConfig));
 
-        registerCommand(new FlyCommand("fly"));
-        registerCommand(new FlyCommand("volar"));
-        registerCommand(new FlyCommand("flight"));
+        registerCommand(
+                new FlyCommand("fly"),
+                new FlyCommand("volar"),
+                new FlyCommand("flight"),
+                new LinkSocialsCommand("linkSocials"));
+
 
         registerListeners(new JoinItemListener(),
                 new VisibilityManager(),
@@ -77,7 +84,6 @@ public class LobbyModule extends AddonPlugin {
 
         log("STARTED");
 
-        ItemActionsManager.registerCommand("alternateVisibility", new AlternateVisibilityAction());
         ItemActionsManager.registerCommand("toggleFly", new ToggleFlyAction());
         ItemActionsManager.registerCommand("minigamesExecutor", new MinigamesActions());
         ItemActionsManager.registerCommand("lobbyModule", new LobbyModuleAction());

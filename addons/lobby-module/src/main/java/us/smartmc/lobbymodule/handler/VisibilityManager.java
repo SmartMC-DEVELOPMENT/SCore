@@ -1,7 +1,10 @@
 package us.smartmc.lobbymodule.handler;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,6 +13,10 @@ import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.lobbymodule.instance.PlayerVisibility;
 import us.smartmc.smartaddons.plugin.AddonListener;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class VisibilityManager extends AddonListener implements Listener {
 
@@ -21,6 +28,44 @@ public class VisibilityManager extends AddonListener implements Listener {
         Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
             Bukkit.getOnlinePlayers().forEach(VisibilityManager::update);
         }, 2);
+    }
+
+    public static void set(CorePlayer corePlayer, PlayerVisibility visibility) {
+        corePlayer.getPlayerData().getDocument().put("visibility", visibility.name());
+        VisibilityManager.update(corePlayer.get());
+    }
+
+    public static PlayerVisibility getNext(PlayerVisibility of) {
+        int index = 0;
+        List<PlayerVisibility> list = Arrays.asList(PlayerVisibility.values());
+        for (PlayerVisibility visibility : PlayerVisibility.values()) {
+            if (visibility.equals(of)) break;
+            index++;
+        }
+        index++;
+        if (index >= list.size()) index = 0;
+        return list.get(index);
+    }
+
+    public static PlayerVisibility getVisibility(Player player) {
+        String visibilityName = CorePlayer.get(player).getPlayerData().getDocument()
+                .getString("visibility");
+        if (visibilityName == null) visibilityName = PlayerVisibility.DEFAULT.toString();
+        return PlayerVisibility.valueOf(visibilityName);
+    }
+
+    public static ItemBuilder getVisibilityItem(PlayerVisibility visibility) {
+        Material material = Material.INK_SACK;
+        int materialData = 0;
+        switch (visibility) {
+            case DEFAULT -> materialData = 10;
+            case NO_ONE -> materialData = 8;
+            case VIPS -> materialData = 13;
+        }
+        return ItemBuilder.of(material).data(materialData)
+                .name("<lang.lobby.items_visibility_name>")
+                .data(materialData)
+                .lore(Arrays.asList("<lang.lobby.visibility_" + visibility.name()+"_name>"));
     }
 
     public static void update(Player player) {

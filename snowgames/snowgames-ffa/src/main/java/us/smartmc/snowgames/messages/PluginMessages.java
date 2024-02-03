@@ -16,6 +16,8 @@ public class PluginMessages extends MultiLanguageRegistry {
             holder.registerDefault("kill_messages_list", List.of("&bEl jugador &c{0}&b ha sido asesinado por &a{1}&b!"));
             holder.registerDefault("death_messages_list", List.of("&bEl jugador &c{0}&b ha muerto!"));
 
+            holder.registerDefault("not_available", "This feature is currently not available.");
+
             holder.save();
         });
     }

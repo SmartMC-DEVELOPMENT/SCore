@@ -25,7 +25,7 @@ public class FFAGame extends GameSession<Player> {
     public void joinPlayer(Player player) {
         if (isInGame(player.getPlayer())) return;
 
-        players.add(player.getUniqueId());
+        players.add(player);
         GameHotbar.give(player.getPlayer());
 
         player.getPlayer().setGameMode(GameMode.SURVIVAL);
@@ -46,7 +46,7 @@ public class FFAGame extends GameSession<Player> {
             player.getPlayer().teleport(getSpawn());
             LobbyHotbar.give(player.getPlayer());
             player.getPlayer().setGameMode(GameMode.ADVENTURE);
-            players.remove(player.getUniqueId());
+            players.remove(player);
         }, 25);
         DebugUtil.debug(getClass().getSimpleName(), "quitPlayer end");
     }
@@ -63,7 +63,7 @@ public class FFAGame extends GameSession<Player> {
 
     public boolean isInGame(Player player) {
         DebugUtil.debug(getClass().getSimpleName(), "isInGame " + players);
-        return players.contains(player.getUniqueId());
+        return players.contains(player);
     }
 
     public Location getSpawn() {

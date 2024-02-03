@@ -40,7 +40,6 @@ public class FFAGame extends GameSession<Player> {
     public void quitPlayer(Player player) {
         DebugUtil.debug(getClass().getSimpleName(), "quitPlayer start");
         if (!isInGame(player.getPlayer())) return;
-
         SyncUtil.later(() -> {
             if (!player.getPlayer().isOnline()) return;
             player.getPlayer().teleport(getSpawn());

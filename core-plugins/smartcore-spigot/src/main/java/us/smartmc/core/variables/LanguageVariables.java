@@ -4,7 +4,11 @@ import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.VariableListener;
 import me.imsergioh.pluginsapi.language.Language;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LanguageVariables extends VariableListener<Player> {
 
@@ -22,32 +26,48 @@ public class LanguageVariables extends VariableListener<Player> {
     }
 
     private String get(Player player, String message) {
-        Language language = Language.getDefault();
+        // Obtener el idioma del jugador, o el idioma por defecto si player es null
+        Language language = player != null ? PlayerLanguages.get(player.getUniqueId()) : Language.getDefault();
 
-        // If player not null -> set language to player's language
-        if (player != null)
-            language = PlayerLanguages.get(player.getUniqueId());
+        // Regex para identificar segmentos con o sin códigos de color seguido de placeholders de mensajes localizados
+        Pattern pattern = Pattern.compile("(?:(&[0-9a-fk-or]))?(<lang\\.(.*?)\\.(.*?)>)");
+        Matcher matcher = pattern.matcher(message);
+        StringBuffer result = new StringBuffer();
 
-        String[] args = message.split(" ");
-        for (int i = 0; i < args.length; i++) {
-            String arg = args[i];
-            if (!arg.contains("<lang.")) {
-                continue;
-            }
-            String messageHolder = arg.split("\\.")[1];
-            String path = arg.split("\\.")[2].replace(">", "");
-            Object object = LanguagesHandler
-                    .get(language)
-                    .get(messageHolder)
-                    .get(path);
+        while (matcher.find()) {
+            // Obtener el código de color, si está presente
+            String colorCode = matcher.group(1) != null ? ChatColor.translateAlternateColorCodes('&', matcher.group(1)) : "";
+            // Identificar las partes del placeholder del mensaje localizado
+            String messageHolder = matcher.group(3);
+            String path = matcher.group(4);
 
-            if (object instanceof String) {
-                args[i] = (String) object;
-            } else {
-                args[i] = "LANGUAGE_ERROR";
-            }
+            // Obtener el mensaje localizado
+            String localizedMessage = getLocalizedMessage(language, messageHolder, path);
+
+            // Preparar el segmento con el mensaje localizado, aplicando el código de color si está presente
+            String replacement = colorCode + localizedMessage;
+
+            // Reemplazar en el resultado, asegurándose de manejar correctamente el carácter $ y las referencias de grupo
+            matcher.appendReplacement(result, Matcher.quoteReplacement(replacement));
         }
-        return parse(player, String.join(" ", args));
+        matcher.appendTail(result);
+
+        // Devolver el resultado final, no es necesario aplicar translateAlternateColorCodes aquí
+        // ya que todos los códigos de color se aplican individualmente a cada segmento localizado
+        return result.toString();
     }
 
+    private String getLocalizedMessage(Language language, String messageHolder, String path) {
+        // Obtener el mensaje localizado basado en el idioma, messageHolder y path
+        Object object = LanguagesHandler
+                .get(language)
+                .get(messageHolder)
+                .get(path);
+
+        if (object instanceof String) {
+            return (String) object;
+        } else {
+            return "LANGUAGE_ERROR";
+        }
+    }
 }

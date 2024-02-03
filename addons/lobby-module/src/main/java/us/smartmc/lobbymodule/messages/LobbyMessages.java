@@ -52,6 +52,11 @@ public class LobbyMessages extends MultiLanguageRegistry {
             holder.registerDefault("link_socials_linked_correctly", "You have successfully linked the social network!");
             holder.registerDefault("link_socials_introduce_url", "&8➤ &bPlease introduce your social network link in the chat");
 
+            item(holder, "link_social_network", "{0}",
+                    "&7Here you have the link of {0}&7:\n\n&fLink:&e {1}\n&fExample:&e {2}\n\n&a▶ Click to set\n&c▶ Right-Click to unlink");
+
+            item(holder, "link_socials", "&aLink your social networks", "&7You can link your social networks to SmartMC\nto promote your personal brand");
+
             for (PlayerVisibility visibility : PlayerVisibility.values()) {
                 holder.registerDefault("visibility_" + visibility.name() + "_name", "visibility");
             }
@@ -69,7 +74,7 @@ public class LobbyMessages extends MultiLanguageRegistry {
             item(holder, "terms", "&aTerms and Conditions", "&7Accept our terms and conditions to continue");
 
             item(holder, "cosmetics", "&bCosmetics <lang.lobby.items_right_click>", "&7Open cosmetics menu and change your current cosmetics.");
-            item(holder, "link_socials", "&aLink your social networks", "&7You can link your social networks to SmartMC\nto promote your personal brand");
+
 
             holder.save();
         });

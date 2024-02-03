@@ -21,12 +21,10 @@ public class LinkSocialsCommand extends AddonPluginCommand {
     @Override
     public void executePlayer(Player player, String[] args) {
         player.closeInventory();
-
         if (player.hasPermission(getPermission())) {
             executeAdminPlayer(player, args);
             return;
         }
-
         player.sendMessage(ChatUtil.parse(player, "<lang.lobby.feature_in_development"));
     }
 

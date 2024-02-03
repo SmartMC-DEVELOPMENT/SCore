@@ -68,12 +68,11 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
-        event.getDrops().clear();
-        event.setDeathMessage("");
-        event.setKeepInventory(false);
+        Player player = event.getEntity();
+        event.setDeathMessage(null);
         FFAPlayer ffaPlayer = FFAPlayerManager.INSTANCE.get(event.getEntity().getUniqueId());
         if (ffaPlayer == null) return;
-        FFAPlugin.getGame().deathPlayer(event.getEntity());
+        PlayerUtil.kill(player);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

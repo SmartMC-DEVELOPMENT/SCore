@@ -48,6 +48,7 @@ public class SmartCore extends JavaPlugin {
     private AdminModeHandler adminModeHandler;
     @Getter
     private RegionModeManager regionModeManager;
+
     @Getter
     private CuboidManager cuboidManager;
 

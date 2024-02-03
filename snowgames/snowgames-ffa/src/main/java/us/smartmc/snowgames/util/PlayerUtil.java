@@ -26,13 +26,13 @@ public class PlayerUtil {
         FFAPlayer ffaVictim = FFAPlayerManager.INSTANCE.get(victim.getUniqueId());
         if (ffaVictim == null) return;
 
-        // Quit player from game
-        game.quitPlayer(ffaVictim.getPlayer());
-
-        ffaVictim.addDeath();
-
         FFAMap map = FFAPlugin.getPlugin().getArenaManager().getCurrentMap();
         ffaVictim.getPlayer().teleport(map.getSpawn());
+
+        // Quit player from game
+        game.quitPlayer(ffaVictim.getPlayer());
+        ffaVictim.addDeath();
+        victim.setHealth(20);
 
         // Tries to get last player damage if not null then calls method addKillTo
         UUID attackerUUID = getAttacked.get(victim.getUniqueId());

@@ -9,21 +9,24 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import us.smartmc.core.instance.player.SmartCorePlayer;
+import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.instance.LinkSocialAction;
 import us.smartmc.lobbymodule.instance.LinkSocialType;
-import us.smartmc.lobbymodule.linksocials.YouTubeLink;
+import us.smartmc.lobbymodule.linksocials.*;
 
 import java.util.*;
 
 public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSocialAction> implements Listener {
 
-    private static final String DATA_LINK_DOCUMENT_NAME = "socials";
+    public static final String DB_DOCUMENT_PATH = "socials";
 
     private final Map<UUID, LinkSocialType> pendingLinks = new HashMap<>();
 
     @Override
     public void load() {
-        register(new YouTubeLink());
+        register(YouTubeLink.class, TwitchLink.class, TikTokLink.class,
+                TwitterLink.class, InstagramLink.class, GitHubLink.class, DiscordLink.class);
+        LobbyModule.getPlugin().registerListeners(this);
     }
 
     @Override
@@ -33,14 +36,17 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
     public void perform(Player player, String message) {
         LinkSocialType type = pendingLinks.get(player.getUniqueId());
         if (type == null) return;
-        get(type).perform(SmartCorePlayer.get(player), message);
+        LinkSocialAction action = get(type);
+        if (action == null) return;
+        action.perform(SmartCorePlayer.get(player), message);
     }
 
     public void associate(CorePlayer player, String url) {
         LinkSocialType type = pendingLinks.remove(player.getUUID());
-        Document document = player.getPlayerData().getDocument().get(DATA_LINK_DOCUMENT_NAME, Document.class);
+        Document document = player.getPlayerData().getDocument().get(DB_DOCUMENT_PATH, Document.class);
         if (document == null) document = new Document();
         document.put(type.name(), url);
+        player.getPlayerData().getDocument().put(DB_DOCUMENT_PATH, document);
         player.get().sendMessage(ChatUtil.parse(player.get(), "&a<lang.lobby.link_socials_linked_correctly>"));
     }
 
@@ -51,18 +57,27 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
         player.closeInventory();
         player.sendMessage(ChatUtil.parse(player, "<lang.lobby.link_socials_introduce_url>"));
 
-        // 20 seconds removes cache
+        // 2 minutes later removes cache
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 pendingLinks.remove(uuid);
             }
-        }, 20L * 1000);
+        }, 120L * 1000);
     }
 
-    public void register(LinkSocialAction... actions) {
-        for (LinkSocialAction action : actions) {
-            register(action.getType(), action);
+    @SafeVarargs
+    public final void register(Class<? extends LinkSocialAction>... actions) {
+        for (Class<? extends LinkSocialAction> actionClass : actions) {
+            LinkSocialAction action;
+            try {
+                action = actionClass.newInstance();
+                register(action.getType(), action);
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -71,7 +86,7 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
         String message = event.getMessage();
         Player player = event.getPlayer();
         if (!pendingLinks.containsKey(player.getUniqueId())) return;
+        event.setCancelled(true);
         perform(player, message);
     }
-
 }

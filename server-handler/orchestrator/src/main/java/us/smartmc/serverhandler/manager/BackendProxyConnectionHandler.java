@@ -21,7 +21,7 @@ public class BackendProxyConnectionHandler {
 
     public static void broadcast(String command) {
         proxyConnections.forEach(h -> {
-            System.out.println("Broadcasting to proxy...");
+            System.out.println("Broadcasting to proxy... (" + command + ")");
             ConnectionUtil.sendCommand(h, command);
         });
     }

@@ -25,7 +25,7 @@ public class LinkSocialsCommand extends AddonPluginCommand {
             executeAdminPlayer(player, args);
             return;
         }
-        player.sendMessage(ChatUtil.parse(player, "<lang.lobby.feature_in_development"));
+        player.sendMessage(ChatUtil.parse(player, "<lang.lobby.feature_in_development>"));
     }
 
     @Override

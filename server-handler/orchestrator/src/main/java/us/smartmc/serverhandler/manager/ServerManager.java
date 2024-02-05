@@ -81,7 +81,6 @@ public class ServerManager {
     }
 
     public static void deleteIfNotTemporalAndUnregister(String name) {
-        BackendProxyConnectionHandler.broadcast("unregisterServer " + name);
         ServerInfo serverInfo = get(name);
         if (serverInfo.getConfig().getData().isTemporal()) {
             new Thread(() -> {

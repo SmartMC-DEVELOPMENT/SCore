@@ -3,6 +3,7 @@ package us.smartmc.snowgames.player;
 import com.mongodb.client.MongoCollection;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bson.Document;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -20,14 +21,21 @@ public class FFAPlayer {
 
     public FFAPlayer(Player player) {
         this.player = player;
-        statsDocument = collection.find(getQuery()).first();
-        if (statsDocument == null) statsDocument = getQuery();
-
+        loadStats();
         killStreak = 0;
+    }
+
+    private void loadStats() {
+        SyncUtil.later(() -> {
+            statsDocument = collection.find(getQuery()).first();
+            if (statsDocument == null) statsDocument = getQuery();
+            statsDocument.put("name", player.getName());
+        }, 75);
     }
 
     // Obtener / Returnar 0
     public int getIntStat(String name) {
+        if (statsDocument == null) return 0;
         return statsDocument.getInteger(name, 0);
     }
 
@@ -55,7 +63,7 @@ public class FFAPlayer {
 
     public void addDeath() {
         sumIntStat("deaths");
-        player.playSound(player.getLocation(), Sound.CAT_MEOW, 1, 1);
+        //player.playSound(player.getLocation(), Sound.CAT_MEOW, 1, 1);
         killStreak = 0;
         // Clear cooldown from items
         ItemCooldownManager.clear(player);

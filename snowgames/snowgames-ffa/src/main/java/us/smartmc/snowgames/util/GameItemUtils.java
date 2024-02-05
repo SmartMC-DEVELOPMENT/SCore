@@ -41,9 +41,10 @@ public class GameItemUtils {
             }
             regenerationItem.setAmount(amount);
         } else {
+            // Check if in game
+            if (!FFAPlugin.getGame().isInGame(player)) return;
             Language language = PlayerLanguages.get(player.getUniqueId());
             LanguageConfig config = FFAPlugin.getPlugin().getLanguageConfig();
-
             player.getInventory().setItem(8, GameHotbar.parseItem(player,
                     config.getItemConfig(language, "regeneration").get(), "&a"));
         }

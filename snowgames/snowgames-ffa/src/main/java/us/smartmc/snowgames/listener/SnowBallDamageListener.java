@@ -17,7 +17,7 @@ public class SnowBallDamageListener implements Listener {
     public void changeDamageFromSnowball(EntityDamageByEntityEvent event) {
         Entity damager = event.getDamager();
         if (damager instanceof Snowball snowball) {
-            event.setDamage(4.5D);
+            event.setDamage(3.0D);
             ProjectileSource shooter = snowball.getShooter();
 
             if (shooter == null) return;

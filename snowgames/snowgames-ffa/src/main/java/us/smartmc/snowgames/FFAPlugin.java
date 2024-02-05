@@ -3,6 +3,7 @@ package us.smartmc.snowgames;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,13 +17,12 @@ import us.smartmc.snowgames.config.DefaultConfig;
 import us.smartmc.snowgames.config.LanguageConfig;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.listener.BlockListeners;
-import us.smartmc.snowgames.listener.SnowBallDamageListener;
 import us.smartmc.snowgames.listener.GameListeners;
 import us.smartmc.snowgames.listener.PlayerListeners;
-import us.smartmc.snowgames.manager.ArenaManager;
-import us.smartmc.snowgames.manager.BlocksResetManager;
-import us.smartmc.snowgames.manager.WorldConfigManager;
+import us.smartmc.snowgames.listener.SnowBallDamageListener;
+import us.smartmc.snowgames.manager.*;
 import us.smartmc.snowgames.messages.PluginMessages;
+import us.smartmc.snowgames.player.FFAPlayer;
 import us.smartmc.snowgames.util.DebugUtil;
 import us.smartmc.snowgames.variables.PlayerVariables;
 
@@ -45,6 +45,8 @@ public class FFAPlugin extends JavaPlugin {
     @Getter
     private ArenaManager arenaManager;
 
+    @Getter
+    private TopsManager topsManager;
 
     @Override
     public void onEnable() {
@@ -75,6 +77,12 @@ public class FFAPlugin extends JavaPlugin {
         getCommand("ffa").setExecutor(new FFACommand());
 
         arenaManager = new ArenaManager();
+        topsManager = new TopsManager("player_data", "snowgames_ffa")
+                .register("kills", "deaths", "max_kill_streak");
+
+        SyncUtil.later(() -> {
+            topsManager.load();
+        }, 750);
 
         DebugUtil.setEnabled(false);
     }
@@ -85,11 +93,11 @@ public class FFAPlugin extends JavaPlugin {
         for (World world : Bukkit.getWorlds()) {
             BlocksResetManager.completeAllByWorldName(world.getName());
         }
+        FFAPlayerManager.INSTANCE.unload();
     }
 
     @SafeVarargs
     private void registerListeners(Class<? extends Listener>... classes) {
-
         for (Class<? extends Listener> listenerClass : classes) {
             try {
                 Bukkit.getPluginManager().registerEvents(listenerClass.newInstance(), plugin);

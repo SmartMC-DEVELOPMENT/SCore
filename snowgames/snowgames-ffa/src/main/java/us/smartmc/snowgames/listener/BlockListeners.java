@@ -4,8 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.server.ServerEvent;
@@ -16,10 +18,11 @@ import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.config.DefaultConfig;
 import us.smartmc.snowgames.manager.BlocksResetManager;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
+import us.smartmc.snowgames.util.RegionUtils;
 
 public class BlockListeners implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void handleBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         if (SmartCore.getPlugin().getAdminModeHandler().isActive(player)) return;
@@ -37,6 +40,24 @@ public class BlockListeners implements Listener {
         if (event.getBlock().getType().name().contains("PLATE")) return;
         ItemStack item = player.getItemInHand();
         player.setItemInHand(item);
+    }
+
+    @EventHandler(priority = EventPriority.LOW)
+    public void cancelBreak(BlockBreakEvent event) {
+        event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.LOW)
+    public void cancelPlace(BlockPlaceEvent event) {
+        event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void allowPlaceIfInGameAndNotSpawn(BlockPlaceEvent event) {
+        Player player = event.getPlayer();
+        if (!FFAPlugin.getGame().isInGame(player)) return;
+        if (RegionUtils.isAtSpawn(player)) return;
+        event.setCancelled(false);
     }
 
     @EventHandler

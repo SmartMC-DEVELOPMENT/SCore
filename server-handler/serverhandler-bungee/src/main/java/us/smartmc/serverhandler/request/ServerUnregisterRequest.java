@@ -57,7 +57,7 @@ public class ServerUnregisterRequest implements Runnable {
             if (startRedirect == -1) startRedirect = System.currentTimeMillis();
         }
 
-        if (startRedirect == -1) return;
+        if (startRedirect == -1) startRedirect = System.currentTimeMillis();
         while (!connecting.isEmpty()) {
             try {
                 Thread.sleep(500);
@@ -70,6 +70,7 @@ public class ServerUnregisterRequest implements Runnable {
                 return;
             }
         }
+        complete();
     }
 
     private void complete() {

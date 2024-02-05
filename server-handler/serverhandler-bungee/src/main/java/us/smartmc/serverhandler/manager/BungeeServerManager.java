@@ -15,7 +15,7 @@ public class BungeeServerManager {
 
         ServerInfo info = ServerHandlerMain.proxy.constructServerInfo(name, new InetSocketAddress(hostname, port), "A registered server by ServerHandler", false);
         ServerHandlerMain.proxy.getServers().put(info.getName(), info);
-        System.out.println("New backend server has been registered! " + name);
+        System.out.println("New server has been registered! " + name);
     }
 
 }

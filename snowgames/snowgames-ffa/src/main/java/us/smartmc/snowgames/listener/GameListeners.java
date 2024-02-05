@@ -19,7 +19,6 @@ import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.manager.FFAPlayerManager;
 import us.smartmc.snowgames.player.FFAPlayer;
-import us.smartmc.snowgames.util.DebugUtil;
 import us.smartmc.snowgames.util.RegionUtils;
 
 import static us.smartmc.snowgames.config.DefaultConfig.getJoinMessage;
@@ -52,17 +51,6 @@ public class GameListeners implements Listener {
     @EventHandler
     public void fallDamage(EntityDamageEvent event) {
         if (event.getCause().equals(EntityDamageEvent.DamageCause.FALL)) event.setCancelled(true);
-    }
-
-    @EventHandler
-    public void cancelBlockPlaceAtSpawn(BlockPlaceEvent event) {
-        Player player = event.getPlayer();
-        FFAGame game = FFAPlugin.getGame();
-
-        if (!game.isInGame(player)) return;
-        if (RegionUtils.isAtSpawn(player)) {
-            event.setCancelled(true);
-        }
     }
 
     @EventHandler

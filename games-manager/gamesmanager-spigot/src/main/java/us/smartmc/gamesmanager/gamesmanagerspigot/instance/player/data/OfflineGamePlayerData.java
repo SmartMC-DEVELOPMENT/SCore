@@ -1,0 +1,87 @@
+package us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.data;
+
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
+import java.util.UUID;
+
+public abstract class OfflineGamePlayerData implements IOfflineGamePlayerData {
+
+    private final UUID uuid;
+
+    private final String database, collection;
+
+    public OfflineGamePlayerData(UUID uuid) {
+        this.uuid = uuid;
+        OfflinePlayerDataInfo info = readInfo(this);
+        this.database = info.database();
+        this.collection = info.collection();
+    }
+
+    @Override
+    public void save() {
+        getCollection().deleteMany(getQueryDocument());
+        getCollection().insertOne(getDocument());
+    }
+
+    @Override
+    public void register(String key, Object value) {
+        if(getDocument().containsKey(key)) return;
+        set(key, value);
+    }
+
+    @Override
+    public void set(String key, Object value) {
+        getDocument().put(key, value);
+    }
+
+    @Override
+    public void addNumberStat(String key) {
+        long number = getDocument().get(key, Number.class).longValue();
+        number++;
+        getDocument().put(key, number);
+    }
+
+    @Override
+    public void subtractNumberStat(String key) {
+        long number = getDocument().get(key, Number.class).longValue();
+        number--;
+        getDocument().put(key, number);
+    }
+
+    @Override
+    public void resetNumberStat(String key) {
+        getDocument().put(key, 0);
+    }
+
+    @Override
+    public Number getNumberStat(String key) {
+        return getDocument().get(key, Number.class);
+    }
+
+    @Override
+    public Object get(String key) {
+        return getDocument().get(key);
+    }
+
+    @Override
+    public UUID getUUID() {
+        return uuid;
+    }
+
+    @Override
+    public MongoDatabase getDatabase() {
+        return getMongoConnection().getDatabase(database);
+    }
+
+    @Override
+    public MongoCollection<Document> getCollection() {
+        return getDatabase().getCollection(collection);
+    }
+
+    private static OfflinePlayerDataInfo readInfo(OfflineGamePlayerData data) {
+        return data.getClass().getDeclaredAnnotation(OfflinePlayerDataInfo.class);
+    }
+
+}

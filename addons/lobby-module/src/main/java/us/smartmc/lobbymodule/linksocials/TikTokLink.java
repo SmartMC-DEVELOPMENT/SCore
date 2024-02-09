@@ -1,8 +1,10 @@
 package us.smartmc.lobbymodule.linksocials;
 
 import us.smartmc.lobbymodule.instance.LinkSocialAction;
+import us.smartmc.lobbymodule.instance.LinkSocialInfo;
 import us.smartmc.lobbymodule.instance.LinkSocialType;
 
+@LinkSocialInfo(linkFormat = "https://www.tiktok.com/@{0}", atDisabled = false)
 public class TikTokLink extends LinkSocialAction {
 
     public TikTokLink() {
@@ -10,14 +12,7 @@ public class TikTokLink extends LinkSocialAction {
     }
 
     @Override
-    public String[] getValidRegexPatterns() {
-        return new String[]{
-                "www\\.tiktok\\.com/@[a-zA-Z0-9_-]+"
-        };
-    }
-
-    @Override
     public String getValidExample() {
-        return "www.tiktok.com/@{USER}";
+        return "@smartmcnetwork";
     }
 }

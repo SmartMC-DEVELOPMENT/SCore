@@ -31,9 +31,9 @@ public class TagsHandler implements Listener {
     }
 
     private void checkUpdate(Player player) {
-        /*String tag = getFormattedTag(player);
+        String tag = getFormattedTag(player);
         String lastTagKnown = tags.get(player);
-        if (!tag.equals(lastTagKnown)) registerTagAboveHead(player);^*/
+        if (!tag.equals(lastTagKnown)) registerTagAboveHead(player);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

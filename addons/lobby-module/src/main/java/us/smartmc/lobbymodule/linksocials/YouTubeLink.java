@@ -1,8 +1,10 @@
 package us.smartmc.lobbymodule.linksocials;
 
 import us.smartmc.lobbymodule.instance.LinkSocialAction;
+import us.smartmc.lobbymodule.instance.LinkSocialInfo;
 import us.smartmc.lobbymodule.instance.LinkSocialType;
 
+@LinkSocialInfo(linkFormat = "https://www.youtube.com/@{0}", atDisabled = false)
 public class YouTubeLink extends LinkSocialAction {
 
     public YouTubeLink() {
@@ -10,15 +12,7 @@ public class YouTubeLink extends LinkSocialAction {
     }
 
     @Override
-    public String[] getValidRegexPatterns() {
-        return new String[]{
-                "www\\.youtube\\.com/channel/[a-zA-Z0-9_-]+",
-                "www\\.youtube\\.com/@[a-zA-Z0-9_-]+"
-        };
-    }
-
-    @Override
     public String getValidExample() {
-        return "www.youtube.com/channel/{ID} - www.youtube.com/@{ID/USER}";
+        return "@smartmc_net";
     }
 }

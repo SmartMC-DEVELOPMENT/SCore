@@ -15,7 +15,7 @@ public interface ILinkSocial {
     }
 
     default boolean isValidURL(String url) {
-        if (url.startsWith("https://")) url = url.replaceFirst("https://", "");
+        if (!url.startsWith("@")) url = "@" + url;
         for (String pattern : getValidRegexPatterns()) {
             if (url.matches(pattern)) {
                 return true;
@@ -26,5 +26,7 @@ public interface ILinkSocial {
 
     String[] getValidRegexPatterns();
     String getValidExample();
+
+    String getFormattedLink(String username);
 
 }

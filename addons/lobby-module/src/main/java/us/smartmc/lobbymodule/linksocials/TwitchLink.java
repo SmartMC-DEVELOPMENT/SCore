@@ -1,8 +1,10 @@
 package us.smartmc.lobbymodule.linksocials;
 
 import us.smartmc.lobbymodule.instance.LinkSocialAction;
+import us.smartmc.lobbymodule.instance.LinkSocialInfo;
 import us.smartmc.lobbymodule.instance.LinkSocialType;
 
+@LinkSocialInfo(linkFormat = "https://www.twitch.tv/{0}")
 public class TwitchLink extends LinkSocialAction {
 
     public TwitchLink() {
@@ -10,14 +12,7 @@ public class TwitchLink extends LinkSocialAction {
     }
 
     @Override
-    public String[] getValidRegexPatterns() {
-        return new String[]{
-                "www\\.twitch\\.tv/[a-zA-Z0-9_-]+"
-        };
-    }
-
-    @Override
     public String getValidExample() {
-        return "www.twitch.tv/{USER}";
+        return "@imsergioh_";
     }
 }

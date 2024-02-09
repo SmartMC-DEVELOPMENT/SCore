@@ -21,6 +21,7 @@
         <module name="snowgames-ffa" />
         <module name="common" />
         <module name="serverhandler-bukkit" />
+        <module name="old-gamesmanager-spigot (1)" />
         <module name="gamesmanager-spigot" />
         <module name="core-plugins" />
         <module name="smartcore-spigot" />

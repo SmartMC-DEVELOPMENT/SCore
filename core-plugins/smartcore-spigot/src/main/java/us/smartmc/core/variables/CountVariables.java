@@ -39,11 +39,6 @@ public class CountVariables extends VariableListener<Player> {
         }
     }
 
-    public static void removeCacheCount() {
-        String key = "online." + SmartCore.getServerID();
-        RedisConnection.mainConnection.getResource().del(key);
-    }
-
     public static String getCountOf(String idName) {
         String path = idName;
         if (!path.startsWith("online.")) path = "online." + idName;

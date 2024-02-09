@@ -116,7 +116,11 @@ public class SmartCore extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        CountVariables.removeCacheCount();
+        // Delete all redis cache with serverID (pattern: *.serverID)
+        for (String key : RedisConnection.mainConnection.getResource().keys("*." + getServerID())) {
+            RedisConnection.mainConnection.getResource().del(key);
+        }
+
         cuboidManager.unload();
     }
 
@@ -208,5 +212,4 @@ public class SmartCore extends JavaPlugin {
     private void registerServerName() {
         RedisConnection.mainConnection.getResource().set("serverAlias." + getServerID(), getServerAlias());
     }
-
 }

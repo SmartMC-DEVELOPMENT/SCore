@@ -1,8 +1,10 @@
 package us.smartmc.lobbymodule.linksocials;
 
 import us.smartmc.lobbymodule.instance.LinkSocialAction;
+import us.smartmc.lobbymodule.instance.LinkSocialInfo;
 import us.smartmc.lobbymodule.instance.LinkSocialType;
 
+@LinkSocialInfo(linkFormat = "https://github.com/{0}")
 public class GitHubLink extends LinkSocialAction {
 
     public GitHubLink() {
@@ -10,14 +12,7 @@ public class GitHubLink extends LinkSocialAction {
     }
 
     @Override
-    public String[] getValidRegexPatterns() {
-        return new String[]{
-                "www.github.com/[a-zA-Z0-9_-]+"
-        };
-    }
-
-    @Override
     public String getValidExample() {
-        return "www.github.com/{USER}";
+        return "@ImSergioh";
     }
 }

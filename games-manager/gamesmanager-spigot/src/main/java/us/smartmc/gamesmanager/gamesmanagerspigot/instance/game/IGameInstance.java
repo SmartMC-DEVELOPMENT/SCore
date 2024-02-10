@@ -12,8 +12,11 @@ public interface IGameInstance {
 
     void joinPlayer(GamePlayer player);
     void quitPlayer(GamePlayer player);
+    boolean canJoinPlayer(GamePlayer player);
     Collection<GamePlayer> getAlivePlayers();
     Collection<GamePlayer> getPlayers();
+
+    boolean canGameStart();
 
     GameMap getMap();
     GameStatus getStatus();

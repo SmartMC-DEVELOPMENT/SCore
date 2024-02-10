@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SCore.iml" filepath="$PROJECT_DIR$/SCore.iml" />
       <module fileurl="file://$PROJECT_DIR$/addons.iml" filepath="$PROJECT_DIR$/addons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/arenapvp/arenapvp.iml" filepath="$PROJECT_DIR$/arenapvp/arenapvp.iml" />
       <module fileurl="file://$PROJECT_DIR$/addons/chat-module/chat-module.iml" filepath="$PROJECT_DIR$/addons/chat-module/chat-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-plugins/core-plugins.iml" filepath="$PROJECT_DIR$/core-plugins/core-plugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/games-manager.iml" filepath="$PROJECT_DIR$/games-manager.iml" />

@@ -5,6 +5,8 @@
       <sourceFolder url="file://$MODULE_DIR$/plugins-api/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/plugins-api/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/arenapvp/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/arenapvp/src/main/resources" type="java-resource" />
     </content>
   </component>
   <component name="FacetManager">

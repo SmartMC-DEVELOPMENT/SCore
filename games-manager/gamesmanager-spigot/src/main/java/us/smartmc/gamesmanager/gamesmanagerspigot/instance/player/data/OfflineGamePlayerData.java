@@ -2,6 +2,7 @@ package us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.data;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import lombok.Getter;
 import org.bson.Document;
 
 import java.util.UUID;
@@ -10,6 +11,8 @@ public abstract class OfflineGamePlayerData implements IOfflineGamePlayerData {
 
     private final UUID uuid;
 
+    @Getter
+    private Document document;
     private final String database, collection;
 
     public OfflineGamePlayerData(UUID uuid) {
@@ -17,6 +20,7 @@ public abstract class OfflineGamePlayerData implements IOfflineGamePlayerData {
         OfflinePlayerDataInfo info = readInfo(this);
         this.database = info.database();
         this.collection = info.collection();
+        document = getCollection().find(getQueryDocument()).first();
     }
 
     @Override

@@ -1,11 +1,6 @@
 package us.smartmc.gamesmanager.gamesmanagerspigot;
 
-import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameManager;
-import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePlayerManager;
+import org.bukkit.plugin.java.JavaPlugin;
 
-public interface GamesManagerAPI {
-
-    GameManager<?> getGameManager();
-    GamePlayerManager<?> getGamePlayerManager();
-
+public abstract class GamesManagerAPI<G, P> extends JavaPlugin implements IGamesManagerAPI<G, P> {
 }

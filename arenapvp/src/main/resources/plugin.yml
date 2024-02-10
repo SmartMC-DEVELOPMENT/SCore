@@ -1,0 +1,3 @@
+name: arenapvp
+version: '${project.version}'
+main: us.smartmc.arenapvp.arenapvp.Arenapvp

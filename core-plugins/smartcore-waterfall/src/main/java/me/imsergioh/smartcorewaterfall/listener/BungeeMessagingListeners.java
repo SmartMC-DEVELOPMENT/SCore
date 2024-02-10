@@ -1,6 +1,9 @@
 package me.imsergioh.smartcorewaterfall.listener;
 
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.smartcorewaterfall.SmartCoreWaterfall;
+import me.imsergioh.smartcorewaterfall.messages.ProxyMainMessages;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -37,7 +40,8 @@ public class BungeeMessagingListeners implements Listener {
                         list.add(info);
                     }
                     if (list.isEmpty()) {
-                        player.sendMessage(new TextComponent(ChatColor.RED + "Servers not found."));
+                        String message = ProxyMainMessages.get(PlayerLanguages.get(player.getUniqueId()), "servers_not_found");
+                        player.sendMessage(new TextComponent(ChatUtil.parse(message)));
                         return;
                     }
                     // Aquí manejas la redirección

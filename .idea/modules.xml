@@ -13,7 +13,6 @@
       <module fileurl="file://$PROJECT_DIR$/login/login-spigot/login-spigot.iml" filepath="$PROJECT_DIR$/login/login-spigot/login-spigot.iml" />
       <module fileurl="file://$PROJECT_DIR$/login/loginproxy-waterfall/loginproxy-waterfall.iml" filepath="$PROJECT_DIR$/login/loginproxy-waterfall/loginproxy-waterfall.iml" />
       <module fileurl="file://$PROJECT_DIR$/addons/npcs-module/npcs-module.iml" filepath="$PROJECT_DIR$/addons/npcs-module/npcs-module.iml" />
-      <module fileurl="file://$PROJECT_DIR$/games-manager/old-gamesmanager-spigot/old-gamesmanager-spigot (1).iml" filepath="$PROJECT_DIR$/games-manager/old-gamesmanager-spigot/old-gamesmanager-spigot (1).iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/serverhandler-bukkit/serverhandler-bukkit.iml" filepath="$PROJECT_DIR$/server-handler/serverhandler-bukkit/serverhandler-bukkit.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/serverhandler-bungee/serverhandler-bungee.iml" filepath="$PROJECT_DIR$/server-handler/serverhandler-bungee/serverhandler-bungee.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-plugins/smartcore-spigot/smartcore-spigot.iml" filepath="$PROJECT_DIR$/core-plugins/smartcore-spigot/smartcore-spigot.iml" />

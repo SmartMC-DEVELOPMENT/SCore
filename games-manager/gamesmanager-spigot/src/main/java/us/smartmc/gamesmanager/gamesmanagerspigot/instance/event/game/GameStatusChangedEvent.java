@@ -6,11 +6,11 @@ import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GameInstance;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GameStatus;
 
 @Getter
-public class GameStatusChange extends GameInstanceEvent {
+public class GameStatusChangedEvent extends GameInstanceEvent {
 
     private final GameStatus previousStatus, gameStatus;
 
-    public GameStatusChange(GameInstance instance, GameStatus previousStatus, GameStatus gameStatus) {
+    public GameStatusChangedEvent(GameInstance instance, GameStatus previousStatus, GameStatus gameStatus) {
         super(instance);
         this.previousStatus = previousStatus;
         this.gameStatus = gameStatus;

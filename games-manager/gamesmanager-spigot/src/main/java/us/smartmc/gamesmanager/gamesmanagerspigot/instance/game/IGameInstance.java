@@ -10,9 +10,12 @@ public interface IGameInstance {
     void load();
     void unload();
 
+    void joinPlayer(GamePlayer player);
+    void quitPlayer(GamePlayer player);
     Collection<GamePlayer> getAlivePlayers();
     Collection<GamePlayer> getPlayers();
 
+    GameMap getMap();
     GameStatus getStatus();
     String getName();
     GameManager<?> getManager();

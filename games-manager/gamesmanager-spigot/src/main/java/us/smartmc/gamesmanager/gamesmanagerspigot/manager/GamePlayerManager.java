@@ -3,6 +3,7 @@ package us.smartmc.gamesmanager.gamesmanagerspigot.manager;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.smartmc.gamesmanager.gamesmanagerspigot.GamesManagerAPI;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.event.player.GamePlayerLoadEvent;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.event.player.GamePlayerLoadedEvent;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.event.player.GamePlayerUnloadEvent;
@@ -17,10 +18,10 @@ import java.util.UUID;
 public abstract class GamePlayerManager<T extends GamePlayer> implements IGamePlayerManager {
 
     @Getter
-    private final JavaPlugin plugin;
+    private final GamesManagerAPI plugin;
     private final HashMap<UUID, T> players = new HashMap<>();
 
-    public GamePlayerManager(JavaPlugin plugin) {
+    public GamePlayerManager(GamesManagerAPI plugin) {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(new PlayerListeners(this), plugin);
     }

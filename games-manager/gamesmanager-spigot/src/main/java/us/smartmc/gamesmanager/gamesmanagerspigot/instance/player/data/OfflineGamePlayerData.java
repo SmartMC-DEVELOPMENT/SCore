@@ -17,10 +17,11 @@ public abstract class OfflineGamePlayerData implements IOfflineGamePlayerData {
 
     public OfflineGamePlayerData(UUID uuid) {
         this.uuid = uuid;
-        OfflinePlayerDataInfo info = readInfo(this);
+        OfflinePlayerDataInfo info = getClass().getDeclaredAnnotation(OfflinePlayerDataInfo.class);
         this.database = info.database();
         this.collection = info.collection();
         document = getCollection().find(getQueryDocument()).first();
+        if (document == null) document = getQueryDocument();
     }
 
     @Override
@@ -82,10 +83,6 @@ public abstract class OfflineGamePlayerData implements IOfflineGamePlayerData {
     @Override
     public MongoCollection<Document> getCollection() {
         return getDatabase().getCollection(collection);
-    }
-
-    private static OfflinePlayerDataInfo readInfo(OfflineGamePlayerData data) {
-        return data.getClass().getDeclaredAnnotation(OfflinePlayerDataInfo.class);
     }
 
 }

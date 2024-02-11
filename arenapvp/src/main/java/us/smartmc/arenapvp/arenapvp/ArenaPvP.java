@@ -7,7 +7,7 @@ import us.smartmc.gamesmanager.gamesmanagerspigot.GamesManagerAPI;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameManager;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePlayerManager;
 
-public class ArenaPvP extends GamesManagerAPI<ArenaGame, ArenaPlayer> {
+public class ArenaPvP extends GamesManagerAPI {
 
     private GameManager<ArenaGame> gameManager;
     private GamePlayerManager<ArenaPlayer> playerManager;
@@ -16,6 +16,8 @@ public class ArenaPvP extends GamesManagerAPI<ArenaGame, ArenaPlayer> {
     public void onEnable() {
         gameManager = new GameManager<>();
         playerManager = new ArenaPlayerManager(this);
+
+        gameManager.register(new ArenaGame(gameManager, "test-arena"));
      }
 
     @Override

@@ -1,3 +1,7 @@
 name: arenapvp
 version: '${project.version}'
-main: us.smartmc.arenapvp.arenapvp.Arenapvp
+main: us.smartmc.arenapvp.arenapvp.ArenaPvP
+
+commands:
+  arenapvp:
+    description: "Main command for arenapvp"

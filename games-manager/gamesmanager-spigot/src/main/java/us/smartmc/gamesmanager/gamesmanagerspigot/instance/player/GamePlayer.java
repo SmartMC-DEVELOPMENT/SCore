@@ -32,10 +32,6 @@ public abstract class GamePlayer extends OfflineGamePlayer {
         player.sendMessage(ChatUtil.parse(player, message, args));
     }
 
-    public void sendTitle(String title, String subtitle, Object... args) {
-        sendTitle(title, subtitle, 10, 20, 10, args);
-    }
-
     public void sendTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut, Object... args) {
         player.sendTitle(ChatUtil.parse(player, title, args),
                 ChatUtil.parse(player, subtitle, args),

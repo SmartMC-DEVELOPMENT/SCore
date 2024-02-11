@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 public abstract class GameTask implements Runnable {
 
+    @Getter
     protected final GameInstance game;
     @Setter
     private GameTaskScheduler scheduler;

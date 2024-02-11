@@ -44,6 +44,6 @@ public class ArenaPlayerData extends OfflineGamePlayerData {
 
     @Override
     public MongoDBConnection getMongoConnection() {
-        return null;
+        return MongoDBConnection.mainConnection;
     }
 }

@@ -51,15 +51,15 @@ public class GameTaskScheduler {
     }
 
     private void registerTask(GameTask task) {
-        Set<GameTask> list = getTasks(task.getInstance());
+        Set<GameTask> list = getTasks(task.getGame());
         list.add(task);
-        tasks.put(task.getInstance(), list);
+        tasks.put(task.getGame(), list);
     }
 
     private void unregisterTask(GameTask task) {
-        Set<GameTask> list = getTasks(task.getInstance());
+        Set<GameTask> list = getTasks(task.getGame());
         list.remove(task);
-        tasks.put(task.getInstance(), list);
+        tasks.put(task.getGame(), list);
     }
 }
 

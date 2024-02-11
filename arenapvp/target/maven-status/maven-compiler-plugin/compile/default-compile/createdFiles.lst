@@ -1,0 +1,7 @@
+us\smartmc\arenapvp\arenapvp\instance\task\CountdownTask.class
+us\smartmc\arenapvp\arenapvp\instance\messages\ArenaPvPMessages.class
+us\smartmc\arenapvp\arenapvp\instance\player\ArenaPlayer.class
+us\smartmc\arenapvp\arenapvp\ArenaPvP.class
+us\smartmc\arenapvp\arenapvp\manager\ArenaPlayerManager.class
+us\smartmc\arenapvp\arenapvp\instance\ArenaGame.class
+us\smartmc\arenapvp\arenapvp\instance\player\ArenaPlayerData.class

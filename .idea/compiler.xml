@@ -13,6 +13,7 @@
         <module name="loginproxy-waterfall" />
         <module name="serverhandler-bungee" />
         <module name="login" />
+        <module name="staffmode-bungee" />
         <module name="arenapvp" />
         <module name="npcs-module" />
         <module name="login-spigot" />

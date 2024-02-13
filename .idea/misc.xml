@@ -31,6 +31,7 @@
         <option value="$PROJECT_DIR$/arenapvp/pom.xml" />
         <option value="$PROJECT_DIR$/staffmode-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/staff-mode/staffmode-spigot/pom.xml" />
+        <option value="$PROJECT_DIR$/staff-mode/staffmode-bungee/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

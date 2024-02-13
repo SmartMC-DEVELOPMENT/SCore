@@ -3,3 +3,6 @@ version: '${project.version}'
 main: us.smartmc.moderation.staffmodebungee.StaffModeMainBungee
 depends:
   - SmartCore-Waterfall
+
+commands:
+  staffChat:

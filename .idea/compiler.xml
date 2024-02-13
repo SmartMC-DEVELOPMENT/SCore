@@ -27,6 +27,7 @@
         <module name="smartcore-spigot" />
         <module name="games-manager" />
         <module name="lobby-module" />
+        <module name="staffmode-spigot" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

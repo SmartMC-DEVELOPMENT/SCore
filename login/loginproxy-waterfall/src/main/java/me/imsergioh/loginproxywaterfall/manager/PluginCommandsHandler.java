@@ -19,7 +19,7 @@ public class PluginCommandsHandler implements Listener {
         executors.put(name, executor);
     }
 
-    @EventHandler(priority = 1)
+    @EventHandler(priority = 6)
     public void chat(ChatEvent event) {
         Connection connection = event.getSender();
         if (!(connection instanceof ProxiedPlayer)) return;
@@ -30,11 +30,13 @@ public class PluginCommandsHandler implements Listener {
     private static void perform(ChatEvent event, ProxiedPlayer player) {
         LoginPlayer loginPlayer = LoginPlayersFactory.get(player);
         if (loginPlayer.isAuth()) return;
-        String cmdName = event.getMessage().replaceFirst("/", "").split(" ")[0];
+        event.setCancelled(true);
+        String cmdName = event.getMessage().replaceFirst("/", "");
+        if (cmdName.contains(" ")) cmdName = cmdName.split(" ")[0];
         String[] args = event.getMessage().replaceFirst("/" + cmdName + " ", "").split(" ");
+        System.out.println("Cancelling ChatEvent LoginProxyWaterfall -> " + cmdName);
         if (!executors.containsKey(cmdName)) return;
         executors.get(cmdName).onCommand(player, args);
-        event.setCancelled(true);
     }
 
 }

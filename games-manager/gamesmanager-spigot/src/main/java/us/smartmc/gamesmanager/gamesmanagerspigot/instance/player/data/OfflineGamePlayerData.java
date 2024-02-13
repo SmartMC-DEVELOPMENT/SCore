@@ -43,14 +43,14 @@ public abstract class OfflineGamePlayerData implements IOfflineGamePlayerData {
 
     @Override
     public void addNumberStat(String key) {
-        long number = getDocument().get(key, Number.class).longValue();
+        long number = getNumberStat(key).longValue();
         number++;
         getDocument().put(key, number);
     }
 
     @Override
     public void subtractNumberStat(String key) {
-        long number = getDocument().get(key, Number.class).longValue();
+        long number = getNumberStat(key).longValue();
         number--;
         getDocument().put(key, number);
     }
@@ -62,6 +62,7 @@ public abstract class OfflineGamePlayerData implements IOfflineGamePlayerData {
 
     @Override
     public Number getNumberStat(String key) {
+        if (!getDocument().containsKey(key)) return 0;
         return getDocument().get(key, Number.class);
     }
 

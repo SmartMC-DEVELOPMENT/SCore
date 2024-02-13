@@ -77,6 +77,7 @@ public class ServerManager {
     }
 
     public static ServerInfo get(String name) {
+        if (servers.containsKey(name)) create(name);
         return servers.get(name);
     }
 

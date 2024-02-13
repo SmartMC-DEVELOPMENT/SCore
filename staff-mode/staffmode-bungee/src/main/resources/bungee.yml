@@ -1,0 +1,5 @@
+name: staffmode-bungee
+version: '${project.version}'
+main: us.smartmc.moderation.staffmodebungee.StaffModeMainBungee
+depends:
+  - SmartCore-Waterfall

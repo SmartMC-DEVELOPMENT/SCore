@@ -29,6 +29,8 @@
         <option value="$PROJECT_DIR$/snowgames/snowgames-ffa/pom.xml" />
         <option value="$PROJECT_DIR$/games-manager/gamesmanager-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/arenapvp/pom.xml" />
+        <option value="$PROJECT_DIR$/staffmode-spigot/pom.xml" />
+        <option value="$PROJECT_DIR$/staff-mode/staffmode-spigot/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

@@ -10,7 +10,12 @@ public class StaffMessages extends MultiLanguageRegistry {
     @Override
     public void load(LanguageMessagesHolder holder) {
         holder.load();
-        holder.registerDefault("chat.enabled", "&fStaffChat visibility: &a&lENABLED");
-        holder.registerDefault("chat.disabled", "&fStaffChat visibility: &c&lDISABLED");
+        holder.registerDefault("chat.visibility-enabled", "&bStaffChat visibility enabled!");
+        holder.registerDefault("chat.visibility-disabled", "&bStaffChat visibility disabled!");
+        holder.registerDefault("chat.enabled", "&bStaffChat enabled!");
+        holder.registerDefault("chat.disabled", "&bStaffChat disabled!");
+        holder.registerDefault("chat.visibility-not-enabled", "&cTo send messages in the chat you can't have visibility disabled!");
+
+        holder.save();
     }
 }

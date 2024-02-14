@@ -27,7 +27,7 @@ public class StaffPlayer {
     }
 
     private Document getQueryDocument() {
-        return new Document("_id", player.getUniqueId());
+        return new Document("_id", player.getUniqueId().toString());
     }
 
     private static MongoCollection<Document> getCollection() {

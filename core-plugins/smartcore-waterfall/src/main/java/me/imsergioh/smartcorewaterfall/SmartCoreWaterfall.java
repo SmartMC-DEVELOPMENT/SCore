@@ -1,5 +1,6 @@
 package me.imsergioh.smartcorewaterfall;
 
+import com.mongodb.MongoClientURI;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
@@ -84,6 +85,7 @@ public final class SmartCoreWaterfall extends Plugin {
         config = new FilePluginConfig(getDataFolder() + "/config.json").load();
         config.registerDefault("authServers", Arrays.asList("auth", "auth1", "auth2"));
         config.registerDefault("hubRules", new Document().append("sg-*", "sg-l*"));
+        config.registerDefault("mongodb_url", "mongodb://imsergioh:Aa@66.70.181.34:27017/admin?readPreference=primary&replicaSet=ecommerce&directConnection=true");
         config.save();
     }
 
@@ -142,7 +144,7 @@ public final class SmartCoreWaterfall extends Plugin {
     }
 
     private void setupBackendConnections() {
-        MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
+        MongoDBConnection.mainConnection = new MongoDBConnection(new MongoClientURI(config.getString("mongodb_url")));
         RedisConnection.mainConnection = new RedisConnection("localhost", 6379);
 
         PubSubConnectionHandler.register(

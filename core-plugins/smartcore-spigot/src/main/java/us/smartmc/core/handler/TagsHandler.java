@@ -59,13 +59,13 @@ public class TagsHandler implements Listener {
             String teamName = getUniqueTeamName(player);
             Team team = scoreboard.getTeam(teamName) == null ?
                     scoreboard.registerNewTeam(teamName) : scoreboard.getTeam(teamName);
-            team.setPrefix(ChatUtil.parse(player, "<chat.prefix.true"));
+            team.setPrefix(ChatUtil.parse(player, "<chat.prefix.color>"));
             team.addPlayer(player);
         }
     }
 
     private String getFormattedTag(Player player) {
-        String unformattedTag = "<chat.prefix><name>";
+        String unformattedTag = "<chat.prefix>&f<name>";
         if (unformattedTag == null) {
 
         }

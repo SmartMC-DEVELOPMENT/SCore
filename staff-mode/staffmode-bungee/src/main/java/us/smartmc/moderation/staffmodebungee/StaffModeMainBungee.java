@@ -1,12 +1,15 @@
 package us.smartmc.moderation.staffmodebungee;
 
 import lombok.Getter;
+import me.imsergioh.pluginsapi.handler.PubSubConnectionHandler;
 import net.md_5.bungee.api.plugin.Plugin;
 import us.smartmc.moderation.staffmodebungee.command.StaffChatCommand;
 import us.smartmc.moderation.staffmodebungee.listener.ManagersEvents;
+import us.smartmc.moderation.staffmodebungee.listener.StaffChatEvent;
 import us.smartmc.moderation.staffmodebungee.manager.MessagesManager;
 import us.smartmc.moderation.staffmodebungee.manager.StaffChatManager;
 import us.smartmc.moderation.staffmodebungee.manager.StaffPlayerManager;
+import us.smartmc.moderation.staffmodebungee.rediscommand.MessageCommand;
 import us.smartmc.moderation.staffmodebungee.util.RegistrationUtil;
 
 public final class StaffModeMainBungee extends Plugin {
@@ -27,7 +30,9 @@ public final class StaffModeMainBungee extends Plugin {
         playerManager = new StaffPlayerManager();
         chatManager = new StaffChatManager();
         RegistrationUtil.registerCommands(plugin, new StaffChatCommand());
-        RegistrationUtil.registerListeners(plugin, new ManagersEvents());
+        RegistrationUtil.registerListeners(plugin, new ManagersEvents(), new StaffChatEvent());
+
+        PubSubConnectionHandler.register(new MessageCommand());
     }
 
     @Override

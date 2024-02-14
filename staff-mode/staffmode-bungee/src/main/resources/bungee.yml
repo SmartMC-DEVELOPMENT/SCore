@@ -6,3 +6,4 @@ depends:
 
 commands:
   staffChat:
+    aliases: [sc, schat, staffc]

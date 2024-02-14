@@ -13,20 +13,25 @@ import us.smartmc.moderation.staffmodebungee.util.RegistrationUtil;
 
 public class StaffChatCommand extends Command {
 
-    private static final StaffModeMainBungee plugin = StaffModeMainBungee.getPlugin();
     private static final StaffChatManager chatManager = StaffModeMainBungee.getChatManager();
 
     public StaffChatCommand() {
         super("staffChat");
     }
 
+    @Override
+    public String[] getAliases() {
+        return new String[]{"sc", "staffchat", "schat", "staffc"};
+    }
+
     public void executeStaffPlayer(ProxiedPlayer player, String[] args) {
         if (args.length == 0) {
+            chatManager.toggleChat(player);
             return;
         }
 
         if (args[0].equals("toggle")) {
-            chatManager.toggleChat(player);
+            chatManager.toggleVisibility(player);
             return;
         }
     }

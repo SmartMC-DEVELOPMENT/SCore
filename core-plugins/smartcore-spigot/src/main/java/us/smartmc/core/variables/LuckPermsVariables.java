@@ -61,6 +61,9 @@ public class LuckPermsVariables extends VariableListener<Player> {
         // <CHAT.PREFIX>
         message = VariableUtil.replace(message, "<chat.prefix>", getPrefix(player, true));
         if (message.contains("<chat.prefix.")) {
+            if (message.contains("<chat.prefix.color>")) {
+                return getFirstColor(prefix);
+            }
             for (String arg : message.split(" ")) {
                 if (!arg.contains("<chat.prefix.")) continue;
                 boolean space = Boolean.parseBoolean(arg.split("\\.")[2].replace(">", "").toLowerCase());

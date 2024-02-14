@@ -16,7 +16,9 @@ public class StaffPlayerManager {
     }
 
     public void unregister(ProxiedPlayer player) {
-        get(player).unload();
+        StaffPlayer staffPlayer = get(player);
+        if (staffPlayer == null) return;
+        staffPlayer.unload();
         players.remove(player.getUniqueId());
     }
 

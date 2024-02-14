@@ -13,7 +13,6 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/core-plugins/smartcore-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/plugins-api/pom.xml" />
         <option value="$PROJECT_DIR$/core-plugins/smartcore-waterfall/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
@@ -31,6 +30,7 @@
         <option value="$PROJECT_DIR$/arenapvp/pom.xml" />
         <option value="$PROJECT_DIR$/staffmode-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/staff-mode/staffmode-spigot/pom.xml" />
+        <option value="$PROJECT_DIR$/core-plugins/smartcore-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/staff-mode/staffmode-bungee/pom.xml" />
       </list>
     </option>

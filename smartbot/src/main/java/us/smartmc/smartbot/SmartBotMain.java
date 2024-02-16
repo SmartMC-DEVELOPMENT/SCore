@@ -7,11 +7,13 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import us.smartmc.smartbot.connection.MongoDBConnection;
+import us.smartmc.smartbot.connection.RedisConnection;
 import us.smartmc.smartbot.handler.CommandHandler;
 import us.smartmc.smartbot.handler.EventSchedulerHandler;
 import us.smartmc.smartbot.handler.RepliesHandler;
 import us.smartmc.smartbot.listener.*;
 import us.smartmc.smartbot.manager.AutoRoleManager;
+import us.smartmc.smartbot.manager.LogsManager;
 import us.smartmc.smartbot.slashcommand.AnuncioCommand;
 import us.smartmc.smartbot.slashcommand.JoinToCommand;
 import us.smartmc.smartbot.slashcommand.TiendaCommand;
@@ -31,6 +33,7 @@ public class SmartBotMain {
                     "1078252707506298930"
             ));
 
+    private static LogsManager logsManager;
 
     public static void main(String[] args) {
         api = JDABuilder.createDefault(dotenv.get("TOKEN"))
@@ -50,6 +53,7 @@ public class SmartBotMain {
         api.getPresence().setActivity(Activity.of(Activity.ActivityType.WATCHING, "Administración administrando lo no administrable"));
 
         MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
+        RedisConnection.mainConnection = new RedisConnection("localhost", 6379);
 
         CommandHandler.clearCommands();
         new Timer().schedule(new TimerTask() {
@@ -65,6 +69,13 @@ public class SmartBotMain {
             }
         }, 1000);
         EventSchedulerHandler.setup();
+
+
+
+    }
+
+    public static LogsManager getLogsManager() {
+        return logsManager;
     }
 
     public static Guild getMainGuild() {

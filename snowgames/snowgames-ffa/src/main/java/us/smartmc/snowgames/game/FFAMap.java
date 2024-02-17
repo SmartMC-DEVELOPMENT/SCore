@@ -10,7 +10,7 @@ import us.smartmc.snowgames.util.LocationUtils;
 @Getter
 public class FFAMap extends GameMap {
 
-    private static final FFAPlugin plugin = FFAPlugin.getPlugin();
+    private static final FFAPlugin plugin = FFAPlugin.getFFAPlugin();
 
     private static final String DISPLAY_NAME_PATH = "displayName";
     private static final String WORLD_NAME_PATH = "world";

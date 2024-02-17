@@ -63,7 +63,7 @@ public class GameListeners implements Listener {
         if (!inGame && !atSpawn) {
             FFAPlayer gamePlayer = FFAPlayerManager.INSTANCE.get(player.getUniqueId());
             if (gamePlayer == null) return;
-            game.joinPlayer(player);
+            game.joinPlayer(gamePlayer);
         }
     }
 

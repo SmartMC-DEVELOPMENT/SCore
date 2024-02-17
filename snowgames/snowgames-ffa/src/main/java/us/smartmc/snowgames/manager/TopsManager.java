@@ -77,7 +77,7 @@ public class TopsManager implements PluginManager {
         long currentMillis = System.currentTimeMillis();
         if ((currentMillis - lastUpdate) < (10 * 1000)) return;
         lastUpdate = System.currentTimeMillis();
-        Bukkit.getScheduler().runTaskAsynchronously(FFAPlugin.getPlugin(), () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(FFAPlugin.getFFAPlugin(), () -> {
             for (String name : tops.keySet()) {
                 MongoCollectionTop top = tops.get(name);
                 cachedTops.put(name, top.getTopScores());

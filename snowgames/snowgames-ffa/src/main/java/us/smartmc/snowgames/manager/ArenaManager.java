@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ArenaManager {
 
-    private static final FFAPlugin plugin = FFAPlugin.getPlugin();
+    private static final FFAPlugin plugin = FFAPlugin.getFFAPlugin();
 
     private final List<String> mapsName;
     private int currentIndex;

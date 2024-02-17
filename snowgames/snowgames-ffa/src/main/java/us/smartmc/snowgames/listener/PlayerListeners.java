@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.core.SmartCore;
+import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePlayerManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.game.FFAMap;
@@ -36,7 +37,8 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void registerGamePlayer(PlayerJoinEvent event) {
-        FFAPlayerManager.INSTANCE.register(event.getPlayer().getUniqueId(), new FFAPlayer(event.getPlayer()));
+        GamePlayerManager<FFAPlayer> manager = FFAPlugin.getFFAPlugin().getGamePlayerManager();
+        manager.register(new FFAPlayer(manager, event.getPlayer()));
     }
 
     @EventHandler
@@ -59,7 +61,7 @@ public class PlayerListeners implements Listener {
         FFAPlayer ffaPlayer = FFAPlayerManager.INSTANCE.get(player.getUniqueId());
         if (ffaPlayer == null) return;
         ffaPlayer.saveStats();
-        FFAPlugin.getGame().quitPlayer(player);
+        FFAPlugin.getGame().quitPlayer(ffaPlayer);
         FFAPlayerManager.INSTANCE.unregister(ffaPlayer.getPlayer().getUniqueId());
         ItemCooldownManager.clear(player);
 
@@ -103,7 +105,7 @@ public class PlayerListeners implements Listener {
         if (!(event.getDamager() instanceof Player attacker)) return;
         if (!(event.getEntity() instanceof Player victim)) return;
         getAttacked.put(victim.getUniqueId(), attacker.getUniqueId());
-        Bukkit.getScheduler().runTaskLater(FFAPlugin.getPlugin(), () -> {
+        Bukkit.getScheduler().runTaskLater(FFAPlugin.getFFAPlugin(), () -> {
             getAttacked.remove(victim.getUniqueId());
         }, 20 * 10);
     }

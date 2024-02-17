@@ -22,11 +22,10 @@ public class FFAGame extends GameInstance {
         super(manager, instance.getName() + "-" + UUID.randomUUID());
         map = new FFAMap("ffa_china");
         map.setMaxPlayers(Bukkit.getMaxPlayers());
-        mapSession = new GameMapSession(map);
     }
 
     @Override
-    public void joinPlayer(Player player) {
+    public void joinPlayer(GamePlayer player) {
         if (isInGame(player.getPlayer())) return;
 
         players.add(player);
@@ -59,11 +58,6 @@ public class FFAGame extends GameInstance {
     }
 
     @Override
-    public void joinPlayer(GamePlayer player) {
-
-    }
-
-    @Override
     public void quitPlayer(GamePlayer player) {
         DebugUtil.debug(getClass().getSimpleName(), "quitPlayer start");
         if (!isInGame(player.getPlayer())) return;
@@ -72,7 +66,7 @@ public class FFAGame extends GameInstance {
             player.getPlayer().teleport(getSpawn());
             LobbyHotbar.give(player.getPlayer());
             player.getPlayer().setGameMode(GameMode.ADVENTURE);
-            Bukkit.getScheduler().runTaskLater(FFAPlugin.getPlugin(), () -> {
+            Bukkit.getScheduler().runTaskLater(FFAPlugin.getFFAPlugin(), () -> {
                 players.remove(player);
             }, 10);
         }, 25);

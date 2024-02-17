@@ -6,7 +6,7 @@ import us.smartmc.snowgames.object.PluginConfig;
 
 public class DefaultConfig extends PluginConfig {
 
-    private static final FFAPlugin plugin = FFAPlugin.getPlugin();
+    private static final FFAPlugin plugin = FFAPlugin.getFFAPlugin();
 
     public DefaultConfig() {
         super(plugin.getDataFolder() + "/config.yml");
@@ -35,7 +35,7 @@ public class DefaultConfig extends PluginConfig {
 
 
     public static String getJoinMessage() {
-        return FFAPlugin.getPlugin().getDefaultConfig().getString("join-message");
+        return FFAPlugin.getFFAPlugin().getDefaultConfig().getString("join-message");
     }
 
     public static boolean isJoinMessageEnabled() {
@@ -43,7 +43,7 @@ public class DefaultConfig extends PluginConfig {
     }
 
     public static boolean isBoolean(String path) {
-        return FFAPlugin.getPlugin().getDefaultConfig().getBoolean(path);
+        return FFAPlugin.getFFAPlugin().getDefaultConfig().getBoolean(path);
     }
 
 }

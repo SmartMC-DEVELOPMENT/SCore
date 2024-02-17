@@ -9,6 +9,7 @@ public abstract class GameMap implements IGameMap {
 
     private static final String MAX_PLAYER_CONFIG_KEY = "max_players";
     private static final String MIN_PLAYER_CONFIG_KEY = "min_players";
+    private static final String MAX_TIME_CONFIG_KEY = "max_time";
 
     protected final String name;
     protected final FilePluginConfig config;
@@ -37,6 +38,10 @@ public abstract class GameMap implements IGameMap {
 
     protected void registerConfigDefault(String path, Object value) {
         config.registerDefault(path, value);
+    }
+
+    public int getMaxArenaTime() {
+        return config.getInteger(MAX_TIME_CONFIG_KEY, 900);
     }
 
     @Override

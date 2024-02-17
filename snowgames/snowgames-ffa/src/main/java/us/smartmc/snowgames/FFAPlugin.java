@@ -11,7 +11,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import us.smartmc.gamesmanager.gamesmanagerspigot.GamesManagerAPI;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GamePreset;
-import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.GamePlayer;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameManager;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePlayerManager;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePresetManager;
@@ -34,8 +33,7 @@ import java.io.File;
 
 public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
 
-    @Getter
-    private static FFAPlugin plugin;
+    private static FFAPlugin ffaPlugin;
 
     @Getter
     private static FFAGame game;
@@ -46,6 +44,7 @@ public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
     @Getter
     private DefaultConfig defaultConfig;
 
+    private FFAPlayerManager<FFAPlayer> playerManager;
     @Getter
     private GameManager<FFAGame> gameManager;
     @Getter
@@ -56,7 +55,7 @@ public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
 
     @Override
     public void onEnable() {
-        plugin = this;
+        ffaPlugin = this;
         getDataFolder().mkdirs();
 
         setupConfig();
@@ -64,6 +63,7 @@ public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
 
         new PluginMessages();
 
+        playerManager = new FFAPlayerManager<>(this);
         gameManager = new GameManager<>();
 
         new GamePresetManager(getDataFolder() + "/games");
@@ -108,7 +108,7 @@ public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
     private void registerListeners(Class<? extends Listener>... classes) {
         for (Class<? extends Listener> listenerClass : classes) {
             try {
-                Bukkit.getPluginManager().registerEvents(listenerClass.newInstance(), plugin);
+                Bukkit.getPluginManager().registerEvents(listenerClass.newInstance(), ffaPlugin);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -125,7 +125,7 @@ public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
     }
 
     public static FileConfiguration config() {
-        return plugin.getConfig();
+        return ffaPlugin.getConfig();
     }
 
     private void rotateMapTask() {
@@ -134,6 +134,10 @@ public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
 
     @Override
     public GamePlayerManager<FFAPlayer> getGamePlayerManager() {
-        return null;
+        return playerManager;
+    }
+
+    public static FFAPlugin getFFAPlugin() {
+        return ffaPlugin;
     }
 }

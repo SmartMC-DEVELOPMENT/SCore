@@ -7,7 +7,7 @@ import us.smartmc.snowgames.object.PluginConfig;
 
 public class LanguageConfig extends PluginConfig {
 
-    private static final FFAPlugin plugin = FFAPlugin.getPlugin();
+    private static final FFAPlugin plugin = FFAPlugin.getFFAPlugin();
 
     public LanguageConfig() {
         super("/home/network/config/snowgames-ffa" + "/language.yml");

@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 public class WorldConfigManager {
 
-    private static final FFAPlugin plugin = FFAPlugin.getPlugin();
+    private static final FFAPlugin plugin = FFAPlugin.getFFAPlugin();
 
     public WorldConfigManager() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {

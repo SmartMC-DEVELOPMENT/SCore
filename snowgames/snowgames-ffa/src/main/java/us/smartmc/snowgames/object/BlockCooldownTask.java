@@ -24,7 +24,7 @@ public class BlockCooldownTask extends TimerTask {
 
     @Override
     public void run() {
-        Bukkit.getScheduler().runTask(FFAPlugin.getPlugin(), this::reset);
+        Bukkit.getScheduler().runTask(FFAPlugin.getFFAPlugin(), this::reset);
     }
 
     public void reset() {

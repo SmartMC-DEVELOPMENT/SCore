@@ -16,7 +16,7 @@ public class ItemCooldownTask extends PluginRepeatingTask {
 
     protected final ItemCooldownManager manager;
 
-    private static final LanguageConfig config = FFAPlugin.getPlugin().getLanguageConfig();
+    private static final LanguageConfig config = FFAPlugin.getFFAPlugin().getLanguageConfig();
 
     protected final Player player;
     protected final int slot, recoverAmount;

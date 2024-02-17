@@ -18,7 +18,7 @@ import java.util.List;
 
 public class TopsMenu extends FFAMenu {
 
-    private static final FFAPlugin plugin = FFAPlugin.getPlugin();
+    private static final FFAPlugin plugin = FFAPlugin.getFFAPlugin();
     private static final TopsManager topsManager = plugin.getTopsManager();
 
     public TopsMenu(Player player) {

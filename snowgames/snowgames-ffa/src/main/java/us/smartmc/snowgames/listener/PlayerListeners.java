@@ -16,6 +16,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.core.SmartCore;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.event.player.GamePlayerUnloadEvent;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.GamePlayer;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePlayerManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
@@ -55,16 +57,18 @@ public class PlayerListeners implements Listener {
     }
 
     @EventHandler
-    public void onDisconnect(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
+    public void onUnloadGamePlayer(GamePlayerUnloadEvent event) {
+        GamePlayer gamePlayer = event.getGamePlayer();
 
-        FFAPlayer ffaPlayer = FFAPlayerManager.INSTANCE.get(player.getUniqueId());
+        FFAPlayer ffaPlayer = FFAPlayerManager.INSTANCE.get(gamePlayer.getUUID());
         if (ffaPlayer == null) return;
         ffaPlayer.saveStats();
         FFAPlugin.getGame().quitPlayer(ffaPlayer);
-        FFAPlayerManager.INSTANCE.unregister(ffaPlayer.getPlayer().getUniqueId());
-        ItemCooldownManager.clear(player);
+        ItemCooldownManager.clear(gamePlayer.getPlayer());
+    }
 
+    @EventHandler
+    public void removeJoinMessages(PlayerQuitEvent event) {
         event.setQuitMessage(null);
     }
 

@@ -40,9 +40,9 @@ public class TagsHandler implements Listener {
     public void join(PlayerJoinEvent event) {
         if (areDisabled()) return;
         Player player = event.getPlayer();
-        SyncUtil.sync(() -> {
+        SyncUtil.later(() -> {
             registerTagAboveHead(player);
-        });
+        }, 250);
     }
 
     @EventHandler
@@ -66,10 +66,7 @@ public class TagsHandler implements Listener {
 
     private String getFormattedTag(Player player) {
         String unformattedTag = "<chat.prefix>&f<name>";
-        if (unformattedTag == null) {
-
-        }
-        return ChatUtil.parse(player, unformattedTag);
+         return ChatUtil.parse(player, unformattedTag);
     }
 
     private String getUniqueTeamName(Player player) {

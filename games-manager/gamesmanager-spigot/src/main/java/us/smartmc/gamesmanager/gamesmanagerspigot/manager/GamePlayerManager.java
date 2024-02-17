@@ -38,7 +38,7 @@ public abstract class GamePlayerManager<T extends GamePlayer> implements IGamePl
     public void unregister(UUID uuid) {
         GamePlayer gamePlayer = get(uuid);
         BukkitUtil.callEvent(new GamePlayerUnloadEvent(gamePlayer));
-        get(uuid).unload();
+        gamePlayer.unload();
         players.remove(uuid);
         BukkitUtil.callEvent(new GamePlayerUnloadedEvent(gamePlayer));
     }

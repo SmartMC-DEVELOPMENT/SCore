@@ -15,6 +15,7 @@ public class PlayerMainVariables extends VariableListener<Player> {
 
     @Override
     public String parse(Player player, String message) {
+        if (message == null) return null;
         if (message.contains("<ping>")) {
             message = message.replace("<ping>", String.valueOf(((CraftPlayer) player).getHandle().ping));
         }

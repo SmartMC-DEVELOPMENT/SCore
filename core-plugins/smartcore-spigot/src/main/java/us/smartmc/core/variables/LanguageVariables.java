@@ -15,7 +15,6 @@ public class LanguageVariables extends VariableListener<Player> {
     @Override
     public String parse(String message) {
         if (!message.contains("<lang.")) return message;
-        System.out.println("LANG PARSE NORMAL -> " + message);
         return get(null, message);
     }
 
@@ -27,25 +26,29 @@ public class LanguageVariables extends VariableListener<Player> {
     }
 
     private String get(Player player, String message) {
-        // Obtener el idioma del jugador, o el idioma por defecto si player es null
-        Language language = player != null ? PlayerLanguages.get(player.getUniqueId()) : Language.getDefault();
+        Language language = Language.getDefault();
+        if (player != null) language = PlayerLanguages.get(player.getUniqueId());
 
-        while (message.contains("<lang.")) {
-            
+        String[] args = message.split(" ");
+        for (int i = 0; i < args.length; i++) {
+            String arg = args[i];
+            if (!arg.contains("<lang.")) {
+                continue;
+            }
+            String messageHolder = arg.split("\\.")[1];
+            String path = arg.split("\\.")[2].replace(">", "");
+            Object object = LanguagesHandler
+                    .get(language)
+                    .get(messageHolder)
+                    .get(path);
+
+            if (object instanceof String) {
+                args[i] = (String) object;
+            } else {
+                args[i] = "LANGUAGE_ERROR";
+            }
         }
+        return parse(player, String.join(" ", args));
     }
 
-    private String getLocalizedMessage(Language language, String messageHolder, String path) {
-        // Obtener el mensaje localizado basado en el idioma, messageHolder y path
-        Object object = LanguagesHandler
-                .get(language)
-                .get(messageHolder)
-                .get(path);
-
-        if (object instanceof String) {
-            return (String) object;
-        } else {
-            return "LANGUAGE_ERROR";
-        }
-    }
 }

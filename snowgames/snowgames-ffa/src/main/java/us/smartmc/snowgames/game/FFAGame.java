@@ -26,7 +26,7 @@ public class FFAGame extends GameInstance {
 
     @Override
     public void joinPlayer(GamePlayer player) {
-        if (isInGame(player.getPlayer())) return;
+        if (isInGame(player)) return;
 
         players.add(player);
         GameHotbar.give(player.getPlayer());
@@ -38,9 +38,9 @@ public class FFAGame extends GameInstance {
         this.map = map;
     }
 
-    public boolean isInGame(Player player) {
+    public boolean isInGame(GamePlayer gamePlayer) {
         DebugUtil.debug(getClass().getSimpleName(), "isInGame " + players);
-        return players.contains(player);
+        return players.contains(gamePlayer);
     }
 
     public Location getSpawn() {
@@ -60,7 +60,7 @@ public class FFAGame extends GameInstance {
     @Override
     public void quitPlayer(GamePlayer player) {
         DebugUtil.debug(getClass().getSimpleName(), "quitPlayer start");
-        if (!isInGame(player.getPlayer())) return;
+        if (!isInGame(player)) return;
         SyncUtil.later(() -> {
             if (!player.getPlayer().isOnline()) return;
             player.getPlayer().teleport(getSpawn());

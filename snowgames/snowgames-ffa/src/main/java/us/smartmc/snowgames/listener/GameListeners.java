@@ -1,5 +1,7 @@
 package us.smartmc.snowgames.listener;
 
+import me.imsergioh.pluginsapi.event.PlayerTickEvent;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -16,6 +18,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.GamePlayer;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.manager.FFAPlayerManager;
@@ -26,6 +29,10 @@ import static us.smartmc.snowgames.config.DefaultConfig.getJoinMessage;
 import static us.smartmc.snowgames.config.DefaultConfig.isJoinMessageEnabled;
 
 public class GameListeners implements Listener {
+
+    public GameListeners() {
+        CorePlayer.setEnabledTickEvent(true);
+    }
 
     @EventHandler
     public void cancelEntitySpawn(EntitySpawnEvent event) {
@@ -55,14 +62,14 @@ public class GameListeners implements Listener {
     }
 
     @EventHandler
-    public void joinGameAtLeaveSpawn(PlayerMoveEvent event) {
-        Player player = event.getPlayer();
+    public void joinGameAtLeaveSpawn(PlayerTickEvent event) {
+        Player player = event.getCorePlayer().get();
+        GamePlayer gamePlayer = FFAPlugin.getFFAPlugin().getGamePlayerManager().get(player.getUniqueId());
         FFAGame game = FFAPlugin.getGame();
-        boolean inGame = game.isInGame(player);
+        boolean inGame = game.isInGame(gamePlayer);
         boolean atSpawn = RegionUtils.isAtSpawn(player);
 
         if (!inGame && !atSpawn) {
-            FFAPlayer gamePlayer = FFAPlayerManager.INSTANCE.get(player.getUniqueId());
             if (gamePlayer == null) return;
             game.joinPlayer(gamePlayer);
         }

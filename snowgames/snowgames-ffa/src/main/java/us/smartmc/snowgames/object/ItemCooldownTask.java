@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.GamePlayer;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.config.LanguageConfig;
 import us.smartmc.snowgames.game.FFAGame;
@@ -19,6 +20,7 @@ public class ItemCooldownTask extends PluginRepeatingTask {
     private static final LanguageConfig config = FFAPlugin.getFFAPlugin().getLanguageConfig();
 
     protected final Player player;
+    protected final GamePlayer gamePlayer;
     protected final int slot, recoverAmount;
     protected final ItemStack recoverItem;
 
@@ -26,6 +28,7 @@ public class ItemCooldownTask extends PluginRepeatingTask {
         super(1000 * seconds);
         this.manager = manager;
         this.player = manager.getPlayer();
+        gamePlayer = FFAPlugin.getFFAPlugin().getGamePlayerManager().get(player.getUniqueId());
         this.slot = slot;
         ItemStack item = player.getInventory().getItem(slot);
         this.recoverAmount = item.getAmount();
@@ -33,7 +36,7 @@ public class ItemCooldownTask extends PluginRepeatingTask {
 
         onDelay(() -> {
             FFAGame game = FFAPlugin.getGame();
-            if (!game.isInGame(player)) {
+            if (!game.isInGame(gamePlayer)) {
                 completeTask();
                 return;
             }

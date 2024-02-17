@@ -17,7 +17,7 @@ public class PlayerVariables extends VariableListener<Player> {
     @Override
     public String parse(Player player, String message) {
 
-        FFAPlayer ffaPlayer = FFAPlayerManager.INSTANCE.get(player.getUniqueId());
+        FFAPlayer ffaPlayer = FFAPlugin.getFFAPlugin().getGamePlayerManager().get(player.getUniqueId());
         if (ffaPlayer == null) return null;
         FFAGame game = FFAPlugin.getGame();
         if (game == null) return null;

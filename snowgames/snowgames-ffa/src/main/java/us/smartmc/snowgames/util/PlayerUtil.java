@@ -23,7 +23,7 @@ public class PlayerUtil {
     public static void kill(Player victim) {
         DebugUtil.debug(PlayerUtil.class.getSimpleName(), "kill start");
         FFAGame game = FFAPlugin.getGame();
-        FFAPlayer ffaVictim = FFAPlayerManager.INSTANCE.get(victim.getUniqueId());
+        FFAPlayer ffaVictim = FFAPlugin.getFFAPlugin().getGamePlayerManager().get(victim.getUniqueId());
         if (ffaVictim == null) return;
 
         FFAMap map = FFAPlugin.getFFAPlugin().getArenaManager().getCurrentMap();
@@ -69,7 +69,7 @@ public class PlayerUtil {
 
     public static void addKillTo(Player player) {
         if (player == null) return;
-        FFAPlayer killer = FFAPlayerManager.INSTANCE.get(player.getUniqueId());
+        FFAPlayer killer = FFAPlugin.getFFAPlugin().getGamePlayerManager().get(player.getUniqueId());
         if (killer == null) return;
         killer.addKill();
         GameItemUtils.handlePlayerKill(player);

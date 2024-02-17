@@ -29,7 +29,7 @@ public class ServersHandler {
                 return hubRules.getString(hubRuleKey).replace("*", "");
             }
         }
-        return null;
+        return hubRules.get;
     }
 
     public static List<String> getLobbyServers(String path) {

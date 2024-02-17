@@ -30,7 +30,7 @@ public class StopServerCommand extends RedisPubSubListener {
     }
 
     public void sendToLobbyServer(ServerInfo server) {
-        List<String> lobbies = ServersHandler.getLobbyServers("main-lobby-");
+        List<String> lobbies = ServersHandler.getLobbyServers("lobby");
 
         for (ProxiedPlayer player : server.getPlayers()) {
             String serverNameToSend = lobbies.get(new Random().nextInt(lobbies.size()));

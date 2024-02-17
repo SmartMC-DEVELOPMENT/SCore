@@ -5,18 +5,21 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import us.smartmc.gamesmanager.game.GamePreset;
-import us.smartmc.gamesmanager.game.GameSession;
-import us.smartmc.gamesmanager.game.map.GameMapSession;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GameInstance;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GamePreset;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.GamePlayer;
+import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.inventory.GameHotbar;
 import us.smartmc.snowgames.inventory.LobbyHotbar;
 import us.smartmc.snowgames.util.DebugUtil;
 
-public class FFAGame extends GameSession<Player> {
+import java.util.UUID;
 
-    public FFAGame(GamePreset instance) {
-        super(instance);
+public class FFAGame extends GameInstance {
+
+    public FFAGame(GameManager<?> manager, GamePreset instance) {
+        super(manager, instance.getName() + "-" + UUID.randomUUID());
         map = new FFAMap("ffa_china");
         map.setMaxPlayers(Bukkit.getMaxPlayers());
         mapSession = new GameMapSession(map);
@@ -32,13 +35,36 @@ public class FFAGame extends GameSession<Player> {
         player.getPlayer().setGameMode(GameMode.SURVIVAL);
     }
 
+    public void setMap(FFAMap map) {
+        this.map = map;
+    }
+
+    public boolean isInGame(Player player) {
+        DebugUtil.debug(getClass().getSimpleName(), "isInGame " + players);
+        return players.contains(player);
+    }
+
+    public Location getSpawn() {
+        return ((FFAMap) map).getSpawn();
+    }
+
     @Override
-    public void deathPlayer(Player player) {
+    public void load() {
 
     }
 
     @Override
-    public void quitPlayer(Player player) {
+    public void unload() {
+
+    }
+
+    @Override
+    public void joinPlayer(GamePlayer player) {
+
+    }
+
+    @Override
+    public void quitPlayer(GamePlayer player) {
         DebugUtil.debug(getClass().getSimpleName(), "quitPlayer start");
         if (!isInGame(player.getPlayer())) return;
         SyncUtil.later(() -> {
@@ -51,25 +77,6 @@ public class FFAGame extends GameSession<Player> {
             }, 10);
         }, 25);
         DebugUtil.debug(getClass().getSimpleName(), "quitPlayer end");
-    }
-
-    @Override
-    public boolean canPlayerJoin(Player player) {
-        if (players.size() >= map.getMaxPlayers()) return false;
-        return getSpawn() != null;
-    }
-
-    public void setMap(FFAMap map) {
-        this.map = map;
-    }
-
-    public boolean isInGame(Player player) {
-        DebugUtil.debug(getClass().getSimpleName(), "isInGame " + players);
-        return players.contains(player);
-    }
-
-    public Location getSpawn() {
-        return ((FFAMap) map).getSpawn();
     }
 
     public FFAMap getMap() {

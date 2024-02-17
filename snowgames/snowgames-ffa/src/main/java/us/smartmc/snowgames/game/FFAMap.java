@@ -1,18 +1,11 @@
 package us.smartmc.snowgames.game;
 
 import lombok.Getter;
-import lombok.Setter;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
-import us.smartmc.gamesmanager.game.map.GameMap;
-import us.smartmc.gamesmanager.manager.GameMapManager;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GameMap;
+import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameMapManager;
 import us.smartmc.snowgames.FFAPlugin;
-import us.smartmc.snowgames.manager.BlocksResetManager;
 import us.smartmc.snowgames.util.LocationUtils;
-import us.smartmc.snowgames.util.WorldUtil;
 
 @Getter
 public class FFAMap extends GameMap {
@@ -67,4 +60,18 @@ public class FFAMap extends GameMap {
         return config.getString(DISPLAY_NAME_PATH);
     }
 
+    @Override
+    public void load() {
+
+    }
+
+    @Override
+    public void unload() {
+
+    }
+
+    @Override
+    public void reset() {
+
+    }
 }

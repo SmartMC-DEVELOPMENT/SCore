@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import us.smartmc.gamesmanager.game.map.GameMap;
-import us.smartmc.gamesmanager.manager.GameMapManager;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GameMap;
+import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameMapManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAMap;
 
@@ -23,7 +23,7 @@ public class ArenaManager {
     public ArenaManager() {
         this.mapsName = new ArrayList<>();
         this.currentIndex = 0;
-        GameMapManager.values().forEach(gameMap -> {
+        GameMapManager.getValues().forEach(gameMap -> {
             String name = gameMap.getName();
             GameMapManager.register(new FFAMap(name));
             mapsName.add(name);

@@ -12,6 +12,7 @@ import us.smartmc.smartbot.handler.CommandHandler;
 import us.smartmc.smartbot.handler.EventSchedulerHandler;
 import us.smartmc.smartbot.handler.RepliesHandler;
 import us.smartmc.smartbot.listener.*;
+import us.smartmc.smartbot.logfunction.PrintConsoleMessages;
 import us.smartmc.smartbot.manager.AutoRoleManager;
 import us.smartmc.smartbot.manager.LogsManager;
 import us.smartmc.smartbot.slashcommand.AnuncioCommand;
@@ -55,6 +56,9 @@ public class SmartBotMain {
         MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
         RedisConnection.mainConnection = new RedisConnection("localhost", 6379);
 
+        logsManager = new LogsManager();
+        logsManager.register(new PrintConsoleMessages());
+
         CommandHandler.clearCommands();
         new Timer().schedule(new TimerTask() {
             @Override
@@ -69,7 +73,6 @@ public class SmartBotMain {
             }
         }, 1000);
         EventSchedulerHandler.setup();
-
 
 
     }

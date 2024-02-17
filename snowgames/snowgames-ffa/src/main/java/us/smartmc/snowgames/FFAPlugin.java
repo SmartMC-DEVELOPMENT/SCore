@@ -2,15 +2,18 @@ package us.smartmc.snowgames;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
+import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
-import us.smartmc.gamesmanager.game.GamePreset;
-import us.smartmc.gamesmanager.manager.GamePresetManager;
+import us.smartmc.gamesmanager.gamesmanagerspigot.GamesManagerAPI;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GamePreset;
+import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameManager;
+import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePlayerManager;
+import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePresetManager;
 import us.smartmc.snowgames.actions.GameActions;
 import us.smartmc.snowgames.actions.HotbarActions;
 import us.smartmc.snowgames.config.DefaultConfig;
@@ -22,13 +25,12 @@ import us.smartmc.snowgames.listener.PlayerListeners;
 import us.smartmc.snowgames.listener.SnowBallDamageListener;
 import us.smartmc.snowgames.manager.*;
 import us.smartmc.snowgames.messages.PluginMessages;
-import us.smartmc.snowgames.player.FFAPlayer;
 import us.smartmc.snowgames.util.DebugUtil;
 import us.smartmc.snowgames.variables.PlayerVariables;
 
 import java.io.File;
 
-public class FFAPlugin extends JavaPlugin {
+public class FFAPlugin extends GamesManagerAPI {
 
     @Getter
     private static FFAPlugin plugin;
@@ -42,6 +44,8 @@ public class FFAPlugin extends JavaPlugin {
     @Getter
     private DefaultConfig defaultConfig;
 
+    @Getter
+    private GameManager<FFAGame> gameManager;
     @Getter
     private ArenaManager arenaManager;
 
@@ -58,10 +62,12 @@ public class FFAPlugin extends JavaPlugin {
 
         new PluginMessages();
 
-        new GamePresetManager(new File(getDataFolder() + "/games"));
+        gameManager = new GameManager<>();
+
+        new GamePresetManager(getDataFolder() + "/games");
         new WorldConfigManager();
-        GamePreset preset = new GamePreset("ffa");
-        game = new FFAGame(preset);
+        GamePreset ffaPreset = new GamePreset("ffa", new SpigotYmlConfig(new File(getDataFolder() + "/game_preset.yml")));
+        game = new FFAGame(gameManager, ffaPreset);
 
         registerListeners(
                 PlayerListeners.class,
@@ -122,5 +128,15 @@ public class FFAPlugin extends JavaPlugin {
 
     private void rotateMapTask() {
         arenaManager.rotateMap();
+    }
+
+    @Override
+    public GameManager<?> getGameManager() {
+        return null;
+    }
+
+    @Override
+    public GamePlayerManager<?> getGamePlayerManager() {
+        return null;
     }
 }

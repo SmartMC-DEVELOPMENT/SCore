@@ -22,7 +22,7 @@ public abstract class GameInstance implements IGameInstance {
     protected GameStatus status = GameStatus.MAINTENANCE;
     protected GameMap map;
 
-    private final Set<GamePlayer> players = new HashSet<>();
+    protected final Set<GamePlayer> players = new HashSet<>();
 
     public GameInstance(GameManager<?> manager, String name) {
         this.manager = manager;

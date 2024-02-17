@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.event.player.GamePlayerStatusChangeEvent;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GameInstance;
@@ -32,10 +33,9 @@ public abstract class GamePlayer extends OfflineGamePlayer {
         player.sendMessage(ChatUtil.parse(player, message, args));
     }
 
-    public void sendTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut, Object... args) {
+    public void sendTitle(String title, String subtitle, Object... args) {
         player.sendTitle(ChatUtil.parse(player, title, args),
-                ChatUtil.parse(player, subtitle, args),
-                fadeIn, stay, fadeIn);
+                ChatUtil.parse(player, subtitle, args));
     }
 
     public void setStatus(PlayerStatus status) {

@@ -8,13 +8,14 @@ us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\game\GameStatusChangeE
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\player\GamePlayerUnloadEvent.class
 us\smartmc\gamesmanager\gamesmanagerspigot\manager\GamePlayerManager.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\player\GamePlayerLoadedEvent.class
+us\smartmc\gamesmanager\gamesmanagerspigot\manager\GameMapManager.class
 us\smartmc\gamesmanager\gamesmanagerspigot\listener\PlayerListeners.class
-us\smartmc\gamesmanager\gamesmanagerspigot\message\GameManagerMessages.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\GamePlayerEvent.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\player\GamePlayerLoadEvent.class
 us\smartmc\gamesmanager\gamesmanagerspigot\GamesManagerAPI.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\game\GameStatus.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\game\GameMap.class
+us\smartmc\gamesmanager\gamesmanagerspigot\instance\game\GamePreset.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\player\data\OfflineGamePlayerData.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\game\GameInstance.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\player\data\IOfflineGamePlayerData.class
@@ -26,6 +27,7 @@ us\smartmc\gamesmanager\gamesmanagerspigot\instance\game\GameTask.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\player\data\OfflinePlayerDataInfo.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\game\GameUnregisterEvent.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\GameEvent.class
+us\smartmc\gamesmanager\gamesmanagerspigot\manager\GamePresetManager.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\game\GameTaskScheduler.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\game\GameStatusChangedEvent.class
 us\smartmc\gamesmanager\gamesmanagerspigot\manager\GameManager.class
@@ -38,3 +40,4 @@ us\smartmc\gamesmanager\gamesmanagerspigot\instance\player\PlayerStatus.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\game\GameUnloadedEvent.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\player\GamePlayerStatusChangeEvent.class
 us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\game\GameLoadedEvent.class
+us\smartmc\gamesmanager\gamesmanagerspigot\instance\game\IGamePreset.class

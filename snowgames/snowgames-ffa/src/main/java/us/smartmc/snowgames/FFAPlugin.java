@@ -11,6 +11,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import us.smartmc.gamesmanager.gamesmanagerspigot.GamesManagerAPI;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GamePreset;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.GamePlayer;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameManager;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePlayerManager;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePresetManager;
@@ -25,12 +26,13 @@ import us.smartmc.snowgames.listener.PlayerListeners;
 import us.smartmc.snowgames.listener.SnowBallDamageListener;
 import us.smartmc.snowgames.manager.*;
 import us.smartmc.snowgames.messages.PluginMessages;
+import us.smartmc.snowgames.player.FFAPlayer;
 import us.smartmc.snowgames.util.DebugUtil;
 import us.smartmc.snowgames.variables.PlayerVariables;
 
 import java.io.File;
 
-public class FFAPlugin extends GamesManagerAPI {
+public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
 
     @Getter
     private static FFAPlugin plugin;
@@ -99,7 +101,7 @@ public class FFAPlugin extends GamesManagerAPI {
         for (World world : Bukkit.getWorlds()) {
             BlocksResetManager.completeAllByWorldName(world.getName());
         }
-        FFAPlayerManager.INSTANCE.unload();
+        FFAPlayerManager.INSTANCE.unregisterAll();
     }
 
     @SafeVarargs
@@ -131,12 +133,7 @@ public class FFAPlugin extends GamesManagerAPI {
     }
 
     @Override
-    public GameManager<?> getGameManager() {
-        return null;
-    }
-
-    @Override
-    public GamePlayerManager<?> getGamePlayerManager() {
+    public GamePlayerManager<FFAPlayer> getGamePlayerManager() {
         return null;
     }
 }

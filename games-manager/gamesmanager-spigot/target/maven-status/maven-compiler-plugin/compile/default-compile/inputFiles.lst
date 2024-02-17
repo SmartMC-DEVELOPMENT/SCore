@@ -2,6 +2,7 @@ D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartm
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\player\IOfflineGamePlayer.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\game\GameUnregisterEvent.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\player\GamePlayerLoadEvent.java
+D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\game\IGamePreset.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\manager\IGamePlayerManager.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\util\BukkitUtil.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\game\GameLoadedEvent.java
@@ -18,6 +19,7 @@ D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartm
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\GameEvent.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\GamesManagerAPI.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\manager\GamePlayerManager.java
+D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\game\GamePreset.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\IGamesManagerAPI.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\game\GameTaskScheduler.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\player\GamePlayerUnloadedEvent.java
@@ -34,6 +36,7 @@ D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartm
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\game\GameTask.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\game\GameMapChangeEvent.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\event\player\GamePlayerLoadedEvent.java
+D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\manager\GamePresetManager.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\instance\game\GameMap.java
+D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\manager\GameMapManager.java
 D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\manager\GameManager.java
-D:\workspace2024\SCore\games-manager\gamesmanager-spigot\src\main\java\us\smartmc\gamesmanager\gamesmanagerspigot\message\GameManagerMessages.java

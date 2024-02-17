@@ -7,10 +7,15 @@ import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bson.Document;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.GamePlayer;
+import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.data.IOfflineGamePlayerData;
+import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePlayerManager;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
 
+import java.util.UUID;
+
 @Getter
-public class FFAPlayer {
+public class FFAPlayer extends GamePlayer {
 
     private static final MongoCollection<Document> collection = MongoDBConnection.mainConnection.getDatabase("player_data").getCollection("snowgames_ffa");
 
@@ -19,10 +24,9 @@ public class FFAPlayer {
 
     private int killStreak;
 
-    public FFAPlayer(Player player) {
+    public FFAPlayer(GamePlayerManager<?> manager, Player player) {
+        super(manager, player.getUniqueId());
         this.player = player;
-        loadStats();
-        killStreak = 0;
     }
 
     private void loadStats() {
@@ -88,5 +92,21 @@ public class FFAPlayer {
 
     private Document getQuery() {
         return new Document().append("_id", player.getUniqueId().toString());
+    }
+
+    @Override
+    public void load() {
+        loadStats();
+        killStreak = 0;
+    }
+
+    @Override
+    public void unload() {
+        saveStats();
+    }
+
+    @Override
+    public IOfflineGamePlayerData getData() {
+        return null;
     }
 }

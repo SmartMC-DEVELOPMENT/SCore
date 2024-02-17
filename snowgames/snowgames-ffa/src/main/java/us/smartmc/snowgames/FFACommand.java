@@ -7,9 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.smartmc.core.messages.GeneralMessages;
-import us.smartmc.gamesmanager.game.map.GameMap;
-import us.smartmc.gamesmanager.manager.GameMapManager;
-import us.smartmc.snowgames.game.FFAGame;
+import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameMapManager;
 import us.smartmc.snowgames.game.FFAMap;
 
 public class FFACommand implements CommandExecutor {

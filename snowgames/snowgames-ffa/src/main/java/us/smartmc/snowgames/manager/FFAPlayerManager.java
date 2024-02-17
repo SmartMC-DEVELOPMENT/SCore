@@ -1,27 +1,23 @@
 package us.smartmc.snowgames.manager;
 
-import me.imsergioh.pluginsapi.instance.manager.ManagerRegistry;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import us.smartmc.gamesmanager.gamesmanagerspigot.GamesManagerAPI;
+import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePlayerManager;
+import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.player.FFAPlayer;
 
 import java.util.UUID;
 
-public class FFAPlayerManager extends ManagerRegistry<UUID, FFAPlayer> {
+public class FFAPlayerManager<T extends FFAPlayer> extends GamePlayerManager<T> {
 
-    public static final FFAPlayerManager INSTANCE = new FFAPlayerManager();
+    public static final FFAPlayerManager INSTANCE = new FFAPlayerManager(FFAPlugin.getPlugin());
 
-    @Override
-    public void load() {
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            register(player.getUniqueId(), new FFAPlayer(player));
-        });
+    public FFAPlayerManager(GamesManagerAPI<?, ?> plugin) {
+        super(plugin);
     }
 
     @Override
-    public void unload() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            get(player.getUniqueId()).saveStats();
-        }
+    public FFAPlayer createGamePlayer(UUID uuid) {
+        return new FFAPlayer(this, Bukkit.getPlayer(uuid));
     }
 }

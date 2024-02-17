@@ -29,7 +29,8 @@ public class ServersHandler {
                 return hubRules.getString(hubRuleKey).replace("*", "");
             }
         }
-        return hubRules.get;
+        // If not found gets first rule value
+        return hubRules.getString(new ArrayList<>(hubRules.keySet()).get(0)).replace("*", "");
     }
 
     public static List<String> getLobbyServers(String path) {

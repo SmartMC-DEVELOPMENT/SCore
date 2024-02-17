@@ -15,6 +15,7 @@ public class LanguageVariables extends VariableListener<Player> {
     @Override
     public String parse(String message) {
         if (!message.contains("<lang.")) return message;
+        System.out.println("LANG PARSE NORMAL -> " + message);
         return get(null, message);
     }
 
@@ -29,32 +30,9 @@ public class LanguageVariables extends VariableListener<Player> {
         // Obtener el idioma del jugador, o el idioma por defecto si player es null
         Language language = player != null ? PlayerLanguages.get(player.getUniqueId()) : Language.getDefault();
 
-        // Regex para identificar segmentos con o sin códigos de color seguido de placeholders de mensajes localizados
-        Pattern pattern = Pattern.compile("(?:(&[0-9a-fk-or]))?(<lang\\.(.*?)\\.(.*?)>)");
-        Matcher matcher = pattern.matcher(message);
-        StringBuffer result = new StringBuffer();
-
-        while (matcher.find()) {
-            // Obtener el código de color, si está presente
-            String colorCode = matcher.group(1) != null ? ChatColor.translateAlternateColorCodes('&', matcher.group(1)) : "";
-            // Identificar las partes del placeholder del mensaje localizado
-            String messageHolder = matcher.group(3);
-            String path = matcher.group(4);
-
-            // Obtener el mensaje localizado
-            String localizedMessage = getLocalizedMessage(language, messageHolder, path);
-
-            // Preparar el segmento con el mensaje localizado, aplicando el código de color si está presente
-            String replacement = colorCode + localizedMessage;
-
-            // Reemplazar en el resultado, asegurándose de manejar correctamente el carácter $ y las referencias de grupo
-            matcher.appendReplacement(result, Matcher.quoteReplacement(replacement));
+        while (message.contains("<lang.")) {
+            
         }
-        matcher.appendTail(result);
-
-        // Devolver el resultado final, no es necesario aplicar translateAlternateColorCodes aquí
-        // ya que todos los códigos de color se aplican individualmente a cada segmento localizado
-        return result.toString();
     }
 
     private String getLocalizedMessage(Language language, String messageHolder, String path) {

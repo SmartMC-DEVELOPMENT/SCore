@@ -127,7 +127,7 @@ public class TermsListeners extends AddonListener implements Listener {
         bookMeta.setAuthor("Administration");
 
         String text = """
-                Hello, <name>!
+                Hello!
                 &r
                 Welcome to SmartMC Network!
                 &r

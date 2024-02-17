@@ -8,7 +8,7 @@ import us.smartmc.smartbot.util.TextUtils;
 public class PrintConsoleMessages extends LogChannelRegistry {
 
     public PrintConsoleMessages() {
-        super("1208172253108371486", "discord-logs:consoles-main");
+        super("1208172253108371486", "discord-logs:simple");
         run();
     }
 

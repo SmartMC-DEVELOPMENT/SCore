@@ -2,6 +2,8 @@ package us.smartmc.core.handler;
 
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.SyncUtil;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,6 +16,7 @@ import org.bukkit.scoreboard.Team;
 import us.smartmc.core.SmartCore;
 
 import java.util.HashMap;
+import java.util.OptionalInt;
 
 public class TagsHandler implements Listener {
 
@@ -65,14 +68,24 @@ public class TagsHandler implements Listener {
     }
 
     private String getFormattedTag(Player player) {
-        String unformattedTag = "<chat.prefix>&f<name>";
+        String unformattedTag = "<chat.prefix>&7<name>";
          return ChatUtil.parse(player, unformattedTag);
     }
 
     private String getUniqueTeamName(Player player) {
-        String entry = player.getUniqueId().toString().substring(0, 7);
-        entry += player.getName().substring(0, 7);
-        return entry;
+        LuckPerms luckPerms = LuckPermsProvider.get();
+        String group = luckPerms.getUserManager().getUser(player.getUniqueId()).getPrimaryGroup();
+        OptionalInt entry = luckPerms.getGroupManager().getGroup(group).getWeight();
+
+        // Define un valor máximo de peso. Ajusta este valor según sea necesario.
+        long maxWeight = 99999999L;
+
+        // Calcula el valor inverso del peso para que un mayor peso resulte en un valor numérico más bajo.
+        long invertedWeight = maxWeight - entry.orElse(0);
+
+        // Combina el peso formateado con el nombre del grupo.
+
+        return String.format("%016d", invertedWeight);
     }
 
 }

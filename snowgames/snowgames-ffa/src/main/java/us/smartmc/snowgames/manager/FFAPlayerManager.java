@@ -14,6 +14,7 @@ public class FFAPlayerManager<T extends FFAPlayer> extends GamePlayerManager<T> 
 
     public FFAPlayerManager(GamesManagerAPI<?, ?> plugin) {
         super(plugin);
+        registerListeners();
     }
 
     @Override

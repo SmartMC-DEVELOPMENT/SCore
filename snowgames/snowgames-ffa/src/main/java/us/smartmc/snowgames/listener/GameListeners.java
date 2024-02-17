@@ -1,6 +1,7 @@
 package us.smartmc.snowgames.listener;
 
 import me.imsergioh.pluginsapi.util.ChatUtil;
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -87,7 +88,9 @@ public class GameListeners implements Listener {
         } else {
             event.setJoinMessage(null);
         }
-        player.teleport(FFAPlugin.getGame().getSpawn());
+        Location spawn = FFAPlugin.getGame().getSpawn();
+        if (spawn == null) return;
+        player.teleport(spawn);
     }
 
     @EventHandler

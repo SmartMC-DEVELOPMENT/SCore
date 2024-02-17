@@ -12,6 +12,7 @@ import us.smartmc.gamesmanager.gamesmanagerspigot.util.BukkitUtil;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Getter
@@ -69,4 +70,9 @@ public abstract class GameInstance implements IGameInstance {
         if (!status.equals(GameStatus.WAITING)) return false;
         return getPlayers().size() >= map.getMinPlayersSize();
     }
+
+    public void forEachPlayer(Consumer<GamePlayer> consumer) {
+        players.forEach(consumer);
+    }
+
 }

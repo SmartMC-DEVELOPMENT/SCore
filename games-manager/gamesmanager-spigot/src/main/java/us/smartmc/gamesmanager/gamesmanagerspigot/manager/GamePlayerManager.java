@@ -22,6 +22,9 @@ public abstract class GamePlayerManager<T extends GamePlayer> implements IGamePl
 
     public GamePlayerManager(GamesManagerAPI<?, ?> plugin) {
         this.plugin = plugin;
+    }
+
+    public void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new PlayerListeners(this), plugin);
     }
 

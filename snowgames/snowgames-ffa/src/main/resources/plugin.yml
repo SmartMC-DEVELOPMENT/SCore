@@ -2,7 +2,7 @@ main: us.smartmc.snowgames.FFAPlugin
 name: SnowGames-FFA
 version: 1.0
 authors: [ImSergioh, SmartMC Development Team]
-depend:  [gamesmanager-spigot, SmartCore23]
+depend:  [SmartCore23]
 
 commands:
   ffa:

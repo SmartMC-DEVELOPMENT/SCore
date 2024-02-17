@@ -68,7 +68,7 @@ public class BlockListeners implements Listener {
             if (block == null) return;
             if (!block.getType().name().contains("PLATE")) return;
 
-            Bukkit.getScheduler().runTaskLater(FFAPlugin.getPlugin(), () -> {
+            Bukkit.getScheduler().runTaskLater(FFAPlugin.getFFAPlugin(), () -> {
                 Vector direction = player.getLocation().getDirection().normalize();
                 direction.setY(direction.getY() + 0.55);
                 direction.multiply(2.5);

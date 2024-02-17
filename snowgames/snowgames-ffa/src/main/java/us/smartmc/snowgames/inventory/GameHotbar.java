@@ -10,7 +10,7 @@ import us.smartmc.snowgames.menu.FFAMenu;
 
 public class GameHotbar extends FFAMenu {
 
-    private static final FFAPlugin plugin = FFAPlugin.getPlugin();
+    private static final FFAPlugin plugin = FFAPlugin.getFFAPlugin();
     private static final LanguageConfig config = plugin.getLanguageConfig();
 
     protected GameHotbar(Player player) {

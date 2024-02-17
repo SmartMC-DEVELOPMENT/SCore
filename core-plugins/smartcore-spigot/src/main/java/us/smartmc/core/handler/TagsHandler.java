@@ -36,7 +36,7 @@ public class TagsHandler implements Listener {
         if (!tag.equals(lastTagKnown)) registerTagAboveHead(player);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void join(PlayerJoinEvent event) {
         if (areDisabled()) return;
         Player player = event.getPlayer();

@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class LobbyHotbar extends FFAMenu {
 
-    private static final FFAPlugin plugin = FFAPlugin.getPlugin();
+    private static final FFAPlugin plugin = FFAPlugin.getFFAPlugin();
     private static final LanguageConfig config = plugin.getLanguageConfig();
 
     private LobbyHotbar(Player player) {

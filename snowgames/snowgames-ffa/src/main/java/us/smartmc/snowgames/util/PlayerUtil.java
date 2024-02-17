@@ -26,11 +26,11 @@ public class PlayerUtil {
         FFAPlayer ffaVictim = FFAPlayerManager.INSTANCE.get(victim.getUniqueId());
         if (ffaVictim == null) return;
 
-        FFAMap map = FFAPlugin.getPlugin().getArenaManager().getCurrentMap();
+        FFAMap map = FFAPlugin.getFFAPlugin().getArenaManager().getCurrentMap();
         ffaVictim.getPlayer().teleport(map.getSpawn());
 
         // Quit player from game
-        game.quitPlayer(ffaVictim.getPlayer());
+        game.quitPlayer(ffaVictim);
         ffaVictim.addDeath();
         victim.setHealth(20);
 
@@ -55,7 +55,7 @@ public class PlayerUtil {
             Player killer) {
         int messageIndex = manager.getRandomMessageIndex();
         game.forEachPlayer(player -> {
-            Language language = PlayerLanguages.get(player.getUniqueId());
+            Language language = PlayerLanguages.get(player.getUUID());
             if (language == null) language = Language.getDefault();
 
             String message = killer == null ?

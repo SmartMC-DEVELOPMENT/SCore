@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
 public class SendEmbedMessages extends LogChannelRegistry {
 
     public SendEmbedMessages() {
-        super("1208172253108371486", "discord-logs:embed");
+        super("1208514273899184130", "discord-logs:embed");
         run();
     }
 
@@ -52,7 +52,8 @@ public class SendEmbedMessages extends LogChannelRegistry {
             if (channel instanceof TextChannel textChannel) {
                 textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
             }
-        } catch (Exception ignore) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

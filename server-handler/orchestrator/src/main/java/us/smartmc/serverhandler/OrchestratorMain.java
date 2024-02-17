@@ -1,9 +1,15 @@
 package us.smartmc.serverhandler;
 
+import com.google.gson.internal.LinkedTreeMap;
 import me.imsergioh.jbackend.BackendServer;
 import me.imsergioh.jbackend.api.ConnectionHandler;
 import me.imsergioh.jbackend.api.manager.BackendActionManager;
+import me.imsergioh.pluginsapi.connection.RedisConnection;
+import me.imsergioh.pluginsapi.instance.builder.DiscordLogEmbedBuilder;
+import us.smartmc.serverhandler.config.DataConfiguration;
 import us.smartmc.serverhandler.consolecommand.ExitCommand;
+import us.smartmc.serverhandler.instance.FileConfigData;
+import us.smartmc.serverhandler.manager.ConfigManager;
 import us.smartmc.serverhandler.manager.ConsoleCommandManager;
 import us.smartmc.serverhandler.registration.CommandRegistration;
 import us.smartmc.serverhandler.registration.CommonListenerRegistration;
@@ -12,6 +18,7 @@ import us.smartmc.serverhandler.registration.ConfigRegistration;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class OrchestratorMain {
 
@@ -26,6 +33,9 @@ public class OrchestratorMain {
                 CommonListenerRegistration.class,
                 ConfigRegistration.class);
         BackendActionManager.registerConnectAction(h -> handler = h);
+        DataConfiguration<FileConfigData> backendConnections = (DataConfiguration<FileConfigData>) ConfigManager.get("backend_connections");
+        LinkedTreeMap<String, Object> redisDoc = (LinkedTreeMap<String, Object>) backendConnections.getData().getData().get("redis");
+        RedisConnection.mainConnection = new RedisConnection((String) redisDoc.get("host"), ((Number) redisDoc.get("port")).intValue());
 
         // CREATE & START BACKEND SERVER
         backendServer = new BackendServer(55777);
@@ -34,6 +44,12 @@ public class OrchestratorMain {
         Runtime.getRuntime().addShutdownHook(new Thread(ExitCommand::execute));
 
         startReadingConsoleInput();
+
+        new DiscordLogEmbedBuilder()
+                .title("New Orchestrator connected!").description("Se ha abierto un \"orquestador\" para los servidores.")
+                .addField("DIRECCIÓN IP", backendServer.getServerSocket().getLocalSocketAddress().toString())
+                .addField("PUERTO", String.valueOf(backendServer.getServerSocket().getLocalPort()))
+                .color("GREEN").send(RedisConnection.mainConnection.getResource());
     }
 
     public static File getParentFolder() {

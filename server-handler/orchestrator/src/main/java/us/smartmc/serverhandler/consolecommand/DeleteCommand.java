@@ -1,5 +1,7 @@
 package us.smartmc.serverhandler.consolecommand;
 
+import me.imsergioh.pluginsapi.connection.RedisConnection;
+import me.imsergioh.pluginsapi.instance.builder.DiscordLogEmbedBuilder;
 import us.smartmc.serverhandler.executor.ConsoleCommand;
 import us.smartmc.serverhandler.executor.ConsoleCommandInfo;
 import us.smartmc.serverhandler.instance.ServerInfo;
@@ -41,6 +43,13 @@ public class DeleteCommand extends ConsoleCommand {
       }
       ServerManager.stopServer(serverInfo);
       CommandUtilities.sendFeedback("Server %s has been deleted.", serverName);
+      new DiscordLogEmbedBuilder()
+              .title("Servidor eliminado!").description("Se ha elimina un servidor anteriormente conectado a un ServerHandler")
+              .addField("Nombre", serverInfo.getName())
+              .addField("IP", serverInfo.getHostname(), true)
+              .addField("Puerto", String.valueOf(serverInfo.getPort()), true)
+              .addField("Directorio", serverInfo.getDirectory().getAbsolutePath())
+              .color("RED").send(RedisConnection.mainConnection.getResource());
     }).start();
   }
 

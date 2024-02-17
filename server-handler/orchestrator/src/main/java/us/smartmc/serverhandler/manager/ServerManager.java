@@ -5,7 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 import us.smartmc.serverhandler.ConsoleColors;
 import us.smartmc.serverhandler.OrchestratorMain;
-import us.smartmc.serverhandler.instance.Configuration;
+import us.smartmc.serverhandler.config.ServerConfiguration;
+import us.smartmc.serverhandler.instance.ServerConfigData;
 import us.smartmc.serverhandler.instance.ServerInfo;
 import us.smartmc.serverhandler.util.FileUtil;
 import us.smartmc.serverhandler.util.ServerUtil;
@@ -26,7 +27,7 @@ public class ServerManager {
     }
 
     public static void create(String templateName) {
-        Configuration configuration = Configuration.get(templateName);
+        ServerConfiguration<ServerConfigData> configuration = ServerConfiguration.get(templateName);
         if (configuration == null) {
             OrchestratorMain.log(ConsoleColors.RED + "Not config with name " + templateName + " found!");
             return;
@@ -66,7 +67,7 @@ public class ServerManager {
     }
 
     public static void register(String name, String hostname, int port) {
-        final Configuration configuration = ConfigManager.getByServerName(name);
+        ServerConfiguration<?> configuration = (ServerConfiguration<?>) ConfigManager.getByPrefixName(name);
         if (configuration == null) {
             return;
         }
@@ -77,7 +78,7 @@ public class ServerManager {
     }
 
     public static ServerInfo get(String name) {
-        if (servers.containsKey(name)) create(name);
+        if (!servers.containsKey(name)) create(name);
         return servers.get(name);
     }
 

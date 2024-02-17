@@ -5,9 +5,8 @@ import us.smartmc.serverhandler.OrchestratorMain;
 import java.io.File;
 import java.io.Serializable;
 import java.util.LinkedList;
-import java.util.Random;
 
-public class ConfigurationData implements Serializable {
+public class ServerConfigData implements Serializable {
 
     private static final File startupParent = new File(OrchestratorMain.getParentFolder() + "/startup");
     private static final File templateParent = new File(OrchestratorMain.getParentFolder() + "/template");

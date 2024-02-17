@@ -28,7 +28,7 @@ public class FFAGame extends GameInstance {
     public void joinPlayer(GamePlayer player) {
         if (isInGame(player)) return;
 
-        players.add(player);
+        players.put(player.getUUID(), player);
         GameHotbar.give(player.getPlayer());
 
         player.getPlayer().setGameMode(GameMode.SURVIVAL);
@@ -38,9 +38,12 @@ public class FFAGame extends GameInstance {
         this.map = map;
     }
 
+    public boolean isInGame(Player player) {
+        return players.containsKey(player.getUniqueId());
+    }
+
     public boolean isInGame(GamePlayer gamePlayer) {
-        DebugUtil.debug(getClass().getSimpleName(), "isInGame " + players);
-        return players.contains(gamePlayer);
+        return players.containsKey(gamePlayer.getUUID());
     }
 
     public Location getSpawn() {
@@ -54,23 +57,23 @@ public class FFAGame extends GameInstance {
 
     @Override
     public void unload() {
-
+        forEachPlayer(this::quitPlayer);
     }
 
     @Override
     public void quitPlayer(GamePlayer player) {
-        DebugUtil.debug(getClass().getSimpleName(), "quitPlayer start");
         if (!isInGame(player)) return;
         SyncUtil.later(() -> {
             if (!player.getPlayer().isOnline()) return;
             player.getPlayer().teleport(getSpawn());
             LobbyHotbar.give(player.getPlayer());
             player.getPlayer().setGameMode(GameMode.ADVENTURE);
-            Bukkit.getScheduler().runTaskLater(FFAPlugin.getFFAPlugin(), () -> {
-                players.remove(player);
-            }, 10);
         }, 25);
-        DebugUtil.debug(getClass().getSimpleName(), "quitPlayer end");
+
+        Bukkit.getScheduler().runTaskLater(FFAPlugin.getFFAPlugin(), () -> {
+            players.remove(player.getUUID());
+            player.setGameInstance(null);
+        }, 10);
     }
 
     public FFAMap getMap() {

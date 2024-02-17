@@ -9,9 +9,7 @@ import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.PlayerStatus;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameManager;
 import us.smartmc.gamesmanager.gamesmanagerspigot.util.BukkitUtil;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -23,7 +21,7 @@ public abstract class GameInstance implements IGameInstance {
     protected GameStatus status = GameStatus.MAINTENANCE;
     protected GameMap map;
 
-    protected final Set<GamePlayer> players = new HashSet<>();
+    protected final Map<UUID, GamePlayer> players = new HashMap<>();
 
     public GameInstance(GameManager<?> manager, String name) {
         this.manager = manager;
@@ -62,7 +60,7 @@ public abstract class GameInstance implements IGameInstance {
 
     @Override
     public Collection<GamePlayer> getAlivePlayers() {
-        return getPlayers().stream().filter(p -> p.getStatus().equals(PlayerStatus.PLAYING)).collect(Collectors.toSet());
+        return getPlayers().values().stream().filter(p -> p.getStatus().equals(PlayerStatus.PLAYING)).collect(Collectors.toSet());
     }
 
     @Override
@@ -72,7 +70,7 @@ public abstract class GameInstance implements IGameInstance {
     }
 
     public void forEachPlayer(Consumer<GamePlayer> consumer) {
-        players.forEach(consumer);
+        players.values().forEach(consumer);
     }
 
 }

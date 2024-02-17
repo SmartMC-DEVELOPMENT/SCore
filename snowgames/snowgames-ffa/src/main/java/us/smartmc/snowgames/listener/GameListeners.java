@@ -7,22 +7,19 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.GamePlayer;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
-import us.smartmc.snowgames.manager.FFAPlayerManager;
-import us.smartmc.snowgames.player.FFAPlayer;
 import us.smartmc.snowgames.util.RegionUtils;
 
 import static us.smartmc.snowgames.config.DefaultConfig.getJoinMessage;
@@ -64,13 +61,15 @@ public class GameListeners implements Listener {
     @EventHandler
     public void joinGameAtLeaveSpawn(PlayerTickEvent event) {
         Player player = event.getCorePlayer().get();
+        if (player == null) return;
         GamePlayer gamePlayer = FFAPlugin.getFFAPlugin().getGamePlayerManager().get(player.getUniqueId());
+        if (gamePlayer == null) return;
         FFAGame game = FFAPlugin.getGame();
+        if (game == null) return;
         boolean inGame = game.isInGame(gamePlayer);
         boolean atSpawn = RegionUtils.isAtSpawn(player);
 
         if (!inGame && !atSpawn) {
-            if (gamePlayer == null) return;
             game.joinPlayer(gamePlayer);
         }
     }
@@ -84,7 +83,7 @@ public class GameListeners implements Listener {
         return false;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void JoinServerMessage(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         player.setHealth(20);

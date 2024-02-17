@@ -10,8 +10,6 @@ import java.util.UUID;
 
 public class FFAPlayerManager<T extends FFAPlayer> extends GamePlayerManager<T> {
 
-    public static final FFAPlayerManager<?> INSTANCE = new FFAPlayerManager<>(FFAPlugin.getFFAPlugin());
-
     public FFAPlayerManager(GamesManagerAPI<?, ?> plugin) {
         super(plugin);
         registerListeners();

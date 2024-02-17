@@ -101,7 +101,7 @@ public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
         for (World world : Bukkit.getWorlds()) {
             BlocksResetManager.completeAllByWorldName(world.getName());
         }
-        FFAPlayerManager.INSTANCE.unregisterAll();
+        playerManager.unregisterAll();
     }
 
     @SafeVarargs

@@ -20,6 +20,7 @@ public class GameHotbar extends FFAMenu {
     @Override
     public void load() {
         Language language = PlayerLanguages.get(player.getUniqueId());
+        if (language == null) return;
         set(0, parseItem(player, config.getItemConfig(language, "weapon").get(), "&b"), "game weapon");
 
         set(1, parseItem(player, config.getItemConfig(language, "blocks").get(), "&b"));

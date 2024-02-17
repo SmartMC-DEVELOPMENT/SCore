@@ -59,10 +59,8 @@ public class PlayerListeners implements Listener {
     @EventHandler
     public void onUnloadGamePlayer(GamePlayerUnloadEvent event) {
         GamePlayer gamePlayer = event.getGamePlayer();
-
         FFAPlayer ffaPlayer = FFAPlayerManager.INSTANCE.get(gamePlayer.getUUID());
         if (ffaPlayer == null) return;
-        ffaPlayer.saveStats();
         FFAPlugin.getGame().quitPlayer(ffaPlayer);
         ItemCooldownManager.clear(gamePlayer.getPlayer());
     }
@@ -85,7 +83,7 @@ public class PlayerListeners implements Listener {
     public void damageInSpawn(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
         FFAGame game = FFAPlugin.getGame();
-        if (game.isInGame(player)) return;
+        if (game.isInGame(FFAPlugin.getFFAPlugin().getGamePlayerManager().get(player.getUniqueId()))) return;
         event.setCancelled(true);
     }
 

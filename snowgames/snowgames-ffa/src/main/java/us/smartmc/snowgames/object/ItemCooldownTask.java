@@ -57,7 +57,7 @@ public class ItemCooldownTask extends PluginRepeatingTask {
 
         onComplete(() -> {
             FFAGame game = FFAPlugin.getGame();
-            if (!game.isInGame(player)) {
+            if (!game.isInGame(gamePlayer)) {
                 completeTask();
                 manager.remove(slot);
                 return;

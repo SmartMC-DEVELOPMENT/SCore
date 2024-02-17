@@ -15,6 +15,7 @@ public class PlayerListeners implements Listener {
 
     public PlayerListeners(GamePlayerManager<?> playerManager) {
         this.playerManager = playerManager;
+        System.out.println("PlayerListeners NEW INSTANCE!");
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

@@ -35,7 +35,7 @@ public class LuckPermsVariables extends VariableListener<Player> {
         if (matcher.find()) {
             return matcher.group();
         } else {
-            return "&r";
+            return "&7";
         }
     }
 

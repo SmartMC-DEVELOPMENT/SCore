@@ -51,9 +51,11 @@ public class LobbyMessages extends MultiLanguageRegistry {
         holder.registerDefault("feature_in_development", "&cThis feature is currently in development.");
 
         holder.registerDefault("menu_link_socials_title", "Link socials");
+        holder.registerDefault("menu_show_socials_title", "Show socials");
         holder.registerDefault("link_socials_invalid_url", "You introduced an invalid URL!");
         holder.registerDefault("link_socials_linked_correctly", "You have successfully linked the social network!");
         holder.registerDefault("link_socials_introduce_url", "&8➤ &bPlease introduce your social network link in the chat");
+        holder.registerDefault("link_socials.socials_cmd.usage", "&cCorrect usage: /socials <name>");
 
         item(holder, "link_social_network", "{0}",
                 "&7Here you have the link of {0}&7:\n\n&fLink:&e {1}\n&fExample:&e {2}\n\n&a▶ Click to set\n&c▶ Right-Click to unlink");

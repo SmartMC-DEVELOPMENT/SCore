@@ -82,6 +82,10 @@ public class ServerManager {
         return servers.get(name);
     }
 
+    public static boolean isConnected(String name) {
+        return servers.containsKey(name);
+    }
+
     public static void deleteIfNotTemporalAndUnregister(String name) {
         ServerInfo serverInfo = get(name);
         if (serverInfo.getConfig().getData().isTemporal()) {

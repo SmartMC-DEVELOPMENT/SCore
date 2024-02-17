@@ -20,6 +20,7 @@ us\smartmc\serverhandler\registration\CommandRegistration.class
 us\smartmc\serverhandler\consolecommand\RestartCommand.class
 us\smartmc\serverhandler\consolecommand\ExitCommand.class
 us\smartmc\serverhandler\instance\FileConfigData.class
+us\smartmc\serverhandler\OrchestratorMain$1.class
 us\smartmc\serverhandler\config\DataConfiguration$1.class
 us\smartmc\serverhandler\config\ServerConfiguration.class
 us\smartmc\serverhandler\manager\ConsoleCommandManager.class
@@ -28,6 +29,7 @@ us\smartmc\serverhandler\manager\ServerManager.class
 us\smartmc\serverhandler\backendcommand\IAmAProxyCommand.class
 us\smartmc\serverhandler\consolecommand\DeleteCommand.class
 us\smartmc\serverhandler\instance\StartupRule.class
+us\smartmc\serverhandler\manager\CacheCleanerManager.class
 us\smartmc\serverhandler\backendcommand\ServerStatusCommand.class
 us\smartmc\serverhandler\consolecommand\ExecuteCommand.class
 us\smartmc\serverhandler\executor\ConsoleCommand.class

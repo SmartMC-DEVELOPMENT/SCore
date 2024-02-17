@@ -9,6 +9,7 @@ import me.imsergioh.pluginsapi.instance.builder.DiscordLogEmbedBuilder;
 import us.smartmc.serverhandler.config.DataConfiguration;
 import us.smartmc.serverhandler.consolecommand.ExitCommand;
 import us.smartmc.serverhandler.instance.FileConfigData;
+import us.smartmc.serverhandler.manager.CacheCleanerManager;
 import us.smartmc.serverhandler.manager.ConfigManager;
 import us.smartmc.serverhandler.manager.ConsoleCommandManager;
 import us.smartmc.serverhandler.registration.CommandRegistration;
@@ -18,6 +19,8 @@ import us.smartmc.serverhandler.registration.ConfigRegistration;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.TreeMap;
 
 public class OrchestratorMain {
@@ -43,13 +46,20 @@ public class OrchestratorMain {
 
         Runtime.getRuntime().addShutdownHook(new Thread(ExitCommand::execute));
 
-        startReadingConsoleInput();
-
         new DiscordLogEmbedBuilder()
                 .title("New Orchestrator connected!").description("Se ha abierto un \"orquestador\" para los servidores.")
                 .addField("DIRECCIÓN IP", backendServer.getServerSocket().getLocalSocketAddress().toString())
                 .addField("PUERTO", String.valueOf(backendServer.getServerSocket().getLocalPort()))
                 .color("GREEN").send(RedisConnection.mainConnection.getResource());
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                CacheCleanerManager.checkServerCache();
+            }
+        }, 5000);
+
+        startReadingConsoleInput();
     }
 
     public static File getParentFolder() {

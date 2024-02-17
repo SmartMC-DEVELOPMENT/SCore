@@ -1,12 +1,15 @@
 package us.smartmc.lobbymodule.menu;
 
+import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bson.Document;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.handler.LinkSocialsManager;
 import us.smartmc.lobbymodule.instance.LinkSocialAction;
@@ -15,13 +18,25 @@ import us.smartmc.lobbymodule.messages.LobbyMessages;
 import us.smartmc.lobbymodule.util.MenuUtil;
 
 import java.util.List;
+import java.util.UUID;
 
 public class LinkSocialsMenu extends CoreMenu {
 
+    private final String targetName;
     private Document document;
+
+    @Getter
+    private boolean showing;
 
     public LinkSocialsMenu(Player player) {
         super(player, 54, "<lang.lobby.menu_link_socials_title>");
+        targetName = player.getName();
+    }
+
+    public LinkSocialsMenu(Player player, String targetName) {
+        super(player, 54, "<lang.lobby.menu_show_socials_title>");
+        this.targetName = targetName;
+        showing = true;
     }
 
     @Override
@@ -47,7 +62,8 @@ public class LinkSocialsMenu extends CoreMenu {
     }
 
     private void loadDocument() {
-        document = corePlayer.getPlayerData().getDocument().get(LinkSocialsManager.DB_DOCUMENT_PATH, Document.class);
+        SmartCorePlayer targetCorePlayer = SmartCorePlayer.get(targetName);
+        document = targetCorePlayer.getPlayerData().getDocument().get(LinkSocialsManager.DB_DOCUMENT_PATH, Document.class);
         if (document == null) document = new Document();
     }
 

@@ -16,7 +16,7 @@ public abstract class LinkSocialAction implements ILinkSocial {
     @Override
     public String[] getValidRegexPatterns() {
         return new String[]{
-                "@[a-zA-Z0-9_-]+"
+                "@[a-zA-Z0-9_.-]+"
         };
     }
 

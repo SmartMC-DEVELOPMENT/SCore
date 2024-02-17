@@ -6,6 +6,7 @@ import me.imsergioh.pluginsapi.instance.builder.DiscordLogEmbedBuilder;
 import us.smartmc.serverhandler.executor.BackendCommand;
 import us.smartmc.serverhandler.instance.CommonServerInfo;
 import us.smartmc.serverhandler.instance.ServerStatus;
+import us.smartmc.serverhandler.manager.CacheCleanerManager;
 import us.smartmc.serverhandler.manager.ServerManager;
 
 public class ServerStatusCommand extends BackendCommand {
@@ -41,6 +42,7 @@ public class ServerStatusCommand extends BackendCommand {
                     .addField("IP", "||" + serverInfo.getHostname() + "||", true)
                     .addField("Puerto", String.valueOf(serverInfo.getPort()), true)
                     .color("RED").send(RedisConnection.mainConnection.getResource());
+            CacheCleanerManager.removeServerCache(name);
         }
     }
 

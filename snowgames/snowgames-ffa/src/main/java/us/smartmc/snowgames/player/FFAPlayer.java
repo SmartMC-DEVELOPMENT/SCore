@@ -30,11 +30,9 @@ public class FFAPlayer extends GamePlayer {
     }
 
     private void loadStats() {
-        SyncUtil.later(() -> {
-            statsDocument = collection.find(getQuery()).first();
-            if (statsDocument == null) statsDocument = getQuery();
-            statsDocument.put("name", player.getName());
-        }, 75);
+        statsDocument = collection.find(getQuery()).first();
+        if (statsDocument == null) statsDocument = getQuery();
+        statsDocument.put("name", player.getName());
     }
 
     // Obtener / Returnar 0

@@ -18,3 +18,5 @@ commands:
   executeAtBungeeCommand:
   friend:
     aliases: [friends]
+  coins:
+    aliases: [balance, eco, bal]

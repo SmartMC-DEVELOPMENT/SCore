@@ -28,8 +28,8 @@ public class SmartCorePlayer extends CorePlayer {
     private static final HashMap<UUID, SmartCorePlayer> players = new HashMap<>();
     private final PlayerRegionSubscriber playerRegionSubscriber;
 
-    protected SmartCorePlayer(Player player) {
-        super(player);
+    protected SmartCorePlayer(UUID uuid) {
+        super(uuid);
         playerRegionSubscriber = new PlayerRegionSubscriber(this);
     }
 
@@ -44,7 +44,7 @@ public class SmartCorePlayer extends CorePlayer {
 
         RedisConnection.mainConnection.getResource()
                 .publish("PlayerChat",
-                        player.getName() + "\n"
+                        bukkitPlayer.getName() + "\n"
                         + command);
     }
 
@@ -99,16 +99,16 @@ public class SmartCorePlayer extends CorePlayer {
     }
 
     public void playSound(Sound sound, int v, int p) {
-        if (player == null) return;
+        if (!isOnline) return;
         try {
-            player.playSound(player.getLocation(), sound, v, p);
+            bukkitPlayer.playSound(bukkitPlayer.getLocation(), sound, v, p);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public Player player() {
-        return player;
+        return bukkitPlayer;
     }
 
     public UUID getUUID() {
@@ -117,7 +117,7 @@ public class SmartCorePlayer extends CorePlayer {
 
     public static void register(Player player) {
         if (players.containsKey(player.getUniqueId())) return;
-        players.put(player.getUniqueId(), new SmartCorePlayer(player));
+        players.put(player.getUniqueId(), new SmartCorePlayer(player.getUniqueId()));
     }
 
     public static SmartCorePlayer get(String name) {
@@ -127,11 +127,10 @@ public class SmartCorePlayer extends CorePlayer {
         final MongoCollection<Document> mongoCollection = database.getCollection("offline_player_data");
 
         final Document document = mongoCollection.find(new Document().append("lowercase_name", name)).first();
-        if (document == null) {
-            return null;
-        }
+        if (document == null) return null;
         final UUID uuid = UUID.fromString(document.getString("_id"));
-        return get(uuid);
+        SmartCorePlayer corePlayer = get(uuid);
+        return corePlayer == null ? new SmartCorePlayer(uuid) : corePlayer;
     }
 
     public static SmartCorePlayer get(UUID uuid) {

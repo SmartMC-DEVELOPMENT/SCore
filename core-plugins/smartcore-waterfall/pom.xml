@@ -90,5 +90,12 @@
             <version>1.18.28</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>us.smartmc.core</groupId>
+            <artifactId>bmotd</artifactId>
+            <version>LOCAL</version>
+            <systemPath>D:/workspace2024/BMotd/out/artifacts/BMotd_jar/BMotd.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
     </dependencies>
 </project>

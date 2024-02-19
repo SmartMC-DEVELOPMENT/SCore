@@ -1,6 +1,7 @@
 package us.smartmc.core.util;
 
-import me.imsergioh.pluginsapi.util.SyncUtil;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
@@ -10,6 +11,7 @@ import java.io.DataOutputStream;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public class PluginUtils {
 
@@ -17,23 +19,30 @@ public class PluginUtils {
 
     public static void sendTo(Player player, String serverPrefix) {
         if (sendingPlayers.contains(player.getUniqueId())) return;
-        sendingPlayers.add(player.getUniqueId());
-        SyncUtil.later(() -> {
-            sendingPlayers.remove(player.getUniqueId());
-        }, 100);
-        try {
-            System.out.println("Redirecting " + player.getName() + " to " + serverPrefix);
-            ByteArrayOutputStream b = new ByteArrayOutputStream();
-            DataOutputStream out = new DataOutputStream(b);
-            out.writeUTF("RedirectTo");
-            out.writeUTF(serverPrefix);
-            player.sendPluginMessage(SmartCore.getPlugin(), "BungeeCord", b.toByteArray());
-            b.close();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            player.sendMessage(ChatColor.RED + "Error when trying to connect to a server of '" + serverPrefix + "'");
-        }
+        CompletableFuture.runAsync(() -> {
+            sendingPlayers.add(player.getUniqueId());
+            // Save before redirect to server ->
+            CorePlayer corePlayer = CorePlayer.get(player);
+            if (corePlayer == null) return;
+            CorePlayerData playerData = corePlayer.getPlayerData();
+            if (playerData == null) return;
+            playerData.save();
+        }).thenRun(() -> {
+            try {
+                System.out.println("Redirecting " + player.getName() + " to " + serverPrefix);
+                ByteArrayOutputStream b = new ByteArrayOutputStream();
+                DataOutputStream out = new DataOutputStream(b);
+                out.writeUTF("RedirectTo");
+                out.writeUTF(serverPrefix);
+                player.sendPluginMessage(SmartCore.getPlugin(), "BungeeCord", b.toByteArray());
+                b.close();
+                out.close();
+                sendingPlayers.remove(player.getUniqueId());
+            } catch (Exception e) {
+                e.printStackTrace(System.out);
+                player.sendMessage(ChatColor.RED + "Error when trying to connect to a server of '" + serverPrefix + "'");
+            }
+        });
     }
 
     public static World getOrLoadWorld(String name) {

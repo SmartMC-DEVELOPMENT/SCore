@@ -5,10 +5,7 @@ import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import us.smartmc.core.SmartCore;
-import us.smartmc.lobbymodule.command.ChangeVisibilityCommand;
-import us.smartmc.lobbymodule.command.FlyCommand;
-import us.smartmc.lobbymodule.command.LinkSocialsCommand;
-import us.smartmc.lobbymodule.command.LobbyCommand;
+import us.smartmc.lobbymodule.command.*;
 import us.smartmc.lobbymodule.config.LobbyConfig;
 import us.smartmc.lobbymodule.config.MinigamesConfig;
 import us.smartmc.lobbymodule.handler.*;
@@ -59,7 +56,8 @@ public class LobbyModule extends AddonPlugin {
                 new FlyCommand("fly"),
                 new FlyCommand("volar"),
                 new FlyCommand("flight"),
-                new LinkSocialsCommand("linkSocials"));
+                new LinkSocialsCommand("linkSocials"),
+                new SocialsCommand("socials"));
 
 
         registerListeners(new JoinItemListener(),

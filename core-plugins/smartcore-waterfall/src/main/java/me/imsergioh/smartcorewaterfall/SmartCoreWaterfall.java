@@ -28,6 +28,7 @@ import me.imsergioh.smartcorewaterfall.instance.BungeeLogger;
 import me.imsergioh.smartcorewaterfall.listener.*;
 import me.imsergioh.smartcorewaterfall.manager.CustomCommandsManager;
 import me.imsergioh.smartcorewaterfall.manager.OfflinePlayerDataManager;
+import me.imsergioh.smartcorewaterfall.manager.OnlineCountHandler;
 import me.imsergioh.smartcorewaterfall.manager.TabHandler;
 import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.event.FriendEventManagement;
 import me.imsergioh.smartcorewaterfall.messages.FriendManagerMessages;
@@ -44,6 +45,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 import org.bson.Document;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.logging.Logger;
 
 public final class SmartCoreWaterfall extends Plugin {
@@ -78,11 +80,20 @@ public final class SmartCoreWaterfall extends Plugin {
         registerListeners();
         VariablesHandler.register(new LanguageVariables());
 
+        // Handler to update every 3 seconds online count in redis and update online count
+        OnlineCountHandler.startTask();
+
         logger.info("Plugin enabled successfully!");
+    }
+
+    @Override
+    public void onDisable() {
+        OnlineCountHandler.unregister();
     }
 
     public void loadConfig() {
         config = new FilePluginConfig(getDataFolder() + "/config.json").load();
+        config.registerDefault("proxyID", "proxy-CA" + new Random().nextInt(9999));
         config.registerDefault("authServers", Arrays.asList("auth", "auth1", "auth2"));
         config.registerDefault("hubRules", new Document().append("sg-*", "sg-l*"));
         config.registerDefault("mongodb_url", "mongodb://imsergioh:Aa@66.70.181.34:27017/admin?readPreference=primary&replicaSet=ecommerce&directConnection=true");
@@ -158,6 +169,10 @@ public final class SmartCoreWaterfall extends Plugin {
         for (Language languages : Language.values()) {
             LanguagesHandler.register(languages);
         }
+    }
+
+    public String getProxyID() {
+        return config.getString("proxyID");
     }
 
     public Logger getLogger() {

@@ -52,13 +52,14 @@ public class LobbyMessages extends MultiLanguageRegistry {
 
         holder.registerDefault("menu_link_socials_title", "Link socials");
         holder.registerDefault("menu_show_socials_title", "Show socials");
-        holder.registerDefault("link_socials_invalid_url", "You introduced an invalid URL!");
+        holder.registerDefault("link_socials_invalid_input", "You introduced an invalid input!");
         holder.registerDefault("link_socials_linked_correctly", "You have successfully linked the social network!");
         holder.registerDefault("link_socials_introduce_url", "&8➤ &bPlease introduce your social network link in the chat");
         holder.registerDefault("link_socials.socials_cmd.usage", "&cCorrect usage: /socials <name>");
+        holder.registerDefault("link_socials.description_show",  "&7Here you have the link of {0}:\n\n&fLink:&e {1}\n\n&a▶ Click to open");
 
         item(holder, "link_social_network", "{0}",
-                "&7Here you have the link of {0}&7:\n\n&fLink:&e {1}\n&fExample:&e {2}\n\n&a▶ Click to set\n&c▶ Right-Click to unlink");
+                "&7Here you have the link of {0}&7:\n\n&fUsername:&e {1}\n&fExample:&e {2}\n\n&a▶ Click to set\n&c▶ Right-Click to unlink");
 
         item(holder, "link_socials", "&aLink your social networks", "&7You can link your social networks to SmartMC\nto promote your personal brand");
 
@@ -81,6 +82,10 @@ public class LobbyMessages extends MultiLanguageRegistry {
         item(holder, "cosmetics", "&bCosmetics <lang.lobby.items_right_click>", "&7Open cosmetics menu and change your current cosmetics.");
 
         holder.save();
+    }
+
+    public static List<String> getList(String name) {
+        return Arrays.asList("<lang.lobby." + name + ">");
     }
 
     public static ItemBuilder getItem(Material material, String name) {

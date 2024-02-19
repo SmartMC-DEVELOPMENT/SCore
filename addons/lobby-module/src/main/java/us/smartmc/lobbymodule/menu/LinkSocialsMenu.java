@@ -1,6 +1,7 @@
 package us.smartmc.lobbymodule.menu;
 
 import lombok.Getter;
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
@@ -17,12 +18,13 @@ import us.smartmc.lobbymodule.instance.LinkSocialType;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
 import us.smartmc.lobbymodule.util.MenuUtil;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.UUID;
 
 public class LinkSocialsMenu extends CoreMenu {
 
-    private final String targetName;
+    private UUID targetUUID;
     private Document document;
 
     @Getter
@@ -30,17 +32,20 @@ public class LinkSocialsMenu extends CoreMenu {
 
     public LinkSocialsMenu(Player player) {
         super(player, 54, "<lang.lobby.menu_link_socials_title>");
-        targetName = player.getName();
+        showing = false;
+        setup();
     }
 
     public LinkSocialsMenu(Player player, String targetName) {
         super(player, 54, "<lang.lobby.menu_show_socials_title>");
-        this.targetName = targetName;
+        Document query = new Document("lowercase_name", targetName.toLowerCase());
+        targetUUID = UUID.fromString(MongoDBConnection.mainConnection
+                .getDatabase("player_data").getCollection("offline_player_data").find(query).first().getString("_id"));
         showing = true;
+        setup();
     }
 
-    @Override
-    public void load() {
+    public void setup() {
         loadDocument();
         ItemBuilder relleno = ItemBuilder.of(Material.STAINED_GLASS_PANE).data(3).name(" ");
         MenuUtil.setBorder(relleno.get(), inventory);
@@ -62,8 +67,12 @@ public class LinkSocialsMenu extends CoreMenu {
     }
 
     private void loadDocument() {
-        SmartCorePlayer targetCorePlayer = SmartCorePlayer.get(targetName);
-        document = targetCorePlayer.getPlayerData().getDocument().get(LinkSocialsManager.DB_DOCUMENT_PATH, Document.class);
+        if (targetUUID == null) {
+            targetUUID = player.getUniqueId();
+        }
+
+        CorePlayerData data = new CorePlayerData(targetUUID);
+        document = data.getDocument().get(LinkSocialsManager.DB_DOCUMENT_PATH, Document.class);
         if (document == null) document = new Document();
     }
 
@@ -71,13 +80,24 @@ public class LinkSocialsMenu extends CoreMenu {
         ItemStack initialItem = LobbyMessages.getItem(Material.SKULL_ITEM, "link_social_network").get(player);
         String name = ChatUtil.parse(player, type.getDisplayName());
         List<String> lore = initialItem.getItemMeta().getLore();
-        String currentLinkSet = document.containsKey(type.name()) ? document.getString(type.name()) : "none";
+        String labelCommand = "linkSocial " + type.name();
+
+        String currentUser = document.containsKey(type.name()) ? document.getString(type.name()) : "none";
         LinkSocialAction action = LobbyModule.getLinkSocialsManager().get(type);
         String example = action == null ? "none" : action.getValidExample();
+
+        if (showing) {
+            lore = LobbyMessages.getList("link_socials.description_show");
+            labelCommand = "showSocial " + type.name() + " " + currentUser;
+        }
 
         set(slot, ItemBuilder.of(Material.SKULL_ITEM).data(3)
                 .skullTexture(type.getSkullTexture())
                 .name(name)
-                .lore(lore, name, currentLinkSet, example).get(player), "linkSocial " + type.name());
+                .lore(lore, name, currentUser, example).get(player), labelCommand);
     }
+
+    @Override
+    public void load() {}
 }
+

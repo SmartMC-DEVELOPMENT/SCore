@@ -5,6 +5,7 @@ me\imsergioh\smartcorewaterfall\SmartCoreWaterfall.class
 me\imsergioh\smartcorewaterfall\instance\UUIDFinderByName.class
 me\imsergioh\smartcorewaterfall\messages\SanctionsManagerMessages.class
 me\imsergioh\smartcorewaterfall\manager\cooldown\implementation\friend\FriendRequestObject.class
+me\imsergioh\smartcorewaterfall\manager\OnlineCountHandler.class
 me\imsergioh\smartcorewaterfall\command\info\StoreCommand.class
 me\imsergioh\smartcorewaterfall\command\moderation\WarnCommand.class
 me\imsergioh\smartcorewaterfall\listener\SanctionsListeners.class
@@ -61,6 +62,7 @@ me\imsergioh\smartcorewaterfall\manager\cooldown\implementation\friend\IFriendRe
 me\imsergioh\smartcorewaterfall\instance\PluginYMLConfig.class
 me\imsergioh\smartcorewaterfall\manager\cooldown\ICooldown.class
 me\imsergioh\smartcorewaterfall\instance\PlayerLanguages.class
+me\imsergioh\smartcorewaterfall\manager\OnlineCountHandler$1.class
 me\imsergioh\smartcorewaterfall\command\info\DiscordCommand.class
 me\imsergioh\smartcorewaterfall\instance\friend\PlayerFriends.class
 me\imsergioh\smartcorewaterfall\command\info\TwitterCommand.class

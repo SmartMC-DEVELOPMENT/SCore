@@ -2,15 +2,15 @@ package us.smartmc.lobbymodule.command;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import us.smartmc.core.instance.player.SmartCorePlayer;
-import us.smartmc.lobbymodule.handler.FlyManager;
 import us.smartmc.lobbymodule.menu.LinkSocialsMenu;
 import us.smartmc.lobbymodule.util.PlayerUtil;
 import us.smartmc.smartaddons.plugin.AddonPluginCommand;
 
-public class RedesCommand extends AddonPluginCommand {
+import java.util.List;
 
-    public RedesCommand(String name) {
+public class SocialsCommand extends AddonPluginCommand {
+
+    public SocialsCommand(String name) {
         super(name);
     }
 
@@ -29,10 +29,15 @@ public class RedesCommand extends AddonPluginCommand {
             PlayerUtil.send(player, "lobby", "link_socials.socials_cmd.usage");
             return;
         }
-
-        new LinkSocialsMenu(player).open(player);
+        new LinkSocialsMenu(player, args[0]).open(player);
     }
 
     @Override
     public void executeAdminPlayer(Player player, String[] args) {}
+
+    @Override
+    public List<String> getAliases() {
+        return List.of("redes", "mostrarRedes", "showSocials", "verRedes",
+                "getRedes", "getSocials");
+    }
 }

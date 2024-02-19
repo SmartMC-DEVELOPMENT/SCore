@@ -1,5 +1,6 @@
 package me.imsergioh.smartcorewaterfall.manager;
 
+import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.smartcorewaterfall.SmartCoreWaterfall;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -23,7 +24,7 @@ public class ServersHandler {
                 randomLobby
         ).getName();
         try {
-            player.sendData("connectServer", serverName.getBytes(StandardCharsets.UTF_8));
+            RedisConnection.mainConnection.getResource().publish("connectServer", player.getName() + " " + serverName);
         } catch (Exception e) {
             e.printStackTrace();
         }

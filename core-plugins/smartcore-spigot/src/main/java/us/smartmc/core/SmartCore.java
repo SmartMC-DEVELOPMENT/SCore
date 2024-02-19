@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.handler.PubSubConnectionHandler;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import me.imsergioh.pluginsapi.language.Language;
@@ -80,7 +81,6 @@ public class SmartCore extends JavaPlugin {
         getDataFolder().mkdirs();
 
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        this.getServer().getMessenger().registerIncomingPluginChannel(this, "connectServer", new ServerConnectionsHandler());
 
         registerDefaultConfig();
 
@@ -90,6 +90,7 @@ public class SmartCore extends JavaPlugin {
             RedisConnection.mainConnection = new RedisConnection(config.getString("redis_host"),
                     config.get("redis_port", Number.class).intValue());
             SpigotPluginsAPI.setup(plugin);
+            PubSubConnectionHandler.register(new ServerConnectionsHandler());
         }).start();
 
         registerDefaultLanguages();

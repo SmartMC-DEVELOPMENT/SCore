@@ -1,9 +1,13 @@
 package me.imsergioh.smartcorewaterfall.manager;
 
 import me.imsergioh.smartcorewaterfall.SmartCoreWaterfall;
+import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.bson.Document;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,9 +18,16 @@ public class ServersHandler {
         String at = getAt(player);
         List<String> lobbies = getLobbyServers(at);
         String randomLobby = lobbies.get(new Random().nextInt(lobbies.size()));
-        player.connect(SmartCoreWaterfall.getPlugin().getProxy().getServerInfo(
+
+        String serverName = SmartCoreWaterfall.getPlugin().getProxy().getServerInfo(
                 randomLobby
-        ));
+        ).getName();
+        try {
+            player.sendData("connectServer", serverName.getBytes(StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private static String getAt(ProxiedPlayer player) {

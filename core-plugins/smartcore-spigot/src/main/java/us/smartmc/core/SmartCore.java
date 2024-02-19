@@ -80,6 +80,7 @@ public class SmartCore extends JavaPlugin {
         getDataFolder().mkdirs();
 
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        this.getServer().getMessenger().registerIncomingPluginChannel(this, "connectServer", new ServerConnectionsHandler());
 
         registerDefaultConfig();
 

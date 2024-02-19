@@ -10,7 +10,7 @@ public class ServerCommand implements NPCCommandExecutor {
     @Override
     public void onCommand(String name, String[] args, NPCUseEntityEvent event) {
         SyncUtil.later(() -> {
-            PluginUtils.sendTo(event.getPlayer(), args[0]);
+            PluginUtils.redirectTo(event.getPlayer(), args[0]);
         }, 200);
     }
 }

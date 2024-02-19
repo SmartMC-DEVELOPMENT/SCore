@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 public class PlayerServerConnect {
 
     public PlayerServerConnect(Player player, String server) {
-        PluginUtils.sendTo(player, server);
+        PluginUtils.redirectTo(player, server);
     }
 
 }

@@ -84,6 +84,8 @@ public final class SmartCoreWaterfall extends Plugin {
         OnlineCountHandler.startTask();
 
         logger.info("Plugin enabled successfully!");
+
+
     }
 
     @Override

@@ -25,7 +25,6 @@ public abstract class LinkSocialAction implements ILinkSocial {
             Pattern regex = Pattern.compile(regexString);
             Matcher matcher = regex.matcher(url);
             if (matcher.find()) {
-                System.out.println("Checking -> " + regexString);
                 return matcher.group(1);
             }
         }

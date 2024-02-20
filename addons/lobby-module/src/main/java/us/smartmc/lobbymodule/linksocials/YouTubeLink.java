@@ -18,6 +18,7 @@ public class YouTubeLink extends LinkSocialAction {
 
     @Override
     public String getFormattedURL(String username) {
+        if (!username.startsWith("@")) username = "@" + username;
         return "https://www.youtube.com/" + username;
     }
 

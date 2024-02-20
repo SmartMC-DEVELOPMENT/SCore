@@ -10,7 +10,7 @@ import us.smartmc.core.instance.CommandIntermediate;
 
 public class CommandListeners implements Listener {
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPreProcessCommand(PlayerCommandPreprocessEvent event) {
         String name = event.getMessage().split(" ")[0];
 

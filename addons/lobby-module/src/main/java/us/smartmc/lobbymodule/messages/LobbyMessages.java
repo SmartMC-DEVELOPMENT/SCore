@@ -56,7 +56,10 @@ public class LobbyMessages extends MultiLanguageRegistry {
         holder.registerDefault("link_socials_linked_correctly", "You have successfully linked the social network!");
         holder.registerDefault("link_socials_introduce_url", "&8➤ &bPlease introduce your social network link in the chat");
         holder.registerDefault("link_socials.socials_cmd.usage", "&cCorrect usage: /socials <name>");
-        holder.registerDefault("link_socials.description_show",  "&7Here you have the link of {0}:\n\n&fLink:&e {1}\n\n&a▶ Click to open");
+        holder.registerDefault("link_socials_description_show",  "&7Here you have the link of {0}:\n\n&fLink:&e {1}\n\n&a▶ Click to open");
+        holder.registerDefault("link_socials_no_linked",  "&cThis user does not have an account already linked on that social network!");
+        holder.registerDefault("link_socials_show_message",  "&bClick here to open {0}'s {1}");
+        holder.registerDefault("link_socials_target_not_found",  "&cPlayer not found!");
 
         item(holder, "link_social_network", "{0}",
                 "&7Here you have the link of {0}&7:\n\n&fUsername:&e {1}\n&fExample:&e {2}\n\n&a▶ Click to set\n&c▶ Right-Click to unlink");
@@ -84,8 +87,8 @@ public class LobbyMessages extends MultiLanguageRegistry {
         holder.save();
     }
 
-    public static List<String> getList(String name) {
-        return Arrays.asList("<lang.lobby." + name + ">");
+    public static String getLangList(String name) {
+        return "<lang.lobby." + name + ">";
     }
 
     public static ItemBuilder getItem(Material material, String name) {

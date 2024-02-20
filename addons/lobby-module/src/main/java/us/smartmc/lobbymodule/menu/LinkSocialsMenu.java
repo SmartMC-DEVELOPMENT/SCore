@@ -4,13 +4,13 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bson.Document;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.handler.LinkSocialsManager;
 import us.smartmc.lobbymodule.instance.LinkSocialAction;
@@ -18,13 +18,17 @@ import us.smartmc.lobbymodule.instance.LinkSocialType;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
 import us.smartmc.lobbymodule.util.MenuUtil;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 public class LinkSocialsMenu extends CoreMenu {
 
+
     private UUID targetUUID;
+    @Getter
+    private String targetName;
+    @Getter
     private Document document;
 
     @Getter
@@ -36,11 +40,14 @@ public class LinkSocialsMenu extends CoreMenu {
         setup();
     }
 
-    public LinkSocialsMenu(Player player, String targetName) {
+    public LinkSocialsMenu(Player player, String targetName) throws Exception {
         super(player, 54, "<lang.lobby.menu_show_socials_title>");
         Document query = new Document("lowercase_name", targetName.toLowerCase());
-        targetUUID = UUID.fromString(MongoDBConnection.mainConnection
-                .getDatabase("player_data").getCollection("offline_player_data").find(query).first().getString("_id"));
+        Document targetDoc = MongoDBConnection.mainConnection
+                .getDatabase("player_data").getCollection("offline_player_data").find(query).first();
+        if (targetDoc == null) throw new Exception("No target found!");
+        targetUUID = UUID.fromString(targetDoc.getString("_id"));
+        this.targetName = targetDoc.getString("name");
         showing = true;
         setup();
     }
@@ -64,14 +71,23 @@ public class LinkSocialsMenu extends CoreMenu {
         register(33, LinkSocialType.DISCORD);
 
         register(43, LinkSocialType.GITHUB);
+
+        // Clear cache
+        document = null;
     }
 
     private void loadDocument() {
         if (targetUUID == null) {
             targetUUID = player.getUniqueId();
         }
+        CorePlayer targetCorePlayer = CorePlayer.get(targetUUID);
+        CorePlayerData data;
+        if (targetCorePlayer != null) {
+            data = targetCorePlayer.getPlayerData();
+        } else {
+            data = new CorePlayerData(targetUUID);
+        }
 
-        CorePlayerData data = new CorePlayerData(targetUUID);
         document = data.getDocument().get(LinkSocialsManager.DB_DOCUMENT_PATH, Document.class);
         if (document == null) document = new Document();
     }
@@ -87,7 +103,7 @@ public class LinkSocialsMenu extends CoreMenu {
         String example = action == null ? "none" : action.getValidExample();
 
         if (showing) {
-            lore = LobbyMessages.getList("link_socials.description_show");
+            lore = Arrays.asList(LobbyMessages.getLangList("link_socials_description_show"));
             labelCommand = "showSocial " + type.name() + " " + currentUser;
         }
 

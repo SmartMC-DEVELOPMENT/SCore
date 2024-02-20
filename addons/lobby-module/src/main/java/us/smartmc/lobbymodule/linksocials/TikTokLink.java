@@ -18,7 +18,8 @@ public class TikTokLink extends LinkSocialAction {
 
     @Override
     public String getFormattedURL(String username) {
-        return "https://www.tiktok.com/@" + username;
+        if (!username.startsWith("@")) username = "@" + username;
+        return "https://www.tiktok.com/" + username;
     }
 
     @Override

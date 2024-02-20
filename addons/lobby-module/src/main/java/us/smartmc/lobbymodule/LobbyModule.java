@@ -89,6 +89,7 @@ public class LobbyModule extends AddonPlugin {
         ItemActionsManager.registerCommand("lobbyModule", new LobbyModuleAction());
         ItemActionsManager.registerCommand("connectTo", new ConnectToAction());
         ItemActionsManager.registerCommand("linkSocial", new LinkSocialAction());
+        ItemActionsManager.registerCommand("showSocial", new ShowSocialAction());
     }
 
     @Override

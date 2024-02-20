@@ -25,10 +25,10 @@ public class TikTokLink extends LinkSocialAction {
     public String[] getValidRegexPatterns() {
         return new String[]{
                 LinkSocialAction.DEFAULT_USERNAME_REGEX,
-                "https://tiktok\\.com/@([a-zA-Z0-9_.]{1,24})",
-                "https://www.tiktok\\.com/@([a-zA-Z0-9_.]{1,24})",
-                "tiktok\\.com/@([a-zA-Z0-9_.]{1,24})",
-                "www.tiktok\\.com/@([a-zA-Z0-9_.]{1,24})"
+                "https://tiktok.com/@([a-zA-Z0-9_.]{1,24})",
+                "https://www.tiktok.com/@([a-zA-Z0-9_.]{1,24})",
+                "tiktok.com/@([a-zA-Z0-9_.]{1,24})",
+                "www.tiktok.com/@([a-zA-Z0-9_.]{1,24})"
         };
     }
 

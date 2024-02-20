@@ -26,10 +26,10 @@ public class TwitterLink extends LinkSocialAction {
     public String[] getValidRegexPatterns() {
         return new String[]{
                 LinkSocialAction.DEFAULT_USERNAME_REGEX,
-                "https://twitter\\.com/([a-zA-Z0-9_]{1,15})",
-                "https://www.twitter\\.com/([a-zA-Z0-9_]{1,15})",
-                "twitter\\.com/([a-zA-Z0-9_]{1,15})",
-                "www.twitter\\.com/([a-zA-Z0-9_]{1,15})"
+                "https://twitter.com/([a-zA-Z0-9_]{1,15})",
+                "https://www.twitter.com/([a-zA-Z0-9_]{1,15})",
+                "twitter.com/([a-zA-Z0-9_]{1,15})",
+                "www.twitter.com/([a-zA-Z0-9_]{1,15})"
         };
     }
 

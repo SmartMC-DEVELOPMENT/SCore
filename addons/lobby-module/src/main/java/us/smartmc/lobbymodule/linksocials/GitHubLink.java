@@ -25,10 +25,10 @@ public class GitHubLink extends LinkSocialAction {
     public String[] getValidRegexPatterns() {
         return new String[]{
                 LinkSocialAction.DEFAULT_USERNAME_REGEX,
-                "https://github\\.com/([a-zA-Z0-9][a-zA-Z0-9-]{0,38})",
-                "https://www.github\\.com/([a-zA-Z0-9][a-zA-Z0-9-]{0,38})",
-                "github\\.com/([a-zA-Z0-9][a-zA-Z0-9-]{0,38})",
-                "www.github\\.com/([a-zA-Z0-9][a-zA-Z0-9-]{0,38})"
+                "https://github.com/([a-zA-Z0-9][a-zA-Z0-9-]{0,38})",
+                "https://www.github.com/([a-zA-Z0-9][a-zA-Z0-9-]{0,38})",
+                "github.com/([a-zA-Z0-9][a-zA-Z0-9-]{0,38})",
+                "www.github.com/([a-zA-Z0-9][a-zA-Z0-9-]{0,38})"
         };
     }
 

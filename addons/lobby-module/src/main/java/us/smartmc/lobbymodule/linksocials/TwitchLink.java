@@ -25,10 +25,10 @@ public class TwitchLink extends LinkSocialAction {
     public String[] getValidRegexPatterns() {
         return new String[]{
                 LinkSocialAction.DEFAULT_USERNAME_REGEX,
-                "https://www.twitch\\.tv/([a-zA-Z0-9_]{4,25})",
-                "https://twitch\\.tv/([a-zA-Z0-9_]{4,25})",
-                "twitch\\.tv/([a-zA-Z0-9_]{4,25})",
-                "www.twitch\\.tv/([a-zA-Z0-9_]{4,25})"
+                "https://www.twitch.tv/([a-zA-Z0-9_]{4,25})",
+                "https://twitch.tv/([a-zA-Z0-9_]{4,25})",
+                "twitch.tv/([a-zA-Z0-9_]{4,25})",
+                "www.twitch.tv/([a-zA-Z0-9_]{4,25})"
         };
     }
 

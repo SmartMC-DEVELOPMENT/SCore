@@ -25,10 +25,10 @@ public class InstagramLink extends LinkSocialAction {
     public String[] getValidRegexPatterns() {
         return new String[]{
                 LinkSocialAction.DEFAULT_USERNAME_REGEX,
-                "https://instagram\\.com/([a-zA-Z0-9_.]{1,30})",
-                "https://www.instagram\\.com/([a-zA-Z0-9_.]{1,30})",
-                "instagram\\.com/([a-zA-Z0-9_.]{1,30})",
-                "www.instagram\\.com/([a-zA-Z0-9_.]{1,30})"
+                "https://instagram.com/([a-zA-Z0-9_.]{1,30})",
+                "https://www.instagram.com/([a-zA-Z0-9_.]{1,30})",
+                "instagram.com/([a-zA-Z0-9_.]{1,30})",
+                "www.instagram.com/([a-zA-Z0-9_.]{1,30})"
         };
     }
 }

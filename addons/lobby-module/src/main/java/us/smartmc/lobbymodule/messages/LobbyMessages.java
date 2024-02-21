@@ -60,6 +60,7 @@ public class LobbyMessages extends MultiLanguageRegistry {
         holder.registerDefault("link_socials_no_linked",  "&cThis user does not have an account already linked on that social network!");
         holder.registerDefault("link_socials_show_message",  "&bClick here to open {0}'s {1}");
         holder.registerDefault("link_socials_target_not_found",  "&cPlayer not found!");
+        holder.registerDefault("link_socials_unlinked_correctly", "&cYou have unlinked the social media correctly!");
 
         item(holder, "link_social_network", "{0}",
                 "&7Here you have the link of {0}&7:\n\n&fUsername:&e {1}\n&fExample:&e {2}\n\n&a▶ Click to set\n&c▶ Right-Click to unlink");

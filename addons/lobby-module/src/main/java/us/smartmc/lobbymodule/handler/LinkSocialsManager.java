@@ -47,7 +47,16 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
         if (document == null) document = new Document();
         document.put(type.name(), url);
         player.getPlayerData().getDocument().put(DB_DOCUMENT_PATH, document);
-        player.get().sendMessage(ChatUtil.parse(player.get(), "&a<lang.lobby.link_socials_linked_correctly>"));
+        player.get().sendMessage(ChatUtil.parse(player.get(), "<lang.lobby.link_socials_linked_correctly>"));
+    }
+
+    public void removeCurrentLink(CorePlayer player, LinkSocialType type) {
+        Document document = player.getPlayerData().getDocument().get(DB_DOCUMENT_PATH, Document.class);
+        if (document == null) document = new Document();
+        document.remove(type.name());
+        player.getPlayerData().getDocument().put(DB_DOCUMENT_PATH, document);
+        player.get().sendMessage(ChatUtil.parse(player.get(), "<lang.lobby.link_socials_unlinked_correctly>"));
+        player.get().closeInventory();
     }
 
     public void registerPendingLink(Player player, LinkSocialType type) {

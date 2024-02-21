@@ -2,6 +2,7 @@ package us.smartmc.lobbymodule.itemcommand;
 
 import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.entity.Player;
 import us.smartmc.core.util.PluginUtils;
 import us.smartmc.lobbymodule.LobbyModule;
@@ -12,6 +13,11 @@ public class LinkSocialAction implements ItemActionExecutor {
     @Override
     public void execute(ClickHandler clickHandler, String label, String[] args) {
         Player player = clickHandler.player();
-        LobbyModule.getLinkSocialsManager().registerPendingLink(player, LinkSocialType.valueOf(args[0]));
+        LinkSocialType type = LinkSocialType.valueOf(args[0]);
+        if (clickHandler.clickEvent().isRightClick()) {
+            LobbyModule.getLinkSocialsManager().removeCurrentLink(CorePlayer.get(player), type);
+            return;
+        }
+        LobbyModule.getLinkSocialsManager().registerPendingLink(player, type);
     }
 }

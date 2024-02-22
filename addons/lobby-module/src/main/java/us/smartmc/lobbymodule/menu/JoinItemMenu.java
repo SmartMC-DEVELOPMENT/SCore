@@ -33,7 +33,7 @@ public class JoinItemMenu extends ConfigurableMenu {
         set(1, ItemBuilder.of(Material.SKULL_ITEM).data(3)
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjYzMDI5Y2M4MTY3ODk3ZTY1MzVhM2M1NzM0YmJhYmFmZjE4OGQwOTA1ZjlkOTM1M2FmYWM2MmEwNmRhZGY4NiJ9fX0=")
                 .name("<lang.lobby.items_cosmetics_name>")
-                .lore(Arrays.asList("<lang.lobby.items_cosmetics_description>")).get(player), "message <lang.lobby.feature_in_development>");
+                .lore(Arrays.asList("<lang.lobby.items_cosmetics_description>")).get(player), "itemCosmetics");
 
         set(4, headItem("settings"), "lobbyModule settings");
 

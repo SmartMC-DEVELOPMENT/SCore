@@ -9,7 +9,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="chat-module" />
         <module name="snowgames" />
-        <module name="addons" />
         <module name="loginproxy-waterfall" />
         <module name="serverhandler-bungee" />
         <module name="login" />
@@ -29,6 +28,7 @@
         <module name="games-manager" />
         <module name="lobby-module" />
         <module name="staffmode-spigot" />
+        <module name="lobby-cosmetics" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

@@ -12,7 +12,8 @@ public class CommandListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPreProcessCommand(PlayerCommandPreprocessEvent event) {
-        String name = event.getMessage().split(" ")[0];
+        String name = event.getMessage().contains(" ") ?
+                event.getMessage().split(" ")[0] : event.getMessage();
 
         if (event.isCancelled()) return;
         CommandIntermediate intermediate = new CommandIntermediate(name);

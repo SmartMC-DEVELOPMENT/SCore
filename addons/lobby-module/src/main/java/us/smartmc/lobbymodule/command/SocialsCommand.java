@@ -42,7 +42,7 @@ public class SocialsCommand extends AddonPluginCommand {
 
     @Override
     public List<String> getAliases() {
-        return List.of("redes", "mostrarRedes", "showSocials", "verRedes",
-                "getRedes", "getSocials");
+        return List.of("redes", "mostrarredes", "showsocials", "verredes",
+                "getredes", "getsocials");
     }
 }

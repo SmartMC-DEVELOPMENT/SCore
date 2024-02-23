@@ -36,7 +36,6 @@ public class CommandIntermediate {
                     if (alias.equalsIgnoreCase(cmdName)) return true;
                 }
             }
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

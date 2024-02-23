@@ -1,8 +1,10 @@
 us\smartmc\lobbycosmetics\instance\ICosmetic.class
 us\smartmc\lobbycosmetics\menu\ICosmeticAddonMenu.class
 us\smartmc\lobbycosmetics\menu\CosmeticsAddonMenu.class
+us\smartmc\lobbycosmetics\menu\CosmeticSectionMenu.class
 us\smartmc\lobbycosmetics\itemcommand\ItemCosmeticAction.class
 us\smartmc\lobbycosmetics\LobbyCosmetics.class
+us\smartmc\lobbycosmetics\itemcommand\OpenCosmeticSectionAction.class
 us\smartmc\lobbycosmetics\instance\helper\CosmeticLanguageInfo.class
 us\smartmc\lobbycosmetics\instance\ICosmeticPlayerSession.class
 us\smartmc\lobbycosmetics\listener\SessionListeners.class

@@ -20,9 +20,14 @@ public abstract class CosmeticsAddonMenu extends ConfigurableMenu implements ICo
     private static final LobbyCosmetics addon = LobbyCosmetics.getInstance();
 
     public CosmeticsAddonMenu(Player player, String menuId) {
-        super(player, new SpigotYmlConfig(new File(addon.getDataFolder() + "/menu", menuId + ".yml")));
+        super(player, new SpigotYmlConfig(new File(addon.getDataFolder() + "/menu", menuId + ".yml")), "<lang.cosmetics_info/lobby.menu_" + menuId + ".title>");
         registerDefaults();
         config.save();
+    }
+
+    @Override
+    public void registerDefaults() {
+
     }
 
     protected void registerMenuItem(String id, int slot) {

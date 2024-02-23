@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import us.smartmc.lobbycosmetics.itemcommand.ItemCosmeticAction;
+import us.smartmc.lobbycosmetics.itemcommand.OpenCosmeticSectionAction;
 import us.smartmc.lobbycosmetics.listener.SessionListeners;
 import us.smartmc.lobbycosmetics.menu.CosmeticsMainMenu;
 import us.smartmc.lobbycosmetics.message.CosmeticsInfoMessages;
@@ -23,6 +24,7 @@ public class LobbyCosmetics extends AddonPlugin {
     public void start() {
         instance = this;
         ItemActionsManager.registerCommand("itemCosmetics", new ItemCosmeticAction());
+        ItemActionsManager.registerCommand("openCosmeticSectionAction", new OpenCosmeticSectionAction());
         registerListeners(new SessionListeners());
         cosmeticsInfoMessages = new CosmeticsInfoMessages();
     }

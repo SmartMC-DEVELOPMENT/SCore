@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class LobbiesMenu extends ConfigurableMenu {
 
     public LobbiesMenu(Player player) {
-        super(player, getDynamicInventorySize(), LobbyModule.getLobbiesMenuConfig());
+        super(player, LobbyModule.getLobbiesMenuConfig(), getDynamicInventorySize());
         LobbiesInfoManager.registerMenu(this);
     }
 

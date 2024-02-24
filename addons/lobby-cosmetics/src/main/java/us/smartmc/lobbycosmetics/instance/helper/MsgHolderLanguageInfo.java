@@ -10,14 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class CosmeticLanguageInfo {
+public class MsgHolderLanguageInfo {
 
     private final String id;
     private final Language language;
 
+    @Getter
     private final LanguageMessagesHolder holder;
 
-    public CosmeticLanguageInfo(String id, Language language, String holderName) {
+    public MsgHolderLanguageInfo(String id, Language language, String holderName) {
         this.id = id;
         this.language = language;
         this.holder = LanguagesHandler.get(language).get(holderName);

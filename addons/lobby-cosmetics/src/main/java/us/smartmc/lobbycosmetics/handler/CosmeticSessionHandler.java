@@ -4,6 +4,7 @@ import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import us.smartmc.lobbycosmetics.instance.player.CosmeticPlayerSession;
 
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class CosmeticSessionHandler extends AddonHandler<UUID, CosmeticPlayerSession> {
 

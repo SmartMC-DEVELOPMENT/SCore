@@ -1,19 +1,20 @@
 package us.smartmc.lobbycosmetics.instance.cosmetic;
 
 import lombok.Getter;
+import org.bukkit.Material;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class CosmeticSection implements ICosmeticSection {
+public abstract class CosmeticSection implements ICosmeticSection {
 
     @Getter
-    private final CosmeticActionType type;
+    private final CosmeticSectionInfo info;
 
     private final Map<String, ICosmetic> cosmetics = new HashMap<>();
 
-    public CosmeticSection(CosmeticActionType type) {
-        this.type = type;
+    public CosmeticSection() {
+        info = getClass().getDeclaredAnnotation(CosmeticSectionInfo.class);
     }
 
     @Override
@@ -28,15 +29,16 @@ public class CosmeticSection implements ICosmeticSection {
 
     @Override
     public ICosmetic get(String id) {
-        ICosmetic cosmetic = cosmetics.get(id);
-        if (cosmetic == null) {
-            cosmetic =
-        }
-        return ;
+        return cosmetics.get(id);
     }
 
     @Override
-    public String getId() {
-        return name;
+    public Material getIconMaterial() {
+        return info.icon();
+    }
+
+    @Override
+    public CosmeticActionType getId() {
+        return info.type();
     }
 }

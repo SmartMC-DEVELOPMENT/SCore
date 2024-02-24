@@ -10,8 +10,10 @@ import org.bson.Document;
 import java.util.Arrays;
 import java.util.List;
 
-@LangMessagesInfo(name = "cosmetics_info/lobby")
+@LangMessagesInfo(name = CosmeticsInfoMessages.NAME)
 public class CosmeticsInfoMessages extends MultiLanguageRegistry {
+
+    public static final String NAME = "cosmetics_info/lobby";
 
     @Override
     public void load(LanguageMessagesHolder holder) {

@@ -12,4 +12,5 @@ public abstract class Cosmetic implements ICosmetic {
     public String getId() {
         return name;
     }
+
 }

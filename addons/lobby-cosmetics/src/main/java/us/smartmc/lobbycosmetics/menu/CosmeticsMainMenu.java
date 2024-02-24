@@ -28,5 +28,9 @@ public class CosmeticsMainMenu extends CosmeticsAddonMenu {
         }, 25);
     }
 
+    @Override
+    public void load() {
+        
+    }
 }
 

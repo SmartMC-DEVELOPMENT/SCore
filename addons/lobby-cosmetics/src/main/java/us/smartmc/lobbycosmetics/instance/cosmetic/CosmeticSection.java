@@ -6,19 +6,19 @@ import org.bukkit.Material;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class CosmeticSection implements ICosmeticSection {
+public abstract class CosmeticSection<V extends ICosmetic> implements ICosmeticSection<V> {
 
     @Getter
     private final CosmeticSectionInfo info;
 
-    private final Map<String, ICosmetic> cosmetics = new HashMap<>();
+    private final Map<String, V> cosmetics = new HashMap<>();
 
     public CosmeticSection() {
         info = getClass().getDeclaredAnnotation(CosmeticSectionInfo.class);
     }
 
     @Override
-    public void register(ICosmetic cosmetic) {
+    public void register(V cosmetic) {
         cosmetics.put(cosmetic.getId(), cosmetic);
     }
 
@@ -28,7 +28,7 @@ public abstract class CosmeticSection implements ICosmeticSection {
     }
 
     @Override
-    public ICosmetic get(String id) {
+    public V get(String id) {
         return cosmetics.get(id);
     }
 

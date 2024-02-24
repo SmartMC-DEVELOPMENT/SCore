@@ -6,9 +6,9 @@ import org.bukkit.Material;
 import us.smartmc.lobbycosmetics.instance.helper.MsgHolderLanguageInfo;
 import us.smartmc.lobbycosmetics.message.CosmeticsInfoMessages;
 
-public interface ICosmeticSection {
+public interface ICosmeticSection<V> {
 
-    void register(ICosmetic cosmetic);
+    void register(V cosmetic);
     void unregister(String id);
 
     ICosmetic get(String id);

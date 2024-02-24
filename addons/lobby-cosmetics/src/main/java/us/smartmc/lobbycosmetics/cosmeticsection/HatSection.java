@@ -1,19 +1,13 @@
 package us.smartmc.lobbycosmetics.cosmeticsection;
 
 import org.bukkit.Material;
+import us.smartmc.lobbycosmetics.cosmetic.HatCosmetic;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticActionType;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticSection;
+import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticSectionInfo;
 
-public class HatSection extends CosmeticSection {
-
-    public HatSection() {
-        super(CosmeticActionType.HAT);
-    }
-
-    @Override
-    public Material getIconMaterial() {
-        return Material.SKULL_ITEM;
-    }
+@CosmeticSectionInfo(type = CosmeticActionType.HAT, icon = Material.SKULL_ITEM)
+public class HatSection extends CosmeticSection<HatCosmetic> {
 
     @Override
     public String getSkullTexture() {

@@ -6,20 +6,23 @@ import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.language.LanguageMessagesHolder;
 import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 import org.bson.Document;
+import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 
 import java.util.Arrays;
 import java.util.List;
 
-@LangMessagesInfo(name = CosmeticsInfoMessages.NAME)
-public class CosmeticsInfoMessages extends MultiLanguageRegistry {
+@LangMessagesInfo(name = CosmeticsMainMessages.NAME)
+public class CosmeticsMainMessages extends MultiLanguageRegistry {
 
-    public static final String NAME = "cosmetics_info/lobby";
+    public static final String NAME = "cosmetics_info/main";
 
     @Override
     public void load(LanguageMessagesHolder holder) {
         holder.load();
-        registerSection("hats", "Hats", Arrays.asList("This is default description for cosmetic section", "It's very crazy guuuuys", "Not configurated yet!!"));
-        registerSection("pets", "Pets", Arrays.asList("This is another default descr. for cosmetic section", "Les gooooo", "Make the admin configure or fix server lol"));
+        registerSection(CosmeticType.UNKNOWN, "&8???", "Unknown description. Not type defined");
+        registerSection(CosmeticType.HATS, "Hats", "Hats that make you look cool wihtruhrtegiuhegroihuewrgjhoi");
+        registerSection(CosmeticType.EFFECTS, "Effects", "Default effects description to look if the item works correcttlly. extreeemeeee looong");
+        registerSection(CosmeticType.PETS, "Pets", "Pets, no sé");
 
         registerMenu("main", "Cosmetics Main Menu");
 
@@ -31,8 +34,8 @@ public class CosmeticsInfoMessages extends MultiLanguageRegistry {
                 .append("title", title));
     }
 
-    public void registerSection(String id, String name, List<String> description) {
-        registerConfigValues("section_" + id + ".", new Document()
+    public void registerSection(CosmeticType type, String name, String description) {
+        registerConfigValues("section_" + type.name() + ".", new Document()
                 .append("name", name)
                 .append("description", description));
     }

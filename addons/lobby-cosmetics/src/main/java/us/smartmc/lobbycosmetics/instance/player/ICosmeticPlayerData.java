@@ -5,7 +5,7 @@ import com.mongodb.client.MongoDatabase;
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import org.bson.Document;
 import us.smartmc.lobbycosmetics.instance.DatabaseTarget;
-import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticActionType;
+import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 import us.smartmc.lobbycosmetics.instance.cosmetic.ICosmetic;
 
 import java.util.HashSet;
@@ -23,7 +23,7 @@ public interface ICosmeticPlayerData {
         Set<ICosmetic> list = new HashSet<>();
         for (String entry : getActiveCosmeticEntries()) {
             String[] args = entry.split("@");
-            CosmeticActionType type = CosmeticActionType.valueOf(args[0]);
+            CosmeticType type = CosmeticType.valueOf(args[0]);
             String id = args[1];
 
         }

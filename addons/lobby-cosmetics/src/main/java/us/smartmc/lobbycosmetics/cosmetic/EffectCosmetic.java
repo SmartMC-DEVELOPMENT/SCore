@@ -1,6 +1,6 @@
 package us.smartmc.lobbycosmetics.cosmetic;
 
-import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticActionType;
+import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 
 public abstract class EffectCosmetic extends Cosmetic implements IEffectCosmetic {
 
@@ -9,7 +9,7 @@ public abstract class EffectCosmetic extends Cosmetic implements IEffectCosmetic
     }
 
     @Override
-    public CosmeticActionType getType() {
-        return CosmeticActionType.EFFECT;
+    public CosmeticType getType() {
+        return CosmeticType.EFFECTS;
     }
 }

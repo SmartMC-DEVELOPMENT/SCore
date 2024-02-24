@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.language.LanguageMessagesHolder;
+import me.imsergioh.pluginsapi.util.LineLimiter;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -25,11 +26,15 @@ public class MsgHolderLanguageInfo {
     }
 
     public String getName() {
-        return holder.getString(id + ".name");
+        String name = holder.getString(id + ".name");
+        if (name == null) return "&4No name found!";
+        return "&a" + name;
     }
 
     public List<String> getDescription() {
-        List<String> list = new ArrayList<>(holder.get(id, Document.class).getList("description", String.class));
+        String description = holder.get(id, Document.class).getString("description");
+        List<String> list;
+        list = LineLimiter.limitLines(List.of(description), 32);
         list.replaceAll(s -> "&7" + s);
         return list;
     }

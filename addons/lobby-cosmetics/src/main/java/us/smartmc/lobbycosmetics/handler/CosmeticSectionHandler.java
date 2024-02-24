@@ -1,26 +1,23 @@
 package us.smartmc.lobbycosmetics.handler;
 
-import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticActionType;
+import us.smartmc.lobbycosmetics.cosmeticsection.EffectSection;
+import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticSection;
 import us.smartmc.lobbycosmetics.cosmeticsection.HatSection;
 import us.smartmc.lobbycosmetics.cosmeticsection.UnknownSection;
+import us.smartmc.lobbycosmetics.message.CosmeticsSectionMessages;
 
-import java.util.function.Supplier;
-
-public class CosmeticSectionHandler extends AddonHandler<CosmeticActionType, CosmeticSection> {
-
-    @Override
-    public CosmeticSection getDefaultValue(CosmeticActionType type, Supplier<? extends CosmeticSection> supplier) {
-        return supplier.get();
-    }
+public class CosmeticSectionHandler extends AddonHandler<CosmeticType, CosmeticSection<?>> {
 
     @Override
-    public CosmeticSection getDefaultValue(CosmeticActionType key) {
-        CosmeticSection section = null;
-        switch (key) {
-            case HAT -> section = new HatSection();
+    public CosmeticSection<?> getDefaultValue(CosmeticType type) {
+        CosmeticSection<?> section;
+        switch (type) {
+            case HATS -> section = new HatSection();
+            case EFFECTS -> section = new EffectSection();
             default -> section = new UnknownSection();
         }
+        CosmeticsSectionMessages.registerMessages(section);
         return section;
     }
 }

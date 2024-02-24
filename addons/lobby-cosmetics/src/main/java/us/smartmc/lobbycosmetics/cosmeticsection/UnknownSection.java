@@ -1,12 +1,13 @@
 package us.smartmc.lobbycosmetics.cosmeticsection;
 
 import org.bukkit.Material;
-import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticActionType;
+import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticSection;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticSectionInfo;
+import us.smartmc.lobbycosmetics.instance.cosmetic.ICosmetic;
 
-@CosmeticSectionInfo(type = CosmeticActionType.UNKNOWN, icon = Material.SKULL_ITEM)
-public class UnknownSection extends CosmeticSection {
+@CosmeticSectionInfo(type = CosmeticType.UNKNOWN, icon = Material.SKULL_ITEM)
+public class UnknownSection extends CosmeticSection<ICosmetic> {
 
     @Override
     public Material getIconMaterial() {

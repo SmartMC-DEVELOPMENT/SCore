@@ -2,12 +2,19 @@ package us.smartmc.lobbycosmetics.cosmeticsection;
 
 import org.bukkit.Material;
 import us.smartmc.lobbycosmetics.cosmetic.HatCosmetic;
-import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticActionType;
+import us.smartmc.lobbycosmetics.hatcosmetic.CakeHat;
+import us.smartmc.lobbycosmetics.hatcosmetic.TestHat;
+import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticSection;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticSectionInfo;
 
-@CosmeticSectionInfo(type = CosmeticActionType.HAT, icon = Material.SKULL_ITEM)
+@CosmeticSectionInfo(type = CosmeticType.HATS, icon = Material.SKULL_ITEM)
 public class HatSection extends CosmeticSection<HatCosmetic> {
+
+    public HatSection() {
+        register(HatCosmetic.dynamic("anonymous", "ewogICJ0aW1lc3RhbXAiIDogMTY1NjM0NDA0MTM2MSwKICAicHJvZmlsZUlkIiA6ICJmMjc0YzRkNjI1MDQ0ZTQxOGVmYmYwNmM3NWIyMDIxMyIsCiAgInByb2ZpbGVOYW1lIiA6ICJIeXBpZ3NlbCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS85MjJlZDY0YWVlOWVjMWUzZDgxM2NiNGI0NWZlMWYwNzBmODEyZGU2MjMyNzFkZjBmOWQ1MWYzMTY4YTk3OGI5IiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0="));
+        register(new CakeHat(), new TestHat());
+    }
 
     @Override
     public String getSkullTexture() {

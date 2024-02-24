@@ -1,6 +1,7 @@
 package us.smartmc.lobbycosmetics.cosmetic;
 
-import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticActionType;
+import org.bukkit.Material;
+import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 
 public abstract class HatCosmetic extends Cosmetic implements IHatCosmetic {
 
@@ -14,7 +15,21 @@ public abstract class HatCosmetic extends Cosmetic implements IHatCosmetic {
     }
 
     @Override
-    public CosmeticActionType getType() {
-        return CosmeticActionType.HAT;
+    public CosmeticType getType() {
+        return CosmeticType.HATS;
     }
+
+    public static HatCosmetic dynamic(String id, String skullTexture) {
+        return new HatCosmetic(id) {
+            @Override
+            public String getSkullTexture() {
+                return skullTexture;
+            }
+            @Override
+            public Material getMaterialType() {
+                return Material.SKULL_ITEM;
+            }
+        };
+    }
+
 }

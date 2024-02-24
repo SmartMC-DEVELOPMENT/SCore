@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 public @interface DatabaseTarget {
 
     String database();
-    String collection();
+    String collection() default "";
 }

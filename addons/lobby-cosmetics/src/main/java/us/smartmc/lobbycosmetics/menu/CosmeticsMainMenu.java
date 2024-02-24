@@ -12,12 +12,13 @@ public class CosmeticsMainMenu extends CosmeticsAddonMenu {
 
     public CosmeticsMainMenu(Player player) {
         super(player, "main");
-    }
 
-    @Override
-    public void load() {
-        registerCosmeticSection("hats", 12);
-        registerCosmeticSection("pets", 14);
+        // SETUP CONFIG
+        if (player == null) {
+            registerCosmeticSection("hats", 12);
+            registerCosmeticSection("pets", 14);
+            config.save();
+        }
     }
 
     private void registerCosmeticSection(String id, int slot) {

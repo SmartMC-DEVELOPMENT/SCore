@@ -5,11 +5,10 @@ import us.smartmc.lobbycosmetics.instance.DatabaseTarget;
 
 import java.util.UUID;
 
-@DatabaseTarget(database = "player_data", collection = "lobby_cosmetics")
 public class CosmeticPlayerSession implements ICosmeticPlayerSession {
 
     private final UUID uuid;
-    private ICosmeticPlayerData cosmeticsData;
+    private CosmeticPlayerData cosmeticsData;
 
     public CosmeticPlayerSession(CorePlayer corePlayer) {
         this.uuid = corePlayer.getUUID();

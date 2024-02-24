@@ -19,7 +19,7 @@ public abstract class HatCosmetic extends Cosmetic implements IHatCosmetic {
         return CosmeticType.HATS;
     }
 
-    public static HatCosmetic dynamic(String id, String skullTexture) {
+    public static HatCosmetic dynamic(String id, int cost, String skullTexture) {
         return new HatCosmetic(id) {
             @Override
             public String getSkullTexture() {
@@ -28,6 +28,11 @@ public abstract class HatCosmetic extends Cosmetic implements IHatCosmetic {
             @Override
             public Material getMaterialType() {
                 return Material.SKULL_ITEM;
+            }
+
+            @Override
+            public int getCost() {
+                return cost;
             }
         };
     }

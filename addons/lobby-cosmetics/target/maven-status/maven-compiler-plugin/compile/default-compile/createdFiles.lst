@@ -4,6 +4,7 @@ us\smartmc\lobbycosmetics\instance\cosmetic\Cosmetic.class
 us\smartmc\lobbycosmetics\message\CosmeticsSectionMessages.class
 us\smartmc\lobbycosmetics\cosmeticsection\EffectSection.class
 us\smartmc\lobbycosmetics\instance\helper\MsgCosmeticMetaRegistror.class
+us\smartmc\lobbycosmetics\util\ItemsUtil.class
 us\smartmc\lobbycosmetics\itemcommand\ItemCosmeticAction.class
 us\smartmc\lobbycosmetics\LobbyCosmetics.class
 us\smartmc\lobbycosmetics\hatcosmetic\CakeHat.class
@@ -37,5 +38,6 @@ us\smartmc\lobbycosmetics\message\CosmeticsMainMessages.class
 us\smartmc\lobbycosmetics\itemcommand\OpenCosmeticSectionAction.class
 us\smartmc\lobbycosmetics\instance\DatabaseTarget.class
 us\smartmc\lobbycosmetics\handler\CosmeticSectionHandler$1.class
+us\smartmc\lobbycosmetics\instance\cosmetic\CosmeticRarity.class
 us\smartmc\lobbycosmetics\itemcommand\ToggleCosmeticAction.class
 us\smartmc\lobbycosmetics\menu\CosmeticsMainMenu.class

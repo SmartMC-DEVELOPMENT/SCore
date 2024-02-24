@@ -16,6 +16,11 @@ public class CakeHat extends HatCosmetic implements ICosmetic {
     }
 
     @Override
+    public int getCost() {
+        return 1000;
+    }
+
+    @Override
     public Material getMaterialType() {
         return Material.SKULL_ITEM;
     }

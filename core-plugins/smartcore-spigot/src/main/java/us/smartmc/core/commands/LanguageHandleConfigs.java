@@ -11,8 +11,7 @@ public class LanguageHandleConfigs implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player player = (Player) sender;
+        if (!(sender instanceof Player player)) return true;
         SmartCorePlayer corePlayer = SmartCorePlayer.get(((Player) sender).getPlayer());
         if (!sender.hasPermission("*")) {
             corePlayer.sendLanguageMessage("general", "noPermission");

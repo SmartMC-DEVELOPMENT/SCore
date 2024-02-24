@@ -28,7 +28,7 @@ public class CosmeticSectionNameVariable implements IVariableListener<Player> {
 
     public String get(Language language, String sectionName) {
         MsgHolderLanguageInfo info = new MsgHolderLanguageInfo("section_" + sectionName, language, CosmeticsMainMessages.NAME);
-        return ChatColor.stripColor(info.getName());
+        return ChatColor.stripColor(info.getName().replace("&", "§"));
     }
 
     public String getSection(String message) {

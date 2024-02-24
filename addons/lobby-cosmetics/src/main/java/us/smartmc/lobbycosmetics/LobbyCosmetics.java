@@ -7,19 +7,14 @@ import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import us.smartmc.lobbycosmetics.handler.CosmeticSectionHandler;
 import us.smartmc.lobbycosmetics.handler.CosmeticSessionHandler;
-import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 import us.smartmc.lobbycosmetics.itemcommand.ItemCosmeticAction;
 import us.smartmc.lobbycosmetics.itemcommand.OpenCosmeticSectionAction;
 import us.smartmc.lobbycosmetics.itemcommand.ToggleCosmeticAction;
 import us.smartmc.lobbycosmetics.listener.SessionListeners;
 import us.smartmc.lobbycosmetics.message.CosmeticsMainMessages;
-import us.smartmc.lobbycosmetics.message.CosmeticsSectionMessages;
 import us.smartmc.lobbycosmetics.variable.CosmeticSectionNameVariable;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @AddonInfo(name = "lobby-cosmetics", version = "DEVELOPMENT-0.1")
 public class LobbyCosmetics extends AddonPlugin {
@@ -28,7 +23,7 @@ public class LobbyCosmetics extends AddonPlugin {
     private static LobbyCosmetics instance;
 
     @Getter
-    private static MultiLanguageRegistry cosmeticsInfoMessages;
+    private static MultiLanguageRegistry cosmeticsMainMessages;
 
     @Getter
     private SpigotYmlConfig config;
@@ -45,7 +40,7 @@ public class LobbyCosmetics extends AddonPlugin {
         ItemActionsManager.registerCommand("openCosmeticSection", new OpenCosmeticSectionAction());
         ItemActionsManager.registerCommand("toggleCosmetic", new ToggleCosmeticAction());
         registerListeners(new SessionListeners());
-        cosmeticsInfoMessages = new CosmeticsMainMessages();
+        cosmeticsMainMessages = new CosmeticsMainMessages();
 
         VariablesHandler.register(new CosmeticSectionNameVariable());
 

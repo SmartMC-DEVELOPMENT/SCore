@@ -8,32 +8,27 @@ import us.smartmc.lobbycosmetics.instance.DatabaseTarget;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 import us.smartmc.lobbycosmetics.instance.cosmetic.ICosmetic;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public interface ICosmeticPlayerData {
 
-    CosmeticPlayerSession getSession();
     Document getDocument();
 
     UUID getId();
 
-    default Set<ICosmetic> getActiveCosmetics() {
-        Set<ICosmetic> list = new HashSet<>();
-        for (String entry : getActiveCosmeticEntries()) {
-            String[] args = entry.split("@");
-            CosmeticType type = CosmeticType.valueOf(args[0]);
-            String id = args[1];
-
-        }
-        return list;
-    }
-    Set<String> getActiveCosmeticEntries();
+    int getUnlocked(CosmeticType type);
 
     default void save() {
         getCollection().deleteMany(getQuery());
         getCollection().insertOne(getDocument());
+    }
+
+    default boolean hasCosmetic(CosmeticType type, String id) {
+        return getCosmetics(type).contains(id);
+    }
+
+    default Collection<String> getCosmetics(CosmeticType type) {
+        return getDocument().getList(type.name(), String.class, new ArrayList<>());
     }
 
     default MongoDatabase getDatabase() {

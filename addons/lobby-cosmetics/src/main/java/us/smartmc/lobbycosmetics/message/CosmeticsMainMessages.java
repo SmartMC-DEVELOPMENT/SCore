@@ -6,6 +6,7 @@ import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.language.LanguageMessagesHolder;
 import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 import org.bson.Document;
+import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticRarity;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 
 import java.util.Arrays;
@@ -24,14 +25,20 @@ public class CosmeticsMainMessages extends MultiLanguageRegistry {
         registerSection(CosmeticType.EFFECTS, "Effects", "Default effects description to look if the item works correcttlly. extreeemeeee looong");
         registerSection(CosmeticType.PETS, "Pets", "Pets, no sé");
 
-        registerMenu("main", "Cosmetics Main Menu");
+        holder.registerDefault("unlocked", "Unlocked");
+        holder.registerDefault("rarity", "Rarity");
+        holder.registerDefault("cost", "Cost");
+        holder.registerDefault("cost_free", "Free");
+
+        holder.registerDefault("click_to_look", "&eClick to look!");
+        holder.registerDefault("click_to_buy", "&eClick to buy!");
+        holder.registerDefault("click_to_set", "&eClick to set!");
+
+        for (CosmeticRarity rarity : CosmeticRarity.values()) {
+            holder.registerDefault("rarity_" + rarity.name() + "_name", "RARITY " + rarity.name());
+        }
 
         holder.save();
-    }
-
-    public void registerMenu(String id, String title) {
-        registerConfigValues("menu_" + id + ".", new Document()
-                .append("title", title));
     }
 
     public void registerSection(CosmeticType type, String name, String description) {

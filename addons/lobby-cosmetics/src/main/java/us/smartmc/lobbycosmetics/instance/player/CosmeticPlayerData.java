@@ -1,11 +1,13 @@
 package us.smartmc.lobbycosmetics.instance.player;
 
 import org.bson.Document;
+import org.checkerframework.checker.units.qual.A;
+import us.smartmc.lobbycosmetics.instance.DatabaseTarget;
+import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
+@DatabaseTarget(database = "player_data", collection = "lobby_cosmetics")
 public class CosmeticPlayerData implements ICosmeticPlayerData {
 
     private final UUID uuid;
@@ -16,18 +18,12 @@ public class CosmeticPlayerData implements ICosmeticPlayerData {
     }
 
     @Override
-    public CosmeticPlayerSession getSession() {
-        return null;
-    }
-
-    @Override
     public Document getDocument() {
-        Document dbDocument;
         if (document == null) {
             Document query = getQuery();
-            dbDocument = getCollection().find(query).first();
-            if (dbDocument == null) dbDocument = getQuery();
-            return dbDocument;
+            Document dbDocument = getCollection().find(query).first();
+            if (dbDocument == null) dbDocument = query;
+            document = dbDocument;
         }
         return document;
     }
@@ -38,7 +34,7 @@ public class CosmeticPlayerData implements ICosmeticPlayerData {
     }
 
     @Override
-    public Set<String> getActiveCosmeticEntries() {
-        return new HashSet<>(getDocument().getList("active", String.class));
+    public int getUnlocked(CosmeticType type) {
+        return getDocument().getList(type.name(), String.class, new ArrayList<>()).size();
     }
 }

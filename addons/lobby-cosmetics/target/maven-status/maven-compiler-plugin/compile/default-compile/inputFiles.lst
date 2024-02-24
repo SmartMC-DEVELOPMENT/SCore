@@ -15,9 +15,11 @@ D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosm
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\menu\CosmeticsMainMenu.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\instance\cosmetic\ICosmeticSection.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\message\CosmeticsSectionMessages.java
+D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\instance\cosmetic\CosmeticRarity.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\instance\player\ICosmeticPlayerSession.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\cosmeticsection\UnknownSection.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\instance\cosmetic\ICosmetic.java
+D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\util\ItemsUtil.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\handler\IAddonHandler.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\instance\helper\MsgHolderLanguageInfo.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\message\CosmeticsMainMessages.java

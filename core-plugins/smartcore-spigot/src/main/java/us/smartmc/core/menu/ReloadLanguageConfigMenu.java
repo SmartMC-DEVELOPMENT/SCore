@@ -19,7 +19,7 @@ public class ReloadLanguageConfigMenu extends CoreMenu {
     @Override
     public void load() {
         int slot = 0;
-        Set<String> names = MultiLanguageRegistry.getNames();
+        Set<String> names = MultiLanguageRegistry.getClassesNames().keySet();
         for (String name : names) {
             ItemStack item = ItemBuilder.of(Material.PAPER).name(name)
                     .lore(Arrays.asList("&eDrop to reload!"))

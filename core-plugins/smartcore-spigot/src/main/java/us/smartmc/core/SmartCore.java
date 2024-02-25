@@ -71,7 +71,7 @@ public class SmartCore extends JavaPlugin {
                 System.out.println("Failed to read server property of server-name! Cached temporary to " + serverName);
             }
         }
-        return serverID;
+        return serverName;
     }
 
     public static String getServerID() {

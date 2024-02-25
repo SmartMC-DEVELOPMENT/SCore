@@ -19,7 +19,8 @@ public class CommandRegistration implements IRegistration {
                 new CreateCommand(),
                 new DeleteCommand(),
                 new ExecuteCommand(),
-                new RestartCommand());
+                new RestartCommand(),
+                new StopCommand());
 
         BackendCommandManager.register(
                 new ServerStatusCommand(),

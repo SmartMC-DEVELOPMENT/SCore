@@ -16,6 +16,7 @@ D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serv
 D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\manager\ServerManager.java
 D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\backendcommand\RegisterServerCommand.java
 D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\executor\IConsoleCommand.java
+D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\consolecommand\StopCommand.java
 D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\util\ServerUtil.java
 D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\consolecommand\DeleteCommand.java
 D:\workspace2024\SCore\server-handler\orchestrator\src\main\java\us\smartmc\serverhandler\util\FileUtil.java

@@ -17,6 +17,8 @@ public class ServerConfigData implements Serializable {
     private String startup;
     private String storage_parent;
     @Getter
+    private String id_prefix;
+    @Getter
     private boolean temporal = true;
 
     public File getStartupDirectory() {

@@ -1,5 +1,7 @@
 package us.smartmc.serverhandler.util;
 
+import us.smartmc.serverhandler.config.ServerConfiguration;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,10 +10,14 @@ import java.util.*;
 
 public class FileUtil {
 
-    public static void copyTemplates(File serverDestination, LinkedList<File> templates, int port, String name, String prefixId) {
-        if (serverDestination.exists()) return;
+    public static void copyTemplates(File serverDestination, ServerConfiguration<?> configuration, int port, String name, String prefixId) {
+        if (serverDestination.exists() && configuration.getData().isPermanent()) return;
+        if (serverDestination.exists() && !configuration.getData().isPermanent()) {
+            serverDestination.delete();
+        }
+
         List<File> list = new ArrayList<>();
-        for (File templateFile : templates) {
+        for (File templateFile : configuration.getData().getTemplateDirectories()) {
             list.addAll(copyDirToDir(templateFile, serverDestination));
         }
 

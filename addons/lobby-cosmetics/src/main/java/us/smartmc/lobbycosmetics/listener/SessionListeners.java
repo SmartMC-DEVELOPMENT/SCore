@@ -6,6 +6,7 @@ import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.lobbycosmetics.LobbyCosmetics;
 import us.smartmc.lobbycosmetics.handler.CosmeticSessionHandler;
 import us.smartmc.lobbycosmetics.instance.player.CosmeticPlayerSession;
@@ -15,18 +16,10 @@ public class SessionListeners extends AddonListener implements Listener {
 
     private static final CosmeticSessionHandler handler = LobbyCosmetics.getPlayerSessionsHandler();
 
-    @EventHandler
-    public void unloadSession(PlayerUnloadEvent event) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void unloadSession(PlayerQuitEvent event) {
         if (!isEnabled()) return;
         CosmeticPlayerSession session = handler.unregister(event.getPlayer().getUniqueId());
         if (session != null) session.unload();
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onSergiohJoinTest(PlayerDataLoadedEvent event) {
-        if (!isEnabled()) return;
-        CorePlayer corePlayer = event.getCorePlayer();
-        if (!corePlayer.get().getName().equals("ImSergioh")) return;
-        handler.get(corePlayer.getUUID());
     }
 }

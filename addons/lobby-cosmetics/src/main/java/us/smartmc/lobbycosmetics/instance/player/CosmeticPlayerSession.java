@@ -24,7 +24,7 @@ public class CosmeticPlayerSession implements ICosmeticPlayerSession {
 
     @Override
     public void unload() {
-        if (cosmeticsData != null) cosmeticsData.save();
+        cosmeticsData.save();
     }
 
     @Override

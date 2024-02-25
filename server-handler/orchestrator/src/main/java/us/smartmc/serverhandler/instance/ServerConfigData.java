@@ -19,7 +19,7 @@ public class ServerConfigData implements Serializable {
     @Getter
     private String id_prefix;
     @Getter
-    private boolean permanent = true;
+    private boolean permanent = false;
 
     public File getStartupDirectory() {
         return new File(startupParent + "/" + startup);

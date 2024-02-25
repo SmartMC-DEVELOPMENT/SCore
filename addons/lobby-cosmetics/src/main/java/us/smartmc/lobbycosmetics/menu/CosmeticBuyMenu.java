@@ -4,6 +4,7 @@ import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import us.smartmc.core.exception.CorePluginException;
@@ -54,13 +55,13 @@ public class CosmeticBuyMenu extends CoreMenu {
     }
 
     public ItemBuilder getBuyItem() {
-        return ItemBuilder.of(Material.HARD_CLAY).data(5)
+        return ItemBuilder.of(Material.STAINED_CLAY).data(5)
                 .name("<lang." + CosmeticsMainMessages.NAME + ".item_buy_name");
     }
 
 
     public ItemBuilder getCancelBuyItem() {
-        return ItemBuilder.of(Material.HARD_CLAY).data(14)
+        return ItemBuilder.of(Material.STAINED_CLAY).data(14)
                 .name("<lang." + CosmeticsMainMessages.NAME + ".item_cancel_buy_name");
     }
 
@@ -74,18 +75,20 @@ public class CosmeticBuyMenu extends CoreMenu {
             try {
                 String reason = LobbyCosmetics.getCosmeticsMainMessages().get(player, PlayerLanguages.get(player.getUniqueId()), "cosmetic_buyed_coins_reason");
                 smartCorePlayer.removeCoins(cost, reason);
+                smartCorePlayer.playSound(Sound.LEVEL_UP, 1, 1);
             } catch (CorePluginException e) {
                 throw new RuntimeException(e);
             }
         } else {
             smartCorePlayer.sendLanguageMessage(CosmeticsMainMessages.NAME, "cosmetic_no_balance");
+            player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1.0F, 1);
         }
         player.closeInventory();
     }
 
     public static void cancelBuyRequest(Player player) {
         pendingRequests.remove(player.getUniqueId());
-        player.closeInventory();
+        SmartCorePlayer.get(player).openPreviousMenu();
     }
 
     public static String getTitle(Player player) {

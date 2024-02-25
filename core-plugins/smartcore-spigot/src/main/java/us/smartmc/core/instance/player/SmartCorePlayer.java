@@ -55,7 +55,6 @@ public class SmartCorePlayer extends CorePlayer {
         if (withCoinsRemoved >= 0) {
             setCoins(withCoinsRemoved);
             String msgPath = amount == 1 ? "coin_removed" : "coins_removed";
-
             if (reason != null) {
                 reason = "(" + reason + ")";
             } else {

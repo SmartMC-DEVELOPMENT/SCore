@@ -6,6 +6,7 @@ import me.imsergioh.jbackend.api.ConnectionHandler;
 import me.imsergioh.jbackend.api.manager.BackendActionManager;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.pluginsapi.instance.builder.DiscordLogEmbedBuilder;
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
@@ -65,7 +66,10 @@ public class ServerHandlerMain extends JavaPlugin {
                     .addField("Puerto", String.valueOf(Bukkit.getPort()), true)
                     .color("GREEN").send(RedisConnection.mainConnection.getResource());
         });
-        RedisConnection.mainConnection.getResource().set("maxSlots." + serverID, String.valueOf(Bukkit.getServer().getMaxPlayers()));
+
+        SyncUtil.later(() -> {
+            RedisConnection.mainConnection.getResource().set("maxSlots." + serverID, String.valueOf(Bukkit.getServer().getMaxPlayers()));
+        }, 25);
     }
 
     @Override

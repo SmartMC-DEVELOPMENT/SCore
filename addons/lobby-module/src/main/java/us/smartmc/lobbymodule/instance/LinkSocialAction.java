@@ -24,9 +24,11 @@ public abstract class LinkSocialAction implements ILinkSocial {
             if (regexString.startsWith("@")) continue;
             Pattern regex = Pattern.compile(regexString);
             Matcher matcher = regex.matcher(url);
-            if (matcher.find()) {
-                return matcher.group(1);
-            }
+            try {
+                if (matcher.find()) {
+                    return matcher.group(1);
+                }
+            } catch (Exception ignore){}
         }
         return null;
     }

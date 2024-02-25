@@ -62,7 +62,7 @@ public class LinkSocialsMenu extends CoreMenu {
             set(8, ItemBuilder.of(Material.BARRIER).name("&c<lang.language.menu_close>").get(player), "closeInv");
         }
 
-        register(10, LinkSocialType.YOUTUBE);
+        register(11, LinkSocialType.YOUTUBE);
         register(13, LinkSocialType.TWITCH);
         register(15, LinkSocialType.TIKTOK);
 

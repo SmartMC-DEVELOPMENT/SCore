@@ -48,9 +48,9 @@ public class LobbiesMenu extends ConfigurableMenu {
 
         inventory.clear();
         int slot = 0;
-        String serverServerID = SmartCore.getServerID();
+        String serverName = SmartCore.getServerName();
         for (String serverID : CountVariables.getKeysByPrefix(LobbiesInfoManager.getIDPrefix())) {
-            boolean isSelf = serverID.equals(serverServerID);
+            boolean isSelf = serverID.equals(serverName);
             Material material = Material.QUARTZ_BLOCK;
             byte materialData = 0;
             String variableConnect = "<lang.lobby_miniGames.click_to_connect>";

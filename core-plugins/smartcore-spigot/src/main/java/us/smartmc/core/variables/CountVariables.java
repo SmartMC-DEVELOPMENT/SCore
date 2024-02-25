@@ -90,7 +90,7 @@ public class CountVariables extends VariableListener<Player> {
         if (lastPushed == count) return;
         if (lastPushed == count) return;
 
-        String key = "online." + SmartCore.getServerID();
+        String key = "online." + SmartCore.getServerName();
         RedisConnection.mainConnection.getResource().set(key, String.valueOf(count));
         //RedisConnection.mainConnection.getResource().expire(key, 33);
         lastPushed = count;

@@ -27,6 +27,8 @@ public class ItemsUtil {
             percentage = 100 / total * unlocked;
         }
 
+        if (unlocked == total) percentage = 100;
+
         list.addAll(List.of("&r", unlockedName + ": &c" + unlocked + "/" + total + " &8(" + percentage + "%)",
                 "&r",
                 "<lang." + CosmeticsMainMessages.NAME + ".click_to_look>"));

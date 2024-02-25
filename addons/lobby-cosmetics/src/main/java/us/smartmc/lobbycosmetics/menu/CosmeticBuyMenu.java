@@ -89,6 +89,10 @@ public class CosmeticBuyMenu extends CoreMenu {
         player.closeInventory();
     }
 
+    public static void clearCache(UUID uuid) {
+        pendingRequests.remove(uuid);
+    }
+
     public static void cancelBuyRequest(Player player) {
         pendingRequests.remove(player.getUniqueId());
         SmartCorePlayer.get(player).openPreviousMenu();

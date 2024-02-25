@@ -8,6 +8,7 @@ import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import us.smartmc.lobbycosmetics.handler.CosmeticSectionHandler;
 import us.smartmc.lobbycosmetics.handler.CosmeticSessionHandler;
 import us.smartmc.lobbycosmetics.itemcommand.*;
+import us.smartmc.lobbycosmetics.listener.MenuListeners;
 import us.smartmc.lobbycosmetics.listener.SessionListeners;
 import us.smartmc.lobbycosmetics.message.CosmeticsMainMessages;
 import us.smartmc.lobbycosmetics.variable.CosmeticSectionNameVariable;
@@ -39,11 +40,10 @@ public class LobbyCosmetics extends AddonPlugin {
         ItemActionsManager.registerCommand("toggleCosmetic", new ToggleCosmeticAction());
         ItemActionsManager.registerCommand("confirmCosmeticPurchase", new ConfirmCosmeticPurchase());
         ItemActionsManager.registerCommand("cancelCosmeticPurchase", new CancelCosmeticPurchase());
-        registerListeners(new SessionListeners());
+        registerListeners(new SessionListeners(), new MenuListeners());
         cosmeticsMainMessages = new CosmeticsMainMessages();
 
         VariablesHandler.register(new CosmeticSectionNameVariable());
-
     }
 
     @Override

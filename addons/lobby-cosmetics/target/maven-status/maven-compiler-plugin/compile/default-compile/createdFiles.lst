@@ -17,6 +17,7 @@ us\smartmc\lobbycosmetics\cosmetic\HatCosmetic.class
 us\smartmc\lobbycosmetics\instance\player\CosmeticPlayerSession.class
 us\smartmc\lobbycosmetics\variable\CosmeticSectionNameVariable.class
 us\smartmc\lobbycosmetics\instance\player\ICosmeticPlayerData.class
+us\smartmc\lobbycosmetics\listener\MenuListeners.class
 us\smartmc\lobbycosmetics\instance\player\CosmeticPlayerData.class
 us\smartmc\lobbycosmetics\menu\ICosmeticAddonMenu.class
 us\smartmc\lobbycosmetics\cosmetic\HatCosmetic$1.class

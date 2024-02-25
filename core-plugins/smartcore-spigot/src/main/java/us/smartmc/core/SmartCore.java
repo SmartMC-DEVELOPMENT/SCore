@@ -53,12 +53,25 @@ public class SmartCore extends JavaPlugin {
     @Getter
     private CuboidManager cuboidManager;
 
+    private static String serverName;
     private static String serverID;
     @Getter
     private static int serverNumber;
 
     public static String getServerAlias() {
         return config.getString("alias");
+    }
+
+    public static String getServerName() {
+        if (serverName == null) {
+            try {
+                serverName = ServerUtils.readServerProperty("server-name");
+            } catch (Exception e) {
+                serverName = "bukkit-server:" + Bukkit.getPort();
+                System.out.println("Failed to read server property of server-name! Cached temporary to " + serverName);
+            }
+        }
+        return serverID;
     }
 
     public static String getServerID() {
@@ -113,7 +126,7 @@ public class SmartCore extends JavaPlugin {
         new GeneralMessages();
         new ItemUtilsMessages();
 
-        serverNumber = Integer.parseInt(SmartCore.getServerID().replaceAll("[^0-9]", ""));
+        serverNumber = Integer.parseInt(SmartCore.getServerName().replaceAll("[^0-9]", ""));
 
         SyncUtil.sync(() -> {
             logger.info("Plugin enabled successfully!");
@@ -123,7 +136,7 @@ public class SmartCore extends JavaPlugin {
     @Override
     public void onDisable() {
         // Delete all redis cache with serverID (pattern: *.serverID)
-        for (String key : RedisConnection.mainConnection.getResource().keys("*." + getServerID())) {
+        for (String key : RedisConnection.mainConnection.getResource().keys("*." + getServerName())) {
             RedisConnection.mainConnection.getResource().del(key);
         }
 
@@ -220,6 +233,6 @@ public class SmartCore extends JavaPlugin {
 
     @SuppressWarnings("unused")
     private void registerServerName() {
-        RedisConnection.mainConnection.getResource().set("serverAlias." + getServerID(), getServerAlias());
+        RedisConnection.mainConnection.getResource().set("serverAlias." + getServerName(), getServerAlias());
     }
 }

@@ -16,7 +16,14 @@ public class DiscordLink extends LinkSocialAction {
 
     @Override
     public String getFormattedURL(String username) {
-        return "https://www.discord.gg/users/" + username;
+        if (username.startsWith("@")) {
+            return "https://www.youtube.com/@" + username.substring(1);
+        } else if (username.matches("[a-zA-Z0-9-_]{24}")) {
+            return "https://www.youtube.com/channel/" + username;
+        } else if (username.matches("[a-zA-Z0-9-_]{1,20}")) {
+            return "https://www.youtube.com/c/" + username;
+        }
+        return null;
     }
 
     @Override

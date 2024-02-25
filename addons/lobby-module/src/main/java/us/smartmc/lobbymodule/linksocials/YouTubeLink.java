@@ -18,8 +18,12 @@ public class YouTubeLink extends LinkSocialAction {
 
     @Override
     public String getFormattedURL(String username) {
-        if (!username.startsWith("@")) username = "@" + username;
-        return "https://www.youtube.com/" + username;
+        if (username.matches("[a-zA-Z0-9-_]{24}")) {
+            return "https://www.youtube.com/channel/" + username;
+        } else if (username.matches("[a-zA-Z0-9-_]{1,20}")) {
+            return "https://www.youtube.com/c/" + username;
+        }
+        return "https://www.youtube.com/@" + username;
     }
 
     @Override
@@ -31,13 +35,13 @@ public class YouTubeLink extends LinkSocialAction {
                 "https://youtube.com/user/[a-zA-Z0-9]{1,20}",
                 "youtube.com/user/[a-zA-Z0-9]{1,20}",
                 "www.youtube.com/user/[a-zA-Z0-9]{1,20}",
-                "https://www.youtube.com/channel/[a-zA-Z0-9-_]{24}",
-                "https://youtube.com/channel/[a-zA-Z0-9-_]{24}",
-                "youtube.com/channel/[a-zA-Z0-9-_]{24}",
                 "https://www.youtube.com/c/[a-zA-Z0-9-_]{1,20}",
                 "https://youtube.com/c/[a-zA-Z0-9-_]{1,20}",
                 "youtube.com/c/[a-zA-Z0-9-_]{1,20}",
-                "www.youtube.com/c/[a-zA-Z0-9-_]{1,20}"
+                "www.youtube.com/c/[a-zA-Z0-9-_]{1,20}",
+                "https://www.youtube.com/channel/[a-zA-Z0-9-_]{24}",
+                "www.youtube.com/channel/[a-zA-Z0-9-_]{24}",
+                "youtube.com/channel/[a-zA-Z0-9-_]{24}"
         };
     }
 

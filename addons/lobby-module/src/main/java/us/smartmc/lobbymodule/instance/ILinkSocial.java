@@ -7,10 +7,6 @@ import us.smartmc.lobbymodule.LobbyModule;
 public interface ILinkSocial {
 
     default void perform(CorePlayer player, String input) {
-        // Set @ at beginning if not a url/link
-        if (!input.contains("/")) {
-            if (!input.startsWith("@")) input = "@" + input;
-        }
         if (!isValidInput(input)) {
             player.get().sendMessage(ChatUtil.parse(player.get(), "&c<lang.lobby.link_socials_invalid_input>"));
             return;
@@ -21,6 +17,7 @@ public interface ILinkSocial {
     }
 
     default boolean isValidInput(String input) {
+        if (input.endsWith("/")) input = input.substring(0, input.length() - 1);
         for (String pattern : getValidRegexPatterns()) {
             if (input.matches(pattern)) {
                 return true;

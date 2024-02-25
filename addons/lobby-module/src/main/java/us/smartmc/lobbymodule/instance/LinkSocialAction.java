@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 @Getter
 public abstract class LinkSocialAction implements ILinkSocial {
 
-    public static final String DEFAULT_USERNAME_REGEX =  "@[a-zA-Z0-9_.-]+";
+    public static final String DEFAULT_USERNAME_REGEX =  "[a-zA-Z0-9_.-]+";
 
     private final LinkSocialInfo info;
     private final LinkSocialType type;

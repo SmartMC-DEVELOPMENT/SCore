@@ -17,7 +17,7 @@ public class ServerVariables extends VariableListener<Player> {
         if (message.equals("<serverNumber>")) {
             return String.valueOf(SmartCore.getServerNumber());
         }
-        return null;
+        return message;
     }
 
     @Override

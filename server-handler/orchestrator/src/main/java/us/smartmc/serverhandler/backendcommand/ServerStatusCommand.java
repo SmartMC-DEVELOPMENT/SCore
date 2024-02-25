@@ -22,13 +22,6 @@ public class ServerStatusCommand extends BackendCommand {
         if(executeStatus(args, "active", ServerStatus.ACTIVE)) {
             CommonServerInfo serverInfo = ServerManager.get(args[1]);
             System.out.println("New server connected -> " + serverInfo.getName() + "!");
-
-            new DiscordLogEmbedBuilder()
-                    .title("Nuevo servidor conectado!").description("Se ha conectado un nuevo servidor correctamente a ServerHandler")
-                    .addField("Nombre", serverInfo.getName())
-                    .addField("IP", "||" + serverInfo.getHostname() + "||", true)
-                    .addField("Puerto", String.valueOf(serverInfo.getPort()), true)
-                    .color("GREEN").send(RedisConnection.mainConnection.getResource());
             return;
         }
 

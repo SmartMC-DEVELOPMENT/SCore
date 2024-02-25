@@ -5,6 +5,7 @@ import me.imsergioh.jbackend.BackendConnection;
 import me.imsergioh.jbackend.api.ConnectionHandler;
 import me.imsergioh.jbackend.api.manager.BackendActionManager;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
+import me.imsergioh.pluginsapi.instance.builder.DiscordLogEmbedBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
@@ -53,6 +54,12 @@ public class ServerHandlerMain extends JavaPlugin {
 
             ConnectionUtil.sendCommand(handler,
                     "serverStatus active " + serverID);
+            new DiscordLogEmbedBuilder()
+                    .title("Nuevo servidor conectado!").description("Se ha conectado un nuevo servidor correctamente a ServerHandler")
+                    .addField("Nombre", serverID)
+                    .addField("IP", "||" + Bukkit.getServer().getIp() + "||", true)
+                    .addField("Puerto", String.valueOf(Bukkit.getPort()), true)
+                    .color("GREEN").send(RedisConnection.mainConnection.getResource());
         });
         RedisConnection.mainConnection.getResource().set("maxSlots." + serverID, String.valueOf(Bukkit.getServer().getMaxPlayers()));
     }

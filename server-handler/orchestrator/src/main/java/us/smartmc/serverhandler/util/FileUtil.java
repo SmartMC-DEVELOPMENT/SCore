@@ -8,7 +8,8 @@ import java.util.*;
 
 public class FileUtil {
 
-    public static List<File> copyTemplates(File serverDestination, LinkedList<File> templates, int port, String name) {
+    public static void copyTemplates(File serverDestination, LinkedList<File> templates, int port, String name) {
+        if (serverDestination.exists()) return;
         List<File> list = new ArrayList<>();
         for (File templateFile : templates) {
             list.addAll(copyDirToDir(templateFile, serverDestination));
@@ -18,7 +19,6 @@ public class FileUtil {
             if (!file.getName().equals("server.properties")) return;
             parseServerProperties(file, port, name);
         });
-        return list;
     }
 
     public static void createStartup(File startupDir, File destinationDir, int port, String name) {

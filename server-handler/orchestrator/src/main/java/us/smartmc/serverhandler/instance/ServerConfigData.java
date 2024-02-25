@@ -1,5 +1,6 @@
 package us.smartmc.serverhandler.instance;
 
+import lombok.Getter;
 import us.smartmc.serverhandler.OrchestratorMain;
 
 import java.io.File;
@@ -15,6 +16,7 @@ public class ServerConfigData implements Serializable {
     private LinkedList<String> templates;
     private String startup;
     private String storage_parent;
+    @Getter
     private boolean temporal = true;
 
     public File getStartupDirectory() {
@@ -31,10 +33,6 @@ public class ServerConfigData implements Serializable {
             list.add(new File(templateParent + "/" + name));
         }
         return list;
-    }
-
-    public boolean isTemporal() {
-        return temporal;
     }
 
     public int getMaxPort() {

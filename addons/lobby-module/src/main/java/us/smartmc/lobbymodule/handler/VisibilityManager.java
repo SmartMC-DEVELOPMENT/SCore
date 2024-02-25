@@ -8,13 +8,11 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import us.smartmc.core.SmartCore;
 import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.lobbymodule.instance.PlayerVisibility;
 import us.smartmc.smartaddons.plugin.AddonListener;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,7 +23,6 @@ public class VisibilityManager extends AddonListener implements Listener {
     @EventHandler
     public void onJoin(PlayerDataLoadedEvent event) {
         if (!isEnabled()) return;
-
         for (Player player : Bukkit.getOnlinePlayers()) {
             update(player);
         }

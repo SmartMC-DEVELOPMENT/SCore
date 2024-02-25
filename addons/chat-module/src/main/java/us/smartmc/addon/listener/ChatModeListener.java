@@ -6,6 +6,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import us.smartmc.addon.handler.ChatModeHandler;
+import us.smartmc.core.SmartCore;
+import us.smartmc.core.handler.AdminModeHandler;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
 public class ChatModeListener extends AddonListener implements Listener {
@@ -21,7 +23,11 @@ public class ChatModeListener extends AddonListener implements Listener {
         if (!isEnabled()) return;
         String format = ChatUtil.parse(event.getPlayer(), handler.getFormat());
         if (event.getPlayer().hasPermission("smartmc.vip")) {
-            event.setMessage(ChatUtil.color(event.getMessage()));
+            String message = ChatUtil.color(event.getMessage());
+            if (SmartCore.getPlugin().getAdminModeHandler().isActive(event.getPlayer())) {
+                message = ChatUtil.parse(event.getPlayer(), message);
+            }
+             event.setMessage(message);
         }
         event.setFormat(format);
     }

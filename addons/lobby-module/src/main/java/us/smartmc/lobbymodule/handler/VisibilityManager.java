@@ -25,9 +25,10 @@ public class VisibilityManager extends AddonListener implements Listener {
     @EventHandler
     public void onJoin(PlayerDataLoadedEvent event) {
         if (!isEnabled()) return;
-        Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
-            Bukkit.getOnlinePlayers().forEach(VisibilityManager::update);
-        }, 2);
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            update(player);
+        }
     }
 
     public static void set(CorePlayer corePlayer, PlayerVisibility visibility) {

@@ -97,7 +97,7 @@ public class SmartCorePlayer extends CorePlayer {
         return playerData.getDocument().get(path, clazz);
     }
 
-    public void playSound(Sound sound, int v, int p) {
+    public void playSound(Sound sound, float v, float p) {
         if (!isOnline) return;
         try {
             bukkitPlayer.playSound(bukkitPlayer.getLocation(), sound, v, p);

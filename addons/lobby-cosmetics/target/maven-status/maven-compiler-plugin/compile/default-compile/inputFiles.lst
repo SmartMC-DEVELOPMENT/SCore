@@ -26,10 +26,13 @@ D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosm
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\variable\CosmeticSectionNameVariable.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\menu\ICosmeticAddonMenu.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\cosmeticsection\HatSection.java
+D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\menu\CosmeticBuyMenu.java
+D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\itemcommand\CancelCosmeticPurchase.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\instance\player\CosmeticPlayerData.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\handler\CosmeticSectionHandler.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\LobbyCosmetics.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\instance\cosmetic\Cosmetic.java
+D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\itemcommand\ConfirmCosmeticPurchase.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\cosmetic\IEffectCosmetic.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\itemcommand\OpenCosmeticSectionAction.java
 D:\workspace2024\SCore\addons\lobby-cosmetics\src\main\java\us\smartmc\lobbycosmetics\hatcosmetic\CakeHat.java

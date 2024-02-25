@@ -8,7 +8,7 @@ import java.util.*;
 
 public class FileUtil {
 
-    public static void copyTemplates(File serverDestination, LinkedList<File> templates, int port, String prefixId) {
+    public static void copyTemplates(File serverDestination, LinkedList<File> templates, int port, String name, String prefixId) {
         if (serverDestination.exists()) return;
         List<File> list = new ArrayList<>();
         for (File templateFile : templates) {
@@ -17,7 +17,7 @@ public class FileUtil {
 
         list.forEach(file -> {
             if (!file.getName().equals("server.properties")) return;
-            parseServerProperties(file, port, prefixId);
+            parseServerProperties(file, port, name, prefixId);
         });
     }
 
@@ -25,11 +25,11 @@ public class FileUtil {
         List<File> list = copyDirToDir(startupDir, destinationDir);
         for (File file : list) {
             if (!file.getName().equals("server.properties")) continue;
-            parseServerProperties(file, port, id);
+            parseServerProperties(file, port, name, id);
         }
     }
 
-    public static void parseServerProperties(File file, int port, String id) {
+    public static void parseServerProperties(File file, int port, String name, String id) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
@@ -38,6 +38,9 @@ public class FileUtil {
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("server-port=")) {
                     line = "server-port=" + port;
+                }
+                if (line.startsWith("server-name=")) {
+                    line = "server-name=" + name;
                 }
                 if (line.startsWith("server-id=")) {
                     line = "server-id=" + id;

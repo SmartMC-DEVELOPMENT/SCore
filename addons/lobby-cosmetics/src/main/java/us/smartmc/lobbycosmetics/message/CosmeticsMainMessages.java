@@ -34,6 +34,13 @@ public class CosmeticsMainMessages extends MultiLanguageRegistry {
         holder.registerDefault("click_to_buy", "&eClick to buy!");
         holder.registerDefault("click_to_set", "&eClick to set!");
 
+        holder.registerDefault("menu_confirm_buy_title", "Confirm purchase?");
+        holder.registerDefault("cosmetic_buyed_coins_reason", "Purchased cosmetic");
+        holder.registerDefault("cosmetic_no_balance", "&cYou don't have enough SmartCoins!");
+        holder.registerDefault("item_buy_name", "&aConfirm");
+        holder.registerDefault("item_cancel_buy_name", "&cCancel");
+        holder.registerDefault("cosmetic_set", "&bYou selected &a{0}");
+
         for (CosmeticRarity rarity : CosmeticRarity.values()) {
             holder.registerDefault("rarity_" + rarity.name() + "_name", "RARITY " + rarity.name());
         }

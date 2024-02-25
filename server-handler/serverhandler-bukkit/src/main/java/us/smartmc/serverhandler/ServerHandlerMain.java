@@ -24,7 +24,10 @@ public class ServerHandlerMain extends JavaPlugin {
     @Getter
     private static BackendConnection connection;
     private static ConnectionHandler handler;
+    @Getter
     private static String serverID;
+    @Getter
+    private static String serverName;
 
     @Override
     public void onEnable() {
@@ -44,19 +47,20 @@ public class ServerHandlerMain extends JavaPlugin {
 
         try {
             serverID = readServerProperty("server-id");
+            serverName = readServerProperty("server-name");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         BackendActionManager.registerConnectAction(handler -> {
             ConnectionUtil.sendCommand(handler,
-                    "registerServer " + serverID + " " + getServer().getIp() + " " + Bukkit.getPort());
+                    "registerServer " + serverName + " " + getServer().getIp() + " " + Bukkit.getPort());
 
             ConnectionUtil.sendCommand(handler,
-                    "serverStatus active " + serverID);
+                    "serverStatus active " + serverName);
             new DiscordLogEmbedBuilder()
                     .title("Nuevo servidor conectado!").description("Se ha conectado un nuevo servidor correctamente a ServerHandler")
-                    .addField("Nombre", serverID)
+                    .addField("Nombre", serverName)
                     .addField("IP", "||" + Bukkit.getServer().getIp() + "||", true)
                     .addField("Puerto", String.valueOf(Bukkit.getPort()), true)
                     .color("GREEN").send(RedisConnection.mainConnection.getResource());
@@ -66,10 +70,10 @@ public class ServerHandlerMain extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        handler.send(new BackendCommandExecuteRequest("serverStatus idle " + serverID));
+        handler.send(new BackendCommandExecuteRequest("serverStatus idle " + serverName));
         new DiscordLogEmbedBuilder()
                 .title("Servidor desconectado!").description("Se ha desconectado un nuevo servidor correctamente de ServerHandler")
-                .addField("Nombre", serverID)
+                .addField("Nombre", serverName)
                 .addField("IP", "||" + Bukkit.getIp() + "||", true)
                 .addField("Puerto", String.valueOf(Bukkit.getPort()), true)
                 .color("RED").send(RedisConnection.mainConnection.getResource());

@@ -1,6 +1,8 @@
 package us.smartmc.lobbycosmetics.instance.player;
 
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import org.bukkit.entity.Player;
+import us.smartmc.lobbycosmetics.LobbyCosmetics;
 import us.smartmc.lobbycosmetics.instance.DatabaseTarget;
 
 import java.util.UUID;
@@ -34,4 +36,9 @@ public class CosmeticPlayerSession implements ICosmeticPlayerSession {
     public UUID getId() {
         return uuid;
     }
+
+    public static CosmeticPlayerSession get(Player player) {
+        return LobbyCosmetics.getPlayerSessionsHandler().get(player.getUniqueId());
+    }
+
 }

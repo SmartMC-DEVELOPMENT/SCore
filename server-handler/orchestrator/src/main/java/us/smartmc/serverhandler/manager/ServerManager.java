@@ -57,7 +57,7 @@ public class ServerManager {
 
         // COPY TEMPLATES (INCLUDING SERVER.PROPERTIES IF AVAILABLE)
 
-        FileUtil.copyTemplates(serverInfo.getDirectory(), configuration.getData().getTemplateDirectories(), portToHost, serverID);
+        FileUtil.copyTemplates(serverInfo.getDirectory(), configuration.getData().getTemplateDirectories(), portToHost, serverInfo.getName(), serverID);
 
         // START SERVER SCRIPT (START.SH)
         ServerUtil.startServer(serverInfo.getDirectory());

@@ -50,12 +50,13 @@ public class ServerManager {
         String serverName = ServerInfo.getNextServerName(configuration);
 
         ServerInfo serverInfo = new ServerInfo(configuration, serverName, "127.0.0.1", portToHost);
+        String serverID = configuration.getData().getId_prefix() + serverName.replaceAll("[^0-9]", " ");
         // COPY STARTUP
         FileUtil.createStartup(configuration.getData().getStartupDirectory(), serverInfo.getDirectory(),
-                portToHost, serverInfo.getName());
+                portToHost, serverInfo.getName(), serverID);
 
         // COPY TEMPLATES (INCLUDING SERVER.PROPERTIES IF AVAILABLE)
-        String serverID = configuration.getData().getId_prefix() + serverName.replaceAll("[^0-9]", " ");
+
         FileUtil.copyTemplates(serverInfo.getDirectory(), configuration.getData().getTemplateDirectories(), portToHost, serverID);
 
         // START SERVER SCRIPT (START.SH)

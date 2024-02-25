@@ -21,11 +21,11 @@ public class FileUtil {
         });
     }
 
-    public static void createStartup(File startupDir, File destinationDir, int port, String name) {
+    public static void createStartup(File startupDir, File destinationDir, int port, String name, String id) {
         List<File> list = copyDirToDir(startupDir, destinationDir);
         for (File file : list) {
             if (!file.getName().equals("server.properties")) continue;
-            parseServerProperties(file, port, name);
+            parseServerProperties(file, port, id);
         }
     }
 

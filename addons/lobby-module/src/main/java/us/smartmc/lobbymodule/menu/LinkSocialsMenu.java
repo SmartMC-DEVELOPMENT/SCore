@@ -71,7 +71,7 @@ public class LinkSocialsMenu extends CoreMenu {
         register(33, LinkSocialType.DISCORD);
 
         register(43, LinkSocialType.GITHUB);
-        
+
         document = null;
     }
 

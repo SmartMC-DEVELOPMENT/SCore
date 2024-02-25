@@ -50,7 +50,6 @@ public class LobbiesInfoManager extends AddonListener implements Listener {
         CoreMenu menuOpen = corePlayer.getCurrentMenuOpen();
         if (menuOpen == null) return;
         menus.remove(menuOpen);
-        System.out.println("Closed menu of instance " + menuOpen.getClass().getName());
     }
 
 }

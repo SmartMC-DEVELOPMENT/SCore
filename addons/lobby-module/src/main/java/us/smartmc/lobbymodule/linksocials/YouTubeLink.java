@@ -18,12 +18,28 @@ public class YouTubeLink extends LinkSocialAction {
 
     @Override
     public String getFormattedURL(String username) {
-        if (username.matches("[a-zA-Z0-9-_]{24}")) {
+        if (username.matches("[a-zA-Z0-9-_]{24}") && username.length() >= 24) {
             return "https://www.youtube.com/channel/" + username;
-        } else if (username.matches("[a-zA-Z0-9-_]{1,20}")) {
+        } else if (username.matches("[a-zA-Z0-9-_]{1,20}") && username.length() >= 20) {
             return "https://www.youtube.com/c/" + username;
         }
         return "https://www.youtube.com/@" + username;
+    }
+
+    @Override
+    public String getFormattedLink(String username) {
+        if (username.length() == 24) {
+            return "https://www.youtube.com/channel/" + username;
+        }
+        return super.getFormattedLink(username);
+    }
+
+    @Override
+    public String getUsernameFromUrl(String url) {
+        if (url.contains("/channel/")) {
+            return url.split("/channel/")[1];
+        }
+        return super.getUsernameFromUrl(url);
     }
 
     @Override

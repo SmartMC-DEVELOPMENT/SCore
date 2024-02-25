@@ -89,7 +89,7 @@ public class ServerManager {
 
     public static void deleteIfNotTemporalAndUnregister(String name) {
         ServerInfo serverInfo = get(name);
-        if (serverInfo.getConfig().getData().isTemporal()) {
+        if (!serverInfo.getConfig().getData().isPermanent()) {
             new Thread(() -> {
                 try {
                     Thread.sleep(250);

@@ -54,6 +54,8 @@ public class SmartCore extends JavaPlugin {
     private CuboidManager cuboidManager;
 
     private static String serverID;
+    @Getter
+    private static int serverNumber;
 
     public static String getServerAlias() {
         return config.getString("alias");
@@ -111,6 +113,8 @@ public class SmartCore extends JavaPlugin {
         new GeneralMessages();
         new ItemUtilsMessages();
 
+        serverNumber = Integer.parseInt(SmartCore.getServerID().replaceAll("[^0-9]", ""));
+
         SyncUtil.sync(() -> {
             logger.info("Plugin enabled successfully!");
         });
@@ -153,6 +157,9 @@ public class SmartCore extends JavaPlugin {
     }
 
     private void registerVariables() {
+        // SERVER VARIABLES
+        VariablesHandler.register(new ServerVariables());
+
         // MAIN PLAYER VARIABLES
         VariablesHandler.register(new PlayerMainVariables());
 

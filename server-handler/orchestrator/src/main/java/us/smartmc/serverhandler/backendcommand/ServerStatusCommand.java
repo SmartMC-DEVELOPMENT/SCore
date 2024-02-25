@@ -29,12 +29,6 @@ public class ServerStatusCommand extends BackendCommand {
             String name = args[1];
             CommonServerInfo serverInfo = ServerManager.get(args[1]);
             ServerManager.deleteIfNotTemporalAndUnregister(name);
-            new DiscordLogEmbedBuilder()
-                    .title("Servidor desconectado!").description("Se ha desconectado un nuevo servidor correctamente de ServerHandler")
-                    .addField("Nombre", serverInfo.getName())
-                    .addField("IP", "||" + serverInfo.getHostname() + "||", true)
-                    .addField("Puerto", String.valueOf(serverInfo.getPort()), true)
-                    .color("RED").send(RedisConnection.mainConnection.getResource());
             CacheCleanerManager.removeServerCache(name);
         }
     }

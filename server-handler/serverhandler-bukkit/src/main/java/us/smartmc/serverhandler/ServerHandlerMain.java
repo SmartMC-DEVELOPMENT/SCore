@@ -67,6 +67,12 @@ public class ServerHandlerMain extends JavaPlugin {
     @Override
     public void onDisable() {
         handler.send(new BackendCommandExecuteRequest("serverStatus idle " + serverID));
+        new DiscordLogEmbedBuilder()
+                .title("Servidor desconectado!").description("Se ha desconectado un nuevo servidor correctamente de ServerHandler")
+                .addField("Nombre", serverID)
+                .addField("IP", "||" + Bukkit.getIp() + "||", true)
+                .addField("Puerto", String.valueOf(Bukkit.getPort()), true)
+                .color("RED").send(RedisConnection.mainConnection.getResource());
     }
 
     private String readServerProperty(String path) throws Exception {

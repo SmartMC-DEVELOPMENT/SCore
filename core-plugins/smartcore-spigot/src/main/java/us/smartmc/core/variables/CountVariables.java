@@ -13,6 +13,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class CountVariables extends VariableListener<Player> {
@@ -74,18 +76,12 @@ public class CountVariables extends VariableListener<Player> {
     }
 
     private static int extractNumber(String str) {
-        // Encuentra el número al final de la cadena
-        int numberStart = str.lastIndexOf('-') + 1;
-        if (numberStart > 0 && numberStart < str.length()) {
-            String numberPart = str.substring(numberStart);
-            try {
-                return Integer.parseInt(numberPart);
-            } catch (NumberFormatException e) {
-                // Si no es un número, retorna un valor alto para que vaya al final
-                return Integer.MAX_VALUE;
-            }
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(str);
+        if (matcher.find()) {
+            return Integer.parseInt(matcher.group());
         }
-        return Integer.MAX_VALUE; // En caso de que no haya número
+        return -1;
     }
 
     private void updateCount() {

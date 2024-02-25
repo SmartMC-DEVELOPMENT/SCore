@@ -2,8 +2,10 @@ package us.smartmc.lobbymodule.menu;
 
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.variables.CountVariables;
@@ -16,13 +18,34 @@ import java.util.Arrays;
 
 public class LobbiesMenu extends ConfigurableMenu {
 
+    private boolean alreadyOpen = false;
+
     public LobbiesMenu(Player player) {
         super(player, LobbyModule.getLobbiesMenuConfig(), getDynamicInventorySize());
         LobbiesInfoManager.registerMenu(this);
     }
 
+    public LobbiesMenu(Player player, boolean alreadyOpen) {
+        this(player);
+        this.alreadyOpen = alreadyOpen;
+    }
+
+    @Override
+    public void open(Player player) {
+        this.load();
+        if (!alreadyOpen) {
+            player.playSound(player.getLocation(), Sound.CLICK, 0.1F, 2.5F);
+        }
+        CorePlayer.get(player).setCurrentMenuOpen(this);
+        player.openInventory(inventory);
+    }
+
     @Override
     public void load() {
+        if (size < getDynamicInventorySize()) {
+            new LobbiesMenu(player).open(player);
+        }
+
         inventory.clear();
         int slot = 0;
         String serverServerID = SmartCore.getServerID();

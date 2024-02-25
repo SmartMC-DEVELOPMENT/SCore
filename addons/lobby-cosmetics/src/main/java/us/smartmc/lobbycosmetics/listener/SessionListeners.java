@@ -8,6 +8,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import us.smartmc.lobbycosmetics.LobbyCosmetics;
 import us.smartmc.lobbycosmetics.handler.CosmeticSessionHandler;
+import us.smartmc.lobbycosmetics.instance.player.CosmeticPlayerSession;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
 public class SessionListeners extends AddonListener implements Listener {
@@ -17,11 +18,13 @@ public class SessionListeners extends AddonListener implements Listener {
     @EventHandler
     public void unloadSession(PlayerUnloadEvent event) {
         if (!isEnabled()) return;
-        handler.unregister(event.getCorePlayer().getUUID()).unload();
+        CosmeticPlayerSession session = handler.unregister(event.getPlayer().getUniqueId());
+        if (session != null) session.unload();
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onSergiohJoinTest(PlayerDataLoadedEvent event) {
+        if (!isEnabled()) return;
         CorePlayer corePlayer = event.getCorePlayer();
         if (!corePlayer.get().getName().equals("ImSergioh")) return;
         handler.get(corePlayer.getUUID());

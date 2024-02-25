@@ -35,7 +35,8 @@ public class ToggleCosmeticAction implements ItemActionExecutor {
 
         MsgHolderLanguageInfo info = new MsgHolderLanguageInfo("cosmetic_" + cosmetic.getId(), PlayerLanguages.get(player.getUniqueId()), CosmeticsSectionMessages.getName(cosmetic.getType()));
         SmartCorePlayer smartCorePlayer = SmartCorePlayer.get(player);
-        smartCorePlayer.sendLanguageMessage(CosmeticsMainMessages.NAME, "cosmetic_set", info.getName());
+        String message = LobbyCosmetics.getCosmeticsMainMessages().get(player, PlayerLanguages.get(player.getUniqueId()), "cosmetic_set", info.getName());
+        player.sendMessage(message);
         smartCorePlayer.playSound(Sound.CLICK, 1, 1);
     }
 }

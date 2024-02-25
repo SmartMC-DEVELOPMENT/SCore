@@ -13,6 +13,7 @@ import us.smartmc.lobbycosmetics.LobbyCosmetics;
 import us.smartmc.lobbycosmetics.instance.cosmetic.ICosmetic;
 import us.smartmc.lobbycosmetics.instance.cosmetic.ICosmeticSection;
 import us.smartmc.lobbycosmetics.instance.helper.MsgHolderLanguageInfo;
+import us.smartmc.lobbycosmetics.instance.player.CosmeticPlayerSession;
 import us.smartmc.lobbycosmetics.instance.player.ICosmeticPlayerSession;
 import us.smartmc.lobbycosmetics.message.CosmeticsMainMessages;
 import us.smartmc.lobbycosmetics.message.CosmeticsSectionMessages;
@@ -75,7 +76,9 @@ public class CosmeticBuyMenu extends CoreMenu {
             try {
                 String reason = LobbyCosmetics.getCosmeticsMainMessages().get(player, PlayerLanguages.get(player.getUniqueId()), "cosmetic_buyed_coins_reason");
                 smartCorePlayer.removeCoins(cost, reason);
-                smartCorePlayer.playSound(Sound.LEVEL_UP, 1, 1);
+                player.playSound(player.getLocation(), Sound.LEVEL_UP, 0.5F, 1.0F);
+                CosmeticPlayerSession session = CosmeticPlayerSession.get(player);
+                session.getData().activateCosmetic(cosmetic);
             } catch (CorePluginException e) {
                 throw new RuntimeException(e);
             }

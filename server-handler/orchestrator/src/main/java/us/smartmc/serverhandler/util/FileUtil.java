@@ -13,25 +13,19 @@ import java.util.*;
 public class FileUtil {
 
     private static final Map<String, StartupCreation> startupCreations = new HashMap<>();
-
-    public static StartupCreation getCreation(String dir) {
-        return startupCreations.get(dir);
-    }
+    private static final Set<String> recentCreatedPermanentServers = new HashSet<>();
 
     public static void removeAndComplete(String dir) {
-        startupCreations.remove(dir).completeAndCopy();
+        StartupCreation creation = startupCreations.remove(dir);
+        if (creation == null) return;
+        creation.completeAndCopy();
     }
 
-    public static void copyTemplates(File serverDestination, ServerConfiguration<?> configuration, int port, String name, String prefixId) {
-        if (!serverDestination.exists()) serverDestination.mkdirs();
-        if (serverDestination.exists() && configuration.getData().isPermanent()) return;
-        if (serverDestination.exists() && !configuration.getData().isPermanent()) {
-            serverDestination.delete();
-        }
+    public static void copyTemplates(File serverDestination, ServerConfiguration<?> configuration) {
+        if (!recentCreatedPermanentServers.contains(serverDestination.getAbsolutePath()) && configuration.getData().isPermanent()) return;
         for (File templateDir : configuration.getData().getTemplateDirectories()) {
             copyDirToDir(templateDir, serverDestination);
         }
-        removeAndComplete(serverDestination.getAbsolutePath());
     }
 
     private static void parseStartupTemplates(ServerConfiguration<?> configuration, StartupCreation creation) {
@@ -44,8 +38,14 @@ public class FileUtil {
     }
 
     public static void createStartup(ServerConfiguration<?> config, File destinationDir, int port, String name, String id) {
+        if (!destinationDir.exists()) {
+            if (config.getData().isPermanent()) {
+                recentCreatedPermanentServers.add(destinationDir.getAbsolutePath());
+            }
+            copyDirToDir(config.getData().getStartupDirectory(), destinationDir);
+        }
         StartupCreation creation = new StartupCreation(config.getData().getStartupDirectory(), destinationDir, port, name, id);
-        startupCreations.put(config.getData().getStartupDirectory().getAbsolutePath(), creation);
+        startupCreations.put(destinationDir.getAbsolutePath(), creation);
         parseStartupTemplates(config, creation);
     }
 

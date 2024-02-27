@@ -56,7 +56,7 @@ public class ServerManager {
         FileUtil.createStartup(configuration, serverInfo.getDirectory(), portToHost, serverInfo.getName(), serverID);
 
         // COPY TEMPLATES (INCLUDING SERVER.PROPERTIES IF AVAILABLE)
-        FileUtil.copyTemplates(serverInfo.getDirectory(), configuration, portToHost, serverInfo.getName(), serverID);
+        FileUtil.copyTemplates(serverInfo.getDirectory(), configuration);
 
         // Complete creation if is permanent
         FileUtil.removeAndComplete(serverInfo.getDirectory().getAbsolutePath());

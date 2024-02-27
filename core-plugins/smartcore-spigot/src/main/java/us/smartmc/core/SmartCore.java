@@ -128,9 +128,30 @@ public class SmartCore extends JavaPlugin {
 
         serverNumber = Integer.parseInt(SmartCore.getServerName().replaceAll("[^0-9]", ""));
 
+        Thread.setDefaultUncaughtExceptionHandler(
+                new ExceptionHandler()
+                        .addField("server-id", getServerID())
+                        .addField("server-name", getServerName())
+                        .addField("server-port", String.valueOf(Bukkit.getPort()))
+                        .addField("online-players", String.valueOf(Bukkit.getOnlinePlayers().size())));
+
         SyncUtil.sync(() -> {
             logger.info("Plugin enabled successfully!");
         });
+
+        new Thread(() -> {
+            try {
+                Thread.setDefaultUncaughtExceptionHandler(
+                        new ExceptionHandler()
+                                .addField("server-id", getServerID())
+                                .addField("server-name", getServerName())
+                                .addField("server-port", String.valueOf(Bukkit.getPort()))
+                                .addField("online-players", String.valueOf(Bukkit.getOnlinePlayers().size())));
+                throw new Exception("ME CORRROOOOOOOO, TEEEEST");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
     }
 
     @Override

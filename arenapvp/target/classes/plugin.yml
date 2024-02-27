@@ -1,7 +1,0 @@
-name: arenapvp
-version: '1.0-SNAPSHOT'
-main: us.smartmc.arenapvp.arenapvp.ArenaPvP
-
-commands:
-  arenapvp:
-    description: "Main command for arenapvp"

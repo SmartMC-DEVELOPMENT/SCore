@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
+import us.smartmc.core.handler.ExceptionHandler;
 import us.smartmc.lobbycosmetics.handler.CosmeticSectionHandler;
 import us.smartmc.lobbycosmetics.handler.CosmeticSessionHandler;
 import us.smartmc.lobbycosmetics.itemcommand.*;

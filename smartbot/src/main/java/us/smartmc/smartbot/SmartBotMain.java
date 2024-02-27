@@ -13,6 +13,7 @@ import us.smartmc.smartbot.handler.EventSchedulerHandler;
 import us.smartmc.smartbot.handler.RepliesHandler;
 import us.smartmc.smartbot.listener.*;
 import us.smartmc.smartbot.logfunction.PrintConsoleMessages;
+import us.smartmc.smartbot.logfunction.SendEmbedExceptionsMessages;
 import us.smartmc.smartbot.logfunction.SendEmbedMessages;
 import us.smartmc.smartbot.manager.AutoRoleManager;
 import us.smartmc.smartbot.manager.LogsManager;
@@ -58,7 +59,7 @@ public class SmartBotMain {
         RedisConnection.mainConnection = new RedisConnection("localhost", 6379);
 
         logsManager = new LogsManager();
-        logsManager.register(new PrintConsoleMessages(), new SendEmbedMessages());
+        logsManager.register(new PrintConsoleMessages(), new SendEmbedMessages(), new SendEmbedExceptionsMessages());
 
         CommandHandler.clearCommands();
         new Timer().schedule(new TimerTask() {

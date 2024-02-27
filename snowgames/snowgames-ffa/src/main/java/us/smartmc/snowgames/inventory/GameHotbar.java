@@ -35,6 +35,7 @@ public class GameHotbar extends FFAMenu {
 
     @Override
     public void set(Player player) {
+        load();
         player.getInventory().setContents(getInventory().getContents());
         CorePlayer.get(player).setCurrentMenuSet(this);
     }

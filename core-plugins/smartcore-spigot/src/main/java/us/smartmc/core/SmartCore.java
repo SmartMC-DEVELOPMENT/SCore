@@ -8,8 +8,10 @@ import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.handler.PubSubConnectionHandler;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
+import me.imsergioh.pluginsapi.instance.exceptionlistener.SendExceptionToDiscordListener;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
+import me.imsergioh.pluginsapi.util.GlobalExceptionHandler;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
@@ -38,7 +40,7 @@ import java.util.Objects;
 public class SmartCore extends JavaPlugin {
 
     public static final SpigotLogger logger = new SpigotLogger();
-    public static final ExceptionHandler exceptionHandler = new ExceptionHandler()
+    public static final SendExceptionToDiscordListener discordExceptionListener = new SendExceptionToDiscordListener()
             .addField("server-id", getServerID())
             .addField("server-name", getServerName())
             .addField("server-port", String.valueOf(Bukkit.getPort()))
@@ -137,20 +139,7 @@ public class SmartCore extends JavaPlugin {
         SyncUtil.sync(() -> {
             logger.info("Plugin enabled successfully!");
         });
-
-        new Thread(() -> {
-            while (true) {
-                Thread.getAllStackTraces().keySet().forEach(thread -> {
-                    if (thread.getUncaughtExceptionHandler() instanceof ExceptionHandler) return;
-                    thread.setUncaughtExceptionHandler(exceptionHandler);
-                });
-                try {
-                    Thread.sleep(1500);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).start();
+        GlobalExceptionHandler.registerListener(discordExceptionListener);
     }
 
     @Override

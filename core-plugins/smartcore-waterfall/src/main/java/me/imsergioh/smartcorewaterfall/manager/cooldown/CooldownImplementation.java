@@ -30,7 +30,7 @@ public class CooldownImplementation implements ICooldown {
     } catch (
             RedisConnectionNotInitializedException
             | CooldownAlreadyFinishedException e) {
-      e.printStackTrace(System.out);
+      throw new RuntimeException(e);
     }
   }
 }

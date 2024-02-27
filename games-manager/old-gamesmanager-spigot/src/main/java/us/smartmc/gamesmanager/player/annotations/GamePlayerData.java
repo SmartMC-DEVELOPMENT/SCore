@@ -34,7 +34,7 @@ public interface GamePlayerData {
 
                 document.put(key, declaredField.get(this));
             } catch (IllegalAccessException e) {
-                e.printStackTrace(System.out);
+                throw new RuntimeException(e);
             }
         }
         return document;
@@ -63,7 +63,7 @@ public interface GamePlayerData {
 
                 field.set(this, value.getValue());
             } catch (Exception e) {
-                e.printStackTrace(System.out);
+                throw new RuntimeException(e);
             }
         }
     }

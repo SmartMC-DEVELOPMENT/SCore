@@ -25,7 +25,7 @@ public class LobbyModuleAction implements ItemActionExecutor {
                 new MinigamesMenu(clickHandler.player()).open(clickHandler.player());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

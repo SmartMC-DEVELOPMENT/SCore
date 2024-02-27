@@ -54,7 +54,7 @@ public class BungeeMessagingListeners implements Listener {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

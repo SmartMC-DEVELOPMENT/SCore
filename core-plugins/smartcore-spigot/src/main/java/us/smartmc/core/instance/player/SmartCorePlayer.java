@@ -102,7 +102,7 @@ public class SmartCorePlayer extends CorePlayer {
         try {
             bukkitPlayer.playSound(bukkitPlayer.getLocation(), sound, v, p);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

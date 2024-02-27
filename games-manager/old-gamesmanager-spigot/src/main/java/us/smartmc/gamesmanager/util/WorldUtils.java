@@ -51,7 +51,7 @@ public class WorldUtils {
             FileUtils.copyDirectory(sourceFolder, destinationFolder);
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
             return false;
         }
     }
@@ -73,7 +73,7 @@ public class WorldUtils {
                 try {
                     FileUtils.copyDirectory(sourceFolder, destinationFolder);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                     return null;
                 }
                 return Bukkit.getWorld(destinationName);

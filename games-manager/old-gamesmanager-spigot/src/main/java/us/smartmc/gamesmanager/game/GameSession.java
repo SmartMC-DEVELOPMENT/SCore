@@ -123,7 +123,7 @@ public class GameSession<P extends Player> implements IGameSession<P> {
             try {
                 GamePlayer.get(player).sendMessage(message, args);
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
     }

@@ -27,7 +27,7 @@ public class NMSUtils {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         for (int num : originalData.keySet()) {

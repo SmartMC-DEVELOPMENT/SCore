@@ -72,7 +72,7 @@ public final class ReflectionUtils {
                     v(18, "a").orElse("sendPacket"),
                     MethodType.methodType(void.class, getNMSClass("network.protocol", "Packet")));
         } catch (NoSuchMethodException | NoSuchFieldException | IllegalAccessException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
 
         PLAYER_CONNECTION = connection;
@@ -161,7 +161,7 @@ public final class ReflectionUtils {
         try {
             return Class.forName(NMS + name);
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
             return null;
         }
     }
@@ -179,7 +179,7 @@ public final class ReflectionUtils {
     public static CompletableFuture<Void> sendPacket(Player player, Object... packets) {
         return CompletableFuture.runAsync(() -> sendPacketSync(player, packets))
                 .exceptionally(ex -> {
-                    ex.printStackTrace();
+                    throw new RuntimeException(ex);
                     return null;
                 });
     }
@@ -202,7 +202,7 @@ public final class ReflectionUtils {
                 for (Object packet : packets) SEND_PACKET.invoke(connection, packet);
             }
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            throwablthrow new RuntimeException(e);
         }
     }
 
@@ -211,7 +211,7 @@ public final class ReflectionUtils {
         try {
             return GET_HANDLE.invoke(player);
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            throwablthrow new RuntimeException(e);
             return null;
         }
     }
@@ -222,7 +222,7 @@ public final class ReflectionUtils {
             Object handle = GET_HANDLE.invoke(player);
             return PLAYER_CONNECTION.invoke(handle);
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            throwablthrow new RuntimeException(e);
             return null;
         }
     }
@@ -239,7 +239,7 @@ public final class ReflectionUtils {
         try {
             return Class.forName(CRAFTBUKKIT + name);
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
             return null;
         }
     }
@@ -249,7 +249,7 @@ public final class ReflectionUtils {
         try {
             return Class.forName(clazz);
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
             return null;
         }
     }
@@ -258,7 +258,7 @@ public final class ReflectionUtils {
         try {
             return Class.forName("[L" + clazz.getName() + ';');
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
             return null;
         }
     }
@@ -314,7 +314,7 @@ public final class ReflectionUtils {
             try {
                 return (this.version == 0 ? handle : this.handle).call();
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
                 return null;
             }
         }

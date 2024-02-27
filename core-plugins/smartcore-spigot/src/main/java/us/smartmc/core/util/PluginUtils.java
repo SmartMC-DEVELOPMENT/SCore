@@ -41,7 +41,7 @@ public class PluginUtils {
                 out.close();
                 sendingPlayers.remove(player.getUniqueId());
             } catch (Exception e) {
-                e.printStackTrace(System.out);
+                throw new RuntimeException(e);
                 player.sendMessage(ChatColor.RED + "Error when trying to connect to a server of '" + serverPrefix + "'");
             }
         });

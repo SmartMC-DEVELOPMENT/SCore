@@ -63,7 +63,7 @@ public class ItemUtils {
             profileField.setAccessible(true);
             profileField.set(meta, profile);
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         head.setItemMeta(meta);
         return head;

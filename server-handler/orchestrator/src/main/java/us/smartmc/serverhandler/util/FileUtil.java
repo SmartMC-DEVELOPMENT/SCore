@@ -59,7 +59,7 @@ public class FileUtil {
             writer.write(newContent.toString());
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

@@ -11,6 +11,7 @@ public class RegionUtils {
 
     public static boolean isAtSpawn(Player player) {
         SmartCorePlayer sPlayer = SmartCorePlayer.get(player);
+        if (sPlayer == null) return true;
         PlayerRegionSubscriber subscriber = sPlayer.getPlayerRegionSubscriber();
         return !subscriber.getRegionsAt().isEmpty();
     }

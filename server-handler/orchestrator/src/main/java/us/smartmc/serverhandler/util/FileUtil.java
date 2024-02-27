@@ -23,6 +23,7 @@ public class FileUtil {
 
     public static void copyTemplates(File serverDestination, ServerConfiguration<?> configuration) {
         if (!recentCreatedPermanentServers.contains(serverDestination.getAbsolutePath()) && configuration.getData().isPermanent()) return;
+        recentCreatedPermanentServers.remove(serverDestination.getAbsolutePath());
         for (File templateDir : configuration.getData().getTemplateDirectories()) {
             copyDirToDir(templateDir, serverDestination);
         }

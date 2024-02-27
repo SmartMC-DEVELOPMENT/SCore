@@ -21,15 +21,8 @@ public class ItemsUtil {
         List<String> list = info.getDescription();
 
         String unlockedName = mainMessages.get(language, "unlocked");
-        int percentage = 0;
 
-        if (unlocked > 1) {
-            percentage = 100 / total * unlocked;
-        }
-
-        if (unlocked == total) percentage = 100;
-
-        list.addAll(List.of("&r", unlockedName + ": &c" + unlocked + "/" + total + " &8(" + percentage + "%)",
+        list.addAll(List.of("&r", unlockedName + ": &c" + unlocked + "/" + total,
                 "&r",
                 "<lang." + CosmeticsMainMessages.NAME + ".click_to_look>"));
 

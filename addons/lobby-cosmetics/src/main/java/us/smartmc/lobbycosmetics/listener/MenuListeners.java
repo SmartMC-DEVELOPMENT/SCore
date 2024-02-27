@@ -18,6 +18,7 @@ public class MenuListeners extends AddonListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void clearBuyCache(InventoryCloseEvent event) {
         SmartCorePlayer smartCorePlayer = SmartCorePlayer.get(event.getPlayer().getUniqueId());
+        if (smartCorePlayer == null) return;
         if (smartCorePlayer.getCurrentMenuOpen() instanceof CosmeticBuyMenu) {
             CosmeticBuyMenu.clearCache(event.getPlayer().getUniqueId());
         }

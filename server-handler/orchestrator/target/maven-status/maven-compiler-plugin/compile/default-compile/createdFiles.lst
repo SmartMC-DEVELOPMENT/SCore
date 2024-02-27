@@ -14,6 +14,7 @@ us\smartmc\serverhandler\instance\ServerConfigData.class
 us\smartmc\serverhandler\config\DataConfiguration.class
 us\smartmc\serverhandler\consolecommand\StopCommand.class
 us\smartmc\serverhandler\executor\ConsoleCommandInfo.class
+us\smartmc\serverhandler\instance\StartupCreation.class
 us\smartmc\serverhandler\registration\ConfigRegistration.class
 us\smartmc\serverhandler\consolecommand\CreateCommand.class
 us\smartmc\serverhandler\consolecommand\HelpCommand.class

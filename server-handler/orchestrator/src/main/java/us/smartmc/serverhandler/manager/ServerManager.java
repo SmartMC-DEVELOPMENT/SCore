@@ -8,6 +8,7 @@ import us.smartmc.serverhandler.OrchestratorMain;
 import us.smartmc.serverhandler.config.ServerConfiguration;
 import us.smartmc.serverhandler.instance.ServerConfigData;
 import us.smartmc.serverhandler.instance.ServerInfo;
+import us.smartmc.serverhandler.instance.StartupCreation;
 import us.smartmc.serverhandler.util.FileUtil;
 import us.smartmc.serverhandler.util.ServerUtil;
 
@@ -52,11 +53,13 @@ public class ServerManager {
         ServerInfo serverInfo = new ServerInfo(configuration, serverName, "127.0.0.1", portToHost);
         String serverID = configuration.getData().getId_prefix() + serverName.replaceAll("[^0-9]", "");
         // COPY STARTUP
-        FileUtil.createStartup(configuration.getData().getStartupDirectory(), serverInfo.getDirectory(),
-                portToHost, serverInfo.getName(), serverID);
+        FileUtil.createStartup(configuration, serverInfo.getDirectory(), portToHost, serverInfo.getName(), serverID);
 
         // COPY TEMPLATES (INCLUDING SERVER.PROPERTIES IF AVAILABLE)
         FileUtil.copyTemplates(serverInfo.getDirectory(), configuration, portToHost, serverInfo.getName(), serverID);
+
+        // Complete creation if is permanent
+        FileUtil.removeAndComplete(serverInfo.getDirectory().getAbsolutePath());
 
         // START SERVER SCRIPT (START.SH)
         ServerUtil.startServer(serverInfo.getDirectory());

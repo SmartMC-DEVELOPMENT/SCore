@@ -141,7 +141,9 @@ public class SmartCorePlayer extends CorePlayer {
     }
 
     public static void unload(UUID uuid) {
-        get(uuid).unload();
+        players.remove(uuid);
+        SmartCorePlayer corePlayer = get(uuid);
+        if (corePlayer != null) corePlayer.unload();
         players.remove(uuid);
     }
 

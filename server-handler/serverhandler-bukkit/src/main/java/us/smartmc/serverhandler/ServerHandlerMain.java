@@ -59,18 +59,17 @@ public class ServerHandlerMain extends JavaPlugin {
 
             ConnectionUtil.sendCommand(handler,
                     "serverStatus active " + serverName);
-
-            SyncUtil.later(() -> {
-                new DiscordLogEmbedBuilder()
-                        .title("Nuevo servidor conectado!").description("Se ha conectado un nuevo servidor correctamente a ServerHandler")
-                        .addField("Nombre", serverName)
-                        .addField("IP", "||" + Bukkit.getServer().getIp() + "||", true)
-                        .addField("Puerto", String.valueOf(Bukkit.getPort()), true)
-                        .color("GREEN").send(RedisConnection.mainConnection.getResource());
-                RedisConnection.mainConnection.getResource().set("maxSlots." + serverID, String.valueOf(Bukkit.getServer().getMaxPlayers()));
-            }, 250);
-
         });
+
+        SyncUtil.later(() -> {
+            new DiscordLogEmbedBuilder()
+                    .title("Nuevo servidor conectado!").description("Se ha conectado un nuevo servidor correctamente a ServerHandler")
+                    .addField("Nombre", serverName)
+                    .addField("IP", "||" + Bukkit.getServer().getIp() + "||", true)
+                    .addField("Puerto", String.valueOf(Bukkit.getPort()), true)
+                    .color("GREEN").send(RedisConnection.mainConnection.getResource());
+            RedisConnection.mainConnection.getResource().set("maxSlots." + serverID, String.valueOf(Bukkit.getServer().getMaxPlayers()));
+        }, 250);
     }
 
     @Override

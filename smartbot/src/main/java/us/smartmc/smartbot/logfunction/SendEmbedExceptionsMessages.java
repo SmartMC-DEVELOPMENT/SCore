@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
 public class SendEmbedExceptionsMessages extends LogChannelRegistry {
 
     public SendEmbedExceptionsMessages() {
-        super("1208514273899184130", "discord-logs:exception");
+        super("1212092605702082580", "discord-logs:exception");
         run();
     }
 

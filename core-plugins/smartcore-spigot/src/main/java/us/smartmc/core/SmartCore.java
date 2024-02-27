@@ -38,6 +38,12 @@ import java.util.Objects;
 public class SmartCore extends JavaPlugin {
 
     public static final SpigotLogger logger = new SpigotLogger();
+    public static final ExceptionHandler exceptionHandler = new ExceptionHandler()
+            .addField("server-id", getServerID())
+            .addField("server-name", getServerName())
+            .addField("server-port", String.valueOf(Bukkit.getPort()))
+            .addField("online-players", String.valueOf(Bukkit.getOnlinePlayers().size()));
+
     @Getter
     private static SmartCore plugin;
     private static FilePluginConfig config;
@@ -128,28 +134,21 @@ public class SmartCore extends JavaPlugin {
 
         serverNumber = Integer.parseInt(SmartCore.getServerName().replaceAll("[^0-9]", ""));
 
-        Thread.setDefaultUncaughtExceptionHandler(
-                new ExceptionHandler()
-                        .addField("server-id", getServerID())
-                        .addField("server-name", getServerName())
-                        .addField("server-port", String.valueOf(Bukkit.getPort()))
-                        .addField("online-players", String.valueOf(Bukkit.getOnlinePlayers().size())));
-
         SyncUtil.sync(() -> {
             logger.info("Plugin enabled successfully!");
         });
 
         new Thread(() -> {
-            try {
-                Thread.setDefaultUncaughtExceptionHandler(
-                        new ExceptionHandler()
-                                .addField("server-id", getServerID())
-                                .addField("server-name", getServerName())
-                                .addField("server-port", String.valueOf(Bukkit.getPort()))
-                                .addField("online-players", String.valueOf(Bukkit.getOnlinePlayers().size())));
-                throw new Exception("ME CORRROOOOOOOO, TEEEEST");
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+            while (true) {
+                Thread.getAllStackTraces().keySet().forEach(thread -> {
+                    if (thread.getUncaughtExceptionHandler() instanceof ExceptionHandler) return;
+                    thread.setUncaughtExceptionHandler(exceptionHandler);
+                });
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }).start();
     }

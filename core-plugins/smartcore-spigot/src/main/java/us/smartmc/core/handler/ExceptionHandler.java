@@ -10,11 +10,16 @@ import java.util.Set;
 
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
-    private static Set<String> alreadySent = new HashSet<>();
+    private static final Set<String> alreadySent = new HashSet<>();
 
     private final Map<String, String> additionalFields = new HashMap<>();
 
     public ExceptionHandler addField(String name, String value) {
+        return addField(name, value, false);
+    }
+
+    public ExceptionHandler addField(String name, String value, boolean inLine) {
+        if (inLine) value = "INLINE@" + value;
         additionalFields.put(name, value);
         return this;
     }
@@ -31,7 +36,9 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
                 .addField("Message", e.getMessage())
                 .addField("Localized Message", e.getLocalizedMessage());
         for (String fieldName : additionalFields.keySet()) {
-            builder.addField(fieldName, additionalFields.get(fieldName));
+            String value = additionalFields.get(fieldName);
+            boolean inLine = value.startsWith("INLINE@");
+            builder.addField(fieldName, value, inLine);
         }
         builder.send("discord-logs:exception", RedisConnection.mainConnection.getResource());
         alreadySent.add(e.getMessage());

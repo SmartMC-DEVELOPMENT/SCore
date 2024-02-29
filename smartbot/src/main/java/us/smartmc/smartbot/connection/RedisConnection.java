@@ -17,7 +17,7 @@ public class RedisConnection extends JedisPool {
         System.out.println("Connecting to redis " + host + ":" + port);
         this.host = host;
         this.port = port;
-        if (mainConnection != null) {
+        if (mainConnection == null) {
             mainConnection = this;
         }
     }

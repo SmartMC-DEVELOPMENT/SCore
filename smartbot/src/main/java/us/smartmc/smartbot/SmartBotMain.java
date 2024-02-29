@@ -40,7 +40,7 @@ public class SmartBotMain {
     public static void main(String[] args) {
         // CONNECT BACKEND SERVICES >>
         MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
-        RedisConnection.mainConnection = new RedisConnection("localhost", 6379);
+        RedisConnection.mainConnection = newRedisConnection();
 
         // CREATION BOT >>
         api = JDABuilder.createDefault(dotenv.get("TOKEN"))
@@ -82,6 +82,10 @@ public class SmartBotMain {
             }
         }, 1000);
         EventSchedulerHandler.setup();
+    }
+
+    public static RedisConnection newRedisConnection() {
+        return new RedisConnection("localhost", 6379);
     }
 
     public static Guild getMainGuild() {

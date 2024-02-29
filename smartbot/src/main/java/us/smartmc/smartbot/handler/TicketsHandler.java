@@ -36,8 +36,9 @@ public class TicketsHandler {
     }
 
     public static void registerTicket(String ticketID, MessageReactionAddEvent event) {
-        Document document = new Document("_id", ticketID).append("created_by", event.getUserId()).append("creted_at", System.currentTimeMillis() / 1000);
-        RedisConnection.mainConnection.getResource().set("discord_ticket." + event.getChannel().getId(), document.toJson());
+        Document document = new Document("_id", ticketID).append("created_by", event.getUserId()).append("creted_at", String.valueOf(System.currentTimeMillis() / 1000));
+        RedisConnection.mainConnection.getResource()
+                .set("discord_ticket." + event.getChannel().getId(), document.toJson());
     }
 
     public static void removeCacheTicket(String channelID) {

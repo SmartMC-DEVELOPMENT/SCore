@@ -30,18 +30,16 @@ public class TicketReactionListener extends ListenerAdapter {
         MessageChannelUnion channel = event.getChannel();
         String emoji = event.getReaction().getEmoji().getName();
 
-        System.out.println("onMessageReactionAdd TicketReactionListener -> " + guild.getId() + " " + emoji);
-
         TicketActionHandler ticketActionHandler = TicketActionHandler.get(guild.getId(), channel.getId(), emoji);
+        if(ticketActionHandler == null) return;
         TicketsHandler ticketsHandler = TicketsHandler.loadTicketsHandler(guild.getId());
-        assert ticketsHandler != null;
+        if(ticketsHandler == null) return;
         String sectionID = ticketsHandler.getSectionID();
         Category category = guild.getCategoryById(sectionID);
         User user = event.getUser();
-        assert user != null;
+        if (user == null) return;
         String username = user.getName();
-        assert ticketActionHandler != null;
-        assert category != null;
+        if (category == null) return;
         String ticketID = generateTicketID();
         ChannelAction<TextChannel> channelAction = category.createTextChannel(ticketActionHandler.getParsedNamePlaceholder(username, ticketID));
         TextChannel textChannel = channelAction.complete();

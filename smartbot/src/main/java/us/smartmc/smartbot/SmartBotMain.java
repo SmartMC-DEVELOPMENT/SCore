@@ -52,7 +52,7 @@ public class SmartBotMain {
                         new ChatGPTListener(),
                         new AutoRoleListeners(),
                         new TicketReactionListener(),
-                        new TicketStoreListener())
+                        new TicketSavementListeners())
                 .enableIntents(
                         GatewayIntent.MESSAGE_CONTENT,
                         GatewayIntent.GUILD_MEMBERS,

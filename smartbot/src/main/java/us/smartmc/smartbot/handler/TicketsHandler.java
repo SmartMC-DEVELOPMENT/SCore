@@ -3,11 +3,13 @@ package us.smartmc.smartbot.handler;
 import com.mongodb.client.MongoCollection;
 import lombok.Getter;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import org.bson.Document;
 import us.smartmc.smartbot.SmartBotMain;
 import us.smartmc.smartbot.connection.MongoDBConnection;
 import us.smartmc.smartbot.connection.RedisConnection;
+import us.smartmc.smartbot.instance.ticket.TicketStorageSaver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +41,7 @@ public class TicketsHandler {
         Document document = new Document("_id", ticketID).append("created_by", event.getUserId()).append("creted_at", String.valueOf(System.currentTimeMillis() / 1000));
         RedisConnection.mainConnection.getResource()
                 .set("discord_ticket." + event.getChannel().getId(), document.toJson());
+        new TicketStorageSaver(document, event.getChannel().getId(), (TextChannel) event.getChannel());
     }
 
     public static void removeCacheTicket(String channelID) {

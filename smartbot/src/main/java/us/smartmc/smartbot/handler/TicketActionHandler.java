@@ -1,4 +1,4 @@
-package us.smartmc.smartbot.instance.ticket;
+package us.smartmc.smartbot.handler;
 
 import lombok.Getter;
 import org.bson.Document;
@@ -7,18 +7,23 @@ import us.smartmc.smartbot.connection.MongoDBConnection;
 public class TicketActionHandler {
 
     @Getter
-    private final String guildID, channelID, emoji, namePlaceholder;
+    private final String guildID, channelID, emoji, channelPrefix;
+
+    @Getter
+    private String roleMenction;
 
     private TicketActionHandler(Document document) {
         Document validation = document.get("validation", Document.class);
         guildID = validation.getString("guild_id");
         channelID = validation.getString("channel_id");
         emoji = validation.getString("emoji");
-        namePlaceholder = document.getString("_id");
+        channelPrefix = document.getString("channel_prefix");
+
+        roleMenction = document.getString("role_mention");
     }
 
     public String getParsedNamePlaceholder(String... args) {
-        StringBuilder stringBuilder = new StringBuilder(namePlaceholder);
+        StringBuilder stringBuilder = new StringBuilder(channelPrefix);
         for (String arg : args) {
             stringBuilder.append("-").append(arg);
         }

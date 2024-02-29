@@ -38,6 +38,11 @@ public class SmartBotMain {
     private static LogsManager logsManager;
 
     public static void main(String[] args) {
+        // CONNECT BACKEND SERVICES >>
+        MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
+        RedisConnection.mainConnection = new RedisConnection("localhost", 6379);
+
+        // CREATION BOT >>
         api = JDABuilder.createDefault(dotenv.get("TOKEN"))
                 .addEventListeners(
                         new DefaultUserRoleListener(),
@@ -46,7 +51,8 @@ public class SmartBotMain {
                         new SuggestionListener(),
                         new ChatGPTListener(),
                         new AutoRoleListeners(),
-                        new TicketReactionListener())
+                        new TicketReactionListener(),
+                        new TicketStoreListener())
                 .enableIntents(
                         GatewayIntent.MESSAGE_CONTENT,
                         GatewayIntent.GUILD_MEMBERS,
@@ -58,9 +64,6 @@ public class SmartBotMain {
         // ALLOWED GUILDS >>
         GuildsHandler.register("1109545191796391938",
                 "1078252707506298930");
-
-        MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
-        RedisConnection.mainConnection = new RedisConnection("localhost", 6379);
 
         logsManager = new LogsManager();
         logsManager.register(new PrintConsoleMessages(), new SendEmbedMessages(), new SendEmbedExceptionsMessages());

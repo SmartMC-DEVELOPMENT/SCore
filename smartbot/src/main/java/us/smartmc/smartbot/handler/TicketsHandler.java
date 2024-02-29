@@ -3,9 +3,11 @@ package us.smartmc.smartbot.handler;
 import com.mongodb.client.MongoCollection;
 import lombok.Getter;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import org.bson.Document;
 import us.smartmc.smartbot.SmartBotMain;
 import us.smartmc.smartbot.connection.MongoDBConnection;
+import us.smartmc.smartbot.connection.RedisConnection;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +23,25 @@ public class TicketsHandler {
         this.guildID = guildID;
         this.sectionID = ticketSection;
         if (sectionID != null) handlers.put(guildID, this);
+    }
+
+    public static Document getTicketIdentifier(String id) {
+        String json = RedisConnection.mainConnection.getResource().get("discord_ticket." + id);
+        if (json == null) return null;
+        return Document.parse(json);
+    }
+
+    public static boolean isActiveTicket(String id) {
+        return RedisConnection.mainConnection.getResource().exists("discord_ticket." + id);
+    }
+
+    public static void registerTicket(String ticketID, MessageReactionAddEvent event) {
+        Document document = new Document("_id", ticketID).append("created_by", event.getUserId()).append("creted_at", System.currentTimeMillis() / 1000);
+        RedisConnection.mainConnection.getResource().set("discord_ticket." + event.getChannel().getId(), document.toJson());
+    }
+
+    public static void removeCacheTicket(String channelID) {
+        RedisConnection.mainConnection.getResource().del("discord_ticket." + channelID);
     }
 
     public Guild getGuild() {

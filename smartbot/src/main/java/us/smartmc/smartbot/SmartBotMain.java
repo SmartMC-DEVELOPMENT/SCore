@@ -1,6 +1,7 @@
 package us.smartmc.smartbot;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -10,6 +11,7 @@ import us.smartmc.smartbot.connection.MongoDBConnection;
 import us.smartmc.smartbot.connection.RedisConnection;
 import us.smartmc.smartbot.handler.CommandHandler;
 import us.smartmc.smartbot.handler.EventSchedulerHandler;
+import us.smartmc.smartbot.handler.GuildsHandler;
 import us.smartmc.smartbot.handler.RepliesHandler;
 import us.smartmc.smartbot.listener.*;
 import us.smartmc.smartbot.logfunction.PrintConsoleMessages;
@@ -22,20 +24,17 @@ import us.smartmc.smartbot.slashcommand.JoinToCommand;
 import us.smartmc.smartbot.slashcommand.TiendaCommand;
 import us.smartmc.smartbot.textcommand.TestCommand;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SmartBotMain {
 
+    @Getter
     private static final Dotenv dotenv = Dotenv.load();
     private static JDA api;
 
-    private static final Set<String>
-            allowed_guilds =new HashSet<>(
-            Arrays.asList(
-                    "1109545191796391938",
-                    "1078252707506298930"
-            ));
-
+    @Getter
     private static LogsManager logsManager;
 
     public static void main(String[] args) {
@@ -46,7 +45,8 @@ public class SmartBotMain {
                         new RepliesHandler(),
                         new SuggestionListener(),
                         new ChatGPTListener(),
-                        new AutoRoleListeners())
+                        new AutoRoleListeners(),
+                        new TicketReactionListener())
                 .enableIntents(
                         GatewayIntent.MESSAGE_CONTENT,
                         GatewayIntent.GUILD_MEMBERS,
@@ -54,6 +54,10 @@ public class SmartBotMain {
                         GatewayIntent.DIRECT_MESSAGES)
                 .build();
         api.getPresence().setActivity(Activity.of(Activity.ActivityType.WATCHING, "Administración administrando lo no administrable"));
+
+        // ALLOWED GUILDS >>
+        GuildsHandler.register("1109545191796391938",
+                "1078252707506298930");
 
         MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
         RedisConnection.mainConnection = new RedisConnection("localhost", 6379);
@@ -77,10 +81,6 @@ public class SmartBotMain {
         EventSchedulerHandler.setup();
     }
 
-    public static LogsManager getLogsManager() {
-        return logsManager;
-    }
-
     public static Guild getMainGuild() {
         return api.getGuildById(getMainGuildID());
     }
@@ -90,11 +90,7 @@ public class SmartBotMain {
     }
 
     public static boolean isAllowedGuild(Guild guild) {
-        return allowed_guilds.contains(guild.getId());
-    }
-
-    public static Dotenv getDotenv() {
-        return dotenv;
+        return GuildsHandler.isAllowed(guild.getId());
     }
 
     public static JDA getJDA() {

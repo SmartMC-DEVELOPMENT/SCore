@@ -21,6 +21,7 @@ import us.smartmc.smartbot.manager.AutoRoleManager;
 import us.smartmc.smartbot.manager.LogsManager;
 import us.smartmc.smartbot.slashcommand.AnuncioCommand;
 import us.smartmc.smartbot.slashcommand.JoinToCommand;
+import us.smartmc.smartbot.slashcommand.ReactToCommand;
 import us.smartmc.smartbot.slashcommand.TiendaCommand;
 import us.smartmc.smartbot.textcommand.TestCommand;
 
@@ -77,7 +78,8 @@ public class SmartBotMain {
                         new TestCommand("/abrir-servidor"),
                         new AnuncioCommand("sb-anuncio"),
                         new AnuncioCommand("anuncio"),
-                        new JoinToCommand("jointo"));
+                        new JoinToCommand("jointo"),
+                        new ReactToCommand("reactto"));
                 AutoRoleManager.loadAutoRolesFromGuild(getMainGuildID());
             }
         }, 1000);

@@ -79,7 +79,7 @@ public class SmartBotMain {
                         new AnuncioCommand("sb-anuncio"),
                         new AnuncioCommand("anuncio"),
                         new JoinToCommand("jointo"),
-                        new ReactToCommand("reactto"));
+                        new ReactToCommand());
                 AutoRoleManager.loadAutoRolesFromGuild(getMainGuildID());
             }
         }, 1000);

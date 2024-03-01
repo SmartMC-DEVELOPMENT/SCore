@@ -49,7 +49,6 @@ public class CommandHandler {
                 if (options != null) {
                     commandData.addOptions(options);
                 }
-
                 SmartBotMain.getMainGuild().upsertCommand(commandData).complete();
                 SmartBotMain.getJDA().addEventListener(cmd);
             }

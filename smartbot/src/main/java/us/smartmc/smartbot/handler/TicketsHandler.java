@@ -38,10 +38,11 @@ public class TicketsHandler {
     }
 
     public static void registerTicket(String ticketID, MessageReactionAddEvent event) {
+        if (!(event.getChannel() instanceof TextChannel textChannel)) return;
         Document document = new Document("_id", ticketID).append("created_by", event.getUserId()).append("creted_at", String.valueOf(System.currentTimeMillis() / 1000));
         RedisConnection.mainConnection.getResource()
                 .set("discord_ticket." + event.getChannel().getId(), document.toJson());
-        new TicketStorageSaver(document, event.getChannel().getId(), (TextChannel) event.getChannel());
+        new TicketStorageSaver(document, event.getGuild().getId(), textChannel);
     }
 
     public static void removeCacheTicket(String channelID) {

@@ -39,6 +39,9 @@ import java.util.Objects;
 
 public class SmartCore extends JavaPlugin {
 
+    public static final int RELEASE_NUM = 2403;
+    public static final String RELEASE_ID = "release-" + RELEASE_NUM;
+
     public static final SpigotLogger logger = new SpigotLogger();
     public static final SendExceptionToDiscordListener discordExceptionListener = new SendExceptionToDiscordListener()
             .addField("server-id", getServerID())

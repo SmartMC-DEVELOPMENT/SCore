@@ -33,6 +33,23 @@ public class MinigamesMenu extends ConfigurableMenu {
 
     @Override
     public void load() {
+
+        // BUILDS SERVER 1.20
+        if (player.hasPermission("group.builder")) {
+            set(13, ItemBuilder.of(Material.YELLOW_FLOWER)
+                    .name("&aConnect to Builder Server &c[1.20]")
+                    .lore(Arrays.asList("&7Click to join!"))
+                    .get(player), "connectTo builds");
+        }
+
+        // BUILDS SERVER 1.8
+        if (player.hasPermission("group.builder")) {
+            set(13, ItemBuilder.of(Material.YELLOW_FLOWER)
+                    .name("&aConnect to Builder Server &c[1.8]")
+                    .lore(Arrays.asList("&7Click to join!"))
+                    .get(player), "connectTo builds18");
+        }
+
         // DISCORD
         set(9, ItemBuilder.of(Material.SKULL_ITEM)
                 .data((byte) 3)

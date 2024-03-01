@@ -41,13 +41,6 @@ public class JoinItemMenu extends ConfigurableMenu {
         set(7, VisibilityManager.getVisibilityItem(visibility).get(player), "cmd changeVisibility");
 
         setItem(8, Material.PAPER, "lobbies");
-
-        if (player.hasPermission("group.builder")) {
-            set(13, ItemBuilder.of(Material.YELLOW_FLOWER)
-                    .name("&aConnect to Builder Server")
-                    .lore(Arrays.asList("&7Click to join!"))
-                    .get(player), "connectTo builds");
-        }
     }
 
     public ItemStack headItem(String name) {

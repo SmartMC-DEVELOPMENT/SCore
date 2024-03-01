@@ -12,7 +12,11 @@ import us.smartmc.npcsmodule.event.NPCUseEntityEvent;
 import us.smartmc.npcsmodule.instance.NPC;
 import us.smartmc.npcsmodule.manager.NPCManager;
 
+import java.util.*;
+
 public class PlayerClickListener extends PacketAdapter {
+
+    private final Set<UUID> clicking = new HashSet<>();
 
     public PlayerClickListener() {
         super(SmartCore.getPlugin(), PacketType.Play.Client.USE_ENTITY);
@@ -26,9 +30,18 @@ public class PlayerClickListener extends PacketAdapter {
         NPCManager.forEach(npcManager -> {
             NPC npc = npcManager.getNPC(id);
             if (npc == null) return;
+            UUID uuid = event.getPlayer().getUniqueId();
+            if (clicking.contains(uuid)) return;
             EnumWrappers.EntityUseAction action = event.getPacket().getEntityUseActions().read(0);
+            clicking.add(uuid);
             Bukkit.getPluginManager()
                     .callEvent(new NPCUseEntityEvent(npc, event.getPlayer(), action));
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    clicking.remove(uuid);
+                }
+            }, 75);
         });
 
     }

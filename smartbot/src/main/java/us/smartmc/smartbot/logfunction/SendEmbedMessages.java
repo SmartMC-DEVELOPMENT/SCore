@@ -53,7 +53,7 @@ public class SendEmbedMessages extends LogChannelRegistry {
                 textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

@@ -26,7 +26,7 @@ public class ServersHandler {
         try {
             RedisConnection.mainConnection.getResource().publish("connectServer", player.getName() + " " + serverName);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
     }

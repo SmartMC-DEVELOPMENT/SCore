@@ -23,6 +23,16 @@ public interface ICosmeticPlayerData {
         getCollection().insertOne(getDocument());
     }
 
+    default void activateCosmetic(ICosmetic cosmetic) {
+        List<String> list = (List<String>) getCosmetics(cosmetic.getType());
+        list.add(cosmetic.getId());
+        getDocument().put(cosmetic.getType().name(), list);
+    }
+
+    default boolean hasCosmetic(ICosmetic cosmetic) {
+        return hasCosmetic(cosmetic.getType(), cosmetic.getId());
+    }
+
     default boolean hasCosmetic(CosmeticType type, String id) {
         return getCosmetics(type).contains(id);
     }

@@ -92,7 +92,7 @@ public class FriendCommand extends CoreCommand {
           try {
             friends = FriendsManager.getFriends(player.getUniqueId()).get();
           } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace(System.out);
+            throw new RuntimeException(e);
             return;
           }
 

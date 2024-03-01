@@ -3,6 +3,7 @@ package us.smartmc.core.listener;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -15,7 +16,7 @@ public class CorePlayersListener implements Listener {
         SmartCorePlayer.register(event.getPlayer());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     public void onDisconnect(PlayerQuitEvent event) {
         SmartCorePlayer.unload(event.getPlayer());
     }

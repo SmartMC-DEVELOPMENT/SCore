@@ -3,6 +3,8 @@ package us.smartmc.lobbycosmetics.instance.cosmetic;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import us.smartmc.lobbycosmetics.instance.helper.MsgHolderLanguageInfo;
 import us.smartmc.lobbycosmetics.instance.player.ICosmeticPlayerSession;
 import us.smartmc.lobbycosmetics.message.CosmeticsSectionMessages;
@@ -21,6 +23,11 @@ public interface ICosmetic {
         }
         return builder.name(info.getName()).lore(ItemsUtil.getBuilderCosmeticItemDescription(session, info, this));
     }
+
+    void onEnableEntity(LivingEntity entity);
+    void onDisableEntity(LivingEntity entity);
+
+    void toggleEntity(LivingEntity entity);
 
     String getSkullTexture();
 

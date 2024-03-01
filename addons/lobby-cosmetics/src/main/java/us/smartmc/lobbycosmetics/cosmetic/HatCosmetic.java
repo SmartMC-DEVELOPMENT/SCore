@@ -1,12 +1,27 @@
 package us.smartmc.lobbycosmetics.cosmetic;
 
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 
 public abstract class HatCosmetic extends Cosmetic implements IHatCosmetic {
 
     public HatCosmetic(String id) {
         super(id);
+    }
+
+    @Override
+    public void onEnableEntity(LivingEntity entity) {
+        ItemBuilder itemBuilder = ItemBuilder.of(Material.SKULL_ITEM).data(3)
+                .skullTexture(getSkullTexture());
+        entity.getEquipment().setHelmet(itemBuilder.get());
+    }
+
+    @Override
+    public void onDisableEntity(LivingEntity entity) {
+        entity.getEquipment().setHelmet(null);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package us.smartmc.smartbot;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -10,34 +11,39 @@ import us.smartmc.smartbot.connection.MongoDBConnection;
 import us.smartmc.smartbot.connection.RedisConnection;
 import us.smartmc.smartbot.handler.CommandHandler;
 import us.smartmc.smartbot.handler.EventSchedulerHandler;
+import us.smartmc.smartbot.handler.GuildsHandler;
 import us.smartmc.smartbot.handler.RepliesHandler;
 import us.smartmc.smartbot.listener.*;
 import us.smartmc.smartbot.logfunction.PrintConsoleMessages;
+import us.smartmc.smartbot.logfunction.SendEmbedExceptionsMessages;
 import us.smartmc.smartbot.logfunction.SendEmbedMessages;
 import us.smartmc.smartbot.manager.AutoRoleManager;
 import us.smartmc.smartbot.manager.LogsManager;
 import us.smartmc.smartbot.slashcommand.AnuncioCommand;
 import us.smartmc.smartbot.slashcommand.JoinToCommand;
+import us.smartmc.smartbot.slashcommand.ReactToCommand;
 import us.smartmc.smartbot.slashcommand.TiendaCommand;
 import us.smartmc.smartbot.textcommand.TestCommand;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SmartBotMain {
 
+    @Getter
     private static final Dotenv dotenv = Dotenv.load();
     private static JDA api;
 
-    private static final Set<String>
-            allowed_guilds =new HashSet<>(
-            Arrays.asList(
-                    "1109545191796391938",
-                    "1078252707506298930"
-            ));
-
+    @Getter
     private static LogsManager logsManager;
 
     public static void main(String[] args) {
+        // CONNECT BACKEND SERVICES >>
+        MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
+        RedisConnection.mainConnection = newRedisConnection();
+
+        // CREATION BOT >>
         api = JDABuilder.createDefault(dotenv.get("TOKEN"))
                 .addEventListeners(
                         new DefaultUserRoleListener(),
@@ -45,7 +51,9 @@ public class SmartBotMain {
                         new RepliesHandler(),
                         new SuggestionListener(),
                         new ChatGPTListener(),
-                        new AutoRoleListeners())
+                        new AutoRoleListeners(),
+                        new TicketReactionListener(),
+                        new TicketSavementListeners())
                 .enableIntents(
                         GatewayIntent.MESSAGE_CONTENT,
                         GatewayIntent.GUILD_MEMBERS,
@@ -54,11 +62,12 @@ public class SmartBotMain {
                 .build();
         api.getPresence().setActivity(Activity.of(Activity.ActivityType.WATCHING, "Administración administrando lo no administrable"));
 
-        MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
-        RedisConnection.mainConnection = new RedisConnection("localhost", 6379);
+        // ALLOWED GUILDS >>
+        GuildsHandler.register("1109545191796391938",
+                "1078252707506298930");
 
         logsManager = new LogsManager();
-        logsManager.register(new PrintConsoleMessages(), new SendEmbedMessages());
+        logsManager.register(new PrintConsoleMessages(), new SendEmbedMessages(), new SendEmbedExceptionsMessages());
 
         CommandHandler.clearCommands();
         new Timer().schedule(new TimerTask() {
@@ -69,15 +78,16 @@ public class SmartBotMain {
                         new TestCommand("/abrir-servidor"),
                         new AnuncioCommand("sb-anuncio"),
                         new AnuncioCommand("anuncio"),
-                        new JoinToCommand("jointo"));
+                        new JoinToCommand("jointo"),
+                        new ReactToCommand());
                 AutoRoleManager.loadAutoRolesFromGuild(getMainGuildID());
             }
         }, 1000);
         EventSchedulerHandler.setup();
     }
 
-    public static LogsManager getLogsManager() {
-        return logsManager;
+    public static RedisConnection newRedisConnection() {
+        return new RedisConnection("localhost", 6379);
     }
 
     public static Guild getMainGuild() {
@@ -89,11 +99,7 @@ public class SmartBotMain {
     }
 
     public static boolean isAllowedGuild(Guild guild) {
-        return allowed_guilds.contains(guild.getId());
-    }
-
-    public static Dotenv getDotenv() {
-        return dotenv;
+        return GuildsHandler.isAllowed(guild.getId());
     }
 
     public static JDA getJDA() {

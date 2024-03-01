@@ -21,10 +21,15 @@ public class CountVariables extends VariableListener<Player> {
 
     public static final HashMap<String, Long> counts = new HashMap<>();
 
+    private static boolean uploadedMax = false;
     private static int lastPushed = -1;
 
     public CountVariables() {
         Bukkit.getScheduler().runTaskTimerAsynchronously(SmartCore.getPlugin(), () -> {
+            if (!uploadedMax) {
+                RedisConnection.mainConnection.getResource().set("maxSlots." + SmartCore.getServerName(), String.valueOf(Bukkit.getMaxPlayers()));
+                uploadedMax = true;
+            }
             updateCount();
             for (String key : RedisConnection.mainConnection.getResource().keys("online.*")) {
                 counts.put(key, Long.parseLong(RedisConnection.mainConnection.getResource().get(key)));
@@ -90,8 +95,9 @@ public class CountVariables extends VariableListener<Player> {
         if (lastPushed == count) return;
         if (lastPushed == count) return;
 
-        String key = "online." + SmartCore.getServerID();
+        String key = "online." + SmartCore.getServerName();
         RedisConnection.mainConnection.getResource().set(key, String.valueOf(count));
+        RedisConnection.mainConnection.getResource().set("maxSlots." + SmartCore.getServerName(), String.valueOf(Bukkit.getMaxPlayers()));
         //RedisConnection.mainConnection.getResource().expire(key, 33);
         lastPushed = count;
     }

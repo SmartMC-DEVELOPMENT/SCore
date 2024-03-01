@@ -1,6 +1,10 @@
 package us.smartmc.serverhandler.util;
 
-import java.io.*;
+import us.smartmc.serverhandler.config.ServerConfiguration;
+import us.smartmc.serverhandler.instance.StartupCreation;
+
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -8,50 +12,42 @@ import java.util.*;
 
 public class FileUtil {
 
-    public static void copyTemplates(File serverDestination, LinkedList<File> templates, int port, String name) {
-        if (serverDestination.exists()) return;
-        List<File> list = new ArrayList<>();
-        for (File templateFile : templates) {
-            list.addAll(copyDirToDir(templateFile, serverDestination));
-        }
+    private static final Map<String, StartupCreation> startupCreations = new HashMap<>();
+    private static final Set<String> recentCreatedPermanentServers = new HashSet<>();
 
-        list.forEach(file -> {
-            if (!file.getName().equals("server.properties")) return;
-            parseServerProperties(file, port, name);
-        });
+    public static void removeAndComplete(String dir) {
+        StartupCreation creation = startupCreations.remove(dir);
+        if (creation == null) return;
+        creation.completeAndCopy();
     }
 
-    public static void createStartup(File startupDir, File destinationDir, int port, String name) {
-        List<File> list = copyDirToDir(startupDir, destinationDir);
-        for (File file : list) {
-            if (!file.getName().equals("server.properties")) continue;
-            parseServerProperties(file, port, name);
+    public static void copyTemplates(File serverDestination, ServerConfiguration<?> configuration) {
+        if (!recentCreatedPermanentServers.contains(serverDestination.getAbsolutePath()) && configuration.getData().isPermanent()) return;
+        recentCreatedPermanentServers.remove(serverDestination.getAbsolutePath());
+        for (File templateDir : configuration.getData().getTemplateDirectories()) {
+            copyDirToDir(templateDir, serverDestination);
         }
     }
 
-    public static void parseServerProperties(File file, int port, String name) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line;
-            StringBuilder newContent = new StringBuilder();
-
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("server-port=")) {
-                    line = "server-port=" + port;
-                }
-                if (line.startsWith("server-id=")) {
-                    line = "server-id=" + name;
-                }
-                newContent.append(line).append(System.lineSeparator());
+    private static void parseStartupTemplates(ServerConfiguration<?> configuration, StartupCreation creation) {
+        for (File templateDir : configuration.getData().getTemplateDirectories()) {
+            for (File file : Objects.requireNonNull(templateDir.listFiles())) {
+                if (!file.getName().equals("server.properties")) continue;
+                creation.readFileAndValues(file);
             }
-            reader.close();
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.write(newContent.toString());
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+    }
+
+    public static void createStartup(ServerConfiguration<?> config, File destinationDir, int port, String name, String id) {
+        if (!destinationDir.exists()) {
+            if (config.getData().isPermanent()) {
+                recentCreatedPermanentServers.add(destinationDir.getAbsolutePath());
+            }
+            copyDirToDir(config.getData().getStartupDirectory(), destinationDir);
+        }
+        StartupCreation creation = new StartupCreation(config.getData().getStartupDirectory(), destinationDir, port, name, id);
+        startupCreations.put(destinationDir.getAbsolutePath(), creation);
+        parseStartupTemplates(config, creation);
     }
 
     public static boolean deleteDirectory(File directoryToBeDeleted) {
@@ -64,7 +60,7 @@ public class FileUtil {
         return directoryToBeDeleted.delete();
     }
 
-    public static List<File> copyDirToDir(File source, File target) {
+    public static void copyDirToDir(File source, File target) {
         if (!source.isDirectory()) {
             throw new IllegalArgumentException("Source must be a directory");
         }
@@ -85,7 +81,6 @@ public class FileUtil {
                             } else if (!Files.exists(targetPath)) {
                                 Files.createDirectory(targetPath);
                             }
-                            // Los directorios existentes se manejan por sus contenidos, no se intenta sobrescribir el directorio en sí.
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -93,8 +88,6 @@ public class FileUtil {
         } catch (IOException e) {
             throw new RuntimeException("Error copying directory", e);
         }
-
-        return Arrays.asList(target.listFiles());
     }
 
     public static void deleteDirectoryContents(File dir) throws IOException {

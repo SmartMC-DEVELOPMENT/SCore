@@ -55,7 +55,7 @@ public class FriendsManager {
     friendsFuture.whenCompleteAsync(
             (friend, throwable) -> {
               if (throwable != null) {
-                throwable.printStackTrace(System.out);
+                throwablthrow new RuntimeException(e);
                 return;
               }
 

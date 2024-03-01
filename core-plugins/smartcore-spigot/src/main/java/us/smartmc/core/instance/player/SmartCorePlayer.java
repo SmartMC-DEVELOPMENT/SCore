@@ -55,7 +55,6 @@ public class SmartCorePlayer extends CorePlayer {
         if (withCoinsRemoved >= 0) {
             setCoins(withCoinsRemoved);
             String msgPath = amount == 1 ? "coin_removed" : "coins_removed";
-
             if (reason != null) {
                 reason = "(" + reason + ")";
             } else {
@@ -98,12 +97,12 @@ public class SmartCorePlayer extends CorePlayer {
         return playerData.getDocument().get(path, clazz);
     }
 
-    public void playSound(Sound sound, int v, int p) {
+    public void playSound(Sound sound, float v, float p) {
         if (!isOnline) return;
         try {
             bukkitPlayer.playSound(bukkitPlayer.getLocation(), sound, v, p);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -142,7 +141,9 @@ public class SmartCorePlayer extends CorePlayer {
     }
 
     public static void unload(UUID uuid) {
-        get(uuid).unload();
+        players.remove(uuid);
+        SmartCorePlayer corePlayer = get(uuid);
+        if (corePlayer != null) corePlayer.unload();
         players.remove(uuid);
     }
 

@@ -160,7 +160,7 @@ public final class InventoryUpdate {
             // Update inventory.
             player.updateInventory();
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            throw new RuntimeException(throwable);
         }
     }
 
@@ -208,8 +208,7 @@ public final class InventoryUpdate {
             constructor.setAccessible(true);
             return LOOKUP.unreflectConstructor(constructor);
         } catch (ReflectiveOperationException exception) {
-            exception.printStackTrace();
-            return null;
+            throw new RuntimeException(exception);
         }
     }
 
@@ -222,8 +221,7 @@ public final class InventoryUpdate {
             if (isStatic) return LOOKUP.findStatic(refc, name, type);
             return LOOKUP.findVirtual(refc, name, type);
         } catch (ReflectiveOperationException exception) {
-            exception.printStackTrace();
-            return null;
+            throw new RuntimeException(exception);
         }
     }
 
@@ -319,9 +317,8 @@ public final class InventoryUpdate {
                 Field field = CONTAINERS.getField(name);
                 return field.get(null);
             } catch (ReflectiveOperationException exception) {
-                exception.printStackTrace();
+                throw new RuntimeException(exception);
             }
-            return null;
         }
 
         /**

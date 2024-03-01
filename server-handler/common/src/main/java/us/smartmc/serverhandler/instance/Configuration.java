@@ -32,7 +32,7 @@ public abstract class Configuration<T extends Serializable> implements IConfigur
             Type dataType = getDefaultType();
             data = gson.fromJson(reader, dataType);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

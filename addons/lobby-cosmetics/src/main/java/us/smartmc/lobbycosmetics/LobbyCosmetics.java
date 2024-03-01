@@ -7,9 +7,8 @@ import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import us.smartmc.lobbycosmetics.handler.CosmeticSectionHandler;
 import us.smartmc.lobbycosmetics.handler.CosmeticSessionHandler;
-import us.smartmc.lobbycosmetics.itemcommand.ItemCosmeticAction;
-import us.smartmc.lobbycosmetics.itemcommand.OpenCosmeticSectionAction;
-import us.smartmc.lobbycosmetics.itemcommand.ToggleCosmeticAction;
+import us.smartmc.lobbycosmetics.itemcommand.*;
+import us.smartmc.lobbycosmetics.listener.MenuListeners;
 import us.smartmc.lobbycosmetics.listener.SessionListeners;
 import us.smartmc.lobbycosmetics.message.CosmeticsMainMessages;
 import us.smartmc.lobbycosmetics.variable.CosmeticSectionNameVariable;
@@ -39,11 +38,12 @@ public class LobbyCosmetics extends AddonPlugin {
         ItemActionsManager.registerCommand("itemCosmetics", new ItemCosmeticAction());
         ItemActionsManager.registerCommand("openCosmeticSection", new OpenCosmeticSectionAction());
         ItemActionsManager.registerCommand("toggleCosmetic", new ToggleCosmeticAction());
-        registerListeners(new SessionListeners());
+        ItemActionsManager.registerCommand("confirmCosmeticPurchase", new ConfirmCosmeticPurchase());
+        ItemActionsManager.registerCommand("cancelCosmeticPurchase", new CancelCosmeticPurchase());
+        registerListeners(new SessionListeners(), new MenuListeners());
         cosmeticsMainMessages = new CosmeticsMainMessages();
 
         VariablesHandler.register(new CosmeticSectionNameVariable());
-
     }
 
     @Override

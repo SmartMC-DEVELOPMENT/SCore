@@ -12,6 +12,7 @@ import org.bson.Document;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import us.smartmc.core.SmartCore;
 import us.smartmc.core.variables.CountVariables;
 import us.smartmc.lobbymodule.LobbyModule;
 
@@ -25,7 +26,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
     public static final String INV_SIZE_PATH = "inv_size";
 
     public MinigamesConfig() {
-        super("server_data", "menus", new Document().append("name", "minigames"));
+        super("server_data", "menus", new Document().append("_id", SmartCore.RELEASE_ID));
         load();
         registerDefault(INV_SIZE_PATH, 27);
         registerMiniGame("snowmatch");

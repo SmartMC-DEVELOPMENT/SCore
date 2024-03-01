@@ -92,7 +92,7 @@ public class FriendCooldownImpl extends CooldownImplementation {
     try {
       CooldownManager.stopCooldowns(prepareDataDirectory(senderUUID, receiverUUID));
     } catch (RedisConnectionNotInitializedException e) {
-      e.printStackTrace(System.out);
+      throw new RuntimeException(e);
     }
   }
 
@@ -136,7 +136,7 @@ public class FriendCooldownImpl extends CooldownImplementation {
       final String value = redisConnection.getResource().get("cooldown.%s".formatted(data));
       return value.equalsIgnoreCase(FriendCooldownStatus.PENDING.name());
     } catch (RedisConnectionNotInitializedException e) {
-      e.printStackTrace(System.out);
+      throw new RuntimeException(e);
     }
     return false;
   }
@@ -165,7 +165,7 @@ public class FriendCooldownImpl extends CooldownImplementation {
       }
     } catch (RedisConnectionNotInitializedException
              | IndexOutOfBoundsException e) {
-      e.printStackTrace(System.out);
+      throw new RuntimeException(e);
     }
 
     return requests.stream().filter(Objects::nonNull).collect(Collectors.toList());

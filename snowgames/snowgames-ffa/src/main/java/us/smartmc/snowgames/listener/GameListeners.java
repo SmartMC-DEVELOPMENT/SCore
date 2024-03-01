@@ -61,6 +61,7 @@ public class GameListeners implements Listener {
     @EventHandler
     public void joinGameAtLeaveSpawn(PlayerTickEvent event) {
         Player player = event.getCorePlayer().get();
+        if (event.getCorePlayer() == null) return;
         if (player == null) return;
         GamePlayer gamePlayer = FFAPlugin.getFFAPlugin().getGamePlayerManager().get(player.getUniqueId());
         if (gamePlayer == null) return;

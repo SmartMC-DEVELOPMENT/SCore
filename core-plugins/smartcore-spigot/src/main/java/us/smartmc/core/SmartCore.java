@@ -8,8 +8,10 @@ import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.handler.PubSubConnectionHandler;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
+import me.imsergioh.pluginsapi.instance.exceptionlistener.SendExceptionToDiscordListener;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
+import me.imsergioh.pluginsapi.util.GlobalExceptionHandler;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
@@ -37,7 +39,16 @@ import java.util.Objects;
 
 public class SmartCore extends JavaPlugin {
 
+    public static final int RELEASE_NUM = 2403;
+    public static final String RELEASE_ID = "release-" + RELEASE_NUM;
+
     public static final SpigotLogger logger = new SpigotLogger();
+    public static final SendExceptionToDiscordListener discordExceptionListener = new SendExceptionToDiscordListener()
+            .addField("server-id", getServerID())
+            .addField("server-name", getServerName())
+            .addField("server-port", String.valueOf(Bukkit.getPort()))
+            .addField("online-players", String.valueOf(Bukkit.getOnlinePlayers().size()));
+
     @Getter
     private static SmartCore plugin;
     private static FilePluginConfig config;
@@ -53,10 +64,25 @@ public class SmartCore extends JavaPlugin {
     @Getter
     private CuboidManager cuboidManager;
 
+    private static String serverName;
     private static String serverID;
+    @Getter
+    private static int serverNumber;
 
     public static String getServerAlias() {
         return config.getString("alias");
+    }
+
+    public static String getServerName() {
+        if (serverName == null) {
+            try {
+                serverName = ServerUtils.readServerProperty("server-name");
+            } catch (Exception e) {
+                serverName = "bukkit-server:" + Bukkit.getPort();
+                System.out.println("Failed to read server property of server-name! Cached temporary to " + serverName);
+            }
+        }
+        return serverName;
     }
 
     public static String getServerID() {
@@ -111,15 +137,18 @@ public class SmartCore extends JavaPlugin {
         new GeneralMessages();
         new ItemUtilsMessages();
 
+        serverNumber = Integer.parseInt(SmartCore.getServerName().replaceAll("[^0-9]", ""));
+
         SyncUtil.sync(() -> {
             logger.info("Plugin enabled successfully!");
         });
+        GlobalExceptionHandler.registerListener(discordExceptionListener);
     }
 
     @Override
     public void onDisable() {
         // Delete all redis cache with serverID (pattern: *.serverID)
-        for (String key : RedisConnection.mainConnection.getResource().keys("*." + getServerID())) {
+        for (String key : RedisConnection.mainConnection.getResource().keys("*." + getServerName())) {
             RedisConnection.mainConnection.getResource().del(key);
         }
 
@@ -153,6 +182,9 @@ public class SmartCore extends JavaPlugin {
     }
 
     private void registerVariables() {
+        // SERVER VARIABLES
+        VariablesHandler.register(new ServerVariables());
+
         // MAIN PLAYER VARIABLES
         VariablesHandler.register(new PlayerMainVariables());
 
@@ -213,6 +245,6 @@ public class SmartCore extends JavaPlugin {
 
     @SuppressWarnings("unused")
     private void registerServerName() {
-        RedisConnection.mainConnection.getResource().set("serverAlias." + getServerID(), getServerAlias());
+        RedisConnection.mainConnection.getResource().set("serverAlias." + getServerName(), getServerAlias());
     }
 }

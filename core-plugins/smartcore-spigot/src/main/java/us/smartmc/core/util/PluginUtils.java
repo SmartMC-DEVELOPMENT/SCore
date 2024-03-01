@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
+import us.smartmc.core.instance.player.SmartCorePlayer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -27,6 +28,7 @@ public class PluginUtils {
             CorePlayerData playerData = corePlayer.getPlayerData();
             if (playerData == null) return;
             playerData.save();
+            SmartCorePlayer.unload(player);
         }).thenRun(() -> {
             try {
                 System.out.println("Redirecting " + player.getName() + " to " + serverPrefix);
@@ -39,7 +41,7 @@ public class PluginUtils {
                 out.close();
                 sendingPlayers.remove(player.getUniqueId());
             } catch (Exception e) {
-                e.printStackTrace(System.out);
+                throw new RuntimeException(e);
                 player.sendMessage(ChatColor.RED + "Error when trying to connect to a server of '" + serverPrefix + "'");
             }
         });

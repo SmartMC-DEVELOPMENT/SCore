@@ -56,7 +56,7 @@ public class FriendRequestEventHandler extends RedisPubSubListener {
       trigger(FriendRequestObject.fromString(dataResult), true);
 
     } catch (IndexOutOfBoundsException e) {
-      e.printStackTrace(System.out);
+      throw new RuntimeException(e);
     }
   }
 }

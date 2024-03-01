@@ -33,7 +33,7 @@ public class SuggestionListener extends ListenerAdapter {
             event.getMessage().addReaction(Emoji.fromUnicode(AGREE_UNICODE)).queue();
             event.getMessage().addReaction(Emoji.fromUnicode(DENY_UNICODE)).queue();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

@@ -9,6 +9,7 @@ us\smartmc\lobbycosmetics\itemcommand\ItemCosmeticAction.class
 us\smartmc\lobbycosmetics\LobbyCosmetics.class
 us\smartmc\lobbycosmetics\hatcosmetic\CakeHat.class
 us\smartmc\lobbycosmetics\instance\cosmetic\ICosmetic.class
+us\smartmc\lobbycosmetics\itemcommand\CancelCosmeticPurchase.class
 us\smartmc\lobbycosmetics\cosmetic\Cosmetic.class
 us\smartmc\lobbycosmetics\instance\cosmetic\CosmeticSectionInfo.class
 us\smartmc\lobbycosmetics\listener\SessionListeners.class
@@ -16,10 +17,12 @@ us\smartmc\lobbycosmetics\cosmetic\HatCosmetic.class
 us\smartmc\lobbycosmetics\instance\player\CosmeticPlayerSession.class
 us\smartmc\lobbycosmetics\variable\CosmeticSectionNameVariable.class
 us\smartmc\lobbycosmetics\instance\player\ICosmeticPlayerData.class
+us\smartmc\lobbycosmetics\listener\MenuListeners.class
 us\smartmc\lobbycosmetics\instance\player\CosmeticPlayerData.class
 us\smartmc\lobbycosmetics\menu\ICosmeticAddonMenu.class
 us\smartmc\lobbycosmetics\cosmetic\HatCosmetic$1.class
 us\smartmc\lobbycosmetics\handler\IAddonHandler.class
+us\smartmc\lobbycosmetics\itemcommand\ConfirmCosmeticPurchase.class
 us\smartmc\lobbycosmetics\cosmeticsection\UnknownSection.class
 us\smartmc\lobbycosmetics\menu\CosmeticsAddonMenu.class
 us\smartmc\lobbycosmetics\hatcosmetic\TestHat.class
@@ -36,6 +39,7 @@ us\smartmc\lobbycosmetics\cosmetic\EffectCosmetic.class
 us\smartmc\lobbycosmetics\instance\helper\MsgHolderLanguageInfo.class
 us\smartmc\lobbycosmetics\message\CosmeticsMainMessages.class
 us\smartmc\lobbycosmetics\itemcommand\OpenCosmeticSectionAction.class
+us\smartmc\lobbycosmetics\menu\CosmeticBuyMenu.class
 us\smartmc\lobbycosmetics\instance\DatabaseTarget.class
 us\smartmc\lobbycosmetics\handler\CosmeticSectionHandler$1.class
 us\smartmc\lobbycosmetics\instance\cosmetic\CosmeticRarity.class

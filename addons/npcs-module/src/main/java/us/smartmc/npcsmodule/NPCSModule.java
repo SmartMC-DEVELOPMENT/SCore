@@ -9,6 +9,7 @@ import us.smartmc.npcsmodule.listener.PlayerClickListener;
 import us.smartmc.npcsmodule.manager.NPCCommandManager;
 import us.smartmc.npcsmodule.manager.NPCManager;
 import us.smartmc.npcsmodule.messages.PluginMessages;
+import us.smartmc.npcsmodule.npccommand.MessageCommand;
 import us.smartmc.npcsmodule.npccommand.ServerCommand;
 import us.smartmc.npcsmodule.variables.NPCEmbedsVariables;
 import us.smartmc.smartaddons.plugin.AddonInfo;
@@ -32,6 +33,7 @@ public class NPCSModule extends AddonPlugin {
         registerListeners(new NPCListeners());
         playerClickListener = new PlayerClickListener();
         NPCCommandManager.register("server", new ServerCommand());
+        NPCCommandManager.register("message", new MessageCommand());
 
         VariablesHandler.register(new NPCEmbedsVariables());
     }

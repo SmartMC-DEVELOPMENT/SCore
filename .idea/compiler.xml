@@ -26,6 +26,7 @@
         <module name="core-plugins" />
         <module name="smartcore-spigot" />
         <module name="games-manager" />
+        <module name="events-core" />
         <module name="lobby-module" />
         <module name="staffmode-spigot" />
         <module name="lobby-cosmetics" />

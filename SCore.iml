@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-bungee/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-spigot/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-spigot/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/events-core/src/main/resources" type="java-resource" />
     </content>
   </component>
   <component name="FacetManager">

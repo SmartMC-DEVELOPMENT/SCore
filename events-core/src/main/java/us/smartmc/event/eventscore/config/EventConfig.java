@@ -27,7 +27,9 @@ public class EventConfig extends SpigotYmlConfig {
     }
 
     public <T extends Enum<T>> T getEnumType(String path, Class<T> tClass) {
-        return Enum.valueOf(tClass, getString(path));
+        String enumName = getString(path);
+        if (enumName == null) return IToggleableType.getEnums(tClass)[0];
+        return Enum.valueOf(tClass, enumName);
     }
 
     public List<String> getParticipants() {

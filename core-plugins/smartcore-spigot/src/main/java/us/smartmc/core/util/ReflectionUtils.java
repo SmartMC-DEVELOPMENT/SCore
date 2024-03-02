@@ -162,7 +162,6 @@ public final class ReflectionUtils {
             return Class.forName(NMS + name);
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException(ex);
-            return null;
         }
     }
 
@@ -180,7 +179,6 @@ public final class ReflectionUtils {
         return CompletableFuture.runAsync(() -> sendPacketSync(player, packets))
                 .exceptionally(ex -> {
                     throw new RuntimeException(ex);
-                    return null;
                 });
     }
 
@@ -202,7 +200,7 @@ public final class ReflectionUtils {
                 for (Object packet : packets) SEND_PACKET.invoke(connection, packet);
             }
         } catch (Throwable throwable) {
-            throwablthrow new RuntimeException(e);
+            throw new RuntimeException(throwable);
         }
     }
 
@@ -211,8 +209,7 @@ public final class ReflectionUtils {
         try {
             return GET_HANDLE.invoke(player);
         } catch (Throwable throwable) {
-            throwablthrow new RuntimeException(e);
-            return null;
+            throw  new RuntimeException(throwable);
         }
     }
 
@@ -222,8 +219,7 @@ public final class ReflectionUtils {
             Object handle = GET_HANDLE.invoke(player);
             return PLAYER_CONNECTION.invoke(handle);
         } catch (Throwable throwable) {
-            throwablthrow new RuntimeException(e);
-            return null;
+            throw  new RuntimeException(throwable);
         }
     }
 
@@ -240,7 +236,6 @@ public final class ReflectionUtils {
             return Class.forName(CRAFTBUKKIT + name);
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException(ex);
-            return null;
         }
     }
 
@@ -250,7 +245,6 @@ public final class ReflectionUtils {
             return Class.forName(clazz);
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException(ex);
-            return null;
         }
     }
 
@@ -259,7 +253,6 @@ public final class ReflectionUtils {
             return Class.forName("[L" + clazz.getName() + ';');
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException(ex);
-            return null;
         }
     }
 
@@ -315,7 +308,6 @@ public final class ReflectionUtils {
                 return (this.version == 0 ? handle : this.handle).call();
             } catch (Exception e) {
                 throw new RuntimeException(e);
-                return null;
             }
         }
     }

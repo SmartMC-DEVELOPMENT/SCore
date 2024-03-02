@@ -30,6 +30,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
         load();
         registerDefault(INV_SIZE_PATH, 27);
         registerMiniGame("snowmatch");
+        registerMiniGame("survival");
         save();
     }
 

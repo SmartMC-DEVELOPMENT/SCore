@@ -1,0 +1,4 @@
+main: us.smartmc.serverhandler.ServerHandlerMain
+name: ServerHandler-Bukkit
+version: 1.0
+author: ImSergioh

@@ -32,6 +32,7 @@
         <option value="$PROJECT_DIR$/staff-mode/staffmode-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/core-plugins/smartcore-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/staff-mode/staffmode-bungee/pom.xml" />
+        <option value="$PROJECT_DIR$/events-core/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

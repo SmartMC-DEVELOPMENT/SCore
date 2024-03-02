@@ -17,6 +17,8 @@
     <file url="file://$PROJECT_DIR$/core-plugins/smartcore-waterfall/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core-plugins/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core-plugins/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/events-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/events-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/game-manager/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/game-manager/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/games-manager/gamesmanager-spigot/src/main/java" charset="UTF-8" />

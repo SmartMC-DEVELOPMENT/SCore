@@ -1,14 +1,15 @@
 package us.smartmc.event.eventscore.types;
 
+import org.bukkit.Material;
 import us.smartmc.event.eventscore.EventsCore;
-import us.smartmc.event.eventscore.instance.IToggleableType;
+import us.smartmc.event.eventscore.instance.IToggleableItem;
 import us.smartmc.event.eventscore.util.ConfigPaths;
 
-public enum EventWhitelistType implements IToggleableType<EventWhitelistType> {
+public enum EventWhitelistType implements IToggleableItem<EventWhitelistType> {
 
-    PUBLIC,
-    NAME_LIST,
-    ACCESS_CODE;
+    PUBLIC('a', "Público", Material.GREEN_DYE),
+    NAME_LIST('e', "Lista blanca", Material.WHITE_DYE),
+    ACCESS_CODE('c', "Código de acceso", Material.NAME_TAG);
 
     @Override
     public EventWhitelistType get() {
@@ -23,5 +24,30 @@ public enum EventWhitelistType implements IToggleableType<EventWhitelistType> {
     @Override
     public Class<EventWhitelistType> getEnumClass() {
         return EventWhitelistType.class;
+    }
+
+    private final char color;
+    private final String name;
+    private final Material material;
+
+    EventWhitelistType(char color, String name, Material material) {
+        this.color = color;
+        this.name = name;
+        this.material = material;
+    }
+
+    @Override
+    public String getName() {
+        return get().name;
+    }
+
+    @Override
+    public Material getMaterial() {
+        return get().material;
+    }
+
+    @Override
+    public char getColor() {
+        return color;
     }
 }

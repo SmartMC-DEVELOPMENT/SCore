@@ -22,7 +22,7 @@ public class EventConfig extends SpigotYmlConfig {
         save();
     }
 
-    public <T extends Enum<T>> void setEnumType(String path, T type) {
+    public <T extends Enum<?>> void setEnumType(String path, T type) {
         set(path, type.name());
     }
 

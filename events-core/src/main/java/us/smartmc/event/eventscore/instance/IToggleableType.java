@@ -1,6 +1,6 @@
 package us.smartmc.event.eventscore.instance;
 
-public interface IToggleableType<T extends Enum<T>> {
+public interface IToggleableType<T extends Enum<?>> {
 
     T get();
 
@@ -21,7 +21,7 @@ public interface IToggleableType<T extends Enum<T>> {
 
     Class<T> getEnumClass();
 
-    static <T extends Enum<T>> T[] getEnums(Class<T> enumClass) {
+    static <T extends Enum<?>> T[] getEnums(Class<T> enumClass) {
         return enumClass.getEnumConstants();
     }
 }

@@ -1,10 +1,10 @@
 package us.smartmc.event.eventscore.config;
 
-import com.sun.tools.javac.util.List;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.List;
 
 public class EventConfig extends SpigotYmlConfig {
 
@@ -19,8 +19,19 @@ public class EventConfig extends SpigotYmlConfig {
     private void registerDefaults() {
         register(HOSTER_KEY, "HosteadorPro_YTHD");
         register(PARTICIPANTS_KEY, List.of("ImSergioh", "iNxlled", "Urugodd"));
-
         save();
+    }
+
+    public <T extends Enum<T>> void setEnumType(String path, T type) {
+        set(path, type.name());
+    }
+
+    public <T extends Enum<T>> T getEnumType(String path, Class<T> tClass) {
+        return Enum.valueOf(tClass, getString(path));
+    }
+
+    public List<String> getParticipants() {
+        return getStringList(PARTICIPANTS_KEY);
     }
 
     public String getHoster() {

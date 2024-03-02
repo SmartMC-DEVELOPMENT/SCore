@@ -1,0 +1,6 @@
+name: events-core
+version: '1.0-SNAPSHOT'
+main: us.smartmc.event.eventscore.EventsCore
+commands:
+  options:
+    description: "Change options & settings from the event"

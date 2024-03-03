@@ -1,41 +1,56 @@
 package us.smartmc.lobbymodule.menu;
 
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
+import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
+import org.apache.commons.codec.language.bm.Lang;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.variables.CountVariables;
 import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.handler.LobbiesInfoManager;
 import us.smartmc.lobbymodule.handler.MaxSlotsInfoManager;
+import us.smartmc.lobbymodule.messages.LobbyMessages;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class LobbiesMenu extends ConfigurableMenu {
+public class LobbiesMenu extends CoreMenu {
 
-    private boolean alreadyOpen = false;
+    private static final Map<Language, LobbiesMenu> menus = new HashMap<>();
 
-    public LobbiesMenu(Player player) {
-        super(player, LobbyModule.getLobbiesMenuConfig(), getDynamicInventorySize());
-        LobbiesInfoManager.registerMenu(this);
+    public static LobbiesMenu get(Language language){
+        if (menus.containsKey(language)) return menus.get(language);
+        return new LobbiesMenu(language);
     }
 
-    public LobbiesMenu(Player player, boolean alreadyOpen) {
-        this(player);
-        this.alreadyOpen = alreadyOpen;
+    public static String getTitle(Language language) {
+        return LanguagesHandler.get(language).get("lobby").getString("title_lobbies_menu");
+    }
+
+    private final Language language;
+
+    private LobbiesMenu(Language language) {
+        super(null, getDynamicInventorySize(), getTitle(language));
+        this.language = language;
+        LobbiesInfoManager.registerMenu(this);
+        menus.put(language, this);
     }
 
     @Override
     public void open(Player player) {
         this.load();
-        if (!alreadyOpen) {
-            player.playSound(player.getLocation(), Sound.CLICK, 0.1F, 2.5F);
-        }
+        player.playSound(player.getLocation(), Sound.CLICK, 0.1F, 2.5F);
         CorePlayer.get(player).setCurrentMenuOpen(this);
         player.openInventory(inventory);
     }
@@ -43,7 +58,10 @@ public class LobbiesMenu extends ConfigurableMenu {
     @Override
     public void load() {
         if (size < getDynamicInventorySize()) {
-            new LobbiesMenu(player).open(player);
+            for (HumanEntity viewer : inventory.getViewers()) {
+                if (!(viewer instanceof Player player)) continue;
+                get(language).open(player);
+            }
         }
 
         inventory.clear();
@@ -68,7 +86,7 @@ public class LobbiesMenu extends ConfigurableMenu {
             set(slot, ItemBuilder.of(material).data(materialData).name(getItemNamePrefix(isSelf) + getItemName(number))
                     .lore(Arrays.asList("&7" + count + "/" + MaxSlotsInfoManager.getMaxSlotsOf(serverID), "&r",
                             variableConnect))
-                    .get(player),labelCommand);
+                    .get(language), labelCommand);
             slot++;
         }
     }
@@ -78,11 +96,11 @@ public class LobbiesMenu extends ConfigurableMenu {
         if (isSelf) {
             prefixPath = "current_lobby_name_prefix";
         }
-        return ChatUtil.parse(player, "<lang.lobby." + prefixPath + ">");
+        return ChatUtil.parse(LanguagesHandler.get(language).get(LobbyMessages.NAME).getString(prefixPath));
     }
 
     public String getItemName(int lobbyNumber) {
-        return ChatUtil.parse(player, LobbyModule.getLobbiesMenuConfig().getString("item_name"), lobbyNumber);
+        return ChatUtil.parse(LanguagesHandler.get(language).get(LobbyMessages.NAME).getString("main_lobby_name"), lobbyNumber);
     }
 
     public static int getDynamicInventorySize() {

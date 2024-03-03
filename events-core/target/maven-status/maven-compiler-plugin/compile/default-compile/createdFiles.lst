@@ -9,12 +9,23 @@ us\smartmc\event\eventscore\instance\IToggleableItem.class
 us\smartmc\event\eventscore\instance\ToggleableDescriptionType.class
 us\smartmc\event\eventscore\util\ConfigPaths.class
 us\smartmc\event\eventscore\config\EventConfig.class
+<<<<<<< Updated upstream
 us\smartmc\event\eventscore\instance\IToggleablePlayerItem.class
+=======
+us\smartmc\event\eventscore\instance\BroadcastAccessType.class
+us\smartmc\event\eventscore\instance\ClickHandler.class
+>>>>>>> Stashed changes
 us\smartmc\event\eventscore\modes\EventGameMode.class
 us\smartmc\event\eventscore\handler\MainEventHandler.class
 us\smartmc\event\eventscore\util\ItemUtils.class
 us\smartmc\event\eventscore\menu\PlayerControlMenu.class
+<<<<<<< Updated upstream
 us\smartmc\event\eventscore\instance\ToggleableItem.class
+=======
+us\smartmc\event\eventscore\util\BroadcastUtil.class
+us\smartmc\event\eventscore\instance\ToggleableItemInfo.class
+us\smartmc\event\eventscore\listener\InventoryListeners.class
+>>>>>>> Stashed changes
 us\smartmc\event\eventscore\menu\EventCoreMenu.class
 us\smartmc\event\eventscore\config\LanguageConfig.class
 us\smartmc\event\eventscore\types\PlayerGameModeType.class

@@ -18,7 +18,24 @@ D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\ins
 D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\instance\IToggleablePlayerType.java
 D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\menu\MainOptionsMenu.java
 D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\menu\PlayerControlMenu.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\util\BroadcastUtil.java
 D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\instance\IToggleableType.java
+<<<<<<< Updated upstream
+=======
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\instance\ToggleableItemInfo.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\instance\BroadcastAccessType.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\util\MenuUtil.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\handler\MainEventHandler.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\itemcommand\OpenEventControlCommand.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\listener\CorePlayerListeners.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\modes\EventGameMode.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\instance\ClickHandler.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\tests\Main.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\util\EnumUtils.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\types\EventWhitelistType.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\EventsCore.java
+D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\command\OptionsCommand.java
+>>>>>>> Stashed changes
 D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\util\ConfigPaths.java
 D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\config\LanguageConfig.java
 D:\workspace2024\SCore\events-core\src\main\java\us\smartmc\event\eventscore\util\MenuUtil.java

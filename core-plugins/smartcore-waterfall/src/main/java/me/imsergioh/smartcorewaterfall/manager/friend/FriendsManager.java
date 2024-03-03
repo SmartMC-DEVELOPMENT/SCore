@@ -55,8 +55,7 @@ public class FriendsManager {
     friendsFuture.whenCompleteAsync(
             (friend, throwable) -> {
               if (throwable != null) {
-                throwablthrow new RuntimeException(e);
-                return;
+                throw new RuntimeException(throwable);
               }
 
               if (redisConnection != null && friend != null) {

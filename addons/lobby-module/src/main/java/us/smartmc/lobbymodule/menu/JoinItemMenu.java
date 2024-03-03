@@ -33,28 +33,28 @@ public class JoinItemMenu extends ConfigurableMenu {
         set(1, ItemBuilder.of(Material.SKULL_ITEM).data(3)
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjYzMDI5Y2M4MTY3ODk3ZTY1MzVhM2M1NzM0YmJhYmFmZjE4OGQwOTA1ZjlkOTM1M2FmYWM2MmEwNmRhZGY4NiJ9fX0=")
                 .name("<lang.lobby.items_cosmetics_name>")
-                .lore(Arrays.asList("<lang.lobby.items_cosmetics_description>")).get(player), "itemCosmetics");
+                .lore(Arrays.asList("<lang.lobby.items_cosmetics_description>")).get(initPlayer), "itemCosmetics");
 
         set(4, headItem("settings"), "lobbyModule settings");
 
-        PlayerVisibility visibility = VisibilityManager.getVisibility(player);
-        set(7, VisibilityManager.getVisibilityItem(visibility).get(player), "cmd changeVisibility");
+        PlayerVisibility visibility = VisibilityManager.getVisibility(initPlayer);
+        set(7, VisibilityManager.getVisibilityItem(visibility).get(initPlayer), "cmd changeVisibility");
 
         setItem(8, Material.PAPER, "lobbies");
     }
 
     public ItemStack headItem(String name) {
-        String skullTexture = getSkullTexture(player);
+        String skullTexture = getSkullTexture(initPlayer);
         ItemBuilder builder = ItemBuilder.of(Material.SKULL_ITEM)
                 .data((byte) 3)
                 .name("<lang.lobby.items_" + name + "_name>")
                 .lore(Arrays.asList("<lang.lobby.items_" + name + "_description>"));
         if (skullTexture != null) builder.skullTexture(skullTexture);
-        return builder.get(player);
+        return builder.get(initPlayer);
     }
 
     public void setItem(int slot, Material material, String name) {
-        ItemStack item = LobbyMessages.getItem(material, name).get(player);
+        ItemStack item = LobbyMessages.getItem(material, name).get(initPlayer);
         set(slot, item);
         actionManager.registerItemAction(slot, item, config.getStringList("items." + slot + ".actions"));
     }

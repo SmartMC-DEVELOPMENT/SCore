@@ -2,6 +2,9 @@ package us.smartmc.lobbymodule.itemcommand;
 
 import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.language.Language;
+import org.bukkit.entity.Player;
 import us.smartmc.lobbymodule.menu.LobbiesMenu;
 import us.smartmc.lobbymodule.menu.MinigamesMenu;
 import us.smartmc.lobbymodule.menu.SettingsMenu;
@@ -12,13 +15,16 @@ public class LobbyModuleAction implements ItemActionExecutor {
     public void execute(ClickHandler clickHandler, String label, String[] args) {
         try {
             String arg = args[0].toLowerCase();
+            Player player = clickHandler.player();
+            CorePlayer corePlayer = CorePlayer.get(player);
+            Language language = corePlayer.getLanguage();
 
             if (arg.equals("settings")) {
                 new SettingsMenu(clickHandler.player()).open(clickHandler.player());
             }
 
             if (arg.equals("lobbies")) {
-                new LobbiesMenu(clickHandler.player()).open(clickHandler.player());
+                LobbiesMenu.get(language).open(player);
             }
 
             if (arg.equals("minigames")) {

@@ -51,5 +51,4 @@ public class LobbiesInfoManager extends AddonListener implements Listener {
         if (menuOpen == null) return;
         menus.remove(menuOpen);
     }
-
 }

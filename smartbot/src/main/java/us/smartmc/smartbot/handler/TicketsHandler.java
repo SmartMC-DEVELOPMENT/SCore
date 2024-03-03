@@ -3,6 +3,7 @@ package us.smartmc.smartbot.handler;
 import com.mongodb.client.MongoCollection;
 import lombok.Getter;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import org.bson.Document;
@@ -33,16 +34,25 @@ public class TicketsHandler {
         return Document.parse(json);
     }
 
+    public static boolean isActiveUserTicketDelay(String id) {
+        return RedisConnection.mainConnection.getResource().exists("discord_ticket_user_delay." + id);
+    }
+
     public static boolean isActiveTicket(String id) {
         return RedisConnection.mainConnection.getResource().exists("discord_ticket." + id);
     }
 
-    public static void registerTicket(String ticketID, MessageReactionAddEvent event) {
+    public static void registerUserTicketDelay(User user) {
+        String key = "discord_ticket_user_delay." + user.getId();
+        RedisConnection.mainConnection.getResource().set(key, String.valueOf(System.currentTimeMillis() / 1000));
+        RedisConnection.mainConnection.getResource().expire(key, 60);
+    }
+
+    public static void registerTicket(String ticketID, String ticketChannelId, MessageReactionAddEvent event) {
         if (!(event.getChannel() instanceof TextChannel textChannel)) return;
         Document document = new Document("_id", ticketID).append("created_by", event.getUserId()).append("creted_at", String.valueOf(System.currentTimeMillis() / 1000));
         RedisConnection.mainConnection.getResource()
-                .set("discord_ticket." + event.getChannel().getId(), document.toJson());
-        new TicketStorageSaver(document, event.getGuild().getId(), textChannel);
+                .set("discord_ticket." + ticketChannelId, document.toJson());
     }
 
     public static void removeCacheTicket(String channelID) {

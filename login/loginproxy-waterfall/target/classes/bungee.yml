@@ -1,0 +1,5 @@
+name: LoginProxy-Waterfall
+version: '${project.version}'
+main: me.imsergioh.loginproxywaterfall.LoginProxyWaterfall
+depends:
+  - SmartCore-Waterfall

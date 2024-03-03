@@ -1,6 +1,7 @@
 package us.smartmc.lobbymodule.itemcommand;
 
 import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
@@ -16,8 +17,7 @@ public class LobbyModuleAction implements ItemActionExecutor {
         try {
             String arg = args[0].toLowerCase();
             Player player = clickHandler.player();
-            CorePlayer corePlayer = CorePlayer.get(player);
-            Language language = corePlayer.getLanguage();
+            Language language = PlayerLanguages.get(player.getUniqueId());
 
             if (arg.equals("settings")) {
                 SettingsMenu.get(language).open(clickHandler.player());

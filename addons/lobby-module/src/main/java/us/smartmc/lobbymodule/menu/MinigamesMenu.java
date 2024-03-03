@@ -33,6 +33,17 @@ public class MinigamesMenu extends CoreMenu {
         super(null, 45, LanguagesHandler.get(language).get("lobby_miniGames").getString("inventory_title"));
         this.language = language;
         menus.put(language, this);
+        config.getMiniGames().forEach((name, document) -> {
+            int slot = slots[currentSlotIndex];
+            String serverPrefixId = document.getString("serverPrefixId");
+            set(slot, MinigamesConfig.getItemOf(language, name), "connectTo " + serverPrefixId);
+            currentSlotIndex++;
+        });
+        setNotAvailableItems();
+    }
+
+    @Override
+    public void load() {
         // DISCORD
         set(9, ItemBuilder.of(Material.SKULL_ITEM)
                 .data((byte) 3)
@@ -56,18 +67,6 @@ public class MinigamesMenu extends CoreMenu {
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjI3ODQzMDdiODkyZjUyYjkyZjc0ZmE5ZGI0OTg0YzRmMGYwMmViODFjNjc1MmU1ZWJhNjlhZDY3ODU4NDI3ZSJ9fX0=")
                 .get(language), "bungeeCMD store", "closeInv");
         closeItem();
-        config.getMiniGames().forEach((name, document) -> {
-            int slot = slots[currentSlotIndex];
-            String serverPrefixId = document.getString("serverPrefixId");
-            set(slot, MinigamesConfig.getItemOf(language, name), "connectTo " + serverPrefixId);
-            currentSlotIndex++;
-        });
-        setNotAvailableItems();
-    }
-
-    @Override
-    public void load() {
-
     }
 
     public void closeItem() {

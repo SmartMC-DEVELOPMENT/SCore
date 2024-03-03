@@ -18,6 +18,10 @@ public class PluginUtils {
 
     private static final Set<UUID> sendingPlayers = new HashSet<>();
 
+    public static boolean isSendingPlayer(Player player) {
+        return sendingPlayers.contains(player.getUniqueId());
+    }
+
     public static void redirectTo(Player player, String serverPrefix) {
         if (sendingPlayers.contains(player.getUniqueId())) return;
         CompletableFuture.runAsync(() -> {

@@ -49,10 +49,10 @@ public class CosmeticBuyMenu extends CoreMenu {
         lore.clear();
         lore.addAll(List.of(" ", rarityLine, " "));
         buyBuilder.lore(lore);
-        set(4, buyBuilder.get(player));
+        set(4, buyBuilder.get(initPlayer));
 
-        set(12, getBuyItem().get(player), "confirmCosmeticPurchase");
-        set(14, getCancelBuyItem().get(player), "cancelCosmeticPurchase");
+        set(12, getBuyItem().get(initPlayer), "confirmCosmeticPurchase");
+        set(14, getCancelBuyItem().get(initPlayer), "cancelCosmeticPurchase");
     }
 
     public ItemBuilder getBuyItem() {

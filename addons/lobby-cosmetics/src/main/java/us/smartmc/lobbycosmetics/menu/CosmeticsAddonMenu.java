@@ -40,7 +40,7 @@ public abstract class CosmeticsAddonMenu extends CoreMenu implements ICosmeticAd
         int unlocked = playerSession.getData().getUnlocked(type);
 
         ItemBuilder builder = LobbyCosmetics.getSectionsHandler().get(type).getPreviewItemBuilder(language, unlocked, sectionsHandler.get(type).getCosmetics().size());
-        inventory.setItem(slot, builder.get(player));
+        inventory.setItem(slot, builder.get(language));
         actionManager.registerItemAction(slot, get(slot), List.of("openCosmeticSection " + type.name()));
     }
 

@@ -20,7 +20,7 @@ public class LobbyModuleAction implements ItemActionExecutor {
             Language language = corePlayer.getLanguage();
 
             if (arg.equals("settings")) {
-                new SettingsMenu(clickHandler.player()).open(clickHandler.player());
+                SettingsMenu.get(language).open(clickHandler.player());
             }
 
             if (arg.equals("lobbies")) {
@@ -28,7 +28,7 @@ public class LobbyModuleAction implements ItemActionExecutor {
             }
 
             if (arg.equals("minigames")) {
-                new MinigamesMenu(clickHandler.player()).open(clickHandler.player());
+                MinigamesMenu.get(language).open(clickHandler.player());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

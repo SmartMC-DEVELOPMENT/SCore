@@ -13,7 +13,6 @@ import me.imsergioh.smartcorewaterfall.command.*;
 import me.imsergioh.smartcorewaterfall.command.admin.BroadcastCommand;
 import me.imsergioh.smartcorewaterfall.command.admin.ServerHandlerCommand;
 import me.imsergioh.smartcorewaterfall.command.admin.SetPrefixCommand;
-import me.imsergioh.smartcorewaterfall.command.friend.FriendCommand;
 import me.imsergioh.smartcorewaterfall.command.info.DiscordCommand;
 import me.imsergioh.smartcorewaterfall.command.info.HelpCommand;
 import me.imsergioh.smartcorewaterfall.command.info.StoreCommand;
@@ -30,8 +29,6 @@ import me.imsergioh.smartcorewaterfall.manager.CustomCommandsManager;
 import me.imsergioh.smartcorewaterfall.manager.OfflinePlayerDataManager;
 import me.imsergioh.smartcorewaterfall.manager.OnlineCountHandler;
 import me.imsergioh.smartcorewaterfall.manager.TabHandler;
-import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.event.FriendEventManagement;
-import me.imsergioh.smartcorewaterfall.messages.FriendManagerMessages;
 import me.imsergioh.smartcorewaterfall.messages.HelpMessages;
 import me.imsergioh.smartcorewaterfall.messages.ProxyMainMessages;
 import me.imsergioh.smartcorewaterfall.messages.SanctionsManagerMessages;
@@ -104,7 +101,6 @@ public final class SmartCoreWaterfall extends Plugin {
 
     public void loadMessages() {
         new SanctionsManagerMessages();
-        new FriendManagerMessages();
         new HelpMessages();
         new ProxyMainMessages();
     }
@@ -117,7 +113,6 @@ public final class SmartCoreWaterfall extends Plugin {
     private void registerListeners() {
         registerListeners(
                 new TabHandlerListeners(),
-                new FriendAndPartyListeners(),
                 new OfflinePlayerDataManager(),
                 new CustomCommandsListeners(),
                 new SanctionsListeners(),
@@ -129,7 +124,6 @@ public final class SmartCoreWaterfall extends Plugin {
         registerCommands(
                 new SmartCoreWaterfallCommand("bsmartcore"),
                 new SetPrefixCommand(),
-                new FriendCommand(),
                 new LobbyCommand(),
                 new BanCommand(),
                 new KickCommand(),
@@ -164,7 +158,6 @@ public final class SmartCoreWaterfall extends Plugin {
                 new LanguageChangeCommand(),
                 new StopServerCommand(),
                 new PlayerChatCommand());
-        FriendEventManagement.registerEvents();
     }
 
     private void registerDefaultLanguages() {

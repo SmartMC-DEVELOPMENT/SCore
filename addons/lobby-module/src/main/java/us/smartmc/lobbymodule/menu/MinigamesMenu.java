@@ -1,21 +1,14 @@
 package us.smartmc.lobbymodule.menu;
 
-import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
-import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.config.MinigamesConfig;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,8 +24,8 @@ public class MinigamesMenu extends CoreMenu {
 
     private static final MinigamesConfig config = LobbyModule.getMinigamesConfig();
 
-    private static int currentSlotIndex = 0;
-    private static final int[] slots = {12, 13, 14, 15, 21, 22, 23, 24};
+    private int currentSlotIndex = 0;
+    private final int[] slots = {12, 13, 14, 15, 21, 22, 23, 24};
 
     private final Language language;
 
@@ -40,17 +33,6 @@ public class MinigamesMenu extends CoreMenu {
         super(null, 45, LanguagesHandler.get(language).get("lobby_miniGames").getString("inventory_title"));
         this.language = language;
         menus.put(language, this);
-        config.getMiniGames().forEach((name, document) -> {
-            int slot = slots[currentSlotIndex];
-            String serverPrefixId = document.getString("serverPrefixId");
-            set(slot, MinigamesConfig.getItemOf(language, name), "connectTo " + serverPrefixId);
-            currentSlotIndex++;
-        });
-        setNotAvailableItems();
-    }
-
-    @Override
-    public void load() {
         // DISCORD
         set(9, ItemBuilder.of(Material.SKULL_ITEM)
                 .data((byte) 3)
@@ -74,6 +56,18 @@ public class MinigamesMenu extends CoreMenu {
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjI3ODQzMDdiODkyZjUyYjkyZjc0ZmE5ZGI0OTg0YzRmMGYwMmViODFjNjc1MmU1ZWJhNjlhZDY3ODU4NDI3ZSJ9fX0=")
                 .get(language), "bungeeCMD store", "closeInv");
         closeItem();
+        config.getMiniGames().forEach((name, document) -> {
+            int slot = slots[currentSlotIndex];
+            String serverPrefixId = document.getString("serverPrefixId");
+            set(slot, MinigamesConfig.getItemOf(language, name), "connectTo " + serverPrefixId);
+            currentSlotIndex++;
+        });
+        setNotAvailableItems();
+    }
+
+    @Override
+    public void load() {
+
     }
 
     public void closeItem() {

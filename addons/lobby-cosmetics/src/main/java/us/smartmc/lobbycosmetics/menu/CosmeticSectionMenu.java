@@ -46,7 +46,7 @@ public class CosmeticSectionMenu extends CoreMenu {
         ICosmetic cosmetic = LobbyCosmetics.getSectionsHandler().get(section.getId()).get(id);
         cosmetic.getPreviewItemBuilder(playerSession, section, language);
         ItemBuilder builder = cosmetic.getPreviewItemBuilder(playerSession, section, language);
-        inventory.setItem(slot, builder.get(player));
+        inventory.setItem(slot, builder.get(initPlayer));
         actionManager.registerItemAction(slot, get(slot), List.of("toggleCosmetic " + cosmetic.getType().name() + " " + cosmetic.getId()));
     }
 }

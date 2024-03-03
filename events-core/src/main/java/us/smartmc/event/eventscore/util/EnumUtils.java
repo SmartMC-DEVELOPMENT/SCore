@@ -12,6 +12,7 @@ public class EnumUtils {
         while (!(values[currentIndex] == currentValue)) {
             currentIndex++;
         }
+        currentIndex++;
         return currentIndex >= values.length - 1 ? values[0] : values[currentIndex];
     }
 }

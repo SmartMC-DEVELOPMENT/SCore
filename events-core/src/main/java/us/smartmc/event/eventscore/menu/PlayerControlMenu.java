@@ -1,35 +1,35 @@
 package us.smartmc.event.eventscore.menu;
 
+import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
-import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
+import us.smartmc.event.eventscore.instance.GlobalToggleableItem;
+import us.smartmc.event.eventscore.types.PlayerGameModeType;
 import us.smartmc.event.eventscore.util.MenuUtil;
 
 public class PlayerControlMenu extends EventCoreMenu {
 
-    protected PlayerControlMenu(Player player) {
-        super(player, 27, "Opciones - Controlar jugadores");
+    @Getter
+    private static final PlayerControlMenu globalMenu = new PlayerControlMenu();
+
+    private static final GlobalToggleableItem<PlayerGameModeType> gamemodeItem = new GlobalToggleableItem<>("gamemode", PlayerGameModeType.class)
+            .register(PlayerGameModeType.CREATIVE, Material.BEDROCK, "&aCreativo")
+            .register(PlayerGameModeType.SURVIVAL, Material.GRASS, "&aSurvival")
+            .register(PlayerGameModeType.ADVENTURE, Material.DIAMOND_SWORD, "&aAventura")
+            .register(PlayerGameModeType.SPECTATOR, Material.QUARTZ_BLOCK, "&aEspectador");
+
+    private PlayerControlMenu() {
+        super(null, 45, "Opciones - Controlar jugadores");
     }
 
     @Override
     public void load() {
-        MenuUtil.setColumn(0, ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).data(3).name(" ").get(player), this);
-        MenuUtil.setColumn(8, ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).data(3).name(" ").get(player), this);
+        MenuUtil.setRow(0, ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).data(3).name(" ").get(), this);
+        MenuUtil.setColumn(8, ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).data(3).name(" ").get(), this);
 
-        //set(4, whitelistItem.getItem());
-
-        //setToggleable(4, new GlobalToggleableItem<>("whitelist_type", EventWhitelistType.class));
+        set(4, gamemodeItem.getItem(), handler -> {
+            gamemodeItem.toggleType();
+            set(4, gamemodeItem.getItem());
+        });
     }
-
-    public static PlayerControlMenu get(Player player) {
-        CorePlayer corePlayer = CorePlayer.get(player.getUniqueId());
-        CoreMenu menu = corePlayer.getPreviousOpenMenu();
-        if (menu instanceof PlayerControlMenu) {
-            return (PlayerControlMenu) menu;
-        }
-        return null;
-    }
-
 }

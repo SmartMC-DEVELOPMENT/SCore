@@ -9,6 +9,7 @@ import us.smartmc.event.eventscore.util.EnumUtils;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class GlobalToggleableItem<T extends Enum<T>> implements IToggleableType<T> {
 
@@ -20,6 +21,11 @@ public class GlobalToggleableItem<T extends Enum<T>> implements IToggleableType<
     public GlobalToggleableItem(String path, Class<T> classType) {
         this.path = path;
         this.classType = classType;
+    }
+
+    public GlobalToggleableItem<T> setAdditionalAction(Consumer<T> consumer) {
+        consumer.accept(getCurrentType());
+        return this;
     }
 
     public ItemStack getItem() {

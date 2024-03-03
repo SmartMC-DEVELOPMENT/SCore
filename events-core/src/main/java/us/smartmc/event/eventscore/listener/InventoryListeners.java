@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import us.smartmc.event.eventscore.instance.ClickHandler;
 import us.smartmc.event.eventscore.menu.EventCoreMenu;
 
 public class InventoryListeners implements Listener {
@@ -20,8 +21,7 @@ public class InventoryListeners implements Listener {
 
         if (!(coreMenu instanceof EventCoreMenu)) return;
         EventCoreMenu eventCoreMenu = (EventCoreMenu) coreMenu;
-        eventCoreMenu.clickAction(event.getSlot());
-        player.sendMessage("Clicked slot: " + event.getSlot());
+        eventCoreMenu.clickAction(new ClickHandler(event));
     }
 
 }

@@ -14,7 +14,7 @@ public class MenuUtil {
 
     public static void setColumn(int columnSlot, ItemStack item, CoreMenu menu) {
         Inventory inventory = menu.getInventory();
-        int timesToSum = (inventory.getSize() / 9) - 1;
+        int timesToSum = (inventory.getSize() / 9);
         int end = 9 * timesToSum;
         setFromTo(columnSlot, end, 9, item, inventory);
     }

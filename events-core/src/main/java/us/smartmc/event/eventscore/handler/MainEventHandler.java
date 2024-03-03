@@ -17,6 +17,7 @@ public class MainEventHandler {
 
     public static <T extends Enum<T>> void setEnumType(String path, T value) {
         config.setEnumType(path, value);
+        config.save();
     }
 
     public static boolean isHoster(Player player) {

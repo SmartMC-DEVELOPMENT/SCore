@@ -9,15 +9,12 @@ import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class PluginScoreboard {
 
     private final String name;
-    private final HashMap<Player, List<String>> playerLinesMap = new HashMap<>();
+    private final Set<Player> players = new HashSet<>();
     private final FilePluginConfig config;
 
     public PluginScoreboard(String name) {
@@ -29,14 +26,14 @@ public class PluginScoreboard {
         config.save();
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
-            playerLinesMap.keySet().forEach(player -> {
+            players.forEach(player -> {
                 updateScoreboard(player, false);
             });
         }, 10, 20);
     }
 
     public void register(Player player) {
-        playerLinesMap.put(player, new ArrayList<>());
+        players.add(player);
         updateScoreboard(player, true);
     }
 
@@ -47,19 +44,14 @@ public class PluginScoreboard {
                         ? Netherboard.instance().createBoard(player, ChatUtil.parse(player, getTitle())) :
                         Netherboard.instance().getBoard(player);
                 List<String> currentLines = new ArrayList<>(getScores());
+                System.out.println("currentLines=" + currentLines);
                 currentLines.replaceAll(l -> ChatUtil.parse(player, l));
-                List<String> lastKnownLines = playerLinesMap.getOrDefault(player, new ArrayList<>());
-
-                if (!hasLinesChanged(currentLines, lastKnownLines)) return;
-
                 if (clear) board.clear();
-
                 int score = currentLines.size();
                 for (String line : currentLines) {
                     board.set(line, score);
                     score--;
                 }
-                playerLinesMap.put(player, currentLines);
             } catch (Exception e) {
                 unregister(player);
             }
@@ -67,7 +59,7 @@ public class PluginScoreboard {
     }
 
     public void unregister(Player player) {
-        playerLinesMap.remove(player);
+        players.remove(player);
     }
 
     private boolean hasLinesChanged(List<String> currentLines, List<String> lastKnownLines) {

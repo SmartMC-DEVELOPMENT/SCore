@@ -19,6 +19,6 @@ public class SettingsMenu extends FFAMenu {
         set(13, ItemBuilder.of(Material.BARRIER)
                 .name("&c&lERROR")
                 .lore(Arrays.asList("&7<lang.snowgames/ffa/main.not_available>"))
-                .get(player));
+                .get(initPlayer));
     }
 }

@@ -24,12 +24,12 @@ public class LobbyHotbar extends FFAMenu {
 
     @Override
     public void load() {
-        Language language = PlayerLanguages.get(player.getUniqueId());
+        Language language = PlayerLanguages.get(initPlayer.getUniqueId());
 
-        set(0, parseItem(player, config.getItemConfig(language, "lobby.tops").get(player)),
+        set(0, parseItem(initPlayer, config.getItemConfig(language, "lobby.tops").get(initPlayer)),
                 "hotbar tops");
 
-        set(4, parseItem(player, config.getItemConfig(language, "lobby.settings").get(player)),
+        set(4, parseItem(initPlayer, config.getItemConfig(language, "lobby.settings").get(initPlayer)),
                 "hotbar settings");
     }
 

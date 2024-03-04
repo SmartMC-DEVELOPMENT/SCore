@@ -3,6 +3,7 @@ package us.smartmc.snowgames.listener;
 import me.imsergioh.pluginsapi.event.PlayerTickEvent;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.util.ChatUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -17,15 +18,22 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
+import us.smartmc.core.SmartCore;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.GamePlayer;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.util.RegionUtils;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 import static us.smartmc.snowgames.config.DefaultConfig.getJoinMessage;
 import static us.smartmc.snowgames.config.DefaultConfig.isJoinMessageEnabled;
 
 public class GameListeners implements Listener {
+
+    private static final Set<UUID> recentJoined = new HashSet<>();
 
     public GameListeners() {
         CorePlayer.setEnabledTickEvent(true);
@@ -70,7 +78,7 @@ public class GameListeners implements Listener {
         boolean inGame = game.isInGame(gamePlayer);
         boolean atSpawn = RegionUtils.isAtSpawn(player);
 
-        if (!inGame && !atSpawn) {
+        if (!inGame && !atSpawn && !recentJoined.contains(player.getUniqueId())) {
             game.joinPlayer(gamePlayer);
         }
     }
@@ -84,9 +92,10 @@ public class GameListeners implements Listener {
         return false;
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void JoinServerMessage(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        recentJoined.add(player.getUniqueId());
         player.setHealth(20);
         player.setFoodLevel(20);
 
@@ -98,6 +107,10 @@ public class GameListeners implements Listener {
         Location spawn = FFAPlugin.getGame().getSpawn();
         if (spawn == null) return;
         player.teleport(spawn);
+
+        Bukkit.getScheduler().runTaskLater(FFAPlugin.getFFAPlugin(), () -> {
+            recentJoined.remove(player.getUniqueId());
+        }, 10);
     }
 
     @EventHandler

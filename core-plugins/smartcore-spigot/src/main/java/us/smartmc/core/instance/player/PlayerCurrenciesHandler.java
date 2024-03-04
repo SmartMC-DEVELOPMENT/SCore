@@ -18,7 +18,7 @@ public class PlayerCurrenciesHandler {
         this.corePlayer = corePlayer;
     }
 
-    public void add(PlayerCurrencyCoin coin, long amount, String reason) {
+    public void add(IPlayerCurrencyCoin coin, long amount, String reason) {
         set(coin, get(coin) + amount);
         String msgPath = amount == 1 ? coin.getSingleUnitAddedMessagePath() : coin.getAddedMessagePath();
         if (reason != null) {
@@ -29,11 +29,11 @@ public class PlayerCurrenciesHandler {
         String message = LanguagesHandler.get(corePlayer.getLanguage()).get(GeneralMessages.NAME).getString(msgPath);
         if (message != null)
             corePlayer.sendLanguageMessage(GeneralMessages.NAME, msgPath, amount, reason);
-        if (coin.sound == null) return;
-        corePlayer.playSound(coin.sound, coin.soundVolume, coin.soundPitch);
+        if (coin.getSound() == null) return;
+        corePlayer.playSound(coin.getSound(), coin.getSoundVolume(), coin.getSoundPitch());
     }
 
-    public void remove(PlayerCurrencyCoin coin, long amount, String reason) throws CorePluginException {
+    public void remove(IPlayerCurrencyCoin coin, long amount, String reason) throws CorePluginException {
         long currencyAmount = get(coin);
         long withAmountRemoved = currencyAmount - amount;
         if (withAmountRemoved >= 0) {
@@ -47,23 +47,23 @@ public class PlayerCurrenciesHandler {
             String message = LanguagesHandler.get(corePlayer.getLanguage()).get(GeneralMessages.NAME).getString(msgPath);
             if (message != null)
                 corePlayer.sendLanguageMessage(GeneralMessages.NAME, msgPath, amount, reason);
-            if (coin.sound == null) return;
-            corePlayer.playSound(coin.sound, coin.soundVolume, coin.soundPitch);
+            if (coin.getSound() == null) return;
+            corePlayer.playSound(coin.getSound(), coin.getSoundVolume(), coin.getSoundPitch());
         } else {
-            throw new CorePluginException("remove " + coin.name() + " method tried to remove more than player have!");
+            throw new CorePluginException("remove " + coin.getName() + " method tried to remove more than player have!");
         }
     }
 
-    public void set(PlayerCurrencyCoin coin, long amount) {
-        getData().getDocument().put(coin.documentKey, amount);
+    public void set(IPlayerCurrencyCoin coin, long amount) {
+        getData().getDocument().put(coin.getDocumentKey(), amount);
     }
 
-    public long get(PlayerCurrencyCoin coin) {
+    public long get(IPlayerCurrencyCoin coin) {
         Document document = getData().getDocument();
-        if (!document.containsKey(coin.documentKey)) {
-            document.put(coin.documentKey, 0);
+        if (!document.containsKey(coin.getDocumentKey())) {
+            document.put(coin.getDocumentKey(), 0);
         }
-        return document.get(coin.documentKey, Long.class);
+        return document.get(coin.getDocumentKey(), Long.class);
     }
 
     private CorePlayerData getData() {

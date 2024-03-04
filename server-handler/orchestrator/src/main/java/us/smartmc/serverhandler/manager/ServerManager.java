@@ -62,7 +62,7 @@ public class ServerManager {
         FileUtil.removeAndComplete(serverInfo.getDirectory().getAbsolutePath());
 
         // START SERVER SCRIPT (START.SH)
-        ServerUtil.startServer(serverInfo.getDirectory());
+        ServerUtil.startServer(serverInfo.getDirectory(), false);
 
         servers.put(serverInfo.getName(), serverInfo);
 

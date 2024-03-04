@@ -28,6 +28,7 @@ me\imsergioh\smartcorewaterfall\command\admin\BroadcastCommand.class
 me\imsergioh\smartcorewaterfall\listener\LanguageListeners.class
 me\imsergioh\smartcorewaterfall\variables\LanguageVariables.class
 me\imsergioh\smartcorewaterfall\instance\BungeeLogger.class
+me\imsergioh\smartcorewaterfall\instance\onlinestore\AnnouncePackageRenew.class
 me\imsergioh\smartcorewaterfall\manager\ServersHandler.class
 me\imsergioh\smartcorewaterfall\util\DebugUtil.class
 me\imsergioh\smartcorewaterfall\listener\CustomCommandsListeners.class
@@ -46,6 +47,7 @@ me\imsergioh\smartcorewaterfall\manager\exception\RedisConnectionNotInitializedE
 me\imsergioh\smartcorewaterfall\listener\BungeeMessagingListeners.class
 me\imsergioh\smartcorewaterfall\manager\TebexCommandsManager.class
 me\imsergioh\smartcorewaterfall\instance\MongoDataManager.class
+me\imsergioh\smartcorewaterfall\instance\OfflinePlayerData$1.class
 me\imsergioh\smartcorewaterfall\instance\CoreCommand.class
 me\imsergioh\smartcorewaterfall\instance\PluginYMLConfig.class
 me\imsergioh\smartcorewaterfall\instance\PlayerLanguages.class

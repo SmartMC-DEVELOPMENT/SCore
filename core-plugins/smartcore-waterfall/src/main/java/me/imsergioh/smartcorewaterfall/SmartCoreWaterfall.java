@@ -26,6 +26,7 @@ import me.imsergioh.smartcorewaterfall.customcommand.MessageCommand;
 import me.imsergioh.smartcorewaterfall.customcommand.TestCommand;
 import me.imsergioh.smartcorewaterfall.instance.BungeeLogger;
 import me.imsergioh.smartcorewaterfall.instance.onlinestore.AnnouncePackagePurchase;
+import me.imsergioh.smartcorewaterfall.instance.onlinestore.AnnouncePackageRenew;
 import me.imsergioh.smartcorewaterfall.listener.*;
 import me.imsergioh.smartcorewaterfall.manager.*;
 import me.imsergioh.smartcorewaterfall.messages.HelpMessages;
@@ -147,7 +148,8 @@ public final class SmartCoreWaterfall extends Plugin {
                 new StoreCommand(),
                 new SmartCoreWaterfallCommand("smartcorewaterfall"),
                 new ServerHandlerCommand(),
-                new AnnouncePackagePurchase());
+                new AnnouncePackagePurchase(),
+                new AnnouncePackageRenew());
     }
 
     private void registerCommands(Command... commands) {

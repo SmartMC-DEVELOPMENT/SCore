@@ -2,16 +2,15 @@ package us.smartmc.core.instance.player;
 
 import org.bukkit.Sound;
 
-public enum PlayerCurrencyCoin {
+public enum PlayerCurrencyCoin implements IPlayerCurrencyCoin {
 
     SMARTCOINS("coins", "coin", Sound.LEVEL_UP, 1F, 10F),
     ENIGMA_BOXES("enigmaboxes", "enigmabox", Sound.ENDERDRAGON_HIT),
     GEMS("gems", "gem", Sound.ORB_PICKUP, 1F, 0.2F);
 
-
-    final String documentKey, singleUnitName;
-    float soundPitch, soundVolume = 1;
-    Sound sound;
+    private final String documentKey, singleUnitName;
+    private float soundPitch, soundVolume = 1;
+    private Sound sound;
 
     PlayerCurrencyCoin(String documentKey, String singleUnitName) {
         this.documentKey = documentKey;
@@ -29,6 +28,31 @@ public enum PlayerCurrencyCoin {
         this.soundPitch = pitch;
     }
 
+    @Override
+    public String getDocumentKey() {
+        return documentKey;
+    }
+
+    @Override
+    public String getSingleUnitName() {
+        return singleUnitName;
+    }
+
+    @Override
+    public float getSoundPitch() {
+        return soundPitch;
+    }
+
+    @Override
+    public float getSoundVolume() {
+        return soundVolume;
+    }
+
+    @Override
+    public Sound getSound() {
+        return sound;
+    }
+
     public String getSingleUnitAddedMessagePath() {
         return singleUnitName + "_added";
     }
@@ -37,4 +61,8 @@ public enum PlayerCurrencyCoin {
         return documentKey + "_added";
     }
 
+    @Override
+    public String getName() {
+        return name();
+    }
 }

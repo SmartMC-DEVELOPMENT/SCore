@@ -8,6 +8,7 @@ D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergi
 D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\command\moderation\KickCommand.java
 D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\command\onlinestore\OnlineStoreCommand.java
 D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\command\SmartCoreWaterfallCommand.java
+D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\instance\onlinestore\AnnouncePackageRenew.java
 D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\rediscommand\PlayerChatCommand.java
 D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\util\TimeUtils.java
 D:\workspace2024\SCore\core-plugins\smartcore-waterfall\src\main\java\me\imsergioh\smartcorewaterfall\manager\TabHandler.java

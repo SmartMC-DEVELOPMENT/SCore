@@ -1,7 +1,6 @@
 package us.smartmc.core.variables;
 
 import me.imsergioh.pluginsapi.instance.VariableListener;
-import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import us.smartmc.core.instance.player.PlayerCurrenciesHandler;

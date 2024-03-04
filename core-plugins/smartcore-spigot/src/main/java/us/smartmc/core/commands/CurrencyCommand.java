@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import us.smartmc.core.instance.player.IPlayerCurrencyCoin;
 import us.smartmc.core.instance.player.PlayerCurrenciesHandler;
 import us.smartmc.core.instance.player.PlayerCurrencyCoin;
 import us.smartmc.core.instance.player.SmartCorePlayer;
@@ -14,9 +15,9 @@ public abstract class CurrencyCommand implements CommandExecutor {
 
     @Getter
     private final String name;
-    private final PlayerCurrencyCoin coin;
+    private final IPlayerCurrencyCoin coin;
 
-    public CurrencyCommand(String name, PlayerCurrencyCoin coin) {
+    public CurrencyCommand(String name, IPlayerCurrencyCoin coin) {
         this.name = name;
         this.coin = coin;
     }

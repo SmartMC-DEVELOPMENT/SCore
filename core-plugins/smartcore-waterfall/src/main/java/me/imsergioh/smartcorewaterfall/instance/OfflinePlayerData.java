@@ -1,5 +1,7 @@
 package me.imsergioh.smartcorewaterfall.instance;
 
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
+import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.smartcorewaterfall.SmartCoreWaterfall;
 import me.imsergioh.smartcorewaterfall.manager.OfflinePlayerDataManager;
@@ -7,6 +9,8 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.bson.Document;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 public class OfflinePlayerData {
@@ -33,6 +37,21 @@ public class OfflinePlayerData {
             if (player == null) return;
             player.disconnect(ChatUtil.parse(player, "&bHello {0}!\n&cPlease reconnect, welcome to the network :D!", player.getName()));
         }
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                fetchLanguage();
+            }
+        }, 250);
+    }
+
+    private void fetchLanguage() {
+        Document document = MongoDBConnection.mainConnection.getDatabase("player_data").getCollection("core_players").find(
+                new Document("_id", uuid.toString())
+        ).first();
+        Language language = Language.getDefault();
+        if (document != null) language = Language.valueOf(document.getString("lang"));
+        PlayerLanguages.register(uuid, language);
     }
 
     public void parse(ProxiedPlayer player) {

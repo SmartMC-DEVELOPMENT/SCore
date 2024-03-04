@@ -23,6 +23,15 @@ public class ProxyMainMessages extends MultiLanguageRegistry {
         holder.registerDefault("invalid_subcommand", "&cYou've introduced an invalid subcommand");
         holder.registerDefault("servers_not_found", "&cWe have not found servers to connect to!");
 
+        holder.registerDefault("purchase_package_announce", """
+                &r
+                     &9&kii &b&l{0} &9&kii&a ha adquirido {1}
+                &2¿Deseas un paquete como este? &aCómpralo en
+                          &e&nhttps://tienda.smartmc.us
+                &r
+                               &d&lGG en el chat
+                &r""");
+
         holder.save();
     }
 

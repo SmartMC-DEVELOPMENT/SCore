@@ -165,7 +165,9 @@ public class SmartCore extends JavaPlugin {
                 .regCMD("region", new RegionCommand())
                 .regCMD("executeAtBungeeCommand", new ExecuteAtBungeeCommand())
                 .regCMD("friend", new FriendCommand())
-                .regCMD("coins", new CoinsCommand());
+                .regCMD("coins", new CoinsCommand())
+                .regCMD("enigmaboxes", new EnigmaBoxesCommand())
+                .regCMD("gems", new GemsCommand());
 
         ItemActionsManager.registerCommand("bungeeCMD", new BungeeCommandAction());
         ItemActionsManager.registerCommand("message", new MessageCommand());

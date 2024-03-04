@@ -16,3 +16,5 @@ commands:
       - bc
       - anuncio
       - anunciar
+  onlineStore:
+    description: "Tebex thing"

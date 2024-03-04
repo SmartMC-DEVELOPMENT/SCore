@@ -4,6 +4,7 @@ me\imsergioh\smartcorewaterfall\SmartCoreWaterfall.class
 me\imsergioh\smartcorewaterfall\instance\UUIDFinderByName.class
 me\imsergioh\smartcorewaterfall\messages\SanctionsManagerMessages.class
 me\imsergioh\smartcorewaterfall\manager\OnlineCountHandler.class
+me\imsergioh\smartcorewaterfall\command\onlinestore\OnlineStoreCommand.class
 me\imsergioh\smartcorewaterfall\command\info\StoreCommand.class
 me\imsergioh\smartcorewaterfall\command\moderation\WarnCommand.class
 me\imsergioh\smartcorewaterfall\listener\SanctionsListeners.class
@@ -13,6 +14,7 @@ me\imsergioh\smartcorewaterfall\command\moderation\BanCommand.class
 me\imsergioh\smartcorewaterfall\customcommand\TestCommand.class
 me\imsergioh\smartcorewaterfall\manager\SanctionsManager.class
 me\imsergioh\smartcorewaterfall\messages\ProxyMainMessages.class
+me\imsergioh\smartcorewaterfall\instance\onlinestore\OnlineStoreCommandType.class
 me\imsergioh\smartcorewaterfall\command\info\HelpCommand.class
 me\imsergioh\smartcorewaterfall\instance\sanction\SanctionType.class
 me\imsergioh\smartcorewaterfall\rediscommand\LanguageChangeCommand.class
@@ -31,6 +33,7 @@ me\imsergioh\smartcorewaterfall\util\DebugUtil.class
 me\imsergioh\smartcorewaterfall\listener\CustomCommandsListeners.class
 me\imsergioh\smartcorewaterfall\instance\OfflinePlayerData.class
 me\imsergioh\smartcorewaterfall\instance\CorePluginException.class
+me\imsergioh\smartcorewaterfall\manager\TebexPackageManager.class
 me\imsergioh\smartcorewaterfall\instance\commandmanager\CustomCommandExecutor.class
 me\imsergioh\smartcorewaterfall\listener\TabHandlerListeners.class
 me\imsergioh\smartcorewaterfall\command\moderation\StaffChatCommand.class
@@ -41,12 +44,14 @@ me\imsergioh\smartcorewaterfall\command\admin\ServerHandlerCommand.class
 me\imsergioh\smartcorewaterfall\manager\OfflinePlayerDataManager.class
 me\imsergioh\smartcorewaterfall\manager\exception\RedisConnectionNotInitializedException.class
 me\imsergioh\smartcorewaterfall\listener\BungeeMessagingListeners.class
+me\imsergioh\smartcorewaterfall\manager\TebexCommandsManager.class
 me\imsergioh\smartcorewaterfall\instance\MongoDataManager.class
 me\imsergioh\smartcorewaterfall\instance\CoreCommand.class
 me\imsergioh\smartcorewaterfall\instance\PluginYMLConfig.class
 me\imsergioh\smartcorewaterfall\instance\PlayerLanguages.class
 me\imsergioh\smartcorewaterfall\manager\OnlineCountHandler$1.class
 me\imsergioh\smartcorewaterfall\command\info\DiscordCommand.class
+me\imsergioh\smartcorewaterfall\instance\onlinestore\AnnouncePackagePurchase.class
 me\imsergioh\smartcorewaterfall\command\info\TwitterCommand.class
 me\imsergioh\smartcorewaterfall\customcommand\MessageCommand.class
 me\imsergioh\smartcorewaterfall\listener\RankListeners.class

@@ -8,6 +8,8 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import us.smartmc.core.exception.CorePluginException;
+import us.smartmc.core.instance.player.PlayerCurrenciesHandler;
+import us.smartmc.core.instance.player.PlayerCurrencyCoin;
 import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.lobbycosmetics.LobbyCosmetics;
 import us.smartmc.lobbycosmetics.instance.cosmetic.ICosmetic;
@@ -75,7 +77,8 @@ public class CosmeticBuyMenu extends CoreMenu {
         if (cost <= currentBalance) {
             try {
                 String reason = LobbyCosmetics.getCosmeticsMainMessages().get(player, PlayerLanguages.get(player.getUniqueId()), "cosmetic_buyed_coins_reason");
-                smartCorePlayer.removeCoins(cost, reason);
+                PlayerCurrenciesHandler handler = smartCorePlayer.getCurrenciesHandler();
+                handler.remove(PlayerCurrencyCoin.SMARTCOINS, cost, reason);
                 player.playSound(player.getLocation(), Sound.LEVEL_UP, 0.5F, 1.0F);
                 CosmeticPlayerSession session = CosmeticPlayerSession.get(player);
                 session.getData().activateCosmetic(cosmetic);

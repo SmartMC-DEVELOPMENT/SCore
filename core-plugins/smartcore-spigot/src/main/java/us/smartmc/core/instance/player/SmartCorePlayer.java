@@ -17,6 +17,7 @@ import us.smartmc.core.messages.GeneralMessages;
 import us.smartmc.core.regions.controller.PlayerRegionSubscriber;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Getter
@@ -24,13 +25,16 @@ public class SmartCorePlayer extends CorePlayer {
 
     private static final SmartCore plugin = SmartCore.getPlugin();
 
-    public static final String COINS_PATH = "coins";
     private static final HashMap<UUID, SmartCorePlayer> players = new HashMap<>();
+
     private final PlayerRegionSubscriber playerRegionSubscriber;
+    @Getter
+    private PlayerCurrenciesHandler currenciesHandler;
 
     protected SmartCorePlayer(UUID uuid) {
         super(uuid);
         playerRegionSubscriber = new PlayerRegionSubscriber(this);
+        currenciesHandler = new PlayerCurrenciesHandler(this);
     }
 
     @Override
@@ -46,51 +50,6 @@ public class SmartCorePlayer extends CorePlayer {
                 .publish("PlayerChat",
                         bukkitPlayer.getName() + "\n"
                         + command);
-    }
-
-    public void removeCoins(long amount, String reason) throws CorePluginException {
-        long coins = getCoins();
-        long withCoinsRemoved = coins - amount;
-
-        if (withCoinsRemoved >= 0) {
-            setCoins(withCoinsRemoved);
-            String msgPath = amount == 1 ? "coin_removed" : "coins_removed";
-            if (reason != null) {
-                reason = "(" + reason + ")";
-            } else {
-                reason = "";
-            }
-            sendLanguageMessage(GeneralMessages.NAME, msgPath, amount, reason);
-
-        } else {
-            throw new CorePluginException("removeCoins method tried to remove more coins than player have!");
-        }
-        playSound(Sound.DIG_GRASS, 10, 10);
-    }
-
-    public void addCoins(long amount, String reason) {
-        setCoins(getCoins() + amount);
-        String msgPath = amount == 1 ? "coin_added" : "coins_added";
-
-        if (reason != null) {
-            reason = "(" + reason + ")";
-        } else {
-            reason = "";
-        }
-        sendLanguageMessage(GeneralMessages.NAME, msgPath, amount, reason);
-        playSound(Sound.LEVEL_UP, 10, 10);
-    }
-
-    public long getCoins() {
-        try {
-            return get(COINS_PATH, Number.class).longValue();
-        } catch (Exception ignore) {
-        }
-        return 0;
-    }
-
-    public void setCoins(long amount) {
-        playerData.getDocument().put(COINS_PATH, amount);
     }
 
     public <T> T get(String path, Class<T> clazz) {

@@ -2,6 +2,7 @@ package us.smartmc.core.instance.player;
 
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
+import org.bson.Document;
 import org.bukkit.Sound;
 import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.core.messages.GeneralMessages;
@@ -10,8 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerCurrenciesHandler {
-
-    private final Map<PlayerCurrencyCoin, Long> amounts = new HashMap<>();
 
     private final SmartCorePlayer corePlayer;
 
@@ -60,12 +59,11 @@ public class PlayerCurrenciesHandler {
     }
 
     public long get(PlayerCurrencyCoin coin) {
-        if (!amounts.containsKey(coin)) {
-            long amount = getData().getDocument().containsKey(coin.documentKey) ?
-                    getData().getDocument().get(coin.documentKey, Long.class) : 0;
-            amounts.put(coin, amount);
+        Document document = getData().getDocument();
+        if (!document.containsKey(coin.documentKey)) {
+            document.put(coin.documentKey, 0);
         }
-        return amounts.get(coin);
+        return document.get(coin.documentKey, Long.class);
     }
 
     private CorePlayerData getData() {

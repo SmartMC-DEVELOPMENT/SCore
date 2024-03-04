@@ -44,7 +44,6 @@ public class PluginScoreboard {
                         ? Netherboard.instance().createBoard(player, ChatUtil.parse(player, getTitle())) :
                         Netherboard.instance().getBoard(player);
                 List<String> currentLines = new ArrayList<>(getScores());
-                System.out.println("currentLines=" + currentLines);
                 currentLines.replaceAll(l -> ChatUtil.parse(player, l));
                 if (clear) board.clear();
                 int score = currentLines.size();

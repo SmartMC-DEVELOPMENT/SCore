@@ -22,7 +22,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.core.commands.*;
 import us.smartmc.core.handler.*;
 import us.smartmc.core.instance.SpigotLogger;
-import us.smartmc.core.instance.player.IPlayerCurrencyCoin;
 import us.smartmc.core.itemcommands.BungeeCommandAction;
 import us.smartmc.core.itemcommands.MessageCommand;
 import us.smartmc.core.listener.AdminModeListeners;
@@ -31,8 +30,6 @@ import us.smartmc.core.listener.CorePlayersListener;
 import us.smartmc.core.listener.RegionSetterListener;
 import us.smartmc.core.messages.GeneralMessages;
 import us.smartmc.core.messages.ItemUtilsMessages;
-import us.smartmc.core.regions.CuboidManager;
-import us.smartmc.core.regions.controller.RegionModeManager;
 import us.smartmc.core.util.ServerUtils;
 import us.smartmc.core.variables.*;
 
@@ -60,11 +57,6 @@ public class SmartCore extends JavaPlugin {
     private LobbyHandler lobbyHandler;
     @Getter
     private AdminModeHandler adminModeHandler;
-    @Getter
-    private RegionModeManager regionModeManager;
-
-    @Getter
-    private CuboidManager cuboidManager;
 
     private static String serverName;
     private static String serverID;
@@ -127,10 +119,6 @@ public class SmartCore extends JavaPlugin {
         scoreboardHandler = new ScoreboardHandler();
         lobbyHandler = new LobbyHandler(this);
         adminModeHandler = new AdminModeHandler();
-        regionModeManager = new RegionModeManager();
-        cuboidManager = new CuboidManager();
-
-        cuboidManager.load();
 
         registerListeners();
         registerCommands();
@@ -164,9 +152,7 @@ public class SmartCore extends JavaPlugin {
                 .regCMD("admin", new AdminCommand())
                 .regCMD("reloadLanguageConfig", new LanguageHandleConfigs())
                 .regCMD("gamemode", new GameModeCommand())
-                .regCMD("region", new RegionCommand())
                 .regCMD("executeAtBungeeCommand", new ExecuteAtBungeeCommand())
-                .regCMD("friend", new FriendCommand())
                 .regCMD("coins", new CoinsCommand())
                 .regCMD("enigmaboxes", new EnigmaBoxesCommand())
                 .regCMD("gems", new GemsCommand());

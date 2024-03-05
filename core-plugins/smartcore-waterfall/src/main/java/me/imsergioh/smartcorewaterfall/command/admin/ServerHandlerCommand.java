@@ -27,7 +27,7 @@ public class ServerHandlerCommand extends CoreCommand {
         }
 
         switch (args[0].toLowerCase()) {
-            case "register" -> {
+            case "register": {
                 if (args.length >= 3) {
                     String name = args[1];
                     String[] addressArguments = args[2].split(":");
@@ -38,8 +38,7 @@ public class ServerHandlerCommand extends CoreCommand {
                     sender.sendMessage(ChatUtil.parse("&aServidor agreado y registrado correctamente."));
                 }
             }
-
-            case "unregister" -> {
+            case "unregister": {
                 if (args.length >= 2) {
                     String name = args[1];
                     unregister(name);

@@ -6,7 +6,6 @@ import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.core.instance.player.PlayerCurrenciesHandler;
 import us.smartmc.core.instance.player.PlayerCurrencyCoin;
@@ -21,10 +20,7 @@ import us.smartmc.lobbycosmetics.message.CosmeticsMainMessages;
 import us.smartmc.lobbycosmetics.message.CosmeticsSectionMessages;
 import us.smartmc.lobbycosmetics.util.ItemsUtil;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class CosmeticBuyMenu extends CoreMenu {
 
@@ -49,7 +45,7 @@ public class CosmeticBuyMenu extends CoreMenu {
         List<String> lore = ItemsUtil.getBuilderCosmeticItemDescription(playerSession, info, cosmetic);
         String rarityLine = lore.get(0);
         lore.clear();
-        lore.addAll(List.of(" ", rarityLine, " "));
+        lore.addAll(Arrays.asList(" ", rarityLine, " "));
         buyBuilder.lore(lore);
         set(4, buyBuilder.get(initPlayer));
 
@@ -73,7 +69,7 @@ public class CosmeticBuyMenu extends CoreMenu {
         pendingRequests.remove(player.getUniqueId());
         SmartCorePlayer smartCorePlayer = SmartCorePlayer.get(player);
         long cost = cosmetic.getCost();
-        long currentBalance = SmartCorePlayer.get(player).getCoins();
+        long currentBalance = SmartCorePlayer.get(player).getCurrenciesHandler().get(PlayerCurrencyCoin.SMARTCOINS);
         if (cost <= currentBalance) {
             try {
                 String reason = LobbyCosmetics.getCosmeticsMainMessages().get(player, PlayerLanguages.get(player.getUniqueId()), "cosmetic_buyed_coins_reason");

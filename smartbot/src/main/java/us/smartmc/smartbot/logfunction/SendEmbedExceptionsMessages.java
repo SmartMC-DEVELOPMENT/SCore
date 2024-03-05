@@ -48,7 +48,8 @@ public class SendEmbedExceptionsMessages extends LogChannelRegistry {
                     embedBuilder.addField(key, value, inLine);
                 }
             }
-            if (channel instanceof TextChannel textChannel) {
+            if (channel instanceof TextChannel) {
+                TextChannel textChannel = (TextChannel) channel;
                 textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
             }
         } catch (Exception e) {

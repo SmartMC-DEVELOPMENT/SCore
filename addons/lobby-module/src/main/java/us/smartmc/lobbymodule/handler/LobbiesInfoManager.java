@@ -45,7 +45,8 @@ public class LobbiesInfoManager extends AddonListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onClose(InventoryCloseEvent event) {
         if (!isEnabled()) return;
-        if (!(event.getPlayer() instanceof Player player)) return;
+        if (!(event.getPlayer() instanceof Player)) return;
+        Player player = (Player) event.getPlayer();
         CorePlayer corePlayer = CorePlayer.get(player);
         CoreMenu menuOpen = corePlayer.getCurrentMenuOpen();
         if (menuOpen == null) return;

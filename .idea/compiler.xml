@@ -25,7 +25,6 @@
         <module name="gamesmanager-spigot" />
         <module name="core-plugins" />
         <module name="smartcore-spigot" />
-        <module name="games-manager" />
         <module name="events-core" />
         <module name="lobby-module" />
         <module name="staffmode-spigot" />
@@ -33,6 +32,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="games-manager" target="1.8" />
       <module name="old-gamesmanager-spigot (1)" target="1.8" />
       <module name="plugins-api" target="17" />
       <module name="SmartBot" target="17" />

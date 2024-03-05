@@ -20,6 +20,7 @@ import us.smartmc.lobbymodule.messages.LobbyMessages;
 import us.smartmc.lobbymodule.util.FireworkUtil;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class PlayerListener extends AddonListener implements Listener {
@@ -45,7 +46,7 @@ public class PlayerListener extends AddonListener implements Listener {
     public void sendSubliminalFireworkForJoining(PlayerJoinEvent event) {
         if (!isEnabled()) return;
         Player player = event.getPlayer();
-        FireworkUtil.spawnCustomFirework(player, List.of(Color.WHITE, Color.AQUA), null, FireworkEffect.Type.BALL,
+        FireworkUtil.spawnCustomFirework(player, Arrays.asList(Color.WHITE, Color.AQUA), null, FireworkEffect.Type.BALL,
                 false, false, 2, 4);
     }
 

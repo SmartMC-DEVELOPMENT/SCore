@@ -59,7 +59,8 @@ public class LobbiesMenu extends CoreMenu {
     public void load() {
         if (size < getDynamicInventorySize()) {
             for (HumanEntity viewer : inventory.getViewers()) {
-                if (!(viewer instanceof Player player)) continue;
+                if (!(viewer instanceof Player)) continue;
+                Player player = (Player) viewer;
                 get(language).open(player);
             }
         }

@@ -15,6 +15,7 @@ import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 import us.smartmc.lobbycosmetics.instance.player.CosmeticPlayerSession;
 import us.smartmc.lobbycosmetics.message.CosmeticsMainMessages;
 
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class CosmeticsAddonMenu extends CoreMenu implements ICosmeticAddonMenu {
@@ -41,7 +42,7 @@ public abstract class CosmeticsAddonMenu extends CoreMenu implements ICosmeticAd
 
         ItemBuilder builder = LobbyCosmetics.getSectionsHandler().get(type).getPreviewItemBuilder(language, unlocked, sectionsHandler.get(type).getCosmetics().size());
         inventory.setItem(slot, builder.get(language));
-        actionManager.registerItemAction(slot, get(slot), List.of("openCosmeticSection " + type.name()));
+        actionManager.registerItemAction(slot, get(slot), Arrays.asList("openCosmeticSection " + type.name()));
     }
 
     private static String getTitle(Player player, String id) {

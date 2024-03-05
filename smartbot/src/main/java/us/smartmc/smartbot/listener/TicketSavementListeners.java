@@ -25,7 +25,8 @@ public class TicketSavementListeners extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (!event.isFromGuild()) return;
-        if (!(event.getChannel() instanceof TextChannel channel)) return;
+        if (!(event.getChannel() instanceof TextChannel)) return;
+        TextChannel channel = (TextChannel) event.getChannel();
         TicketStorageSaver saver = TicketStorageSaver.getByChannelId(channel);
         if (saver == null) return;
         saver.registerMessage(event.getMessage());
@@ -34,7 +35,8 @@ public class TicketSavementListeners extends ListenerAdapter {
     @Override
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         if (Objects.requireNonNull(event.getUser()).isBot()) return;
-        if (!(event.getChannel() instanceof TextChannel textChannel)) return;
+        if (!(event.getChannel() instanceof TextChannel)) return;
+        TextChannel textChannel = (TextChannel) event.getChannel();
         if (!event.isFromGuild()) return;
         if (!SmartBotMain.isAllowedGuild(event.getGuild())) return;
         Guild guild = event.getGuild();
@@ -52,7 +54,8 @@ public class TicketSavementListeners extends ListenerAdapter {
     @Override
     public void onChannelDelete(ChannelDeleteEvent event) {
         if (!event.isFromGuild()) return;
-        if (!(event.getChannel() instanceof TextChannel channel)) return;
+        if (!(event.getChannel() instanceof TextChannel)) return;
+        TextChannel channel = (TextChannel) event.getChannel();
         save(event.getGuild(), channel);
     }
 

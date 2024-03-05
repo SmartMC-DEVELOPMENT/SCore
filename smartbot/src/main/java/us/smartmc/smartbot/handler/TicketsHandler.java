@@ -49,7 +49,7 @@ public class TicketsHandler {
     }
 
     public static void registerTicket(String ticketID, String ticketChannelId, MessageReactionAddEvent event) {
-        if (!(event.getChannel() instanceof TextChannel textChannel)) return;
+        if (!(event.getChannel() instanceof TextChannel)) return;
         Document document = new Document("_id", ticketID).append("created_by", event.getUserId()).append("creted_at", String.valueOf(System.currentTimeMillis() / 1000));
         RedisConnection.mainConnection.getResource()
                 .set("discord_ticket." + ticketChannelId, document.toJson());

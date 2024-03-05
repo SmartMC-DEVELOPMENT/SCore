@@ -8,6 +8,7 @@ import me.imsergioh.pluginsapi.util.LineLimiter;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -34,7 +35,7 @@ public class MsgHolderLanguageInfo {
     public List<String> getDescription() {
         String description = holder.get(id, Document.class).getString("description");
         List<String> list;
-        list = LineLimiter.limitLines(List.of(description), 32);
+        list = LineLimiter.limitLines(Arrays.asList(description), 32);
         list.replaceAll(s -> "&7" + s);
         return list;
     }

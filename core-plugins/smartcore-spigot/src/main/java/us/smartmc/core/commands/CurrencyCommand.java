@@ -71,7 +71,8 @@ public abstract class CurrencyCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player player) {
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
             SmartCorePlayer corePlayer = SmartCorePlayer.get(player);
             if (!sender.hasPermission("*")) {
                 corePlayer.sendLanguageMessage("general", "noPermission");

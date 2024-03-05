@@ -16,6 +16,7 @@ public class FFAMap extends GameMap {
     private static final String WORLD_NAME_PATH = "world";
     private static final String SPAWN_LOCATION_PATH = "spawnLocation";
     private static final String DEATH_Y_LOC_PATH = "death_y_loc";
+    private static final String SPAWN_Y_LOC_PATH = "spawn_y_loc";
 
     private final FFAMap mapInstance;
 
@@ -31,6 +32,14 @@ public class FFAMap extends GameMap {
         registerConfigDefault(DEATH_Y_LOC_PATH, 0);
         config.save();
         GameMapManager.register(this);
+    }
+
+    public void setSpawnYLocation(int yLoc) {
+        config.put(SPAWN_Y_LOC_PATH, yLoc);
+    }
+
+    public int getSpawnYLocation() {
+        return config.getInteger(SPAWN_Y_LOC_PATH);
     }
 
     public void registerMapChange() {

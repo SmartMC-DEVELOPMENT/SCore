@@ -81,7 +81,8 @@ public class PlayerListeners implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void damageInSpawn(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player player)) return;
+        if (!(event.getEntity() instanceof Player)) return;
+        Player player = (Player) event.getEntity();
         FFAGame game = FFAPlugin.getGame();
         if (game.isInGame(FFAPlugin.getFFAPlugin().getGamePlayerManager().get(player.getUniqueId()))) return;
         event.setCancelled(true);
@@ -104,8 +105,10 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void addKillerToMap(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player attacker)) return;
-        if (!(event.getEntity() instanceof Player victim)) return;
+        if (!(event.getDamager() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Player)) return;
+        Player attacker = (Player) event.getDamager();
+        Player victim = (Player) event.getEntity();
         getAttacked.put(victim.getUniqueId(), attacker.getUniqueId());
         Bukkit.getScheduler().runTaskLater(FFAPlugin.getFFAPlugin(), () -> {
             getAttacked.remove(victim.getUniqueId());

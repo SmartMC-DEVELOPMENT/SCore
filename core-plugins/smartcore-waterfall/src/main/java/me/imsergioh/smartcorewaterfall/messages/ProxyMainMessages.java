@@ -23,25 +23,25 @@ public class ProxyMainMessages extends MultiLanguageRegistry {
         holder.registerDefault("invalid_subcommand", "&cYou've introduced an invalid subcommand");
         holder.registerDefault("servers_not_found", "&cWe have not found servers to connect to!");
 
-        holder.registerDefault("purchase_package_announce", """
-                &r     
-                &9&kii&b &l{0} &9&kii&a ha adquirido un nuevo paquete!
-                       {1}
-                       &2¿Deseas un paquete como este? &aCómpralo en
-                                &e&nhttps://tienda.smartmc.us
-                                &r
-                                           &d&lGG in the chat
-                                           &r""");
+        holder.registerDefault("purchase_package_announce",
+                "&r\n" +
+                        "&9&kii&b &l{0} &9&kii&a ha adquirido un nuevo paquete!\n" +
+                        "       {1}\n" +
+                        "       &2¿Deseas un paquete como este? &aCómpralo en\n" +
+                        "                &e&nhttps://tienda.smartmc.us\n" +
+                        "                &r\n" +
+                        "                           &d&lGG in the chat\n" +
+                        "                           &r");
 
-        holder.registerDefault("renew_package_announce", """
-                &r     
-                &9&kii&b &l{0} &9&kii&a ha renovado un paquete!
-                       {1}
-                       &2¿Deseas un paquete como este? &aCómpralo en
-                                &e&nhttps://tienda.smartmc.us
-                                &r
-                                           &d&lGG in the chat
-                                           &r""");
+        holder.registerDefault("renew_package_announce",
+                "&r\n" +
+                        "&9&kii&b &l{0} &9&kii&a ha renovado un paquete!\n" +
+                        "       {1}\n" +
+                        "       &2¿Deseas un paquete como este? &aCómpralo en\n" +
+                        "                &e&nhttps://tienda.smartmc.us\n" +
+                        "                &r\n" +
+                        "                           &d&lGG in the chat\n" +
+                        "                           &r");
 
         holder.save();
     }

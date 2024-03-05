@@ -105,7 +105,7 @@ public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
     }
 
     @SafeVarargs
-    private void registerListeners(Class<? extends Listener>... classes) {
+    private final void registerListeners(Class<? extends Listener>... classes) {
         for (Class<? extends Listener> listenerClass : classes) {
             try {
                 Bukkit.getPluginManager().registerEvents(listenerClass.newInstance(), ffaPlugin);

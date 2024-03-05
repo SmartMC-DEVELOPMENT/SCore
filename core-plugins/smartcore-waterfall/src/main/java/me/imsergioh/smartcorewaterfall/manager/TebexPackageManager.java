@@ -3,11 +3,12 @@ import me.imsergioh.pluginsapi.instance.MongoDBPluginConfig;
 import org.bson.Document;
 import org.json.JSONArray;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.net.URL;
 import java.util.*;
 
 public class TebexPackageManager {
@@ -59,31 +60,47 @@ public class TebexPackageManager {
     }
 
     public List<Document> fetchInfo() {
-        // Cliente HTTP
-        HttpClient client = HttpClient.newHttpClient();
-
-        // Construir la solicitud
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://plugin.tebex.io/packages"))
-                .header("X-Tebex-Secret", secretKey) // Asignar la clave secreta en el encabezado
-                .GET() // Método GET
-                .build();
-
+        String urlString = "https://plugin.tebex.io/packages";
+        HttpURLConnection connection = null;
         try {
-            // Realizar la solicitud y obtener la respuesta
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            // Crear la URL y abrir la conexión
+            URL url = new URL(urlString);
+            connection = (HttpURLConnection) url.openConnection();
 
-            // Convertir la respuesta JSON a una lista de Document de BSON
-            JSONArray jsonArray = new JSONArray(response.body());
-            List<Document> documents = new ArrayList<>();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                documents.add(Document.parse(jsonArray.getJSONObject(i).toString()));
+            // Configurar la solicitud HTTP
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("X-Tebex-Secret", secretKey); // Asignar la clave secreta en el encabezado
+
+            // Conectar y obtener la respuesta
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) { // Verificar si la respuesta es 200 OK
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                // Convertir la respuesta JSON a una lista de Document de BSON
+                JSONArray jsonArray = new JSONArray(response.toString());
+                List<Document> documents = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    documents.add(Document.parse(jsonArray.getJSONObject(i).toString()));
+                }
+                return documents;
+            } else {
+                System.out.println("Failed to fetch data: HTTP error code : " + responseCode);
+                return null;
             }
-            return documents;
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
     }
-
 }

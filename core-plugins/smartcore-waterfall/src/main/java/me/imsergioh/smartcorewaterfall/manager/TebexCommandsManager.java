@@ -7,6 +7,7 @@ import org.bson.Document;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TebexCommandsManager {
@@ -60,7 +61,7 @@ public class TebexCommandsManager {
                 .append("name", name)
                 .append("luckperms_group_name", "default")
                 .append("expiry_time", "1month")
-                .append("purchase_commands", List.of("lpb user {0} parent addtemp {luckperms_group_name} {expiry_time}", "announcePackagePurchase {0} {name}"));
+                .append("purchase_commands", Arrays.asList("lpb user {0} parent addtemp {luckperms_group_name} {expiry_time}", "announcePackagePurchase {0} {name}"));
         config.registerDefault(id, document);
     }
 

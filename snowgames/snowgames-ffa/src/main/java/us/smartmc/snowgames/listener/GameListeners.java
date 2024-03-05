@@ -74,7 +74,7 @@ public class GameListeners implements Listener {
         FFAGame game = FFAPlugin.getGame();
         if (game == null) return;
         boolean inGame = game.isInGame(gamePlayer);
-        boolean atSpawn = RegionUtils.isAtSpawn(player);
+        boolean atSpawn = player.getLocation().getY() >= FFAPlugin.getGame().getMap().getSpawnYLocation();
 
         if (!inGame && !atSpawn && !recentJoined.contains(player.getUniqueId())) {
             game.joinPlayer(gamePlayer);

@@ -54,7 +54,7 @@ public class BlockListeners implements Listener {
     public void allowPlaceIfInGameAndNotSpawn(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         if (!FFAPlugin.getGame().isInGame(player)) return;
-        if (RegionUtils.isAtSpawn(player)) return;
+        if (player.getLocation().getY() >= FFAPlugin.getGame().getMap().getSpawnYLocation()) return;
         event.setCancelled(false);
     }
 

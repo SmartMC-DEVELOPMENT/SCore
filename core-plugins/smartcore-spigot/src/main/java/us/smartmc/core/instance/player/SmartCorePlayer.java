@@ -12,12 +12,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
-import us.smartmc.core.exception.CorePluginException;
-import us.smartmc.core.messages.GeneralMessages;
-import us.smartmc.core.regions.controller.PlayerRegionSubscriber;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 @Getter
@@ -27,13 +23,11 @@ public class SmartCorePlayer extends CorePlayer {
 
     private static final HashMap<UUID, SmartCorePlayer> players = new HashMap<>();
 
-    private final PlayerRegionSubscriber playerRegionSubscriber;
     @Getter
     private PlayerCurrenciesHandler currenciesHandler;
 
     protected SmartCorePlayer(UUID uuid) {
         super(uuid);
-        playerRegionSubscriber = new PlayerRegionSubscriber(this);
         currenciesHandler = new PlayerCurrenciesHandler(this);
     }
 

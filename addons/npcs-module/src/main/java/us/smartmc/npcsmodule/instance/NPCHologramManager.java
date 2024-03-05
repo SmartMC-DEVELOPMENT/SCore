@@ -1,6 +1,9 @@
 package us.smartmc.npcsmodule.instance;
 
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
+import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.LanguageUtil;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -21,9 +24,12 @@ public class NPCHologramManager extends AddonListener implements Listener {
     private final NPC npc;
     private final HashMap<Integer, EntityArmorStand> stands = new HashMap<>();
     private final HashMap<Integer, String> names = new HashMap<>();
-    private final ArrayList<UUID> viewers = new ArrayList<>();
+    private final Set<Player> viewers = new HashSet<>();
 
     private final int updateTaskID;
+
+    private final Map<Language, List<String>> constantLinesMap = new HashMap<>();
+    private final Map<Language, Integer> lastKnownLines = new HashMap<>();
 
     public NPCHologramManager(NPC npc) {
         this.npc = npc;
@@ -34,15 +40,35 @@ public class NPCHologramManager extends AddonListener implements Listener {
     private int setupUpdateTask() {
         return Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
             if (viewers.isEmpty()) return;
-            for (UUID uuid : new HashSet<>(viewers)) {
-                Player player = Bukkit.getPlayer(uuid);
-                if (player == null) {
-                    viewers.remove(uuid);
-                    continue;
-                }
-                updateHolograms(player);
+
+            constantLinesMap.clear();
+            // Register only changed lines in the map below
+            for (Player player : viewers) {
+                if (constantLinesMap.keySet().size() == Language.values().length) break;
+                Language language = PlayerLanguages.get(player.getUniqueId());
+                if (constantLinesMap.containsKey(language)) continue;
+                List<String> linesList = getLines(language);
+
+                // Calcula el hash de las líneas actuales
+                int currentLinesHash = linesList.hashCode();
+
+                // Compara el hash actual con el último hash conocido
+                Integer lastKnownLinesHash = lastKnownLines.containsKey(language) ? lastKnownLines.get(language).hashCode() : null;
+                if (lastKnownLinesHash != null && currentLinesHash == lastKnownLinesHash) continue;
+
+                constantLinesMap.put(language, linesList);
+                // Actualiza el hash en lastKnownLines
+                lastKnownLines.put(language, currentLinesHash); // Considera almacenar el hash directamente para mejorar la eficiencia
             }
-        }, 0, 20);
+
+            // Update holograms to players if changed
+            for (Player player : viewers) {
+                UUID uuid = player.getUniqueId();
+                Language language = PlayerLanguages.get(uuid);
+                if (!constantLinesMap.containsKey(language)) continue;
+                updateHolograms(player, constantLinesMap.get(language));
+            }
+        }, 0, 20 * 3);
     }
 
     public void cancelUpdateTask() {
@@ -52,7 +78,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
     public void setupStands() {
         List<String> lines = getLines();
         if (lines == null) return;
-        if (lines.size() == 0) return;
+        if (lines.isEmpty()) return;
 
         Location location = npc.getLocation();
         location.add(0, 0.92, 0);
@@ -75,19 +101,24 @@ public class NPCHologramManager extends AddonListener implements Listener {
         List<String> originalLines = getLines();
         if (originalLines == null) return;
         List<String> lines = new ArrayList<>(originalLines);
-        if (lines.size() == 0) return;
+        if (lines.isEmpty()) return;
         for (int i = lines.size() - 1; i >= 0; i--) {
             EntityArmorStand stand = stands.get(i);
             spawnVisibleArmorStand(player, stand);
         }
     }
 
-    public void updateHolograms(Player player) {
-        List<String> originalLines = getLines();
-        if (originalLines == null) return;
-        List<String> lines = new ArrayList<>(originalLines);
-        if (lines.isEmpty()) return;
+    private List<String> getLines(Language language) {
+        List<String> list = new ArrayList<>();
+        for (String line : getLines()) {
+            String languageParsedLine = LanguageUtil.parse(language, line);
+            list.add(ChatUtil.parse(languageParsedLine));
+        }
+        return list;
+    }
 
+    public void updateHolograms(Player player, List<String> lines) {
+        if (player == null) return;
         for (int i = lines.size() - 1; i >= 0; i--) {
             EntityArmorStand stand = stands.get(i);
 
@@ -115,8 +146,12 @@ public class NPCHologramManager extends AddonListener implements Listener {
         PacketPlayOutSpawnEntityLiving packetPlayOutSpawnEntityLiving = new PacketPlayOutSpawnEntityLiving(visibleArmorStandEntity);
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutSpawnEntityLiving);
 
-        updateHolograms(player);
-        viewers.add(player.getUniqueId());
+        updateHolograms(player, getLines(PlayerLanguages.get(player.getUniqueId())));
+        viewers.add(player);
+    }
+
+    public void removeViewer(Player player) {
+        viewers.remove(player);
     }
 
     public List<String> getLines() {

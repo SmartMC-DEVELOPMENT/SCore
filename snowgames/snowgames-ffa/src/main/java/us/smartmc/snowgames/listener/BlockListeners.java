@@ -10,7 +10,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.server.ServerEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import us.smartmc.core.SmartCore;
@@ -18,7 +17,6 @@ import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.config.DefaultConfig;
 import us.smartmc.snowgames.manager.BlocksResetManager;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
-import us.smartmc.snowgames.util.RegionUtils;
 
 public class BlockListeners implements Listener {
 

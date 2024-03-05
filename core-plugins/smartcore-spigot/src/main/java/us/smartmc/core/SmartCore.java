@@ -14,7 +14,6 @@ import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import me.imsergioh.pluginsapi.util.GlobalExceptionHandler;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
@@ -27,7 +26,6 @@ import us.smartmc.core.itemcommands.MessageCommand;
 import us.smartmc.core.listener.AdminModeListeners;
 import us.smartmc.core.listener.CommandListeners;
 import us.smartmc.core.listener.CorePlayersListener;
-import us.smartmc.core.listener.RegionSetterListener;
 import us.smartmc.core.messages.GeneralMessages;
 import us.smartmc.core.messages.ItemUtilsMessages;
 import us.smartmc.core.util.ServerUtils;
@@ -141,8 +139,6 @@ public class SmartCore extends JavaPlugin {
         for (String key : RedisConnection.mainConnection.getResource().keys("*." + getServerName())) {
             RedisConnection.mainConnection.getResource().del(key);
         }
-
-        cuboidManager.unload();
     }
 
     private void registerCommands() {
@@ -167,8 +163,7 @@ public class SmartCore extends JavaPlugin {
                 new TagsHandler(),
                 new AdminModeListeners(),
                 new CorePlayersListener(),
-                new CommandListeners(),
-                new RegionSetterListener());
+                new CommandListeners());
     }
 
     private void registerVariables() {

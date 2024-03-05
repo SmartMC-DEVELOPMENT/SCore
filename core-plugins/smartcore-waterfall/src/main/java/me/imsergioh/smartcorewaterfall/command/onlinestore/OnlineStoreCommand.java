@@ -29,13 +29,26 @@ public class OnlineStoreCommand extends Command {
             return;
         }
 
-        OnlineStoreCommandType type = switch (args[0]) {
-            case "purchasePackage" -> OnlineStoreCommandType.PURCHASE;
-            case "removePackage" -> OnlineStoreCommandType.REMOVE;
-            case "refundPackage" -> OnlineStoreCommandType.REFUND;
-            case "chargebackPackage" -> OnlineStoreCommandType.CHARGEBACK;
-            case "renewSub" -> OnlineStoreCommandType.RENEW;
-            default -> OnlineStoreCommandType.UNKNOWN;
+        OnlineStoreCommandType type = null;
+        switch (args[0]) {
+            case "purchasePackage":
+                type = OnlineStoreCommandType.PURCHASE;
+                break;
+            case "removePackage":
+                type = OnlineStoreCommandType.REMOVE;
+                break;
+            case "refundPackage":
+                type = OnlineStoreCommandType.REFUND;
+                break;
+            case "chargebackPackage":
+                type = OnlineStoreCommandType.CHARGEBACK;
+                break;
+            case "renewSub":
+                type = OnlineStoreCommandType.RENEW;
+                break;
+            default:
+                type = OnlineStoreCommandType.UNKNOWN;
+                break;
         };
 
         if (type.equals(OnlineStoreCommandType.UNKNOWN)) {

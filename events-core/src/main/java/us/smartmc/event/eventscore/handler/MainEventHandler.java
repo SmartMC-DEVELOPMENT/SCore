@@ -11,6 +11,15 @@ public class MainEventHandler {
     private static final EventsCore core = EventsCore.getCore();
     private static final EventConfig config = core.getEventConfig();
 
+    public static <T extends Enum<T>> T getEnumType(String path, Class<T> tClass) {
+        return config.getEnumType(path, tClass);
+    }
+
+    public static <T extends Enum<T>> void setEnumType(String path, T value) {
+        config.setEnumType(path, value);
+        config.save();
+    }
+
     public static boolean isHoster(Player player) {
         if (player.hasPermission("*")) {
             return true;

@@ -20,7 +20,7 @@ public class OptionsCommand implements CommandExecutor {
         if (!MainEventHandler.isHoster(player)) {
             player.sendMessage(ChatUtil.parse("&cDebes ser admin/hoster del evento para poder hacer eso."));
         }
-        new MainOptionsMenu(player).open(player);
+        MainOptionsMenu.getGlobalMenu().open(player);
         return false;
     }
 }

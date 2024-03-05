@@ -2,6 +2,7 @@ package us.smartmc.event.eventscore.config;
 
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.smartmc.event.eventscore.util.EnumUtils;
 
 import java.io.File;
 import java.util.List;
@@ -28,7 +29,7 @@ public class EventConfig extends SpigotYmlConfig {
 
     public <T extends Enum<T>> T getEnumType(String path, Class<T> tClass) {
         String enumName = getString(path);
-        if (enumName == null) return IToggleableType.getEnums(tClass)[0];
+        if (enumName == null) return EnumUtils.getValues(tClass)[0];
         return Enum.valueOf(tClass, enumName);
     }
 

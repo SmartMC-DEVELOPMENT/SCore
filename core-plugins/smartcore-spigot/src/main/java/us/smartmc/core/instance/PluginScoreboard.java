@@ -64,7 +64,7 @@ public class PluginScoreboard {
             String variable = entry.getValue();
             String line = ChatUtil.parse(player, variable);
 
-            int reversedIndex = getScores().size() - 1 - index;
+            int reversedIndex = getScores().size() - index;
             String lastKnownLine = lastKnowingLines.get(reversedIndex);
 
             if (!line.equals(lastKnownLine)) {
@@ -90,7 +90,7 @@ public class PluginScoreboard {
         Map<Integer, String> lastKnownLines = new HashMap<>();
         for (int index = scores.size() - 1; index >= 0; index--) {
             String line = ChatUtil.parse(player, scores.get(index));
-            board.set(line, scores.size() - 1 - index); // Ajustar el índice aquí
+            board.set(line, scores.size() - index);
             if (variablesLines.containsKey(index)) {
                 lastKnownLines.put(index, line);
             }

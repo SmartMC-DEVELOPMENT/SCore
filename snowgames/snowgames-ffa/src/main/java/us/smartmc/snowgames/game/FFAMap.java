@@ -2,6 +2,7 @@ package us.smartmc.snowgames.game;
 
 import lombok.Getter;
 import org.bukkit.Location;
+import us.smartmc.core.handler.SpawnHandler;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GameMap;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameMapManager;
 import us.smartmc.snowgames.FFAPlugin;
@@ -39,6 +40,7 @@ public class FFAMap extends GameMap {
     }
 
     public int getSpawnYLocation() {
+        if (!config.containsKey(SPAWN_Y_LOC_PATH)) return SpawnHandler.getLocation().getBlockY() - 12;
         return config.getInteger(SPAWN_Y_LOC_PATH);
     }
 

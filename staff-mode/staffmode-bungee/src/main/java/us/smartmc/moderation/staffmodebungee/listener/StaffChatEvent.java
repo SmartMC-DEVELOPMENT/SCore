@@ -17,7 +17,8 @@ public class StaffChatEvent implements Listener {
 
     @EventHandler(priority = 12)
     public void onChat(ChatEvent event) {
-        if (!(event.getSender() instanceof ProxiedPlayer player)) return;
+        if (!(event.getSender() instanceof ProxiedPlayer)) return;
+        ProxiedPlayer player = (ProxiedPlayer) event.getSender();
         String message = event.getMessage();
         if (message.startsWith("/")) return;
         if (!player.hasPermission(RegistrationUtil.STAFF_PERMISSION)) return;

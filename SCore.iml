@@ -2,27 +2,16 @@
 <module version="4">
   <component name="AdditionalModuleElements">
     <content url="file://$MODULE_DIR$" dumb="true">
+      <sourceFolder url="file://$MODULE_DIR$/arenapvp/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/arenapvp/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/events-core/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/plugins-api/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/plugins-api/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/arenapvp/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/arenapvp/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-bungee/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-bungee/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-spigot/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-spigot/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/events-core/src/main/resources" type="java-resource" />
     </content>
-  </component>
-  <component name="FacetManager">
-    <facet type="minecraft" name="Minecraft">
-      <configuration>
-        <autoDetectTypes>
-          <platformType>SPIGOT</platformType>
-          <platformType>WATERFALL</platformType>
-        </autoDetectTypes>
-        <projectReimportVersion>1</projectReimportVersion>
-      </configuration>
-    </facet>
   </component>
 </module>

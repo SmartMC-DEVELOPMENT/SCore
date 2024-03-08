@@ -32,7 +32,6 @@ public class PluginUtils {
             CorePlayerData playerData = corePlayer.getPlayerData();
             if (playerData == null) return;
             playerData.save();
-            SmartCorePlayer.unload(player);
         }).thenRun(() -> {
             try {
                 System.out.println("Redirecting " + player.getName() + " to " + serverPrefix);

@@ -63,7 +63,7 @@ public class PlayerCurrenciesHandler {
         if (!document.containsKey(coin.getDocumentKey())) {
             document.put(coin.getDocumentKey(), 0);
         }
-        return document.get(coin.getDocumentKey(), Long.class);
+        return document.get(coin.getDocumentKey(), Number.class).longValue();
     }
 
     private CorePlayerData getData() {

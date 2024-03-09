@@ -27,6 +27,7 @@ public class PluginScoreboard {
         config.load();
         config.registerDefault("title", "TITLE");
         config.registerDefault("scores", Arrays.asList("Line1", "Line2", "Line3", "play.smartmc.us"));
+        config.registerDefault("update_ticks", 60);
         config.save();
 
         registerVariables();
@@ -35,7 +36,7 @@ public class PluginScoreboard {
             for (Player player : lastKnownPlayerVariables.keySet()) {
                 checkUpdates(player);
             }
-        }, 10, 20 * 3);
+        }, 10, config.getInteger("update_ticks"));
     }
 
     private void registerVariables() {

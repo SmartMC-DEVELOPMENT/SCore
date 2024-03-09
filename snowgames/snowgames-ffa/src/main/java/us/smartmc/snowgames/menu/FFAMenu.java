@@ -7,6 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 public abstract class FFAMenu extends CoreMenu {
 
     protected FFAMenu(Player player, int size, String title) {
@@ -27,6 +30,22 @@ public abstract class FFAMenu extends CoreMenu {
         String name = meta.getDisplayName();
         if (name == null) return ItemBuilder.of(item.getType()).get(player);
         return ItemBuilder.of(item.getType()).amount(item.getAmount()).name(ChatUtil.parse(player, name)).get(player);
+    }
+
+    public static void give(Player player, Class<? extends FFAMenu> menuClass) {
+        FFAMenu hotBar = null;
+        try {
+            Constructor<? extends FFAMenu> constructor = menuClass.getDeclaredConstructor(Player.class);
+            constructor.setAccessible(true);
+            hotBar = constructor.newInstance(player);
+            player.getInventory().clear();
+            hotBar.set(player);
+            player.setHealthScale(20);
+            player.setFoodLevel(20);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

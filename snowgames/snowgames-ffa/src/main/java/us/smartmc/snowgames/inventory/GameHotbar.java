@@ -39,14 +39,4 @@ public class GameHotbar extends FFAMenu {
         player.getInventory().setContents(getInventory().getContents());
         CorePlayer.get(player).setCurrentMenuSet(this);
     }
-
-    public static void give(Player player) {
-        GameHotbar hotBar = new GameHotbar(player);
-        player.getInventory().clear();
-        hotBar.set(player);
-        player.setHealthScale(20);
-        player.setFoodLevel(20);
-        player.updateInventory();
-    }
-
 }

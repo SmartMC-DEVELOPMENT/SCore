@@ -28,6 +28,7 @@ public class FFAMap extends GameMap {
         super(name);
         mapInstance = this;
         registerConfigDefault(DISPLAY_NAME_PATH, name);
+        System.out.println("displayName: " + config.getString(DISPLAY_NAME_PATH));
         registerConfigDefault(WORLD_NAME_PATH, name);
         registerConfigDefault(SPAWN_LOCATION_PATH, getWorldName() + " 0 75 0 0 0");
         registerConfigDefault(DEATH_Y_LOC_PATH, 0);

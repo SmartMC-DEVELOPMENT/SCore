@@ -12,13 +12,16 @@ import org.bukkit.event.Listener;
 import us.smartmc.gamesmanager.gamesmanagerspigot.GamesManagerAPI;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GamePreset;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameManager;
+import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameMapManager;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePlayerManager;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePresetManager;
+import us.smartmc.gamesmanager.gamesmanagerspigot.util.ServerUtil;
 import us.smartmc.snowgames.actions.GameActions;
 import us.smartmc.snowgames.actions.HotbarActions;
 import us.smartmc.snowgames.config.DefaultConfig;
 import us.smartmc.snowgames.config.LanguageConfig;
 import us.smartmc.snowgames.game.FFAGame;
+import us.smartmc.snowgames.game.FFAMap;
 import us.smartmc.snowgames.listener.BlockListeners;
 import us.smartmc.snowgames.listener.GameListeners;
 import us.smartmc.snowgames.listener.PlayerListeners;
@@ -30,6 +33,7 @@ import us.smartmc.snowgames.util.DebugUtil;
 import us.smartmc.snowgames.variables.PlayerVariables;
 
 import java.io.File;
+import java.util.Objects;
 
 public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
 
@@ -68,6 +72,16 @@ public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
 
         new GamePresetManager(getDataFolder() + "/games");
         new WorldConfigManager();
+
+        // Load maps:
+        File mapsConfigDirs = new File(ServerUtil.getWorldContainer() + "/game_maps_configs");
+        mapsConfigDirs.mkdirs();
+        for (File file : Objects.requireNonNull(mapsConfigDirs.listFiles())) {
+            if (!file.getName().endsWith(".json")) continue;
+            String name = file.getName().replace(".json", "");
+            GameMapManager.register(new FFAMap(name));
+        }
+
         GamePreset ffaPreset = new GamePreset("ffa", new SpigotYmlConfig(new File(getDataFolder() + "/game_preset.yml")));
         game = new FFAGame(gameManager, ffaPreset);
 

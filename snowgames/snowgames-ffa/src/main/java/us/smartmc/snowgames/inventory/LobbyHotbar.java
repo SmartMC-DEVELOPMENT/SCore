@@ -40,13 +40,4 @@ public class LobbyHotbar extends FFAMenu {
         if (name == null) return ItemBuilder.of(item.getType()).get(player);
         return ItemBuilder.of(item.getType()).amount(item.getAmount()).name(ChatUtil.parse(player, name)).get(player);
     }
-
-    public static void give(Player player) {
-        LobbyHotbar hotBar = new LobbyHotbar(player);
-        player.getInventory().clear();
-        hotBar.set(player);
-        player.setHealthScale(20);
-        player.setFoodLevel(20);
-    }
-
 }

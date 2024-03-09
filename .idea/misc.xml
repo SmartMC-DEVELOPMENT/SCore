@@ -33,6 +33,8 @@
         <option value="$PROJECT_DIR$/core-plugins/smartcore-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/staff-mode/staffmode-bungee/pom.xml" />
         <option value="$PROJECT_DIR$/events-core/pom.xml" />
+        <option value="$PROJECT_DIR$/survival/fixes-core/pom.xml" />
+        <option value="$PROJECT_DIR$/survival/survival-placeholders/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

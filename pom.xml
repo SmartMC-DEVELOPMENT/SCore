@@ -15,7 +15,6 @@
         <module>login</module>
         <module>snowgames</module>
         <module>games-manager</module>
-        <module>fixes-core</module>
     </modules>
 
     <properties>

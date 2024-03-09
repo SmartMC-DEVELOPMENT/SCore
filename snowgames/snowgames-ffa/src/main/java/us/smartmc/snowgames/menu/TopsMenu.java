@@ -1,6 +1,7 @@
 package us.smartmc.snowgames.menu;
 
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bson.Document;
@@ -22,7 +23,7 @@ public class TopsMenu extends FFAMenu {
     private static final TopsManager topsManager = plugin.getTopsManager();
 
     public TopsMenu(Player player) {
-        super(player, 27, LanguageConfig.getMenuTitle("tops"));
+        super(player, 27, PluginMessages.getMenuTitle(PlayerLanguages.get(player.getUniqueId()), "tops"));
     }
 
     @Override

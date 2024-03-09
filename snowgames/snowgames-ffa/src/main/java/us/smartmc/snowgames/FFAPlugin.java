@@ -18,6 +18,7 @@ import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePresetManager;
 import us.smartmc.gamesmanager.gamesmanagerspigot.util.ServerUtil;
 import us.smartmc.snowgames.actions.GameActions;
 import us.smartmc.snowgames.actions.HotbarActions;
+import us.smartmc.snowgames.actions.SettingsActions;
 import us.smartmc.snowgames.config.DefaultConfig;
 import us.smartmc.snowgames.config.LanguageConfig;
 import us.smartmc.snowgames.game.FFAGame;
@@ -95,6 +96,7 @@ public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
 
         ItemActionsManager.registerCommand("game", new GameActions());
         ItemActionsManager.registerCommand("hotbar", new HotbarActions());
+        ItemActionsManager.registerCommand("settings", new SettingsActions());
 
         getCommand("ffa").setExecutor(new FFACommand());
 

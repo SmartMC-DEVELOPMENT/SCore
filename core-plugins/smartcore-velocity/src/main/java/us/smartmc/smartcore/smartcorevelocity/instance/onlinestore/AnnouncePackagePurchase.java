@@ -1,0 +1,51 @@
+package us.smartmc.smartcore.smartcorevelocity.instance.onlinestore;
+
+import com.velocitypowered.api.command.CommandSource;
+import com.velocitypowered.api.proxy.Player;
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.util.ChatUtil;
+import net.kyori.adventure.text.Component;
+import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
+import us.smartmc.smartcore.smartcorevelocity.instance.PlayerLanguages;
+import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
+
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
+
+public class AnnouncePackagePurchase extends CoreCommand {
+
+    public AnnouncePackagePurchase() {
+        super("announcePackagePurchase");
+    }
+
+    @Override
+    public void execute(CommandSource sender, String[] args) {
+        if (sender instanceof Player) return;
+        String username = args[0];
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 1; i < args.length; i++) {
+            stringBuilder.append(args[i]).append(" ");
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        String packageName = stringBuilder.toString();
+
+        Map<Language, String> messages = new HashMap<>();
+
+        for (Language language : Language.values()) {
+            String message = LanguagesHandler.get(language).get("proxy_main").getString("purchase_package_announce");
+            message = MessageFormat.format(message, username, packageName);
+            message = ChatUtil.color(message);
+            messages.put(language, message);
+        }
+
+        for (Player player : VelocityPluginsAPI.proxy.getAllPlayers()) {
+            Language language = PlayerLanguages.getLanguage(player.getUniqueId());
+            String message = messages.get(language);
+            player.sendMessage(Component.text(message));
+        }
+        System.out.println(messages.get(Language.getDefault()));
+    }
+}

@@ -27,6 +27,7 @@
         <module name="smartbot" />
         <module name="orchestrator" />
         <module name="fixes-core" />
+        <module name="smartcore-velocity" />
         <module name="serverhandler-bukkit" />
         <module name="gamesmanager-spigot" />
         <module name="core-plugins" />

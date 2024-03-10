@@ -36,6 +36,7 @@
         <option value="$PROJECT_DIR$/survival/fixes-core/pom.xml" />
         <option value="$PROJECT_DIR$/survival/survival-placeholders/pom.xml" />
         <option value="$PROJECT_DIR$/survival/survival-chat/pom.xml" />
+        <option value="$PROJECT_DIR$/core-plugins/smartcore-velocity/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -47,7 +48,7 @@
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="azul-1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="azul-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

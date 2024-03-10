@@ -19,6 +19,7 @@
       <module fileurl="file://$PROJECT_DIR$/server-handler/serverhandler-bukkit/serverhandler-bukkit.iml" filepath="$PROJECT_DIR$/server-handler/serverhandler-bukkit/serverhandler-bukkit.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/serverhandler-bungee/serverhandler-bungee.iml" filepath="$PROJECT_DIR$/server-handler/serverhandler-bungee/serverhandler-bungee.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-plugins/smartcore-spigot/smartcore-spigot.iml" filepath="$PROJECT_DIR$/core-plugins/smartcore-spigot/smartcore-spigot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core-plugins/smartcore-velocity/smartcore-velocity.iml" filepath="$PROJECT_DIR$/core-plugins/smartcore-velocity/smartcore-velocity.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-plugins/smartcore-waterfall/smartcore-waterfall.iml" filepath="$PROJECT_DIR$/core-plugins/smartcore-waterfall/smartcore-waterfall.iml" />
       <module fileurl="file://$PROJECT_DIR$/snowgames.iml" filepath="$PROJECT_DIR$/snowgames.iml" />
       <module fileurl="file://$PROJECT_DIR$/snowgames/snowgames-ffa/snowgames-ffa.iml" filepath="$PROJECT_DIR$/snowgames/snowgames-ffa/snowgames-ffa.iml" />

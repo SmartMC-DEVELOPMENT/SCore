@@ -30,7 +30,6 @@ public final class EventsCore extends JavaPlugin {
     @Override
     public void onEnable() {
         core = this;
-        System.out.println("Core equals to " + core);
         MongoDBConnection.mainConnection = new MongoDBConnection("127.0.0.1", 27017);
         RedisConnection.mainConnection = new RedisConnection("127.0.0.1", 6379);
         SpigotPluginsAPI.setup(core);

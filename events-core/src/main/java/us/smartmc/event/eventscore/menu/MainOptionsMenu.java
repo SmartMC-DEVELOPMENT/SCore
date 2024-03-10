@@ -37,6 +37,7 @@ public class MainOptionsMenu extends EventCoreMenu {
 
         });
         set(13, ItemBuilder.of(Material.LEGACY_SKULL_ITEM)
+
                 .name("&bControl de jugadores").lore(Arrays.asList(
                         "Cambia aspectos de los jugadores:",
                         "  - Modo de juego")).get(), clickHandler -> {

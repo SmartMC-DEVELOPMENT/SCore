@@ -2,6 +2,7 @@ package us.smartmc.core.instance;
 
 import fr.minuskube.netherboard.Netherboard;
 import fr.minuskube.netherboard.bukkit.BPlayerBoard;
+import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Bukkit;
@@ -9,16 +10,16 @@ import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class PluginScoreboard {
 
+    @Getter
     private final String name;
-    private final HashMap<Player, List<String>> playerLinesMap = new HashMap<>();
     private final FilePluginConfig config;
+
+    private final Map<Integer, String> variablesLines = new HashMap<>();
+    private final Map<Player, Map<Integer, String>> lastKnownPlayerVariables = new HashMap<>();
 
     public PluginScoreboard(String name) {
         this.name = name;
@@ -26,52 +27,80 @@ public class PluginScoreboard {
         config.load();
         config.registerDefault("title", "TITLE");
         config.registerDefault("scores", Arrays.asList("Line1", "Line2", "Line3", "play.smartmc.us"));
+        config.registerDefault("update_ticks", 60);
         config.save();
 
+        registerVariables();
+
         Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
-            playerLinesMap.keySet().forEach(player -> {
-                updateScoreboard(player, false);
-            });
-        }, 10, 20);
+            for (Player player : lastKnownPlayerVariables.keySet()) {
+                checkUpdates(player);
+            }
+        }, 10, config.getInteger("update_ticks"));
+    }
+
+    private void registerVariables() {
+        List<String> scores = getScores();
+        for (int index = 0; index < scores.size(); index++) {
+            String line = scores.get(index);
+            if (line.contains("<") || line.contains("%")) {
+                variablesLines.put(index, line);
+            }
+        }
     }
 
     public void register(Player player) {
-        playerLinesMap.put(player, new ArrayList<>());
-        updateScoreboard(player, true);
+        Bukkit.getScheduler().runTask(SmartCore.getPlugin(), () -> {
+            createScoreboard(player);
+        });
     }
 
-    private void updateScoreboard(Player player, boolean clear) {
-        Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
-            try {
-                BPlayerBoard board = Netherboard.instance().getBoard(player) == null
-                        ? Netherboard.instance().createBoard(player, ChatUtil.parse(player, getTitle())) :
-                        Netherboard.instance().getBoard(player);
-                List<String> currentLines = new ArrayList<>(getScores());
-                currentLines.replaceAll(l -> ChatUtil.parse(player, l));
-                List<String> lastKnownLines = playerLinesMap.getOrDefault(player, new ArrayList<>());
+    private void checkUpdates(Player player) {
+        BPlayerBoard board = getOrCreateBoard(player);
+        Map<Integer, String> lastKnowingLines = lastKnownPlayerVariables.get(player);
 
-                if (!hasLinesChanged(currentLines, lastKnownLines)) return;
+        for (Map.Entry<Integer, String> entry : variablesLines.entrySet()) {
+            int index = entry.getKey();
 
-                if (clear) board.clear();
+            String variable = entry.getValue();
+            String line = ChatUtil.parse(player, variable);
 
-                int score = currentLines.size();
-                for (String line : currentLines) {
-                    board.set(line, score);
-                    score--;
-                }
-                playerLinesMap.put(player, currentLines);
-            } catch (Exception e) {
-                unregister(player);
+            int reversedIndex = getScores().size() - index;
+            String lastKnownLine = lastKnowingLines.get(reversedIndex);
+
+            if (!line.equals(lastKnownLine)) {
+                board.set(line, reversedIndex);
+                lastKnowingLines.put(reversedIndex, line);
             }
-        }, 0);
+        }
+    }
+
+    private BPlayerBoard getOrCreateBoard(Player player) {
+        BPlayerBoard board = Netherboard.instance().getBoard(player);
+        if (board == null) {
+            board = Netherboard.instance().createBoard(player, ChatUtil.parse(player, getTitle()));
+        }
+        return board;
+    }
+
+    private void createScoreboard(Player player) {
+        BPlayerBoard board = getOrCreateBoard(player);
+        List<String> scores = new ArrayList<>(getScores());
+        board.clear();
+
+        Map<Integer, String> lastKnownLines = new HashMap<>();
+        for (int index = scores.size() - 1; index >= 0; index--) {
+            String line = ChatUtil.parse(player, scores.get(index));
+            board.set(line, scores.size() - index);
+            if (variablesLines.containsKey(index)) {
+                lastKnownLines.put(index, line);
+            }
+        }
+        lastKnownPlayerVariables.put(player, lastKnownLines);
     }
 
     public void unregister(Player player) {
-        playerLinesMap.remove(player);
-    }
-
-    private boolean hasLinesChanged(List<String> currentLines, List<String> lastKnownLines) {
-        return !lastKnownLines.equals(currentLines);
+        lastKnownPlayerVariables.remove(player);
     }
 
     public String getTitle() {
@@ -80,9 +109,5 @@ public class PluginScoreboard {
 
     public List<String> getScores() {
         return config.getList("scores", String.class);
-    }
-
-    public String getName() {
-        return name;
     }
 }

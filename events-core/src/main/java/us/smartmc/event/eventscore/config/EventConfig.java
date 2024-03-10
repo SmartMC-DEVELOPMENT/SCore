@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.event.eventscore.util.EnumUtils;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 public class EventConfig extends SpigotYmlConfig {
@@ -19,7 +20,7 @@ public class EventConfig extends SpigotYmlConfig {
 
     private void registerDefaults() {
         register(HOSTER_KEY, "HosteadorPro_YTHD");
-        register(PARTICIPANTS_KEY, List.of("ImSergioh", "iNxlled", "Urugodd"));
+        register(PARTICIPANTS_KEY, Arrays.asList("ImSergioh", "iNxlled", "Urugodd"));
         save();
     }
 

@@ -9,7 +9,10 @@ import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.PlayerStatus;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameManager;
 import us.smartmc.gamesmanager.gamesmanagerspigot.util.BukkitUtil;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -50,10 +53,17 @@ public abstract class GameInstance implements IGameInstance {
     @Override
     public boolean canJoinPlayer(GamePlayer player) {
         if (status == GameStatus.MAINTENANCE) return false;
-        boolean statusCanJoin = switch (status) {
-            case STARTING, WAITING -> true;
-            default -> false;
+        boolean statusCanJoin;
+
+        switch (status) {
+            case STARTING:
+                WAITING:
+                statusCanJoin = true;
+                break;
+            default:
+                return false;
         };
+
         if (!statusCanJoin) return false;
         return getPlayers().size() >= map.getMaxPlayerSize();
     }

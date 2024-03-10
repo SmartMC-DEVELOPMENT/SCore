@@ -57,5 +57,9 @@
     <file url="file://$PROJECT_DIR$/staff-mode/staffmode-bungee/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/staff-mode/staffmode-spigot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/staff-mode/staffmode-spigot/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/survival/fixes-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/survival/fixes-core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/survival/survival-placeholders/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/survival/survival-placeholders/src/main/resources" charset="UTF-8" />
   </component>
 </project>

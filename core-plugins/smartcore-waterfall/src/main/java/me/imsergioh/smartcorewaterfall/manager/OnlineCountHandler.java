@@ -32,7 +32,7 @@ public class OnlineCountHandler {
             }
         };
         timer = new Timer();
-        timer.scheduleAtFixedRate(timerTask, 250, 3000);
+        timer.scheduleAtFixedRate(timerTask, 1000, 3000);
     }
 
     public static void unregister() {
@@ -41,7 +41,6 @@ public class OnlineCountHandler {
     }
 
     public static void update() {
-        String id = core.getProxyID();
         int count = core.getProxy().getOnlineCount();
         if (lastSentCount != count) {
             RedisConnection.mainConnection.getResource().set(getCountKey(), String.valueOf(count));

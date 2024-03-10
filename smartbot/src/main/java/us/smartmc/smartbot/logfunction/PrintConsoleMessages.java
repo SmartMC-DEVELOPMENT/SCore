@@ -14,7 +14,8 @@ public class PrintConsoleMessages extends LogChannelRegistry {
 
     @Override
     public void onLogRegistryReceive(GuildChannel channel, String message) {
-        if (channel instanceof TextChannel textChannel) {
+        if (channel instanceof TextChannel) {
+            TextChannel textChannel = (TextChannel) channel;
             textChannel.sendMessage("[" + TextUtils.getFormattedLogDate() + "] " + message).complete();
         }
     }

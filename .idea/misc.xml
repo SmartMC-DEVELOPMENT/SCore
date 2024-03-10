@@ -33,17 +33,21 @@
         <option value="$PROJECT_DIR$/core-plugins/smartcore-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/staff-mode/staffmode-bungee/pom.xml" />
         <option value="$PROJECT_DIR$/events-core/pom.xml" />
+        <option value="$PROJECT_DIR$/survival/fixes-core/pom.xml" />
+        <option value="$PROJECT_DIR$/survival/survival-placeholders/pom.xml" />
+        <option value="$PROJECT_DIR$/survival/survival-chat/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/game-manager/pom.xml" />
+        <option value="$PROJECT_DIR$/games-manager/pom.xml" />
         <option value="$PROJECT_DIR$/plugins-api/pom.xml" />
       </set>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="azul-1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

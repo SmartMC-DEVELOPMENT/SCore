@@ -24,7 +24,6 @@ import java.util.UUID;
 
 public class LinkSocialsMenu extends CoreMenu {
 
-
     private UUID targetUUID;
     @Getter
     private String targetName;
@@ -56,10 +55,10 @@ public class LinkSocialsMenu extends CoreMenu {
         loadDocument();
         ItemBuilder relleno = ItemBuilder.of(Material.STAINED_GLASS_PANE).data(3).name(" ");
         MenuUtil.setBorder(relleno.get(), inventory);
-        if (corePlayer.getPreviousOpenMenu() != null) {
-            set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("<lang.language.menu_previous>").get(player), "openPrevious");
+        if (initCorePlayer.getPreviousOpenMenu() != null) {
+            set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("<lang.language.menu_previous>").get(initPlayer), "openPrevious");
         } else {
-            set(8, ItemBuilder.of(Material.BARRIER).name("&c<lang.language.menu_close>").get(player), "closeInv");
+            set(8, ItemBuilder.of(Material.BARRIER).name("&c<lang.language.menu_close>").get(initPlayer), "closeInv");
         }
 
         register(11, LinkSocialType.YOUTUBE);
@@ -77,7 +76,7 @@ public class LinkSocialsMenu extends CoreMenu {
 
     private void loadDocument() {
         if (targetUUID == null) {
-            targetUUID = player.getUniqueId();
+            targetUUID = initPlayer.getUniqueId();
         }
         CorePlayer targetCorePlayer = CorePlayer.get(targetUUID);
         CorePlayerData data;
@@ -92,8 +91,8 @@ public class LinkSocialsMenu extends CoreMenu {
     }
 
     private void register(int slot, LinkSocialType type) {
-        ItemStack initialItem = LobbyMessages.getItem(Material.SKULL_ITEM, "link_social_network").get(player);
-        String name = ChatUtil.parse(player, type.getDisplayName());
+        ItemStack initialItem = LobbyMessages.getItem(Material.SKULL_ITEM, "link_social_network").get(initPlayer);
+        String name = ChatUtil.parse(initPlayer, type.getDisplayName());
         List<String> lore = initialItem.getItemMeta().getLore();
         String labelCommand = "linkSocial " + type.name();
 
@@ -109,7 +108,7 @@ public class LinkSocialsMenu extends CoreMenu {
         set(slot, ItemBuilder.of(Material.SKULL_ITEM).data(3)
                 .skullTexture(type.getSkullTexture())
                 .name(name)
-                .lore(lore, name, currentUser, example).get(player), labelCommand);
+                .lore(lore, name, currentUser, example).get(initPlayer), labelCommand);
     }
 
     @Override

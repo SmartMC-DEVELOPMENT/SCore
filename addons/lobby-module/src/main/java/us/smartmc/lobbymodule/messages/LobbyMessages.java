@@ -10,8 +10,10 @@ import us.smartmc.lobbymodule.instance.PlayerVisibility;
 import java.util.Arrays;
 import java.util.List;
 
-@LangMessagesInfo(name = "lobby")
+@LangMessagesInfo(name = LobbyMessages.NAME)
 public class LobbyMessages extends MultiLanguageRegistry {
+
+    public static final String NAME = "lobby";
 
     @Override
     public void load(LanguageMessagesHolder holder) {
@@ -36,6 +38,7 @@ public class LobbyMessages extends MultiLanguageRegistry {
 
         holder.registerDefault("lore_fly_enabled", "&7Disable your flight mode");
         holder.registerDefault("lore_fly_disabled", "&7Enable your flight mode");
+        holder.registerDefault("lore_fly_toggle", "&7Toggle your flight mode in all the available lobbies");
         holder.registerDefault("not_available_message", "\n&c&lThis game isn't available!\n\n&7We are working on it. Stay tuned!\n\n&bsmartmc.us\n");
 
         holder.registerDefault("unknown_command", "&cUnknown command. Type &e/help &cfor help.");

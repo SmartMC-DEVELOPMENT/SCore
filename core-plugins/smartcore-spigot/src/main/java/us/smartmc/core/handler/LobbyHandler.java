@@ -18,7 +18,6 @@ public class LobbyHandler {
         registerConfigDefaults();
         Bukkit.getPluginManager().registerEvents(new LobbyHandlerListeners(this), plugin);
         config.save();
-
     }
 
     public boolean isDisabled(String path) {

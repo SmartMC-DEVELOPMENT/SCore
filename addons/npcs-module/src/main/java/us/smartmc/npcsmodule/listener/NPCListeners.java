@@ -4,6 +4,7 @@ import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.npcsmodule.event.NPCUseEntityEvent;
 import us.smartmc.npcsmodule.manager.NPCCommandManager;
 import us.smartmc.npcsmodule.manager.NPCManager;
@@ -14,7 +15,6 @@ public class NPCListeners extends AddonListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerDataLoadedEvent event) {
         if (!isEnabled()) return;
-
         NPCManager.forEach(npcManager -> {
             npcManager.values().forEach(npc -> {
                 npc.showTo(event.getPlayer());
@@ -26,6 +26,15 @@ public class NPCListeners extends AddonListener implements Listener {
     public void interact(NPCUseEntityEvent event) {
         if (!isEnabled()) return;
         NPCCommandManager.performCommand(event);
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        NPCManager.forEach(npcManager -> {
+            npcManager.values().forEach(npc -> {
+                npc.removeViewer(event.getPlayer());
+            });
+        });
     }
 
 }

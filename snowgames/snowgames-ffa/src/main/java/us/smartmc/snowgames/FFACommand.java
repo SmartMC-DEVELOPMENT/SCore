@@ -19,8 +19,9 @@ public class FFACommand implements CommandExecutor {
             return;
         }
 
-        if (sender instanceof Player player) {
-            if (args[0].equals("setSpawn")) {
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            if (args[0].equalsIgnoreCase("setSpawn")) {
                 try {
                     FFAMap map = (FFAMap) GameMapManager.get(args[1]);
                     map.setSpawn(player.getLocation());
@@ -30,7 +31,7 @@ public class FFACommand implements CommandExecutor {
                 }
             }
 
-            if (args[0].equals("teleport")) {
+            if (args[0].equalsIgnoreCase("teleport")) {
                 FFAMap map;
                 if (args.length == 2) {
                     map = (FFAMap) GameMapManager.get(args[1]);
@@ -40,16 +41,27 @@ public class FFACommand implements CommandExecutor {
                 player.teleport(map.getSpawn());
             }
 
+            if (args[0].equalsIgnoreCase("setSpawnY")) {
+                try {
+                    FFAMap map = (FFAMap) GameMapManager.get(args[1]);
+                    map.setSpawnYLocation((int) player.getLocation().getY());
+                    player.sendMessage(ChatUtil.parse("&aSpawn Y set!"));
+                } catch (Exception ignore) {
+                    player.sendMessage(ChatUtil.parse("&cError ocurred while trying to set spawn. Be sure you are specifing the name of the map correctly"));
+                }
+            }
+
         }
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player player)) {
+        if (!(sender instanceof Player)) {
             execute(sender, args);
             return true;
         }
         if (!sender.hasPermission("ffa.command.admin")) {
+            Player player = (Player) sender;
             CorePlayer.get(player).sendLanguageMessage("general", GeneralMessages.COMMAND_NO_PERMISSION_PATH);
             return true;
         }

@@ -19,18 +19,18 @@ public class GameHotbar extends FFAMenu {
 
     @Override
     public void load() {
-        Language language = PlayerLanguages.get(player.getUniqueId());
+        Language language = PlayerLanguages.get(initPlayer.getUniqueId());
         if (language == null) return;
-        set(0, parseItem(player, config.getItemConfig(language, "weapon").get(), "&b"), "game weapon");
+        set(0, parseItem(initPlayer, config.getItemConfig(language, "weapon").get(), "&b"), "game weapon");
 
-        set(1, parseItem(player, config.getItemConfig(language, "blocks").get(), "&b"));
+        set(1, parseItem(initPlayer, config.getItemConfig(language, "blocks").get(), "&b"));
 
-        set(4, parseItem(player, config.getItemConfig(language, "propeller").get(), "&e"));
+        set(4, parseItem(initPlayer, config.getItemConfig(language, "propeller").get(), "&e"));
 
-        set(7, parseItem(player, config.getItemConfig(language, "speed")
+        set(7, parseItem(initPlayer, config.getItemConfig(language, "speed")
                 .get(), "&a"), "game speed");
 
-        set(8, parseItem(player, config.getItemConfig(language, "regeneration").get(), "&a"), "game regeneration");
+        set(8, parseItem(initPlayer, config.getItemConfig(language, "regeneration").get(), "&a"), "game regeneration");
     }
 
     @Override
@@ -39,14 +39,4 @@ public class GameHotbar extends FFAMenu {
         player.getInventory().setContents(getInventory().getContents());
         CorePlayer.get(player).setCurrentMenuSet(this);
     }
-
-    public static void give(Player player) {
-        GameHotbar hotBar = new GameHotbar(player);
-        player.getInventory().clear();
-        hotBar.set(player);
-        player.setHealthScale(20);
-        player.setFoodLevel(20);
-        player.updateInventory();
-    }
-
 }

@@ -2,6 +2,7 @@ package us.smartmc.npcsmodule.instance;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import lombok.Getter;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import net.minecraft.server.v1_8_R3.*;
@@ -23,13 +24,16 @@ public class NPC {
     private static final MinecraftServer server = ((CraftServer) Bukkit.getServer()).getServer();
     private static final Set<String> namesToHide = new HashSet<>();
 
+    @Getter
     private final String name;
     private final WorldServer worldServer;
+    @Getter
     private final EntityPlayer entityPlayer;
     private final GameProfile gameProfile;
     private final PlayerInteractManager manager;
     private final NPCHologramManager hologramManager;
 
+    @Getter
     private List<String> lines;
     private List<String> commandLines = new ArrayList<>();
 
@@ -67,6 +71,10 @@ public class NPC {
 
     public void setSkinValue(String value, String signature) {
         gameProfile.getProperties().put("textures", new Property("textures", value, signature));
+    }
+
+    public void removeViewer(Player player) {
+        hologramManager.removeViewer(player);
     }
 
     public void showTo(Player player) {
@@ -152,10 +160,6 @@ public class NPC {
         return new Location(Bukkit.getWorld(entityPlayer.world.worldData.getName()), x, y, z);
     }
 
-    public List<String> getLines() {
-        return lines;
-    }
-
     public UUID getUUID() {
         return gameProfile.getId();
     }
@@ -164,11 +168,4 @@ public class NPC {
         return ((CraftWorld) world).getHandle();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public EntityPlayer getEntityPlayer() {
-        return entityPlayer;
-    }
 }

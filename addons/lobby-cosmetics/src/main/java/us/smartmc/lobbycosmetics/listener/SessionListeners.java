@@ -1,8 +1,5 @@
 package us.smartmc.lobbycosmetics.listener;
 
-import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
-import me.imsergioh.pluginsapi.event.PlayerUnloadEvent;
-import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

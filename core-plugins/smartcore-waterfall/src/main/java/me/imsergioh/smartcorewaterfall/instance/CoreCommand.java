@@ -1,7 +1,6 @@
 package me.imsergioh.smartcorewaterfall.instance;
 
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
-import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.md_5.bungee.api.CommandSender;
@@ -23,7 +22,7 @@ public abstract class CoreCommand extends Command {
     public void sendStringMessage(String name, CommandSender sender, String path, Object... args) {
         Language language = Language.getDefault();
         if (sender instanceof ProxiedPlayer)
-            language = PlayerLanguages.get(((ProxiedPlayer) sender).getUniqueId());
+            language = PlayerLanguages.getLanguage(((ProxiedPlayer) sender).getUniqueId());
 
         String message = LanguagesHandler.get(language).get(name).getString(path);
         sender.sendMessage(ChatUtil.parse(message, args));
@@ -38,7 +37,7 @@ public abstract class CoreCommand extends Command {
         ProxiedPlayer player = null;
         if (sender instanceof ProxiedPlayer) player = (ProxiedPlayer) sender;
         Language language = Language.getDefault();
-        if (player != null) language = PlayerLanguages.get(player.getUniqueId());
+        if (player != null) language = PlayerLanguages.getLanguage(player.getUniqueId());
         List<String> list = LanguagesHandler.get(language).get(name).getList(path, String.class);
 
         for (String line : list) {

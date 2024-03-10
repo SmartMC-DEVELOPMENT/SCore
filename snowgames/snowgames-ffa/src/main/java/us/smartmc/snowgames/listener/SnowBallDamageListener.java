@@ -16,12 +16,14 @@ public class SnowBallDamageListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void changeDamageFromSnowball(EntityDamageByEntityEvent event) {
         Entity damager = event.getDamager();
-        if (damager instanceof Snowball snowball) {
+        if (damager instanceof Snowball) {
+            Snowball snowball = (Snowball) damager;
             event.setDamage(3.0D);
             ProjectileSource shooter = snowball.getShooter();
 
             if (shooter == null) return;
-            if (!(shooter instanceof Player shooterPlayer)) return;
+            if (!(shooter instanceof Player)) return;
+            Player shooterPlayer = (Player) shooter;
             getAttacked.put(event.getEntity().getUniqueId(), shooterPlayer.getUniqueId());
         }
     }

@@ -1,0 +1,5 @@
+name: LoginSpigot
+version: '${project.version}'
+main: me.imsergioh.loginspigot.LoginSpigot
+commands:
+  toggle:

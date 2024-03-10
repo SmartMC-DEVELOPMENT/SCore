@@ -17,22 +17,25 @@ public class PlayerVariables extends VariableListener<Player> {
     @Override
     public String parse(Player player, String message) {
 
-        FFAPlayer ffaPlayer = FFAPlugin.getFFAPlugin().getGamePlayerManager().get(player.getUniqueId());
-        if (ffaPlayer == null) return null;
-        FFAGame game = FFAPlugin.getGame();
-        if (game == null) return null;
-        message = VariableUtil.replace(message, "<map>", game.getMap().getDisplayName());
+        message = VariableUtil.replace(message, "<map>", s -> ffaGame().getMap().getDisplayName());
 
-        String formattedTime = formatSecondsToTime((int) (game.getMap().getEndTimestamp() - System.currentTimeMillis() / 1000));
-        message = VariableUtil.replace(message, "<time_remaining>", formattedTime);
+        message = VariableUtil.replace(message, "<time_remaining>", s -> formatSecondsToTime((int) (ffaGame().getMap().getEndTimestamp() - System.currentTimeMillis() / 1000)));
 
-        message = VariableUtil.replace(message, "<kills>", String.valueOf(ffaPlayer.getKills()));
-        message = VariableUtil.replace(message, "<deaths>", String.valueOf(ffaPlayer.getDeaths()));
+        message = VariableUtil.replace(message, "<kills>", s -> String.valueOf(ffaPlayer(player).getKills()));
+        message = VariableUtil.replace(message, "<deaths>", s -> String.valueOf(ffaPlayer(player).getDeaths()));
 
-        message = VariableUtil.replace(message, "<current_streak>", String.valueOf(ffaPlayer.getCurrentStreak()));
-        message = VariableUtil.replace(message, "<max_streak>", String.valueOf(ffaPlayer.getMaxStreak()));
+        message = VariableUtil.replace(message, "<current_streak>", s -> String.valueOf(ffaPlayer(player).getCurrentStreak()));
+        message = VariableUtil.replace(message, "<max_streak>", s -> String.valueOf(ffaPlayer(player).getMaxStreak()));
 
         return message;
+    }
+
+    public FFAGame ffaGame() {
+        return FFAPlugin.getGame();
+    }
+
+    public FFAPlayer ffaPlayer(Player player) {
+        return FFAPlugin.getFFAPlugin().getGamePlayerManager().get(player.getUniqueId());
     }
 
     private static String formatSecondsToTime(int secondsRemaining) {

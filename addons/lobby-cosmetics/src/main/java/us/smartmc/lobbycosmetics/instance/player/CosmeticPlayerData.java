@@ -1,7 +1,6 @@
 package us.smartmc.lobbycosmetics.instance.player;
 
 import org.bson.Document;
-import org.checkerframework.checker.units.qual.A;
 import us.smartmc.lobbycosmetics.instance.DatabaseTarget;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 

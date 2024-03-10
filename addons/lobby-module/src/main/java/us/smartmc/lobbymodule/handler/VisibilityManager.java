@@ -56,9 +56,18 @@ public class VisibilityManager extends AddonListener implements Listener {
         Material material = Material.INK_SACK;
         int materialData = 0;
         switch (visibility) {
-            case DEFAULT -> materialData = 10;
-            case NO_ONE -> materialData = 8;
-            case VIPS -> materialData = 13;
+            case DEFAULT: {
+                materialData = 10;
+                break;
+            }
+            case NO_ONE: {
+                materialData = 8;
+                break;
+            }
+            case VIPS: {
+                materialData = 13;
+                break;
+            }
         }
         return ItemBuilder.of(material).data(materialData)
                 .name("<lang.lobby.items_visibility_name>")

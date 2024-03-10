@@ -1,6 +1,7 @@
 package us.smartmc.snowgames.menu;
 
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bson.Document;
@@ -22,7 +23,7 @@ public class TopsMenu extends FFAMenu {
     private static final TopsManager topsManager = plugin.getTopsManager();
 
     public TopsMenu(Player player) {
-        super(player, 27, LanguageConfig.getMenuTitle("tops"));
+        super(player, 27, PluginMessages.getMenuTitle(PlayerLanguages.get(player.getUniqueId()), "tops"));
     }
 
     @Override
@@ -37,10 +38,10 @@ public class TopsMenu extends FFAMenu {
     }
 
     private void set(int slot, Material material, String name) {
-        String topName = LanguagesHandler.get(corePlayer.getLanguage()).get(PluginMessages.NAME)
+        String topName = LanguagesHandler.get(initCorePlayer.getLanguage()).get(PluginMessages.NAME)
                 .get("top_" + name + "_name", "{TOP " + name + " NAME}");
         set(slot, ItemBuilder.of(material).name("&b&l" + topName)
-                .lore(getTopLore(name)).hideFlags().get(player));
+                .lore(getTopLore(name)).hideFlags().get(initPlayer));
     }
 
     private List<String> getTopLore(String topName) {
@@ -55,8 +56,8 @@ public class TopsMenu extends FFAMenu {
         }
         list.addAll(
                 getListByStrings(" ",
-                        ChatUtil.parse(player, "<lang." + PluginMessages.NAME+ ".tops_your_position>",
-                                top.getPlayerRank(player.getUniqueId().toString())))
+                        ChatUtil.parse(initPlayer, "<lang." + PluginMessages.NAME+ ".tops_your_position>",
+                                top.getPlayerRank(initPlayer.getUniqueId().toString())))
         );
 
         return list;

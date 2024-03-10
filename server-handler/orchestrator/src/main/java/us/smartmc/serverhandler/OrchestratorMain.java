@@ -44,8 +44,6 @@ public class OrchestratorMain {
         backendServer = new BackendServer(55777);
         backendServer.start();
 
-        Runtime.getRuntime().addShutdownHook(new Thread(ExitCommand::execute));
-
         new DiscordLogEmbedBuilder()
                 .title("New Orchestrator connected!").description("Se ha abierto un \"orquestador\" para los servidores.")
                 .addField("DIRECCIÓN IP", backendServer.getServerSocket().getLocalSocketAddress().toString())

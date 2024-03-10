@@ -32,9 +32,18 @@ public class GeneralMessages extends MultiLanguageRegistry {
 
         holder.registerDefault("coin_added", "&6+{0} SmartCoin! {1}");
         holder.registerDefault("coins_added", "&6+{0} SmartCoins! {1}");
-
         holder.registerDefault("coin_removed", "&6-{0} SmartCoin! {1}");
         holder.registerDefault("coins_removed", "&6-{0} SmartCoins! {1}");
+
+        holder.registerDefault("enigmabox_added", "&d+{0} EnigmaBox! {1}");
+        holder.registerDefault("enigmaboxes_added", "&d+{0} EnigmaBoxes! {1}");
+        holder.registerDefault("enigmabox_removed", "&d-{0} EnigmaBox! {1}");
+        holder.registerDefault("enigmaboxes_removed", "&d-{0} EnigmaBoxes! {1}");
+
+        holder.registerDefault("gem_added", "&b+{0} Gem! {1}");
+        holder.registerDefault("gems_added", "&b+{0} Gems! {1}");
+        holder.registerDefault("gem_removed", "&b-{0} Gem! {1}");
+        holder.registerDefault("gems_removed", "&b-{0} Gems! {1}");
 
         holder.registerDefault("year", "year");
         holder.registerDefault("years", "years");

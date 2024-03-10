@@ -15,6 +15,7 @@ import us.smartmc.lobbycosmetics.instance.cosmetic.ICosmetic;
 import us.smartmc.lobbycosmetics.instance.cosmetic.ICosmeticSection;
 import us.smartmc.lobbycosmetics.instance.player.CosmeticPlayerSession;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class CosmeticSectionMenu extends CoreMenu {
@@ -46,7 +47,7 @@ public class CosmeticSectionMenu extends CoreMenu {
         ICosmetic cosmetic = LobbyCosmetics.getSectionsHandler().get(section.getId()).get(id);
         cosmetic.getPreviewItemBuilder(playerSession, section, language);
         ItemBuilder builder = cosmetic.getPreviewItemBuilder(playerSession, section, language);
-        inventory.setItem(slot, builder.get(player));
-        actionManager.registerItemAction(slot, get(slot), List.of("toggleCosmetic " + cosmetic.getType().name() + " " + cosmetic.getId()));
+        inventory.setItem(slot, builder.get(initPlayer));
+        actionManager.registerItemAction(slot, get(slot), Arrays.asList("toggleCosmetic " + cosmetic.getType().name() + " " + cosmetic.getId()));
     }
 }

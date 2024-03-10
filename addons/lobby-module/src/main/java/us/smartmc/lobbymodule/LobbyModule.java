@@ -3,6 +3,7 @@ package us.smartmc.lobbymodule;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.exception.CorePluginException;
@@ -83,14 +84,14 @@ public class LobbyModule extends AddonPlugin {
 
         MaxYLocationManager.start();
 
-        log("STARTED");
-
         ItemActionsManager.registerCommand("toggleFly", new ToggleFlyAction());
         ItemActionsManager.registerCommand("minigamesExecutor", new MinigamesActions());
         ItemActionsManager.registerCommand("lobbyModule", new LobbyModuleAction());
         ItemActionsManager.registerCommand("connectTo", new ConnectToAction());
         ItemActionsManager.registerCommand("linkSocial", new LinkSocialAction());
         ItemActionsManager.registerCommand("showSocial", new ShowSocialAction());
+
+        log("STARTED");
     }
 
     @Override

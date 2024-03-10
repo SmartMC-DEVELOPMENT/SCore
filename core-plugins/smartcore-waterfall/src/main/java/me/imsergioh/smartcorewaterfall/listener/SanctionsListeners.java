@@ -19,7 +19,8 @@ public class SanctionsListeners implements Listener {
     @EventHandler(priority = 64)
     public void chat(ChatEvent event) {
         if (event.getMessage().startsWith("/")) return;
-        if (!(event.getSender() instanceof ProxiedPlayer player)) return;
+        if (!(event.getSender() instanceof ProxiedPlayer)) return;
+        ProxiedPlayer player = (ProxiedPlayer) event.getSender();
         for (PlayerSanction sanction : SanctionsManager.get(player.getUniqueId())) {
             if (!sanction.getType().equals(SanctionType.MUTE)) continue;
             if (sanction.isActive()) {

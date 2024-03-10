@@ -18,8 +18,7 @@ public class RegexUtils {
         while (matcher.find()) {
             ipAddresses.add(matcher.group(0));
         }
-
-        return ipAddresses.toArray(String[]::new);
+        return ipAddresses.toArray(new String[0]);
     }
 
     public static boolean hasFakeIpAddress(String message) {

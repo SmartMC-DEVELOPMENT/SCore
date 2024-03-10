@@ -1,6 +1,9 @@
 package us.smartmc.snowgames.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
+import me.imsergioh.pluginsapi.event.PlayerLanguageChangedEvent;
+import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.ICoreMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -16,15 +19,18 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.core.SmartCore;
+import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.event.player.GamePlayerUnloadEvent;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.GamePlayer;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GamePlayerManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.game.FFAGame;
 import us.smartmc.snowgames.game.FFAMap;
+import us.smartmc.snowgames.inventory.GameHotbar;
 import us.smartmc.snowgames.inventory.LobbyHotbar;
 import us.smartmc.snowgames.manager.FFAPlayerManager;
 import us.smartmc.snowgames.manager.ItemCooldownManager;
+import us.smartmc.snowgames.menu.FFAMenu;
 import us.smartmc.snowgames.player.FFAPlayer;
 import us.smartmc.snowgames.util.PlayerUtil;
 
@@ -36,6 +42,19 @@ public class PlayerListeners implements Listener {
 
     // KEY = VICTIM & VALUE = ATTACKER
     public static Map<UUID, UUID> getAttacked = new HashMap<>();
+
+    @EventHandler
+    public void changeLanguage(PlayerLanguageChangedEvent event) {
+        Player player = event.getCorePlayer().get();
+        ICoreMenu menu = SmartCorePlayer.get(player).getCurrentMenuSet();
+        if (!(menu instanceof FFAMenu)) return;
+        FFAMenu ffaMenu = (FFAMenu) menu;
+
+        // If in game not give any new menu (Not update language, evitar dupes)
+        if (FFAPlugin.getGame().isInGame(player)) return;
+
+        FFAMenu.give(player, ffaMenu.getClass());
+    }
 
     @EventHandler
     public void registerGamePlayer(PlayerJoinEvent event) {
@@ -52,7 +71,7 @@ public class PlayerListeners implements Listener {
     @EventHandler
     public void giveLobbyHotbar(PlayerDataLoadedEvent event) {
         Player player = event.getPlayer();
-        LobbyHotbar.give(player);
+        FFAMenu.give(player, LobbyHotbar.class);
         player.setGameMode(GameMode.ADVENTURE);
     }
 
@@ -81,7 +100,8 @@ public class PlayerListeners implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void damageInSpawn(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player player)) return;
+        if (!(event.getEntity() instanceof Player)) return;
+        Player player = (Player) event.getEntity();
         FFAGame game = FFAPlugin.getGame();
         if (game.isInGame(FFAPlugin.getFFAPlugin().getGamePlayerManager().get(player.getUniqueId()))) return;
         event.setCancelled(true);
@@ -104,8 +124,10 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void addKillerToMap(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player attacker)) return;
-        if (!(event.getEntity() instanceof Player victim)) return;
+        if (!(event.getDamager() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Player)) return;
+        Player attacker = (Player) event.getDamager();
+        Player victim = (Player) event.getEntity();
         getAttacked.put(victim.getUniqueId(), attacker.getUniqueId());
         Bukkit.getScheduler().runTaskLater(FFAPlugin.getFFAPlugin(), () -> {
             getAttacked.remove(victim.getUniqueId());

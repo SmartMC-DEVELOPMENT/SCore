@@ -13,16 +13,21 @@ import us.smartmc.smartbot.SmartBotMain;
 import us.smartmc.smartbot.handler.TicketsHandler;
 import us.smartmc.smartbot.instance.ticket.TicketStorageSaver;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 public class TicketSavementListeners extends ListenerAdapter {
 
+    private Set<String> saving = new HashSet<>();
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (!event.isFromGuild()) return;
-        if (!(event.getChannel() instanceof TextChannel channel)) return;
-        TicketStorageSaver saver = TicketStorageSaver.getByChannelId(event.getGuild(), channel);
+        if (!(event.getChannel() instanceof TextChannel)) return;
+        TextChannel channel = (TextChannel) event.getChannel();
+        TicketStorageSaver saver = TicketStorageSaver.getByChannelId(channel);
         if (saver == null) return;
         saver.registerMessage(event.getMessage());
     }
@@ -30,7 +35,8 @@ public class TicketSavementListeners extends ListenerAdapter {
     @Override
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         if (Objects.requireNonNull(event.getUser()).isBot()) return;
-        if (!(event.getChannel() instanceof TextChannel textChannel)) return;
+        if (!(event.getChannel() instanceof TextChannel)) return;
+        TextChannel textChannel = (TextChannel) event.getChannel();
         if (!event.isFromGuild()) return;
         if (!SmartBotMain.isAllowedGuild(event.getGuild())) return;
         Guild guild = event.getGuild();
@@ -40,19 +46,25 @@ public class TicketSavementListeners extends ListenerAdapter {
         Category category = event.getChannel().asTextChannel().getParentCategory();
         if (category == null) return;
         if (!category.getId().equals(handlerSectionID)) return;
-        save(event.getGuild(), textChannel);
+        if (event.getMessageId().equals(TicketStorageSaver.getByChannelId(textChannel).getInitialMessage().getId())) {
+            event.getChannel().delete().queue();
+        }
     }
 
     @Override
     public void onChannelDelete(ChannelDeleteEvent event) {
         if (!event.isFromGuild()) return;
-        if (!(event.getChannel() instanceof TextChannel channel)) return;
+        if (!(event.getChannel() instanceof TextChannel)) return;
+        TextChannel channel = (TextChannel) event.getChannel();
         save(event.getGuild(), channel);
     }
 
     private void save(Guild guild, TextChannel channel) {
+        if (!saving.add(channel.getId())) return;
+        TicketsHandler.removeCacheTicket(channel.getId());
         System.out.println("Saving ticket " + guild.getId() + " " + channel.getId());
-        TicketStorageSaver saver = TicketStorageSaver.getByChannelId(guild, channel);
+        TicketStorageSaver saver = TicketStorageSaver.getByChannelId(channel);
         saver.save();
+        saving.remove(channel.getId());
     }
 }

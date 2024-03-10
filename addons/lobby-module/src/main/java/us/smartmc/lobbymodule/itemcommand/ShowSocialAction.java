@@ -25,7 +25,8 @@ public class ShowSocialAction implements ItemActionExecutor {
             return;
         }
         String targetName = username;
-        if (clickerCorePlayer.getCurrentMenuOpen() instanceof LinkSocialsMenu menu) {
+        if (clickerCorePlayer.getCurrentMenuOpen() instanceof LinkSocialsMenu) {
+            LinkSocialsMenu menu = (LinkSocialsMenu) clickerCorePlayer.getCurrentMenuOpen();
             targetName = menu.getTargetName();
         }
 

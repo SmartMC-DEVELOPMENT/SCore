@@ -55,7 +55,8 @@ public class ArenaManager {
             nextMap = getNextMap();
         }
 
-        if (!(nextMap instanceof FFAMap ffaMap)) return;
+        if (!(nextMap instanceof FFAMap)) return;
+        FFAMap ffaMap = (FFAMap) nextMap;
         FFAPlugin.getGame().setMap(ffaMap);
         ffaMap.registerMapChange();
 

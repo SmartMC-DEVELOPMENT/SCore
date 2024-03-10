@@ -20,3 +20,5 @@ commands:
     aliases: [friends]
   coins:
     aliases: [balance, eco, bal]
+  enigmaboxes:
+  gems:

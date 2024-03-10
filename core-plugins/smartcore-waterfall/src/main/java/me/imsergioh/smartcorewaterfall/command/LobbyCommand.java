@@ -15,8 +15,14 @@ public class LobbyCommand extends Command {
     public void execute(CommandSender sender, String[] args) {
         if (!(sender instanceof ProxiedPlayer)) return;
         ProxiedPlayer player = (ProxiedPlayer) sender;
-        if (ServersHandler.isAtBlockedServer(player)) return;
-        if (ServersHandler.isAtLobbyServer(player)) return;
+        if (ServersHandler.isAtBlockedServer(player)) {
+            System.out.println("LOBBYCOMMAND -> IS AT BLOCKED SERVER");
+            return;
+        }
+        if (ServersHandler.isAtLobbyServer(player)) {
+            System.out.println("LOBBYCOMMAND -> IS AT LOBBY SERVER");
+            return;
+        }
         ServersHandler.connectToHubByHubRules(player);
     }
 }

@@ -50,6 +50,10 @@ public class FileUtil {
         parseStartupTemplates(config, creation);
     }
 
+    public static void saveFileAt(File toCopyFile, File destination) {
+
+    }
+
     public static boolean deleteDirectory(File directoryToBeDeleted) {
         File[] allContents = directoryToBeDeleted.listFiles();
         if (allContents != null) {

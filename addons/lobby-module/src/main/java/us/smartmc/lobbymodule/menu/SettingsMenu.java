@@ -1,22 +1,38 @@
 package us.smartmc.lobbymodule.menu;
 
-import me.imsergioh.pluginsapi.SpigotPluginsAPI;
-import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
+import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import us.smartmc.lobbymodule.handler.FlyManager;
 import us.smartmc.lobbymodule.util.MenuUtil;
 
-import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
-public class SettingsMenu extends ConfigurableMenu {
+public class SettingsMenu extends CoreMenu {
 
-    public SettingsMenu(Player player) {
-        super(player, new SpigotYmlConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus", "settings.yml")));
+    private static final Map<Language, SettingsMenu> menus = new HashMap<>();
+
+    private final Language language;
+
+    public static SettingsMenu get(Language language) {
+        if (menus.containsKey(language)) return menus.get(language);
+        return new SettingsMenu(language);
+    }
+
+    public static String getTitle(Language language) {
+        return LanguagesHandler.get(language).get("lobby").getString("title_settings_menu");
+    }
+
+    public SettingsMenu(Language language) {
+        super(null, 54, getTitle(language));
+        this.language = language;
+        menus.put(language, this);
     }
 
     @Override
@@ -31,21 +47,21 @@ public class SettingsMenu extends ConfigurableMenu {
                 .name("<lang.lobby.items_language_name>")
                 .lore(Arrays.asList("<lang.lobby.items_language_description>"))
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=")
-                .get(player), "cmd lang");
+                .get(language), "cmd lang");
 
         set(31, ItemBuilder.of(Material.SKULL_ITEM)
                 .data((byte) 3)
                 .name("<lang.lobby.items_link_socials_name>")
                 .lore(Arrays.asList("<lang.lobby.items_link_socials_description>"))
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmFkNDZhNDIyYWU1OTYwM2ZkODg5YzI1MzQ0ZmY2N2JjODQzYWY4ZWU1MTg5MzJjMmUyYWQwN2NkYmY5MzliMyJ9fX0=")
-                .get(player), "cmd linkSocials");
+                .get(language), "cmd linkSocials");
 
     }
 
     public void setFlyingItem() {
         set(24, ItemBuilder.of(Material.FEATHER)
                 .name("<lang.lobby.items_flying_name>")
-                .lore(Arrays.asList(FlyManager.isFlyingEnabled(CorePlayer.get(player))?"<lang.lobby.lore_fly_enabled>":"<lang.lobby.lore_fly_disabled>"))
-                .get(player), "toggleFly");
+                .lore(Arrays.asList("<lang.lobby.lore_fly_toggle>"))
+                .get(language), "toggleFly");
     }
 }

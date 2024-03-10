@@ -8,6 +8,7 @@ import us.smartmc.event.eventscore.instance.GlobalToggleableItem;
 import us.smartmc.event.eventscore.types.EventWhitelistType;
 import us.smartmc.event.eventscore.util.MenuUtil;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MainOptionsMenu extends EventCoreMenu {
@@ -36,7 +37,8 @@ public class MainOptionsMenu extends EventCoreMenu {
 
         });
         set(13, ItemBuilder.of(Material.LEGACY_SKULL_ITEM)
-                .name("&bControl de jugadores").lore(List.of(
+
+                .name("&bControl de jugadores").lore(Arrays.asList(
                         "Cambia aspectos de los jugadores:",
                         "  - Modo de juego")).get(), clickHandler -> {
             PlayerControlMenu.getGlobalMenu().open(clickHandler.getPlayer());

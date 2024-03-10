@@ -11,6 +11,7 @@ import us.smartmc.lobbycosmetics.instance.player.ICosmeticPlayerSession;
 import us.smartmc.lobbycosmetics.message.CosmeticsMainMessages;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ItemsUtil {
@@ -22,7 +23,7 @@ public class ItemsUtil {
 
         String unlockedName = mainMessages.get(language, "unlocked");
 
-        list.addAll(List.of("&r", unlockedName + ": &c" + unlocked + "/" + total,
+        list.addAll(Arrays.asList("&r", unlockedName + ": &c" + unlocked + "/" + total,
                 "&r",
                 "<lang." + CosmeticsMainMessages.NAME + ".click_to_look>"));
 
@@ -48,7 +49,7 @@ public class ItemsUtil {
         if (!hasCosmetic) {
             String pricePrefix = mainMessages.get(language, "cost");
             String priceTextValue = "&6" + (cosmetic.getCost() == 0 ? mainMessages.get(language, "cost_free") : String.valueOf(cosmetic.getCost()));
-            list.addAll(List.of("&r", pricePrefix + ": " + priceTextValue));
+            list.addAll(Arrays.asList("&r", pricePrefix + ": " + priceTextValue));
         }
 
         String langClickPath = hasCosmetic ? "click_to_set" : "click_to_buy";

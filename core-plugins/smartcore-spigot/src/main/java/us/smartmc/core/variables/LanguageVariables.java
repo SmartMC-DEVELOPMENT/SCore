@@ -4,11 +4,7 @@ import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.VariableListener;
 import me.imsergioh.pluginsapi.language.Language;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class LanguageVariables extends VariableListener<Player> {
 

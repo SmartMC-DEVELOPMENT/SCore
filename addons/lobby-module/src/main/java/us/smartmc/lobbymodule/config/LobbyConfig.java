@@ -24,6 +24,7 @@ public class LobbyConfig extends FilePluginConfig {
         registerDefault("always_day", true);
         registerDefault("always_weather_clear", true);
         registerDefault("cancel_click_event", true);
+        registerDefault("propulsion_plates_enabled", true);
     }
 
     public int getCustomSlotArtJoin() {

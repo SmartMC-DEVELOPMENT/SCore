@@ -39,11 +39,12 @@ public class StaffChatCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (!(sender instanceof ProxiedPlayer player)) {
+        if (!(sender instanceof ProxiedPlayer)) {
             sender.sendMessage(ChatColor.RED + "Utilidad de este comando para consola aún no implementado.");
             return;
         }
 
+        ProxiedPlayer player = (ProxiedPlayer) sender;
         if (!sender.hasPermission(RegistrationUtil.STAFF_PERMISSION)) {
             player.sendMessage(ChatUtil.parse(player, ProxyMainMessages.get(PlayerLanguages.getLanguage(player.getUniqueId()),
                     "no_permission")));

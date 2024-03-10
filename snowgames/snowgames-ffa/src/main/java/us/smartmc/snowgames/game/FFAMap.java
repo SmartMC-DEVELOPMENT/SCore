@@ -2,6 +2,7 @@ package us.smartmc.snowgames.game;
 
 import lombok.Getter;
 import org.bukkit.Location;
+import us.smartmc.core.handler.SpawnHandler;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GameMap;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameMapManager;
 import us.smartmc.snowgames.FFAPlugin;
@@ -16,6 +17,7 @@ public class FFAMap extends GameMap {
     private static final String WORLD_NAME_PATH = "world";
     private static final String SPAWN_LOCATION_PATH = "spawnLocation";
     private static final String DEATH_Y_LOC_PATH = "death_y_loc";
+    private static final String SPAWN_Y_LOC_PATH = "spawn_y_loc";
 
     private final FFAMap mapInstance;
 
@@ -26,11 +28,21 @@ public class FFAMap extends GameMap {
         super(name);
         mapInstance = this;
         registerConfigDefault(DISPLAY_NAME_PATH, name);
+        System.out.println("displayName: " + config.getString(DISPLAY_NAME_PATH));
         registerConfigDefault(WORLD_NAME_PATH, name);
         registerConfigDefault(SPAWN_LOCATION_PATH, getWorldName() + " 0 75 0 0 0");
         registerConfigDefault(DEATH_Y_LOC_PATH, 0);
         config.save();
         GameMapManager.register(this);
+    }
+
+    public void setSpawnYLocation(int yLoc) {
+        config.put(SPAWN_Y_LOC_PATH, yLoc);
+    }
+
+    public int getSpawnYLocation() {
+        if (!config.containsKey(SPAWN_Y_LOC_PATH)) return SpawnHandler.getLocation().getBlockY() - 12;
+        return config.getInteger(SPAWN_Y_LOC_PATH);
     }
 
     public void registerMapChange() {

@@ -1,0 +1,20 @@
+name: SmartCore-Waterfall
+version: '1.0-SNAPSHOT'
+main: me.imsergioh.smartcorewaterfall.SmartCoreWaterfall
+author: ImSergioh
+description: Core for SmartMC Network
+
+commands:
+  setprefix:
+  lobby:
+    aliases: [hub]
+  help:
+    aliases: [ayuda]
+  broadcast:
+    aliases:
+      - alert
+      - bc
+      - anuncio
+      - anunciar
+  onlineStore:
+    description: "Tebex thing"

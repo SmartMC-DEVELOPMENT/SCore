@@ -12,6 +12,7 @@ import us.smartmc.smartbot.SmartBotMain;
 import us.smartmc.smartbot.handler.EventSchedulerHandler;
 import us.smartmc.smartbot.instance.SlashCommand;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -72,9 +73,9 @@ public class AnuncioCommand extends SlashCommand {
 
     @Override
     public List<OptionData> getOptions() {
-        return List.of(
+        return Arrays.asList(
                 new OptionData(OptionType.STRING, MESSAGE_ID_ID, "Specify a message id to announce")
-                .setRequired(true),
+                        .setRequired(true),
                 new OptionData(OptionType.CHANNEL, SELECTION_CHANNEL_ID, "Channel to send")
                         .setRequired(true),
                 new OptionData(OptionType.INTEGER, SELECTION_PUBLISH_AT, "Timestamp for publish at"));

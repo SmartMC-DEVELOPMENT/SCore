@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import us.smartmc.smartbot.SmartBotMain;
 import us.smartmc.smartbot.instance.SlashCommand;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,10 +54,10 @@ public class ReactToCommand extends SlashCommand {
 
     @Override
     public List<OptionData> getOptions() {
-        return List.of(new OptionData(OptionType.CHANNEL, CHANNEL_ID, "Specify the channel of message").setRequired(true),
-                        new OptionData(OptionType.STRING, MESSAGE_ID, "Specify the message id of message").setRequired(true),
+        return Arrays.asList(new OptionData(OptionType.CHANNEL, CHANNEL_ID, "Specify the channel of message").setRequired(true),
+                new OptionData(OptionType.STRING, MESSAGE_ID, "Specify the message id of message").setRequired(true),
                 new OptionData(OptionType.STRING, EMOJI_ID, "Specify the emoji id/name you want for react to the message")
-                .setRequired(true));
+                        .setRequired(true));
     }
 
     @Override

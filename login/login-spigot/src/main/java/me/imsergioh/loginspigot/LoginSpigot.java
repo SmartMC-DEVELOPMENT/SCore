@@ -33,6 +33,7 @@ public final class LoginSpigot extends JavaPlugin implements Listener, CommandEx
     @EventHandler
     public void message(PlayerJoinEvent event) {
         event.setJoinMessage(null);
+        event.getPlayer().teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
     }
 
     @EventHandler

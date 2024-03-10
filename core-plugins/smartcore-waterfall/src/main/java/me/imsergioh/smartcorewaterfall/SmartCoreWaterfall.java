@@ -13,7 +13,6 @@ import me.imsergioh.smartcorewaterfall.command.*;
 import me.imsergioh.smartcorewaterfall.command.admin.BroadcastCommand;
 import me.imsergioh.smartcorewaterfall.command.admin.ServerHandlerCommand;
 import me.imsergioh.smartcorewaterfall.command.admin.SetPrefixCommand;
-import me.imsergioh.smartcorewaterfall.command.friend.FriendCommand;
 import me.imsergioh.smartcorewaterfall.command.info.DiscordCommand;
 import me.imsergioh.smartcorewaterfall.command.info.HelpCommand;
 import me.imsergioh.smartcorewaterfall.command.info.StoreCommand;
@@ -22,16 +21,14 @@ import me.imsergioh.smartcorewaterfall.command.moderation.BanCommand;
 import me.imsergioh.smartcorewaterfall.command.moderation.KickCommand;
 import me.imsergioh.smartcorewaterfall.command.moderation.MuteCommand;
 import me.imsergioh.smartcorewaterfall.command.moderation.WarnCommand;
+import me.imsergioh.smartcorewaterfall.command.onlinestore.OnlineStoreCommand;
 import me.imsergioh.smartcorewaterfall.customcommand.MessageCommand;
 import me.imsergioh.smartcorewaterfall.customcommand.TestCommand;
 import me.imsergioh.smartcorewaterfall.instance.BungeeLogger;
+import me.imsergioh.smartcorewaterfall.instance.onlinestore.AnnouncePackagePurchase;
+import me.imsergioh.smartcorewaterfall.instance.onlinestore.AnnouncePackageRenew;
 import me.imsergioh.smartcorewaterfall.listener.*;
-import me.imsergioh.smartcorewaterfall.manager.CustomCommandsManager;
-import me.imsergioh.smartcorewaterfall.manager.OfflinePlayerDataManager;
-import me.imsergioh.smartcorewaterfall.manager.OnlineCountHandler;
-import me.imsergioh.smartcorewaterfall.manager.TabHandler;
-import me.imsergioh.smartcorewaterfall.manager.cooldown.implementation.friend.event.FriendEventManagement;
-import me.imsergioh.smartcorewaterfall.messages.FriendManagerMessages;
+import me.imsergioh.smartcorewaterfall.manager.*;
 import me.imsergioh.smartcorewaterfall.messages.HelpMessages;
 import me.imsergioh.smartcorewaterfall.messages.ProxyMainMessages;
 import me.imsergioh.smartcorewaterfall.messages.SanctionsManagerMessages;
@@ -46,6 +43,7 @@ import org.bson.Document;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public final class SmartCoreWaterfall extends Plugin {
@@ -58,7 +56,10 @@ public final class SmartCoreWaterfall extends Plugin {
     @Getter
     private static FilePluginConfig config;
 
-    private static CustomCommandsManager mainCommandsManager;
+    @Getter
+    private TebexPackageManager tebexPackageManager;
+    @Getter
+    private TebexCommandsManager tebexCommandsManager;
 
     @Override
     public void onEnable() {
@@ -74,6 +75,8 @@ public final class SmartCoreWaterfall extends Plugin {
         CustomCommandsManager.register("test", new TestCommand());
         CustomCommandsManager.register("message", new MessageCommand());
 
+        getPlugin().registerCommands(new OnlineStoreCommand("onlineStore"));
+
         loadMessages();
         registerCommands();
         TabHandler.register();
@@ -83,9 +86,14 @@ public final class SmartCoreWaterfall extends Plugin {
         // Handler to update every 3 seconds online count in redis and update online count
         OnlineCountHandler.startTask();
 
+        try {
+            tebexPackageManager = new TebexPackageManager(config.getString("tebex_secret_key"));
+            tebexCommandsManager = new TebexCommandsManager(tebexPackageManager);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         logger.info("Plugin enabled successfully!");
-
-
     }
 
     @Override
@@ -99,12 +107,12 @@ public final class SmartCoreWaterfall extends Plugin {
         config.registerDefault("authServers", Arrays.asList("auth", "auth1", "auth2"));
         config.registerDefault("hubRules", new Document().append("sg-*", "sg-l*"));
         config.registerDefault("mongodb_url", "mongodb://imsergioh:Aa@66.70.181.34:27017/admin?readPreference=primary&replicaSet=ecommerce&directConnection=true");
+        config.registerDefault("tebex_secret_key", UUID.randomUUID());
         config.save();
     }
 
     public void loadMessages() {
         new SanctionsManagerMessages();
-        new FriendManagerMessages();
         new HelpMessages();
         new ProxyMainMessages();
     }
@@ -117,7 +125,6 @@ public final class SmartCoreWaterfall extends Plugin {
     private void registerListeners() {
         registerListeners(
                 new TabHandlerListeners(),
-                new FriendAndPartyListeners(),
                 new OfflinePlayerDataManager(),
                 new CustomCommandsListeners(),
                 new SanctionsListeners(),
@@ -129,7 +136,6 @@ public final class SmartCoreWaterfall extends Plugin {
         registerCommands(
                 new SmartCoreWaterfallCommand("bsmartcore"),
                 new SetPrefixCommand(),
-                new FriendCommand(),
                 new LobbyCommand(),
                 new BanCommand(),
                 new KickCommand(),
@@ -141,7 +147,9 @@ public final class SmartCoreWaterfall extends Plugin {
                 new TwitterCommand(),
                 new StoreCommand(),
                 new SmartCoreWaterfallCommand("smartcorewaterfall"),
-                new ServerHandlerCommand());
+                new ServerHandlerCommand(),
+                new AnnouncePackagePurchase(),
+                new AnnouncePackageRenew());
     }
 
     private void registerCommands(Command... commands) {
@@ -164,7 +172,6 @@ public final class SmartCoreWaterfall extends Plugin {
                 new LanguageChangeCommand(),
                 new StopServerCommand(),
                 new PlayerChatCommand());
-        FriendEventManagement.registerEvents();
     }
 
     private void registerDefaultLanguages() {

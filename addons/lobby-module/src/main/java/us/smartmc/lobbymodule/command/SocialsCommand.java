@@ -7,6 +7,7 @@ import us.smartmc.lobbymodule.menu.LinkSocialsMenu;
 import us.smartmc.lobbymodule.util.PlayerUtil;
 import us.smartmc.smartaddons.plugin.AddonPluginCommand;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SocialsCommand extends AddonPluginCommand {
@@ -42,7 +43,7 @@ public class SocialsCommand extends AddonPluginCommand {
 
     @Override
     public List<String> getAliases() {
-        return List.of("redes", "mostrarredes", "showsocials", "verredes",
+        return Arrays.asList("redes", "mostrarredes", "showsocials", "verredes",
                 "getredes", "getsocials");
     }
 }

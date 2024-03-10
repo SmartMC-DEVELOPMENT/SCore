@@ -19,8 +19,8 @@ public class SuggestionListener extends ListenerAdapter {
     private static final List<String> suggestionsTextChannels =
             Arrays.asList("1116886024874889306");
 
-    private static final String AGREE_UNICODE = "U+2705";
-    private static final String DENY_UNICODE = "U+274C";
+    public static final String AGREE_UNICODE = "U+2705";
+    public static final String DENY_UNICODE = "U+274C";
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -41,6 +41,7 @@ public class SuggestionListener extends ListenerAdapter {
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         if (!event.isFromGuild()) return;
         if (event.getUser() == null) return;
+        if (event.getUser().isBot()) return;
         if (!event.isFromGuild()) return;
         if (!SmartBotMain.isAllowedGuild(event.getGuild())) return;
         if (!event.getChannelType().equals(ChannelType.TEXT)) return;

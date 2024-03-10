@@ -51,15 +51,14 @@ public class LuckPermsVariables extends VariableListener<Player> {
         String prefix = getPrefix(player, true);
         // <RANK>
         if (prefix != null && prefix.length() >= 3) {
-            message = VariableUtil.replace(message, "<rank>", prefix);
+            message = VariableUtil.replace(message, "<rank>", s -> prefix);
         } else {
-            String acquireMessage = "§c" + SmartCorePlayer.get(player)
-                    .getLanguageMessage("general", "acquireRank");
-            message = VariableUtil.replace(message, "<rank>", acquireMessage);
+            message = VariableUtil.replace(message, "<rank>", s-> "§c" + SmartCorePlayer.get(player)
+                    .getLanguageMessage("general", "acquireRank"));
         }
 
         // <CHAT.PREFIX>
-        message = VariableUtil.replace(message, "<chat.prefix>", getPrefix(player, true));
+        message = VariableUtil.replace(message, "<chat.prefix>", s -> getPrefix(player, true));
         if (message.contains("<chat.prefix.")) {
             if (message.contains("<chat.prefix.color>")) {
                 return getFirstColor(prefix);
@@ -67,7 +66,7 @@ public class LuckPermsVariables extends VariableListener<Player> {
             for (String arg : message.split(" ")) {
                 if (!arg.contains("<chat.prefix.")) continue;
                 boolean space = Boolean.parseBoolean(arg.split("\\.")[2].replace(">", "").toLowerCase());
-                message = VariableUtil.replace(message, arg, getPrefix(player, space));
+                message = VariableUtil.replace(message, arg, s -> getPrefix(player, space));
             }
         }
         return message;

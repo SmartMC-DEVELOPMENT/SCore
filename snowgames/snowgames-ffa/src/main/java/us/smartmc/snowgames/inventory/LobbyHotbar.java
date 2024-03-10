@@ -24,12 +24,12 @@ public class LobbyHotbar extends FFAMenu {
 
     @Override
     public void load() {
-        Language language = PlayerLanguages.get(player.getUniqueId());
+        Language language = PlayerLanguages.get(initPlayer.getUniqueId());
 
-        set(0, parseItem(player, config.getItemConfig(language, "lobby.tops").get(player)),
+        set(0, parseItem(initPlayer, config.getItemConfig(language, "lobby.tops").get(initPlayer)),
                 "hotbar tops");
 
-        set(4, parseItem(player, config.getItemConfig(language, "lobby.settings").get(player)),
+        set(4, parseItem(initPlayer, config.getItemConfig(language, "lobby.settings").get(initPlayer)),
                 "hotbar settings");
     }
 
@@ -40,13 +40,4 @@ public class LobbyHotbar extends FFAMenu {
         if (name == null) return ItemBuilder.of(item.getType()).get(player);
         return ItemBuilder.of(item.getType()).amount(item.getAmount()).name(ChatUtil.parse(player, name)).get(player);
     }
-
-    public static void give(Player player) {
-        LobbyHotbar hotBar = new LobbyHotbar(player);
-        player.getInventory().clear();
-        hotBar.set(player);
-        player.setHealthScale(20);
-        player.setFoodLevel(20);
-    }
-
 }

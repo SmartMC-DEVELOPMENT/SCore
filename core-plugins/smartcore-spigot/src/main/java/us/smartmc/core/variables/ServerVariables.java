@@ -9,9 +9,9 @@ public class ServerVariables extends VariableListener<Player> {
 
     @Override
     public String parse(String message) {
-        message = VariableUtil.replace(message, "<serverId>", SmartCore.getServerID());
-        message = VariableUtil.replace(message, "<serverAlias>", SmartCore.getServerAlias());
-        message = VariableUtil.replace(message, "<serverNumber>", String.valueOf(SmartCore.getServerNumber()));
+        message = VariableUtil.replace(message, "<serverId>", s -> SmartCore.getServerID());
+        message = VariableUtil.replace(message, "<serverAlias>", s -> SmartCore.getServerAlias());
+        message = VariableUtil.replace(message, "<serverNumber>", s -> String.valueOf(SmartCore.getServerNumber()));
         return message;
     }
 

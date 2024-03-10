@@ -33,7 +33,8 @@ public class BungeeMessagingListeners implements Listener {
             String subchannel = in.readUTF();
             if (subchannel.equals("RedirectTo")) {
                 String serverPrefix = in.readUTF();
-                if (event.getReceiver() instanceof ProxiedPlayer player) {
+                if (event.getReceiver() instanceof ProxiedPlayer) {
+                    ProxiedPlayer player = (ProxiedPlayer) event.getReceiver();
                     List<ServerInfo> list = new ArrayList<>();
                     for (ServerInfo info : SmartCoreWaterfall.getPlugin().getProxy().getServersCopy().values()) {
                         if (!info.getName().startsWith(serverPrefix)) continue;

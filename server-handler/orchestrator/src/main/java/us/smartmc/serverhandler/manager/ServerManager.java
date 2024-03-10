@@ -12,6 +12,7 @@ import us.smartmc.serverhandler.instance.StartupCreation;
 import us.smartmc.serverhandler.util.FileUtil;
 import us.smartmc.serverhandler.util.ServerUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -62,7 +63,7 @@ public class ServerManager {
         FileUtil.removeAndComplete(serverInfo.getDirectory().getAbsolutePath());
 
         // START SERVER SCRIPT (START.SH)
-        ServerUtil.startServer(serverInfo.getDirectory());
+        ServerUtil.startServer(serverInfo.getDirectory(), false);
 
         servers.put(serverInfo.getName(), serverInfo);
 
@@ -98,6 +99,9 @@ public class ServerManager {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+                String dirName = serverInfo.getDirectory().getName();
+                File logsDirectory = new File(serverInfo.getDirectory() + "/logs");
+                FileUtil.copyDirToDir(logsDirectory, new File("/home/network/server-handler/" + dirName + "-" + System.currentTimeMillis() / 1000));
                 FileUtil.deleteDirectory(serverInfo.getDirectory());
                 System.out.println("Server " + name + " has inactivated! Deleted all files!");
             }).start();

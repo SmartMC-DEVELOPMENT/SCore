@@ -27,21 +27,11 @@ public class LanguageConfig extends PluginConfig {
 
         registerMultiLanguageItem("general.in_development", ItemBuilder.of(Material.BARRIER).name("&cIn development!"));
 
-        registerDefault("menu_title.tops", "Tops");
-        registerDefault("menu_title.settings", "Settings");
-        registerDefault("menu_title.missions", "Missions");
-
-
         save();
     }
 
     public static String getMessage(String pathName) {
         return plugin.getLanguageConfig().getString(pathName);
-    }
-
-    public static String getMenuTitle(String name) {
-        String title = plugin.getLanguageConfig().getString("menu_title." + name);
-        return title == null ? "Error Title(" + name + ")" : title;
     }
 
     public static String getName(String path) {

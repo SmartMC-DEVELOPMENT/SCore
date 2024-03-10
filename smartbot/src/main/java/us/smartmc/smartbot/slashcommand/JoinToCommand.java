@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.managers.AudioManager;
 import us.smartmc.smartbot.SmartBotMain;
 import us.smartmc.smartbot.instance.SlashCommand;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class JoinToCommand extends SlashCommand {
@@ -40,7 +41,7 @@ public class JoinToCommand extends SlashCommand {
 
     @Override
     public List<OptionData> getOptions() {
-        return List.of(new OptionData(OptionType.CHANNEL, CHANNEL_ID, "Specify a channel id to connect")
+        return Arrays.asList(new OptionData(OptionType.CHANNEL, CHANNEL_ID, "Specify a channel id to connect")
                 .setRequired(true));
     }
 

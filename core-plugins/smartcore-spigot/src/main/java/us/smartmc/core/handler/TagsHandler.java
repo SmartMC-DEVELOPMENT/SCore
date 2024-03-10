@@ -15,17 +15,14 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import us.smartmc.core.SmartCore;
 
-import java.util.HashMap;
 import java.util.OptionalInt;
 
 public class TagsHandler implements Listener {
 
-    private static final HashMap<Player, String> tags = new HashMap<>();
-
     public TagsHandler() {
         if (areDisabled()) return;
         Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
-            Bukkit.getOnlinePlayers().forEach(this::checkUpdate);
+            Bukkit.getOnlinePlayers().forEach(this::update);
         }, 0, 20 * 3);
     }
 
@@ -33,24 +30,15 @@ public class TagsHandler implements Listener {
         return SmartCore.getPlugin().getLobbyHandler().isDisabled("tagsEnabled");
     }
 
-    private void checkUpdate(Player player) {
-        String tag = getFormattedTag(player);
-        String lastTagKnown = tags.get(player);
-        if (!tag.equals(lastTagKnown)) registerTagAboveHead(player);
+    private void update(Player player) {
+        registerTagAboveHead(player);
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void join(PlayerJoinEvent event) {
         if (areDisabled()) return;
         Player player = event.getPlayer();
-        SyncUtil.later(() -> {
-            registerTagAboveHead(player);
-        }, 250);
-    }
-
-    @EventHandler
-    public void quit(PlayerQuitEvent event) {
-        tags.remove(event.getPlayer());
+        registerTagAboveHead(player);
     }
 
     private void registerTagAboveHead(Player player) {
@@ -60,10 +48,21 @@ public class TagsHandler implements Listener {
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             Scoreboard scoreboard = onlinePlayer.getScoreboard();
             String teamName = getUniqueTeamName(player);
-            Team team = scoreboard.getTeam(teamName) == null ?
-                    scoreboard.registerNewTeam(teamName) : scoreboard.getTeam(teamName);
-            team.setPrefix(ChatUtil.parse(player, "<chat.prefix.color>"));
-            team.addPlayer(player);
+
+            Team team = scoreboard.getTeam(teamName);
+            if (team == null) {
+                // Team creation
+                team = scoreboard.registerNewTeam(teamName);
+                String prefix = ChatUtil.parse(player, "<chat.prefix.color>");
+                team.setPrefix(prefix);
+                if (!team.getPlayers().contains(player))
+                    team.addPlayer(player);
+            } else {
+                // Team prefix update
+                String prefix = ChatUtil.parse(player, "<chat.prefix.color>");
+                if (team.getPrefix().equals(prefix)) continue;
+                team.setPrefix(prefix);
+            }
         }
     }
 

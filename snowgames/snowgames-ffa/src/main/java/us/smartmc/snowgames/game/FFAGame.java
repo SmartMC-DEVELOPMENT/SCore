@@ -9,9 +9,11 @@ import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GameInstance;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.game.GamePreset;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.player.GamePlayer;
 import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameManager;
+import us.smartmc.gamesmanager.gamesmanagerspigot.manager.GameMapManager;
 import us.smartmc.snowgames.FFAPlugin;
 import us.smartmc.snowgames.inventory.GameHotbar;
 import us.smartmc.snowgames.inventory.LobbyHotbar;
+import us.smartmc.snowgames.menu.FFAMenu;
 import us.smartmc.snowgames.util.DebugUtil;
 
 import java.util.UUID;
@@ -20,7 +22,7 @@ public class FFAGame extends GameInstance {
 
     public FFAGame(GameManager<?> manager, GamePreset instance) {
         super(manager, instance.getName() + "-" + UUID.randomUUID());
-        map = new FFAMap("ffa_china");
+        map = GameMapManager.get("ffa_aura");
         map.setMaxPlayers(Bukkit.getMaxPlayers());
     }
 
@@ -29,7 +31,7 @@ public class FFAGame extends GameInstance {
         if (isInGame(player)) return;
 
         players.put(player.getUUID(), player);
-        GameHotbar.give(player.getPlayer());
+        FFAMenu.give(player.getPlayer(), GameHotbar.class);
 
         player.getPlayer().setGameMode(GameMode.SURVIVAL);
     }
@@ -66,7 +68,7 @@ public class FFAGame extends GameInstance {
         SyncUtil.later(() -> {
             if (!player.getPlayer().isOnline()) return;
             player.getPlayer().teleport(getSpawn());
-            LobbyHotbar.give(player.getPlayer());
+            FFAMenu.give(player.getPlayer(), LobbyHotbar.class);
             player.getPlayer().setGameMode(GameMode.ADVENTURE);
         }, 25);
 

@@ -7,6 +7,7 @@ import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.LanguageUtil;
 import me.imsergioh.pluginsapi.util.LineLimiter;
 import org.bson.Document;
 import org.bukkit.Material;
@@ -50,9 +51,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
                 .append("data", (byte) 1));
     }
 
-    public static ItemStack getItemOf(Player player, String name) {
-        CorePlayer corePlayer = CorePlayer.get(player.getUniqueId());
-        Language language = PlayerLanguages.get(player.getUniqueId());
+    public static ItemStack getItemOf(Language language, String name) {
         Document configDoc = LobbyModule.getMinigamesConfig().get(name, Document.class);
         Document document = LanguagesHandler.get(language).get("lobby_miniGames").get(name, Document.class);
         String itemName = document.getString("name");
@@ -76,12 +75,12 @@ public class MinigamesConfig extends MongoDBPluginConfig {
 
 
         if (titleCustom != null) {
-            list.add(ChatUtil.parse(player, titleCustom));
+            list.add(LanguageUtil.parse(language, ChatUtil.parse(titleCustom)));
         }
 
         if (configDoc.getBoolean("prototype", false)) {
             // IF PROTOTYPE BOOLEAN IS TRUE:
-            list.add(ChatUtil.parse(player, "<lang.lobby_miniGames.prototype_title>"));
+            list.add(LanguageUtil.parse(language, ChatUtil.parse("<lang.lobby_miniGames.prototype_title>")));
         }
 
         list.add("&r");
@@ -100,7 +99,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
                 .name(itemName)
                 .lore(description)
                 .amount(amount)
-                .get(player);
+                .get(language);
     }
 
     public static String getLabelCommand(String name) {

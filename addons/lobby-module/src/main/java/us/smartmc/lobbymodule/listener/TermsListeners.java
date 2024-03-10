@@ -126,14 +126,13 @@ public class TermsListeners extends AddonListener implements Listener {
         BookMeta bookMeta = (BookMeta) book.getItemMeta();
         bookMeta.setAuthor("Administration");
 
-        String text = """
-                Hello!
-                &r
-                Welcome to SmartMC Network!
-                &r
-                Accept the terms and conditions to be able to play and enjoy our services and our Minecraft Network :D
-                &r
-                """;
+        String text = "Hello!\n" +
+                "&r\n" +
+                "Welcome to SmartMC Network!\n" +
+                "&r\n" +
+                "Accept the terms and conditions to be able to play and enjoy our services and our Minecraft Network :D\n" +
+                "&r\n";
+
         bookMeta.addPage(ChatUtil.parse(player, text));
 
         ClickableComponent webComponent = new ClickableComponent();

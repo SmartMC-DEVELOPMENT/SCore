@@ -2,7 +2,6 @@ package us.smartmc.smartbot.handler;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
@@ -25,14 +24,16 @@ public class CommandHandler {
     public static void executeTextCommand(MessageReceivedEvent event) {
         String name = event.getMessage().getContentRaw().split(" ")[0];
         BotCommand botCommand = commands.get(name);
-        if (botCommand instanceof TextCommand cmd) {
+        if (botCommand instanceof TextCommand) {
+            TextCommand cmd = (TextCommand) botCommand;
             cmd.execute(event);
         }
     }
 
     public static void executeSlashCommand(SlashCommandInteractionEvent event) {
         BotCommand botCommand = commands.get(event.getName());
-        if (botCommand instanceof SlashCommand cmd) {
+        if (botCommand instanceof SlashCommand) {
+            SlashCommand cmd = (SlashCommand) botCommand;
             cmd.execute(event);
         }
     }
@@ -41,7 +42,8 @@ public class CommandHandler {
         for (BotCommand command : cmds) {
             commands.put(command.getName(), command);
             // Register slash command
-            if (command instanceof SlashCommand cmd) {
+            if (command instanceof SlashCommand) {
+                SlashCommand cmd = (SlashCommand) command;
                 registerSlashCommand(cmd);
                 SlashCommandData commandData = Commands.slash(cmd.getName(), cmd.getDescription())
                                 .setDefaultPermissions(cmd.getDefaultPermission());

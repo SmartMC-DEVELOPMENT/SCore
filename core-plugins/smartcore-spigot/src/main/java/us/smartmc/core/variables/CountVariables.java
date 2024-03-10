@@ -9,17 +9,15 @@ import us.smartmc.core.SmartCore;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class CountVariables extends VariableListener<Player> {
 
-    public static final HashMap<String, Long> counts = new HashMap<>();
+    public static final HashMap<String, Integer> serverCounts = new HashMap<>();
+    public static final Map<String, Integer> proxyCounts = new HashMap<>();
 
     private static boolean uploadedMax = false;
     private static int lastPushed = -1;
@@ -31,18 +29,25 @@ public class CountVariables extends VariableListener<Player> {
                 uploadedMax = true;
             }
             updateCount();
+
+            // Server counts (Only if registering)
             for (String key : RedisConnection.mainConnection.getResource().keys("online.*")) {
-                counts.put(key, Long.parseLong(RedisConnection.mainConnection.getResource().get(key)));
+                serverCounts.put(key, Integer.parseInt(RedisConnection.mainConnection.getResource().get(key)));
+            }
+
+            // Proxy counts
+            for (String key : RedisConnection.mainConnection.getResource().keys("proxyCount.*")) {
+                proxyCounts.put(key, Integer.parseInt(RedisConnection.mainConnection.getResource().get(key)));
             }
             deleteUnregisteredCacheServers();
         }, 10, 20);
     }
 
     private static void deleteUnregisteredCacheServers() {
-        for (String key : new HashSet<>(counts.keySet())) {
+        for (String key : new HashSet<>(serverCounts.keySet())) {
             boolean exists = RedisConnection.mainConnection.getResource().exists(key);
             if (exists) continue;
-            counts.remove(key);
+            serverCounts.remove(key);
         }
     }
 
@@ -50,9 +55,9 @@ public class CountVariables extends VariableListener<Player> {
         String path = idName;
         if (!path.startsWith("online.")) path = "online." + idName;
         int online = 0;
-        for (String key : counts.keySet()) {
+        for (String key : serverCounts.keySet()) {
             if (key.startsWith(path) || key.equalsIgnoreCase(path)) {
-                online += counts.get(key);
+                online += serverCounts.get(key);
             }
         }
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
@@ -61,19 +66,19 @@ public class CountVariables extends VariableListener<Player> {
         return format.format(online);
     }
 
-    public static String getAllCount() {
-        long count = 0;
-        for (long amount : counts.values()) {
-            count += amount;
+    public static String getAllCount(Collection<Integer> count) {
+        long online = 0;
+        for (Integer onlineCount : count) {
+            online += onlineCount;
         }
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator('.');
         DecimalFormat format = new DecimalFormat("#,###", symbols);
-        return format.format(count);
+        return format.format(online);
     }
 
     public static List<String> getKeysByPrefix(String prefix) {
-        return counts.keySet().stream()
+        return serverCounts.keySet().stream()
                 .filter(key -> key.startsWith("online." + prefix))
                 .map(s -> s.replaceFirst("online.", ""))
                 .sorted(Comparator.comparingInt(CountVariables::extractNumber))
@@ -93,12 +98,10 @@ public class CountVariables extends VariableListener<Player> {
         int count = Bukkit.getOnlinePlayers().size();
 
         if (lastPushed == count) return;
-        if (lastPushed == count) return;
 
         String key = "online." + SmartCore.getServerName();
         RedisConnection.mainConnection.getResource().set(key, String.valueOf(count));
         RedisConnection.mainConnection.getResource().set("maxSlots." + SmartCore.getServerName(), String.valueOf(Bukkit.getMaxPlayers()));
-        //RedisConnection.mainConnection.getResource().expire(key, 33);
         lastPushed = count;
     }
 
@@ -111,7 +114,7 @@ public class CountVariables extends VariableListener<Player> {
                 arg = ChatColor.stripColor(arg.replace("&", "§"));
                 String idName = arg.replace("<count.", "").replace(">", "");
                 if (idName.equals("all")) {
-                    message = message.replaceFirst(arg, getAllCount());
+                    message = message.replaceFirst(arg, getAllCount(proxyCounts.values()));
                 } else {
                     message = message.replaceFirst(arg, getCountOf(idName));
                 }

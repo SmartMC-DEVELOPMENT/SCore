@@ -87,8 +87,8 @@
         </dependency>
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
-            <artifactId>ProtocolLib</artifactId>
-            <version>5.1.0</version>
+            <artifactId>ProtocolLib-API</artifactId>
+            <version>4.4.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

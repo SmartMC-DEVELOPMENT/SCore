@@ -2,9 +2,13 @@ package us.smartmc.survivaladdon.fixescore;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
+import me.imsergioh.pluginsapi.handler.PubSubConnectionHandler;
+import org.bukkit.Bukkit;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
+import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
 import us.smartmc.survivaladdon.fixescore.command.ExecuteAtBungeeCommand;
+import us.smartmc.survivaladdon.fixescore.handler.ServerConnectionsHandler;
 
 @AddonInfo(name = "fixes-core")
 public class FixesCore extends AddonPlugin {
@@ -15,8 +19,15 @@ public class FixesCore extends AddonPlugin {
     @Override
     public void start() {
         plugin = this;
-        RedisConnection.mainConnection = new RedisConnection("localhost", 6379);
+
+        new Thread(() -> {
+            RedisConnection.mainConnection = new RedisConnection("localhost", 6379);
+            PubSubConnectionHandler.register(new ServerConnectionsHandler());
+        }).start();
+
         registerCommand(new ExecuteAtBungeeCommand());
+
+        Bukkit.getServer().getMessenger().registerOutgoingPluginChannel(SmartAddonsSpigot.getPlugin(), "BungeeCord");
     }
 
     @Override

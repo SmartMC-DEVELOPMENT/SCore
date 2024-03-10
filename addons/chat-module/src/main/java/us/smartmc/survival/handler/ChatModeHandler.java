@@ -1,7 +1,7 @@
-package us.smartmc.addon.handler;
+package us.smartmc.survival.handler;
 
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
-import us.smartmc.addon.listener.ChatModeListener;
+import us.smartmc.survival.listener.ChatModeListener;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 
 import java.io.File;

@@ -1,6 +1,6 @@
-package us.smartmc.addon;
+package us.smartmc.survival;
 
-import us.smartmc.addon.handler.ChatModeHandler;
+import us.smartmc.survival.handler.ChatModeHandler;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 

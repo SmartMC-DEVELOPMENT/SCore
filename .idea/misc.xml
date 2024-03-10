@@ -35,6 +35,7 @@
         <option value="$PROJECT_DIR$/events-core/pom.xml" />
         <option value="$PROJECT_DIR$/survival/fixes-core/pom.xml" />
         <option value="$PROJECT_DIR$/survival/survival-placeholders/pom.xml" />
+        <option value="$PROJECT_DIR$/survival/survival-chat/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

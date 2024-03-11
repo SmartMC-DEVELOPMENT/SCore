@@ -1,8 +1,8 @@
 package us.smartmc.smartcore.smartcorevelocity.manager;
 
 import lombok.Getter;
-import me.imsergioh.bmotd.bmotd.BMotd;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
+import us.smartmc.bmotd.BMotdVelocity;
 import us.smartmc.smartcore.smartcorevelocity.SmartCoreVelocity;
 import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
 
@@ -59,7 +59,7 @@ public class OnlineCountHandler {
             }
         }
         count = total;
-        //BMotd.getPlugin().getMotdManager().setOnlineCount(count);
+        BMotdVelocity.getPlugin().getMotdManager().setOnlineCount(count);
     }
 
     public static int getOnlineCount() {

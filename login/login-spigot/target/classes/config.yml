@@ -1,0 +1,1 @@
+mongo: "mongodb://imsergioh:Aa676459938@66.70.181.34:27017/?authMechanism=DEFAULT&readPreference=primary&authSource=admin&replicaSet=ecommerce&directConnection=true"

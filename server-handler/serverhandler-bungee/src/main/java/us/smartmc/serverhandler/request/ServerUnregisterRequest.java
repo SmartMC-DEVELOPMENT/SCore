@@ -3,7 +3,6 @@ package us.smartmc.serverhandler.request;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import us.smartmc.serverhandler.ServerHandlerMain;
 
 import java.util.*;
 import java.util.concurrent.ExecutorService;

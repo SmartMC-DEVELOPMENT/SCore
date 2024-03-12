@@ -15,6 +15,7 @@
         <module>login</module>
         <module>snowgames</module>
         <module>games-manager</module>
+        <module>server-handler/serverhandler-velocity</module>
     </modules>
 
     <properties>
@@ -27,6 +28,10 @@
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>CodeMC</id>
+            <url>https://repo.codemc.io/repository/maven-public/</url>
         </repository>
     </repositories>
 
@@ -95,7 +100,7 @@
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
-            <version>4.8.0</version>
+            <version>4.4.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

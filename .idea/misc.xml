@@ -37,6 +37,9 @@
         <option value="$PROJECT_DIR$/survival/survival-placeholders/pom.xml" />
         <option value="$PROJECT_DIR$/survival/survival-chat/pom.xml" />
         <option value="$PROJECT_DIR$/core-plugins/smartcore-velocity/pom.xml" />
+        <option value="$PROJECT_DIR$/server-handler/serverhandler-velocity/pom.xml" />
+        <option value="$PROJECT_DIR$/serverhandler-velocity/pom.xml" />
+        <option value="$PROJECT_DIR$/smartantiddos-velocity/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -44,6 +47,7 @@
         <option value="$PROJECT_DIR$/game-manager/pom.xml" />
         <option value="$PROJECT_DIR$/games-manager/pom.xml" />
         <option value="$PROJECT_DIR$/plugins-api/pom.xml" />
+        <option value="$PROJECT_DIR$/server-handler/serverhandler-bungee/pom.xml" />
       </set>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />

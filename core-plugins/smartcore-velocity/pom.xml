@@ -169,13 +169,7 @@
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>protocolizegr</groupId>
-            <artifactId>protocolize</artifactId>
-            <version>velocity1</version>
-            <scope>system</scope>
-            <systemPath>D:/LIBS_PLUGINS/protocolize-velocity.jar</systemPath>
-        </dependency>
+
         <dependency>
             <groupId>velocitygr</groupId>
             <artifactId>velocityfull</artifactId>

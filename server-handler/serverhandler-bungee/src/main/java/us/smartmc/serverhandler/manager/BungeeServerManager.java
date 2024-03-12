@@ -1,7 +1,6 @@
 package us.smartmc.serverhandler.manager;
 
 import net.md_5.bungee.api.config.ServerInfo;
-import us.smartmc.serverhandler.ServerHandlerMain;
 
 import java.net.InetSocketAddress;
 

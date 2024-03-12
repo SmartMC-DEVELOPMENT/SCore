@@ -10,7 +10,6 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
-import dev.simplix.protocolize.api.Protocolize;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.*;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
@@ -160,7 +159,8 @@ public class SmartCoreVelocity {
                 new ServerHandlerCommand(),
                 new AnnouncePackagePurchase(),
                 new AnnouncePackageRenew(),
-                new OnlineStoreCommand());
+                new OnlineStoreCommand(),
+                new CoreServerCommand());
     }
 
     private void registerCommands(CoreCommand... commands) {

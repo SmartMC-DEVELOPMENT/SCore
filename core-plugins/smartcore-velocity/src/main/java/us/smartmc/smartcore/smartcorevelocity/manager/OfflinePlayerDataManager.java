@@ -1,8 +1,10 @@
 package us.smartmc.smartcore.smartcorevelocity.manager;
 
 import com.mongodb.client.MongoCollection;
+import com.velocitypowered.api.event.PostOrder;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.DisconnectEvent;
+import com.velocitypowered.api.event.player.ServerConnectedEvent;
 import com.velocitypowered.api.event.player.ServerPreConnectEvent;
 import com.velocitypowered.api.proxy.Player;
 import lombok.Getter;
@@ -21,14 +23,15 @@ public class OfflinePlayerDataManager {
     }
 
     @Subscribe
-    public void join(ServerPreConnectEvent event) {
+    public void join(ServerConnectedEvent event) {
         if (OfflinePlayerData.get(event.getPlayer()) == null) new OfflinePlayerData(event.getPlayer().getUniqueId());
         get(event.getPlayer()).parse(event.getPlayer());
     }
 
-    @Subscribe
+    @Subscribe(order = PostOrder.FIRST)
     public void quit(DisconnectEvent event) {
         OfflinePlayerData data = get(event.getPlayer());
+        if (data == null) return;
         data.parse(event.getPlayer());
         data.removeCache();
     }

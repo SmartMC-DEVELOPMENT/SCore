@@ -1,6 +1,7 @@
 package us.smartmc.smartcore.smartcorevelocity.command.moderation;
 
 import com.velocitypowered.api.command.CommandSource;
+import com.velocitypowered.api.proxy.Player;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
 import us.smartmc.smartcore.smartcorevelocity.instance.OfflinePlayerData;
 import us.smartmc.smartcore.smartcorevelocity.instance.sanction.SanctionType;
@@ -77,7 +78,14 @@ public class MuteCommand extends CoreCommand {
             timeUtils = new SanctionTimeUtils("0d").getTimeUtils(); // Baneo permanente
         }
 
-        SanctionsManager.create(uuid, SanctionType.MUTE, timeUtils, reason);
+        UUID creatorId;
+        if (!(sender instanceof Player player)) {
+            creatorId = UUID.randomUUID();
+        } else {
+            creatorId = player.getUniqueId();
+        }
+
+        SanctionsManager.create(uuid, creatorId, SanctionType.MUTE, timeUtils, reason);
         sendStringMessage(SanctionsManagerMessages.NAME, sender, "cmd_sanction_success");
     }
 }

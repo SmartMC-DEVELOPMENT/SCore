@@ -12,7 +12,6 @@
         <module>orchestrator</module>
         <module>common</module>
         <module>serverhandler-bukkit</module>
-        <module>serverhandler-bungee</module>
     </modules>
 
     <properties>

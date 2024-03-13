@@ -16,24 +16,24 @@ public class SanctionsManager {
 
     private static final HashMap<UUID, List<PlayerSanction>> sanctions = new HashMap<>();
 
-    public static void create(UUID uuid, SanctionType type, TimeUtils utils, String reason) {
-        PlayerSanction sanction = new PlayerSanction(uuid, type, utils, reason);
+    public static void create(UUID uuid, UUID creatorId, SanctionType type, TimeUtils utils, String reason) {
+        PlayerSanction sanction = new PlayerSanction(uuid, creatorId, type, utils, reason);
         List<PlayerSanction> sanctionList = get(uuid);
         sanctionList.add(sanction);
         sanctions.put(uuid, sanctionList);
     }
 
-    public static List<PlayerSanction> loadSanctions(Player player) {
+    public static void loadSanctions(Player player) {
         UUID uuid = player.getUniqueId();
         List<PlayerSanction> collection = new ArrayList<>();
-        String ip = player.getRemoteAddress().getAddress().toString();
+        String ip = player.getRemoteAddress().getAddress().toString().replace("/", "");
+        System.out.println("loadSanctions -> " + ip);
         for (MongoCursor<Document> it = PlayerSanction.sanctionsCollection().find(new Document("ip_address", ip)).cursor(); it.hasNext(); ) {
             Document document = it.next();
-            PlayerSanction sanction = new PlayerSanction(player, document);
+            PlayerSanction sanction = new PlayerSanction(player.getUniqueId(), document);
             collection.add(sanction);
         }
         sanctions.put(uuid, collection);
-        return collection;
     }
 
     public static List<PlayerSanction> get(UUID uuid) {

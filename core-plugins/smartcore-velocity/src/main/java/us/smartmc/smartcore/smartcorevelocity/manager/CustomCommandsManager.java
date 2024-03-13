@@ -31,15 +31,14 @@ public class CustomCommandsManager extends MongoDBPluginConfig {
     }
 
     public boolean execute(CommandSource sender, String message) {
-        if (!containsLabel(message)) return false;
-
-        boolean executed = false;
+        if (!containsKey(message)) return false;
         for (String cmdLabel : new ArrayList<>(getList(message, String.class))) {
-            if (!containsCommand(cmdLabel)) continue;
-            executeCommand(sender, cmdLabel);
-            executed = true;
+            if (containsCommand(cmdLabel)) {
+                executeCommand(sender, cmdLabel);
+                return true;
+            }
         }
-        return executed;
+        return false;
     }
 
     public boolean containsLabel(String message) {

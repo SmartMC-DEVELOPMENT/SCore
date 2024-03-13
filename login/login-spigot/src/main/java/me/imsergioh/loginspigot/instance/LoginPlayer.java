@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 public class LoginPlayer {
@@ -36,14 +38,14 @@ public class LoginPlayer {
             return;
         }
         if (verify(getIP(), "secretKey")) {
-            auth = true;
+            setAuth(true);
             sendToLobbyServer();
             return;
         }
     }
 
     public void forceLogin() {
-        auth = true;
+        setAuth(true);
     }
 
     public void register(String password, String confirmPassword) {
@@ -52,7 +54,7 @@ public class LoginPlayer {
             setSecretKey();
             save();
             getPlayer().sendMessage("§a¡Registrado correctamente!");
-            auth = true;
+            setAuth(true);
             sendToLobbyServer();
             return;
         }
@@ -60,19 +62,24 @@ public class LoginPlayer {
     }
 
     public void sendToLobbyServer() {
-        PluginUtils.redirectTo(getPlayer(), "lobby");
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                PluginUtils.redirectTo(getPlayer(), "lobby");
+            }
+        }, 200);
     }
 
     public void tryLogin(String password) {
         if (verify(password, "password")) {
             getPlayer().sendMessage("§a¡Has iniciado sesión correctamente!");
-            auth = true;
+            setAuth(true);
             setSecretKey();
             save();
             sendToLobbyServer();
             return;
         }
-        auth = false;
+        setAuth(false);
         getPlayer().kickPlayer("§cContraseña incorrecta!");
     }
 
@@ -94,6 +101,9 @@ public class LoginPlayer {
 
     public void setAuth(boolean auth) {
         this.auth = auth;
+        if (auth) {
+            PluginUtils.sendLoginRequest(getPlayer());
+        }
     }
 
     public void setCheck(boolean check) {

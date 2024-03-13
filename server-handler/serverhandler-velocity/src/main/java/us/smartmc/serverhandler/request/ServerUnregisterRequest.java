@@ -56,7 +56,7 @@ public class ServerUnregisterRequest implements Runnable {
         // Transfer players to fallback server
         long startRedirect = -1;
         for (Player player : server.getPlayersConnected()) {
-            player.createConnectionRequest(proxy.getServer(fallbackServer.getName()).get());
+            player.createConnectionRequest(proxy.getServer(fallbackServer.getName()).get()).fireAndForget();
             connecting.add(player.getUniqueId());
             if (startRedirect == -1) startRedirect = System.currentTimeMillis();
         }

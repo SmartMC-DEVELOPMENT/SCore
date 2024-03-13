@@ -6,9 +6,7 @@ import org.bukkit.entity.Player;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class PluginUtils {
 
@@ -31,6 +29,27 @@ public class PluginUtils {
             player.sendMessage(ChatColor.RED + "Error when trying to connect to a server of '" + serverPrefix + "'");
             throw new RuntimeException(e);
         }
+    }
+
+    public static void sendLoginRequest(Player player) {
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    System.out.println("Sending login request! " + player.getName());
+                    ByteArrayOutputStream b = new ByteArrayOutputStream();
+                    DataOutputStream out = new DataOutputStream(b);
+                    out.writeUTF("login");
+                    player.sendPluginMessage(LoginSpigot.getPlugin(), "smartlogin", b.toByteArray());
+                    b.close();
+                    out.close();
+                } catch (Exception e) {
+                    System.out.println("Sending login request failed! " + player.getName());
+                    player.sendMessage(ChatColor.RED + "Error when trying to login " + player.getName());
+                    throw new RuntimeException(e);
+                }
+            }
+        }, 200);
     }
 
 }

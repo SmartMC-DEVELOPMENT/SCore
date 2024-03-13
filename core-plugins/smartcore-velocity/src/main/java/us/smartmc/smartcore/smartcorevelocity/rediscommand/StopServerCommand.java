@@ -35,7 +35,7 @@ public class StopServerCommand extends RedisPubSubListener {
         for (Player player : VelocityPluginsAPI.proxy.getServer(server.getName()).get().getPlayersConnected()) {
             String serverNameToSend = lobbies.get(new Random().nextInt(lobbies.size()));
             RegisteredServer serverToSend = VelocityPluginsAPI.proxy.getServer(serverNameToSend).get();
-            player.createConnectionRequest(serverToSend);
+            player.createConnectionRequest(serverToSend).fireAndForget();
         }
     }
 

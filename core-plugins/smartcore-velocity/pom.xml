@@ -85,8 +85,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -169,7 +169,13 @@
     </repositories>
 
     <dependencies>
-
+        <dependency>
+            <groupId>fastlogin-plugin</groupId>
+            <artifactId>bukkit-version</artifactId>
+            <version>local-complete</version>
+            <scope>system</scope>
+            <systemPath>D:/LIBS_PLUGINS/FastLoginVelocity.jar</systemPath>
+        </dependency>
         <dependency>
             <groupId>velocitygr</groupId>
             <artifactId>velocityfull</artifactId>

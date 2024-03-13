@@ -1,6 +1,7 @@
 package us.smartmc.smartcore.smartcorevelocity.instance;
 
 import com.velocitypowered.api.proxy.Player;
+import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
@@ -20,6 +21,7 @@ public class OfflinePlayerData {
 
     private final UUID uuid;
     private boolean playedBefore = true;
+    @Getter
     private Document document;
 
     public OfflinePlayerData(UUID uuid) {
@@ -60,6 +62,7 @@ public class OfflinePlayerData {
         document.put("name", player.getUsername());
         document.put("lowercase_name", player.getUsername().toLowerCase());
         document.put("ip_address", player.getRemoteAddress().getAddress().toString().replace("/", ""));
+        document.put("last_update", System.currentTimeMillis() / 1000);
         save();
     }
 
@@ -73,15 +76,14 @@ public class OfflinePlayerData {
 
     public void save() {
         OfflinePlayerDataManager.getColletion().deleteMany(getQuery());
+
+        // Delete documents with same name
+        OfflinePlayerDataManager.getColletion().deleteMany(new Document("name", getName()));
         OfflinePlayerDataManager.getColletion().insertOne(document);
     }
 
     public void removeCache() {
         cache.remove(uuid);
-    }
-
-    public Document getDocument() {
-        return document;
     }
 
     public Document getQuery() {
@@ -100,8 +102,9 @@ public class OfflinePlayerData {
         return cache.get(player.getUniqueId());
     }
 
-    public static OfflinePlayerData get(UUID playerUuid) {
-        return cache.get(playerUuid);
+    public static OfflinePlayerData get(UUID uuid) {
+        if (cache.containsKey(uuid)) return cache.get(uuid);
+        return new OfflinePlayerData(uuid);
     }
 
     public static OfflinePlayerData get(String name) {

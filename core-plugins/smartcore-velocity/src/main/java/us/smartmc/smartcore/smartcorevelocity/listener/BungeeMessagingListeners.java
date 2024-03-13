@@ -27,18 +27,17 @@ public class BungeeMessagingListeners {
             return;
         }
 
+        if (!(event.getTarget() instanceof Player)) return;
+
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(event.getData()));
 
         try {
             String subchannel = in.readUTF();
+
             if (subchannel.equals("RedirectTo")) {
                 String serverPrefix = in.readUTF();
 
-                // Suponiendo que el primer dato enviado es el UUID del jugador
-                UUID playerUuid = UUID.fromString(in.readUTF());
-
-                // Ahora busca al jugador con ese UUID
-                Player player = VelocityPluginsAPI.proxy.getPlayer(playerUuid).orElse(null);
+                Player player = (Player) event.getTarget();
 
                 if (player == null) return;
 
@@ -56,7 +55,7 @@ public class BungeeMessagingListeners {
                 RegisteredServer target = list.get(new Random().nextInt(list.size()));
                 // Aquí manejas la redirección
                 if (target != null) {
-                    player.createConnectionRequest(target);
+                    player.createConnectionRequest(target).fireAndForget();
                 } else {
                     player.sendMessage(Component.text(NamedTextColor.RED + "Servers not found."));
                 }

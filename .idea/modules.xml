@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/addons/chat-module/chat-module.iml" filepath="$PROJECT_DIR$/addons/chat-module/chat-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-plugins/core-plugins.iml" filepath="$PROJECT_DIR$/core-plugins/core-plugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/events-core/events-core.iml" filepath="$PROJECT_DIR$/events-core/events-core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/survival/fixes-core/fixes-core.iml" filepath="$PROJECT_DIR$/survival/fixes-core/fixes-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/games-manager/gamesmanager-spigot/gamesmanager-spigot.iml" filepath="$PROJECT_DIR$/games-manager/gamesmanager-spigot/gamesmanager-spigot.iml" />
       <module fileurl="file://$PROJECT_DIR$/lobby-cosmetics.iml" filepath="$PROJECT_DIR$/lobby-cosmetics.iml" />
       <module fileurl="file://$PROJECT_DIR$/addons/lobby-module/lobby-module.iml" filepath="$PROJECT_DIR$/addons/lobby-module/lobby-module.iml" />
@@ -23,14 +22,11 @@
       <module fileurl="file://$PROJECT_DIR$/smartantiddos-velocity/smartantiddos-velocity.iml" filepath="$PROJECT_DIR$/smartantiddos-velocity/smartantiddos-velocity.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-plugins/smartcore-spigot/smartcore-spigot.iml" filepath="$PROJECT_DIR$/core-plugins/smartcore-spigot/smartcore-spigot.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-plugins/smartcore-velocity/smartcore-velocity.iml" filepath="$PROJECT_DIR$/core-plugins/smartcore-velocity/smartcore-velocity.iml" />
-      <module fileurl="file://$PROJECT_DIR$/core-plugins/smartcore-waterfall/smartcore-waterfall.iml" filepath="$PROJECT_DIR$/core-plugins/smartcore-waterfall/smartcore-waterfall.iml" />
       <module fileurl="file://$PROJECT_DIR$/snowgames.iml" filepath="$PROJECT_DIR$/snowgames.iml" />
       <module fileurl="file://$PROJECT_DIR$/snowgames/snowgames-ffa/snowgames-ffa.iml" filepath="$PROJECT_DIR$/snowgames/snowgames-ffa/snowgames-ffa.iml" />
       <module fileurl="file://$PROJECT_DIR$/staff-mode/staff-mode.iml" filepath="$PROJECT_DIR$/staff-mode/staff-mode.iml" />
       <module fileurl="file://$PROJECT_DIR$/staffmode-bungee/staffmode-bungee.iml" filepath="$PROJECT_DIR$/staffmode-bungee/staffmode-bungee.iml" />
       <module fileurl="file://$PROJECT_DIR$/staffmode-spigot/staffmode-spigot.iml" filepath="$PROJECT_DIR$/staffmode-spigot/staffmode-spigot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/survival/survival-chat/survival-chat.iml" filepath="$PROJECT_DIR$/survival/survival-chat/survival-chat.iml" />
-      <module fileurl="file://$PROJECT_DIR$/survival/survival-placeholders/survival-placeholders.iml" filepath="$PROJECT_DIR$/survival/survival-placeholders/survival-placeholders.iml" />
     </modules>
   </component>
 </project>

@@ -8,6 +8,7 @@ import me.imsergioh.loginspigot.command.LoginCMD;
 import me.imsergioh.loginspigot.command.RegisterCMD;
 import me.imsergioh.loginspigot.listener.AuthPlayersListeners;
 import me.imsergioh.loginspigot.listener.LoginPlayersFactoryListeners;
+import me.imsergioh.loginspigot.scheduler.AuthAnnouncer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -39,6 +40,7 @@ public final class LoginSpigot extends JavaPlugin implements Listener, CommandEx
         getDataFolder().mkdirs();
 
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "smartlogin");
 
         Bukkit.getPluginManager().registerEvents(this, this);
         getCommand("toggle").setExecutor(this);
@@ -56,6 +58,8 @@ public final class LoginSpigot extends JavaPlugin implements Listener, CommandEx
         Bukkit.getPluginManager().registerEvents(new LoginPlayersFactoryListeners(), this);
 
         mongoClient = new MongoClient(new MongoClientURI(getConfig().getString("mongo")));
+
+        AuthAnnouncer.start();
     }
 
     private void registerDefaultConfig() {

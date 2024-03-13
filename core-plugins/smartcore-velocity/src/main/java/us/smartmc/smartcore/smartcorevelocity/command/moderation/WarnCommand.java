@@ -1,6 +1,7 @@
 package us.smartmc.smartcore.smartcorevelocity.command.moderation;
 
 import com.velocitypowered.api.command.CommandSource;
+import com.velocitypowered.api.proxy.Player;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
 import us.smartmc.smartcore.smartcorevelocity.instance.OfflinePlayerData;
 import us.smartmc.smartcore.smartcorevelocity.instance.sanction.SanctionType;
@@ -24,6 +25,14 @@ public class WarnCommand extends CoreCommand {
         }
 
         OfflinePlayerData offlinePlayerData = OfflinePlayerData.get(args[0]);
+
+        UUID creatorId;
+        if (!(sender instanceof Player player)) {
+            creatorId = UUID.randomUUID();
+        } else {
+            creatorId = player.getUniqueId();
+        }
+
         UUID uuid = offlinePlayerData.getUUID();
 
         TimeUtils timeUtils = null;
@@ -59,7 +68,7 @@ public class WarnCommand extends CoreCommand {
 
         String reason = reasonBuilder.toString();
         if (reason.startsWith(" ")) reason = reason.replaceFirst(" ", "");
-        SanctionsManager.create(uuid, SanctionType.WARN, null, reason);
+        SanctionsManager.create(uuid, creatorId, SanctionType.WARN, null, reason);
         sendStringMessage(SanctionsManagerMessages.NAME, sender, "cmd_sanction_success");
     }
 }

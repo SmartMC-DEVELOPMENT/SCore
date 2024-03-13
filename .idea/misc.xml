@@ -44,6 +44,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/core-plugins/smartcore-waterfall/pom.xml" />
         <option value="$PROJECT_DIR$/game-manager/pom.xml" />
         <option value="$PROJECT_DIR$/games-manager/pom.xml" />
         <option value="$PROJECT_DIR$/plugins-api/pom.xml" />

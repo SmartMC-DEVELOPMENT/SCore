@@ -10,6 +10,7 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
+import com.velocitypowered.api.proxy.messages.LegacyChannelIdentifier;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.*;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
@@ -60,7 +61,7 @@ public class SmartCoreVelocity {
 
     @Inject
     public SmartCoreVelocity(@DataDirectory Path path, ProxyServer proxyServer) {
-        VelocityPluginsAPI.proxy = proxyServer;
+        VelocityPluginsAPI.setup(proxyServer);
         this.dataDirectory = path;
         initDataFolder();
     }
@@ -109,6 +110,8 @@ public class SmartCoreVelocity {
         }
 
         logger.info("Plugin enabled successfully!");
+
+        VelocityPluginsAPI.proxy.getChannelRegistrar().register(new LegacyChannelIdentifier("BungeeCord"), new LegacyChannelIdentifier("smartlogin"));
     }
 
     @Subscribe
@@ -143,7 +146,8 @@ public class SmartCoreVelocity {
                 new OfflinePlayerDataManager(),
                 new CustomCommandsListeners(),
                 new SanctionsListeners(),
-                new BungeeMessagingListeners());
+                new BungeeMessagingListeners(),
+                new LoginMessagingListeners());
     }
 
     private void registerCommands() {

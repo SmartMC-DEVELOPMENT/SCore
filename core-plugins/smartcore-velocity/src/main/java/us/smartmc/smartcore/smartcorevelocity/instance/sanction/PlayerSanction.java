@@ -13,7 +13,7 @@ import org.bson.Document;
 import us.smartmc.smartcore.smartcorevelocity.instance.OfflinePlayerData;
 import us.smartmc.smartcore.smartcorevelocity.messages.SanctionsManagerMessages;
 import us.smartmc.smartcore.smartcorevelocity.util.TimeUtils;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
 import java.util.Optional;
 import java.util.Random;

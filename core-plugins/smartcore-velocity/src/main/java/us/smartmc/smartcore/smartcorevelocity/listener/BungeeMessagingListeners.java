@@ -9,7 +9,7 @@ import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import us.smartmc.smartcore.smartcorevelocity.messages.ProxyMainMessages;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -26,7 +26,6 @@ public class BungeeMessagingListeners {
         if (!event.getIdentifier().getId().equalsIgnoreCase("BungeeCord")) {
             return;
         }
-
         if (!(event.getTarget() instanceof Player)) return;
 
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(event.getData()));

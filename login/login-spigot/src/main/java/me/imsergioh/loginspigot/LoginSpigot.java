@@ -9,6 +9,7 @@ import me.imsergioh.loginspigot.command.RegisterCMD;
 import me.imsergioh.loginspigot.listener.AuthPlayersListeners;
 import me.imsergioh.loginspigot.listener.LoginPlayersFactoryListeners;
 import me.imsergioh.loginspigot.scheduler.AuthAnnouncer;
+import me.imsergioh.pluginsapi.connection.RedisConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,9 +39,10 @@ public final class LoginSpigot extends JavaPlugin implements Listener, CommandEx
     public void onEnable() {
         plugin = this;
         getDataFolder().mkdirs();
+        RedisConnection.mainConnection = new RedisConnection("127.0.0.1", 6379);
 
-        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "smartlogin");
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "smartlogin");
 
         Bukkit.getPluginManager().registerEvents(this, this);
         getCommand("toggle").setExecutor(this);

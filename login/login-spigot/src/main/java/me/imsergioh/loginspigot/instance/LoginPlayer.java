@@ -1,14 +1,12 @@
 package me.imsergioh.loginspigot.instance;
 
+import lombok.Getter;
 import me.imsergioh.loginspigot.LoginSpigot;
-import me.imsergioh.loginspigot.util.PluginUtils;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.UUID;
 
 public class LoginPlayer {
@@ -17,7 +15,9 @@ public class LoginPlayer {
 
     private final UUID uuid;
     private final Document document;
+    @Getter
     boolean check;
+    @Getter
     boolean auth;
 
     public LoginPlayer(UUID uuid) {
@@ -62,12 +62,7 @@ public class LoginPlayer {
     }
 
     public void sendToLobbyServer() {
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                PluginUtils.redirectTo(getPlayer(), "lobby");
-            }
-        }, 200);
+        me.imsergioh.pluginsapi.util.PluginUtils.redirectTo(getPlayer(), "lobby");
     }
 
     public void tryLogin(String password) {
@@ -102,7 +97,7 @@ public class LoginPlayer {
     public void setAuth(boolean auth) {
         this.auth = auth;
         if (auth) {
-            PluginUtils.sendLoginRequest(getPlayer());
+            me.imsergioh.loginspigot.util.PluginUtils.sendLoginRequest(getPlayer());
         }
     }
 
@@ -112,14 +107,6 @@ public class LoginPlayer {
 
     public boolean isRegistered() {
         return document.containsKey("password");
-    }
-
-    public boolean isAuth() {
-        return auth;
-    }
-
-    public boolean isCheck() {
-        return check;
     }
 
     public String getIP() {

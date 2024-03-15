@@ -4,7 +4,7 @@ import com.velocitypowered.api.command.CommandSource;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
 public class SetPrefixCommand extends CoreCommand {
 

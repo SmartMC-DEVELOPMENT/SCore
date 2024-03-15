@@ -5,7 +5,7 @@ import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.proxy.server.ServerInfo;
 import me.imsergioh.pluginsapi.instance.handler.RedisPubSubListener;
 import us.smartmc.smartcore.smartcorevelocity.manager.ServersHandler;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
 import java.util.List;
 import java.util.Random;

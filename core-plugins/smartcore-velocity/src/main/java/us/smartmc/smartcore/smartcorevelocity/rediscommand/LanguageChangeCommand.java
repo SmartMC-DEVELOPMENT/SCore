@@ -3,9 +3,9 @@ package us.smartmc.smartcore.smartcorevelocity.rediscommand;
 import com.velocitypowered.api.proxy.Player;
 import me.imsergioh.pluginsapi.instance.handler.RedisPubSubListener;
 import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 import us.smartmc.smartcore.smartcorevelocity.instance.PlayerLanguages;
 import us.smartmc.smartcore.smartcorevelocity.listener.TabHandlerListeners;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
 
 import java.util.Optional;
 import java.util.UUID;

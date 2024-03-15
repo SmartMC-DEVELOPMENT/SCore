@@ -2,7 +2,7 @@ package us.smartmc.smartcore.smartcorevelocity.rediscommand;
 
 import com.velocitypowered.api.proxy.Player;
 import me.imsergioh.pluginsapi.instance.handler.RedisPubSubListener;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
 public class PlayerChatCommand extends RedisPubSubListener {
 

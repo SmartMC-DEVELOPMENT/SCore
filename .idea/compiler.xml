@@ -12,6 +12,7 @@
         <module name="login-spigot" />
         <module name="snowgames-ffa" />
         <module name="common" />
+        <module name="survival-placeholders" />
         <module name="smartcore-spigot" />
         <module name="events-core" />
         <module name="lobby-module" />
@@ -22,6 +23,7 @@
         <module name="npcs-module" />
         <module name="smartbot" />
         <module name="orchestrator" />
+        <module name="fixes-core" />
         <module name="smartcore-velocity" />
         <module name="serverhandler-bukkit" />
         <module name="gamesmanager-spigot" />
@@ -33,7 +35,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="fixes-core" target="1.8" />
       <module name="games-manager" target="1.8" />
       <module name="old-gamesmanager-spigot (1)" target="1.8" />
       <module name="plugins-api" target="17" />
@@ -42,9 +43,8 @@
       <module name="SmartCore-Spigot" target="1.8" />
       <module name="smartcore-waterfall" target="1.8" />
       <module name="SmartCore-Waterfall" target="16" />
-      <module name="survival-chat" target="1.8" />
       <module name="survival-core" target="1.8" />
-      <module name="survival-placeholders" target="1.8" />
+      <module name="survivalchat" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

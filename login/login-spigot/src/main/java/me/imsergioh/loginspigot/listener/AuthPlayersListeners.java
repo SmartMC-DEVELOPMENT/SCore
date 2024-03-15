@@ -34,12 +34,7 @@ public class AuthPlayersListeners implements Listener {
             loginPlayer.checkSecretKey();
         } else {
             // PREMIUM
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    PluginUtils.redirectTo(player, "lobby");
-                }
-            }, 200);
+            PluginUtils.redirectTo(player, "lobby");
         }
     }
 }

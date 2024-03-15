@@ -4,7 +4,7 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
 import us.smartmc.bmotd.BMotdVelocity;
 import us.smartmc.smartcore.smartcorevelocity.SmartCoreVelocity;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
 import java.util.Timer;
 import java.util.TimerTask;

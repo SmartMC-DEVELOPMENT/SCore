@@ -1,10 +1,10 @@
 package us.smartmc.core.handler;
 
 import me.imsergioh.pluginsapi.instance.handler.RedisPubSubListener;
+import me.imsergioh.pluginsapi.util.PluginUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
-import us.smartmc.core.util.PluginUtils;
 
 import java.nio.charset.StandardCharsets;
 

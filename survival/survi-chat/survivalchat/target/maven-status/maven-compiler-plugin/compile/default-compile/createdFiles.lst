@@ -1,0 +1,6 @@
+us\smartmc\survival\ChatModule.class
+us\smartmc\survival\ChatModule$1.class
+us\smartmc\survival\newvariables\PlayerMainVariables.class
+us\smartmc\survival\newvariables\DateVariables.class
+us\smartmc\survival\handler\ChatModeHandler.class
+us\smartmc\survival\newvariables\LuckPermsVariables.class

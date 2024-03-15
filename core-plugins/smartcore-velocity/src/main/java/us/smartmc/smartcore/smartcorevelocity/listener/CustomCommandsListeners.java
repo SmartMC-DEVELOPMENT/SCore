@@ -21,26 +21,4 @@ public class CustomCommandsListeners {
             }
         });
     }
-
-    @Subscribe(order = PostOrder.LAST)
-    public void onCommand(CommandExecuteEvent event) {
-        CommandSource source = event.getCommandSource();
-        if (!(source instanceof Player player)) return;
-        CommandExecuteEvent.CommandResult result =
-                LoginMessagingListeners.isLoggedIn(player) ?
-                        CommandExecuteEvent.CommandResult.allowed() :
-                        CommandExecuteEvent.CommandResult.denied();
-        if (event.getCommand().startsWith("login") || event.getCommand().startsWith("register")) return;
-        event.setResult(result);
-    }
-
-    @Subscribe(order = PostOrder.LAST)
-    public void onChat(PlayerChatEvent event) {
-        Player player = event.getPlayer();
-        PlayerChatEvent.ChatResult result =
-                LoginMessagingListeners.isLoggedIn(player) ?
-                PlayerChatEvent.ChatResult.allowed() :
-                PlayerChatEvent.ChatResult.denied();
-        event.setResult(result);
-    }
 }

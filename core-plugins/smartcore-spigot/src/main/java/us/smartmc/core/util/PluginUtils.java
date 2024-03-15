@@ -22,34 +22,6 @@ public class PluginUtils {
         return sendingPlayers.contains(player.getUniqueId());
     }
 
-    public static void redirectTo(Player player, String serverPrefix) {
-        if (sendingPlayers.contains(player.getUniqueId())) return;
-        CompletableFuture.runAsync(() -> {
-            sendingPlayers.add(player.getUniqueId());
-            // Save before redirect to server ->
-            CorePlayer corePlayer = CorePlayer.get(player);
-            if (corePlayer == null) return;
-            CorePlayerData playerData = corePlayer.getPlayerData();
-            if (playerData == null) return;
-            playerData.save();
-        }).thenRun(() -> {
-            try {
-                System.out.println("Redirecting " + player.getName() + " to " + serverPrefix);
-                ByteArrayOutputStream b = new ByteArrayOutputStream();
-                DataOutputStream out = new DataOutputStream(b);
-                out.writeUTF("RedirectTo");
-                out.writeUTF(serverPrefix);
-                player.sendPluginMessage(SmartCore.getPlugin(), "BungeeCord", b.toByteArray());
-                b.close();
-                out.close();
-                sendingPlayers.remove(player.getUniqueId());
-            } catch (Exception e) {
-                player.sendMessage(ChatColor.RED + "Error when trying to connect to a server of '" + serverPrefix + "'");
-                throw new RuntimeException(e);
-            }
-        });
-    }
-
     public static World getOrLoadWorld(String name) {
         return Bukkit.getServer().createWorld(new WorldCreator(name));
     }

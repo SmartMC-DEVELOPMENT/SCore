@@ -12,9 +12,9 @@
       <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-bungee/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-spigot/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-spigot/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/survival/survival-chat/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/survival/survival-chat/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/smartantiddos-velocity/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/survival/survi-chat/survivalchat/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/survival/survi-chat/survivalchat/src/main/resources" type="java-resource" />
     </content>
   </component>
   <component name="FacetManager">

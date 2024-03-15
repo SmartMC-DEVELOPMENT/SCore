@@ -1,13 +1,10 @@
+me\imsergioh\loginspigot\instance\LoginPlayer.class
 me\imsergioh\loginspigot\listener\AuthPlayersListeners.class
+me\imsergioh\loginspigot\LoginSpigotAuthPlugin.class
 me\imsergioh\loginspigot\command\LoginCMD.class
 me\imsergioh\loginspigot\manager\LoginPlayersFactory.class
-me\imsergioh\loginspigot\listener\AuthPlayersListeners$1.class
+me\imsergioh\loginspigot\util\PluginUtils.class
 me\imsergioh\loginspigot\command\RegisterCMD.class
+me\imsergioh\loginspigot\scheduler\AuthAnnouncer.class
 me\imsergioh\loginspigot\listener\LoginPlayersFactoryListeners.class
 me\imsergioh\loginspigot\LoginSpigot.class
-me\imsergioh\loginspigot\instance\LoginPlayer.class
-me\imsergioh\loginspigot\LoginSpigotAuthPlugin.class
-me\imsergioh\loginspigot\util\PluginUtils.class
-me\imsergioh\loginspigot\scheduler\AuthAnnouncer.class
-me\imsergioh\loginspigot\util\PluginUtils$1.class
-me\imsergioh\loginspigot\instance\LoginPlayer$1.class

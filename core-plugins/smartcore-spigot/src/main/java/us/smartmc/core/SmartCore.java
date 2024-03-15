@@ -131,6 +131,8 @@ public class SmartCore extends JavaPlugin {
             logger.info("Plugin enabled successfully!");
         });
         GlobalExceptionHandler.registerListener(discordExceptionListener);
+
+
     }
 
     @Override

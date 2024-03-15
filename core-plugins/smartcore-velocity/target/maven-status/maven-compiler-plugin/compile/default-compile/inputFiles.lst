@@ -1,4 +1,6 @@
+D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\LoginMessageHandler.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\PluginYMLConfig.java
+D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\LoginListeners.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\CustomCommandsManager.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\messages\HelpMessages.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\ICoreCommand.java
@@ -19,7 +21,6 @@ D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\MongoDataManager.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\commandmanager\CustomCommandExecutor.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\onlinestore\AnnouncePackagePurchase.java
-D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\LoginMessagingListeners.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\admin\SetPrefixCommand.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\messages\ProxyMainMessages.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\sanction\PlayerSanction.java

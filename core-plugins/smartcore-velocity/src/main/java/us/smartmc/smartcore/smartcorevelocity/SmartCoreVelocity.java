@@ -37,7 +37,7 @@ import us.smartmc.smartcore.smartcorevelocity.manager.*;
 import us.smartmc.smartcore.smartcorevelocity.messages.*;
 import us.smartmc.smartcore.smartcorevelocity.rediscommand.*;
 import us.smartmc.smartcore.smartcorevelocity.variables.*;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -56,13 +56,15 @@ public class SmartCoreVelocity {
     @Inject
     private Logger logger;
 
+    private final ProxyServer proxyServer;
+
     @Getter
     private final Path dataDirectory;
 
     @Inject
     public SmartCoreVelocity(@DataDirectory Path path, ProxyServer proxyServer) {
-        VelocityPluginsAPI.setup(proxyServer);
         this.dataDirectory = path;
+        this.proxyServer = proxyServer;
         initDataFolder();
     }
 
@@ -88,6 +90,8 @@ public class SmartCoreVelocity {
         setupBackendConnections();
         registerDefaultLanguages();
 
+        VelocityPluginsAPI.setup(this, proxyServer);
+
         loadCustomCommands();
         // Register commands
         CustomCommandsManager.register("test", new TestCommand());
@@ -111,7 +115,8 @@ public class SmartCoreVelocity {
 
         logger.info("Plugin enabled successfully!");
 
-        VelocityPluginsAPI.proxy.getChannelRegistrar().register(new LegacyChannelIdentifier("BungeeCord"), new LegacyChannelIdentifier("smartlogin"));
+        PubSubConnectionHandler.register(new LoginMessageHandler());
+        VelocityPluginsAPI.proxy.getChannelRegistrar().register(new LegacyChannelIdentifier("BungeeCord"));
     }
 
     @Subscribe
@@ -147,7 +152,8 @@ public class SmartCoreVelocity {
                 new CustomCommandsListeners(),
                 new SanctionsListeners(),
                 new BungeeMessagingListeners(),
-                new LoginMessagingListeners());
+                new LoginMessageHandler(),
+                new LoginListeners());
     }
 
     private void registerCommands() {

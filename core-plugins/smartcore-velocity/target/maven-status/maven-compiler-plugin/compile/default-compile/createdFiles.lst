@@ -7,9 +7,9 @@ us\smartmc\smartcore\smartcorevelocity\instance\CorePluginException.class
 us\smartmc\smartcore\smartcorevelocity\instance\MongoDataManager.class
 us\smartmc\smartcore\smartcorevelocity\manager\OnlineCountHandler.class
 us\smartmc\smartcore\smartcorevelocity\instance\onlinestore\AnnouncePackagePurchase.class
+us\smartmc\smartcore\smartcorevelocity\listener\LoginMessageHandler.class
 us\smartmc\smartcore\smartcorevelocity\messages\ProxyMainMessages.class
 us\smartmc\smartcore\smartcorevelocity\manager\ServersHandler.class
-us\smartmc\smartcore\smartcorevelocity\listener\LoginMessagingListeners.class
 us\smartmc\smartcore\smartcorevelocity\instance\OfflinePlayerData$1.class
 us\smartmc\smartcore\smartcorevelocity\instance\commandmanager\CustomCommandExecutor.class
 us\smartmc\smartcore\smartcorevelocity\listener\LanguageListeners.class
@@ -25,6 +25,7 @@ us\smartmc\smartcore\smartcorevelocity\command\moderation\MuteCommand.class
 us\smartmc\smartcore\smartcorevelocity\listener\TabHandlerListeners.class
 us\smartmc\smartcore\smartcorevelocity\rediscommand\PlayerChatCommand.class
 us\smartmc\smartcore\smartcorevelocity\customcommand\MessageCommand.class
+us\smartmc\smartcore\smartcorevelocity\listener\LoginListeners.class
 us\smartmc\smartcore\smartcorevelocity\instance\sanction\SanctionType.class
 us\smartmc\smartcore\smartcorevelocity\SmartCoreVelocity.class
 us\smartmc\smartcore\smartcorevelocity\manager\TabHandler.class

@@ -3,9 +3,10 @@ package us.smartmc.smartcore.smartcorevelocity.manager;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
+import me.imsergioh.pluginsapi.instance.backend.PlayerServerConnectionsHandler;
 import org.bson.Document;
 import us.smartmc.smartcore.smartcorevelocity.SmartCoreVelocity;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +19,11 @@ public class ServersHandler {
         List<String> lobbies = getLobbyServers(at);
         String randomLobby = lobbies.get(new Random().nextInt(lobbies.size()));
 
-        String serverName = VelocityPluginsAPI.proxy.getServer(
+        RegisteredServer server = VelocityPluginsAPI.proxy.getServer(
                 randomLobby
-        ).get().getServerInfo().getName();
-        try {
-            RedisConnection.mainConnection.getResource().publish("connectServer", player.getUsername() + " " + serverName);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        ).get();
+
+        PlayerServerConnectionsHandler.get(player).sendConnectionQueue(server);
     }
 
     private static String getAt(Player player) {

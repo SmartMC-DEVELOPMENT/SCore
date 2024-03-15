@@ -4,7 +4,7 @@ import com.velocitypowered.api.command.CommandSource;
 import me.imsergioh.pluginsapi.instance.MongoDBPluginConfig;
 import org.bson.Document;
 import us.smartmc.smartcore.smartcorevelocity.instance.onlinestore.OnlineStoreCommandType;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;

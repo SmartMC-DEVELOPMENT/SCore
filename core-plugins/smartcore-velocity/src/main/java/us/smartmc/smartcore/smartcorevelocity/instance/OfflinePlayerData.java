@@ -8,7 +8,7 @@ import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.kyori.adventure.text.Component;
 import org.bson.Document;
 import us.smartmc.smartcore.smartcorevelocity.manager.OfflinePlayerDataManager;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
 import java.util.HashMap;
 import java.util.Timer;

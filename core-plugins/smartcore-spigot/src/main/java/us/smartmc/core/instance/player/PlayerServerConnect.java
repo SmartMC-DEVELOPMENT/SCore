@@ -1,6 +1,6 @@
 package us.smartmc.core.instance.player;
 
-import us.smartmc.core.util.PluginUtils;
+import me.imsergioh.pluginsapi.util.PluginUtils;
 import org.bukkit.entity.Player;
 
 public class PlayerServerConnect {

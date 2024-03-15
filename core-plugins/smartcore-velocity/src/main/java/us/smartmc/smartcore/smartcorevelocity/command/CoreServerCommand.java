@@ -4,21 +4,17 @@ import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
-import com.velocitypowered.proxy.command.builtin.ServerCommand;
-import me.imsergioh.pluginsapi.VelocityCore;
+import me.imsergioh.pluginsapi.instance.backend.PlayerServerConnectionsHandler;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.kyori.adventure.text.Component;
 import us.smartmc.smartcore.smartcorevelocity.SmartCoreVelocity;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
-import us.smartmc.smartcore.smartcorevelocity.manager.CustomCommandsManager;
-import us.smartmc.smartcore.smartcorevelocity.manager.TabHandler;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public class CoreServerCommand extends CoreCommand {
-
-    private static final SmartCoreVelocity plugin = SmartCoreVelocity.getPlugin();
 
     public CoreServerCommand() {
         super("server");
@@ -41,12 +37,13 @@ public class CoreServerCommand extends CoreCommand {
         }
 
         String serverTargetName = args[0];
-        Optional<RegisteredServer> server = VelocityPluginsAPI.proxy.getServer(serverTargetName);
-        server.ifPresentOrElse(registeredServer -> {
-            player.sendMessage(Component.text(ChatUtil.color("&aConectando a &e" + registeredServer.getServerInfo().getName() + "&a...")));
-            player.createConnectionRequest(registeredServer).fireAndForget();
-        }, () -> {
-            sender.sendMessage(Component.text(ChatUtil.color("&cNo se ha encontrado ningún servidor!")));
-        });
+        Optional<RegisteredServer> optional = VelocityPluginsAPI.proxy.getServer(serverTargetName);
+        if (optional.isEmpty()) {
+            player.sendMessage(Component.text(ChatUtil.color("&cNo se ha encontrado ese servidor registrado a tu proxy actual")));
+            return;
+        }
+        RegisteredServer server = optional.get();
+        player.sendMessage(Component.text(ChatUtil.color("&aConectando a &e" + server.getServerInfo().getName() + "&a...")));
+        PlayerServerConnectionsHandler.get(player).sendConnectionQueue(server);
     }
 }

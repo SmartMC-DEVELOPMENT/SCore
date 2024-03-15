@@ -2,9 +2,9 @@ package us.smartmc.smartcore.smartcorevelocity.command.admin;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
+import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 import net.kyori.adventure.text.Component;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
-import us.smartmc.smartcore.velocitycore.manager.VelocityPluginsAPI;
 
 public class BroadcastCommand extends CoreCommand {
 

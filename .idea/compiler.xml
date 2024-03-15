@@ -9,9 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="chat-module" />
         <module name="login" />
-        <module name="survival-chat" />
         <module name="login-spigot" />
-        <module name="smartcore-waterfall" />
         <module name="snowgames-ffa" />
         <module name="common" />
         <module name="survival-placeholders" />
@@ -20,16 +18,18 @@
         <module name="lobby-module" />
         <module name="snowgames" />
         <module name="loginproxy-waterfall" />
-        <module name="serverhandler-bungee" />
         <module name="staffmode-bungee" />
         <module name="arenapvp" />
         <module name="npcs-module" />
         <module name="smartbot" />
         <module name="orchestrator" />
         <module name="fixes-core" />
+        <module name="smartcore-velocity" />
         <module name="serverhandler-bukkit" />
         <module name="gamesmanager-spigot" />
         <module name="core-plugins" />
+        <module name="serverhandler-velocity" />
+        <module name="smartantiddos-velocity" />
         <module name="staffmode-spigot" />
         <module name="lobby-cosmetics" />
       </profile>
@@ -38,10 +38,13 @@
       <module name="games-manager" target="1.8" />
       <module name="old-gamesmanager-spigot (1)" target="1.8" />
       <module name="plugins-api" target="17" />
+      <module name="serverhandler-bungee" target="1.8" />
       <module name="SmartBot" target="17" />
       <module name="SmartCore-Spigot" target="1.8" />
+      <module name="smartcore-waterfall" target="1.8" />
       <module name="SmartCore-Waterfall" target="16" />
       <module name="survival-core" target="1.8" />
+      <module name="survivalchat" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

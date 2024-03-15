@@ -1,0 +1,8 @@
+us\smartmc\security\antiddos\commands\SmartAntiDDoSCommand.class
+us\smartmc\security\antiddos\instance\PlayerConnection.class
+us\smartmc\security\antiddos\util\EncriptionUtil.class
+us\smartmc\security\antiddos\event\PlayerEvents.class
+velocity-plugin.json
+us\smartmc\security\antiddos\SmartAntiDDoS.class
+us\smartmc\security\antiddos\handler\ConnectionHandler$1.class
+us\smartmc\security\antiddos\handler\ConnectionHandler.class

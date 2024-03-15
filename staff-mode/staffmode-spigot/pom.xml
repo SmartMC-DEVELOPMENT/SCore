@@ -74,8 +74,9 @@
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
-            <version>4.8.0</version>
-            <scope>provided</scope>
+            <version>LOCAL-LIB</version>
+            <systemPath>D:/LIBS_PLUGINS/ProtocolLib.jar</systemPath>
+            <scope>system</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>

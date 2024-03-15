@@ -16,17 +16,20 @@
       <module fileurl="file://$PROJECT_DIR$/login/login-spigot/login-spigot.iml" filepath="$PROJECT_DIR$/login/login-spigot/login-spigot.iml" />
       <module fileurl="file://$PROJECT_DIR$/login/loginproxy-waterfall/loginproxy-waterfall.iml" filepath="$PROJECT_DIR$/login/loginproxy-waterfall/loginproxy-waterfall.iml" />
       <module fileurl="file://$PROJECT_DIR$/addons/npcs-module/npcs-module.iml" filepath="$PROJECT_DIR$/addons/npcs-module/npcs-module.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" filepath="$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-handler/server-handler.iml" filepath="$PROJECT_DIR$/server-handler/server-handler.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/serverhandler-bukkit/serverhandler-bukkit.iml" filepath="$PROJECT_DIR$/server-handler/serverhandler-bukkit/serverhandler-bukkit.iml" />
-      <module fileurl="file://$PROJECT_DIR$/server-handler/serverhandler-bungee/serverhandler-bungee.iml" filepath="$PROJECT_DIR$/server-handler/serverhandler-bungee/serverhandler-bungee.iml" />
+      <module fileurl="file://$PROJECT_DIR$/serverhandler-velocity/serverhandler-velocity.iml" filepath="$PROJECT_DIR$/serverhandler-velocity/serverhandler-velocity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/smartantiddos-velocity/smartantiddos-velocity.iml" filepath="$PROJECT_DIR$/smartantiddos-velocity/smartantiddos-velocity.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-plugins/smartcore-spigot/smartcore-spigot.iml" filepath="$PROJECT_DIR$/core-plugins/smartcore-spigot/smartcore-spigot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/core-plugins/smartcore-waterfall/smartcore-waterfall.iml" filepath="$PROJECT_DIR$/core-plugins/smartcore-waterfall/smartcore-waterfall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core-plugins/smartcore-velocity/smartcore-velocity.iml" filepath="$PROJECT_DIR$/core-plugins/smartcore-velocity/smartcore-velocity.iml" />
       <module fileurl="file://$PROJECT_DIR$/snowgames.iml" filepath="$PROJECT_DIR$/snowgames.iml" />
       <module fileurl="file://$PROJECT_DIR$/snowgames/snowgames-ffa/snowgames-ffa.iml" filepath="$PROJECT_DIR$/snowgames/snowgames-ffa/snowgames-ffa.iml" />
       <module fileurl="file://$PROJECT_DIR$/staff-mode/staff-mode.iml" filepath="$PROJECT_DIR$/staff-mode/staff-mode.iml" />
       <module fileurl="file://$PROJECT_DIR$/staffmode-bungee/staffmode-bungee.iml" filepath="$PROJECT_DIR$/staffmode-bungee/staffmode-bungee.iml" />
       <module fileurl="file://$PROJECT_DIR$/staffmode-spigot/staffmode-spigot.iml" filepath="$PROJECT_DIR$/staffmode-spigot/staffmode-spigot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/survival/survival-chat/survival-chat.iml" filepath="$PROJECT_DIR$/survival/survival-chat/survival-chat.iml" />
       <module fileurl="file://$PROJECT_DIR$/survival/survival-placeholders/survival-placeholders.iml" filepath="$PROJECT_DIR$/survival/survival-placeholders/survival-placeholders.iml" />
+      <module fileurl="file://$PROJECT_DIR$/survival/survival-chat/survivalchat.iml" filepath="$PROJECT_DIR$/survival/survival-chat/survivalchat.iml" />
     </modules>
   </component>
 </project>

@@ -1,8 +1,0 @@
-us\smartmc\serverhandler\backendcommand\RegisterServerCommand.class
-us\smartmc\serverhandler\registration\CommandsRegistration.class
-us\smartmc\serverhandler\manager\BungeeServerManager.class
-us\smartmc\serverhandler\listener\RequestsListeners.class
-us\smartmc\serverhandler\request\ServerUnregisterRequest.class
-us\smartmc\serverhandler\backendcommand\RegisterServersCommand.class
-us\smartmc\serverhandler\ServerHandlerMain.class
-us\smartmc\serverhandler\backendcommand\UnregisterServerCommand.class

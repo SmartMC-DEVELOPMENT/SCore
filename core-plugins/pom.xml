@@ -13,4 +13,5 @@
     <groupId>us.smartmc.core</groupId>
     <artifactId>core-plugins</artifactId>
     <version>1.0-SNAPSHOT</version>
+
 </project>

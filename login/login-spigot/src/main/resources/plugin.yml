@@ -1,5 +1,9 @@
 name: LoginSpigot
 version: '${project.version}'
 main: me.imsergioh.loginspigot.LoginSpigot
+depend:
+  - FastLogin
 commands:
   toggle:
+  login:
+  register:

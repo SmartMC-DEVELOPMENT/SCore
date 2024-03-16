@@ -42,6 +42,7 @@ import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -179,7 +180,18 @@ public class SmartCoreVelocity {
             CommandMeta commandMeta = commandManager.metaBuilder(command.getName())
                     .plugin(this)
                     .build();
+            List<String> aliases = command.getAliases();
             VelocityPluginsAPI.proxy.getCommandManager().register(commandMeta, command);
+
+            if (aliases != null) {
+                for (String alias : aliases) {
+                    commandManager = VelocityPluginsAPI.proxy.getCommandManager();
+                    commandMeta = commandManager.metaBuilder(alias)
+                            .plugin(this)
+                            .build();
+                    VelocityPluginsAPI.proxy.getCommandManager().register(commandMeta, command);
+                }
+            }
         }
     }
 

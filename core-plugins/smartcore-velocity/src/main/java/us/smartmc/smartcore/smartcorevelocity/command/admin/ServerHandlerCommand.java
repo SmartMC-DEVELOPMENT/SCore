@@ -34,6 +34,7 @@ public class ServerHandlerCommand extends CoreCommand {
                     register(name, address);
                     sender.sendMessage(Component.text(ChatUtil.parse("&aServidor agreado y registrado correctamente.")));
                 }
+                break;
             }
             case "unregister": {
                 if (args.length >= 2) {

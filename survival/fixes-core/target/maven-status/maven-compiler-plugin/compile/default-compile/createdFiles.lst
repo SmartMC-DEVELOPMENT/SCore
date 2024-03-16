@@ -1,4 +1,6 @@
+us\smartmc\survivaladdon\fixescore\listener\OnlineCountListener$1.class
+us\smartmc\survivaladdon\fixescore\command\ExecuteAtBungeeCommand.class
 us\smartmc\survivaladdon\fixescore\FixesCore.class
 us\smartmc\survivaladdon\fixescore\handler\ServerConnectionsHandler.class
 us\smartmc\survivaladdon\fixescore\util\PluginUtils.class
-us\smartmc\survivaladdon\fixescore\command\ExecuteAtBungeeCommand.class
+us\smartmc\survivaladdon\fixescore\listener\OnlineCountListener.class

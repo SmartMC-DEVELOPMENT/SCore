@@ -9,6 +9,7 @@ import us.smartmc.smartaddons.plugin.AddonPlugin;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
 import us.smartmc.survivaladdon.fixescore.command.ExecuteAtBungeeCommand;
 import us.smartmc.survivaladdon.fixescore.handler.ServerConnectionsHandler;
+import us.smartmc.survivaladdon.fixescore.listener.OnlineCountListener;
 
 @AddonInfo(name = "fixes-core")
 public class FixesCore extends AddonPlugin {
@@ -26,6 +27,8 @@ public class FixesCore extends AddonPlugin {
         }).start();
 
         registerCommand(new ExecuteAtBungeeCommand());
+
+        registerListeners(new OnlineCountListener());
 
         Bukkit.getServer().getMessenger().registerOutgoingPluginChannel(SmartAddonsSpigot.getPlugin(), "BungeeCord");
     }

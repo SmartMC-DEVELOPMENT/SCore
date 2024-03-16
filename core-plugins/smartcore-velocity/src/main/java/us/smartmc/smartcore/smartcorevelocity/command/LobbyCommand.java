@@ -5,6 +5,8 @@ import com.velocitypowered.api.proxy.Player;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
 import us.smartmc.smartcore.smartcorevelocity.manager.ServersHandler;
 
+import java.util.List;
+
 public class LobbyCommand extends CoreCommand {
 
     public LobbyCommand() {
@@ -19,5 +21,10 @@ public class LobbyCommand extends CoreCommand {
             return;
         }
         ServersHandler.connectToHubByHubRules(player);
+    }
+
+    @Override
+    public List<String> getAliases() {
+        return List.of("hub", "leave", "vestibulo", "vestíbulo", "l", "salir", "centro");
     }
 }

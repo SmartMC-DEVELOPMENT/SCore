@@ -25,6 +25,7 @@ public class ChatModule extends AddonPlugin {
     public void start() {
         System.out.println("Started addon " + getInfo().name() + " v" + getInfo().version());
         checkAndRemoveLPC();
+        checkAndRemoveAnnouncements();
 
         ProtocolLibrary.getProtocolManager().getPacketListeners().forEach(listener -> {
             if (!listener.getPlugin().equals(SmartAddonsSpigot.getPlugin())) return;
@@ -68,6 +69,12 @@ public class ChatModule extends AddonPlugin {
 
     private void checkAndRemoveLPC() {
         Plugin lpcPlugin = Bukkit.getPluginManager().getPlugin("LPC");
+        if (lpcPlugin == null) return;
+        Bukkit.getPluginManager().disablePlugin(lpcPlugin);
+    }
+
+    private void checkAndRemoveAnnouncements() {
+        Plugin lpcPlugin = Bukkit.getPluginManager().getPlugin("Infiniteannouncements");
         if (lpcPlugin == null) return;
         Bukkit.getPluginManager().disablePlugin(lpcPlugin);
     }

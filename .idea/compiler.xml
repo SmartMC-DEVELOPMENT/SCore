@@ -14,10 +14,10 @@
         <module name="common" />
         <module name="survival-placeholders" />
         <module name="smartcore-spigot" />
-        <module name="events-core" />
         <module name="lobby-module" />
         <module name="snowgames" />
         <module name="loginproxy-waterfall" />
+        <module name="survivalchat" />
         <module name="staffmode-bungee" />
         <module name="arenapvp" />
         <module name="npcs-module" />
@@ -35,6 +35,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="events-core" target="1.8" />
       <module name="games-manager" target="1.8" />
       <module name="old-gamesmanager-spigot (1)" target="1.8" />
       <module name="plugins-api" target="17" />
@@ -44,7 +45,6 @@
       <module name="smartcore-waterfall" target="1.8" />
       <module name="SmartCore-Waterfall" target="16" />
       <module name="survival-core" target="1.8" />
-      <module name="survivalchat" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

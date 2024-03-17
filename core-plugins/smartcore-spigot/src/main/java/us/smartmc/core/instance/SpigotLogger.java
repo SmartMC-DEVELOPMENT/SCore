@@ -1,36 +1,36 @@
 package us.smartmc.core.instance;
 
 import me.imsergioh.pluginsapi.instance.ConsoleLogger;
-import net.md_5.bungee.api.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import us.smartmc.core.SmartCore;
 
 public class SpigotLogger implements ConsoleLogger {
 
-    public static void send(String prefix, ChatColor color, String message) {
+    public static void send(String prefix, String color, String message) {
         String pluginName = SmartCore.getPlugin().getName();
-        String consoleMessage = ChatColor.AQUA + "[" + pluginName + " - " + prefix + "] " + color + message;
-        Bukkit.getConsoleSender().sendMessage(consoleMessage);
+        String consoleMessage =  "<aqua>[" + pluginName + " - " + prefix + "] " + color + message;
+        Bukkit.getConsoleSender().sendMessage(Component.text(consoleMessage));
     }
 
     @Override
     public void log(String message) {
-        send("LOG", ChatColor.GREEN, message);
+        send("LOG", "<green>", message);
     }
 
     @Override
     public void info(String message) {
-        send("INFO", ChatColor.BLUE, message);
+        send("INFO", "<blue>", message);
     }
 
     @Override
     public void warning(String message) {
-        send("WARNING", ChatColor.YELLOW, message);
+        send("WARNING", "<yellow>", message);
     }
 
     @Override
     public void error(String message) {
-        send("ERROR", ChatColor.DARK_RED, message);
+        send("ERROR", "<dark_red>", message);
     }
 
 }

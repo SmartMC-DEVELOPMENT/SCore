@@ -39,9 +39,9 @@ public class ChangeVisibilityCommand extends AddonPluginCommand {
         // Update item in hand in case that it's a visibility item (INK_SACK in hand)
         ItemStack item = player.getItemInHand();
         if (item == null) return;
-        if (!item.getType().equals(Material.INK_SACK)) return;
+        if (!item.getType().equals(Material.INK_SAC)) return;
         CoreMenu menu = corePlayer.getCurrentMenuSet();
-        item = VisibilityManager.getVisibilityItem(nextVisibility).get(player);
+        item = VisibilityManager.getVisibilityItem(player, nextVisibility).get(player);
         player.getInventory().setItemInHand(item);
         menu.getActionManager().registerItemAction(player.getInventory().getHeldItemSlot(),
                 item, Arrays.asList("cmd changeVisibility"));

@@ -14,16 +14,16 @@ public class LanguageConfig extends PluginConfig {
 
         registerMultiLanguageItem("weapon", ItemBuilder.of(Material.STICK).name("Weapon"));
         registerMultiLanguageItem("blocks", ItemBuilder.of(Material.SANDSTONE).amount(32).name("Blocks"));
-        registerMultiLanguageItem("propeller", ItemBuilder.of(Material.GOLD_PLATE).name("Propeller"));
+        registerMultiLanguageItem("propeller", ItemBuilder.of(Material.LEGACY_GOLD_PLATE).name("Propeller"));
         registerMultiLanguageItem("speed", ItemBuilder.of(Material.FEATHER).name("Speed"));
         registerMultiLanguageItem("regeneration", ItemBuilder.of(Material.GOLDEN_APPLE).name("Regeneration"));
 
-        registerMultiLanguageItem("propeller_reloading", ItemBuilder.of(Material.STONE_PLATE).name("Propeller &7&o(reloading...)"));
+        registerMultiLanguageItem("propeller_reloading", ItemBuilder.of(Material.STONE_PRESSURE_PLATE).name("Propeller &7&o(reloading...)"));
         registerMultiLanguageItem("speed_reloading", ItemBuilder.of(Material.SUGAR).name("Speed &7&o(reloading...)"));
 
         registerMultiLanguageItem("lobby.tops", ItemBuilder.of(Material.DIAMOND).name("&6Tops"));
-        registerMultiLanguageItem("lobby.settings", ItemBuilder.of(Material.WATCH).name("&bSettings"));
-        registerMultiLanguageItem("lobby.missions", ItemBuilder.of(Material.WATCH).name("&aMissions"));
+        registerMultiLanguageItem("lobby.settings", ItemBuilder.of(Material.CLOCK).name("&bSettings"));
+        registerMultiLanguageItem("lobby.missions", ItemBuilder.of(Material.CLOCK).name("&aMissions"));
 
         registerMultiLanguageItem("general.in_development", ItemBuilder.of(Material.BARRIER).name("&cIn development!"));
 

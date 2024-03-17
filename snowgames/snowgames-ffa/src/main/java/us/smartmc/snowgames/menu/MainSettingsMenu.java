@@ -45,7 +45,7 @@ public class MainSettingsMenu extends FFAMenu {
                 .lore(Arrays.asList("Change your blocks at ingame inventory")));
 
         config.registerItemConfig(language, CONFIG_PATH + ".projectiles", ItemBuilder
-                .of(Material.SNOW_BALL)
+                .of(Material.SNOWBALL)
                 .name("&aPersonalize your projectile")
                 .lore(Arrays.asList("Change your projectile throw in the game.", "Normally you throw snowballs but you can personalize this to another time of projectiles")));
     }

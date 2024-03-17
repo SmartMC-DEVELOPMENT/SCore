@@ -39,7 +39,7 @@ public class PlayerListener extends AddonListener implements Listener {
     public void sendSubliminalSoundForJoining(PlayerJoinEvent event) {
         if (!isEnabled()) return;
         Player player = event.getPlayer();
-        player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 7.7F);
+        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 7.7F);
     }
 
     @EventHandler

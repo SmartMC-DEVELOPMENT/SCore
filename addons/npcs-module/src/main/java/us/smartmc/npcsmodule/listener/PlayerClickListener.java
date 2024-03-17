@@ -7,9 +7,8 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import us.smartmc.core.SmartCore;
 import org.bukkit.Bukkit;
-import us.smartmc.npcsmodule.NPCSModule;
 import us.smartmc.npcsmodule.event.NPCUseEntityEvent;
-import us.smartmc.npcsmodule.instance.NPC;
+import us.smartmc.npcsmodule.instance.CustomNPC;
 import us.smartmc.npcsmodule.manager.NPCManager;
 
 import java.util.*;
@@ -28,7 +27,7 @@ public class PlayerClickListener extends PacketAdapter {
     public void onPacketReceiving(PacketEvent event) {
         int id = event.getPacket().getIntegers().read(0);
         NPCManager.forEach(npcManager -> {
-            NPC npc = npcManager.getNPC(id);
+            CustomNPC npc = npcManager.getNPC(id);
             if (npc == null) return;
             UUID uuid = event.getPlayer().getUniqueId();
             if (clicking.contains(uuid)) return;

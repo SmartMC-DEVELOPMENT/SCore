@@ -41,8 +41,9 @@ public final class LoginSpigot extends JavaPlugin implements Listener, CommandEx
         getDataFolder().mkdirs();
         RedisConnection.mainConnection = new RedisConnection("127.0.0.1", 6379);
 
-        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "smartlogin");
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "main:bungeecord");
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "fastlogin:fastlogin");
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "loginspigot:smartlogin");
 
         Bukkit.getPluginManager().registerEvents(this, this);
         getCommand("toggle").setExecutor(this);

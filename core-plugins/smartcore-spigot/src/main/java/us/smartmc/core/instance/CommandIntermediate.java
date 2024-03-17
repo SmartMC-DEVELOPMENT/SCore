@@ -3,7 +3,7 @@ package us.smartmc.core.instance;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.SimpleCommandMap;
-import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
+import org.bukkit.plugin.SimplePluginManager;
 
 import java.lang.reflect.Field;
 
@@ -25,10 +25,11 @@ public class CommandIntermediate {
     private boolean check(String cmdName) {
         if (cmdName == null) return false;
         try {
-            SimpleCommandMap commandMap;
-            Field field = CraftServer.class.getDeclaredField("commandMap");
+            SimplePluginManager manager = ((SimplePluginManager) Bukkit.getPluginManager());
+            Field field = manager.getClass().getDeclaredField("commandMap");
             field.setAccessible(true);
-            commandMap = (SimpleCommandMap) field.get(Bukkit.getServer());
+
+            SimpleCommandMap commandMap = (SimpleCommandMap) field.get(manager);
 
             for (Command command : commandMap.getCommands()) {
                 if (cmdName.equalsIgnoreCase(command.getName())) return true;

@@ -30,13 +30,13 @@ public class MinigamesMenu extends CoreMenu {
     private final Language language;
 
     private MinigamesMenu(Language language) {
-        super(null, 45, LanguagesHandler.get(language).get("lobby_miniGames").getString("inventory_title"));
+        super(null, 54, LanguagesHandler.get(language).get("lobby_miniGames").getString("inventory_title"));
         this.language = language;
         menus.put(language, this);
         config.getMiniGames().forEach((name, document) -> {
-            int slot = slots[currentSlotIndex];
+            int slot = document.containsKey("slot") ? document.getInteger("slot") : slots[currentSlotIndex];
             String serverPrefixId = document.getString("serverPrefixId");
-            set(slot, MinigamesConfig.getItemOf(language, name), "connectTo " + serverPrefixId);
+            set(slot, MinigamesConfig.getItemOf(language, name), "connectTo " + serverPrefixId, "closeInv");
             currentSlotIndex++;
         });
         setNotAvailableItems();
@@ -45,14 +45,14 @@ public class MinigamesMenu extends CoreMenu {
     @Override
     public void load() {
         // DISCORD
-        set(9, ItemBuilder.of(Material.SKULL_ITEM)
+        set(9, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
                 .name("<lang.lobby_miniGames.items_discord_name>")
                 .lore(Arrays.asList("<lang.lobby_miniGames.items_discord_description>"))
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzM5ZWU3MTU0OTc5YjNmODc3MzVhMWM4YWMwODc4MTRiNzkyOGQwNTc2YTI2OTViYTAxZWQ2MTYzMTk0MjA0NSJ9fX0=")
                 .get(language), "bungeeCMD discord", "closeInv");
         // TWITTER
-        set(18, ItemBuilder.of(Material.SKULL_ITEM)
+        set(18, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
                 .name("<lang.lobby_miniGames.items_twitter_name>")
                 .lore(Arrays.asList("<lang.lobby_miniGames.items_twitter_description>"))
@@ -60,7 +60,7 @@ public class MinigamesMenu extends CoreMenu {
                 .get(language), "bungeeCMD twitter", "closeInv");
 
         // STORE
-        set(27, ItemBuilder.of(Material.SKULL_ITEM)
+        set(27, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
                 .name("<lang.lobby_miniGames.items_store_name>")
                 .lore(Arrays.asList("<lang.lobby_miniGames.items_store_description>"))
@@ -70,12 +70,11 @@ public class MinigamesMenu extends CoreMenu {
     }
 
     public void closeItem() {
-        set(40, ItemBuilder.of(Material.BARRIER).name("&c<lang.language.menu_close>").get(language), "closeInv");
+        set(inventory.getSize() - 5, ItemBuilder.of(Material.BARRIER).name("&c<lang.language.menu_close>").get(language), "closeInv");
     }
 
     public void setNotAvailableItems(){
-        ItemStack item = ItemBuilder.of(Material.STAINED_GLASS_PANE)
-                .data((byte) 14)
+        ItemStack item = ItemBuilder.of(Material.RED_STAINED_GLASS_PANE)
                 .name("<lang.lobby.items_not_available_name>")
                 .lore(Arrays.asList("<lang.lobby.items_not_available_description>"))
                 .get(language);

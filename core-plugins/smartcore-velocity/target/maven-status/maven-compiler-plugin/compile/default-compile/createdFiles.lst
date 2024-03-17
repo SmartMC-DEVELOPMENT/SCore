@@ -50,6 +50,7 @@ us\smartmc\smartcore\smartcorevelocity\command\moderation\StaffChatCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\SmartCoreVelocityCommand.class
 us\smartmc\smartcore\smartcorevelocity\variables\LanguageVariables.class
 us\smartmc\smartcore\smartcorevelocity\instance\OfflinePlayerData.class
+us\smartmc\smartcore\smartcorevelocity\listener\VersionListeners.class
 us\smartmc\smartcore\smartcorevelocity\manager\CustomCommandsManager.class
 us\smartmc\smartcore\smartcorevelocity\manager\TebexPackageManager.class
 us\smartmc\smartcore\smartcorevelocity\instance\PlayerLanguages.class

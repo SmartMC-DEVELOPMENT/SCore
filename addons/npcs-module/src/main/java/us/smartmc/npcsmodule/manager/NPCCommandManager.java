@@ -1,7 +1,7 @@
 package us.smartmc.npcsmodule.manager;
 
 import us.smartmc.npcsmodule.event.NPCUseEntityEvent;
-import us.smartmc.npcsmodule.instance.NPC;
+import us.smartmc.npcsmodule.instance.CustomNPC;
 import us.smartmc.npcsmodule.instance.NPCCommandExecutor;
 
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public class NPCCommandManager {
     }
 
     public static void performCommand(NPCUseEntityEvent event) {
-        NPC npc = event.getNPC();
+        CustomNPC npc = event.getNPC();
         List<String> commands = npc.getCommandLines();
         if (commands.isEmpty()) return;
         for (String label : commands) {

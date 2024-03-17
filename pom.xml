@@ -10,17 +10,20 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>addons</module>
-        <module>core-plugins</module>
-        <module>login</module>
-        <module>snowgames</module>
-        <module>games-manager</module>
+        <module>addons/chat-module</module>
+        <module>addons/lobby-cosmetics</module>
+        <module>addons/lobby-module</module>
+        <module>core-plugins/smartcore-spigot</module>
+        <module>core-plugins/smartcore-velocity</module>
+        <module>login/login-spigot</module>
+        <module>snowgames/snowgames-ffa</module>
+        <module>games-manager/gamesmanager-spigot</module>
         <module>server-handler/serverhandler-velocity</module>
     </modules>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -41,12 +44,6 @@
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>fr.minuskube</groupId>
-            <artifactId>netherboard-core</artifactId>
-            <version>1.2.3</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.google.code.reflection-utils</groupId>
@@ -101,6 +98,12 @@
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
             <version>4.4.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.imsergioh.pluginsapi</groupId>
+            <artifactId>spigot-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

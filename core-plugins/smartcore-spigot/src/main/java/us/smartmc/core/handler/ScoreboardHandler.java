@@ -1,7 +1,5 @@
 package us.smartmc.core.handler;
 
-import fr.minuskube.netherboard.Netherboard;
-import fr.minuskube.netherboard.bukkit.BPlayerBoard;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.event.PlayerLanguageChangedEvent;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
@@ -12,8 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import us.smartmc.core.instance.BPlayerBoard;
 import us.smartmc.core.instance.PluginScoreboard;
-import us.smartmc.core.instance.player.SmartCorePlayer;
 
 import java.util.HashMap;
 
@@ -59,7 +57,7 @@ public class ScoreboardHandler implements Listener {
     }
 
     public void unregister(Player player) {
-        BPlayerBoard board = Netherboard.instance().getBoard(player);
+        BPlayerBoard board = BPlayerBoard.get(player);
         if (board != null) board.delete();
 
         for (PluginScoreboard scoreboard : scoreboards.values()) {

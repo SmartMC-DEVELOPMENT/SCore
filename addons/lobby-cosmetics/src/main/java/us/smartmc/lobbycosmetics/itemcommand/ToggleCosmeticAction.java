@@ -38,6 +38,6 @@ public class ToggleCosmeticAction implements ItemActionExecutor {
         SmartCorePlayer smartCorePlayer = SmartCorePlayer.get(player);
         String message = LobbyCosmetics.getCosmeticsMainMessages().get(player, PlayerLanguages.get(player.getUniqueId()), "cosmetic_set", ChatUtil.color(info.getName()));
         player.sendMessage(message);
-        smartCorePlayer.playSound(Sound.CLICK, 1, 1);
+        smartCorePlayer.playSound(Sound.UI_BUTTON_CLICK, 1, 1);
     }
 }

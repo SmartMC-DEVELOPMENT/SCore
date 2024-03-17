@@ -38,18 +38,18 @@ public class SettingsMenu extends CoreMenu {
     @Override
     public void load() {
         setFlyingItem();
-        ItemBuilder relleno = ItemBuilder.of(Material.STAINED_GLASS_PANE).data(3).name(" ");
+        ItemBuilder relleno = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).name(" ");
         MenuUtil.setBorder(relleno.get(), inventory);
 
 
-        set(20, ItemBuilder.of(Material.SKULL_ITEM)
+        set(20, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
                 .name("<lang.lobby.items_language_name>")
                 .lore(Arrays.asList("<lang.lobby.items_language_description>"))
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=")
                 .get(language), "cmd lang");
 
-        set(31, ItemBuilder.of(Material.SKULL_ITEM)
+        set(31, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
                 .name("<lang.lobby.items_link_socials_name>")
                 .lore(Arrays.asList("<lang.lobby.items_link_socials_description>"))

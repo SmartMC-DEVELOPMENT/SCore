@@ -1,0 +1,9 @@
+name: staffmode-bungee
+version: '1.0-SNAPSHOT'
+main: us.smartmc.moderation.staffmodebungee.StaffModeMainBungee
+depends:
+  - SmartCore-Waterfall
+
+commands:
+  staffChat:
+    aliases: [sc, schat, staffc]

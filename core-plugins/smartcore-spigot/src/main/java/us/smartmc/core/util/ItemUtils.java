@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.profile.PlayerProfile;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.UUID;
 
 public class ItemUtils {
 
-    public static final ItemStack wand = ItemBuilder.of(Material.GOLD_AXE).name("Hacha mágica de regiones").get();
+    public static final ItemStack wand = ItemBuilder.of(Material.GOLDEN_AXE).name("Hacha mágica de regiones").get();
 
     public static ItemStack parsePlayerItem(Player player, ItemStack item) {
         item = item.clone();

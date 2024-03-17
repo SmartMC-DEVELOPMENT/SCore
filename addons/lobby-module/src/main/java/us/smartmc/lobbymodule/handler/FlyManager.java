@@ -1,12 +1,15 @@
 package us.smartmc.lobbymodule.handler;
 
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
-import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bson.Document;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.smartaddons.plugin.AddonListener;
+
+import java.util.Timer;
 
 public class FlyManager extends AddonListener implements Listener {
 
@@ -18,17 +21,20 @@ public class FlyManager extends AddonListener implements Listener {
         if (!isEnabled()) return;
         CorePlayer corePlayer = event.getCorePlayer();
 
-        SyncUtil.later(() -> {
-            if (canFly(corePlayer)) {
-                event.getData().registerData(DATA_PATH, true);
-            } else {
-                event.getData().getDocument().remove(DATA_PATH);
-                return;
-            }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (canFly(corePlayer)) {
+                    event.getData().registerData(DATA_PATH, true);
+                } else {
+                    event.getData().getDocument().remove(DATA_PATH);
+                    return;
+                }
 
-            boolean flying = isFlyingEnabled(corePlayer);
-            toggle(corePlayer, flying);
-        }, 250);
+                boolean flying = isFlyingEnabled(corePlayer);
+                toggle(corePlayer, flying);
+            }
+        }.runTaskLater(SpigotPluginsAPI.getPlugin(), 5);
     }
 
     public static void toggle(CorePlayer corePlayer, boolean active) {

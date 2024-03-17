@@ -1,21 +1,17 @@
 package us.smartmc.lobbymodule.menu;
 
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
-import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
-import org.apache.commons.codec.language.bm.Lang;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.variables.CountVariables;
-import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.handler.LobbiesInfoManager;
 import us.smartmc.lobbymodule.handler.MaxSlotsInfoManager;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
@@ -50,7 +46,7 @@ public class LobbiesMenu extends CoreMenu {
     @Override
     public void open(Player player) {
         this.load();
-        player.playSound(player.getLocation(), Sound.CLICK, 0.1F, 2.5F);
+        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.1F, 2.5F);
         CorePlayer.get(player).setCurrentMenuOpen(this);
         player.openInventory(inventory);
     }
@@ -75,7 +71,7 @@ public class LobbiesMenu extends CoreMenu {
             String variableConnect = "<lang.lobby_miniGames.click_to_connect>";
             String labelCommand = "connectTo " + serverID;
             if (isSelf) {
-                material = Material.STAINED_CLAY;
+                material = Material.CLAY;
                 materialData = 14;
                 variableConnect = "<lang.lobby.already_connected>";
                 labelCommand = "closeInv";

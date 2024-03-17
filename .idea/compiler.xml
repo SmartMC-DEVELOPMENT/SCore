@@ -8,26 +8,21 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="chat-module" />
-        <module name="login" />
         <module name="login-spigot" />
         <module name="snowgames-ffa" />
         <module name="common" />
         <module name="survival-placeholders" />
         <module name="smartcore-spigot" />
         <module name="lobby-module" />
-        <module name="snowgames" />
-        <module name="loginproxy-waterfall" />
         <module name="survivalchat" />
         <module name="staffmode-bungee" />
         <module name="arenapvp" />
-        <module name="npcs-module" />
         <module name="smartbot" />
         <module name="orchestrator" />
         <module name="fixes-core" />
         <module name="smartcore-velocity" />
         <module name="serverhandler-bukkit" />
         <module name="gamesmanager-spigot" />
-        <module name="core-plugins" />
         <module name="serverhandler-velocity" />
         <module name="smartantiddos-velocity" />
         <module name="staffmode-spigot" />
@@ -35,8 +30,13 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="addons" target="1.8" />
+      <module name="core-plugins" target="1.8" />
       <module name="events-core" target="1.8" />
       <module name="games-manager" target="1.8" />
+      <module name="login" target="1.8" />
+      <module name="loginproxy-waterfall" target="1.8" />
+      <module name="npcs-module" target="16" />
       <module name="old-gamesmanager-spigot (1)" target="1.8" />
       <module name="plugins-api" target="17" />
       <module name="serverhandler-bungee" target="1.8" />
@@ -44,6 +44,8 @@
       <module name="SmartCore-Spigot" target="1.8" />
       <module name="smartcore-waterfall" target="1.8" />
       <module name="SmartCore-Waterfall" target="16" />
+      <module name="snowgames" target="1.8" />
+      <module name="staffmode-velocity" target="1.8" />
       <module name="survival-core" target="1.8" />
     </bytecodeTargetLevel>
   </component>

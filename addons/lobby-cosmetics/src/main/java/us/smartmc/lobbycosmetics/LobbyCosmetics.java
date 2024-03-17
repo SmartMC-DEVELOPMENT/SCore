@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
+import us.smartmc.core.SmartCore;
 import us.smartmc.lobbycosmetics.handler.CosmeticSectionHandler;
 import us.smartmc.lobbycosmetics.handler.CosmeticSessionHandler;
 import us.smartmc.lobbycosmetics.itemcommand.*;
@@ -40,7 +41,7 @@ public class LobbyCosmetics extends AddonPlugin {
         ItemActionsManager.registerCommand("toggleCosmetic", new ToggleCosmeticAction());
         ItemActionsManager.registerCommand("confirmCosmeticPurchase", new ConfirmCosmeticPurchase());
         ItemActionsManager.registerCommand("cancelCosmeticPurchase", new CancelCosmeticPurchase());
-        registerListeners(new SessionListeners(), new MenuListeners());
+        registerListeners(SmartCore.getPlugin(), new SessionListeners(), new MenuListeners());
         cosmeticsMainMessages = new CosmeticsMainMessages();
 
         VariablesHandler.register(new CosmeticSectionNameVariable());

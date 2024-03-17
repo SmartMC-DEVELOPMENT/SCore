@@ -24,7 +24,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>3.5.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -40,12 +40,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>bukkit-api</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/../../lib/spigot-1.8.8-R.jar</systemPath>
-        </dependency>
+           <groupId>org.spigotmc</groupId>
+           <artifactId>spigot-api</artifactId>
+           <version>1.20.4-R0.1-SNAPSHOT</version>
+           <scope>provided</scope>
+    </dependency>
         <dependency>
             <groupId>fastlogin-plugin</groupId>
             <artifactId>bukkit-version</artifactId>

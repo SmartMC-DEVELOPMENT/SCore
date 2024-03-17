@@ -53,7 +53,7 @@ public class LinkSocialsMenu extends CoreMenu {
 
     public void setup() {
         loadDocument();
-        ItemBuilder relleno = ItemBuilder.of(Material.STAINED_GLASS_PANE).data(3).name(" ");
+        ItemBuilder relleno = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).name(" ");
         MenuUtil.setBorder(relleno.get(), inventory);
         if (initCorePlayer.getPreviousOpenMenu() != null) {
             set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("<lang.language.menu_previous>").get(initPlayer), "openPrevious");
@@ -91,7 +91,7 @@ public class LinkSocialsMenu extends CoreMenu {
     }
 
     private void register(int slot, LinkSocialType type) {
-        ItemStack initialItem = LobbyMessages.getItem(Material.SKULL_ITEM, "link_social_network").get(initPlayer);
+        ItemStack initialItem = LobbyMessages.getItem(Material.PLAYER_HEAD, "link_social_network").get(initPlayer);
         String name = ChatUtil.parse(initPlayer, type.getDisplayName());
         List<String> lore = initialItem.getItemMeta().getLore();
         String labelCommand = "linkSocial " + type.name();
@@ -105,7 +105,7 @@ public class LinkSocialsMenu extends CoreMenu {
             labelCommand = "showSocial " + type.name() + " " + currentUser;
         }
 
-        set(slot, ItemBuilder.of(Material.SKULL_ITEM).data(3)
+        set(slot, ItemBuilder.of(Material.PLAYER_HEAD).data(3)
                 .skullTexture(type.getSkullTexture())
                 .name(name)
                 .lore(lore, name, currentUser, example).get(initPlayer), labelCommand);

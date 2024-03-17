@@ -56,7 +56,7 @@ public class FFAPlayer extends GamePlayer {
         killStreak++;
         setIntStat("max_kill_streak", Math.max(killStreak, getMaxStreak()));
         sumIntStat("kills");
-        player.playSound(player.getLocation(), Sound.NOTE_PLING, 10F, 10F);
+        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10F, 10F);
     }
 
     public int getKills() {

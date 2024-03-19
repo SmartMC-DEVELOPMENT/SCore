@@ -25,16 +25,13 @@
             <id>CodeMC</id>
             <url>https://minevolt.net/repo/</url>
         </repository>
+        <repository>
+            <id>Codemc NMS</id>
+            <url>https://repo.codemc.io/repository/nms/</url>
+        </repository>
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.20.4</version>
-            <systemPath>${project.basedir}/libs/spigot-1.20.4.jar</systemPath>
-            <scope>system</scope>
-        </dependency>
         <dependency>
             <groupId>minecraft</groupId>
             <artifactId>server</artifactId>
@@ -65,7 +62,7 @@
             <groupId>com.mojang</groupId>
             <artifactId>authlib</artifactId>
             <version>1.5.21</version>
-            <systemPath>${project.basedir}/libs/authlib-1.5.21.jar</systemPath>
+            <systemPath>${project.basedir}/../libs/authlib-1.5.21.jar</systemPath>
             <scope>system</scope>
         </dependency>
         <dependency>
@@ -76,7 +73,7 @@
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
+            <artifactId>spigot</artifactId>
             <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>

@@ -47,8 +47,8 @@ public class ServerHandlerMain extends JavaPlugin {
         });
 
         try {
-            serverID = readServerProperty("server-id");
-            serverName = readServerProperty("server-name");
+            serverID = readBackendProperty("server-id");
+            serverName = readBackendProperty("server-name");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -83,8 +83,8 @@ public class ServerHandlerMain extends JavaPlugin {
                 .color("RED").send(RedisConnection.mainConnection.getResource());
     }
 
-    private String readServerProperty(String path) throws Exception {
-        BufferedReader reader = new BufferedReader(new FileReader(getDataFolder() + "/../../server.properties"));
+    private String readBackendProperty(String path) throws Exception {
+        BufferedReader reader = new BufferedReader(new FileReader(getDataFolder() + "/../../backend.properties"));
         String line;
         while ((line = reader.readLine()) != null) {
             if (line.startsWith(path + "=")) {

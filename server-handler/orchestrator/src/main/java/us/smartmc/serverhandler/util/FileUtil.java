@@ -32,7 +32,7 @@ public class FileUtil {
     private static void parseStartupTemplates(ServerConfiguration<?> configuration, StartupCreation creation) {
         for (File templateDir : configuration.getData().getTemplateDirectories()) {
             for (File file : Objects.requireNonNull(templateDir.listFiles())) {
-                if (!file.getName().equals("server.properties")) continue;
+                if (!file.getName().equals("backend.properties")) continue;
                 creation.readFileAndValues(file);
             }
         }

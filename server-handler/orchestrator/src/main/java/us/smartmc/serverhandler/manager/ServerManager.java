@@ -56,7 +56,7 @@ public class ServerManager {
         // COPY STARTUP
         FileUtil.createStartup(configuration, serverInfo.getDirectory(), portToHost, serverInfo.getName(), serverID);
 
-        // COPY TEMPLATES (INCLUDING SERVER.PROPERTIES IF AVAILABLE)
+        // COPY TEMPLATES (INCLUDING backend.properties IF AVAILABLE)
         FileUtil.copyTemplates(serverInfo.getDirectory(), configuration);
 
         // Complete creation if is permanent
@@ -101,7 +101,7 @@ public class ServerManager {
                 }
                 String dirName = serverInfo.getDirectory().getName();
                 File logsDirectory = new File(serverInfo.getDirectory() + "/logs");
-                FileUtil.copyDirToDir(logsDirectory, new File("/home/network/server-handler/" + dirName + "-" + System.currentTimeMillis() / 1000));
+                FileUtil.copyDirToDir(logsDirectory, new File("/home/network/server-handler/logs/" + dirName + "-" + System.currentTimeMillis() / 1000));
                 FileUtil.deleteDirectory(serverInfo.getDirectory());
                 System.out.println("Server " + name + " has inactivated! Deleted all files!");
             }).start();

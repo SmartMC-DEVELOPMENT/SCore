@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SCore.iml" filepath="$PROJECT_DIR$/SCore.iml" />
-      <module fileurl="file://$PROJECT_DIR$/arenapvp/arenapvp.iml" filepath="$PROJECT_DIR$/arenapvp/arenapvp.iml" />
       <module fileurl="file://$PROJECT_DIR$/addons/chat-module/chat-module.iml" filepath="$PROJECT_DIR$/addons/chat-module/chat-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/events-core/events-core.iml" filepath="$PROJECT_DIR$/events-core/events-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/survival/fixes-core/fixes-core.iml" filepath="$PROJECT_DIR$/survival/fixes-core/fixes-core.iml" />
@@ -11,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/lobby-cosmetics.iml" filepath="$PROJECT_DIR$/lobby-cosmetics.iml" />
       <module fileurl="file://$PROJECT_DIR$/addons/lobby-module/lobby-module.iml" filepath="$PROJECT_DIR$/addons/lobby-module/lobby-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/login/login-spigot/login-spigot.iml" filepath="$PROJECT_DIR$/login/login-spigot/login-spigot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addons/npcs-module/npcs-module.iml" filepath="$PROJECT_DIR$/addons/npcs-module/npcs-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" filepath="$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/server-handler.iml" filepath="$PROJECT_DIR$/server-handler/server-handler.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/serverhandler-bukkit/serverhandler-bukkit.iml" filepath="$PROJECT_DIR$/server-handler/serverhandler-bukkit/serverhandler-bukkit.iml" />

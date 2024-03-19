@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import us.smartmc.core.instance.player.SmartCorePlayer;
+import us.smartmc.core.util.PlayerVersions;
 import us.smartmc.lobbymodule.instance.PlayerVisibility;
 import us.smartmc.smartaddons.plugin.AddonListener;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
@@ -52,42 +53,14 @@ public class VisibilityManager extends AddonListener implements Listener {
         return PlayerVisibility.valueOf(visibilityName);
     }
 
-    public static ItemBuilder getLegacyItem(PlayerVisibility visibility) {
-        Material material = Material.LEGACY_INK_SACK;
-        int materialData = 0;
-        switch (visibility) {
-            case DEFAULT: {
-                materialData = 10;
-                break;
-            }
-            case NO_ONE: {
-                materialData = 8;
-                break;
-            }
-            case VIPS: {
-                materialData = 13;
-                break;
-            }
-        }
-        return ItemBuilder.of(material).data(materialData)
-                .name("<lang.lobby.items_visibility_name>")
-                .data(materialData)
-                .lore(Arrays.asList("<lang.lobby.visibility_" + visibility.name()+"_name>"));
-    }
-
-    public static ItemBuilder getVisibilityItem(Player player, PlayerVisibility visibility) {
+    public static ItemBuilder getVisibilityItem(PlayerVisibility visibility) {
         Material material;
         switch (visibility) {
-            case DEFAULT -> material = Material.GREEN_DYE;
-            case NO_ONE -> material = Material.RED_DYE;
+            case DEFAULT -> material = Material.LIME_DYE;
+            case NO_ONE -> material = Material.GRAY_DYE;
             case VIPS -> material = Material.PINK_DYE;
             default -> material = Material.BARRIER;
         }
-
-
-        // Parse > 1.13 Legacy items
-        int version = player.getProtocolVersion();
-        if (version <= 382) return getLegacyItem(visibility);
 
         return ItemBuilder
                 .of(material)

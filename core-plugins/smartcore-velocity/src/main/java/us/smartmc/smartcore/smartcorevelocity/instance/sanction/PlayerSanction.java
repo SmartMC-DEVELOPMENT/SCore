@@ -36,7 +36,14 @@ public class PlayerSanction extends MongoDBPluginConfig {
         long createdAt = System.currentTimeMillis() / 1000;
         put("player_id", uuid.toString());
         put("created_by", creatorId.toString());
-        put("created_by_name", VelocityPluginsAPI.proxy.getPlayer(creatorId).get().getUsername());
+
+        Optional<Player> optional = VelocityPluginsAPI.proxy.getPlayer(creatorId);
+        if (optional.isPresent()) {
+            put("created_by_name", optional.get().getUsername());
+        } else {
+            put("created_by_name", "Console");
+        }
+
         put("created_at", createdAt);
         put("sanction_id", sanctionId);
 

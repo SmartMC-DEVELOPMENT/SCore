@@ -22,10 +22,6 @@ public class TermsCommand extends BukkitCommand {
     public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args) {
         if (!(sender instanceof Player player)) return true;
         if (args.length == 0) return true;
-        System.out.println("Player " + args[0]);
-        for (int i = 0; i < args.length; i++) {
-            System.out.println("ARG " + i + "=" + args[i]);
-        }
         if (args[0].equalsIgnoreCase("accept")) {
             // ACCEPT TERMS
             UUID commandUUID = UUID.fromString(args[1]);

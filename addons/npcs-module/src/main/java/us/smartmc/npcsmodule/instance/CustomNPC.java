@@ -10,10 +10,10 @@ import com.mojang.authlib.properties.Property;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.SyncUtil;
-import net.minecraft.network.PacketDataSerializer;
 import net.minecraft.network.chat.IChatBaseComponent;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.server.level.PlayerInteractManager;
 import net.minecraft.server.level.WorldServer;
@@ -23,6 +23,8 @@ import net.minecraft.world.scores.ScoreboardTeamBase;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
@@ -30,9 +32,7 @@ import java.util.*;
 
 public class CustomNPC {
 
-    private static final MinecraftServer server = ((MinecraftServer) Bukkit.getServer()).overworld().getServer();
-    private static final Set<String> namesToHide = new HashSet<>();
-
+    private static final MinecraftServer server = ((CraftServer) Bukkit.getServer()).getServer();
 
     @Getter
     private final String name;
@@ -45,13 +45,15 @@ public class CustomNPC {
 
     @Getter
     private List<String> lines;
+    @Getter
     private List<String> commandLines = new ArrayList<>();
 
     public CustomNPC(World world, String name, String skinValue, String skinSignature) {
         this.name = name;
-        this.worldServer = ((WorldServer) world).getLevel();
+        this.worldServer = ((CraftWorld) world).getHandle();
         this.gameProfile = new GameProfile(UUID.randomUUID(), name);
-        this.entityPlayer = new EntityPlayer(server, worldServer, gameProfile, null);
+        ClientInformation clientInformation = ClientInformation.createDefault();
+        this.entityPlayer = new EntityPlayer(server, worldServer, gameProfile, clientInformation);
         this.manager = new PlayerInteractManager(entityPlayer);
         // SET SKIN VALUE & SIGNATURE IF NOT NULL BOTH STRINGS
         if (skinValue != null && skinSignature != null) setSkinValue(skinValue, skinSignature);
@@ -68,10 +70,6 @@ public class CustomNPC {
 
     public void setCommandLines(List<String> commandLines) {
         this.commandLines = commandLines;
-    }
-
-    public List<String> getCommandLines() {
-        return commandLines;
     }
 
     public void setLines(List<String> list) {

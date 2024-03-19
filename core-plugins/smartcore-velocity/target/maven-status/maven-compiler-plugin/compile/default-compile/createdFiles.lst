@@ -29,6 +29,7 @@ us\smartmc\smartcore\smartcorevelocity\listener\LoginListeners.class
 us\smartmc\smartcore\smartcorevelocity\instance\sanction\SanctionType.class
 us\smartmc\smartcore\smartcorevelocity\SmartCoreVelocity.class
 us\smartmc\smartcore\smartcorevelocity\manager\TabHandler.class
+us\smartmc\smartcore\smartcorevelocity\listener\PlayerVersionListeners.class
 us\smartmc\smartcore\smartcorevelocity\manager\OfflinePlayerDataManager.class
 us\smartmc\smartcore\smartcorevelocity\listener\BungeeMessagingListeners.class
 us\smartmc\smartcore\smartcorevelocity\manager\exception\RedisConnectionNotInitializedException.class
@@ -50,7 +51,6 @@ us\smartmc\smartcore\smartcorevelocity\command\moderation\StaffChatCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\SmartCoreVelocityCommand.class
 us\smartmc\smartcore\smartcorevelocity\variables\LanguageVariables.class
 us\smartmc\smartcore\smartcorevelocity\instance\OfflinePlayerData.class
-us\smartmc\smartcore\smartcorevelocity\listener\VersionListeners.class
 us\smartmc\smartcore\smartcorevelocity\manager\CustomCommandsManager.class
 us\smartmc\smartcore\smartcorevelocity\manager\TebexPackageManager.class
 us\smartmc\smartcore\smartcorevelocity\instance\PlayerLanguages.class

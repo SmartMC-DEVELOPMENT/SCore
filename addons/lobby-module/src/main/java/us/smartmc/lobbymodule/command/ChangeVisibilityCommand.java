@@ -1,16 +1,10 @@
 package us.smartmc.lobbymodule.command;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.ListenerPriority;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import us.smartmc.core.SmartCore;
 import us.smartmc.lobbymodule.handler.VisibilityManager;
 import us.smartmc.lobbymodule.instance.PlayerVisibility;
 import us.smartmc.smartaddons.plugin.AddonPluginCommand;

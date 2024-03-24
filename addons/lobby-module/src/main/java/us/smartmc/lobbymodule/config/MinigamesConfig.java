@@ -12,6 +12,7 @@ import me.imsergioh.pluginsapi.util.LineLimiter;
 import org.bson.Document;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.variables.CountVariables;
@@ -32,6 +33,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
         registerDefault(INV_SIZE_PATH, 27);
         registerMiniGame("snowmatch");
         registerMiniGame("survival");
+        registerMiniGame("arsilexsmp");
         save();
     }
 
@@ -99,6 +101,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
                 .name(itemName)
                 .lore(description)
                 .amount(amount)
+                .hideFlags()
                 .get(language);
     }
 

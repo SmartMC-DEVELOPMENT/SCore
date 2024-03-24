@@ -6,7 +6,7 @@ import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticSection;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticSectionInfo;
 
-@CosmeticSectionInfo(type = CosmeticType.EFFECTS, icon = Material.FIREWORK)
+@CosmeticSectionInfo(type = CosmeticType.EFFECTS, icon = Material.FIREWORK_ROCKET)
 public class EffectSection extends CosmeticSection<EffectCosmetic> {
 
     public EffectSection() {

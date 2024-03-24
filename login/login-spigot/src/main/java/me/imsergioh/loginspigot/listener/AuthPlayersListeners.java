@@ -2,7 +2,7 @@ package me.imsergioh.loginspigot.listener;
 
 import me.imsergioh.loginspigot.instance.LoginPlayer;
 import me.imsergioh.loginspigot.manager.LoginPlayersFactory;
-import me.imsergioh.loginspigot.util.PluginUtils;
+import me.imsergioh.pluginsapi.util.PluginUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

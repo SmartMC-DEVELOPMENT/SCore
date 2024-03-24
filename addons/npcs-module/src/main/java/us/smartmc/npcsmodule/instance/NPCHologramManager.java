@@ -4,14 +4,17 @@ import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.LanguageUtil;
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.network.chat.IChatBaseComponent;
+import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
+import net.minecraft.network.syncher.DataWatcher;
+import net.minecraft.server.level.EntityPlayer;
+import net.minecraft.world.entity.EntityLiving;
+import net.minecraft.world.entity.decoration.EntityArmorStand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftArmorStand;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import us.smartmc.core.SmartCore;
 import us.smartmc.npcsmodule.util.NMSUtils;
 import us.smartmc.smartaddons.plugin.AddonListener;
@@ -21,7 +24,7 @@ import java.util.*;
 
 public class NPCHologramManager extends AddonListener implements Listener {
 
-    private final NPC npc;
+    private final CustomNPC npc;
     private final HashMap<Integer, EntityArmorStand> stands = new HashMap<>();
     private final HashMap<Integer, String> names = new HashMap<>();
     private final Set<Player> viewers = new HashSet<>();
@@ -31,7 +34,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
     private final Map<Language, List<String>> constantLinesMap = new HashMap<>();
     private final Map<Language, Integer> lastKnownLines = new HashMap<>();
 
-    public NPCHologramManager(NPC npc) {
+    public NPCHologramManager(CustomNPC npc) {
         this.npc = npc;
         updateTaskID = setupUpdateTask();
         Bukkit.getPluginManager().registerEvents(this, SmartCore.getPlugin());
@@ -86,13 +89,13 @@ public class NPCHologramManager extends AddonListener implements Listener {
         for (int i = lines.size() - 1; i >= 0; i--) {
             String line = lines.get(i);
             EntityArmorStand stand = new EntityArmorStand(null, location.getX(), location.getY(), location.getZ());
-            stand.setCustomName(line);
+            stand.setCustomName(IChatBaseComponent.literal(line));
             stand.setCustomNameVisible(true);
             stand.setInvisible(true);
-            stand.setGravity(false);
+            stand.setNoGravity(false);
             stand.setSmall(true);
             stands.put(i, stand);
-            names.put(stand.getId(), stand.getCustomName());
+            names.put(stand.getId(), line);
             location.add(0, 0.3, 0);
         }
     }
@@ -127,15 +130,15 @@ public class NPCHologramManager extends AddonListener implements Listener {
             lines.set(i, parsedName);
 
             DataWatcher newWatcher = NMSUtils.cloneDataWatcher(stand);
-            newWatcher.a(2, parsedName);
+            newWatcher.set(2, parsedName);
             newWatcher.update(2);
-            PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(stand.getId(), newWatcher, true);
-            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+            PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(stand.getId(), newWatcher);
+            ((EntityPlayer) player).connection.send(packet);
         }
     }
 
     public void spawnVisibleArmorStand(Player player, EntityArmorStand originalArmorStand) {
-        CraftArmorStand visibleArmorStand = new CraftArmorStand(((CraftServer) Bukkit.getServer()).getHandle().getServer().server, originalArmorStand);
+        EntityArmorStand visibleArmorStand = new EntityArmorStand(originalArmorStand.getServer().overworld(), originalArmorStand);
 
         // Obtener el EntityLiving del nuevo ArmorStand
         EntityLiving visibleArmorStandEntity = visibleArmorStand.getHandle();
@@ -143,7 +146,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
         originalArmorStand.setCustomName(ChatUtil.parse(player, name));
 
         // Enviar un paquete para mostrar el nuevo ArmorStand solo al jugador
-        PacketPlayOutSpawnEntityLiving packetPlayOutSpawnEntityLiving = new PacketPlayOutSpawnEntityLiving(visibleArmorStandEntity);
+        EntityTargetLivingEntityEvent packetPlayOutSpawnEntityLiving = new EntityTargetLivingEntityEvent(visibleArmorStandEntity);
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutSpawnEntityLiving);
 
         updateHolograms(player, getLines(PlayerLanguages.get(player.getUniqueId())));

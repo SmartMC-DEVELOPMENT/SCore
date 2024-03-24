@@ -8,7 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import us.smartmc.npcsmodule.NPCSModule;
 import us.smartmc.npcsmodule.instance.ManagerRegistry;
-import us.smartmc.npcsmodule.instance.NPC;
+import us.smartmc.npcsmodule.instance.CustomNPC;
 import us.smartmc.npcsmodule.util.ConfigUtil;
 
 import java.io.File;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class NPCManager extends ManagerRegistry<String, NPC> {
+public class NPCManager extends ManagerRegistry<String, CustomNPC> {
 
     private static final Set<NPCManager> managers = new HashSet<>();
 
@@ -35,10 +35,10 @@ public class NPCManager extends ManagerRegistry<String, NPC> {
     }
 
     public void register(World world, String name) {
-        put(name, new NPC(world, name));
+        put(name, new CustomNPC(world, name));
     }
 
-    public void register(NPC npc) {
+    public void register(CustomNPC npc) {
         register(npc.getName(), npc);
     }
 
@@ -54,8 +54,8 @@ public class NPCManager extends ManagerRegistry<String, NPC> {
         remove(name);
     }
 
-    private List<NPC> loadNPCs() {
-        List<NPC> list = new ArrayList<>();
+    private List<CustomNPC> loadNPCs() {
+        List<CustomNPC> list = new ArrayList<>();
         for (String key : config.keySet()) {
             Document data = config.get(key, Document.class);
             registerDefaultsToDoc(data);
@@ -69,7 +69,7 @@ public class NPCManager extends ManagerRegistry<String, NPC> {
             String skinSignature = null;
             if (data.containsKey("skinSignature")) skinSignature = data.getString("skinSignature");
             // TO DO: HERE PARSE VARIABLES TO NPC INSTANCE AND REGISTER IT
-            NPC npc = new NPC(location.getWorld(), name, skinValue, skinSignature);
+            CustomNPC npc = new CustomNPC(location.getWorld(), name, skinValue, skinSignature);
             npc.setLocation(location);
             npc.setCommandLines(data.getList("commands", String.class));
 
@@ -92,9 +92,9 @@ public class NPCManager extends ManagerRegistry<String, NPC> {
         return config;
     }
 
-    public NPC getNPC(int id) {
+    public CustomNPC getNPC(int id) {
         for (Language language : Language.values()) {
-            for (NPC npc : values()) {
+            for (CustomNPC npc : values()) {
                 if (npc == null) continue;
                 if (npc.getEntityPlayer().getId() == id) return npc;
             }

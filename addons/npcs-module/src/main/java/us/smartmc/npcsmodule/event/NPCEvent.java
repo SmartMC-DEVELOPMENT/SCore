@@ -2,19 +2,19 @@ package us.smartmc.npcsmodule.event;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import us.smartmc.npcsmodule.instance.NPC;
+import us.smartmc.npcsmodule.instance.CustomNPC;
 
 public class NPCEvent extends Event {
 
     private static final HandlerList HANDLER_LIST = new HandlerList();
 
-    private final NPC npc;
+    private final CustomNPC npc;
 
-    public NPCEvent(NPC npc) {
+    public NPCEvent(CustomNPC npc) {
         this.npc = npc;
     }
 
-    public NPC getNPC() {
+    public CustomNPC getNPC() {
         return npc;
     }
 

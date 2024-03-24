@@ -54,13 +54,13 @@ public class CosmeticBuyMenu extends CoreMenu {
     }
 
     public ItemBuilder getBuyItem() {
-        return ItemBuilder.of(Material.STAINED_CLAY).data(5)
+        return ItemBuilder.of(Material.CLAY).data(5)
                 .name("<lang." + CosmeticsMainMessages.NAME + ".item_buy_name");
     }
 
 
     public ItemBuilder getCancelBuyItem() {
-        return ItemBuilder.of(Material.STAINED_CLAY).data(14)
+        return ItemBuilder.of(Material.CLAY).data(14)
                 .name("<lang." + CosmeticsMainMessages.NAME + ".item_cancel_buy_name");
     }
 
@@ -75,7 +75,7 @@ public class CosmeticBuyMenu extends CoreMenu {
                 String reason = LobbyCosmetics.getCosmeticsMainMessages().get(player, PlayerLanguages.get(player.getUniqueId()), "cosmetic_buyed_coins_reason");
                 PlayerCurrenciesHandler handler = smartCorePlayer.getCurrenciesHandler();
                 handler.remove(PlayerCurrencyCoin.SMARTCOINS, cost, reason);
-                player.playSound(player.getLocation(), Sound.LEVEL_UP, 0.5F, 1.0F);
+                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.5F, 1.0F);
                 CosmeticPlayerSession session = CosmeticPlayerSession.get(player);
                 session.getData().activateCosmetic(cosmetic);
             } catch (CorePluginException e) {
@@ -83,7 +83,7 @@ public class CosmeticBuyMenu extends CoreMenu {
             }
         } else {
             smartCorePlayer.sendLanguageMessage(CosmeticsMainMessages.NAME, "cosmetic_no_balance");
-            player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1.0F, 1);
+            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0F, 1);
         }
         player.closeInventory();
     }

@@ -5,6 +5,8 @@ import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.SimplePluginManager;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.lobbymodule.command.*;
@@ -17,6 +19,8 @@ import us.smartmc.lobbymodule.messages.LobbyMessages;
 import us.smartmc.lobbymodule.messages.MinigamesMessages;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
+import us.smartmc.smartaddons.plugin.CommandsRegistry;
+import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
 
 import java.io.File;
 
@@ -52,7 +56,7 @@ public class LobbyModule extends AddonPlugin {
         LobbiesInfoManager.start();
 
         registerCommand(new LobbyCommand());
-        registerListeners(new DefaultConfigListeners(lobbyConfig));
+        registerListeners(SpigotPluginsAPI.getPlugin(), new DefaultConfigListeners(lobbyConfig));
 
         registerCommand(
                 new FlyCommand("fly"),
@@ -62,7 +66,7 @@ public class LobbyModule extends AddonPlugin {
                 new SocialsCommand("socials"));
 
 
-        registerListeners(new JoinItemListener(),
+        registerListeners(SpigotPluginsAPI.getPlugin(), new JoinItemListener(),
                 new VisibilityManager(),
                 new InventoryListeners(),
                 new FlyManager(),
@@ -72,6 +76,8 @@ public class LobbyModule extends AddonPlugin {
                 new CancelListeners(),
                 new TermsListeners());
         registerCommand(new ChangeVisibilityCommand());
+
+        CommandsRegistry.register("terms", new TermsCommand());
 
         new WorldConfigManager();
         linkSocialsManager = new LinkSocialsManager();

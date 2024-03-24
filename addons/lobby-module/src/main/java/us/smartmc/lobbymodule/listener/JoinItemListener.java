@@ -3,11 +3,14 @@ package us.smartmc.lobbymodule.listener;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.event.PlayerLanguageChangedEvent;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
-import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.scheduler.BukkitRunnable;
+import us.smartmc.core.SmartCore;
+import us.smartmc.lobbymodule.handler.VisibilityManager;
+import us.smartmc.lobbymodule.instance.PlayerVisibility;
 import us.smartmc.lobbymodule.menu.JoinItemMenu;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
@@ -15,9 +18,11 @@ public class JoinItemListener extends AddonListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerDataLoadedEvent event) {
-        if (event.getPlayer() == null) return;
+        System.out.println("PlayerDataLoadedEvent event!");
         if (!isEnabled()) return;
-        SyncUtil.sync(() -> giveMenu(event.getCorePlayer()));
+        if (event.getPlayer() == null) return;
+
+        giveMenu(event.getCorePlayer());
     }
 
     @EventHandler
@@ -28,10 +33,21 @@ public class JoinItemListener extends AddonListener implements Listener {
 
     private static void giveMenu(CorePlayer cPlayer) {
         Player player = cPlayer.get();
-        if (player == null) return;
+        if (player == null) {
+            System.out.println("Player IS NULL! Returning");
+            return;
+        }
         cPlayer.clearInventory();
         JoinItemMenu menu = new JoinItemMenu(player);
         menu.set(player);
-    }
 
+        PlayerVisibility visibility = VisibilityManager.getVisibility(player);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                menu.set(7, VisibilityManager.getVisibilityItem(player, visibility).get(player), "cmd changeVisibility");
+                player.getInventory().setItem(7, menu.get(7));
+            }
+        }.runTaskLater(SmartCore.getPlugin(), 20);
+    }
 }

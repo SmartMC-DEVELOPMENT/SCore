@@ -1,6 +1,7 @@
 name: LoginSpigot
 version: '${project.version}'
 main: me.imsergioh.loginspigot.LoginSpigot
+api-version: '1.20'
 depend:
   - FastLogin
 commands:

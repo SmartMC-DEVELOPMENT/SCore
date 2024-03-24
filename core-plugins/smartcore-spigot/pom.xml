@@ -9,8 +9,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -23,6 +23,10 @@
             <id>aikar-release-repo</id>
             <url>https://repo.aikar.co/nexus/content/repositories/aikar-release/</url>
         </repository>
+        <repository>
+            <id>papermc-repo</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -33,23 +37,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>fr.minuskube</groupId>
-            <artifactId>netherboard-bukkit</artifactId>
-            <version>1.2.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>fr.minuskube</groupId>
-            <artifactId>netherboard-core</artifactId>
-            <version>1.2.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.8</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/../../lib/spigot-1.8.8-R.jar</systemPath>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.20.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.luckperms</groupId>
@@ -69,6 +60,13 @@
             <artifactId>spigot-core</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>authlib</artifactId>
+            <version>1.5.21</version>
+            <systemPath>${project.basedir}/libs/authlib-1.5.21.jar</systemPath>
+            <scope>system</scope>
         </dependency>
     </dependencies>
 

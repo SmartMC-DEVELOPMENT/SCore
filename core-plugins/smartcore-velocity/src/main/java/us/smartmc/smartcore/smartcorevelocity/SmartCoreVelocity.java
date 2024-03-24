@@ -10,7 +10,7 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
-import com.velocitypowered.api.proxy.messages.LegacyChannelIdentifier;
+import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.*;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
@@ -117,7 +117,6 @@ public class SmartCoreVelocity {
         logger.info("Plugin enabled successfully!");
 
         PubSubConnectionHandler.register(new LoginMessageHandler());
-        VelocityPluginsAPI.proxy.getChannelRegistrar().register(new LegacyChannelIdentifier("BungeeCord"));
     }
 
     @Subscribe
@@ -152,7 +151,6 @@ public class SmartCoreVelocity {
                 new OfflinePlayerDataManager(),
                 new CustomCommandsListeners(),
                 new SanctionsListeners(),
-                new BungeeMessagingListeners(),
                 new LoginMessageHandler(),
                 new LoginListeners());
     }
@@ -196,7 +194,6 @@ public class SmartCoreVelocity {
     }
 
     private void registerListeners(Object... listeners) {
-
         for (Object listener : listeners) {
             VelocityPluginsAPI.proxy.getEventManager().register(plugin, listener);
         }

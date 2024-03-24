@@ -179,7 +179,7 @@ public class PlayerSanction extends MongoDBPluginConfig {
     private static String getNewSanctionId() {
         String format = "xxxxxx";
         while (format.contains("x")) {
-            format = format.replaceFirst("x", String.valueOf(new Random().nextInt(0, 9)));
+            format = format.replaceFirst("x", String.valueOf(new Random().nextInt(9)));
         }
         return format;
     }

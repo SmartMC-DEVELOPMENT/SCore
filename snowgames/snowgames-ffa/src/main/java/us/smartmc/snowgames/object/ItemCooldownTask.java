@@ -41,7 +41,7 @@ public class ItemCooldownTask extends PluginRepeatingTask {
                 return;
             }
             int remainingSeconds = (int) getRemainingTimeInSeconds();
-            if (recoverItem.getType().equals(Material.GOLD_PLATE)) {
+            if (recoverItem.getType().equals(Material.LEGACY_GOLD_PLATE)) {
                 Language language = PlayerLanguages.get(player.getUniqueId());
                 ItemStack delayItem = parseItem(player, config.getItemConfig(language, "propeller_reloading").get(), "&e");
                 delayItem.setAmount(remainingSeconds);

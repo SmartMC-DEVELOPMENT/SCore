@@ -18,7 +18,7 @@ import java.util.Set;
 
 public class LobbiesInfoManager extends AddonListener implements Listener {
 
-    private static final Set<LobbiesMenu> menus = new HashSet<>();
+    private static final Set<CoreMenu> menus = new HashSet<>();
 
     public static void start() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartAddonsSpigot.getPlugin(), () -> {
@@ -45,9 +45,9 @@ public class LobbiesInfoManager extends AddonListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onClose(InventoryCloseEvent event) {
         if (!isEnabled()) return;
-        if (!(event.getPlayer() instanceof Player)) return;
-        Player player = (Player) event.getPlayer();
+        if (!(event.getPlayer() instanceof Player player)) return;
         CorePlayer corePlayer = CorePlayer.get(player);
+        if (corePlayer == null) return;
         CoreMenu menuOpen = corePlayer.getCurrentMenuOpen();
         if (menuOpen == null) return;
         menus.remove(menuOpen);

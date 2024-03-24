@@ -18,7 +18,7 @@ public interface ICosmetic {
         String skullTexture = getSkullTexture();
         ItemBuilder builder = ItemBuilder.of(material);
         if (skullTexture != null) {
-            builder = ItemBuilder.of(Material.SKULL_ITEM).data(3);
+            builder = ItemBuilder.of(Material.PLAYER_HEAD).data(3);
             builder.skullTexture(skullTexture);
         }
         return builder.name(info.getName()).lore(ItemsUtil.getBuilderCosmeticItemDescription(session, info, this));

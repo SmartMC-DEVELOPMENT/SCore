@@ -52,8 +52,8 @@ public class VisibilityManager extends AddonListener implements Listener {
         return PlayerVisibility.valueOf(visibilityName);
     }
 
-    public static ItemBuilder getVisibilityItem(PlayerVisibility visibility) {
-        Material material = Material.INK_SACK;
+    public static ItemBuilder getLegacyItem(PlayerVisibility visibility) {
+        Material material = Material.LEGACY_INK_SACK;
         int materialData = 0;
         switch (visibility) {
             case DEFAULT: {
@@ -73,6 +73,26 @@ public class VisibilityManager extends AddonListener implements Listener {
                 .name("<lang.lobby.items_visibility_name>")
                 .data(materialData)
                 .lore(Arrays.asList("<lang.lobby.visibility_" + visibility.name()+"_name>"));
+    }
+
+    public static ItemBuilder getVisibilityItem(Player player, PlayerVisibility visibility) {
+        Material material;
+        switch (visibility) {
+            case DEFAULT -> material = Material.GREEN_DYE;
+            case NO_ONE -> material = Material.RED_DYE;
+            case VIPS -> material = Material.PINK_DYE;
+            default -> material = Material.BARRIER;
+        }
+
+
+        // Parse > 1.13 Legacy items
+        int version = player.getProtocolVersion();
+        if (version <= 382) return getLegacyItem(visibility);
+
+        return ItemBuilder
+                .of(material)
+                .name("<lang.lobby.items_visibility_name>")
+                .lore(Arrays.asList("<lang.lobby.visibility_" + visibility.name() + "_name>"));
     }
 
     public static void update(Player player) {

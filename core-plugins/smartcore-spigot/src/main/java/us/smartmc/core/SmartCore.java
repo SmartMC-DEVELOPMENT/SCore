@@ -191,6 +191,8 @@ public class SmartCore extends JavaPlugin {
         VariablesHandler.register(new CountdownVariables());
 
         VariablesHandler.register(new DateVariables());
+
+        VariablesHandler.register(new HexVariables());
     }
 
     @SuppressWarnings("unused")

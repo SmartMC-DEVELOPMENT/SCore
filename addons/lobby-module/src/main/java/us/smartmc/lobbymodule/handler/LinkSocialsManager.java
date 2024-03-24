@@ -8,11 +8,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import us.smartmc.core.SmartCore;
 import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.instance.LinkSocialAction;
 import us.smartmc.lobbymodule.instance.LinkSocialType;
 import us.smartmc.lobbymodule.linksocials.*;
+import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
 
 import java.util.*;
 
@@ -26,7 +28,7 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
     public void load() {
         register(YouTubeLink.class, TwitchLink.class, TikTokLink.class,
                 TwitterLink.class, InstagramLink.class, GitHubLink.class, DiscordLink.class);
-        LobbyModule.getPlugin().registerListeners(this);
+        LobbyModule.getPlugin().registerListeners(SmartCore.getPlugin(), this);
     }
 
     @Override

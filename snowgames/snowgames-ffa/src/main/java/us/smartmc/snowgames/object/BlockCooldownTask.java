@@ -14,12 +14,10 @@ public class BlockCooldownTask extends TimerTask {
     @Getter
     private final Location location;
     private final Material recoverMaterial;
-    private final byte recoverMaterialData;
 
     public BlockCooldownTask(BlockState block) {
         this.location = block.getLocation();
         this.recoverMaterial = block.getType();
-        this.recoverMaterialData = block.getRawData();
     }
 
     @Override
@@ -29,7 +27,6 @@ public class BlockCooldownTask extends TimerTask {
 
     public void reset() {
         location.getWorld().getBlockAt(location).setType(recoverMaterial);
-        location.getWorld().getBlockAt(location).setData(recoverMaterialData);
     }
 
 }

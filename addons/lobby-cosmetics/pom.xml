@@ -13,8 +13,8 @@
     <artifactId>lobby-cosmetics</artifactId>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -59,11 +59,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.8</version>
+            <groupId>io.paper</groupId>
+            <artifactId>paper</artifactId>
+            <version>1.20</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/../../lib/spigot-1.8.8-R.jar</systemPath>
+            <systemPath>${pom.basedir}/../../lib/paper-1.20.4-451.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>us.smartmc.core</groupId>

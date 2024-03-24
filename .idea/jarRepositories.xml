@@ -37,6 +37,11 @@
       <option name="url" value="http://repo.extendedclip.com/content/repositories/placeholderapi/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="viaversion-repo" />
+      <option name="name" value="viaversion-repo" />
+      <option name="url" value="https://repo.viaversion.com" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="Lumine-Releases-Repository" />
       <option name="name" value="Lumine-Releases-Repository" />
       <option name="url" value="https://mvn.lumine.io/repository/maven-public/" />
@@ -65,6 +70,11 @@
       <option name="id" value="dmulloy2-repo" />
       <option name="name" value="dmulloy2-repo" />
       <option name="url" value="https://repo.dmulloy2.net/repository/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="sonatype" />
+      <option name="name" value="sonatype" />
+      <option name="url" value="https://repository.sonatype.org/content/groups/public/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="aikar-release-repo" />

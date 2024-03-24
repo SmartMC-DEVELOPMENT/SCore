@@ -41,6 +41,9 @@ public class JoinItemMenu extends ConfigurableMenu {
 
         set(4, parseHeadOwnerTo(headItem, initPlayer), "lobbyModule settings");
 
+        PlayerVisibility visibility = VisibilityManager.getVisibility(initPlayer);
+        set(7, VisibilityManager.getVisibilityItem(visibility).get(initPlayer), "cmd changeVisibility");
+
         setItem(8, Material.PAPER, "lobbies");
     }
 

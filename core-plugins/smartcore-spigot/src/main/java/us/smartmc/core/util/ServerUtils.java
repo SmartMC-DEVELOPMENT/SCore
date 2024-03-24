@@ -6,8 +6,8 @@ import java.io.FileReader;
 
 public class ServerUtils {
 
-    public static String readServerProperty(String path) throws Exception {
-        BufferedReader reader = new BufferedReader(new FileReader(getServerRootFolder() + "/server.properties"));
+    public static String readBackendProperty(String path) throws Exception {
+        BufferedReader reader = new BufferedReader(new FileReader(getServerRootFolder() + "/backend.properties"));
         String line;
         while ((line = reader.readLine()) != null) {
             if (line.startsWith(path + "=")) {

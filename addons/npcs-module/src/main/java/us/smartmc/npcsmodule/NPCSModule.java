@@ -3,6 +3,7 @@ package us.smartmc.npcsmodule;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
+import us.smartmc.core.SmartCore;
 import us.smartmc.npcsmodule.instance.NPCSConfig;
 import us.smartmc.npcsmodule.listener.NPCListeners;
 import us.smartmc.npcsmodule.listener.PlayerClickListener;
@@ -30,7 +31,7 @@ public class NPCSModule extends AddonPlugin {
         new NPCManager();
         config = new NPCSConfig();
         new PluginMessages();
-        registerListeners(new NPCListeners());
+        registerListeners(SmartCore.getPlugin(), new NPCListeners());
         playerClickListener = new PlayerClickListener();
         NPCCommandManager.register("server", new ServerCommand());
         NPCCommandManager.register("message", new MessageCommand());

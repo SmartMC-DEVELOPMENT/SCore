@@ -3,12 +3,8 @@ package us.smartmc.lobbymodule;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
-import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.SimplePluginManager;
 import us.smartmc.core.SmartCore;
-import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.lobbymodule.command.*;
 import us.smartmc.lobbymodule.config.LobbyConfig;
 import us.smartmc.lobbymodule.config.MinigamesConfig;
@@ -23,6 +19,7 @@ import us.smartmc.smartaddons.plugin.CommandsRegistry;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
 @AddonInfo(name = "lobby-module", version = "DEV")
 public class LobbyModule extends AddonPlugin {

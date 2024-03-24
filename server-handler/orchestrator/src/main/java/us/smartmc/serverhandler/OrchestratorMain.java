@@ -7,7 +7,6 @@ import me.imsergioh.jbackend.api.manager.BackendActionManager;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.pluginsapi.instance.builder.DiscordLogEmbedBuilder;
 import us.smartmc.serverhandler.config.DataConfiguration;
-import us.smartmc.serverhandler.consolecommand.ExitCommand;
 import us.smartmc.serverhandler.instance.FileConfigData;
 import us.smartmc.serverhandler.manager.CacheCleanerManager;
 import us.smartmc.serverhandler.manager.ConfigManager;
@@ -21,7 +20,6 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.TreeMap;
 
 public class OrchestratorMain {
 

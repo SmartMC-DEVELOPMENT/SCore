@@ -3,6 +3,7 @@ package us.smartmc.lobbymodule.listener;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -26,14 +27,14 @@ public class TermsListeners extends AddonListener implements Listener {
     }
 
     public static void acceptTerms(CorePlayer player) {
-        player.getPlayerData().getDocument().put("accepted_terms", System.currentTimeMillis() / 1000);
+        player.getPlayerData().setData("accepted_terms", System.currentTimeMillis() / 1000);
         toAcceptPlayers.remove(player.getUUID());
     }
 
     public static void declineTerms(CorePlayer player) {
         Player bukkitPlayer = player.get();
         player.getPlayerData().getDocument().remove("accepted_terms");
-        openTermsBook(bukkitPlayer);
+        openTermsBook(bukkitPlayer, "decline");
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -43,7 +44,7 @@ public class TermsListeners extends AddonListener implements Listener {
         Player player = (Player) event.getPlayer();
         if (hasToAcceptTerms(CorePlayer.get(player))) {
             event.setCancelled(true);
-            openTermsBook(player);
+            openTermsBook(player, "inventoryopen");
         }
     }
 
@@ -52,10 +53,9 @@ public class TermsListeners extends AddonListener implements Listener {
         if (!isEnabled()) return;
 
         Player player = event.getPlayer();
-
         if (hasToAcceptTerms(CorePlayer.get(player))) {
             event.setCancelled(true);
-            openTermsBook(player);
+            openTermsBook(player, "interact");
         }
     }
 
@@ -66,7 +66,7 @@ public class TermsListeners extends AddonListener implements Listener {
         Player player = event.getPlayer();
         if (hasToAcceptTerms(CorePlayer.get(player))) {
             event.setCancelled(true);
-            openTermsBook(player);
+            openTermsBook(player, "chat");
         }
     }
 
@@ -74,20 +74,35 @@ public class TermsListeners extends AddonListener implements Listener {
     public void setupTerms(PlayerDataLoadedEvent event) {
         if (!isEnabled()) return;
         Player player = event.getPlayer();
-        if ( CorePlayer.get(player).getPlayerData().getDocument().containsKey("accepted_terms")) return;
+        long accepted = 0;
+
+
+        System.out.println("doc=" + event.getData().getDocument());
+        try {
+            accepted = event.getData().getDocument().get("accepted_terms", Number.class).longValue();
+        } catch (Exception ignore) {}
+        long lastModificationTimestamp = 1710788768;
+
+        // Return if accepted before modification of terms
+        System.out.println("accepted=" + accepted + " last=" + lastModificationTimestamp);
+        if (accepted > lastModificationTimestamp) return;
+
         UUID uuid = UUID.randomUUID();
         toAcceptPlayers.put(player.getUniqueId(), uuid);
-        openTermsBook(player);
+        openTermsBook(player, "dataloaded");
     }
 
-    private static void openTermsBook(Player player) {
+    private static void openTermsBook(Player player, String reason) {
         String acceptId = toAcceptPlayers.get(player.getUniqueId()).toString();
         Book book = getBookTermsAndConditions(acceptId);
         player.openBook(book);
+        System.out.println("opentermsbook " + reason);
     }
 
     public static boolean hasToAcceptTerms(CorePlayer corePlayer) {
-        return toAcceptPlayers.get(corePlayer.getUUID()) != null;
+        CorePlayerData data = corePlayer.getPlayerData();
+        if (data == null) return false;
+        return toAcceptPlayers.containsKey(corePlayer.getUUID());
     }
 
     private static Book getBookTermsAndConditions( String acceptID) {
@@ -100,8 +115,9 @@ public class TermsListeners extends AddonListener implements Listener {
                 "§r\n" +
                 "Accept the terms and conditions to be able to play and enjoy our services and our Minecraft Network :D\n" +
                 "§r\n")
-                .append(Component.text("§a§lACCEPT ").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms accept " + acceptID)))
-                .append(Component.text("§c§lDENY")).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms deny " + acceptID)));
+                        .append(Component.text("§9§nRead terms here§r\n§r\n").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, "https://smartmc.us/terms")))
+                .append(Component.text("    §a§lACCEPT ").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms accept " + acceptID)))
+                .append(Component.text("§c§lDENY    ")).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms deny " + acceptID)));
         return builder.build();
     }
 

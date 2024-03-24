@@ -18,7 +18,6 @@ public class JoinItemListener extends AddonListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerDataLoadedEvent event) {
-        System.out.println("PlayerDataLoadedEvent event!");
         if (!isEnabled()) return;
         if (event.getPlayer() == null) return;
 
@@ -34,20 +33,10 @@ public class JoinItemListener extends AddonListener implements Listener {
     private static void giveMenu(CorePlayer cPlayer) {
         Player player = cPlayer.get();
         if (player == null) {
-            System.out.println("Player IS NULL! Returning");
             return;
         }
         cPlayer.clearInventory();
         JoinItemMenu menu = new JoinItemMenu(player);
         menu.set(player);
-
-        PlayerVisibility visibility = VisibilityManager.getVisibility(player);
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                menu.set(7, VisibilityManager.getVisibilityItem(player, visibility).get(player), "cmd changeVisibility");
-                player.getInventory().setItem(7, menu.get(7));
-            }
-        }.runTaskLater(SmartCore.getPlugin(), 20);
     }
 }

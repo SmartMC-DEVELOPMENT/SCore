@@ -38,7 +38,6 @@ public class OfflinePlayerData {
             save();
             Player player = VelocityPluginsAPI.proxy.getPlayer(uuid).get();
             if (player == null) return;
-
             player.disconnect(Component.text(ChatUtil.parse(player, "&bHello {0}!\n&cPlease reconnect, welcome to the network :D!", player.getUsername())));
         }
         new Timer().schedule(new TimerTask() {

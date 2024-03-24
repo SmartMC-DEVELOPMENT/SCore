@@ -1,6 +1,7 @@
 package us.smartmc.npcsmodule.event;
 
 import com.comphenix.protocol.wrappers.EnumWrappers;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import us.smartmc.npcsmodule.instance.CustomNPC;
 
@@ -13,7 +14,7 @@ public class NPCUseEntityEvent extends NPCEvent {
         super(npc);
         this.player = player;
         this.action = action;
-        player.playSound(player.getLocation(), UI_BUTTON_CLICK, 0.6F, 2F);
+        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.6F, 2F);
     }
 
     public Player getPlayer() {

@@ -68,10 +68,12 @@ public class SmartCore extends JavaPlugin {
     public static String getServerName() {
         if (serverName == null) {
             try {
-                serverName = ServerUtils.readServerProperty("server-name");
+                serverName = ServerUtils.readBackendProperty("server-name");
+                if (serverName == null) {
+                    serverName = "bukkit-server:" + Bukkit.getPort();
+                }
             } catch (Exception e) {
-                serverName = "bukkit-server:" + Bukkit.getPort();
-                System.out.println("Failed to read server property of server-name! Cached temporary to " + serverName);
+                throw new RuntimeException(e);
             }
         }
         return serverName;
@@ -80,10 +82,12 @@ public class SmartCore extends JavaPlugin {
     public static String getServerID() {
         if (serverID == null) {
             try {
-                serverID = ServerUtils.readServerProperty("server-id");
+                serverID = ServerUtils.readBackendProperty("server-id");
+                if (serverID == null) {
+                    serverID = "bukkit-server:" + Bukkit.getPort();
+                }
             } catch (Exception e) {
-                serverID = "bukkit:" + Bukkit.getPort();
-                System.out.println("Failed to read server property of server-id! Cached temporary to " + serverID);
+                throw new RuntimeException(e);
             }
         }
         return serverID;
@@ -103,13 +107,11 @@ public class SmartCore extends JavaPlugin {
         registerDefaultConfig();
 
         MongoDBConnection.mainConnection = new MongoDBConnection(config.getString("mongodb_url"));
+        RedisConnection.mainConnection = new RedisConnection(config.getString("redis_host"),
+                config.get("redis_port", Number.class).intValue());
+        PubSubConnectionHandler.register(new ServerConnectionsHandler());
 
-        new Thread(() -> {
-            RedisConnection.mainConnection = new RedisConnection(config.getString("redis_host"),
-                    config.get("redis_port", Number.class).intValue());
-            SpigotPluginsAPI.setup(plugin);
-            PubSubConnectionHandler.register(new ServerConnectionsHandler());
-        }).start();
+        SpigotPluginsAPI.setup(plugin);
 
         registerDefaultLanguages();
 

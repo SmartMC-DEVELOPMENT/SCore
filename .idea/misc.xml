@@ -42,10 +42,12 @@
         <option value="$PROJECT_DIR$/survival/survi-chat/survival-chat/pom.xml" />
         <option value="$PROJECT_DIR$/survival/survi-chat/survivalchat/pom.xml" />
         <option value="$PROJECT_DIR$/staff-mode/staffmode-velocity/pom.xml" />
+        <option value="$PROJECT_DIR$/addons/npcs-module/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/arenapvp/pom.xml" />
         <option value="$PROJECT_DIR$/core-plugins/smartcore-waterfall/pom.xml" />
         <option value="$PROJECT_DIR$/game-manager/pom.xml" />
         <option value="$PROJECT_DIR$/games-manager/pom.xml" />
@@ -56,7 +58,7 @@
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="azul-17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="corretto-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

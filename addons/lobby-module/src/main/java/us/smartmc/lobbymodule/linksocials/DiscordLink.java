@@ -16,18 +16,19 @@ public class DiscordLink extends LinkSocialAction {
 
     @Override
     public String getFormattedURL(String username) {
-        if (username.startsWith("@")) {
-            return "https://www.youtube.com/@" + username.substring(1);
-        } else if (username.matches("[a-zA-Z0-9-_]{24}")) {
-            return "https://www.youtube.com/channel/" + username;
-        } else if (username.matches("[a-zA-Z0-9-_]{1,20}")) {
-            return "https://www.youtube.com/c/" + username;
-        }
-        return null;
+        return "https://discord.com/users/" + username;
     }
 
     @Override
     public String getValidExample() {
-        return "@smartbot";
+        return "235882085749882890";
+    }
+
+    @Override
+    public String[] getValidRegexPatterns() {
+        return new String[]{
+                DEFAULT_USERNAME_REGEX,
+                "\\d{17,20}"
+        };
     }
 }

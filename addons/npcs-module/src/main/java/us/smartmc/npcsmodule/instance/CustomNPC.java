@@ -3,11 +3,11 @@ package us.smartmc.npcsmodule.instance;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.WrappedChatComponent;
-import com.comphenix.protocol.wrappers.WrappedDataValue;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import com.comphenix.protocol.wrappers.*;
 import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import lombok.Getter;
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import net.kyori.adventure.text.Component;
@@ -33,11 +33,13 @@ import org.bukkit.scoreboard.Team;
 import us.smartmc.npcsmodule.NPCSModule;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class CustomNPC {
 
     private static final MinecraftServer server = ((CraftServer) Bukkit.getServer()).getServer();
+    private static final String HIDE_TAGS_TEAM_NAME = "ht-" + new Random().nextInt(9999);
 
     @Getter
     private List<String> lines;
@@ -88,6 +90,7 @@ public class CustomNPC {
         parseEntity(player);
 
         npcPlayer.setCustomNameVisible(configData.getBoolean("nameVisible"));
+        npcPlayer.getBukkitEntity().setCustomNameVisible(configData.getBoolean("nameVisible"));
 
         SynchedEntityData synchedEntityData = npcPlayer.getEntityData();
         synchedEntityData.set(new EntityDataAccessor<>(17, EntityDataSerializers.BYTE), (byte) 127);
@@ -95,9 +98,11 @@ public class CustomNPC {
         setValue(npcPlayer, "c", ((CraftPlayer) player).getHandle().connection);
         if (bukkitLocation != null)
             npcPlayer.forceSetPositionRotation(bukkitLocation.getX(), bukkitLocation.getY(), bukkitLocation.getZ(), bukkitLocation.getYaw(), bukkitLocation.getPitch());
-        else System.out.println("DETECTED NULL BUKKITLOC -> " + npcPlayer.getName().getString());
 
         ClientboundPlayerInfoUpdatePacket infoUpdatePacket = new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, npcPlayer);
+        PacketContainer packet = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
+        packet.getPlayerInfoActions().write(0, EnumSet.of(EnumWrappers.PlayerInfoAction.ADD_PLAYER));
+
         ClientboundAddEntityPacket addEntityPacket = new ClientboundAddEntityPacket(npcPlayer);
         ClientboundSetEntityDataPacket dataPacket = new ClientboundSetEntityDataPacket(npcPlayer.getId(), synchedEntityData.getNonDefaultValues());
 
@@ -105,14 +110,15 @@ public class CustomNPC {
         ((CraftPlayer) player).getHandle().connection.send(addEntityPacket);
         ((CraftPlayer) player).getHandle().connection.send(dataPacket);
 
-        if (!npcPlayer.isCustomNameVisible()) {
-            Scoreboard scoreboard = player.getScoreboard();
-            Team team = scoreboard.getTeam("hideTag");
-            if (team == null) team = scoreboard.registerNewTeam("hideTag");
-            team.setNameTagVisibility(NameTagVisibility.NEVER);
-            team.addEntry(npcPlayer.getName().getString());
-        }
-
+        Bukkit.getScheduler().runTaskLater(SpigotPluginsAPI.getPlugin(), () -> {
+            if (!npcPlayer.isCustomNameVisible()) {
+                Scoreboard scoreboard = player.getScoreboard();
+                Team team = scoreboard.getTeam(HIDE_TAGS_TEAM_NAME);
+                if (team == null) team = scoreboard.registerNewTeam(HIDE_TAGS_TEAM_NAME);
+                team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
+                team.addEntry(npcPlayer.getBukkitEntity().getName());
+            }
+        }, 10);
         hologramManager.createHologram(player);
     }
 
@@ -121,7 +127,6 @@ public class CustomNPC {
     }
 
     private void updateNMSLocation(Location loc) {
-        System.out.println("Location=" + loc);
         npcPlayer.setPos(loc.getX(), loc.getY(), loc.getZ());
         npcPlayer.teleportTo(((CraftWorld) loc.getWorld()).getHandle(), loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
     }
@@ -135,7 +140,8 @@ public class CustomNPC {
             throw new RuntimeException(e);
         }
         try {
-            npcPlayer.getGameProfile().getProperties().put("textures", npcPlayer.getGameProfile().getProperties().get("textures").iterator().next());
+            npcPlayer.getGameProfile().getProperties().removeAll("textures");
+            npcPlayer.getGameProfile().getProperties().put("textures", new Property("textures", skinValue, skinSignature));
         } catch (Exception ignore) {
         }
     }
@@ -163,7 +169,6 @@ public class CustomNPC {
 
     public void setBukkitLocation(Location bukkitLocation) {
         this.bukkitLocation = bukkitLocation;
-        System.out.println("BukkitLocation set to = " + bukkitLocation);
         updateNMSLocation(bukkitLocation);
     }
 }

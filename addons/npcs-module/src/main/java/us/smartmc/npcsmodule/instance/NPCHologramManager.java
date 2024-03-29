@@ -80,6 +80,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
         if (lines.isEmpty()) return;
 
         Location location = npc.getLocation();
+        location.add(0, -0.15, 0);
 
         for (int i = lines.size() - 1; i >= 0; i--) {
             String line = lines.get(i);

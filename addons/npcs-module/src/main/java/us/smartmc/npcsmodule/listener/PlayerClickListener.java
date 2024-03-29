@@ -5,6 +5,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import us.smartmc.core.SmartCore;
 import org.bukkit.Bukkit;
 import us.smartmc.npcsmodule.event.NPCUseEntityEvent;
@@ -31,10 +32,12 @@ public class PlayerClickListener extends PacketAdapter {
             if (npc == null) return;
             UUID uuid = event.getPlayer().getUniqueId();
             if (clicking.contains(uuid)) return;
-            EnumWrappers.EntityUseAction action = event.getPacket().getEntityUseActions().read(0);
+            EnumWrappers.EntityUseAction action = event.getPacket().getEntityUseActions().readSafely(0);
             clicking.add(uuid);
-            Bukkit.getPluginManager()
-                    .callEvent(new NPCUseEntityEvent(npc, event.getPlayer(), action));
+            Bukkit.getScheduler().runTask(SpigotPluginsAPI.getPlugin(), () -> {
+                Bukkit.getPluginManager()
+                        .callEvent(new NPCUseEntityEvent(npc, event.getPlayer(), action));
+            });
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {

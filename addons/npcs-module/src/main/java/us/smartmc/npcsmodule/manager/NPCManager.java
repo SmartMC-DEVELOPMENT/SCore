@@ -1,23 +1,26 @@
 package us.smartmc.npcsmodule.manager;
 
+import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import me.imsergioh.pluginsapi.language.Language;
+import net.minecraft.server.level.ClientInformation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.WorldServer;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import us.smartmc.npcsmodule.NPCSModule;
 import us.smartmc.npcsmodule.instance.ManagerRegistry;
 import us.smartmc.npcsmodule.instance.CustomNPC;
 import us.smartmc.npcsmodule.util.ConfigUtil;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
+@Getter
 public class NPCManager extends ManagerRegistry<String, CustomNPC> {
 
     private static final Set<NPCManager> managers = new HashSet<>();
@@ -34,12 +37,12 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
         config.save();
     }
 
-    public void register(World world, String name) {
+    public void register(ServerLevel world, String name) {
         put(name, new CustomNPC(world, name));
     }
 
     public void register(CustomNPC npc) {
-        register(npc.getName(), npc);
+        register((ServerLevel) npc.level(), npc.getName().getString());
     }
 
     public void delete(String name) {
@@ -69,7 +72,7 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
             String skinSignature = null;
             if (data.containsKey("skinSignature")) skinSignature = data.getString("skinSignature");
             // TO DO: HERE PARSE VARIABLES TO NPC INSTANCE AND REGISTER IT
-            CustomNPC npc = new CustomNPC(location.getWorld(), name, skinValue, skinSignature);
+            CustomNPC npc = new CustomNPC(((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), name, skinValue, skinSignature, ClientInformation.createDefault());
             npc.setLocation(location);
             npc.setCommandLines(data.getList("commands", String.class));
 
@@ -88,15 +91,11 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
             document.put("name", "Hello world!");
     }
 
-    public FilePluginConfig getConfig() {
-        return config;
-    }
-
     public CustomNPC getNPC(int id) {
         for (Language language : Language.values()) {
             for (CustomNPC npc : values()) {
                 if (npc == null) continue;
-                if (npc.getEntityPlayer().getId() == id) return npc;
+                if (npc.getId() == id) return npc;
             }
         }
         return null;

@@ -1,7 +1,6 @@
 package us.smartmc.addon.listener;
 
 import me.imsergioh.pluginsapi.util.ChatUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -18,7 +17,7 @@ public class ChatModeListener extends AddonListener implements Listener {
         this.handler = handler;
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onChat(AsyncPlayerChatEvent event) {
         if (!isEnabled()) return;
         String format = ChatUtil.parse(event.getPlayer(), handler.getFormat());
@@ -27,11 +26,9 @@ public class ChatModeListener extends AddonListener implements Listener {
             if (SmartCore.getPlugin().getAdminModeHandler().isActive(event.getPlayer())) {
                 message = ChatUtil.parse(event.getPlayer(), message);
             }
-             event.setMessage(message);
+            event.setMessage(message);
         }
         event.setFormat(format);
-        event.setCancelled(true);
-        Bukkit.broadcastMessage(String.format(event.getFormat(), event.getPlayer().getName(), event.getMessage()));
     }
 
 }

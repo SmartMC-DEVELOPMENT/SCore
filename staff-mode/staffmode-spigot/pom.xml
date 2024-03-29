@@ -12,7 +12,7 @@
     <name>Staffmode</name>
 
     <properties>
-        <java.version>8</java.version>
+        <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -74,9 +74,8 @@
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
-            <version>LOCAL-LIB</version>
-            <systemPath>D:/LIBS_PLUGINS/ProtocolLib.jar</systemPath>
-            <scope>system</scope>
+            <version>5.0.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>

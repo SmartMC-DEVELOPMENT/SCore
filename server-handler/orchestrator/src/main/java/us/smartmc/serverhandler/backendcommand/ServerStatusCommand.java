@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.pluginsapi.instance.builder.DiscordLogEmbedBuilder;
 import us.smartmc.serverhandler.executor.BackendCommand;
 import us.smartmc.serverhandler.instance.CommonServerInfo;
+import us.smartmc.serverhandler.instance.ServerInfo;
 import us.smartmc.serverhandler.instance.ServerStatus;
 import us.smartmc.serverhandler.manager.CacheCleanerManager;
 import us.smartmc.serverhandler.manager.ServerManager;
@@ -20,14 +21,13 @@ public class ServerStatusCommand extends BackendCommand {
     @Override
     public void execute(ConnectionHandler handler, String label, String[] args) {
         if(executeStatus(args, "active", ServerStatus.ACTIVE)) {
-            CommonServerInfo serverInfo = ServerManager.get(args[1]);
+            ServerInfo serverInfo = ServerManager.get(args[1]);
             System.out.println("New server connected -> " + serverInfo.getName() + "!");
             return;
         }
 
         if (executeStatus(args, "idle", ServerStatus.IDLE)) {
             String name = args[1];
-            CommonServerInfo serverInfo = ServerManager.get(args[1]);
             ServerManager.deleteIfNotTemporalAndUnregister(name);
             CacheCleanerManager.removeServerCache(name);
         }

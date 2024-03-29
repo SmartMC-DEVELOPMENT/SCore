@@ -30,7 +30,7 @@ public class MinigamesMenu extends CoreMenu {
     private final Language language;
 
     private MinigamesMenu(Language language) {
-        super(null, 54, LanguagesHandler.get(language).get("lobby_miniGames").getString("inventory_title"));
+        super(null, 45, LanguagesHandler.get(language).get("lobby_miniGames").getString("inventory_title"));
         this.language = language;
         menus.put(language, this);
         config.getMiniGames().forEach((name, document) -> {

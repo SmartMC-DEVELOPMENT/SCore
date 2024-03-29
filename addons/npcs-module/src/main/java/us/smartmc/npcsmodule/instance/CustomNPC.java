@@ -2,70 +2,53 @@ package us.smartmc.npcsmodule.instance;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.WrappedWatchableObject;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.comphenix.protocol.wrappers.PlayerInfoData;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
+import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
 import lombok.Getter;
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.SyncUtil;
-import net.minecraft.network.chat.IChatBaseComponent;
-import net.minecraft.network.protocol.game.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ClientInformation;
-import net.minecraft.server.level.EntityPlayer;
-import net.minecraft.server.level.PlayerInteractManager;
-import net.minecraft.server.level.WorldServer;
-import net.minecraft.server.network.PlayerConnection;
-import net.minecraft.world.scores.ScoreboardTeam;
-import net.minecraft.world.scores.ScoreboardTeamBase;
+import net.minecraft.server.level.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
 import java.util.*;
 
-public class CustomNPC {
+public class CustomNPC extends ServerPlayer {
 
     private static final MinecraftServer server = ((CraftServer) Bukkit.getServer()).getServer();
-
-    @Getter
-    private final String name;
-    private final WorldServer worldServer;
-    @Getter
-    private final EntityPlayer entityPlayer;
-    private final GameProfile gameProfile;
-    private final PlayerInteractManager manager;
-    private final NPCHologramManager hologramManager;
 
     @Getter
     private List<String> lines;
     @Getter
     private List<String> commandLines = new ArrayList<>();
 
-    public CustomNPC(World world, String name, String skinValue, String skinSignature) {
-        this.name = name;
-        this.worldServer = ((CraftWorld) world).getHandle();
-        this.gameProfile = new GameProfile(UUID.randomUUID(), name);
-        ClientInformation clientInformation = ClientInformation.createDefault();
-        this.entityPlayer = new EntityPlayer(server, worldServer, gameProfile, clientInformation);
-        this.manager = new PlayerInteractManager(entityPlayer);
+    public final ServerLevel world;
+
+    private final NPCHologramManager hologramManager;
+
+    public CustomNPC(ServerLevel world, String name, String skinValue, String skinSignature, ClientInformation ci) {
+        super(server, world, new GameProfile(UUID.randomUUID(), name), ClientInformation.createDefault());
         // SET SKIN VALUE & SIGNATURE IF NOT NULL BOTH STRINGS
-        if (skinValue != null && skinSignature != null) setSkinValue(skinValue, skinSignature);
         hologramManager = new NPCHologramManager(this);
+        this.world = world;
     }
 
-    public CustomNPC(World world, String name) {
-        this(world, name, null, null);
+    public CustomNPC(ServerLevel world, String name) {
+        this(world, name, null, null, ClientInformation.createDefault());
     }
 
     public void setNameVisible(boolean active) {
-        entityPlayer.setCustomNameVisible(active);
+        setCustomNameVisible(active);
     }
 
     public void setCommandLines(List<String> commandLines) {
@@ -77,61 +60,60 @@ public class CustomNPC {
         hologramManager.setupStands();
     }
 
-    public void setSkinValue(String value, String signature) {
-        gameProfile.getProperties().put("textures", new Property("textures", value, signature));
-    }
-
     public void removeViewer(Player player) {
         hologramManager.removeViewer(player);
     }
 
     public void showTo(Player player) {
-        EntityPlayer ep = parseEntity(player);
-        entityPlayer.setCustomName(IChatBaseComponent.empty());
-        ep.setCustomName(entityPlayer.getCustomName());
-
-        // LOCATION
-        ep.teleportTo(worldServer, entityPlayer.getX(), entityPlayer.getY(), entityPlayer.getZ(),
-                entityPlayer.getYHeadRot(), entityPlayer.xRotO);
-        PlayerConnection connection = ((EntityPlayer) player).connection;
+        parseEntity(player);
+        setCustomName(Component.empty());
+        setCustomName(getCustomName());
 
         // SHOW ENTITY WITH CORRECT DATA
 
-        connection.send(new ClientboundPlayerInfoUpdatePacket(
-                ClientboundPlayerInfoUpdatePacket.a.ADD_PLAYER,
-                ep));
+        PacketContainer packet = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
+        packet.getPlayerInfoActions().write(0, EnumSet.of(EnumWrappers.PlayerInfoAction.ADD_PLAYER));
+        PlayerInfoData playerInfoData = new PlayerInfoData(new WrappedGameProfile(getUUID(), getName().getString()), 0, EnumWrappers.NativeGameMode.SURVIVAL, WrappedChatComponent.fromText(displayName));
+        packet.getPlayerInfoDataLists().write(1, List.of(playerInfoData));
+        ProtocolLibrary.getProtocolManager().sendServerPacket(player, packet);
 
-        connection.send(new PacketPlayOutSpawnEntity(ep));
+        PacketContainer spawnPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.SPAWN_ENTITY);
+        spawnPacket.getModifier().writeDefaults();
+        var spawnPacketModifier = spawnPacket.getModifier();
+
+        Location location = getLocation();
+
+        spawnPacketModifier.write(0, getId());
+        spawnPacketModifier.write(1, uuid);
+        spawnPacketModifier.write(2, 122);
+        spawnPacketModifier.write(3, location.getX());
+        spawnPacketModifier.write(4, location.getY());
+        spawnPacketModifier.write(5, location.getZ());
+
+        ProtocolLibrary.getProtocolManager().sendServerPacket(player, spawnPacket);
 
         // REMOVE FROM TAB:
-        sendPacketPlayOutEntityMetadata(player, entityPlayer.getId(), List.of());
-        connection.send(new PacketPlayOutEntityHeadRotation(ep, (byte) ((ep.yHeadRot * 256.0F) / 360.0F)));
+        //sendPacketPlayOutEntityMetadata(player);
 
         // NAME VISIBLE:
-        if (!player.isCustomNameVisible()) {
+        /*if (!isCustomNameVisible()) {
             hologramManager.createHologram(player);
-            ScoreboardTeam teamScore = new ScoreboardTeam(((EntityPlayer) player).getScoreboard(), player.getName());
+            ScoreboardTeam teamScore = new ScoreboardTeam(((CraftScoreboard) player.getScoreboard()).getHandle(), player.getName());
             teamScore.setNameTagVisibility(ScoreboardTeamBase.EnumNameTagVisibility.NEVER);
-            teamScore.getPlayers().add(entityPlayer.getName().getString());
-            entityPlayer.setCustomNameVisible(player.isCustomNameVisible());
+            teamScore.getPlayers().add(getName().getString());
+            setCustomNameVisible(player.isCustomNameVisible());
             SyncUtil.later(() -> {
-                connection.send(new ClientboundPlayerInfoRemovePacket(List.of(ep.getUUID())));
+                PacketContainer packetContainer = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO_REMOVE);
+                packetContainer.getUUIDLists().write(0, Collections.singletonList(uuid));
+                ProtocolLibrary.getProtocolManager().sendServerPacket(player, packetContainer);
             }, 1750);
-        }
+        }*/
     }
 
-    public void sendPacketPlayOutEntityMetadata(Player player, int entityID, List<WrappedWatchableObject> metadataList) {
-        ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-        PacketContainer packet = protocolManager.createPacket(PacketType.Play.Server.ENTITY_METADATA);
-
-        packet.getIntegers().write(0, entityID); // Establece el ID de la entidad
-        packet.getWatchableCollectionModifier().write(0, metadataList); // Establece los metadatos
-
-        try {
-            protocolManager.sendServerPacket(player, packet); // Envía el paquete al jugador
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void sendPacketPlayOutEntityMetadata(Player player) {
+        PacketContainer packet = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_METADATA);
+        packet.getModifier().writeDefaults();
+        ProtocolLibrary.getProtocolManager().sendServerPacket(player, packet);
     }
 
     public void showToAllPlayers() {
@@ -139,34 +121,32 @@ public class CustomNPC {
     }
 
     public void setLocation(Location location) {
-        entityPlayer.teleportTo(server.overworld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+        teleportTo((ServerLevel) getCamera().level(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
     }
 
-    private EntityPlayer parseEntity(Player player) {
+    private void parseEntity(Player player) {
         try {
             Field nameField = GameProfile.class.getDeclaredField("name");
             nameField.setAccessible(true);
-            nameField.set(entityPlayer.getGameProfile(), ChatUtil.parse(player, name));
+            nameField.set(getGameProfile(), ChatUtil.parse(player, getName().getString()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         try {
-            entityPlayer.getGameProfile().getProperties().put("textures", gameProfile.getProperties().get("textures").iterator().next());
+            getGameProfile().getProperties().put("textures", getGameProfile().getProperties().get("textures").iterator().next());
         } catch (Exception ignore) {
         }
-        return entityPlayer;
     }
 
     public Location getLocation() {
-        double x = entityPlayer.getX();
-        double y = entityPlayer.getY();
-        double z = entityPlayer.getZ();
-        net.minecraft.world.level.World mcWorld = entityPlayer.getCommandSenderWorld();
-        return new Location(Bukkit.getWorlds().get(0), x, y, z);
+        double x = getX();
+        double y = getY();
+        double z = getZ();
+        return new Location(world.getWorld(), x, y, z);
     }
 
     public UUID getUUID() {
-        return gameProfile.getId();
+        return getGameProfile().getId();
     }
 
 }

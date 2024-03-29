@@ -42,7 +42,7 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
     }
 
     public void register(CustomNPC npc) {
-        register((ServerLevel) npc.level(), npc.getName().getString());
+        register((ServerLevel) npc.getNpcPlayer().level(), npc.getNpcPlayer().getName().getString());
     }
 
     public void delete(String name) {
@@ -95,7 +95,7 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
         for (Language language : Language.values()) {
             for (CustomNPC npc : values()) {
                 if (npc == null) continue;
-                if (npc.getId() == id) return npc;
+                if (npc.getNpcPlayer().getId() == id) return npc;
             }
         }
         return null;

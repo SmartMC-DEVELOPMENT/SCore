@@ -1,28 +1,26 @@
 package us.smartmc.npcsmodule.instance;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.LanguageUtil;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.IChatBaseComponent;
+import net.minecraft.network.PacketDataSerializer;
+import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
+import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
 import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntity;
-import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.WorldServer;
-import net.minecraft.world.entity.decoration.EntityArmorStand;
+import net.minecraft.world.entity.Entity;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftArmorStand;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.persistence.PersistentDataContainer;
 import us.smartmc.core.SmartCore;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
@@ -138,32 +136,25 @@ public class NPCHologramManager extends AddonListener implements Listener {
             String parsedName = ChatUtil.parse(player, name);
 
             // Obtener el dataWatcher del armor stand
-            WrappedDataWatcher dataWatcher = WrappedDataWatcher.getEntityWatcher(stand).deepClone();
+            PersistentDataContainer dataWatcher = stand.getPersistentDataContainer();
+            stand.getPersistentDataContainer().copyTo(dataWatcher, true);
 
-            // Modificar el dataWatcher para actualizar el nombre
-            dataWatcher.setObject(2, WrappedDataWatcher.Registry.getChatComponentSerializer(true), parsedName);
-
-            // Crear un nuevo paquete para enviar los metadatos actualizados al cliente
-            PacketContainer packet = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_METADATA);
-            packet.getIntegers().write(0, stand.getEntityId());
-            packet.getWatchableCollectionModifier().write(0, dataWatcher.getWatchableObjects());
-
-            // Enviar el paquete al cliente
-            ProtocolLibrary.getProtocolManager().sendServerPacket(player, packet);
+            PacketPlayOutEntityMetadata dataPacket = new PacketPlayOutEntityMetadata(stand.getEntityId(), List.of());
+            ((CraftPlayer) player).getHandle().connection.send(dataPacket);
         }
     }
 
     public void spawnVisibleArmorStand(Player player, CraftArmorStand originalArmorStand) {
         Location location = originalArmorStand.getLocation();
-        EntityArmorStand visibleArmorStand = (EntityArmorStand) player.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
+        ArmorStand visibleArmorStand = (ArmorStand) player.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
 
         String name = originalArmorStand.getName();
         // Obtener el EntityLiving del nuevo ArmorStand
         originalArmorStand.setCustomName(ChatUtil.parse(player, name));
 
         // Enviar un paquete para mostrar el nuevo ArmorStand solo al visibleArmorStandEntity
-        PacketPlayOutSpawnEntity packetPlayOutSpawnEntityLiving = new PacketPlayOutSpawnEntity(visibleArmorStand);
-        ((EntityPlayer) player).connection.send(packetPlayOutSpawnEntityLiving);
+        PacketPlayOutSpawnEntity packetPlayOutSpawnEntityLiving = new PacketPlayOutSpawnEntity((Entity) visibleArmorStand, visibleArmorStand.getEntityId());
+        ((CraftPlayer) player).getHandle().connection.send(packetPlayOutSpawnEntityLiving);
 
         updateHolograms(player, getLines(PlayerLanguages.get(player.getUniqueId())));
         viewers.add(player);

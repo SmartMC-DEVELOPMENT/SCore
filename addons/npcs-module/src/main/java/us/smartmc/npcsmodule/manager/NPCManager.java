@@ -37,12 +37,8 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
         config.save();
     }
 
-    public void register(ServerLevel world, String name) {
-        put(name, new CustomNPC(world, name));
-    }
-
-    public void register(CustomNPC npc) {
-        register((ServerLevel) npc.getNpcPlayer().level(), npc.getNpcPlayer().getName().getString());
+    public void register(String name, CustomNPC npc) {
+        put(name, npc);
     }
 
     public void delete(String name) {
@@ -73,14 +69,15 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
             if (data.containsKey("skinSignature")) skinSignature = data.getString("skinSignature");
             // TO DO: HERE PARSE VARIABLES TO NPC INSTANCE AND REGISTER IT
             CustomNPC npc = new CustomNPC(((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), name, skinValue, skinSignature, ClientInformation.createDefault());
-            npc.setLocation(location);
+            System.out.println("Loaded npc " + key + " location = " + location);
+            npc.setBukkitLocation(location);
             npc.setCommandLines(data.getList("commands", String.class));
 
             if (data.containsKey("nameVisible")) npc.setNameVisible(data.getBoolean("nameVisible"));
 
             if (lines != null) npc.setLines(lines);
 
-            register(npc);
+            register(name, npc);
             list.add(npc);
         }
         return list;

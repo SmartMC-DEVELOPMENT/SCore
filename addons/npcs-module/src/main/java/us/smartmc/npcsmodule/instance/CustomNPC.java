@@ -2,6 +2,7 @@ package us.smartmc.npcsmodule.instance;
 
 import com.mojang.authlib.GameProfile;
 import lombok.Getter;
+import lombok.Setter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.minecraft.network.protocol.game.*;
@@ -36,6 +37,8 @@ public class CustomNPC {
     @Getter
     private final ServerPlayer npcPlayer;
 
+    private Location bukkitLocation;
+
     public CustomNPC(ServerLevel world, String name, String skinValue, String skinSignature, ClientInformation ci) {
         this.npcPlayer = new ServerPlayer(server, world, new GameProfile(UUID.randomUUID(), name), ClientInformation.createDefault());
         // SET SKIN VALUE & SIGNATURE IF NOT NULL BOTH STRINGS
@@ -66,13 +69,13 @@ public class CustomNPC {
 
     public void showTo(Player player) {
 
-        Location location = getLocation();
-        npcPlayer.setPos(location.getX(), location.getY(), location.getZ());
-
         SynchedEntityData synchedEntityData = npcPlayer.getEntityData();
         synchedEntityData.set(new EntityDataAccessor<>(17, EntityDataSerializers.BYTE), (byte) 127);
 
         setValue(npcPlayer, "c", ((CraftPlayer) player).getHandle().connection);
+        if (bukkitLocation != null)
+            npcPlayer.forceSetPositionRotation(bukkitLocation.getX(), bukkitLocation.getY(), bukkitLocation.getZ(), bukkitLocation.getYaw(), bukkitLocation.getPitch());
+        else System.out.println("DETECTED NULL BUKKITLOC -> " + npcPlayer.getName().getString());
 
         ClientboundPlayerInfoUpdatePacket infoUpdatePacket = new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, npcPlayer);
         ClientboundAddEntityPacket addEntityPacket = new ClientboundAddEntityPacket(npcPlayer);
@@ -87,9 +90,10 @@ public class CustomNPC {
         Bukkit.getOnlinePlayers().forEach(this::showTo);
     }
 
-    public void setLocation(Location location) {
-        npcPlayer.setPos(location.getX(), location.getY(), location.getZ());
-        npcPlayer.teleportTo(((CraftWorld) location.getWorld()).getHandle(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+    private void updateNMSLocation(Location loc) {
+        System.out.println("Location=" + loc);
+        npcPlayer.setPos(loc.getX(), loc.getY(), loc.getZ());
+        npcPlayer.teleportTo(((CraftWorld) loc.getWorld()).getHandle(), loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
     }
 
     private void parseEntity(Player player) {
@@ -127,4 +131,9 @@ public class CustomNPC {
         }
     }
 
+    public void setBukkitLocation(Location bukkitLocation) {
+        this.bukkitLocation = bukkitLocation;
+        System.out.println("BukkitLocation set to = " + bukkitLocation);
+        updateNMSLocation(bukkitLocation);
+    }
 }

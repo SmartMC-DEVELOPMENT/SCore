@@ -10,7 +10,6 @@ D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\exception\RedisConnectionNotInitializedException.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\PlayerLanguages.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\LanguageListeners.java
-D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\PlayerVersionListeners.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\onlinestore\OnlineStoreCommand.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\CorePluginException.java
 D:\workspace2024\SCore\core-plugins\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\TabHandler.java

@@ -152,8 +152,7 @@ public class SmartCoreVelocity {
                 new CustomCommandsListeners(),
                 new SanctionsListeners(),
                 new LoginMessageHandler(),
-                new LoginListeners(),
-                new PlayerVersionListeners());
+                new LoginListeners());
     }
 
     private void registerCommands() {

@@ -33,7 +33,7 @@ public class OnlineCountHandler {
             }
         };
         timer = new Timer();
-        timer.scheduleAtFixedRate(timerTask, 1000, 3000);
+        timer.scheduleAtFixedRate(timerTask, 500, 1000);
     }
 
     public static void unregister() {

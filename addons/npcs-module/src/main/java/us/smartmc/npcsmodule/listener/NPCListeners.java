@@ -1,6 +1,8 @@
 package us.smartmc.npcsmodule.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
+import me.imsergioh.pluginsapi.event.PlayerLanguageChangedEvent;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -15,11 +17,13 @@ public class NPCListeners extends AddonListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerDataLoadedEvent event) {
         if (!isEnabled()) return;
-        NPCManager.forEach(npcManager -> {
-            npcManager.values().forEach(npc -> {
-                npc.showTo(event.getPlayer());
-            });
-        });
+        showAllNPCsToPlayer(event.getPlayer());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onLanguageChange(PlayerLanguageChangedEvent event) {
+        if (!isEnabled()) return;
+        showAllNPCsToPlayer(event.getCorePlayer().getBukkitPlayer());
     }
 
     @EventHandler
@@ -33,6 +37,14 @@ public class NPCListeners extends AddonListener implements Listener {
         NPCManager.forEach(npcManager -> {
             npcManager.values().forEach(npc -> {
                 npc.removeViewer(event.getPlayer());
+            });
+        });
+    }
+
+    private void showAllNPCsToPlayer(Player player) {
+        NPCManager.forEach(npcManager -> {
+            npcManager.values().forEach(npc -> {
+                npc.showTo(player);
             });
         });
     }

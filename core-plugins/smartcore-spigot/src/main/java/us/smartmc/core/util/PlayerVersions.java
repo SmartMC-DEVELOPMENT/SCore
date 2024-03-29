@@ -1,6 +1,6 @@
 package us.smartmc.core.util;
-
-import me.imsergioh.pluginsapi.connection.RedisConnection;
+a
+import org.bukkit.Bukkit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,13 +15,6 @@ public class PlayerVersions {
     }
 
     public static int get(UUID uuid) {
-        if (!registry.containsKey(uuid)) {
-            String value = RedisConnection.mainConnection.getResource().get("playerVersion." + uuid);
-            if (value == null) return -1;
-            int version = Integer.parseInt(value);
-            registry.put(uuid, version);
-        }
-        return registry.get(uuid);
+        return Bukkit.getPlayer(uuid).getProtocolVersion();
     }
-
 }

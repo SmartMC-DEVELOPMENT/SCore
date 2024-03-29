@@ -4,12 +4,9 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import me.imsergioh.pluginsapi.language.Language;
 import net.minecraft.server.level.ClientInformation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.WorldServer;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import us.smartmc.npcsmodule.NPCSModule;
 import us.smartmc.npcsmodule.instance.ManagerRegistry;
@@ -68,7 +65,7 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
             String skinSignature = null;
             if (data.containsKey("skinSignature")) skinSignature = data.getString("skinSignature");
             // TO DO: HERE PARSE VARIABLES TO NPC INSTANCE AND REGISTER IT
-            CustomNPC npc = new CustomNPC(((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), name, skinValue, skinSignature, ClientInformation.createDefault());
+            CustomNPC npc = new CustomNPC(((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), name, skinValue, skinSignature, data);
             System.out.println("Loaded npc " + key + " location = " + location);
             npc.setBukkitLocation(location);
             npc.setCommandLines(data.getList("commands", String.class));

@@ -2,6 +2,7 @@ package us.smartmc.npcsmodule;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
+import lombok.Getter;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import us.smartmc.core.SmartCore;
 import us.smartmc.npcsmodule.instance.NPCSConfig;
@@ -21,7 +22,8 @@ public class NPCSModule extends AddonPlugin {
 
     private static NPCSModule addon;
 
-    public static NPCSConfig config;
+    @Getter
+    private static NPCSConfig config;
 
     private PacketAdapter playerClickListener;
 

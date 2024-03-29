@@ -4,23 +4,14 @@ import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.LanguageUtil;
-import net.minecraft.network.PacketDataSerializer;
-import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
-import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntity;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftArmorStand;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.persistence.PersistentDataContainer;
 import us.smartmc.core.SmartCore;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
@@ -30,7 +21,7 @@ import java.util.*;
 public class NPCHologramManager extends AddonListener implements Listener {
 
     private final CustomNPC npc;
-    private final HashMap<Integer, CraftArmorStand> stands = new HashMap<>();
+    private final HashMap<Integer, ArmorStand> stands = new HashMap<>();
     private final HashMap<Integer, String> names = new HashMap<>();
     private final Set<Player> viewers = new HashSet<>();
 
@@ -89,18 +80,13 @@ public class NPCHologramManager extends AddonListener implements Listener {
         if (lines.isEmpty()) return;
 
         Location location = npc.getLocation();
-        location.add(0, 0.92, 0);
-
-        if (location.getWorld() == null) return;
-
-        ServerLevel worldServer = ((CraftWorld) location.getWorld()).getHandle();
 
         for (int i = lines.size() - 1; i >= 0; i--) {
             String line = lines.get(i);
-            CraftArmorStand stand = (CraftArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
+            ArmorStand stand = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
             stand.setCustomName(line);
             stand.setCustomNameVisible(true);
-            stand.setInvisible(true);
+            stand.setVisible(false);
             stand.setGravity(false);
             stand.setSmall(true);
             stands.put(i, stand);
@@ -115,7 +101,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
         List<String> lines = new ArrayList<>(originalLines);
         if (lines.isEmpty()) return;
         for (int i = lines.size() - 1; i >= 0; i--) {
-            CraftArmorStand stand = stands.get(i);
+            ArmorStand stand = stands.get(i);
             spawnVisibleArmorStand(player, stand);
         }
     }
@@ -131,30 +117,29 @@ public class NPCHologramManager extends AddonListener implements Listener {
 
     public void updateHolograms(Player player, List<String> names) {
         for (int i = 0; i < stands.size(); i++) {
-            ArmorStand stand = (ArmorStand) stands.get(i);
+            ArmorStand stand = stands.get(i);
             String name = names.get(i);
             String parsedName = ChatUtil.parse(player, name);
 
-            // Obtener el dataWatcher del armor stand
-            PersistentDataContainer dataWatcher = stand.getPersistentDataContainer();
-            stand.getPersistentDataContainer().copyTo(dataWatcher, true);
+            stand.setCustomName(parsedName);
 
             PacketPlayOutEntityMetadata dataPacket = new PacketPlayOutEntityMetadata(stand.getEntityId(), List.of());
             ((CraftPlayer) player).getHandle().connection.send(dataPacket);
         }
     }
 
-    public void spawnVisibleArmorStand(Player player, CraftArmorStand originalArmorStand) {
-        Location location = originalArmorStand.getLocation();
-        ArmorStand visibleArmorStand = (ArmorStand) player.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
-
+    public void spawnVisibleArmorStand(Player player, ArmorStand originalArmorStand) {
         String name = originalArmorStand.getName();
         // Obtener el EntityLiving del nuevo ArmorStand
         originalArmorStand.setCustomName(ChatUtil.parse(player, name));
 
+        Location loc = originalArmorStand.getLocation();
+
+        originalArmorStand.teleport(loc);
+
         // Enviar un paquete para mostrar el nuevo ArmorStand solo al visibleArmorStandEntity
-        PacketPlayOutSpawnEntity packetPlayOutSpawnEntityLiving = new PacketPlayOutSpawnEntity((Entity) visibleArmorStand, visibleArmorStand.getEntityId());
-        ((CraftPlayer) player).getHandle().connection.send(packetPlayOutSpawnEntityLiving);
+        HologramArmorStand hologramArmorStand = new HologramArmorStand(originalArmorStand);
+        hologramArmorStand.spawn(player);
 
         updateHolograms(player, getLines(PlayerLanguages.get(player.getUniqueId())));
         viewers.add(player);

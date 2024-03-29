@@ -37,6 +37,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.craftbukkit.mapped</groupId>
+            <artifactId>mapasdfped</artifactId>
+            <version>1.20.4-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../libs/craftbukkit-1.20.4.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>${craftbukkit.version}</version>
@@ -48,14 +55,7 @@
             <artifactId>mapped</artifactId>
             <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/../libs/mapped.c13d4d77.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>org.craftbukkit.mapped</groupId>
-            <artifactId>mapasdfped</artifactId>
-            <version>1.20.4-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../libs/craftbukkit-1.20.4.jar</systemPath>
+            <systemPath>${project.basedir}/../libs/mapped.0207e96c.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>us.smartmc.smartaddons</groupId>

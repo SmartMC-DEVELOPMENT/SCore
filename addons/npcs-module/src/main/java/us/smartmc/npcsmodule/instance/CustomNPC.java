@@ -1,22 +1,36 @@
 package us.smartmc.npcsmodule.instance;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
+import com.comphenix.protocol.wrappers.WrappedDataValue;
+import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import com.mojang.authlib.GameProfile;
 import lombok.Getter;
-import lombok.Setter;
-import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.SyncUtil;
+import net.kyori.adventure.text.Component;
+import net.minecraft.network.chat.IChatBaseComponent;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.*;
+import net.minecraft.world.scores.ScoreboardTeam;
+import net.minecraft.world.scores.ScoreboardTeamBase;
+import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.NameTagVisibility;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
+import us.smartmc.npcsmodule.NPCSModule;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -39,15 +53,17 @@ public class CustomNPC {
 
     private Location bukkitLocation;
 
-    public CustomNPC(ServerLevel world, String name, String skinValue, String skinSignature, ClientInformation ci) {
+    private final Document configData;
+    private final String skinValue, skinSignature;
+
+    public CustomNPC(ServerLevel world, String name, String skinValue, String skinSignature, Document configData) {
         this.npcPlayer = new ServerPlayer(server, world, new GameProfile(UUID.randomUUID(), name), ClientInformation.createDefault());
+        this.skinValue = skinValue;
+        this.skinSignature = skinSignature;
+        this.configData = configData;
         // SET SKIN VALUE & SIGNATURE IF NOT NULL BOTH STRINGS
         hologramManager = new NPCHologramManager(this);
         this.world = world;
-    }
-
-    public CustomNPC(ServerLevel world, String name) {
-        this(world, name, null, null, ClientInformation.createDefault());
     }
 
     public void setNameVisible(boolean active) {
@@ -69,6 +85,10 @@ public class CustomNPC {
 
     public void showTo(Player player) {
 
+        parseEntity(player);
+
+        npcPlayer.setCustomNameVisible(configData.getBoolean("nameVisible"));
+
         SynchedEntityData synchedEntityData = npcPlayer.getEntityData();
         synchedEntityData.set(new EntityDataAccessor<>(17, EntityDataSerializers.BYTE), (byte) 127);
 
@@ -84,6 +104,16 @@ public class CustomNPC {
         ((CraftPlayer) player).getHandle().connection.send(infoUpdatePacket);
         ((CraftPlayer) player).getHandle().connection.send(addEntityPacket);
         ((CraftPlayer) player).getHandle().connection.send(dataPacket);
+
+        if (!npcPlayer.isCustomNameVisible()) {
+            Scoreboard scoreboard = player.getScoreboard();
+            Team team = scoreboard.getTeam("hideTag");
+            if (team == null) team = scoreboard.registerNewTeam("hideTag");
+            team.setNameTagVisibility(NameTagVisibility.NEVER);
+            team.addEntry(npcPlayer.getName().getString());
+        }
+
+        hologramManager.createHologram(player);
     }
 
     public void showToAllPlayers() {

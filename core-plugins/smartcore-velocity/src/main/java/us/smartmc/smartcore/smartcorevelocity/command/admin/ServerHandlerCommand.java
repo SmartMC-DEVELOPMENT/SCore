@@ -20,6 +20,7 @@ public class ServerHandlerCommand extends CoreCommand {
 
     @Override
     public void execute(CommandSource sender, String[] args) {
+        if (!sender.hasPermission("smartmc.admin")) return;
         if (args.length == 0) {
             sender.sendMessage(Component.text(ChatUtil.parse("&cUso correcto: /serverHandler register, unregister <arguments>")));
             return;

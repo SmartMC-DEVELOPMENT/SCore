@@ -46,7 +46,6 @@ us\smartmc\smartcore\smartcorevelocity\command\admin\SetPrefixCommand.class
 us\smartmc\smartcore\smartcorevelocity\instance\UUIDFinderByName.class
 us\smartmc\smartcore\smartcorevelocity\rediscommand\LanguageChangeCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\LobbyCommand.class
-us\smartmc\smartcore\smartcorevelocity\command\moderation\StaffChatCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\SmartCoreVelocityCommand.class
 us\smartmc\smartcore\smartcorevelocity\variables\LanguageVariables.class
 us\smartmc\smartcore\smartcorevelocity\instance\OfflinePlayerData.class

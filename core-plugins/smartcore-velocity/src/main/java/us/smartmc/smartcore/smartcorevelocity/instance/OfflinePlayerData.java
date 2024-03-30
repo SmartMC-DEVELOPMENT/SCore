@@ -78,6 +78,7 @@ public class OfflinePlayerData {
 
         // Delete documents with same name
         OfflinePlayerDataManager.getColletion().deleteMany(new Document("name", getName()));
+        OfflinePlayerDataManager.getColletion().deleteMany(new Document("_id", uuid.toString()));
         OfflinePlayerDataManager.getColletion().insertOne(document);
     }
 

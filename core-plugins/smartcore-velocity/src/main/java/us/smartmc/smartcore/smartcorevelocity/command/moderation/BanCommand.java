@@ -20,6 +20,7 @@ public class BanCommand extends CoreCommand {
 
     @Override
     public void execute(CommandSource sender, String[] args) {
+        if (!sender.hasPermission("smartmc.command.ban")) return;
         if (args.length == 0 || args.length < 2) {
             sendStringMessage(SanctionsManagerMessages.NAME, sender, "cmd_correct_usage_ban");
             return;

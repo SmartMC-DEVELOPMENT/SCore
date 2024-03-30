@@ -19,6 +19,7 @@ public class WarnCommand extends CoreCommand {
 
     @Override
     public void execute(CommandSource sender, String[] args) {
+        if (!sender.hasPermission("smartmc.command.warn")) return;
         if (args.length == 0) {
             sendStringMessage(SanctionsManagerMessages.NAME, sender, "cmd_correct_usage_warn");
             return;

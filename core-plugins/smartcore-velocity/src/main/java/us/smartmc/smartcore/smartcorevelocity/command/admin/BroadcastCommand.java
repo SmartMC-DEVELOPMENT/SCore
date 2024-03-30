@@ -15,6 +15,7 @@ public class BroadcastCommand extends CoreCommand {
 
     @Override
     public void execute(CommandSource sender, String[] args) {
+        if (!sender.hasPermission("smartmc.admin")) return;
         if (args.length == 0) {
             sendStringMessage("proxy_main", sender, "broadcast_incorrect_usage");
             return;

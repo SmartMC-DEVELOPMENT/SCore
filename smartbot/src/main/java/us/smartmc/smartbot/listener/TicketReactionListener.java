@@ -52,22 +52,20 @@ public class TicketReactionListener extends ListenerAdapter {
         if (member == null) return;
 
         TextChannel textChannel = channelAction.complete();
-
-        Message welcomeMessage = textChannel.sendMessage(
-                "¡Hola " + Objects.requireNonNull(event.getMember()).getAsMention() + ", acabas de crear un ticket de " + ticketActionHandler.getChannelPrefix() + "!\n" +
-                        "Espera a que te atiendan por favor. " + getMenction(guild, ticketActionHandler) + "\n" +
-                        "Reacciona: ❌ para eliminar").complete();
-            welcomeMessage.addReaction(Emoji.fromUnicode("U+274C")).queue();
-
         TicketsHandler.registerTicket(ticketID, textChannel.getId(), event);
         TicketsHandler.registerUserTicketDelay(event.getUser());
-        TicketStorageSaver.registerTicketSaver(welcomeMessage, textChannel);
         textChannel.upsertPermissionOverride(member).
                 grant(Permission.VIEW_CHANNEL).
                 complete();
         textChannel.upsertPermissionOverride(Objects.requireNonNull(guild.getRoleById(ticketActionHandler.getRoleMenction()))).
                 grant(Permission.VIEW_CHANNEL).
                 queue();
+        Message welcomeMessage = textChannel.sendMessage(
+                "¡Hola " + Objects.requireNonNull(event.getMember()).getAsMention() + ", acabas de crear un ticket de " + ticketActionHandler.getChannelPrefix() + "!\n" +
+                        "Espera a que te atiendan por favor. " + getMenction(guild, ticketActionHandler) + "\n" +
+                        "Reacciona: ❌ para eliminar").complete();
+        welcomeMessage.addReaction(Emoji.fromUnicode("U+274C")).queue();
+        TicketStorageSaver.registerTicketSaver(welcomeMessage, textChannel);
     }
 
     public static String getMenction(Guild guild, TicketActionHandler handler) {

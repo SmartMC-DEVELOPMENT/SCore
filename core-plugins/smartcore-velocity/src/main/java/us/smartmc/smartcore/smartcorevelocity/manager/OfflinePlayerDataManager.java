@@ -12,6 +12,9 @@ import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import org.bson.Document;
 import us.smartmc.smartcore.smartcorevelocity.instance.OfflinePlayerData;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class OfflinePlayerDataManager {
 
     @Getter
@@ -22,18 +25,20 @@ public class OfflinePlayerDataManager {
 
     }
 
-    @Subscribe
+    @Subscribe(order = PostOrder.LAST)
     public void join(ServerConnectedEvent event) {
-        if (OfflinePlayerData.get(event.getPlayer()) == null) new OfflinePlayerData(event.getPlayer().getUniqueId());
-        get(event.getPlayer()).parse(event.getPlayer());
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (OfflinePlayerData.get(event.getPlayer()) == null) new OfflinePlayerData(event.getPlayer().getUniqueId());
+                get(event.getPlayer()).parse(event.getPlayer());
+            }
+        }, 200);
     }
 
-    @Subscribe(order = PostOrder.FIRST)
+    @Subscribe
     public void quit(DisconnectEvent event) {
-        OfflinePlayerData data = get(event.getPlayer());
-        if (data == null) return;
-        data.parse(event.getPlayer());
-        data.removeCache();
+        OfflinePlayerData.removeCache(event.getPlayer().getUniqueId());
     }
 
     public static OfflinePlayerData get(Player player) {

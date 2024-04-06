@@ -60,7 +60,7 @@ public class PlayerSanction extends MongoDBPluginConfig {
         checkDisconnectPlayer(true);
         sendPlayerInfo(true);
 
-        playerData.removeCache();
+        OfflinePlayerData.removeCache(playerId);
     }
 
     // Load

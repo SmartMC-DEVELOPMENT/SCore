@@ -11,7 +11,7 @@ import us.smartmc.smartcore.smartcorevelocity.manager.SanctionsManager;
 
 public class SanctionsListeners {
 
-    @Subscribe
+    @Subscribe(order = PostOrder.LATE)
     public void send(ServerConnectedEvent event) {
         SanctionsManager.loadSanctions(event.getPlayer());
     }

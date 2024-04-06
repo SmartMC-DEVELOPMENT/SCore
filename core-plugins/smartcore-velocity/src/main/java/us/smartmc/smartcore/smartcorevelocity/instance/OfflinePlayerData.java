@@ -37,7 +37,6 @@ public class OfflinePlayerData {
         if (!playedBefore) {
             save();
             Player player = VelocityPluginsAPI.proxy.getPlayer(uuid).get();
-            if (player == null) return;
             player.disconnect(Component.text(ChatUtil.parse(player, "&bHello {0}!\n&cPlease reconnect, welcome to the network :D!", player.getUsername())));
         }
         new Timer().schedule(new TimerTask() {
@@ -82,7 +81,7 @@ public class OfflinePlayerData {
         OfflinePlayerDataManager.getColletion().insertOne(document);
     }
 
-    public void removeCache() {
+    public static void removeCache(UUID uuid) {
         cache.remove(uuid);
     }
 

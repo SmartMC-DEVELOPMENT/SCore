@@ -116,8 +116,12 @@ public class SmartCore extends JavaPlugin {
         registerDefaultLanguages();
 
         SpawnHandler.setup();
-        scoreboardHandler = new ScoreboardHandler();
-        lobbyHandler = new LobbyHandler(this);
+
+        if (config.getBoolean("scoreboards_enabled"))
+            scoreboardHandler = new ScoreboardHandler();
+        if (config.getBoolean("lobbyhandler_enabled"))
+            lobbyHandler = new LobbyHandler(this);
+
         adminModeHandler = new AdminModeHandler();
 
         registerListeners();
@@ -231,6 +235,8 @@ public class SmartCore extends JavaPlugin {
                         "mongodb://imsergioh:Aa676459938@66.70.181.34:27017/admin?readPreference=primary&replicaSet=ecommerce&directConnection=true")
                 .registerDefault("redis_host", "66.70.181.34")
                 .registerDefault("redis_port", 6379)
+                .registerDefault("scoreboards_enabled", true)
+                .registerDefault("lobbyhandler_enabled", true)
                 .save();
     }
 

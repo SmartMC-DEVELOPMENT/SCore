@@ -166,12 +166,13 @@ public class SmartCore extends JavaPlugin {
     }
 
     private void registerListeners() {
-        registerListeners(scoreboardHandler,
+        registerListeners(
                 new SpawnHandler(),
                 new TagsHandler(),
                 new AdminModeListeners(),
                 new CorePlayersListener(),
                 new CommandListeners());
+        if (scoreboardHandler != null) registerListeners(scoreboardHandler);
     }
 
     private void registerVariables() {

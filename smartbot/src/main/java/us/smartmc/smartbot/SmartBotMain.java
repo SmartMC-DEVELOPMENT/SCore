@@ -61,7 +61,7 @@ public class SmartBotMain {
                         GatewayIntent.GUILD_MESSAGE_REACTIONS,
                         GatewayIntent.DIRECT_MESSAGES)
                 .build();
-        api.getPresence().setActivity(Activity.of(Activity.ActivityType.WATCHING, "Administración administrando lo no administrable"));
+        api.getPresence().setActivity(Activity.of(Activity.ActivityType.PLAYING, "play.smartmc.us"));
 
         // ALLOWED GUILDS >>
         GuildsHandler.register("1109545191796391938",

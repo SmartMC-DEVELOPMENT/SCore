@@ -4,7 +4,7 @@ package us.smartmc.smartcore.smartcorevelocity.instance;
 import com.velocitypowered.api.proxy.Player;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.VelocityChatUtil;
 import net.kyori.adventure.text.Component;
 
 import java.util.HashMap;
@@ -19,7 +19,7 @@ public class PlayerLanguages {
     }
 
     public static void sendMessage(Player player, String holder, String messagePath, Object... args) {
-        String message = ChatUtil.parse(
+        String message = VelocityChatUtil.parse(
                 LanguagesHandler.get(getLanguage(player)).get(holder).getString(messagePath),
                 args);
         player.sendMessage(Component.text(message));

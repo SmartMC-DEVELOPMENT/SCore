@@ -3,7 +3,7 @@ package us.smartmc.lobbymodule.listener;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.instance.ClickableComponent;
 import me.imsergioh.pluginsapi.util.BukkitUtil;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -59,17 +59,9 @@ public class PlayerListener extends AddonListener implements Listener {
         if(!player.hasPermission("smartmc.vip")) return;
 
         for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
-            String playerNamePrefixMessage = ChatUtil.parse(player, "<rank><name>");
+            String playerNamePrefixMessage = PaperChatUtil.parse(player, "<rank><name>");
 
-            onlinePlayer.sendMessage(ChatUtil.parse(onlinePlayer, "<lang.lobby.join_message>", playerNamePrefixMessage));
+            onlinePlayer.sendMessage(PaperChatUtil.parse(onlinePlayer, "<lang.lobby.join_message>", playerNamePrefixMessage));
         }
-    }
-
-    @EventHandler
-    public void cancelInteract(PlayerInteractEvent event) {
-        if (!isEnabled()) return;
-        Player player = event.getPlayer();
-        if (SmartCore.getPlugin().getAdminModeHandler().isActive(player)) return;
-        event.setCancelled(true);
     }
 }

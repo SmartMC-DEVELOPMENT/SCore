@@ -2,7 +2,7 @@ package us.smartmc.gamesmanager.player;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.entity.Player;
 import us.smartmc.gamesmanager.team.GameTeam;
 
@@ -28,7 +28,7 @@ public class GamePlayer {
     }
 
     public void sendMessage(String message, Object... args) {
-        bukkitPlayer.sendMessage(ChatUtil.parse(bukkitPlayer, message, args));
+        bukkitPlayer.sendMessage(PaperChatUtil.parse(bukkitPlayer, message, args));
     }
 
     public static GamePlayer get(Player player) {

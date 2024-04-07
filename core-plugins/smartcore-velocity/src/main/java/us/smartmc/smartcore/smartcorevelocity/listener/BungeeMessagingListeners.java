@@ -5,7 +5,7 @@ import com.velocitypowered.api.event.connection.PluginMessageEvent;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.VelocityChatUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import us.smartmc.smartcore.smartcorevelocity.messages.ProxyMainMessages;
@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 public class BungeeMessagingListeners {
 
@@ -47,7 +46,7 @@ public class BungeeMessagingListeners {
                 }
                 if (list.isEmpty()) {
                     String message = ProxyMainMessages.get(PlayerLanguages.get(player.getUniqueId()), "servers_not_found");
-                    player.sendMessage(Component.text(ChatUtil.parse(message)));
+                    player.sendMessage(Component.text(VelocityChatUtil.parse(message)));
                     return;
                 }
 

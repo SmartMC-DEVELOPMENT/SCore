@@ -3,7 +3,7 @@ package us.smartmc.lobbycosmetics.itemcommand;
 import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
@@ -36,7 +36,7 @@ public class ToggleCosmeticAction implements ItemActionExecutor {
 
         MsgHolderLanguageInfo info = new MsgHolderLanguageInfo("cosmetic_" + cosmetic.getId(), PlayerLanguages.get(player.getUniqueId()), CosmeticsSectionMessages.getName(cosmetic.getType()));
         SmartCorePlayer smartCorePlayer = SmartCorePlayer.get(player);
-        String message = LobbyCosmetics.getCosmeticsMainMessages().get(player, PlayerLanguages.get(player.getUniqueId()), "cosmetic_set", ChatUtil.color(info.getName()));
+        String message = LobbyCosmetics.getCosmeticsMainMessages().get(player, PlayerLanguages.get(player.getUniqueId()), "cosmetic_set", PaperChatUtil.color(info.getName()));
         player.sendMessage(message);
         smartCorePlayer.playSound(Sound.UI_BUTTON_CLICK, 1, 1);
     }

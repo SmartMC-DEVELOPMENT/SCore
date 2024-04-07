@@ -2,7 +2,7 @@ package us.smartmc.smartcore.smartcorevelocity.command.admin;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.server.ServerInfo;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.VelocityChatUtil;
 import net.kyori.adventure.text.Component;
 import us.smartmc.smartcore.smartcorevelocity.SmartCoreVelocity;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
@@ -22,7 +22,7 @@ public class ServerHandlerCommand extends CoreCommand {
     public void execute(CommandSource sender, String[] args) {
         if (!sender.hasPermission("smartmc.admin")) return;
         if (args.length == 0) {
-            sender.sendMessage(Component.text(ChatUtil.parse("&cUso correcto: /serverHandler register, unregister <arguments>")));
+            sender.sendMessage(Component.text(VelocityChatUtil.parse("&cUso correcto: /serverHandler register, unregister <arguments>")));
             return;
         }
 
@@ -33,7 +33,7 @@ public class ServerHandlerCommand extends CoreCommand {
                     String[] addressArguments = args[2].split(":");
                     InetSocketAddress address = new InetSocketAddress(addressArguments[0], Integer.parseInt(addressArguments[1]));
                     register(name, address);
-                    sender.sendMessage(Component.text(ChatUtil.parse("&aServidor agreado y registrado correctamente.")));
+                    sender.sendMessage(Component.text(VelocityChatUtil.parse("&aServidor agreado y registrado correctamente.")));
                 }
                 break;
             }
@@ -41,7 +41,7 @@ public class ServerHandlerCommand extends CoreCommand {
                 if (args.length >= 2) {
                     String name = args[1];
                     unregister(name);
-                    sender.sendMessage(Component.text(ChatUtil.parse("&aServidor removido correctamente.")));
+                    sender.sendMessage(Component.text(VelocityChatUtil.parse("&aServidor removido correctamente.")));
                 }
             }
         }

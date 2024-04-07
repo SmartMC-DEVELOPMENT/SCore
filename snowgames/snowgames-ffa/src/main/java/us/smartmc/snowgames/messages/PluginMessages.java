@@ -5,7 +5,7 @@ import me.imsergioh.pluginsapi.language.LangMessagesInfo;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.language.LanguageMessagesHolder;
 import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 
 import java.text.MessageFormat;
 import java.util.Arrays;

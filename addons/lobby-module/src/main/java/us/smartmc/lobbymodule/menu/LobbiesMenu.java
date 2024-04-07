@@ -5,7 +5,7 @@ import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.HumanEntity;
@@ -93,11 +93,11 @@ public class LobbiesMenu extends CoreMenu {
         if (isSelf) {
             prefixPath = "current_lobby_name_prefix";
         }
-        return ChatUtil.parse(LanguagesHandler.get(language).get(LobbyMessages.NAME).getString(prefixPath));
+        return PaperChatUtil.parse(LanguagesHandler.get(language).get(LobbyMessages.NAME).getString(prefixPath));
     }
 
     public String getItemName(int lobbyNumber) {
-        return ChatUtil.parse(LanguagesHandler.get(language).get(LobbyMessages.NAME).getString("main_lobby_name"), lobbyNumber);
+        return PaperChatUtil.parse(LanguagesHandler.get(language).get(LobbyMessages.NAME).getString("main_lobby_name"), lobbyNumber);
     }
 
     public static int getDynamicInventorySize() {

@@ -3,7 +3,7 @@ package us.smartmc.snowgames.menu;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bson.Document;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -56,7 +56,7 @@ public class TopsMenu extends FFAMenu {
         }
         list.addAll(
                 getListByStrings(" ",
-                        ChatUtil.parse(initPlayer, "<lang." + PluginMessages.NAME+ ".tops_your_position>",
+                        PaperChatUtil.parse(initPlayer, "<lang." + PluginMessages.NAME+ ".tops_your_position>",
                                 top.getPlayerRank(initPlayer.getUniqueId().toString())))
         );
 

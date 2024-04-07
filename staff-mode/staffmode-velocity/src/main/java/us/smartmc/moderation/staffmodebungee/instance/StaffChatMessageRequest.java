@@ -2,7 +2,7 @@ package us.smartmc.moderation.staffmodebungee.instance;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.bson.Document;
 
@@ -33,7 +33,7 @@ public class StaffChatMessageRequest {
     }
 
     public String getFormattedMessage(ProxiedPlayer player) {
-        return MessageFormat.format(ChatUtil.parse(player, MESSAGE_FORMAT), name, message);
+        return MessageFormat.format(PaperChatUtil.parse(player, MESSAGE_FORMAT), name, message);
     }
 
     public static StaffChatMessageRequest fromJson(String json) {

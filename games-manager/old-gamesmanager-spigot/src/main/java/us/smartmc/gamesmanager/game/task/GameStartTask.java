@@ -1,7 +1,7 @@
 package us.smartmc.gamesmanager.game.task;
 
 import lombok.Getter;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.entity.Player;
 import us.smartmc.gamesmanager.game.GameStatus;
 import us.smartmc.gamesmanager.game.IGameSession;
@@ -28,7 +28,7 @@ public class GameStartTask extends GameRepeatingTask {
 
             if (seconds >= 1) {
                 gameSession.forEachPlayer(gamePlayer -> {
-                    gamePlayer.sendMessage(ChatUtil.parse(gamePlayer, "Game starting in {0}!", seconds));
+                    gamePlayer.sendMessage(PaperChatUtil.parse(gamePlayer, "Game starting in {0}!", seconds));
                 });
             }
         });

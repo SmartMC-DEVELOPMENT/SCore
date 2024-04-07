@@ -2,7 +2,7 @@ package us.smartmc.smartcore.smartcorevelocity.command;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.plugin.Plugin;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.VelocityChatUtil;
 import net.kyori.adventure.text.Component;
 import us.smartmc.smartcore.smartcorevelocity.SmartCoreVelocity;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
@@ -23,7 +23,7 @@ public class SmartCoreVelocityCommand extends CoreCommand {
     public void execute(CommandSource sender, String[] args) {
         if (!sender.hasPermission("*")) {
             Plugin info = SmartCoreVelocity.class.getAnnotation(Plugin.class);
-            sender.sendMessage(Component.text(ChatUtil.parse("&bSmartCoreWaterfall plugin v " +
+            sender.sendMessage(Component.text(VelocityChatUtil.parse("&bSmartCoreWaterfall plugin v " +
                     info.version() + " by ImSergioh!")));
             return;
         }
@@ -34,7 +34,7 @@ public class SmartCoreVelocityCommand extends CoreCommand {
 
         if (args[0].contains("config")) {
             plugin.loadConfig();
-            sender.sendMessage(Component.text(ChatUtil.parse("&aConfiguración recargada!")));
+            sender.sendMessage(Component.text(VelocityChatUtil.parse("&aConfiguración recargada!")));
         }
 
         if (args[0].contains("cmd")) {
@@ -42,19 +42,19 @@ public class SmartCoreVelocityCommand extends CoreCommand {
             plugin.loadCustomCommands();
             CustomCommandsManager.forEach(customCommandsManager -> {
                 customCommandsManager.load();
-                sender.sendMessage(Component.text(ChatUtil.parse("&aRecargado: &e" + customCommandsManager.getName())));
+                sender.sendMessage(Component.text(VelocityChatUtil.parse("&aRecargado: &e" + customCommandsManager.getName())));
             });
-            sender.sendMessage(Component.text(ChatUtil.parse("&aRecargados!")));
+            sender.sendMessage(Component.text(VelocityChatUtil.parse("&aRecargados!")));
         }
 
         if (args[0].contains("mess") || args[0].contains("msg")) {
             plugin.loadMessages();
-            sender.sendMessage(Component.text(ChatUtil.parse("&aMensajes Recargados!")));
+            sender.sendMessage(Component.text(VelocityChatUtil.parse("&aMensajes Recargados!")));
         }
 
         if (args[0].contains("tab")) {
             TabHandler.register();
-            sender.sendMessage(Component.text(ChatUtil.parse("&aTabs Recargados!")));
+            sender.sendMessage(Component.text(VelocityChatUtil.parse("&aTabs Recargados!")));
         }
     }
 }

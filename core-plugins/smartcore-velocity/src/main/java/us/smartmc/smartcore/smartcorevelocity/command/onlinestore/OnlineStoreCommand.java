@@ -1,8 +1,7 @@
 package us.smartmc.smartcore.smartcorevelocity.command.onlinestore;
 
 import com.velocitypowered.api.command.CommandSource;
-import com.velocitypowered.api.command.SimpleCommand;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.VelocityChatUtil;
 import net.kyori.adventure.text.Component;
 import us.smartmc.smartcore.smartcorevelocity.SmartCoreVelocity;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
@@ -20,7 +19,7 @@ public class OnlineStoreCommand extends CoreCommand {
     @Override
     public void execute(CommandSource sender, String[] args) {
         if (!sender.hasPermission("*")) {
-            sender.sendMessage(Component.text(ChatUtil.parse("&bSmartCore created by ImSergioh! :D")));
+            sender.sendMessage(Component.text(VelocityChatUtil.parse("&bSmartCore created by ImSergioh! :D")));
             return;
         }
 

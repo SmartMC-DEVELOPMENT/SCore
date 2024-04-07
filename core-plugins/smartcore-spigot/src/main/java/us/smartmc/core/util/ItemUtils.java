@@ -3,7 +3,7 @@ package us.smartmc.core.util;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -25,7 +25,7 @@ public class ItemUtils {
         item = item.clone();
         ItemMeta meta = item.getItemMeta();
         if (meta.getDisplayName() != null) {
-            meta.setDisplayName(ChatUtil.parse(player, meta.getDisplayName()));
+            meta.setDisplayName(PaperChatUtil.parse(player, meta.getDisplayName()));
         }
 
         if (meta.hasLore()) {
@@ -39,13 +39,13 @@ public class ItemUtils {
         if (player == null) return item.getItemMeta().getLore();
         ArrayList<String> lore = new ArrayList<>();
         for (String line : item.getItemMeta().getLore()) {
-            line = ChatUtil.parse(player, line);
+            line = PaperChatUtil.parse(player, line);
             if (line.contains("\n")) {
                 for (String l : line.split("\\n")) {
-                    lore.add(ChatUtil.parse(player, "&7" + l));
+                    lore.add(PaperChatUtil.parse(player, "&7" + l));
                 }
             } else {
-                lore.add(ChatUtil.parse(player, line));
+                lore.add(PaperChatUtil.parse(player, line));
             }
         }
         ItemMeta meta = item.getItemMeta();

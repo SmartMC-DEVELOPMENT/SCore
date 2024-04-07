@@ -4,7 +4,7 @@ import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.VelocityChatUtil;
 import net.kyori.adventure.text.Component;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
 import us.smartmc.smartcore.smartcorevelocity.instance.PlayerLanguages;
@@ -37,7 +37,7 @@ public class AnnouncePackagePurchase extends CoreCommand {
         for (Language language : Language.values()) {
             String message = LanguagesHandler.get(language).get("proxy_main").getString("purchase_package_announce");
             message = MessageFormat.format(message, username, packageName);
-            message = ChatUtil.color(message);
+            message = VelocityChatUtil.color(message);
             messages.put(language, message);
         }
 

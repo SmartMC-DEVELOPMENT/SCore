@@ -6,7 +6,7 @@ import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import me.imsergioh.pluginsapi.util.LanguageUtil;
 import me.imsergioh.pluginsapi.util.LineLimiter;
 import org.bson.Document;
@@ -77,12 +77,12 @@ public class MinigamesConfig extends MongoDBPluginConfig {
 
 
         if (titleCustom != null) {
-            list.add(LanguageUtil.parse(language, ChatUtil.parse(titleCustom)));
+            list.add(LanguageUtil.parse(language, PaperChatUtil.parse(titleCustom)));
         }
 
         if (configDoc.getBoolean("prototype", false)) {
             // IF PROTOTYPE BOOLEAN IS TRUE:
-            list.add(LanguageUtil.parse(language, ChatUtil.parse("<lang.lobby_miniGames.prototype_title>")));
+            list.add(LanguageUtil.parse(language, PaperChatUtil.parse("<lang.lobby_miniGames.prototype_title>")));
         }
 
         list.add("&r");

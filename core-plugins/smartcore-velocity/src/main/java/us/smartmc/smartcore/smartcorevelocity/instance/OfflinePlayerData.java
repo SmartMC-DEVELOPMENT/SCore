@@ -4,7 +4,7 @@ import com.velocitypowered.api.proxy.Player;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.VelocityChatUtil;
 import net.kyori.adventure.text.Component;
 import org.bson.Document;
 import us.smartmc.smartcore.smartcorevelocity.manager.OfflinePlayerDataManager;
@@ -37,7 +37,7 @@ public class OfflinePlayerData {
         if (!playedBefore) {
             save();
             Player player = VelocityPluginsAPI.proxy.getPlayer(uuid).get();
-            player.disconnect(Component.text(ChatUtil.parse(player, "&bHello {0}!\n&cPlease reconnect, welcome to the network :D!", player.getUsername())));
+            player.disconnect(Component.text(VelocityChatUtil.parse(player, "&bHello {0}!\n&cPlease reconnect, welcome to the network :D!", player.getUsername())));
         }
         new Timer().schedule(new TimerTask() {
             @Override

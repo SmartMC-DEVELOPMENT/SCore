@@ -8,7 +8,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
@@ -131,7 +131,7 @@ public class CustomNPC {
         try {
             Field nameField = GameProfile.class.getDeclaredField("name");
             nameField.setAccessible(true);
-            nameField.set(npcPlayer.getGameProfile(), ChatUtil.parse(player, npcPlayer.getName().getString()));
+            nameField.set(npcPlayer.getGameProfile(), PaperChatUtil.parse(player, npcPlayer.getName().getString()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

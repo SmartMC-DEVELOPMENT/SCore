@@ -8,7 +8,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.events.PacketListener;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.VariableListener;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
@@ -40,10 +40,10 @@ public class ChatModule extends AddonPlugin {
                 String message = event.getPacket().getStrings().read(0);
 
                 if (event.getPlayer().hasPermission("smartmc.vip")) {
-                    message = "§f" + ChatUtil.color(message);
+                    message = "§f" + PaperChatUtil.color(message);
                 }
 
-                String formattedMessage = ChatUtil.parse(event.getPlayer(), "<chat.prefix>&f<name> &8&l»&7 ") + message;
+                String formattedMessage = PaperChatUtil.parse(event.getPlayer(), "<chat.prefix>&f<name> &8&l»&7 ") + message;
 
                 formattedMessage = VariablesHandler.parse(event.getPlayer(), formattedMessage);
 

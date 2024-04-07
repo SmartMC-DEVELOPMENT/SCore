@@ -1,6 +1,6 @@
 package us.smartmc.core.handler;
 
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
@@ -53,13 +53,13 @@ public class TagsHandler implements Listener {
             if (team == null) {
                 // Team creation
                 team = scoreboard.registerNewTeam(teamName);
-                String prefix = ChatUtil.parse(player, "<chat.prefix.color>");
+                String prefix = PaperChatUtil.parse(player, "<chat.prefix.color>");
                 team.setPrefix(prefix);
                 if (!team.getPlayers().contains(player))
                     team.addPlayer(player);
             } else {
                 // Team prefix update
-                String prefix = ChatUtil.parse(player, "<chat.prefix.color>");
+                String prefix = PaperChatUtil.parse(player, "<chat.prefix.color>");
                 if (team.getPrefix().equals(prefix)) continue;
                 team.setPrefix(prefix);
             }
@@ -68,7 +68,7 @@ public class TagsHandler implements Listener {
 
     private String getFormattedTag(Player player) {
         String unformattedTag = "<chat.prefix>&7<name>";
-         return ChatUtil.parse(player, unformattedTag);
+         return PaperChatUtil.parse(player, unformattedTag);
     }
 
     private String getUniqueTeamName(Player player) {

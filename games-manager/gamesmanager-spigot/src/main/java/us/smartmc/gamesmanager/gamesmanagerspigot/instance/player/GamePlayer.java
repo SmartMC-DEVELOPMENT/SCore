@@ -2,7 +2,7 @@ package us.smartmc.gamesmanager.gamesmanagerspigot.instance.player;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import us.smartmc.gamesmanager.gamesmanagerspigot.instance.event.player.GamePlayerStatusChangeEvent;
@@ -29,12 +29,12 @@ public abstract class GamePlayer extends OfflineGamePlayer {
     }
 
     public void sendMessage(String message, Object... args) {
-        player.sendMessage(ChatUtil.parse(player, message, args));
+        player.sendMessage(PaperChatUtil.parse(player, message, args));
     }
 
     public void sendTitle(String title, String subtitle, Object... args) {
-        player.sendTitle(ChatUtil.parse(player, title, args),
-                ChatUtil.parse(player, subtitle, args));
+        player.sendTitle(PaperChatUtil.parse(player, title, args),
+                PaperChatUtil.parse(player, subtitle, args));
     }
 
     public void setStatus(PlayerStatus status) {

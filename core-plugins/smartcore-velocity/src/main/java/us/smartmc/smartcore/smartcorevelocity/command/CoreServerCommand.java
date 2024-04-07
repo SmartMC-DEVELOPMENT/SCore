@@ -5,7 +5,7 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import me.imsergioh.pluginsapi.instance.backend.PlayerServerConnectionsHandler;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.VelocityChatUtil;
 import net.kyori.adventure.text.Component;
 import us.smartmc.smartcore.smartcorevelocity.SmartCoreVelocity;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
@@ -24,7 +24,7 @@ public class CoreServerCommand extends CoreCommand {
     public void execute(CommandSource sender, String[] args) {
         if (!sender.hasPermission("*")) {
             Plugin info = SmartCoreVelocity.class.getAnnotation(Plugin.class);
-            sender.sendMessage(Component.text(ChatUtil.parse("&bSmartCoreVelocity plugin v " +
+            sender.sendMessage(Component.text(VelocityChatUtil.parse("&bSmartCoreVelocity plugin v " +
                     info.version() + " by ImSergioh!")));
             return;
         }
@@ -32,18 +32,18 @@ public class CoreServerCommand extends CoreCommand {
         Player player = (Player) sender;
 
         if (args.length == 0) {
-            sender.sendMessage(Component.text(ChatUtil.color("&cTienes que especificar a que server te quieres conectar")));
+            sender.sendMessage(Component.text(VelocityChatUtil.color("&cTienes que especificar a que server te quieres conectar")));
             return;
         }
 
         String serverTargetName = args[0];
         Optional<RegisteredServer> optional = VelocityPluginsAPI.proxy.getServer(serverTargetName);
         if (optional.isEmpty()) {
-            player.sendMessage(Component.text(ChatUtil.color("&cNo se ha encontrado ese servidor registrado a tu proxy actual")));
+            player.sendMessage(Component.text(VelocityChatUtil.color("&cNo se ha encontrado ese servidor registrado a tu proxy actual")));
             return;
         }
         RegisteredServer server = optional.get();
-        player.sendMessage(Component.text(ChatUtil.color("&aConectando a &e" + server.getServerInfo().getName() + "&a...")));
+        player.sendMessage(Component.text(VelocityChatUtil.color("&aConectando a &e" + server.getServerInfo().getName() + "&a...")));
         PlayerServerConnectionsHandler.get(player).sendConnectionQueue(server);
     }
 }

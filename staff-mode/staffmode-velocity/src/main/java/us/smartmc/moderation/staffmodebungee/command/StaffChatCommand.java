@@ -1,6 +1,6 @@
 package us.smartmc.moderation.staffmodebungee.command;
 
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import me.imsergioh.smartcorewaterfall.instance.PlayerLanguages;
 import me.imsergioh.smartcorewaterfall.messages.ProxyMainMessages;
 import net.md_5.bungee.api.ChatColor;
@@ -46,7 +46,7 @@ public class StaffChatCommand extends Command {
 
         ProxiedPlayer player = (ProxiedPlayer) sender;
         if (!sender.hasPermission(RegistrationUtil.STAFF_PERMISSION)) {
-            player.sendMessage(ChatUtil.parse(player, ProxyMainMessages.get(PlayerLanguages.getLanguage(player.getUniqueId()),
+            player.sendMessage(PaperChatUtil.parse(player, ProxyMainMessages.get(PlayerLanguages.getLanguage(player.getUniqueId()),
                     "no_permission")));
             return;
         }

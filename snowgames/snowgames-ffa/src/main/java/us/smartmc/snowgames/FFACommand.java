@@ -1,7 +1,7 @@
 package us.smartmc.snowgames;
 
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,9 +25,9 @@ public class FFACommand implements CommandExecutor {
                 try {
                     FFAMap map = (FFAMap) GameMapManager.get(args[1]);
                     map.setSpawn(player.getLocation());
-                    player.sendMessage(ChatUtil.parse("&aSpawn set!"));
+                    player.sendMessage(PaperChatUtil.parse("&aSpawn set!"));
                 } catch (Exception ignore) {
-                    player.sendMessage(ChatUtil.parse("&cError ocurred while trying to set spawn. Be sure you are specifing the name of the map correctly"));
+                    player.sendMessage(PaperChatUtil.parse("&cError ocurred while trying to set spawn. Be sure you are specifing the name of the map correctly"));
                 }
             }
 
@@ -45,9 +45,9 @@ public class FFACommand implements CommandExecutor {
                 try {
                     FFAMap map = (FFAMap) GameMapManager.get(args[1]);
                     map.setSpawnYLocation((int) player.getLocation().getY());
-                    player.sendMessage(ChatUtil.parse("&aSpawn Y set!"));
+                    player.sendMessage(PaperChatUtil.parse("&aSpawn Y set!"));
                 } catch (Exception ignore) {
-                    player.sendMessage(ChatUtil.parse("&cError ocurred while trying to set spawn. Be sure you are specifing the name of the map correctly"));
+                    player.sendMessage(PaperChatUtil.parse("&cError ocurred while trying to set spawn. Be sure you are specifing the name of the map correctly"));
                 }
             }
 

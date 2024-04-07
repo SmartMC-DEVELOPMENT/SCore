@@ -1,7 +1,7 @@
 package us.smartmc.core.instance;
 
 import com.google.common.collect.Lists;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

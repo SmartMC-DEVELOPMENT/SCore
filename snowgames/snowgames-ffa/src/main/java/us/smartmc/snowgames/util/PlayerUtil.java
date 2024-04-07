@@ -2,7 +2,7 @@ package us.smartmc.snowgames.util;
 
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import us.smartmc.snowgames.FFAPlugin;
@@ -59,9 +59,9 @@ public class PlayerUtil {
             if (language == null) language = Language.getDefault();
 
             String message = killer == null ?
-                    ChatUtil.parse(player.getPlayer(), manager.getRandomMessageFromList(messageIndex, language),
+                    PaperChatUtil.parse(player.getPlayer(), manager.getRandomMessageFromList(messageIndex, language),
                     victim.getName()) :
-                    ChatUtil.parse(player.getPlayer(), manager.getRandomMessageFromList(messageIndex, language),
+                    PaperChatUtil.parse(player.getPlayer(), manager.getRandomMessageFromList(messageIndex, language),
                     victim.getName(), killer.getName());
             player.getPlayer().sendMessage(message);
         });

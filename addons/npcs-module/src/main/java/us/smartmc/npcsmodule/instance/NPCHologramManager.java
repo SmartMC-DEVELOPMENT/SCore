@@ -2,7 +2,7 @@ package us.smartmc.npcsmodule.instance;
 
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import me.imsergioh.pluginsapi.util.LanguageUtil;
 import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
 import org.bukkit.Bukkit;
@@ -111,7 +111,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
         List<String> list = new ArrayList<>();
         for (String line : getLines()) {
             String languageParsedLine = LanguageUtil.parse(language, line);
-            list.add(ChatUtil.parse(languageParsedLine));
+            list.add(PaperChatUtil.parse(languageParsedLine));
         }
         return list;
     }
@@ -120,7 +120,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
         for (int i = 0; i < stands.size(); i++) {
             ArmorStand stand = stands.get(i);
             String name = names.get(i);
-            String parsedName = ChatUtil.parse(player, name);
+            String parsedName = PaperChatUtil.parse(player, name);
 
             stand.setCustomName(parsedName);
 
@@ -132,7 +132,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
     public void spawnVisibleArmorStand(Player player, ArmorStand originalArmorStand) {
         String name = originalArmorStand.getName();
         // Obtener el EntityLiving del nuevo ArmorStand
-        originalArmorStand.setCustomName(ChatUtil.parse(player, name));
+        originalArmorStand.setCustomName(PaperChatUtil.parse(player, name));
 
         Location loc = originalArmorStand.getLocation();
 

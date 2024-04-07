@@ -6,7 +6,7 @@ import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bson.Document;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -92,7 +92,7 @@ public class LinkSocialsMenu extends CoreMenu {
 
     private void register(int slot, LinkSocialType type) {
         ItemStack initialItem = LobbyMessages.getItem(Material.PLAYER_HEAD, "link_social_network").get(initPlayer);
-        String name = ChatUtil.parse(initPlayer, type.getDisplayName());
+        String name = PaperChatUtil.parse(initPlayer, type.getDisplayName());
         List<String> lore = initialItem.getItemMeta().getLore();
         String labelCommand = "linkSocial " + type.name();
 

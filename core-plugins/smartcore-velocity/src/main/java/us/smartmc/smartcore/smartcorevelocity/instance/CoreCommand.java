@@ -5,7 +5,7 @@ import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.VelocityChatUtil;
 import net.kyori.adventure.text.Component;
 
 import java.util.Arrays;
@@ -34,11 +34,11 @@ public abstract class CoreCommand implements SimpleCommand, ICoreCommand {
             language = PlayerLanguages.getLanguage(((Player) sender).getUniqueId());
 
         String message = LanguagesHandler.get(language).get(name).getString(path);
-        sender.sendMessage(Component.text(ChatUtil.parse(message, args)));
+        sender.sendMessage(Component.text(VelocityChatUtil.parse(message, args)));
     }
 
     public void sendFormattedList(String name, CommandSource sender, String path, Object... args) {
-        sender.sendMessage(Component.text(ChatUtil.parse(getFormattedList(name, sender, path), args)));
+        sender.sendMessage(Component.text(VelocityChatUtil.parse(getFormattedList(name, sender, path), args)));
     }
 
     private String getFormattedList(String name, CommandSource sender, String path) {
@@ -51,8 +51,8 @@ public abstract class CoreCommand implements SimpleCommand, ICoreCommand {
 
         for (String line : list) {
             if (player != null)
-                stringBuilder.append(ChatUtil.parse(player, line) + "\n");
-            else stringBuilder.append(ChatUtil.parse(line) + "\n");
+                stringBuilder.append(VelocityChatUtil.parse(player, line) + "\n");
+            else stringBuilder.append(VelocityChatUtil.parse(line) + "\n");
         }
         return stringBuilder.toString();
     }

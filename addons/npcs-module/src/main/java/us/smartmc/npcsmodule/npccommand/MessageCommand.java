@@ -1,6 +1,6 @@
 package us.smartmc.npcsmodule.npccommand;
 
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.entity.Player;
 import us.smartmc.npcsmodule.event.NPCUseEntityEvent;
 import us.smartmc.npcsmodule.instance.NPCCommandExecutor;
@@ -18,6 +18,6 @@ public class MessageCommand implements NPCCommandExecutor {
 
         Player player = event.getPlayer();
         String message = builder.toString();
-        player.sendMessage(ChatUtil.parse(player, message));
+        player.sendMessage(PaperChatUtil.parse(player, message));
     }
 }

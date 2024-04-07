@@ -2,7 +2,7 @@
 package us.smartmc.gamesmanager.game;
 
 import lombok.Getter;
-import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import us.smartmc.gamesmanager.game.map.GameMap;
@@ -85,8 +85,8 @@ public class GameSession<P extends Player> implements IGameSession<P> {
 
     @Override
     public void deathPlayer(P player) {
-        String title = ChatUtil.parse(player.getPlayer(), GameMessages.getMessageVariable("death_title"));
-        String subtitle = ChatUtil.parse(player.getPlayer(), GameMessages.getMessageVariable("death_subtitle"));
+        String title = PaperChatUtil.parse(player.getPlayer(), GameMessages.getMessageVariable("death_title"));
+        String subtitle = PaperChatUtil.parse(player.getPlayer(), GameMessages.getMessageVariable("death_subtitle"));
         player.getPlayer().sendTitle(title, subtitle);
     }
 

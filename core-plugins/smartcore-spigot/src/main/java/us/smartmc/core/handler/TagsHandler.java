@@ -2,6 +2,7 @@ package us.smartmc.core.handler;
 
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import me.imsergioh.pluginsapi.util.SyncUtil;
+import net.kyori.adventure.text.Component;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
@@ -42,9 +43,9 @@ public class TagsHandler implements Listener {
     }
 
     private void registerTagAboveHead(Player player) {
-        String formattedTag = getFormattedTag(player);
-        player.setPlayerListName(formattedTag);
-        player.setDisplayName(formattedTag);
+        Component formattedTag = getFormattedTag(player);
+        player.displayName(formattedTag);
+        player.playerListName(formattedTag);
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             Scoreboard scoreboard = onlinePlayer.getScoreboard();
             String teamName = getUniqueTeamName(player);
@@ -53,22 +54,22 @@ public class TagsHandler implements Listener {
             if (team == null) {
                 // Team creation
                 team = scoreboard.registerNewTeam(teamName);
-                String prefix = PaperChatUtil.parse(player, "<chat.prefix.color>");
-                team.setPrefix(prefix);
-                if (!team.getPlayers().contains(player))
+                Component prefix = PaperChatUtil.parseToComponent(player, "<chat.prefix.color>");
+                team.prefix(prefix);
+                if (!team.hasPlayer(player))
                     team.addPlayer(player);
             } else {
                 // Team prefix update
-                String prefix = PaperChatUtil.parse(player, "<chat.prefix.color>");
-                if (team.getPrefix().equals(prefix)) continue;
-                team.setPrefix(prefix);
+                Component prefix = PaperChatUtil.parseToComponent(player, "<chat.prefix.color>");
+                if (team.prefix().equals(prefix)) continue;
+                team.prefix(prefix);
             }
         }
     }
 
-    private String getFormattedTag(Player player) {
+    private Component getFormattedTag(Player player) {
         String unformattedTag = "<chat.prefix>&7<name>";
-         return PaperChatUtil.parse(player, unformattedTag);
+         return PaperChatUtil.parseToComponent(player, unformattedTag);
     }
 
     private String getUniqueTeamName(Player player) {

@@ -22,7 +22,7 @@ public class ServerHandlerCommand extends CoreCommand {
     public void execute(CommandSource sender, String[] args) {
         if (!sender.hasPermission("smartmc.admin")) return;
         if (args.length == 0) {
-            sender.sendMessage(Component.text(VelocityChatUtil.parse("&cUso correcto: /serverHandler register, unregister <arguments>")));
+            sender.sendMessage(VelocityChatUtil.parseToComponent("&cUso correcto: /serverHandler register, unregister <arguments>"));
             return;
         }
 
@@ -33,7 +33,7 @@ public class ServerHandlerCommand extends CoreCommand {
                     String[] addressArguments = args[2].split(":");
                     InetSocketAddress address = new InetSocketAddress(addressArguments[0], Integer.parseInt(addressArguments[1]));
                     register(name, address);
-                    sender.sendMessage(Component.text(VelocityChatUtil.parse("&aServidor agreado y registrado correctamente.")));
+                    sender.sendMessage(VelocityChatUtil.parseToComponent("&aServidor agreado y registrado correctamente."));
                 }
                 break;
             }
@@ -41,7 +41,7 @@ public class ServerHandlerCommand extends CoreCommand {
                 if (args.length >= 2) {
                     String name = args[1];
                     unregister(name);
-                    sender.sendMessage(Component.text(VelocityChatUtil.parse("&aServidor removido correctamente.")));
+                    sender.sendMessage(VelocityChatUtil.parseToComponent("&aServidor removido correctamente."));
                 }
             }
         }

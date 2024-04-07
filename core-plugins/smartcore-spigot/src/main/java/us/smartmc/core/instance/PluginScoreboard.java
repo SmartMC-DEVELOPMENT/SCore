@@ -43,6 +43,7 @@ public class PluginScoreboard {
             String line = scores.get(index);
             if (line.contains("<") || line.contains("%")) {
                 variablesLines.put(index, line);
+                System.out.println("scoreline " + index + "= " + line);
             }
         }
     }
@@ -60,8 +61,7 @@ public class PluginScoreboard {
         for (Map.Entry<Integer, String> entry : variablesLines.entrySet()) {
             int index = entry.getKey();
 
-            String variable = entry.getValue();
-            String line = PaperChatUtil.parse(player, variable);
+            String line = entry.getValue();
 
             int reversedIndex = getScores().size() - index;
             String lastKnownLine = lastKnowingLines.get(reversedIndex);
@@ -76,7 +76,7 @@ public class PluginScoreboard {
     private BPlayerBoard getOrCreateBoard(Player player) {
         BPlayerBoard board = BPlayerBoard.get(player);
         if (board == null) {
-            board = BPlayerBoard.create(player, PaperChatUtil.parse(player, getTitle()));
+            board = BPlayerBoard.create(player, getTitle());
         }
         return board;
     }
@@ -87,7 +87,7 @@ public class PluginScoreboard {
 
         Map<Integer, String> lastKnownLines = new HashMap<>();
         for (int index = scores.size() - 1; index >= 0; index--) {
-            String line = PaperChatUtil.parse(player, scores.get(index));
+            String line = scores.get(index);
             board.set(line, scores.size() - index);
             if (variablesLines.containsKey(index)) {
                 lastKnownLines.put(index, line);

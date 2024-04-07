@@ -1,8 +1,13 @@
 package us.smartmc.addon.listener;
 
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -13,28 +18,21 @@ import us.smartmc.smartaddons.plugin.AddonListener;
 
 public class ChatModeListener extends AddonListener implements Listener {
 
-    private final ChatModeHandler handler;
-
-    public ChatModeListener(ChatModeHandler handler) {
-        this.handler = handler;
-    }
-
     @EventHandler(priority = EventPriority.MONITOR)
     public void onChat(AsyncPlayerChatEvent event) {
         if (!isEnabled()) return;
-        String format = PaperChatUtil.parse(event.getPlayer(), handler.getFormat());
+        if (event.isCancelled()) return;
+        String message = event.getMessage();
         if (event.getPlayer().hasPermission("smartmc.vip")) {
-            String message = PaperChatUtil.color("&f" + event.getMessage());
-            if (SmartCore.getPlugin().getAdminModeHandler().isActive(event.getPlayer())) {
-                message = PaperChatUtil.parse(event.getPlayer(), message);
-            }
-            event.setMessage(message);
-        } else {
-            event.setMessage(PaperChatUtil.color("&7") + event.getMessage());
+            message = ChatUtil.color(event.getMessage());
         }
-        event.setFormat(format);
-        event.setCancelled(true);
-        Bukkit.broadcastMessage(String.format(event.getFormat(), event.getPlayer().getName(), event.getMessage()));
-    }
 
+        String format = ChatUtil.parse(event.getPlayer(), "<chat.prefix><name> &8&l»&r ") + message;
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.sendMessage(format);
+        }
+        Bukkit.getConsoleSender().sendMessage(format);
+        event.setCancelled(true);
+    }
 }

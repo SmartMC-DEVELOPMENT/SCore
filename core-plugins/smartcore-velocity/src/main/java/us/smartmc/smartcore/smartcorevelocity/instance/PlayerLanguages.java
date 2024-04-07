@@ -19,10 +19,10 @@ public class PlayerLanguages {
     }
 
     public static void sendMessage(Player player, String holder, String messagePath, Object... args) {
-        String message = VelocityChatUtil.parse(
+        Component message = VelocityChatUtil.parseToComponent(
                 LanguagesHandler.get(getLanguage(player)).get(holder).getString(messagePath),
                 args);
-        player.sendMessage(Component.text(message));
+        player.sendMessage(message);
     }
 
     public static Language getLanguage(UUID uuid) {

@@ -86,12 +86,12 @@ public class PlayerSanction extends MongoDBPluginConfig {
             if (created) {
                 String message = LanguagesHandler.get(Language.getDefault()).get(SanctionsManagerMessages.NAME)
                         .getString("message_been_muted");
-                player.sendMessage(Component.text(VelocityChatUtil.parse(player, message, getReason(), getExpiration(), getSanctionId())));
+                player.sendMessage(VelocityChatUtil.parseToComponent(player, message, getReason(), getExpiration(), getSanctionId()));
             } else {
                 if (!isActive()) return;
                 String message = LanguagesHandler.get(Language.getDefault()).get(SanctionsManagerMessages.NAME)
                         .getString("message_muted");
-                player.sendMessage(Component.text(VelocityChatUtil.parse(player, message, getReason(), getExpiration(), getSanctionId())));
+                player.sendMessage(VelocityChatUtil.parseToComponent(player, message, getReason(), getExpiration(), getSanctionId()));
             }
         }
 
@@ -99,7 +99,7 @@ public class PlayerSanction extends MongoDBPluginConfig {
             if (created) {
                 String message = LanguagesHandler.get(Language.getDefault()).get(SanctionsManagerMessages.NAME)
                         .getString("message_been_warned");
-                player.sendMessage(Component.text(VelocityChatUtil.parse(player, message, getReason(), getSanctionId())));
+                player.sendMessage(VelocityChatUtil.parseToComponent(player, message, getReason(), getSanctionId()));
             }
         }
     }
@@ -120,10 +120,10 @@ public class PlayerSanction extends MongoDBPluginConfig {
         if (!(getType().equals(SanctionType.BAN) || getType().equals(SanctionType.KICK))) return;
 
         Language language = Language.getDefault();
-        String message = null;
+        Component message = null;
 
         if (getType().equals(SanctionType.KICK)) {
-            message = VelocityChatUtil.parse(LanguagesHandler.get(language).get(SanctionsManagerMessages.NAME).getString("kick_message"), (Object) getReason(), getSanctionId());
+            message = VelocityChatUtil.parseToComponent(LanguagesHandler.get(language).get(SanctionsManagerMessages.NAME).getString("kick_message"), getReason(), getSanctionId());
         }
 
         Optional<Player> optional = getOptionalPlayer();
@@ -131,11 +131,11 @@ public class PlayerSanction extends MongoDBPluginConfig {
         Player player = optional.get();
 
         if (getType().equals(SanctionType.BAN)) {
-            message = VelocityChatUtil.parse(player, LanguagesHandler.get(language)
+            message = VelocityChatUtil.parseToComponent(player, LanguagesHandler.get(language)
                     .get(SanctionsManagerMessages.NAME).getString("ban_message"), getReason(), getExpiration(), getSanctionId());
         }
-        if (message == null) message = "";
-        player.disconnect(Component.text(message));
+        if (message == null) message = Component.empty();
+        player.disconnect(message);
     }
 
     public String getExpiration() {

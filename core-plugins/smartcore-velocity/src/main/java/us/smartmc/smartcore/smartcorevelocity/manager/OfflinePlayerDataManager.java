@@ -12,17 +12,14 @@ import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import org.bson.Document;
 import us.smartmc.smartcore.smartcorevelocity.instance.OfflinePlayerData;
 
+import java.util.Collection;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class OfflinePlayerDataManager {
 
-    @Getter
-    private static MongoCollection<Document> colletion;
 
     public OfflinePlayerDataManager() {
-        colletion = MongoDBConnection.mainConnection.getDatabase("player_data").getCollection("offline_player_data");
-
     }
 
     @Subscribe(order = PostOrder.LAST)
@@ -33,7 +30,7 @@ public class OfflinePlayerDataManager {
                 if (OfflinePlayerData.get(event.getPlayer()) == null) new OfflinePlayerData(event.getPlayer().getUniqueId());
                 get(event.getPlayer()).parse(event.getPlayer());
             }
-        }, 200);
+        }, 250);
     }
 
     @Subscribe
@@ -44,4 +41,9 @@ public class OfflinePlayerDataManager {
     public static OfflinePlayerData get(Player player) {
         return OfflinePlayerData.get(player);
     }
+
+    public static MongoCollection<Document> getCollection() {
+        return MongoDBConnection.mainConnection.getDatabase("player_data").getCollection("offline_player_data");
+    }
+
 }

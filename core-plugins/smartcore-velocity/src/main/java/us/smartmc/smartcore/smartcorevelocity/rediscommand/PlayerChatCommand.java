@@ -4,6 +4,8 @@ import com.velocitypowered.api.proxy.Player;
 import me.imsergioh.pluginsapi.instance.handler.RedisPubSubListener;
 import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
+import java.util.Optional;
+
 public class PlayerChatCommand extends RedisPubSubListener {
 
     public PlayerChatCommand() {
@@ -16,7 +18,9 @@ public class PlayerChatCommand extends RedisPubSubListener {
         String userName = args[0];
         String command = args[1];
 
-        Player player = VelocityPluginsAPI.proxy.getPlayer(userName).get();
+        Optional<Player> optional = VelocityPluginsAPI.proxy.getPlayer(userName);
+        if (optional.isEmpty()) return;
+        Player player = optional.get();
         VelocityPluginsAPI.proxy.getCommandManager().executeAsync(player, command);
     }
 }

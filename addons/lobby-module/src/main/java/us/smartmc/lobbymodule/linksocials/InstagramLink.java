@@ -18,7 +18,7 @@ public class InstagramLink extends LinkSocialAction {
 
     @Override
     public String getFormattedURL(String username) {
-        return "https://www.instagram.com/"+username.replaceFirst("@", "")+"/";
+        return "https://www.instagram.com/"+username.replaceFirst("@", "");
     }
 
     @Override
@@ -26,9 +26,13 @@ public class InstagramLink extends LinkSocialAction {
         return new String[]{
                 LinkSocialAction.DEFAULT_USERNAME_REGEX,
                 "https://instagram.com/([a-zA-Z0-9_.]{1,30})",
+                "https://instagram.com/([a-zA-Z0-9_.]{1,30})/",
                 "https://www.instagram.com/([a-zA-Z0-9_.]{1,30})",
+                "https://www.instagram.com/([a-zA-Z0-9_.]{1,30})/",
                 "instagram.com/([a-zA-Z0-9_.]{1,30})",
-                "www.instagram.com/([a-zA-Z0-9_.]{1,30})"
+                "instagram.com/([a-zA-Z0-9_.]{1,30})/",
+                "www.instagram.com/([a-zA-Z0-9_.]{1,30})",
+                "www.instagram.com/([a-zA-Z0-9_.]{1,30})/"
         };
     }
 }

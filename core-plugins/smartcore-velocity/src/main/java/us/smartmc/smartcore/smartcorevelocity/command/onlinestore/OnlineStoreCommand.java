@@ -19,7 +19,7 @@ public class OnlineStoreCommand extends CoreCommand {
     @Override
     public void execute(CommandSource sender, String[] args) {
         if (!sender.hasPermission("*")) {
-            sender.sendMessage(Component.text(VelocityChatUtil.parse("&bSmartCore created by ImSergioh! :D")));
+            sender.sendMessage(VelocityChatUtil.parseToComponent("&bSmartCore created by ImSergioh! :D"));
             return;
         }
 

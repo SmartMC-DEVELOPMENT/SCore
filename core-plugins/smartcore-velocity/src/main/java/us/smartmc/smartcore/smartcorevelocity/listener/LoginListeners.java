@@ -27,7 +27,7 @@ public class LoginListeners {
         event.setResult(result);
     }
 
-    @Subscribe(order = PostOrder.LAST)
+    @Subscribe(order = PostOrder.FIRST)
     public void cancelChatIfNotLoggedIn(PlayerChatEvent event) {
         Player player = event.getPlayer();
         PlayerChatEvent.ChatResult result =

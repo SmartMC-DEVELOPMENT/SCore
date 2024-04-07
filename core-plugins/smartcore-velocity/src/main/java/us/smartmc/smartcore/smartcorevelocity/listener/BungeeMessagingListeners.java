@@ -46,7 +46,7 @@ public class BungeeMessagingListeners {
                 }
                 if (list.isEmpty()) {
                     String message = ProxyMainMessages.get(PlayerLanguages.get(player.getUniqueId()), "servers_not_found");
-                    player.sendMessage(Component.text(VelocityChatUtil.parse(message)));
+                    player.sendMessage(VelocityChatUtil.parseToComponent(message));
                     return;
                 }
 

@@ -15,7 +15,7 @@ public class ChatModeHandler {
         this.config = new FilePluginConfig(new File(plugin.getDataFolder(), "chatMode.json")).load();
         config.registerDefault("format", "<chat.prefix><name> &8&l»&r %s");
         config.save();
-        plugin.registerListeners(SmartCore.getPlugin(), new ChatModeListener(this));
+        plugin.registerListeners(SmartCore.getPlugin(), new ChatModeListener());
     }
 
     public String getFormat() {

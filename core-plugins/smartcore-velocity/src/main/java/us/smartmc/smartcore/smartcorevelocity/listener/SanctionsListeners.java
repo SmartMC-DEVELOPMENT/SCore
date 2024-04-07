@@ -5,6 +5,8 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.player.PlayerChatEvent;
 import com.velocitypowered.api.event.player.ServerConnectedEvent;
 import com.velocitypowered.api.proxy.Player;
+import com.velocitypowered.proxy.protocol.packet.chat.PlayerChatCompletionPacket;
+import net.kyori.adventure.text.Component;
 import us.smartmc.smartcore.smartcorevelocity.instance.sanction.PlayerSanction;
 import us.smartmc.smartcore.smartcorevelocity.instance.sanction.SanctionType;
 import us.smartmc.smartcore.smartcorevelocity.manager.SanctionsManager;
@@ -16,7 +18,7 @@ public class SanctionsListeners {
         SanctionsManager.loadSanctions(event.getPlayer());
     }
 
-    @Subscribe(order = PostOrder.FIRST)
+    @Subscribe(order = PostOrder.LAST)
     public void chat(PlayerChatEvent event) {
         if (event.getMessage().startsWith("/")) return;
         Player player = event.getPlayer();
@@ -24,7 +26,7 @@ public class SanctionsListeners {
             if (!sanction.getType().equals(SanctionType.MUTE)) continue;
             if (sanction.isActive()) {
                 sanction.sendPlayerInfo(false);
-                event.setResult(PlayerChatEvent.ChatResult.denied());
+                event.setResult(PlayerChatEvent.ChatResult.message(""));
                 break;
             }
         }

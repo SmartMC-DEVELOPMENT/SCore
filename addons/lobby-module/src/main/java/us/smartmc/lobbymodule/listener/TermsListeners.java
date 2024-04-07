@@ -4,6 +4,7 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -109,15 +110,17 @@ public class TermsListeners extends AddonListener implements Listener {
         Book.Builder builder = Book.builder()
                 .author(Component.text("Administration"));
 
-        builder.addPage(Component.text("Hello!\n" +
-                "§r\n" +
-                "Welcome to SmartMC Network!\n" +
-                "§r\n" +
-                "Accept the terms and conditions to be able to play and enjoy our services and our Minecraft Network :D\n" +
-                "§r\n")
-                        .append(Component.text("§9§nRead terms here§r\n§r\n").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, "https://smartmc.us/terms")))
-                .append(Component.text("    §a§lACCEPT ").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms accept " + acceptID)))
-                .append(Component.text("§c§lDENY    ")).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms deny " + acceptID)));
+        builder.addPage(PaperChatUtil.parseToComponent("""
+                        Hello!
+                        §r
+                        Welcome to SmartMC Network!
+                        §r
+                        Accept the terms and conditions to be able to play and enjoy our services and our Minecraft Network :D
+                        §r
+                        """)
+                        .append(Component.text("<blue><underline>Read terms here<reset>\n<reset>\n").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, "https://smartmc.us/terms")))
+                .append(PaperChatUtil.parseToComponent("    <green><bold>ACCEPT ").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms accept " + acceptID)))
+                .append(Component.text("<red><bold>DENY    ")).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms deny " + acceptID)));
         return builder.build();
     }
 

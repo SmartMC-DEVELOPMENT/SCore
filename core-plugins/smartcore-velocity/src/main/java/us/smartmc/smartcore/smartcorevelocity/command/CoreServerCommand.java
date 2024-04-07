@@ -24,26 +24,26 @@ public class CoreServerCommand extends CoreCommand {
     public void execute(CommandSource sender, String[] args) {
         if (!sender.hasPermission("*")) {
             Plugin info = SmartCoreVelocity.class.getAnnotation(Plugin.class);
-            sender.sendMessage(Component.text(VelocityChatUtil.parse("&bSmartCoreVelocity plugin v " +
-                    info.version() + " by ImSergioh!")));
+            sender.sendMessage(VelocityChatUtil.parseToComponent("&bSmartCoreVelocity plugin v" +
+                    info.version() + " by ImSergioh!"));
             return;
         }
 
         Player player = (Player) sender;
 
         if (args.length == 0) {
-            sender.sendMessage(Component.text(VelocityChatUtil.color("&cTienes que especificar a que server te quieres conectar")));
+            sender.sendMessage(VelocityChatUtil.parseToComponent("&cTienes que especificar a que server te quieres conectar"));
             return;
         }
 
         String serverTargetName = args[0];
         Optional<RegisteredServer> optional = VelocityPluginsAPI.proxy.getServer(serverTargetName);
         if (optional.isEmpty()) {
-            player.sendMessage(Component.text(VelocityChatUtil.color("&cNo se ha encontrado ese servidor registrado a tu proxy actual")));
+            player.sendMessage(VelocityChatUtil.parseToComponent("&cNo se ha encontrado ese servidor registrado a tu proxy actual"));
             return;
         }
         RegisteredServer server = optional.get();
-        player.sendMessage(Component.text(VelocityChatUtil.color("&aConectando a &e" + server.getServerInfo().getName() + "&a...")));
+        player.sendMessage(VelocityChatUtil.parseToComponent("&aConectando a &e" + server.getServerInfo().getName() + "&a..."));
         PlayerServerConnectionsHandler.get(player).sendConnectionQueue(server);
     }
 }

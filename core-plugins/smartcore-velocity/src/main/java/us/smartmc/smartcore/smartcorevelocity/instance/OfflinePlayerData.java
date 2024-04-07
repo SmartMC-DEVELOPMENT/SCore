@@ -26,7 +26,7 @@ public class OfflinePlayerData {
 
     public OfflinePlayerData(UUID uuid) {
         this.uuid = uuid;
-        document = OfflinePlayerDataManager.getColletion().find(new Document().append("_id", uuid.toString())).first();
+        document = OfflinePlayerDataManager.getCollection().find(getQuery()).first();
 
         if (document == null) {
             playedBefore = false;
@@ -37,7 +37,7 @@ public class OfflinePlayerData {
         if (!playedBefore) {
             save();
             Player player = VelocityPluginsAPI.proxy.getPlayer(uuid).get();
-            player.disconnect(Component.text(VelocityChatUtil.parse(player, "&bHello {0}!\n&cPlease reconnect, welcome to the network :D!", player.getUsername())));
+            player.disconnect(VelocityChatUtil.parseToComponent(player, "<aqua>Hello {0}!\n<red>Please reconnect, welcome to the network :D!", player.getUsername()));
         }
         new Timer().schedule(new TimerTask() {
             @Override
@@ -73,12 +73,12 @@ public class OfflinePlayerData {
     }
 
     public void save() {
-        OfflinePlayerDataManager.getColletion().deleteMany(getQuery());
+        OfflinePlayerDataManager.getCollection().deleteMany(getQuery());
 
         // Delete documents with same name
-        OfflinePlayerDataManager.getColletion().deleteMany(new Document("name", getName()));
-        OfflinePlayerDataManager.getColletion().deleteMany(new Document("_id", uuid.toString()));
-        OfflinePlayerDataManager.getColletion().insertOne(document);
+        OfflinePlayerDataManager.getCollection().deleteMany(new Document("name", getName()));
+        OfflinePlayerDataManager.getCollection().deleteMany(new Document("_id", uuid.toString()));
+        OfflinePlayerDataManager.getCollection().insertOne(document);
     }
 
     public static void removeCache(UUID uuid) {
@@ -108,7 +108,7 @@ public class OfflinePlayerData {
 
     public static OfflinePlayerData get(String name) {
         name = name.toLowerCase();
-        Document document = OfflinePlayerDataManager.getColletion().find(new Document().append("lowercase_name", name)).first();
+        Document document = OfflinePlayerDataManager.getCollection().find(new Document().append("lowercase_name", name)).first();
         UUID uuid = UUID.fromString(document.getString("_id"));
         if (cache.containsKey(uuid)) return cache.get(uuid);
         return new OfflinePlayerData(uuid);

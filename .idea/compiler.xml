@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="chat-module" />
+        <module name="sbackend-common" />
         <module name="survivalchat" />
         <module name="staffmode-bungee" />
         <module name="login-spigot" />
@@ -19,6 +20,7 @@
         <module name="fixes-core" />
         <module name="smartcore-velocity" />
         <module name="serverhandler-bukkit" />
+        <module name="sbackend-server" />
         <module name="survival-placeholders" />
         <module name="gamesmanager-spigot" />
         <module name="smartcore-spigot" />
@@ -26,6 +28,7 @@
         <module name="smartantiddos-velocity" />
         <module name="lobby-module" />
         <module name="staffmode-spigot" />
+        <module name="sbackend-client" />
         <module name="lobby-cosmetics" />
       </profile>
     </annotationProcessing>

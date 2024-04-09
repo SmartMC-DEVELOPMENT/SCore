@@ -12,6 +12,10 @@
       <module fileurl="file://$PROJECT_DIR$/login/login-spigot/login-spigot.iml" filepath="$PROJECT_DIR$/login/login-spigot/login-spigot.iml" />
       <module fileurl="file://$PROJECT_DIR$/addons/npcs-module/npcs-module.iml" filepath="$PROJECT_DIR$/addons/npcs-module/npcs-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" filepath="$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbackend.iml" filepath="$PROJECT_DIR$/sbackend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbackend-client.iml" filepath="$PROJECT_DIR$/sbackend-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbackend-common.iml" filepath="$PROJECT_DIR$/sbackend-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbackend-server.iml" filepath="$PROJECT_DIR$/sbackend-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/server-handler.iml" filepath="$PROJECT_DIR$/server-handler/server-handler.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/serverhandler-bukkit/serverhandler-bukkit.iml" filepath="$PROJECT_DIR$/server-handler/serverhandler-bukkit/serverhandler-bukkit.iml" />
       <module fileurl="file://$PROJECT_DIR$/serverhandler-velocity/serverhandler-velocity.iml" filepath="$PROJECT_DIR$/serverhandler-velocity/serverhandler-velocity.iml" />

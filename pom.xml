@@ -19,6 +19,7 @@
         <module>snowgames/snowgames-ffa</module>
         <module>games-manager/gamesmanager-spigot</module>
         <module>server-handler/serverhandler-velocity</module>
+        <module>sbackend</module>
     </modules>
 
     <properties>

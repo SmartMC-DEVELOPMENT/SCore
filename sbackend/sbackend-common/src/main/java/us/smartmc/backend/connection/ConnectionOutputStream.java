@@ -6,9 +6,9 @@ import java.io.ObjectOutputStream;
 import lombok.Getter;
 import us.smartmc.backend.protocol.UTFMessage;
 
+@Getter
 public class ConnectionOutputStream extends ObjectOutputStream {
 
-    @Getter
     private final ConnectionHandler connectionHandler;
 
     public ConnectionOutputStream(ConnectionHandler connectionHandler) throws IOException {

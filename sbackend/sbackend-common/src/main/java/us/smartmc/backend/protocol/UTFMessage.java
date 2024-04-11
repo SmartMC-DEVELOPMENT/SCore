@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.io.Serializable;
 
 @Getter
-public class UTFMessage implements Serializable {
+public class UTFMessage {
 
     private final String message;
 

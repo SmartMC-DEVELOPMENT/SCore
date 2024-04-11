@@ -2,10 +2,8 @@ package us.smartmc.backend.protocol;
 
 import lombok.Getter;
 
-import java.io.Serializable;
-
 @Getter
-public class ObjectsTransfer implements Serializable {
+public class ObjectsTransfer {
 
     private final Object[] objects;
 

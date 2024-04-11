@@ -23,11 +23,7 @@ public class ConnectionOutputStream  {
     }
 
     public void writeCommand(String command) throws IOException {
-        writeJsonObject(new CommandRequest(command));
-    }
-
-    public void writeUTFMessage(String utfMessage) throws IOException {
-        writeJsonObject(new UTFMessage(utfMessage));
+        writeUTF("CMD@" + command);
     }
 
     public void writeUTF(String utf) throws IOException {

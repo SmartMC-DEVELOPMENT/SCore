@@ -2,8 +2,9 @@ package us.smartmc.backend.handler;
 
 import us.smartmc.backend.connection.ConnectionHandler;
 import us.smartmc.backend.instance.BackendCommandExecutor;
-import us.smartmc.backend.instance.IBackendCommandExecutor;
 import us.smartmc.backend.instance.BackendObjectListener;
+import us.smartmc.backend.instance.IBackendCommandExecutor;
+import us.smartmc.backend.instance.IBackendObjectListener;
 import us.smartmc.backend.protocol.CommandRequest;
 
 import java.util.*;
@@ -11,7 +12,7 @@ import java.util.*;
 public class ConnectionInputManager {
 
     private static final Map<String, IBackendCommandExecutor> commands = new HashMap<>();
-    private static final Set<BackendObjectListener> listeners = new HashSet<>();
+    private static final Set<IBackendObjectListener<?>> listeners = new HashSet<>();
 
     public static void performCommand(ConnectionHandler connection, CommandRequest request) {
         String name = request.getName();
@@ -24,8 +25,9 @@ public class ConnectionInputManager {
     }
 
     public static void performListener(ConnectionHandler connection, Object object) {
-        for (BackendObjectListener listener : listeners) {
-            listener.onReceive(connection, object);
+        for (IBackendObjectListener listener : listeners) {
+            if (!listener.getTypeClass().getName().equals(object.getClass().getName())) continue;
+            listener.onReceive(connection, listener.getTypeClass().cast(object));
         }
     }
 
@@ -35,7 +37,7 @@ public class ConnectionInputManager {
         }
     }
 
-    public static void registerListeners(BackendObjectListener... listeners) {
+    public static void registerListeners(IBackendObjectListener<?>... listeners) {
         ConnectionInputManager.listeners.addAll(Arrays.asList(listeners));
     }
 }

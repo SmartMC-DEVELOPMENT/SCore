@@ -2,12 +2,10 @@ package us.smartmc.backend.connection;
 
 import us.smartmc.backend.connection.command.TestCommand;
 import us.smartmc.backend.handler.ConnectionInputManager;
-import us.smartmc.backend.instance.BackendObjectListener;
-import us.smartmc.backend.protocol.UTFMessage;
+import us.smartmc.backend.instance.BackendUTFListener;
 
-import java.util.UUID;
 
-public class TestMain implements BackendObjectListener {
+public class TestMain implements BackendUTFListener {
 
     private static TestMain main;
 
@@ -20,10 +18,11 @@ public class TestMain implements BackendObjectListener {
         client.login("default", "asd");
         new Thread(() -> {
             while (true) {
-                UUID id = UUID.randomUUID();
-                client.sendMessage("GETPLAYERCACHEKEY " + id + " testvalue");
+                long start = System.currentTimeMillis();
+                client.sendCommand("helloWorld " + start);
+                System.out.println("SENT! " + start);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -33,10 +32,8 @@ public class TestMain implements BackendObjectListener {
     }
 
     @Override
-    public void onReceive(ConnectionHandler connection, Object object) {
-        System.out.println(System.currentTimeMillis());
-        if (object instanceof UTFMessage utfMessage) {
-            System.out.println("New UTF message received = " + utfMessage.getMessage());
-        }
+    public void onReceive(ConnectionHandler connection, String utf) {
+        long end = System.currentTimeMillis();
+        System.out.println("RESPONSE! " + end + "(" + utf + ")");
     }
 }

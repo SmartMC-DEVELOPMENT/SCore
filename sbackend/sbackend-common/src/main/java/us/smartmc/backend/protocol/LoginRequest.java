@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.io.Serializable;
 
 @Getter
-public class LoginRequest implements Serializable {
+public class LoginRequest {
 
     private final String username, password;
 

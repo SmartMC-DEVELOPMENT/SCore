@@ -11,7 +11,7 @@ public class HelloWorldCmd extends BackendCommandExecutor {
 
     @Override
     public void onCommand(ConnectionHandler connection, String label, String[] args) {
-        System.out.println("Hola mundo desde conexión de " + connection);
-        connection.sendMessage("Buenassss aqui la consola server les go");
+        long difference = System.currentTimeMillis() - Long.parseLong(args[0]);
+        System.out.println("DIFERENCIA: " + difference);
     }
 }

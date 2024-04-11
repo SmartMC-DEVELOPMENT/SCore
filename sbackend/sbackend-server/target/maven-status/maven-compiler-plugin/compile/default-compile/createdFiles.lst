@@ -2,7 +2,6 @@ us\smartmc\backend\command\HelloWorldCmd.class
 us\smartmc\backend\BackendServerMain.class
 us\smartmc\backend\handler\PlayerContextsHandler.class
 us\smartmc\backend\instance\PlayerCache.class
-us\smartmc\backend\listener\PlayerContextsListeners.class
 us\smartmc\backend\connection\BackendServer.class
 us\smartmc\backend\connection\BackendClientConnection.class
 us\smartmc\backend\handler\PluginHandler.class

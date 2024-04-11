@@ -2,7 +2,7 @@ package us.smartmc.backend.connection;
 
 import lombok.Getter;
 import us.smartmc.backend.handler.ConnectionInputManager;
-import us.smartmc.backend.listener.FeedbackObjectListeners;
+import us.smartmc.backend.listener.CommandHandlerListener;
 import us.smartmc.backend.protocol.*;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class ConnectionHandler implements Runnable {
         this.connection = socket;
         this.outputStream = new ConnectionOutputStream(this, connection.getOutputStream());
         this.inputStream = new ConnectionInputStream(this, connection.getInputStream());
-        ConnectionInputManager.registerListeners(new FeedbackObjectListeners());
+        ConnectionInputManager.registerListeners(new CommandHandlerListener());
     }
 
     public ConnectionHandler(Socket socket, ConnectionOutputStream outputStream, ConnectionInputStream inputStream) {
@@ -34,17 +34,15 @@ public class ConnectionHandler implements Runnable {
         try {
             while (true) {
                 byte d = inputStream.readByte();
-                System.out.println("Received byte " + d);
                 DataType type = DataType.getValueOf(d);
                 if (type == null) {
                     System.out.println("No type found!");
                     break;
                 }
-                System.out.println("TYPE=" + type.name());
                 switch (type) {
                     case UTF -> {
                         String utf = inputStream.readUTF();
-                        System.out.println("Received utf " + utf);
+                        ConnectionInputManager.performListener(this, utf);
                     }
                     case JSON_OBJECT -> {
                         Object o = inputStream.readJsonObject();
@@ -55,9 +53,6 @@ public class ConnectionHandler implements Runnable {
                         }
                     }
                 }
-
-                System.out.println(System.currentTimeMillis() + " READ");
-
             }
         } catch (Exception e) {
             handleException(e);
@@ -74,15 +69,10 @@ public class ConnectionHandler implements Runnable {
 
     public void sendMessage(String message) {
         try {
-            System.out.println(System.currentTimeMillis() + "PUT");
-            outputStream.writeUTFMessage(message);
+            outputStream.writeUTF(message);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void sendFeedbackObjectTransfer(FeedbackObjectsRequest request, IFeedbackResponse<?> feedback) {
-        sendObject(request.whenComplete(feedback));
     }
 
     public void sendObjects(Object... args) {

@@ -6,15 +6,9 @@ import us.smartmc.backend.connection.BackendServer;
 import us.smartmc.backend.handler.AuthHandler;
 import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.backend.instance.config.JsonConfig;
-import us.smartmc.backend.listener.PlayerContextsListeners;
 
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLServerSocketFactory;
 import java.io.File;
-import java.io.FileInputStream;
 import java.net.URISyntaxException;
-import java.security.KeyStore;
 
 public class BackendServerMain {
 
@@ -41,7 +35,6 @@ public class BackendServerMain {
         AuthHandler.loadCache();
 
         ConnectionInputManager.registerCommands(new HelloWorldCmd());
-        ConnectionInputManager.registerListeners(new PlayerContextsListeners());
 
         // Al final de main: Crear BackendServer (Se quedará en hili principal aceptando conexiones)
         backendServer = new BackendServer(((Number) mainConfig.get("port")).intValue());

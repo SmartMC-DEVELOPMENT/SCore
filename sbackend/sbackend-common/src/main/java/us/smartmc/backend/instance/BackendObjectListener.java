@@ -1,9 +1,13 @@
 package us.smartmc.backend.instance;
 
-import us.smartmc.backend.connection.ConnectionHandler;
+import lombok.Getter;
 
-public interface BackendObjectListener {
+@Getter
+public abstract class BackendObjectListener<F> implements IBackendObjectListener<F> {
 
-    void onReceive(ConnectionHandler connection, Object object);
+    private final Class<?> typeClass;
 
+    public BackendObjectListener(Class<?> typeClass) {
+        this.typeClass = typeClass;
+    }
 }

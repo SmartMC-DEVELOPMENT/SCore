@@ -1,3 +1,4 @@
-us\smartmc\backend\connection\TestMain.class
-us\smartmc\backend\connection\command\TestCommand.class
+us\smartmc\backend\connection\command\SetPlayerDataCmd.class
+us\smartmc\backend\connection\DataTestData.class
 us\smartmc\backend\connection\BackendClient.class
+us\smartmc\backend\connection\TestMainCache.class

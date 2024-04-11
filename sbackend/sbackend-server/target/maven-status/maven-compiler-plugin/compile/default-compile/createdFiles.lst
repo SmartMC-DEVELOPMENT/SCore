@@ -1,6 +1,7 @@
-us\smartmc\backend\connection\BackendServer.class
 us\smartmc\backend\command\HelloWorldCmd.class
-us\smartmc\backend\connection\BackendClientConnection.class
 us\smartmc\backend\connection\ConnectionRequest.class
 us\smartmc\backend\BackendServerMain.class
+us\smartmc\backend\connection\BackendServer.class
+us\smartmc\backend\connection\BackendClientConnection.class
+us\smartmc\backend\handler\PluginHandler.class
 us\smartmc\backend\handler\AuthHandler.class

@@ -1,6 +1,7 @@
 package us.smartmc.backend.connection;
 
 import lombok.Getter;
+import us.smartmc.backend.protocol.CommandRequest;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -15,7 +16,7 @@ public class BackendClientConnection extends ConnectionHandler {
         this.clientName = clientName;
         System.out.println("New client connection from " + clientName);
         try {
-            outputStream.writeUTFMessage("Hola mundo! Soy la consola y soy el que mada aqui el KING");
+            outputStream.writeCommand("test arg0 arg1 etc");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

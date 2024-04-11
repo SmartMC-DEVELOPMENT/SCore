@@ -27,8 +27,7 @@ public abstract class FileConfig implements IConfig {
 
     @Override
     public void registerDefaultValue(String path, Object value) {
-        if (!data.containsKey(path)) return;
-        data.put(path, value);
+        if (!data.containsKey(path)) data.put(path, value);
     }
 
     @Override

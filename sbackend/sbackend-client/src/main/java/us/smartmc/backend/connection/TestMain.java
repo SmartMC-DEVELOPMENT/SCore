@@ -1,5 +1,6 @@
 package us.smartmc.backend.connection;
 
+import us.smartmc.backend.connection.command.TestCommand;
 import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.backend.instance.BackendObjectListener;
 import us.smartmc.backend.protocol.UTFMessage;
@@ -13,6 +14,7 @@ public class TestMain implements BackendObjectListener {
     public static void main(String[] args) throws IOException {
         main = new TestMain();
         ConnectionInputManager.registerListeners(main);
+        ConnectionInputManager.registerCommands(new TestCommand());
 
         BackendClient client = new BackendClient("smart.dedi1", 7723);
         client.login("default", "EstoEsUnaContraseñaSeguraParaLosLobby");

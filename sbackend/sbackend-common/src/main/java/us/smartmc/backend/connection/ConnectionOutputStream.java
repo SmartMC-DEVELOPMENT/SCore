@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 import lombok.Getter;
+import us.smartmc.backend.protocol.CommandRequest;
 import us.smartmc.backend.protocol.UTFMessage;
 
 @Getter
@@ -16,6 +17,10 @@ public class ConnectionOutputStream  {
     public ConnectionOutputStream(ConnectionHandler connectionHandler, OutputStream outputStream) throws IOException {
         this.connectionHandler = connectionHandler;
         this.out = new ObjectOutputStream(outputStream);
+    }
+
+    public void writeCommand(String command) throws IOException {
+        writeObject(new CommandRequest(command));
     }
 
     public void writeUTFMessage(String utfMessage) throws IOException {

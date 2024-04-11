@@ -30,9 +30,9 @@ public class BackendServerMain {
 
         mainConfig = new JsonConfig(new File(parentDirectory, "config.json"));
         mainConfig.load();
-        mainConfig.set("keystorePass", "P4ssw0rdS3cvre2024YTSMARTMCÑ");
-        mainConfig.set("logins-directory", "/home/network/sbackend/logins");
-        mainConfig.set("port", 7723);
+        mainConfig.registerDefaultValue("keystorePass", "P4ssw0rdS3cvre2024YTSMARTMCÑ");
+        mainConfig.registerDefaultValue("logins-directory", "/home/network/sbackend/logins");
+        mainConfig.registerDefaultValue("port", 7723);
         mainConfig.save();
 
         System.out.println("BACKENDSERVERMAIN=" + mainConfig.get("logins-directory"));
@@ -40,7 +40,7 @@ public class BackendServerMain {
         AuthHandler.loadCache();
 
         // Crear BackendServer
-        backendServer = new BackendServer((int) ((Number) mainConfig.get("port")));
+        backendServer = new BackendServer((int) ((Number) mainConfig.get("port")).intValue());
 
         ConnectionInputManager.registerCommands(new HelloWorldCmd());
     }

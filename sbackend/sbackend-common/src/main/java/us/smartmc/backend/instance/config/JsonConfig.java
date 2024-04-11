@@ -1,6 +1,7 @@
 package us.smartmc.backend.instance.config;
 
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -17,13 +18,18 @@ public class JsonConfig extends FileConfig {
     @Override
     public void load() {
         Gson gson = new Gson();
-        try {
-            Map dataMap = gson.fromJson(new BufferedReader(new FileReader(file.getAbsolutePath())), HashMap.class);
-            if (dataMap != null) data = (HashMap<String, Object>) dataMap;
+        try (BufferedReader reader = new BufferedReader(new FileReader(file.getAbsolutePath()))) {
+            Map<String, Object> dataMap = gson.fromJson(reader, new TypeToken<HashMap<String, Object>>(){}.getType());
+            if (dataMap != null) {
+                data = new HashMap<>(dataMap);
+            }
         } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public void save() {
@@ -31,8 +37,8 @@ public class JsonConfig extends FileConfig {
                 .setPrettyPrinting()
                 .create();
         System.out.println("Saving " + data);
-        try {
-            gson.toJson(data, new FileWriter(file.getAbsolutePath()));
+        try (FileWriter writer = new FileWriter(file.getAbsolutePath())) {
+            gson.toJson(data, writer);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

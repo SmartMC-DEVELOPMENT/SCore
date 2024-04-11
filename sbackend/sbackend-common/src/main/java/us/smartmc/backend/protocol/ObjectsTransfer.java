@@ -10,7 +10,7 @@ public class ObjectsTransfer implements Serializable {
     private final Object[] objects;
 
     public ObjectsTransfer(Object... initialObjects) {
-        this.objects = new Object[initialObjects.length];
+        this.objects = initialObjects;
     }
 
 }

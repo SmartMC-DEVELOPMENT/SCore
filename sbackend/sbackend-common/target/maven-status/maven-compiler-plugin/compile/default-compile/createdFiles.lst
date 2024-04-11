@@ -1,4 +1,7 @@
+us\smartmc\backend\protocol\FeedbackObjectResponse.class
 us\smartmc\backend\instance\IBackendCommandExecutor.class
+us\smartmc\backend\protocol\DataType.class
+us\smartmc\backend\protocol\FeedbackObjectsRequest.class
 us\smartmc\backend\protocol\ObjectsTransfer.class
 us\smartmc\backend\protocol\LoginRequest.class
 us\smartmc\backend\connection\ConnectionHandler.class
@@ -6,10 +9,13 @@ us\smartmc\backend\protocol\UTFMessage.class
 us\smartmc\backend\instance\plugin\PluginDescription.class
 us\smartmc\backend\instance\plugin\PluginLoader.class
 us\smartmc\backend\handler\ConnectionInputManager.class
+us\smartmc\backend\connection\ConnectionHandler$1.class
 us\smartmc\backend\handler\ClassLoaderUtils.class
 us\smartmc\backend\instance\config\FileConfig.class
+us\smartmc\backend\protocol\IFeedbackResponse.class
 us\smartmc\backend\instance\config\IConfig.class
 us\smartmc\backend\connection\ConnectionOutputStream.class
+us\smartmc\backend\listener\FeedbackObjectListeners.class
 us\smartmc\backend\instance\BackendCommandExecutor.class
 us\smartmc\backend\instance\config\JsonConfig.class
 us\smartmc\backend\protocol\CommandRequest.class

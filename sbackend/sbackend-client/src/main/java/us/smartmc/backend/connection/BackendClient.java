@@ -7,8 +7,11 @@ import java.net.Socket;
 
 public class BackendClient extends ConnectionHandler {
 
+    public static BackendClient mainConnection;
+
     public BackendClient(String hostname, int port) throws IOException {
         super(getSocketConection(hostname, port));
+        if (mainConnection == null) mainConnection = this;
     }
 
     public void login(String username, String password) {
@@ -23,4 +26,8 @@ public class BackendClient extends ConnectionHandler {
         }
     }
 
+    @Override
+    public void handleException(Exception e) {
+        e.printStackTrace();
+    }
 }

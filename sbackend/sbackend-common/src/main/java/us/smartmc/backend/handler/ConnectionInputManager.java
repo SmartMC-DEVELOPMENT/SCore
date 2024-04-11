@@ -15,6 +15,11 @@ public class ConnectionInputManager {
 
     public static void performCommand(ConnectionHandler connection, CommandRequest request) {
         String name = request.getName();
+        IBackendCommandExecutor executor = commands.get(name);
+        if (executor == null) {
+            System.out.println("Received unknown command from " + connection.getConnection().getInetAddress() + " " + request.getLabel());
+            return;
+        }
         commands.get(name).onCommand(connection, request.getLabel(), request.getArgs());
     }
 

@@ -23,7 +23,7 @@ public class BackendServer {
     private void acceptConnection(Socket socket) {
         System.out.println("New ConnectionRequest -> " + socket.getInetAddress().getHostAddress());
         try {
-            new Thread(new ConnectionRequest(socket)).start();
+            new Thread(new ClientConnectionHandler(socket)).start();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

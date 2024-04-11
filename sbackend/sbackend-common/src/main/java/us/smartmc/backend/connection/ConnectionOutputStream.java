@@ -22,6 +22,10 @@ public class ConnectionOutputStream  {
         this.out = new DataOutputStream(outputStream);
     }
 
+    public void close() throws IOException {
+        out.close();
+    }
+
     public void writeCommand(String command) throws IOException {
         writeUTF("CMD@" + command);
     }

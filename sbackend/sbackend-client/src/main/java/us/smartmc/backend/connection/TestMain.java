@@ -4,6 +4,9 @@ import us.smartmc.backend.connection.command.TestCommand;
 import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.backend.instance.BackendUTFListener;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 
 public class TestMain implements BackendUTFListener {
 
@@ -16,19 +19,15 @@ public class TestMain implements BackendUTFListener {
 
         BackendClient client = new BackendClient("66.70.181.34", 7723);
         client.login("default", "asd");
-        new Thread(() -> {
-            while (true) {
-                long start = System.currentTimeMillis();
-                client.sendCommand("helloWorld " + start);
-                System.out.println("SENT! " + start);
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).start();
-        client.run();
+
+        new Thread(client).start();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        while (reader.readLine() != null) {
+            long start = System.currentTimeMillis();
+            client.sendCommand("helloWorld " + start);
+            System.out.println("SENT! " + start);
+        }
     }
 
     @Override

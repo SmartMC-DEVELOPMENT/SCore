@@ -21,6 +21,10 @@ public class ConnectionInputStream {
         this.inputStream = new DataInputStream(inputStream);
     }
 
+    public void close() throws IOException {
+        inputStream.close();
+    }
+
     public byte readByte() throws IOException {
         return inputStream.readByte();
     }

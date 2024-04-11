@@ -36,6 +36,8 @@ public class ClientConnectionHandler extends ConnectionHandler {
     @Override
     public void handleException(Exception e) {
         try {
+            inputStream.close();
+            outputStream.close();
             connection.close();
         } catch (IOException ex) {
             throw new RuntimeException(ex);

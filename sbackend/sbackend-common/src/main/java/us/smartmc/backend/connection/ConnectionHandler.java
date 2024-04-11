@@ -11,6 +11,8 @@ import java.net.Socket;
 @Getter
 public class ConnectionHandler implements Runnable {
 
+    private static boolean defaultListenersAlreadyRegistered;
+
     protected final Socket connection;
 
     protected final ConnectionOutputStream outputStream;
@@ -20,7 +22,7 @@ public class ConnectionHandler implements Runnable {
         this.connection = socket;
         this.outputStream = new ConnectionOutputStream(this, connection.getOutputStream());
         this.inputStream = new ConnectionInputStream(this, connection.getInputStream());
-        ConnectionInputManager.registerListeners(new CommandHandlerListener());
+        registerDefaultListeners();
     }
 
     public ConnectionHandler(Socket socket, ConnectionOutputStream outputStream, ConnectionInputStream inputStream) {
@@ -29,10 +31,16 @@ public class ConnectionHandler implements Runnable {
         this.inputStream = inputStream;
     }
 
+    private static void registerDefaultListeners() {
+        if (defaultListenersAlreadyRegistered) return;
+        ConnectionInputManager.registerListeners(new CommandHandlerListener());
+        defaultListenersAlreadyRegistered = true;
+    }
+
     @Override
     public void run() {
         try {
-            while (true) {
+            while (!connection.isClosed()) {
                 byte d = inputStream.readByte();
                 DataType type = DataType.getValueOf(d);
                 if (type == null) {
@@ -56,11 +64,14 @@ public class ConnectionHandler implements Runnable {
             }
         } catch (Exception e) {
             handleException(e);
+
         }
     }
 
     public void handleException(Exception e) {
         try {
+            inputStream.close();
+            outputStream.close();
             connection.close();
         } catch (IOException ex) {
             throw new RuntimeException(ex);

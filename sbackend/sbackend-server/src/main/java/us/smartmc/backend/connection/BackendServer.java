@@ -2,32 +2,31 @@ package us.smartmc.backend.connection;
 
 import lombok.Getter;
 
-import javax.net.ssl.SSLServerSocket;
-import javax.net.ssl.SSLServerSocketFactory;
-import javax.net.ssl.SSLSocket;
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 @Getter
 public class BackendServer {
 
-    private final SSLServerSocket serverSocket;
+    private final ServerSocket serverSocket;
 
-    public BackendServer(SSLServerSocketFactory serverSocketFactory, int port) throws IOException {
-        serverSocket = (SSLServerSocket) serverSocketFactory.createServerSocket(port);
-
-        serverSocket.setNeedClientAuth(false);
-        serverSocket.setWantClientAuth(false);
-
-        System.out.println("Servidor SSL iniciado en el puerto " + port + "...");
-
+    public BackendServer(int port) throws IOException {
+        serverSocket = new ServerSocket(port);
+        System.out.println("Servidor iniciado en el puerto " + port + "...");
         while (true) {
-            SSLSocket socket = (SSLSocket) serverSocket.accept();
+            Socket socket = serverSocket.accept();
             acceptConnection(socket);
         }
     }
 
-    private void acceptConnection(SSLSocket socket) {
-        new ConnectionRequest(socket).start();
+    private void acceptConnection(Socket socket) {
+        System.out.println("New ConnectionRequest -> " + socket.getInetAddress().getHostAddress());
+        try {
+            new Thread(new ConnectionRequest(socket)).start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

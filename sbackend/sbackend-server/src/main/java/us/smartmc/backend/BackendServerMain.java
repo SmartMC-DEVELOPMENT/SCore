@@ -30,26 +30,17 @@ public class BackendServerMain {
 
         mainConfig = new JsonConfig(new File(parentDirectory, "config.json"));
         mainConfig.load();
-        mainConfig.registerDefaultValue("keystorePath", "/home/network/certificados");
-        mainConfig.registerDefaultValue("keystorePass", "P4ssw0rdS3cvre2024YTSMARTMCÑ");
-        mainConfig.registerDefaultValue("logins-directory", "/home/network/sbackend/logins");
-        mainConfig.registerDefaultValue("port", 7723);
+        mainConfig.set("keystorePass", "P4ssw0rdS3cvre2024YTSMARTMCÑ");
+        mainConfig.set("logins-directory", "/home/network/sbackend/logins");
+        mainConfig.set("port", 7723);
+        mainConfig.save();
+
+        System.out.println("BACKENDSERVERMAIN=" + mainConfig.get("logins-directory"));
 
         AuthHandler.loadCache();
 
-        String keystorePath = ((String) mainConfig.get("keystorePath"));
-        char[] keystorePass = ((String) mainConfig.get("keystorePass")).toCharArray();
-
-        SSLContext sslContext = SSLContext.getInstance("TLS");
-        KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
-        KeyStore keyStore = KeyStore.getInstance("JKS");
-        keyStore.load(new FileInputStream(keystorePath), keystorePass);
-        keyManagerFactory.init(keyStore, keystorePass);
-        sslContext.init(keyManagerFactory.getKeyManagers(), null, null);
-
-        // Crear el SSLServerSocketFactory
-        SSLServerSocketFactory sslServerSocketFactory = sslContext.getServerSocketFactory();
-        backendServer = new BackendServer(sslServerSocketFactory, (int) ((Number) mainConfig.get("port")));
+        // Crear BackendServer
+        backendServer = new BackendServer((int) ((Number) mainConfig.get("port")));
 
         ConnectionInputManager.registerCommands(new HelloWorldCmd());
     }

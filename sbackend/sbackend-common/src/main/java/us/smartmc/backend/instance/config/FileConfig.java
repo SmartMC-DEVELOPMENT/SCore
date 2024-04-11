@@ -3,17 +3,26 @@ package us.smartmc.backend.instance.config;
 import lombok.Getter;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 public abstract class FileConfig implements IConfig {
 
-    protected HashMap data = new HashMap<>();
+    protected HashMap<String, Object> data = new HashMap<>();
 
     @Getter
-    private final File file;
+    protected final File file;
 
     public FileConfig(File file) {
         this.file = file;
+        file.getParentFile().mkdirs();
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override

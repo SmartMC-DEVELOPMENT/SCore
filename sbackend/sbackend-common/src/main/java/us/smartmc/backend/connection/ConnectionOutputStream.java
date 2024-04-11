@@ -2,28 +2,38 @@ package us.smartmc.backend.connection;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
 import lombok.Getter;
 import us.smartmc.backend.protocol.UTFMessage;
 
 @Getter
-public class ConnectionOutputStream extends ObjectOutputStream {
+public class ConnectionOutputStream  {
 
+    private final ObjectOutputStream out;
     private final ConnectionHandler connectionHandler;
 
-    public ConnectionOutputStream(ConnectionHandler connectionHandler) throws IOException {
+    public ConnectionOutputStream(ConnectionHandler connectionHandler, OutputStream outputStream) throws IOException {
         this.connectionHandler = connectionHandler;
+        this.out = new ObjectOutputStream(outputStream);
     }
 
-    @Override
+    public void writeUTFMessage(String utfMessage) throws IOException {
+        writeObject(new UTFMessage(utfMessage));
+    }
+
     public void writeUTF(String utf) throws IOException {
-        writeObject(new UTFMessage(utf));
-    }
-
-    @Override
-    protected void writeObjectOverride(Object arg0) throws IOException {
-        super.writeObjectOverride(arg0);
+        out.writeUTF(utf);
         flush();
     }
 
+    public void writeObject(Object object) throws IOException {
+        out.writeObject(object);
+        flush();
+        System.out.println("Send object " + object);
+    }
+
+    public void flush() throws IOException {
+        out.flush();
+    }
 }

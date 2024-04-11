@@ -1,0 +1,14 @@
+us\smartmc\backend\instance\IBackendCommandExecutor.class
+us\smartmc\backend\protocol\ObjectsTransfer.class
+us\smartmc\backend\protocol\LoginRequest.class
+us\smartmc\backend\connection\ConnectionHandler.class
+us\smartmc\backend\protocol\UTFMessage.class
+us\smartmc\backend\handler\ConnectionInputManager.class
+us\smartmc\backend\instance\config\FileConfig.class
+us\smartmc\backend\instance\config\IConfig.class
+us\smartmc\backend\connection\ConnectionOutputStream.class
+us\smartmc\backend\instance\BackendCommandExecutor.class
+us\smartmc\backend\instance\config\JsonConfig.class
+us\smartmc\backend\protocol\CommandRequest.class
+us\smartmc\backend\connection\ConnectionInputStream.class
+us\smartmc\backend\instance\BackendObjectListener.class

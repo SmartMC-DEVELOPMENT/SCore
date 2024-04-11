@@ -21,7 +21,9 @@ public class AuthHandler {
             if (fileName.endsWith(".json")) config = new JsonConfig(file);
             assert config != null;
             config.load();
-            logins.put(file.getName().split("\\.")[0], (String) config.get("password"));
+            String name = file.getName().split("\\.")[0];
+            logins.put(name, (String) config.get("password"));
+            System.out.println("Loaded user " + name);
         }
     }
 

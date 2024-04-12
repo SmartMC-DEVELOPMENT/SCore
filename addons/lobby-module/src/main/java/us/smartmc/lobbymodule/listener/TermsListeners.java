@@ -106,7 +106,7 @@ public class TermsListeners extends AddonListener implements Listener {
         return toAcceptPlayers.containsKey(corePlayer.getUUID());
     }
 
-    private static Book getBookTermsAndConditions( String acceptID) {
+    private static Book getBookTermsAndConditions(String acceptID) {
         Book.Builder builder = Book.builder()
                 .author(Component.text("Administration"));
 
@@ -118,9 +118,9 @@ public class TermsListeners extends AddonListener implements Listener {
                         Accept the terms and conditions to be able to play and enjoy our services and our Minecraft Network :D
                         §r
                         """)
-                        .append(Component.text("<blue><underline>Read terms here<reset>\n<reset>\n").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, "https://smartmc.us/terms")))
+                .append(PaperChatUtil.parseToComponent("<blue><underline>Read terms here<reset>\n<reset>\n").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, "https://smartmc.us/terms")))
                 .append(PaperChatUtil.parseToComponent("    <green><bold>ACCEPT ").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms accept " + acceptID)))
-                .append(Component.text("<red><bold>DENY    ")).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms deny " + acceptID)));
+                .append(PaperChatUtil.parseToComponent("<red><bold>DENY    ")).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms deny " + acceptID)));
         return builder.build();
     }
 

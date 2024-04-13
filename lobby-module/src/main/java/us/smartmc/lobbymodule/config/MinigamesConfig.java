@@ -66,7 +66,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
         ArrayList<String> description = LineLimiter.createListFromNewLines(document.getString("description"));
         String clickToConnect = LanguagesHandler.get(language).get("lobby_miniGames").getString("click_to_connect");
         String connected = String.valueOf(LanguagesHandler.get(language).get("lobby_miniGames").getString("current_playing"));
-        description = (ArrayList<String>) LineLimiter.limitLines(description, 38);
+        description = (ArrayList<String>) LineLimiter.limitLines(description, Integer.MAX_VALUE);
 
         ArrayList<String> list = new ArrayList<>();
 
@@ -80,7 +80,6 @@ public class MinigamesConfig extends MongoDBPluginConfig {
             list.add(LanguageUtil.parse(language, "<lang.lobby_miniGames.prototype_title>"));
         }
 
-        list.add("&r");
         list.addAll(description);
         description = list;
 
@@ -92,12 +91,17 @@ public class MinigamesConfig extends MongoDBPluginConfig {
         }
         description.replaceAll(l -> "&7" + l);
 
-        return ItemBuilder.of(material)
+        ItemBuilder builder = ItemBuilder.of(material)
                 .name(itemName)
                 .lore(description)
                 .amount(amount)
-                .hideFlags()
-                .get(language);
+                .hideFlags();
+
+        if(configDoc.containsKey("skull-texture") && material.equals(Material.PLAYER_HEAD)){
+            builder.skullTexture(configDoc.getString("skull-texture"));
+        }
+
+        return builder.get(language);
     }
 
     public static String getLabelCommand(String name) {

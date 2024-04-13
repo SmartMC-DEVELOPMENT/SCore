@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import us.smartmc.core.instance.player.SmartCorePlayer;
-import us.smartmc.core.util.PlayerVersions;
 import us.smartmc.lobbymodule.instance.PlayerVisibility;
 import us.smartmc.smartaddons.plugin.AddonListener;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;

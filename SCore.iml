@@ -6,15 +6,15 @@
       <sourceFolder url="file://$MODULE_DIR$/arenapvp/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/plugins-api/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/plugins-api/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/smartantiddos-velocity/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-spigot/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-spigot/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/smartantiddos-velocity/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-velocity/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-velocity/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/survival/survi-chat/survivalchat/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/survival/survi-chat/survivalchat/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../SmartEvents/events-core/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-velocity/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/staff-mode/staffmode-velocity/src/main/resources" type="java-resource" />
     </content>
   </component>
   <component name="FacetManager">
@@ -22,6 +22,7 @@
       <configuration>
         <autoDetectTypes>
           <platformType>BUNGEECORD</platformType>
+          <platformType>SPIGOT</platformType>
         </autoDetectTypes>
         <projectReimportVersion>1</projectReimportVersion>
       </configuration>

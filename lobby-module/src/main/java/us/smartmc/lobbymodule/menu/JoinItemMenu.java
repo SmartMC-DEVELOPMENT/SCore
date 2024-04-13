@@ -46,11 +46,8 @@ public class JoinItemMenu extends ConfigurableMenu {
 
         if (initPlayer.hasPermission("group.builder")) {
             set(12, ItemBuilder.of(Material.NETHERITE_AXE).hideFlags()
-                    .name("<gradient:#00BFFF:#94E3FF>Build server modern</gradient>")
-                    .lore("&7Pues server builds, no sé").get(), "connectTo builds");
-            set(14, ItemBuilder.of(Material.DIAMOND_AXE).hideFlags()
-                    .name("&aTodo el mundo a buildear &e&l(LEGACY)")
-                    .lore("&7Pues server builds, no sé (Aunque para versiones antiguas like 1.8 y esas cosas)").get(), "connectTo builds18");
+                    .name("<gradient:#00BFFF:#94E3FF>Servidor de construcción</gradient>")
+                    .lore("&8Imaginación\n\n&7Construye con toda la creatividad\n&7en este servidor y diviértete\n\n&cServidor privado").get(), "connectTo builds");
         }
 
         setItem(8, Material.PAPER, "lobbies");

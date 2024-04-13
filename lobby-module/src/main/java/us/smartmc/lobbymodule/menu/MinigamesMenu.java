@@ -25,7 +25,7 @@ public class MinigamesMenu extends CoreMenu {
     private static final MinigamesConfig config = LobbyModule.getMinigamesConfig();
 
     private int currentSlotIndex = 0;
-    private final int[] slots = {12, 13, 14, 15, 21, 22, 23, 24};
+    private final int[] slots = {21,22,23,24,25};
 
     private final Language language;
 
@@ -49,7 +49,7 @@ public class MinigamesMenu extends CoreMenu {
                 .data((byte) 3)
                 .name("<lang.lobby_miniGames.items_discord_name>")
                 .lore("<lang.lobby_miniGames.items_discord_description>")
-                .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzM5ZWU3MTU0OTc5YjNmODc3MzVhMWM4YWMwODc4MTRiNzkyOGQwNTc2YTI2OTViYTAxZWQ2MTYzMTk0MjA0NSJ9fX0=")
+                .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGQ0MjMzN2JlMGJkY2EyMTI4MDk3ZjFjNWJiMTEwOWU1YzYzM2MxNzkyNmFmNWZiNmZjMjAwMDAwMTFhZWI1MyJ9fX0=")
                 .get(language), "bungeeCMD discord", "closeInv");
         // TWITTER
         set(18, ItemBuilder.of(Material.PLAYER_HEAD)
@@ -70,7 +70,7 @@ public class MinigamesMenu extends CoreMenu {
     }
 
     public void closeItem() {
-        set(inventory.getSize() - 5, ItemBuilder.of(Material.BARRIER).name("&c<lang.language.menu_close>").get(language), "closeInv");
+        set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("&c<lang.language.menu_close>").get(language), "closeInv");
     }
 
     public void setNotAvailableItems(){

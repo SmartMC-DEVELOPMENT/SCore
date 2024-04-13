@@ -9,9 +9,11 @@ import us.smartmc.lobbymodule.handler.VisibilityManager;
 import us.smartmc.lobbymodule.instance.PlayerVisibility;
 import us.smartmc.smartaddons.plugin.AddonPluginCommand;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class ChangeVisibilityCommand extends AddonPluginCommand {
+
+    private static final Set<UUID> cooldown = new HashSet<>();
 
     public ChangeVisibilityCommand() {
         super("changeVisibility");
@@ -27,6 +29,8 @@ public class ChangeVisibilityCommand extends AddonPluginCommand {
 
     @Override
     public void executePlayer(Player player, String[] args) {
+        if (cooldown.contains(player.getUniqueId())) return;
+
         PlayerVisibility nextVisibility = VisibilityManager.getNext(VisibilityManager.getVisibility(player));
         CorePlayer corePlayer = CorePlayer.get(player);
         VisibilityManager.set(corePlayer, nextVisibility);
@@ -39,6 +43,14 @@ public class ChangeVisibilityCommand extends AddonPluginCommand {
         player.getInventory().setItemInHand(item);
         menu.getActionManager().registerItemAction(player.getInventory().getHeldItemSlot(),
                 item, Arrays.asList("cmd changeVisibility"));
+
+        cooldown.add(player.getUniqueId());
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                cooldown.remove(player.getUniqueId());
+            }
+        }, 250);
     }
 
     @Override

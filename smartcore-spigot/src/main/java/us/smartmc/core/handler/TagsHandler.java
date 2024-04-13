@@ -56,14 +56,14 @@ public class TagsHandler implements Listener {
                 team = scoreboard.registerNewTeam(teamName);
                 Component prefix = PaperChatUtil.parse(player, "<chat.prefix.color>");
                 team.prefix(prefix);
-                if (!team.hasPlayer(player))
-                    team.addPlayer(player);
             } else {
                 // Team prefix update
                 Component prefix = PaperChatUtil.parse(player, "<chat.prefix.color>");
                 if (team.prefix().equals(prefix)) continue;
                 team.prefix(prefix);
             }
+            if (!team.hasPlayer(player))
+                team.addPlayer(player);
         }
     }
 

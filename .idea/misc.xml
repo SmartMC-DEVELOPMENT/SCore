@@ -43,6 +43,20 @@
         <option value="$PROJECT_DIR$/survival/survi-chat/survivalchat/pom.xml" />
         <option value="$PROJECT_DIR$/staff-mode/staffmode-velocity/pom.xml" />
         <option value="$PROJECT_DIR$/addons/npcs-module/pom.xml" />
+        <option value="$PROJECT_DIR$/chat-module/pom.xml" />
+        <option value="$PROJECT_DIR$/fixes-core/pom.xml" />
+        <option value="$PROJECT_DIR$/gamesmanager-spigot/pom.xml" />
+        <option value="$PROJECT_DIR$/lobby-cosmetics/pom.xml" />
+        <option value="$PROJECT_DIR$/lobby-module/pom.xml" />
+        <option value="$PROJECT_DIR$/npcs-module/pom.xml" />
+        <option value="$PROJECT_DIR$/login-spigot/pom.xml" />
+        <option value="$PROJECT_DIR$/serverhandler-bukkit/pom.xml" />
+        <option value="$PROJECT_DIR$/smartcore-spigot/pom.xml" />
+        <option value="$PROJECT_DIR$/smartcore-velocity/pom.xml" />
+        <option value="$PROJECT_DIR$/snowgames-ffa/pom.xml" />
+        <option value="$PROJECT_DIR$/survival-placeholders/pom.xml" />
+        <option value="$PROJECT_DIR$/survi-chat/survivalchat/pom.xml" />
+        <option value="$PROJECT_DIR$/staffmode-velocity/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

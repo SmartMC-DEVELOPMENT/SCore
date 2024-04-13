@@ -1,0 +1,25 @@
+main: us.smartmc.core.SmartCore
+name: SmartCore23
+version: 1.0-SNAPSHOT
+api-version: '1.16'
+authors:
+  - ImSergioh
+
+commands:
+  admin:
+  setspawn:
+  spawn:
+  language:
+    aliases: [lang, lenguaje]
+  reloadLanguageConfig:
+  gamemode:
+    aliases: [gm]
+    description: Change your gamemode
+  region:
+  executeAtBungeeCommand:
+  friend:
+    aliases: [friends]
+  coins:
+    aliases: [balance, eco, bal]
+  enigmaboxes:
+  gems:

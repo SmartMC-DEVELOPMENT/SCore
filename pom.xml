@@ -4,21 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>us.smartmc</groupId>
+    <groupId>us.smartmc.core</groupId>
     <artifactId>SCore</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>addons/chat-module</module>
-        <module>addons/lobby-cosmetics</module>
-        <module>addons/lobby-module</module>
-        <module>core-plugins/smartcore-spigot</module>
-        <module>core-plugins/smartcore-velocity</module>
-        <module>login/login-spigot</module>
-        <module>snowgames/snowgames-ffa</module>
-        <module>games-manager/gamesmanager-spigot</module>
-        <module>server-handler/serverhandler-velocity</module>
+        <module>chat-module</module>
+        <module>lobby-cosmetics</module>
+        <module>lobby-module</module>
+        <module>smartcore-spigot</module>
+        <module>smartcore-velocity</module>
+        <module>login-spigot</module>
+        <module>snowgames-ffa</module>
+        <module>gamesmanager-spigot</module>
+        <module>serverhandler-velocity</module>
         <module>sbackend</module>
     </modules>
 

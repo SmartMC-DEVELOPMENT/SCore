@@ -18,7 +18,6 @@ us\smartmc\lobbymodule\linksocials\TwitterLink.class
 us\smartmc\lobbymodule\menu\MinigamesMenu.class
 us\smartmc\lobbymodule\handler\FlyManager$1.class
 us\smartmc\lobbymodule\handler\VisibilityManager$1.class
-us\smartmc\lobbymodule\command\ChangeVisibilityCommand$1.class
 us\smartmc\lobbymodule\linksocials\TikTokLink.class
 us\smartmc\lobbymodule\linksocials\YouTubeLink.class
 us\smartmc\lobbymodule\listener\CustomJoinSlotListener.class

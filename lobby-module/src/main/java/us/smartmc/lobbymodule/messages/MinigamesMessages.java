@@ -21,7 +21,6 @@ public class MinigamesMessages extends MultiLanguageRegistry {
         holder.registerDefault("in_maintenance", "&c&lIN MAINTENANCE!");
 
         item(holder, "discord", "&9&lDiscord Server", "&7Check our Discord Server and connect with us!");
-        item(holder, "twitter", "&b&lOur Twitter", "&7Follow us on Twitter and stay tuned for all the news!");
         item(holder, "store", "&e&lServer Store", "&7Take a look at our store and if you feel like it, buy something :)");
 
         registerMinigame(holder, "snowmatch");

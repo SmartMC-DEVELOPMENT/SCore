@@ -33,12 +33,14 @@ public class MinigamesMenu extends CoreMenu {
         super(null, 36, LanguagesHandler.get(language).get("lobby_miniGames").getString("inventory_title"));
         this.language = language;
         menus.put(language, this);
+
         config.getMiniGames().forEach((name, document) -> {
             int slot = document.containsKey("slot") ? document.getInteger("slot") : slots[currentSlotIndex];
             String serverPrefixId = document.getString("serverPrefixId");
             set(slot, MinigamesConfig.getItemOf(language, name), "connectTo " + serverPrefixId, "closeInv");
             currentSlotIndex++;
         });
+
         setNotAvailableItems();
     }
 
@@ -51,13 +53,6 @@ public class MinigamesMenu extends CoreMenu {
                 .lore("<lang.lobby_miniGames.items_discord_description>")
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGQ0MjMzN2JlMGJkY2EyMTI4MDk3ZjFjNWJiMTEwOWU1YzYzM2MxNzkyNmFmNWZiNmZjMjAwMDAwMTFhZWI1MyJ9fX0=")
                 .get(language), "bungeeCMD discord", "closeInv");
-        // TWITTER
-//        set(18, ItemBuilder.of(Material.PLAYER_HEAD)
-//                .data((byte) 3)
-//                .name("<lang.lobby_miniGames.items_twitter_name>")
-//                .lore("<lang.lobby_miniGames.items_twitter_description>")
-//                .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2M3NDVhMDZmNTM3YWVhODA1MDU1NTkxNDllYTE2YmQ0YTg0ZDQ0OTFmMTIyMjY4MThjMzg4MWMwOGU4NjBmYyJ9fX0=")
-//                .get(language), "bungeeCMD twitter", "closeInv");
 
         // STORE
         set(18, ItemBuilder.of(Material.PLAYER_HEAD)

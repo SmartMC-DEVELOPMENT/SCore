@@ -40,7 +40,6 @@ public class LoginPlayer {
         if (verify(getIP(), "secretKey")) {
             setAuth(true);
             sendToLobbyServer();
-            return;
         }
     }
 

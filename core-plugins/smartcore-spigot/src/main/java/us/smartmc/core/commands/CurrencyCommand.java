@@ -1,6 +1,7 @@
 package us.smartmc.core.commands;
 
 import lombok.Getter;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,43 +27,42 @@ public abstract class CurrencyCommand implements CommandExecutor {
         if (args.length >= 2) {
             SmartCorePlayer smartCorePlayer = SmartCorePlayer.get(args[0]);
             if (smartCorePlayer == null) {
-                sender.sendMessage(PaperChatUtil.parse("&cNo target/player found with this name!"));
+                sender.sendMessage(ChatUtil.parse("&cNo target/player found with this name!"));
                 return;
             }
             PlayerCurrenciesHandler handler = smartCorePlayer.getCurrenciesHandler();
             switch (args[1].toLowerCase()) {
                 case "reset": {
                     handler.set(coin, 0);
-                    sender.sendMessage(PaperChatUtil.parse("&aBalance reset!"));
+                    sender.sendMessage(ChatUtil.parse("&aBalance reset!"));
                     return;
                 }
                 case "add": {
                     if (args.length == 2) {
-                        sender.sendMessage(PaperChatUtil.parse("&cCorrect usage: /" + name + " <user> add <amount>"));
+                        sender.sendMessage(ChatUtil.parse("&cCorrect usage: /" + name + " <user> add <amount>"));
                         return;
                     }
                     try {
                         long amount = Long.parseLong(args[2]);
                         handler.add(coin, amount, null);
-                        sender.sendMessage(PaperChatUtil.parse("&aBalance added!"));
+                        sender.sendMessage(ChatUtil.parse("&aBalance added!"));
                         return;
                     } catch (Exception e) {
-                        sender.sendMessage(PaperChatUtil.parse("&cError ocurred while trying to execute this command!"));
+                        sender.sendMessage(ChatUtil.parse("&cError ocurred while trying to execute this command!"));
                     }
                     return;
                 }
                 case "remove": {
                     if (args.length == 2) {
-                        sender.sendMessage(PaperChatUtil.parse("&cCorrect usage: /" + name + " <user> remove <amount>"));
+                        sender.sendMessage(ChatUtil.parse("&cCorrect usage: /" + name + " <user> remove <amount>"));
                         return;
                     }
                     try {
                         long amount = Long.parseLong(args[2]);
                         handler.remove(coin, amount, null);
-                        sender.sendMessage(PaperChatUtil.parse("&aBalance removed!"));
-                        return;
+                        sender.sendMessage(ChatUtil.parse("&aBalance removed!"));
                     } catch (Exception e) {
-                        sender.sendMessage(PaperChatUtil.parse("&cError ocurred while trying to execute this command!"));
+                        sender.sendMessage(ChatUtil.parse("&cError ocurred while trying to execute this command!"));
                     }
                 }
             }

@@ -3,6 +3,7 @@ package us.smartmc.lobbymodule.listener;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.instance.ClickableComponent;
 import me.imsergioh.pluginsapi.util.BukkitUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.*;
@@ -61,7 +62,7 @@ public class PlayerListener extends AddonListener implements Listener {
         for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
             String playerNamePrefixMessage = PaperChatUtil.parse(player, "<rank><name>");
 
-            onlinePlayer.sendMessage(PaperChatUtil.parse(onlinePlayer, "<lang.lobby.join_message>", playerNamePrefixMessage));
+            onlinePlayer.sendMessage(ChatUtil.parse(onlinePlayer, "<lang.lobby.join_message>", playerNamePrefixMessage));
         }
     }
 }

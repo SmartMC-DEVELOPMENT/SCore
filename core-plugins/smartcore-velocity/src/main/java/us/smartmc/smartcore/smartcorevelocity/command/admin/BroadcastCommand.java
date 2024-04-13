@@ -5,6 +5,8 @@ import com.velocitypowered.api.proxy.Player;
 import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 import me.imsergioh.pluginsapi.util.VelocityChatUtil;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
 
 public class BroadcastCommand extends CoreCommand {
@@ -26,11 +28,13 @@ public class BroadcastCommand extends CoreCommand {
         for (String word : args) {
             message.append(word).append(" ");
         }
-        sendBroadcast(message.toString().trim().replaceAll("&", "§"));
+        sendBroadcast(message.toString());
     }
 
     private void sendBroadcast(String message) {
-        Component component = VelocityChatUtil.parseToComponent("<aqua><bold>Smart<white><bold>MC <reset><gray>» <reset>" + message);
+        message = message.replace("&", "§");
+        String formattedMessage = "<aqua><bold>Smart<white><bold>MC <reset><gray>» <reset>" + message;
+        Component component = MiniMessage.miniMessage().deserialize(formattedMessage);
         for (Player player : VelocityPluginsAPI.proxy.getAllPlayers()) {
             player.sendMessage(component);
         }

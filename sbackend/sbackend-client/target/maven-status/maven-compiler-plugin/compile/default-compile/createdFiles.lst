@@ -1,3 +1,4 @@
+us\smartmc\backend\connection\TestMainMongo.class
 us\smartmc\backend\connection\command\SetPlayerDataCmd.class
 us\smartmc\backend\connection\DataTestData.class
 us\smartmc\backend\connection\BackendClient.class

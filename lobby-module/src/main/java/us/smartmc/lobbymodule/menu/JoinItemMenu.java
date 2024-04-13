@@ -45,9 +45,9 @@ public class JoinItemMenu extends ConfigurableMenu {
         set(7, VisibilityManager.getVisibilityItem(visibility).get(initPlayer), "cmd changeVisibility");
 
         if (initPlayer.hasPermission("group.builder")) {
-            set(12, ItemBuilder.of(Material.NETHERITE_AXE).hideFlags()
+            set(13, ItemBuilder.of(Material.NETHERITE_AXE).hideFlags()
                     .name("<gradient:#00BFFF:#94E3FF>Servidor de construcción</gradient>")
-                    .lore("&8Imaginación\n\n&7Construye con toda la creatividad\n&7en este servidor y diviértete\n\n&cServidor privado").get(), "connectTo builds");
+                    .lore("&8Imaginación\n\n&7Construye con toda la creatividad\n&7en este servidor y diviértete\n\n&c(Servidor privado)").get(), "connectTo builds");
         }
 
         setItem(8, Material.PAPER, "lobbies");

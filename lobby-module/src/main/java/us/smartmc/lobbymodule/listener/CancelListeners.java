@@ -8,6 +8,7 @@ import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class CancelListeners implements Listener {
 
@@ -33,6 +34,11 @@ public class CancelListeners implements Listener {
 
     @EventHandler
     public void blockExplode(BlockIgniteEvent event) {
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void cancelInteract(PlayerInteractEvent event) {
         event.setCancelled(true);
     }
 }

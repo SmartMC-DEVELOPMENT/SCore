@@ -48,7 +48,7 @@ public class ChatModule extends AddonPlugin {
                     message = Component.join(JoinConfiguration.builder().build(), PaperChatUtil.parse("<gray>"), Component.text(msgString));
                 }
 
-                Component formattedMessage = PaperChatUtil.parse(event.getPlayer(), "<chat.prefix><><gray><name> &8&l»&7 ");
+                Component formattedMessage = PaperChatUtil.parse(event.getPlayer(), "<chat.prefix><reset><gray><name> &8&l»&7 ");
 
                 Bukkit.broadcast(Component.join(JoinConfiguration.builder().build(), formattedMessage, message));
             }

@@ -6,7 +6,7 @@ import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.text.Component;
-import org.bukkit.command.Command;
+
 import org.bukkit.entity.Player;
 import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.instance.LinkSocialType;

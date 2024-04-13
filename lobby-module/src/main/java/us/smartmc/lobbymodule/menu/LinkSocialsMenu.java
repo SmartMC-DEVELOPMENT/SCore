@@ -6,9 +6,6 @@ import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bson.Document;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -94,7 +91,7 @@ public class LinkSocialsMenu extends CoreMenu {
 
     private void register(int slot, LinkSocialType type) {
         ItemStack initialItem = LobbyMessages.getItem(Material.PLAYER_HEAD, "link_social_network").get(initPlayer);
-        Component name = PaperChatUtil.parse(initPlayer, type.getDisplayName());
+        String name = type.getDisplayName();
         List<String> lore = initialItem.getItemMeta().getLore();
         String labelCommand = "linkSocial " + type.name();
 
@@ -109,7 +106,7 @@ public class LinkSocialsMenu extends CoreMenu {
 
         set(slot, ItemBuilder.of(Material.PLAYER_HEAD).data(3)
                 .skullTexture(type.getSkullTexture())
-                .name(MiniMessage.miniMessage().serialize(name))
+                .name(name)
                 .lore(lore, name, currentUser, example).get(initPlayer), labelCommand);
     }
 

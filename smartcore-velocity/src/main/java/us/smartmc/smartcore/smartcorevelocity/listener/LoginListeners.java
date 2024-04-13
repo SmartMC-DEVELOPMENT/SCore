@@ -23,7 +23,7 @@ public class LoginListeners {
                 LoginMessageHandler.isLoggedIn(player) ?
                         CommandExecuteEvent.CommandResult.allowed() :
                         CommandExecuteEvent.CommandResult.denied();
-        if (event.getCommand().startsWith("login") || event.getCommand().startsWith("register")) return;
+        if (event.getCommand().startsWith("login") || event.getCommand().startsWith("register") || event.getCommand().startsWith("premium")) return;
         event.setResult(result);
     }
 

@@ -34,11 +34,11 @@ public abstract class CoreCommand implements SimpleCommand, ICoreCommand {
             language = PlayerLanguages.getLanguage(((Player) sender).getUniqueId());
 
         String message = LanguagesHandler.get(language).get(name).getString(path);
-        sender.sendMessage(VelocityChatUtil.parseToComponent(message, args));
+        sender.sendMessage(VelocityChatUtil.parse(message, args));
     }
 
     public void sendFormattedList(String name, CommandSource sender, String path, Object... args) {
-        sender.sendMessage(VelocityChatUtil.parseToComponent(getFormattedList(name, sender, path), args));
+        sender.sendMessage(VelocityChatUtil.parse(getFormattedList(name, sender, path), args));
     }
 
     private String getFormattedList(String name, CommandSource sender, String path) {
@@ -51,8 +51,8 @@ public abstract class CoreCommand implements SimpleCommand, ICoreCommand {
 
         for (String line : list) {
             if (player != null)
-                stringBuilder.append(VelocityChatUtil.parseToComponent(player, line) + "\n");
-            else stringBuilder.append(VelocityChatUtil.parseToComponent(line) + "\n");
+                stringBuilder.append(VelocityChatUtil.parse(player, line) + "\n");
+            else stringBuilder.append(VelocityChatUtil.parse(line) + "\n");
         }
         return stringBuilder.toString();
     }

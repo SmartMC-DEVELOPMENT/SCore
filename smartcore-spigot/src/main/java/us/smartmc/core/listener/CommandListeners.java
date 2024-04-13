@@ -20,7 +20,7 @@ public class CommandListeners implements Listener {
         CommandIntermediate intermediate = new CommandIntermediate(name);
 
         if (!intermediate.isAtCommandMap()) {
-            event.getPlayer().sendMessage(ChatUtil.parse(event.getPlayer(), "<lang.lobby.unknown_command>"));
+            event.getPlayer().sendMessage(PaperChatUtil.parse(event.getPlayer(), "<lang.lobby.unknown_command>"));
             event.setCancelled(true);
         }
     }

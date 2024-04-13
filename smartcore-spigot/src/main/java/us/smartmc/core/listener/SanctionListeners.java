@@ -2,6 +2,7 @@ package us.smartmc.core.listener;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bson.Document;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,8 +18,7 @@ public class SanctionListeners implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
     public void chat(AsyncChatEvent event) {
-        String message = event.message().insertion();
-        assert message != null;
+        String message = MiniMessage.miniMessage().serialize(event.message());
         if (message.startsWith("/")) return;
         Player player = event.getPlayer();
         event.setCancelled(!getActiveMutes(player.getUniqueId()).isEmpty());

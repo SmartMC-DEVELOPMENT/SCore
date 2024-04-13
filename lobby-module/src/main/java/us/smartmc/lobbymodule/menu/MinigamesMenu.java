@@ -48,14 +48,14 @@ public class MinigamesMenu extends CoreMenu {
         set(9, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
                 .name("<lang.lobby_miniGames.items_discord_name>")
-                .lore(Arrays.asList("<lang.lobby_miniGames.items_discord_description>"))
+                .lore("<lang.lobby_miniGames.items_discord_description>")
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzM5ZWU3MTU0OTc5YjNmODc3MzVhMWM4YWMwODc4MTRiNzkyOGQwNTc2YTI2OTViYTAxZWQ2MTYzMTk0MjA0NSJ9fX0=")
                 .get(language), "bungeeCMD discord", "closeInv");
         // TWITTER
         set(18, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
                 .name("<lang.lobby_miniGames.items_twitter_name>")
-                .lore(Arrays.asList("<lang.lobby_miniGames.items_twitter_description>"))
+                .lore("<lang.lobby_miniGames.items_twitter_description>")
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2M3NDVhMDZmNTM3YWVhODA1MDU1NTkxNDllYTE2YmQ0YTg0ZDQ0OTFmMTIyMjY4MThjMzg4MWMwOGU4NjBmYyJ9fX0=")
                 .get(language), "bungeeCMD twitter", "closeInv");
 
@@ -63,7 +63,7 @@ public class MinigamesMenu extends CoreMenu {
         set(27, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
                 .name("<lang.lobby_miniGames.items_store_name>")
-                .lore(Arrays.asList("<lang.lobby_miniGames.items_store_description>"))
+                .lore("<lang.lobby_miniGames.items_store_description>")
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjI3ODQzMDdiODkyZjUyYjkyZjc0ZmE5ZGI0OTg0YzRmMGYwMmViODFjNjc1MmU1ZWJhNjlhZDY3ODU4NDI3ZSJ9fX0=")
                 .get(language), "bungeeCMD store", "closeInv");
         closeItem();
@@ -76,7 +76,7 @@ public class MinigamesMenu extends CoreMenu {
     public void setNotAvailableItems(){
         ItemStack item = ItemBuilder.of(Material.RED_STAINED_GLASS_PANE)
                 .name("<lang.lobby.items_not_available_name>")
-                .lore(Arrays.asList("<lang.lobby.items_not_available_description>"))
+                .lore("<lang.lobby.items_not_available_description>")
                 .get(language);
 
         for (int slot : slots) {

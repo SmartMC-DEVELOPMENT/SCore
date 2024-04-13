@@ -32,20 +32,19 @@ public class AnnouncePackagePurchase extends CoreCommand {
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         String packageName = stringBuilder.toString();
 
-        Map<Language, String> messages = new HashMap<>();
+        Map<Language, Component> messages = new HashMap<>();
 
         for (Language language : Language.values()) {
-            String message = LanguagesHandler.get(language).get("proxy_main").getString("purchase_package_announce");
-            message = MessageFormat.format(message, username, packageName);
-            message = VelocityChatUtil.parse(message);
+            String textMessage = LanguagesHandler.get(language).get("proxy_main").getString("purchase_package_announce");
+            Component message = VelocityChatUtil.parse(textMessage, username, packageName);
             messages.put(language, message);
         }
 
         for (Player player : VelocityPluginsAPI.proxy.getAllPlayers()) {
             Language language = PlayerLanguages.getLanguage(player.getUniqueId());
-            String message = messages.get(language);
-            player.sendMessage(Component.text(message));
+            Component message = messages.get(language);
+            player.sendMessage(message);
         }
-        System.out.println(messages.get(Language.getDefault()));
+        VelocityPluginsAPI.proxy.getConsoleCommandSource().sendMessage(messages.get(Language.getDefault()));
     }
 }

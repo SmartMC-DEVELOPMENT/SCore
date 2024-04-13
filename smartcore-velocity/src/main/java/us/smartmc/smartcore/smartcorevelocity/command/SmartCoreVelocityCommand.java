@@ -23,7 +23,7 @@ public class SmartCoreVelocityCommand extends CoreCommand {
     public void execute(CommandSource sender, String[] args) {
         if (!sender.hasPermission("*")) {
             Plugin info = SmartCoreVelocity.class.getAnnotation(Plugin.class);
-            sender.sendMessage(VelocityChatUtil.parseToComponent("&bSmartCoreWaterfall plugin v " +
+            sender.sendMessage(VelocityChatUtil.parse("&bSmartCoreWaterfall plugin v " +
                     info.version() + " by ImSergioh!"));
             return;
         }
@@ -34,7 +34,7 @@ public class SmartCoreVelocityCommand extends CoreCommand {
 
         if (args[0].contains("config")) {
             plugin.loadConfig();
-            sender.sendMessage(VelocityChatUtil.parseToComponent("&aConfiguración recargada!"));
+            sender.sendMessage(VelocityChatUtil.parse("&aConfiguración recargada!"));
         }
 
         if (args[0].contains("cmd")) {
@@ -42,19 +42,19 @@ public class SmartCoreVelocityCommand extends CoreCommand {
             plugin.loadCustomCommands();
             CustomCommandsManager.forEach(customCommandsManager -> {
                 customCommandsManager.load();
-                sender.sendMessage(VelocityChatUtil.parseToComponent("&aRecargado: &e" + customCommandsManager.getName()));
+                sender.sendMessage(VelocityChatUtil.parse("&aRecargado: &e" + customCommandsManager.getName()));
             });
-            sender.sendMessage(VelocityChatUtil.parseToComponent("&aRecargados!"));
+            sender.sendMessage(VelocityChatUtil.parse("&aRecargados!"));
         }
 
         if (args[0].contains("mess") || args[0].contains("msg")) {
             plugin.loadMessages();
-            sender.sendMessage(VelocityChatUtil.parseToComponent("&aMensajes Recargados!"));
+            sender.sendMessage(VelocityChatUtil.parse("&aMensajes Recargados!"));
         }
 
         if (args[0].contains("tab")) {
             TabHandler.register();
-            sender.sendMessage(VelocityChatUtil.parseToComponent("&aTabs Recargados!"));
+            sender.sendMessage(VelocityChatUtil.parse("&aTabs Recargados!"));
         }
     }
 }

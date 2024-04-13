@@ -7,6 +7,7 @@ import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.HumanEntity;
@@ -81,7 +82,7 @@ public class LobbiesMenu extends CoreMenu {
             int number = Integer.parseInt(serverID.replaceAll("[^0-9]", ""));
             String count = CountVariables.getCountOf(serverID);
 
-            set(slot, ItemBuilder.of(material).data(materialData).name(getItemNamePrefix(isSelf) + getItemName(number))
+            set(slot, ItemBuilder.of(material).data(materialData).name(getItemName(isSelf), number)
                     .lore(Arrays.asList("&7" + count + "/" + MaxSlotsInfoManager.getMaxSlotsOf(serverID), "&r",
                             variableConnect))
                     .get(language), labelCommand);
@@ -89,16 +90,11 @@ public class LobbiesMenu extends CoreMenu {
         }
     }
 
-    public String getItemNamePrefix(boolean isSelf) {
-        String prefixPath = "lobby_name_prefix";
-        if (isSelf) {
-            prefixPath = "current_lobby_name_prefix";
-        }
-        return ChatUtil.parse(LanguagesHandler.get(language).get(LobbyMessages.NAME).getString(prefixPath));
-    }
-
-    public String getItemName(int lobbyNumber) {
-        return ChatUtil.parse(LanguagesHandler.get(language).get(LobbyMessages.NAME).getString("main_lobby_name"), lobbyNumber);
+    public String getItemName(boolean isSelf) {
+        String prefixPath = isSelf ? "current_lobby_name_prefix" : "lobby_name_prefix";
+        String a = LanguagesHandler.get(language).get(LobbyMessages.NAME).getString(prefixPath);
+        String b = LanguagesHandler.get(language).get(LobbyMessages.NAME).getString("main_lobby_name");
+        return a + b;
     }
 
     public static int getDynamicInventorySize() {

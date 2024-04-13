@@ -61,7 +61,7 @@ public class PlayerListener extends AddonListener implements Listener {
 
         for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
             String playerNamePrefixMessage = ChatUtil.parse(player, "<rank><name>");
-            onlinePlayer.sendMessage(ChatUtil.parse(onlinePlayer, "<lang.lobby.join_message>", playerNamePrefixMessage));
+            onlinePlayer.sendMessage(PaperChatUtil.parse(onlinePlayer, "<lang.lobby.join_message>", playerNamePrefixMessage));
         }
     }
 }

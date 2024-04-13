@@ -38,6 +38,6 @@ public class LobbyHotbar extends FFAMenu {
         if (meta == null) return ItemBuilder.of(item.getType()).get(player);
         String name = meta.getDisplayName();
         if (name == null) return ItemBuilder.of(item.getType()).get(player);
-        return ItemBuilder.of(item.getType()).amount(item.getAmount()).name(PaperChatUtil.parse(player, name)).get(player);
+        return ItemBuilder.of(item.getType()).amount(item.getAmount()).name(name).get(player);
     }
 }

@@ -1,4 +1,4 @@
 {
   "name": "chat-module",
-  "main": "us.smartmc.addon.ChatModule"
+  "main": "us.smartmc.core.ChatModule"
 }

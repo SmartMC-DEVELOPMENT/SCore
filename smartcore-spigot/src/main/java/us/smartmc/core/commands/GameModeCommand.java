@@ -1,6 +1,7 @@
 package us.smartmc.core.commands;
 
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -42,7 +43,7 @@ public class GameModeCommand implements CommandExecutor {
         sender.sendMessage(successMessage(sender, targetName));
     }
 
-    private String successMessage(CommandSender sender, String targetName) {
+    private Component successMessage(CommandSender sender, String targetName) {
         if (sender.getName().equalsIgnoreCase(targetName)) {
             return PaperChatUtil.parse("&aHas cambiado tu modo de juego correctamente!");
         }

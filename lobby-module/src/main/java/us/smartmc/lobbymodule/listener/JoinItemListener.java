@@ -7,10 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.scheduler.BukkitRunnable;
-import us.smartmc.core.SmartCore;
-import us.smartmc.lobbymodule.handler.VisibilityManager;
-import us.smartmc.lobbymodule.instance.PlayerVisibility;
 import us.smartmc.lobbymodule.menu.JoinItemMenu;
 import us.smartmc.smartaddons.plugin.AddonListener;
 

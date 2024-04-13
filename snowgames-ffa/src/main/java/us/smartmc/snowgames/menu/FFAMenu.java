@@ -21,7 +21,7 @@ public abstract class FFAMenu extends CoreMenu {
         if (meta == null) return ItemBuilder.of(item.getType()).get(player);
         String name = meta.getDisplayName();
         if (name == null) return ItemBuilder.of(item.getType()).get(player);
-        return ItemBuilder.of(item.getType()).amount(item.getAmount()).name(PaperChatUtil.parse(player, prefix + name)).get(player);
+        return ItemBuilder.of(item.getType()).amount(item.getAmount()).name(prefix + name).get(player);
     }
 
     protected static ItemStack parseItem(Player player, ItemStack item) {
@@ -29,7 +29,7 @@ public abstract class FFAMenu extends CoreMenu {
         if (meta == null) return ItemBuilder.of(item.getType()).get(player);
         String name = meta.getDisplayName();
         if (name == null) return ItemBuilder.of(item.getType()).get(player);
-        return ItemBuilder.of(item.getType()).amount(item.getAmount()).name(PaperChatUtil.parse(player, name)).get(player);
+        return ItemBuilder.of(item.getType()).amount(item.getAmount()).name(name).get(player);
     }
 
     public static void give(Player player, Class<? extends FFAMenu> menuClass) {

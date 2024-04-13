@@ -46,7 +46,7 @@ public class JoinItemMenu extends ConfigurableMenu {
 
         if (initPlayer.hasPermission("group.builder")) {
             set(12, ItemBuilder.of(Material.NETHERITE_AXE).hideFlags()
-                    .name("&aTodo el mundo a buildear &e&l(1.20)")
+                    .name("<gradient:#00BFFF:#94E3FF>Build server modern</gradient>")
                     .lore("&7Pues server builds, no sé").get(), "connectTo builds");
             set(14, ItemBuilder.of(Material.DIAMOND_AXE).hideFlags()
                     .name("&aTodo el mundo a buildear &e&l(LEGACY)")

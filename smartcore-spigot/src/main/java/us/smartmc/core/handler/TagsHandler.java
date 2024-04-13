@@ -54,13 +54,13 @@ public class TagsHandler implements Listener {
             if (team == null) {
                 // Team creation
                 team = scoreboard.registerNewTeam(teamName);
-                Component prefix = PaperChatUtil.parseToComponent(player, "<chat.prefix.color>");
+                Component prefix = PaperChatUtil.parse(player, "<chat.prefix.color>");
                 team.prefix(prefix);
                 if (!team.hasPlayer(player))
                     team.addPlayer(player);
             } else {
                 // Team prefix update
-                Component prefix = PaperChatUtil.parseToComponent(player, "<chat.prefix.color>");
+                Component prefix = PaperChatUtil.parse(player, "<chat.prefix.color>");
                 if (team.prefix().equals(prefix)) continue;
                 team.prefix(prefix);
             }
@@ -68,8 +68,8 @@ public class TagsHandler implements Listener {
     }
 
     private Component getFormattedTag(Player player) {
-        String unformattedTag = "<chat.prefix>&7<name>";
-         return PaperChatUtil.parseToComponent(player, unformattedTag);
+        String unformattedTag = "<chat.prefix><reset><gray><name>";
+         return PaperChatUtil.parse(player, unformattedTag);
     }
 
     private String getUniqueTeamName(Player player) {

@@ -110,7 +110,7 @@ public class TermsListeners extends AddonListener implements Listener {
         Book.Builder builder = Book.builder()
                 .author(Component.text("Administration"));
 
-        builder.addPage(PaperChatUtil.parseToComponent("""
+        builder.addPage(PaperChatUtil.parse("""
                         Hello!
                         §r
                         Welcome to SmartMC Network!
@@ -118,9 +118,9 @@ public class TermsListeners extends AddonListener implements Listener {
                         Accept the terms and conditions to be able to play and enjoy our services and our Minecraft Network :D
                         §r
                         """)
-                .append(PaperChatUtil.parseToComponent("<blue><underline>Read terms here<reset>\n<reset>\n").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, "https://smartmc.us/terms")))
-                .append(PaperChatUtil.parseToComponent("    <green><bold>ACCEPT ").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms accept " + acceptID)))
-                .append(PaperChatUtil.parseToComponent("<red><bold>DENY    ")).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms deny " + acceptID)));
+                .append(PaperChatUtil.parse("<blue><underline>Read terms here<reset>\n<reset>\n").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, "https://smartmc.us/terms")))
+                .append(PaperChatUtil.parse("    <green><bold>ACCEPT ").clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms accept " + acceptID)))
+                .append(PaperChatUtil.parse("<red><bold>DENY    ")).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/terms deny " + acceptID)));
         return builder.build();
     }
 

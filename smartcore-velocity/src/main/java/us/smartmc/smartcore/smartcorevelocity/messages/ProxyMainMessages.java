@@ -21,7 +21,7 @@ public class ProxyMainMessages extends MultiLanguageRegistry {
         holder.registerDefault("too_much_arguments_command_error", "&cYou've introduced too much arguments.");
         holder.registerDefault("no_player_error", "&cThe player you're looking for doesn't exist.");
         holder.registerDefault("invalid_subcommand", "&cYou've introduced an invalid subcommand");
-        holder.registerDefault("servers_not_found", "&cWe have not found servers to connect to!");
+        holder.registerDefault("servers_not_found", "<color:#FF5555>We have not found servers to connect to!");
 
         holder.registerDefault("purchase_package_announce",
                 "&r\n" +

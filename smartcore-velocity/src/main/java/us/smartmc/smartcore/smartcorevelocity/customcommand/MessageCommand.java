@@ -15,6 +15,6 @@ public class MessageCommand implements CustomCommandExecutor {
             builder.append(args[i]).append(" ");
         }
         builder.deleteCharAt(builder.length() - 1);
-        sender.sendMessage(VelocityChatUtil.parseToComponent(player, builder.toString()));
+        sender.sendMessage(VelocityChatUtil.parse(player, builder.toString()));
     }
 }

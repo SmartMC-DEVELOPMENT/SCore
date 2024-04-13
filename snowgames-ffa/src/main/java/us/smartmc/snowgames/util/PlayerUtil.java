@@ -3,6 +3,7 @@ package us.smartmc.snowgames.util;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import us.smartmc.snowgames.FFAPlugin;
@@ -14,6 +15,7 @@ import us.smartmc.snowgames.manager.KillMessagesManager;
 import us.smartmc.snowgames.manager.ListMessagesManager;
 import us.smartmc.snowgames.player.FFAPlayer;
 
+import java.awt.*;
 import java.util.UUID;
 
 import static us.smartmc.snowgames.listener.PlayerListeners.getAttacked;
@@ -58,7 +60,7 @@ public class PlayerUtil {
             Language language = PlayerLanguages.get(player.getUUID());
             if (language == null) language = Language.getDefault();
 
-            String message = killer == null ?
+            Component message = killer == null ?
                     PaperChatUtil.parse(player.getPlayer(), manager.getRandomMessageFromList(messageIndex, language),
                     victim.getName()) :
                     PaperChatUtil.parse(player.getPlayer(), manager.getRandomMessageFromList(messageIndex, language),

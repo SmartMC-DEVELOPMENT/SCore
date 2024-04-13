@@ -33,8 +33,9 @@ public abstract class GamePlayer extends OfflineGamePlayer {
     }
 
     public void sendTitle(String title, String subtitle, Object... args) {
-        player.sendTitle(PaperChatUtil.parse(player, title, args),
-                PaperChatUtil.parse(player, subtitle, args));
+        /*player.sendTitle(PaperChatUtil.parse(player, title, args),
+                PaperChatUtil.parse(player, subtitle, args));*/
+
     }
 
     public void setStatus(PlayerStatus status) {

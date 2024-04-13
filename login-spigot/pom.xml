@@ -50,7 +50,7 @@
             <artifactId>bukkit-version</artifactId>
             <version>local-complete</version>
             <scope>system</scope>
-            <systemPath>D:/LIBS_PLUGINS/FastLogin.jar</systemPath>
+            <systemPath>D:/LIBS_PLUGINS/FastLoginBukkit.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.mindrot</groupId>

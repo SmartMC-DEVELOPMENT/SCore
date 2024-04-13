@@ -2,6 +2,8 @@ package us.smartmc.core.instance;
 
 import com.google.common.collect.Lists;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
@@ -23,7 +25,7 @@ public class BPlayerBoard {
         this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         objective = scoreboard.registerNewObjective("aaa", Criteria.DUMMY, "bbb");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        objective.displayName(PaperChatUtil.parseToComponent(title));
+        objective.displayName(MiniMessage.miniMessage().deserialize(title));
         player.setScoreboard(scoreboard);
     }
 
@@ -35,13 +37,13 @@ public class BPlayerBoard {
         Team team = getOrCreateTeamByScoreIndex(scoreIndex);
         String entry = randomEmptyEntry(scoreIndex);
         team.addEntry(entry);
-        team.prefix(PaperChatUtil.parseToComponent(player, "§r" + line));
+        team.prefix(PaperChatUtil.parse(player, "&r" + line));
         objective.getScore(entry).setScore(scoreIndex);
     }
 
     public void update(String line, int scoreIndex) {
         Team team = getOrCreateTeamByScoreIndex(scoreIndex);
-        team.prefix(PaperChatUtil.parseToComponent(player, "§r" + line));
+        team.prefix(PaperChatUtil.parse(player, "&r" + line));
     }
 
     public void delete() {

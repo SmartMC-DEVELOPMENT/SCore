@@ -99,7 +99,7 @@ public final class LoginSpigot extends JavaPlugin implements Listener, CommandEx
     public void onChat(PlayerCommandPreprocessEvent event) {
         String command = event.getMessage();
         if (command.startsWith("/")) command = command.replaceFirst("/", "");
-        if (command.startsWith("login") || command.startsWith("register")) return;
+        if (command.startsWith("login") || command.startsWith("register") || command.startsWith("premium")) return;
         if(!enabled) return;
         event.setCancelled(true);
     }

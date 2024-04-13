@@ -2,6 +2,7 @@ package us.smartmc.snowgames.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerTickEvent;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -98,7 +99,7 @@ public class GameListeners implements Listener {
         player.setFoodLevel(20);
 
         if (isJoinMessageEnabled()) {
-            event.setJoinMessage(PaperChatUtil.parse(event.getPlayer(), getJoinMessage(), event.getPlayer().getDisplayName()));
+            event.setJoinMessage(ChatUtil.parse(event.getPlayer(), getJoinMessage(), event.getPlayer().getDisplayName()));
         } else {
             event.setJoinMessage(null);
         }

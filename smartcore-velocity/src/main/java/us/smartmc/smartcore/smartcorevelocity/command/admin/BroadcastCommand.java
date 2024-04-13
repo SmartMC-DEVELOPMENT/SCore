@@ -33,7 +33,7 @@ public class BroadcastCommand extends CoreCommand {
 
     private void sendBroadcast(String message) {
         message = message.replace("&", "§");
-        String formattedMessage = "<aqua><bold>Smart<white><bold>MC <reset><gray>» <reset>" + message;
+        String formattedMessage = "<gradient:#00c0ff:#94E3FF><bold>SmartMC</gradient> <reset><gray>» <reset>" + message;
         Component component = MiniMessage.miniMessage().deserialize(formattedMessage);
         for (Player player : VelocityPluginsAPI.proxy.getAllPlayers()) {
             player.sendMessage(component);

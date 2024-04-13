@@ -5,6 +5,8 @@ import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import net.kyori.adventure.text.Component;
+import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.instance.LinkSocialType;
@@ -30,7 +32,7 @@ public class ShowSocialAction implements ItemActionExecutor {
             targetName = menu.getTargetName();
         }
 
-        String message = PaperChatUtil.parse(clicker, "<lang.lobby.link_socials_show_message>", targetName, type.getDisplayName());
+        Component message = PaperChatUtil.parse(clicker, "<lang.lobby.link_socials_show_message>", targetName, type.getDisplayName());
         ClickableComponent component = new ClickableComponent();
         component.addURL(message, LobbyModule.getLinkSocialsManager().get(type).getFormattedURL(username));
         component.send(clicker);

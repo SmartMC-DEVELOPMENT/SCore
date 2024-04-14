@@ -17,6 +17,7 @@ import us.smartmc.smartcore.smartcorevelocity.manager.AllowedCommandsManager;
 import us.smartmc.smartcore.smartcorevelocity.manager.CustomCommandsManager;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -29,46 +30,43 @@ public class CustomCommandsListeners {
         Optional<ServerConnection> currentServer = player.getCurrentServer();
         if (currentServer.isEmpty()) {
             cancelAllAvailableCommands(event);
-            System.out.println("ALLOWED_COMMANDS CANCEL CURRENTSERVER");
             return;
         }
         ServerConnection serverConnection = currentServer.get();
-        AllowedCommandsManager manager = AllowedCommandsManager.get(serverConnection.getServerInfo().getName());
-        if (manager == null) {
-            cancelAllAvailableCommands(event);
-            System.out.println("ALLOWED_COMMANDS CANCEL MANAGER IS NULL");
-            return;
+        Collection<AllowedCommandsManager> managers = AllowedCommandsManager.get(serverConnection.getServerInfo().getName());
+        for (AllowedCommandsManager manager : managers) {
+            if (manager == null) {
+                cancelAllAvailableCommands(event);
+                return;
+            }
+
+            // Force commands to complete
+            manager.getAllowedCommands().forEach(cmdName -> {
+
+                LiteralArgumentBuilder<CommandSource> builder = BrigadierCommand.literalArgumentBuilder(cmdName);
+
+                // Autocomplete usernames (TEMPORAL) TODO: REMOVE THIS AND IMPLEMENT BETTER COSAS NO SE
+                for (Player connectedPlayer : serverConnection.getServer().getPlayersConnected()) {
+                    builder.then(BrigadierCommand.literalArgumentBuilder(connectedPlayer.getUsername()));
+                }
+
+                LiteralCommandNode<CommandSource> literalCommandNode = builder.build();
+
+                // Set of reflection
+                try {
+                    Field field = CommandNode.class.getDeclaredField("children");
+                    field.setAccessible(true);
+                    Map<String, CommandNode<?>> map = (Map<String, CommandNode<?>>) field.get(event.getRootNode());
+                    map.put(cmdName, literalCommandNode);
+                    field.set(event.getRootNode(), map);
+                    field.setAccessible(false);
+                } catch (NoSuchFieldException e) {
+                    throw new RuntimeException(e);
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
-
-        // Force commands to complete
-        System.out.println("Allowed=" + manager.getAllowedCommands());
-        manager.getAllowedCommands().forEach(cmdName -> {
-
-            LiteralArgumentBuilder<CommandSource> builder = BrigadierCommand.literalArgumentBuilder(cmdName);
-
-            // Autocomplete usernames (TEMPORAL) TODO: REMOVE THIS AND IMPLEMENT BETTER COSAS NO SE
-            for (Player connectedPlayer : serverConnection.getServer().getPlayersConnected()) {
-                builder.then(BrigadierCommand.literalArgumentBuilder(connectedPlayer.getUsername()));
-            }
-
-            LiteralCommandNode<CommandSource> literalCommandNode = builder.build();
-
-            // Set of reflection
-            try {
-                Field field = CommandNode.class.getDeclaredField("children");
-                field.setAccessible(true);
-                Map<String, CommandNode<?>> map = (Map<String, CommandNode<?>>) field.get(event.getRootNode());
-                map.put(cmdName, literalCommandNode);
-                field.set(event.getRootNode(), map);
-                field.setAccessible(false);
-            } catch (NoSuchFieldException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        System.out.println("ALLOWED_COMMANDS CANCEL COMPLETE");
     }
 
     private void cancelAllAvailableCommands(PlayerAvailableCommandsEvent event) {
@@ -78,8 +76,6 @@ public class CustomCommandsListeners {
     @Subscribe(order = PostOrder.LAST)
     public void onChatPlayer(CommandExecuteEvent event) {
         if (!event.getResult().isAllowed()) return;
-        System.out.println("CommandExecuteEvent " + event.getCommand());
-
         String label = event.getCommand();
 
         for (CustomCommandsManager manager : CustomCommandsManager.getManagers()) {

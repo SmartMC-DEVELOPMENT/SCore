@@ -29,16 +29,27 @@ public class AllowedCommandsManager extends MongoDBPluginConfig {
         return getList("allowed", String.class);
     }
 
-    public static AllowedCommandsManager get(String serverName) {
+    public static List<AllowedCommandsManager> get(String serverName) {
+        Set<AllowedCommandsManager> list = new HashSet<>();
+        try {
+            list.add(getOrLoad("global"));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         for (String availableId : available) {
             if (serverName.startsWith(availableId)) {
-                return getOrCreate(availableId);
+                try {
+                    list.add(getOrLoad(availableId));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
-        return null;
+        return list;
     }
 
-    private static AllowedCommandsManager getOrCreate(String id) {
+    private static AllowedCommandsManager getOrLoad(String id) throws Exception {
+        if (!available.contains(id)) throw new Exception("No found");
         AllowedCommandsManager manager = managers.get(id);
         if (manager != null) return manager;
         manager = new AllowedCommandsManager(id);
@@ -51,6 +62,7 @@ public class AllowedCommandsManager extends MongoDBPluginConfig {
     }
 
     public static void loadAvailableServerIds() {
+        available.add("global");
         for (Document document : MongoDBConnection.mainConnection.getDatabase(DATABASE).getCollection(COLLECTION).find()) {
             String id = document.getString("_id");
             System.out.println("CACHED ALLOWED_COMMAND ID OF " + id);

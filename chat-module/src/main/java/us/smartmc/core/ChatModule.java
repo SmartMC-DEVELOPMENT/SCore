@@ -53,7 +53,6 @@ public class ChatModule extends AddonPlugin {
                 Bukkit.broadcast(Component.join(JoinConfiguration.builder().build(), formattedMessage, message));
             }
         };
-
         ProtocolLibrary.getProtocolManager().addPacketListener(packetListener);
 
         VariablesHandler.register(new DateVariables());

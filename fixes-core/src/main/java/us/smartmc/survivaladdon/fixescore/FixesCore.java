@@ -16,6 +16,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
@@ -52,6 +53,15 @@ public class FixesCore extends AddonPlugin {
         registerVariablesIfPluginIsEnabled("LuckPerms", LuckPermsVariables.class);
 
         registerChatProtocol();
+
+        removePluginByName("sleep-most");
+    }
+
+    private void removePluginByName(String name) {
+        JavaPlugin plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin(name);
+        if (plugin != null && plugin.isEnabled()) {
+            Bukkit.getPluginManager().disablePlugin(plugin);
+        }
     }
 
     private void registerVariablesIfPluginIsEnabled(String name, Class<? extends VariableListener<?>> variablesClass) {

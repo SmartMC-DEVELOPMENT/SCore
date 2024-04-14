@@ -28,6 +28,7 @@ public class LanguageVariables extends VariableListener<Player> {
             }
             String messageHolder = arg.split("\\.")[1];
             String path = arg.replaceAll("^.*?\\.([^>]+)>$", "$1");
+            if (path.startsWith(messageHolder + ".")) path = path.replace(messageHolder + ".", "");
             Object object = LanguagesHandler
                     .get(language)
                     .get(messageHolder)

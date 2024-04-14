@@ -65,7 +65,6 @@ public class MinigamesConfig extends MongoDBPluginConfig {
 
         ArrayList<String> description = LineLimiter.createListFromNewLines(document.getString("description"));
         String clickToConnect = LanguagesHandler.get(language).get("lobby_miniGames").getString("click_to_connect");
-        String connected = String.valueOf(LanguagesHandler.get(language).get("lobby_miniGames").getString("current_playing"));
         description = (ArrayList<String>) LineLimiter.limitLines(description, Integer.MAX_VALUE);
 
         ArrayList<String> list = new ArrayList<>();
@@ -83,12 +82,8 @@ public class MinigamesConfig extends MongoDBPluginConfig {
         list.addAll(description);
         description = list;
 
-        String count = CountVariables.getCountOf("online." + serverPrefixId);
         description.addAll(Arrays.asList("", clickToConnect));
-        if (Long.parseLong(count) >= 1) {
-            connected = MessageFormat.format(connected, count);
-            description.add(connected);
-        }
+
         description.replaceAll(l -> "&7" + l);
 
         ItemBuilder builder = ItemBuilder.of(material)

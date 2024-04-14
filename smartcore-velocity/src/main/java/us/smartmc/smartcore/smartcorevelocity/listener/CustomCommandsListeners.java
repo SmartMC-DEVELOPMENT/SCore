@@ -27,18 +27,14 @@ public class CustomCommandsListeners {
     public void handleCommandAnnounces(PlayerAvailableCommandsEvent event) {
         Player player = event.getPlayer();
 
+        event.getRootNode().getChildren().removeIf((commandNode) -> true);
+
         Optional<ServerConnection> currentServer = player.getCurrentServer();
-        if (currentServer.isEmpty()) {
-            cancelAllAvailableCommands(event);
-            return;
-        }
+        if (currentServer.isEmpty()) return;
         ServerConnection serverConnection = currentServer.get();
         Collection<AllowedCommandsManager> managers = AllowedCommandsManager.get(serverConnection.getServerInfo().getName());
         for (AllowedCommandsManager manager : managers) {
-            if (manager == null) {
-                cancelAllAvailableCommands(event);
-                return;
-            }
+            if (manager == null) return;
 
             // Force commands to complete
             manager.getAllowedCommands().forEach(cmdName -> {
@@ -67,10 +63,6 @@ public class CustomCommandsListeners {
                 }
             });
         }
-    }
-
-    private void cancelAllAvailableCommands(PlayerAvailableCommandsEvent event) {
-        event.getRootNode().getChildren().removeIf((commandNode) -> true);
     }
 
     @Subscribe(order = PostOrder.LAST)

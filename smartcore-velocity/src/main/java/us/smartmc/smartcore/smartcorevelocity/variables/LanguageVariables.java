@@ -27,7 +27,7 @@ public class LanguageVariables extends VariableListener<Player> {
                 continue;
             }
             String messageHolder = arg.split("\\.")[1];
-            String path = arg.split("\\.")[2].replace(">", "");
+            String path = arg.replaceAll("^.*?\\.([^>]+)>$", "$1");
             Object object = LanguagesHandler
                     .get(language)
                     .get(messageHolder)
@@ -36,7 +36,7 @@ public class LanguageVariables extends VariableListener<Player> {
             if (object instanceof String) {
                 args[i] = (String) object;
             } else {
-                args[i] = "LANGUAGE_ERROR";
+                args[i] = object.toString();
             }
         }
         return parse(player, String.join(" ", args));

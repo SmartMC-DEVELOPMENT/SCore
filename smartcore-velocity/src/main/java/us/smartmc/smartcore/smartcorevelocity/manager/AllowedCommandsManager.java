@@ -29,7 +29,7 @@ public class AllowedCommandsManager extends MongoDBPluginConfig {
         return getList("allowed", String.class);
     }
 
-    public static List<AllowedCommandsManager> get(String serverName) {
+    public static Collection<AllowedCommandsManager> get(String serverName) {
         Set<AllowedCommandsManager> list = new HashSet<>();
         try {
             list.add(getOrLoad("global"));

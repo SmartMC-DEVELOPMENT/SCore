@@ -6,6 +6,8 @@ import me.imsergioh.pluginsapi.instance.VariableListener;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public class LanguageVariables extends VariableListener<Player> {
 
     @Override
@@ -41,6 +43,13 @@ public class LanguageVariables extends VariableListener<Player> {
 
             if (object instanceof String) {
                 args[i] = (String) object;
+            } else if (object instanceof List) {
+                StringBuilder stringBuilder = new StringBuilder();
+                List<?> list = (List<?>) object;
+                for (Object o : list) {
+                    stringBuilder.append(o.toString() + "\n");
+                }
+                args[i] = stringBuilder.toString();
             } else {
                 args[i] = object.toString();
             }

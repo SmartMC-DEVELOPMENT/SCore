@@ -29,7 +29,6 @@ public class NPCHologramManager extends AddonListener implements Listener {
     private final int updateTaskID;
 
     private final Map<Language, List<String>> constantLinesMap = new HashMap<>();
-    private final Map<Language, Integer> lastKnownLines = new HashMap<>();
 
     public NPCHologramManager(CustomNPC npc) {
         this.npc = npc;
@@ -49,16 +48,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
                 if (constantLinesMap.containsKey(language)) continue;
                 List<String> linesList = getLines(language);
 
-                // Calcula el hash de las líneas actuales
-                int currentLinesHash = linesList.hashCode();
-
-                // Compara el hash actual con el último hash conocido
-                Integer lastKnownLinesHash = lastKnownLines.containsKey(language) ? lastKnownLines.get(language).hashCode() : null;
-                if (lastKnownLinesHash != null && currentLinesHash == lastKnownLinesHash) continue;
-
                 constantLinesMap.put(language, linesList);
-                // Actualiza el hash en lastKnownLines
-                lastKnownLines.put(language, currentLinesHash); // Considera almacenar el hash directamente para mejorar la eficiencia
             }
 
             // Update holograms to players if changed

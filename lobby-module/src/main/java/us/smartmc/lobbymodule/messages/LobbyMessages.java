@@ -98,7 +98,6 @@ public class LobbyMessages extends MultiLanguageRegistry {
     public static ItemBuilder getItem(Material material, String name) {
         String namePath = "<lang.lobby.items_" + name + "_name>";
         String lorePath = "<lang.lobby.items_" + name + "_description>";
-
         return ItemBuilder.of(material)
                 .name(namePath)
                 .lore(Arrays.asList(lorePath));

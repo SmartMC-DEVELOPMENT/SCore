@@ -97,6 +97,7 @@ public class SmartCoreVelocity {
         // Register commands
         CustomCommandsManager.register("test", new TestCommand());
         CustomCommandsManager.register("message", new MessageCommand());
+        CustomCommandsManager.register("cmd", new CmdCommand());
 
         loadMessages();
         registerCommands();

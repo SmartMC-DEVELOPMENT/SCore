@@ -37,6 +37,7 @@ us\smartmc\smartcore\smartcorevelocity\command\admin\BroadcastCommand.class
 us\smartmc\smartcore\smartcorevelocity\util\SanctionTimeUtils.class
 us\smartmc\smartcore\smartcorevelocity\messages\HelpMessages.class
 us\smartmc\smartcore\smartcorevelocity\command\onlinestore\OnlineStoreCommand.class
+us\smartmc\smartcore\smartcorevelocity\customcommand\CmdCommand.class
 us\smartmc\smartcore\smartcorevelocity\util\DebugUtil.class
 us\smartmc\smartcore\smartcorevelocity\rediscommand\StopServerCommand.class
 us\smartmc\smartcore\smartcorevelocity\listener\CustomCommandsListeners.class

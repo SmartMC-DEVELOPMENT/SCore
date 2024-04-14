@@ -41,7 +41,6 @@ public class SettingsMenu extends CoreMenu {
         ItemBuilder relleno = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).name(" ");
         MenuUtil.setBorder(relleno.get(), inventory);
 
-
         set(20, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
                 .name("<lang.lobby.items_language_name>")

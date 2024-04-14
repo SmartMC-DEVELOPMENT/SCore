@@ -50,7 +50,7 @@ public class ChangeVisibilityCommand extends AddonPluginCommand {
             public void run() {
                 cooldown.remove(player.getUniqueId());
             }
-        }, 250);
+        }, 1000);
     }
 
     @Override

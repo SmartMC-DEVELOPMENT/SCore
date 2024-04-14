@@ -2,7 +2,6 @@ package us.smartmc.core.instance;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
@@ -17,7 +16,6 @@ public class PluginScoreboard {
     private final FilePluginConfig config;
 
     private final Map<Integer, String> variablesLines = new HashMap<>();
-    private final Map<Player, Map<Integer, String>> lastKnownPlayerVariables = new HashMap<>();
 
     public PluginScoreboard(String name) {
         this.name = name;
@@ -31,8 +29,8 @@ public class PluginScoreboard {
         registerVariables();
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
-            for (Player player : lastKnownPlayerVariables.keySet()) {
-                checkUpdates(player);
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                update(player);
             }
         }, 10, config.getInteger("update_ticks"));
     }
@@ -54,22 +52,13 @@ public class PluginScoreboard {
         });
     }
 
-    private void checkUpdates(Player player) {
+    private void update(Player player) {
         BPlayerBoard board = getOrCreateBoard(player);
-        Map<Integer, String> lastKnowingLines = lastKnownPlayerVariables.get(player);
-
         for (Map.Entry<Integer, String> entry : variablesLines.entrySet()) {
             int index = entry.getKey();
-
             String line = entry.getValue();
-
             int reversedIndex = getScores().size() - index;
-            String lastKnownLine = lastKnowingLines.get(reversedIndex);
-
-            if (!line.equals(lastKnownLine)) {
-                board.update(line, reversedIndex);
-                lastKnowingLines.put(reversedIndex, line);
-            }
+            board.update(line, reversedIndex);
         }
     }
 
@@ -93,11 +82,6 @@ public class PluginScoreboard {
                 lastKnownLines.put(index, line);
             }
         }
-        lastKnownPlayerVariables.put(player, lastKnownLines);
-    }
-
-    public void unregister(Player player) {
-        lastKnownPlayerVariables.remove(player);
     }
 
     public String getTitle() {

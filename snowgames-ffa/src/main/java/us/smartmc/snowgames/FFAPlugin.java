@@ -6,6 +6,7 @@ import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
@@ -101,10 +102,10 @@ public class FFAPlugin extends GamesManagerAPI<FFAGame, FFAPlayer> {
         getCommand("ffa").setExecutor(new FFACommand());
 
         arenaManager = new ArenaManager();
-        topsManager = new TopsManager("player_data", "snowgames_ffa")
-                .register("kills", "deaths", "max_kill_streak");
 
         SyncUtil.later(() -> {
+            topsManager = new TopsManager("player_data", "snowgames_ffa")
+                    .register("kills", "deaths", "max_kill_streak");
             topsManager.load();
         }, 750);
 

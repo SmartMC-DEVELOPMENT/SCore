@@ -59,10 +59,6 @@ public class ScoreboardHandler implements Listener {
     public void unregister(Player player) {
         BPlayerBoard board = BPlayerBoard.get(player);
         if (board != null) board.delete();
-
-        for (PluginScoreboard scoreboard : scoreboards.values()) {
-            scoreboard.unregister(player);
-        }
     }
 
     public void unregister(String name, Language language) {

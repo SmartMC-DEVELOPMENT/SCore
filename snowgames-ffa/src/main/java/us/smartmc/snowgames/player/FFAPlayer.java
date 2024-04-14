@@ -17,8 +17,6 @@ import java.util.UUID;
 @Getter
 public class FFAPlayer extends GamePlayer {
 
-    private static final MongoCollection<Document> collection = MongoDBConnection.mainConnection.getDatabase("player_data").getCollection("snowgames_ffa");
-
     protected final Player player;
     private Document statsDocument;
 
@@ -30,7 +28,7 @@ public class FFAPlayer extends GamePlayer {
     }
 
     private void loadStats() {
-        statsDocument = collection.find(getQuery()).first();
+        statsDocument = getCollection().find(getQuery()).first();
         if (statsDocument == null) statsDocument = getQuery();
         statsDocument.put("name", player.getName());
     }
@@ -84,8 +82,8 @@ public class FFAPlayer extends GamePlayer {
     }
 
     public void saveStats() {
-        collection.deleteMany(getQuery());
-        collection.insertOne(statsDocument);
+        getCollection().deleteMany(getQuery());
+        getCollection().insertOne(statsDocument);
     }
 
     private Document getQuery() {
@@ -106,5 +104,9 @@ public class FFAPlayer extends GamePlayer {
     @Override
     public IOfflineGamePlayerData getData() {
         return null;
+    }
+
+    public static MongoCollection<Document> getCollection() {
+        return MongoDBConnection.mainConnection.getDatabase("player_data").getCollection("snowgames_ffa");
     }
 }

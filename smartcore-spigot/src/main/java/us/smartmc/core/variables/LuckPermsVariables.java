@@ -1,5 +1,7 @@
 package us.smartmc.core.variables;
 
+import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.VariableListener;
 import org.bukkit.entity.Player;
 import us.smartmc.core.instance.player.SmartCorePlayer;
@@ -53,8 +55,8 @@ public class LuckPermsVariables extends VariableListener<Player> {
         if (prefix != null && prefix.length() >= 3) {
             message = VariableUtil.replace(message, "<rank>", s -> prefix);
         } else {
-            message = VariableUtil.replace(message, "<rank>", s-> "<red>" + SmartCorePlayer.get(player)
-                    .getLanguageMessage("general", "acquireRank"));
+            String acquireRankMessage = LanguagesHandler.get(PlayerLanguages.get(player.getUniqueId())).get("general").getString("acquireRank");
+            message = VariableUtil.replace(message, "<rank>", s-> "<red>" + acquireRankMessage);
         }
 
         // <CHAT.PREFIX>

@@ -6,6 +6,7 @@ import me.imsergioh.pluginsapi.util.VelocityChatUtil;
 import net.kyori.adventure.text.Component;
 import us.smartmc.smartcore.smartcorevelocity.SmartCoreVelocity;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
+import us.smartmc.smartcore.smartcorevelocity.manager.AllowedCommandsManager;
 import us.smartmc.smartcore.smartcorevelocity.manager.CustomCommandsManager;
 import us.smartmc.smartcore.smartcorevelocity.manager.TabHandler;
 
@@ -40,9 +41,13 @@ public class SmartCoreVelocityCommand extends CoreCommand {
             plugin.loadCustomCommands();
             CustomCommandsManager.forEach(customCommandsManager -> {
                 customCommandsManager.load();
-                sender.sendMessage(VelocityChatUtil.parse("&aRecargado: &e" + customCommandsManager.getName()));
+                sender.sendMessage(VelocityChatUtil.parse("&aCustomCommands recargados: &e" + customCommandsManager.getName()));
             });
 
+            AllowedCommandsManager.forEach(customCommandsManager -> {
+                customCommandsManager.load();
+                sender.sendMessage(VelocityChatUtil.parse("&aAllowedCommands recargados: &e" + customCommandsManager.getName()));
+            });
             sender.sendMessage(VelocityChatUtil.parse("&aRecargados!"));
         }
 

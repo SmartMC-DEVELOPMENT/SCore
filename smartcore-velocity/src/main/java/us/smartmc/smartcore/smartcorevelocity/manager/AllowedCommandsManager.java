@@ -7,6 +7,7 @@ import me.imsergioh.pluginsapi.instance.MongoDBPluginConfig;
 import org.bson.Document;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 @Getter
 public class AllowedCommandsManager extends MongoDBPluginConfig {
@@ -16,8 +17,11 @@ public class AllowedCommandsManager extends MongoDBPluginConfig {
     private static final Set<String> available = new HashSet<>();
     private static final Map<String, AllowedCommandsManager> managers = new HashMap<>();
 
+    private final String name;
+
     public AllowedCommandsManager(String serverPrefix) {
         super(DATABASE, COLLECTION, getQuery(serverPrefix));
+        this.name = serverPrefix;
         load();
     }
 
@@ -52,6 +56,10 @@ public class AllowedCommandsManager extends MongoDBPluginConfig {
             System.out.println("CACHED ALLOWED_COMMAND ID OF " + id);
             available.add(id);
         }
+    }
+
+    public static void forEach(Consumer<AllowedCommandsManager> consumer) {
+        managers.values().forEach(consumer);
     }
 
 }

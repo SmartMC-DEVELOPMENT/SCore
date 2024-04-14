@@ -82,7 +82,6 @@ public class CustomCommandsManager extends MongoDBPluginConfig {
     }
 
     public static void executeCommand(CommandSource sender, String label) {
-        System.out.println("Calling method executeCommand " + label);
         String name = getName(label);
         if (!commands.containsKey(name)) return;
         String[] args = getArgs(label);

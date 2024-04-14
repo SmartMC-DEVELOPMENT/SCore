@@ -2,6 +2,7 @@ package us.smartmc.smartcore.smartcorevelocity.listener;
 
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.player.ServerConnectedEvent;
+import com.velocitypowered.api.event.player.TabCompleteEvent;
 import com.velocitypowered.api.proxy.Player;
 import me.imsergioh.pluginsapi.language.Language;
 import net.kyori.adventure.text.Component;

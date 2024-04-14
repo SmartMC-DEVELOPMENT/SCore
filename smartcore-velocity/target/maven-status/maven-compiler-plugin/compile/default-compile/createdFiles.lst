@@ -43,6 +43,7 @@ us\smartmc\smartcore\smartcorevelocity\listener\CustomCommandsListeners.class
 us\smartmc\smartcore\smartcorevelocity\util\TimeUtils.class
 us\smartmc\smartcore\smartcorevelocity\instance\ICoreCommand.class
 us\smartmc\smartcore\smartcorevelocity\manager\TebexCommandsManager.class
+us\smartmc\smartcore\smartcorevelocity\manager\AllowedCommandsManager.class
 us\smartmc\smartcore\smartcorevelocity\command\admin\SetPrefixCommand.class
 us\smartmc\smartcore\smartcorevelocity\instance\UUIDFinderByName.class
 us\smartmc\smartcore\smartcorevelocity\rediscommand\LanguageChangeCommand.class

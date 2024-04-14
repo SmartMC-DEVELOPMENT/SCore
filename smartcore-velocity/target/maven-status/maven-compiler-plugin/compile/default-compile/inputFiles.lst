@@ -33,6 +33,7 @@ D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\sma
 D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\rediscommand\StopServerCommand.java
 D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\TebexCommandsManager.java
 D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\TebexPackageManager.java
+D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\AllowedCommandsManager.java
 D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\util\SanctionTimeUtils.java
 D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\OnlineCountHandler.java
 D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\CoreServerCommand.java

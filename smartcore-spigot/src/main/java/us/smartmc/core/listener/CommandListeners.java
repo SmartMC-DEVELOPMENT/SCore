@@ -1,6 +1,5 @@
 package us.smartmc.core.listener;
 
-import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

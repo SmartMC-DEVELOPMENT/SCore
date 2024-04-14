@@ -53,7 +53,7 @@ public class LuckPermsVariables extends VariableListener<Player> {
         if (prefix != null && prefix.length() >= 3) {
             message = VariableUtil.replace(message, "<rank>", s -> prefix);
         } else {
-            message = VariableUtil.replace(message, "<rank>", s-> "§c" + SmartCorePlayer.get(player)
+            message = VariableUtil.replace(message, "<rank>", s-> "<red>" + SmartCorePlayer.get(player)
                     .getLanguageMessage("general", "acquireRank"));
         }
 

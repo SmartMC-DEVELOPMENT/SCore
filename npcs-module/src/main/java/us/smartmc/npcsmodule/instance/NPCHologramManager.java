@@ -55,8 +55,6 @@ public class NPCHologramManager extends AddonListener implements Listener {
                 constantLinesMap.put(language, linesList);
             }
 
-            System.out.println("Updating holograms " + constantLinesMap);
-
             for (Player player : viewers) {
                 UUID uuid = player.getUniqueId();
                 Language language = PlayerLanguages.get(uuid);

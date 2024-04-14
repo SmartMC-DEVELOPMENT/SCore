@@ -114,6 +114,8 @@ public class SmartCoreVelocity {
             throw new RuntimeException(e);
         }
 
+        AllowedCommandsManager.loadAvailableServerIds();
+
         logger.info("Plugin enabled successfully!");
 
         PubSubConnectionHandler.register(new LoginMessageHandler());

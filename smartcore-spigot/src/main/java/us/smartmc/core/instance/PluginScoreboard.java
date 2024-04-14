@@ -41,7 +41,6 @@ public class PluginScoreboard {
             String line = scores.get(index);
             if (line.contains("<") || line.contains("%")) {
                 variablesLines.put(index, line);
-                System.out.println("scoreline " + index + "= " + line);
             }
         }
     }
@@ -72,7 +71,7 @@ public class PluginScoreboard {
 
     private void createScoreboard(Player player) {
         BPlayerBoard board = getOrCreateBoard(player);
-        List<String> scores = new ArrayList<>(getScores());
+        List<String> scores = getScores();
 
 
         for (int index = scores.size() - 1; index >= 0; index--) {
@@ -86,6 +85,6 @@ public class PluginScoreboard {
     }
 
     public List<String> getScores() {
-        return config.getList("scores", String.class);
+        return new ArrayList<>(config.getList("scores", String.class));
     }
 }

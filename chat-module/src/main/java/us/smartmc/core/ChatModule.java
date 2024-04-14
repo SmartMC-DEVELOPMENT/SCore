@@ -43,9 +43,11 @@ public class ChatModule extends AddonPlugin {
                 Component message;
 
                 if (event.getPlayer().hasPermission("smartmc.vip")) {
-                    message = PaperChatUtil.parse("<white>" + msgString);
+                    message = Component.join(JoinConfiguration.builder().build(),
+                            PaperChatUtil.parse("<white>"), Component.text(msgString));
                 } else {
-                    message = Component.join(JoinConfiguration.builder().build(), PaperChatUtil.parse("<gray>"), Component.text(msgString));
+                    message = Component.join(JoinConfiguration.builder().build(),
+                            PaperChatUtil.parse("<gray>"), Component.text(msgString));
                 }
 
                 Component formattedMessage = PaperChatUtil.parse(event.getPlayer(), "<chat.prefix><reset><gray><name> &8&l»&7 ");

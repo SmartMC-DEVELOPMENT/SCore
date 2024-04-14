@@ -15,7 +15,7 @@ public class LoginListeners {
         LoginMessageHandler.unregisterLoggedIn(event.getPlayer());
     }
 
-    @Subscribe(order = PostOrder.LAST)
+    @Subscribe(order = PostOrder.FIRST)
     public void cancelCommandsIfNotLoggedIn(CommandExecuteEvent event) {
         CommandSource source = event.getCommandSource();
         if (!(source instanceof Player player)) return;

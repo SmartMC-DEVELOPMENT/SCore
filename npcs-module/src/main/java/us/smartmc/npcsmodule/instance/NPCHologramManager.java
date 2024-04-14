@@ -1,14 +1,19 @@
 package us.smartmc.npcsmodule.instance;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.LanguageUtil;
 import me.imsergioh.pluginsapi.util.LegacyChatUtil;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -47,15 +52,14 @@ public class NPCHologramManager extends AddonListener implements Listener {
                 Language language = PlayerLanguages.get(player.getUniqueId());
                 if (constantLinesMap.containsKey(language)) continue;
                 List<String> linesList = getLines(language);
-
                 constantLinesMap.put(language, linesList);
             }
 
-            // Update holograms to players if changed
+            System.out.println("Updating holograms " + constantLinesMap);
+
             for (Player player : viewers) {
                 UUID uuid = player.getUniqueId();
                 Language language = PlayerLanguages.get(uuid);
-                if (!constantLinesMap.containsKey(language)) continue;
                 updateHolograms(player, constantLinesMap.get(language));
             }
         }, 0, 20 * 3);
@@ -102,7 +106,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
         List<String> list = new ArrayList<>();
         for (String line : getLines()) {
             String languageParsedLine = LanguageUtil.parse(language, line);
-            list.add(LegacyChatUtil.parse(languageParsedLine));
+            list.add(languageParsedLine);
         }
         return list;
     }
@@ -111,12 +115,11 @@ public class NPCHologramManager extends AddonListener implements Listener {
         for (int i = 0; i < stands.size(); i++) {
             ArmorStand stand = stands.get(i);
             String name = names.get(i);
-            String parsedName = LegacyChatUtil.parse(player, name);
+            String parsedName = LegacyComponentSerializer.builder().build().serialize(PaperChatUtil.parse(player, name));
 
             stand.setCustomName(parsedName);
 
-            PacketPlayOutEntityMetadata dataPacket = new PacketPlayOutEntityMetadata(stand.getEntityId(), List.of());
-            ((CraftPlayer) player).getHandle().connection.send(dataPacket);
+            //PacketPlayOutEntityMetadata metadata = new PacketPlayOutEntityMetadata(stand.getEntityId());
         }
     }
 

@@ -9,8 +9,6 @@ import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
 import us.smartmc.smartcore.smartcorevelocity.manager.CustomCommandsManager;
 import us.smartmc.smartcore.smartcorevelocity.manager.TabHandler;
 
-import java.lang.annotation.Annotation;
-
 public class SmartCoreVelocityCommand extends CoreCommand {
 
     private static final SmartCoreVelocity plugin = SmartCoreVelocity.getPlugin();
@@ -44,6 +42,7 @@ public class SmartCoreVelocityCommand extends CoreCommand {
                 customCommandsManager.load();
                 sender.sendMessage(VelocityChatUtil.parse("&aRecargado: &e" + customCommandsManager.getName()));
             });
+
             sender.sendMessage(VelocityChatUtil.parse("&aRecargados!"));
         }
 

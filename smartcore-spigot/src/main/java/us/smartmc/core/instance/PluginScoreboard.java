@@ -74,13 +74,10 @@ public class PluginScoreboard {
         BPlayerBoard board = getOrCreateBoard(player);
         List<String> scores = new ArrayList<>(getScores());
 
-        Map<Integer, String> lastKnownLines = new HashMap<>();
+
         for (int index = scores.size() - 1; index >= 0; index--) {
             String line = scores.get(index);
             board.set(line, scores.size() - index);
-            if (variablesLines.containsKey(index)) {
-                lastKnownLines.put(index, line);
-            }
         }
     }
 

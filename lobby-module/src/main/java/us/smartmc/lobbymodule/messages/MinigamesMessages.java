@@ -16,8 +16,7 @@ public class MinigamesMessages extends MultiLanguageRegistry {
         holder.registerDefault("inventory_title", "Minigames");
         holder.registerDefault("prototype_title", "&5&lPROTOTYPE");
 
-        holder.registerDefault("click_to_connect", "&aClick to connect!");
-        holder.registerDefault("current_playing", "{0} currently playing!");
+        holder.registerDefault("click_to_connect", "&eClick to connect!");
         holder.registerDefault("in_maintenance", "&c&lIN MAINTENANCE!");
 
         item(holder, "discord", "&9&lDiscord Server", "&7Check our Discord Server and connect with us!");

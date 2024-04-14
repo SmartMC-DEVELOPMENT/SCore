@@ -9,7 +9,6 @@ import org.bukkit.inventory.ItemStack;
 import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.config.MinigamesConfig;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +26,8 @@ public class MinigamesMenu extends CoreMenu {
     private int currentSlotIndex = 0;
     private final int[] slots = {11,12,13,14,15};
 
+    private final Map<String, Integer> fixSlots = new HashMap<>();
+
     private final Language language;
 
     private MinigamesMenu(Language language) {
@@ -38,6 +39,7 @@ public class MinigamesMenu extends CoreMenu {
             int slot = document.containsKey("slot") ? document.getInteger("slot") : slots[currentSlotIndex];
             String serverPrefixId = document.getString("serverPrefixId");
             set(slot, MinigamesConfig.getItemOf(language, name), "connectTo " + serverPrefixId, "closeInv");
+            fixSlots.put(name, slot);
             currentSlotIndex++;
         });
 
@@ -46,6 +48,15 @@ public class MinigamesMenu extends CoreMenu {
 
     @Override
     public void load() {
+
+        if(!fixSlots.isEmpty()){
+            config.getMiniGames().forEach((name, document) -> {
+                int slot = fixSlots.get(name);
+                String serverPrefixId = document.getString("serverPrefixId");
+                set(slot, MinigamesConfig.getItemOf(language, name), "connectTo " + serverPrefixId, "closeInv");
+            });
+        }
+
         // DISCORD
         set(9, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)

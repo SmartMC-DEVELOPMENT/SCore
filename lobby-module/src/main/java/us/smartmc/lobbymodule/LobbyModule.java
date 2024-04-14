@@ -2,6 +2,7 @@ package us.smartmc.lobbymodule;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
+import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import us.smartmc.core.SmartCore;
@@ -13,6 +14,7 @@ import us.smartmc.lobbymodule.itemcommand.*;
 import us.smartmc.lobbymodule.listener.*;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
 import us.smartmc.lobbymodule.messages.MinigamesMessages;
+import us.smartmc.lobbymodule.variables.MenuVariables;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 import us.smartmc.smartaddons.plugin.CommandsRegistry;
@@ -54,6 +56,8 @@ public class LobbyModule extends AddonPlugin {
 
         registerCommand(new LobbyCommand());
         registerListeners(SpigotPluginsAPI.getPlugin(), new DefaultConfigListeners(lobbyConfig));
+
+        VariablesHandler.register(new MenuVariables());
 
         registerCommand(
                 new FlyCommand("fly"),

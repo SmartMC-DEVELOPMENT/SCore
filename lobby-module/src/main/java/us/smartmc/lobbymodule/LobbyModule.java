@@ -18,10 +18,8 @@ import us.smartmc.lobbymodule.variables.MenuVariables;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 import us.smartmc.smartaddons.plugin.CommandsRegistry;
-import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 
 @AddonInfo(name = "lobby-module", version = "DEV")
 public class LobbyModule extends AddonPlugin {

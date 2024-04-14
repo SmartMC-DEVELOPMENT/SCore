@@ -33,9 +33,7 @@ public class MenuVariables extends VariableListener<Player> {
             String serverId = matcher.group(1);
 
             String count = CountVariables.getCountOf(serverId);
-            int maxCapacity = MaxSlotsInfoManager.getMaxSlotsOf(serverId);
-
-            System.out.println("MAX?" + maxCapacity);
+            int maxCapacity = MaxSlotsInfoManager.getMaxSlotsOfServers(serverId);
 
             double percentage = Double.parseDouble(count) / maxCapacity * 100;
 

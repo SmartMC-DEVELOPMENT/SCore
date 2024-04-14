@@ -13,7 +13,7 @@ public class MaxSlotsInfoManager {
 
     private static final HashMap<String, Integer> maxSlots = new HashMap<>();
 
-    /*public static int getMaxSlotsOf(String serverIdName) {
+    public static int getMaxSlotsOf(String serverIdName) {
         if (maxSlots.containsKey(serverIdName)) return maxSlots.get(serverIdName);
         String str = RedisConnection.mainConnection.getResource().get("maxSlots." + serverIdName);
         int max = 0;
@@ -22,9 +22,9 @@ public class MaxSlotsInfoManager {
         } catch (Exception e) {System.out.println("Could not found maxSlots of " + serverIdName);}
         maxSlots.put(serverIdName, max);
         return max;
-    }*/
+    }
 
-    public static int getMaxSlotsOf(String serverPrefix) {
+    public static int getMaxSlotsOfServers(String serverPrefix) {
         int online = 0;
         boolean isAlreadyCached = false;
         for (String key : maxSlots.keySet()) {

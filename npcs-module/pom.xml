@@ -14,6 +14,10 @@
 
     <repositories>
         <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
@@ -93,6 +97,11 @@
             <artifactId>adventure-text-minimessage</artifactId>
             <version>4.14.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.holoeasy</groupId>
+            <artifactId>holoeasy-core</artifactId>
+            <version>3.2.0</version>
         </dependency>
     </dependencies>
     <build>

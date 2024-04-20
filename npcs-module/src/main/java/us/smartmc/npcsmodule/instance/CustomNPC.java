@@ -94,18 +94,18 @@ public class CustomNPC {
         ((CraftPlayer) player).getHandle().connection.send(dataPacket);
 
         Bukkit.getScheduler().runTaskLater(SpigotPluginsAPI.getPlugin(), () -> {
-            if (!npcPlayer.isCustomNameVisible()) {
-                Scoreboard scoreboard = player.getScoreboard();
-                Team team = scoreboard.getTeam(HIDE_TAGS_TEAM_NAME);
-                if (team == null) team = scoreboard.registerNewTeam(HIDE_TAGS_TEAM_NAME);
-                team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
-                team.addEntry(npcPlayer.getBukkitEntity().getName());
-            }
+            hideTagByPlayerScoreboard(player);
         }, 10);
     }
 
-    public void showToAllPlayers() {
-        Bukkit.getOnlinePlayers().forEach(this::showTo);
+    public void hideTagByPlayerScoreboard(Player player) {
+        if (!npcPlayer.isCustomNameVisible()) {
+            Scoreboard scoreboard = player.getScoreboard();
+            Team team = scoreboard.getTeam(HIDE_TAGS_TEAM_NAME);
+            if (team == null) team = scoreboard.registerNewTeam(HIDE_TAGS_TEAM_NAME);
+            team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
+            team.addEntry(npcPlayer.getBukkitEntity().getName());
+        }
     }
 
     private void updateNMSLocation(Location loc) {

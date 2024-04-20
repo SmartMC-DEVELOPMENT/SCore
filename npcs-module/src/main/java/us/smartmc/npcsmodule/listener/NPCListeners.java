@@ -26,6 +26,15 @@ public class NPCListeners extends AddonListener implements Listener {
         NPCCommandManager.performCommand(event);
     }
 
+    @EventHandler
+    public void onLangChange(PlayerLanguageChangedEvent event) {
+        NPCManager.forEach(npcManager -> {
+            npcManager.values().forEach(npc -> {
+                npc.hideTagByPlayerScoreboard(event.getCorePlayer().getBukkitPlayer());
+            });
+        });
+    }
+
     private void showAllNPCsToPlayer(Player player) {
         NPCManager.forEach(npcManager -> {
             npcManager.values().forEach(npc -> {

@@ -33,7 +33,8 @@ public class Hologram {
     }
 
     private Location loadLocation() {
-        String locationPath = HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.LINES_KEY;
+        String locationPath = HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY;
+        System.out.println("LOADLOCATION path = " + locationPath);
         return LocationUtils.stringToLocation(config.getString(locationPath));
     }
 

@@ -14,18 +14,18 @@ public class HologramHolderConfig extends SpigotYmlConfig {
     public static final String START_LOCATION_KEY = "location";
     public static final String LINES_KEY = "lines";
 
-    private final String holderName;
+    private final HologramHolder holder;
 
-    public HologramHolderConfig(String hologramHolder) {
-        super(new File(HologramsAddon.getPlugin().getDataFolder() + "/holders", hologramHolder + ".yml"));
-        this.holderName = hologramHolder;
+    public HologramHolderConfig(HologramHolder holder) {
+        super(new File(HologramsAddon.getPlugin().getDataFolder() + "/holders", holder.getHolderName() + ".yml"));
+        this.holder = holder;
         register(START_LOCATION_KEY, 20);
         loadHolograms();
     }
 
     private void loadHolograms() {
-        for (String name : getKeys(false)) {
-            HologramHolder.getOrCreate(holderName).loadHologram(name, this);
+        for (String name : getConfig().getConfigurationSection(HOLOGRAMS_MAIN_KEY).getKeys(false)) {
+            holder.loadHologram(name, this);
         }
     }
 

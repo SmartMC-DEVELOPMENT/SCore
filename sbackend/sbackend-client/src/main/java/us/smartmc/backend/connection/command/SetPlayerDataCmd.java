@@ -18,8 +18,6 @@ public class SetPlayerDataCmd extends BackendCommandExecutor {
     public void onCommand(ConnectionHandler connection, String label, String[] args) {
         String json = label.replaceFirst(getName() + " ", "");
         Map<?, ?> dataMap = new Gson().fromJson(json, Map.class);
-        System.out.println(dataMap);
-        long end = System.currentTimeMillis();
-        System.out.println("ENDED " + end);
+
     }
 }

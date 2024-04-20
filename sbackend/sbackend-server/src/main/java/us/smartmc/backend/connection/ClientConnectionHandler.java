@@ -18,7 +18,6 @@ public class ClientConnectionHandler extends ConnectionHandler {
     public void run() {
         try {
             Object o = inputStream.readJsonObject(true);
-            System.out.println("Received " + o);
             if (o instanceof LoginRequest loginRequest) {
                 if (!AuthHandler.checkLogin(loginRequest.getUsername(), loginRequest.getPassword())) {
                     disconectConnection(connection);

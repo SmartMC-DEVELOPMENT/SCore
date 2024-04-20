@@ -1,10 +1,7 @@
 package us.smartmc.addon.holograms.instance.hologram;
 
 import lombok.Getter;
-import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
-import us.smartmc.addon.holograms.HologramsAddon;
 import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
 import us.smartmc.addon.holograms.util.LocationUtils;
 
@@ -17,8 +14,7 @@ public class Hologram {
     private final HologramHolderConfig config;
 
     private final Location location;
-    private final Map<String, List<HologramArmorStand>> linesStands = new HashMap<>();
-    private final Set<UUID> viewers = new HashSet<>();
+    private final List<HologramArmorStand> linesStands = new ArrayList<>();
 
     protected Hologram(String name, HologramHolderConfig config) {
         this.name = name;
@@ -27,25 +23,10 @@ public class Hologram {
         loadAllConfigHolograms();
     }
 
-    public boolean isView(Player player) {
-        return viewers.contains(player.getUniqueId());
-    }
-
-    public void addView(Player player) {
-        viewers.add(player.getUniqueId());
-    }
-
-    public void removeView(Player player) {
-        viewers.remove(player.getUniqueId());
-        HologramsAddon.getPlugin().getHologramAdapter().destroyHologram(player, this);
-    }
-
-    public List<HologramArmorStand> getLinesArmorStands(String linesKey) {
-        return linesStands.get(linesKey);
-    }
-
-    public List<HologramArmorStand> getLinesArmorStands(Language language) {
-        return getLinesArmorStands(language.name());
+    public List<HologramArmorStand> getLinesArmorStands() {
+        List<HologramArmorStand> armorStands = linesStands;
+        Collections.reverse(armorStands);
+        return armorStands;
     }
 
     private Location loadLocation() {
@@ -55,20 +36,24 @@ public class Hologram {
 
     private void loadAllConfigHolograms() {
         String linesMainPath = HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.LINES_KEY;
-        for (String langId : Objects.requireNonNull(config.getConfig().getConfigurationSection(linesMainPath)).getKeys(false)) {
-            String langLinesPath = linesMainPath + "." + langId;
-            List<String> lines = config.getStringList(langLinesPath);
-            linesStands.put(langId, getOf(lines));
+        List<String> lines = new ArrayList<>();
+        for (String line : config.getConfig().getStringList(linesMainPath)) {
+            if (line.contains("\n")) {
+                lines.addAll(List.of(line.split("\n")));
+                continue;
+            }
+            lines.add(line);
         }
+        linesStands.addAll(getOf(lines));
     }
 
     private List<HologramArmorStand> getOf(List<String> lines) {
         List<HologramArmorStand> list = new ArrayList<>();
+        Location loc = location.clone();
         for (String line : lines) {
-            list.add(new HologramArmorStand(location, line));
-            location.add(0, 0.3, 0);
+            list.add(new HologramArmorStand(loc, line));
+            loc.add(0, 0.3, 0);
         }
-        Collections.reverse(list);
         return list;
     }
 

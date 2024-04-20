@@ -6,11 +6,15 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedDataValue;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -21,13 +25,13 @@ import us.smartmc.addon.holograms.util.IHologramAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class HologramAdapter1_20 implements IHologramAdapter {
 
     @Override
     public void spawnHologram(Player player, Hologram hologram) {
-        Language language = PlayerLanguages.get(player.getUniqueId());
-        hologram.getLinesArmorStands(language).forEach(hologramArmorStand -> {
+        hologram.getLinesArmorStands().forEach(hologramArmorStand -> {
             Location loc = hologramArmorStand.getStand().getLocation();
             ArmorStand armorStand = hologramArmorStand.getStand();
             PacketContainer spawnPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.SPAWN_ENTITY);
@@ -39,20 +43,14 @@ public class HologramAdapter1_20 implements IHologramAdapter {
             spawnPacket.getDoubles().write(2, loc.getZ());
             ProtocolLibrary.getProtocolManager().sendServerPacket(player, spawnPacket);
             updateHologramMetaData(player, hologramArmorStand);
-
-            // Adds view to register players are showing the armorstand/hologram line
-            hologram.addView(player);
         });
     }
 
     @Override
     public void destroyHologram(Player player, Hologram hologram) {
-        Language language = PlayerLanguages.get(player.getUniqueId());
-        hologram.getLinesArmorStands(language).forEach(hologramArmorStand -> {
+        hologram.getLinesArmorStands().forEach(hologramArmorStand -> {
             ArmorStand armorStand = hologramArmorStand.getStand();
-            PacketContainer destroyPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_DESTROY);
-            destroyPacket.getIntegers().write(0, armorStand.getEntityId());
-            ProtocolLibrary.getProtocolManager().sendServerPacket(player, destroyPacket);
+            player.hideEntity(SpigotPluginsAPI.getPlugin(), armorStand);
         });
     }
 
@@ -65,8 +63,9 @@ public class HologramAdapter1_20 implements IHologramAdapter {
 
         // BUILD NAME OPTIONAL WITH PAPERCHATUTIL AND PARSED TO LEGACY MODE (me cago en dios)
         String parsedName = LegacyComponentSerializer.legacySection().serialize(PaperChatUtil.parse(player, armorStand.getName()));
+        Optional<?> name = Optional.of(WrappedChatComponent.fromChatMessage(parsedName)[0].getHandle());
 
-        WrappedDataValue customName = new WrappedDataValue(2, WrappedDataWatcher.Registry.getChatComponentSerializer(true), parsedName);
+        WrappedDataValue customName = new WrappedDataValue(2, WrappedDataWatcher.Registry.getChatComponentSerializer(true), name);
         WrappedDataValue customNameVisible = new WrappedDataValue(3, WrappedDataWatcher.Registry.get(Boolean.class), true);
 
         WrappedDataWatcher.Serializer byteSerializer = WrappedDataWatcher.Registry.get(Byte.class);

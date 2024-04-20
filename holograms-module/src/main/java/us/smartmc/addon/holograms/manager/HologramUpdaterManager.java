@@ -1,6 +1,9 @@
 package us.smartmc.addon.holograms.manager;
 
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.addon.holograms.HologramsAddon;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
@@ -30,7 +33,11 @@ public class HologramUpdaterManager {
         // Update name
         HologramHolder.forEachHolder(hologramHolder -> {
             hologramHolder.forEachHologram(hologram -> {
-                addon.getHologramAdapter().updateHologramMetaData();
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    hologram.getLinesArmorStands().forEach(stand -> {
+                        addon.getHologramAdapter().updateHologramMetaData(player, stand);
+                    });
+                }
             });
         });
     }

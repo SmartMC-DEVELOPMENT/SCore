@@ -5,22 +5,31 @@ import me.imsergioh.pluginsapi.event.PlayerLanguageChangedEvent;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.SyncUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import us.smartmc.core.SmartCore;
 import us.smartmc.core.instance.BPlayerBoard;
 import us.smartmc.core.instance.PluginScoreboard;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class ScoreboardHandler implements Listener {
 
+    private static final int UPDATE_TASK_DELAY = 60;
     private final HashMap<String, PluginScoreboard> scoreboards = new HashMap<>();
 
     public ScoreboardHandler() {
         register("main");
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
+            for (PluginScoreboard pluginScoreboard : scoreboards.values()) {
+                pluginScoreboard.forEachPlayer(pluginScoreboard::update);
+            }
+        }, 10, UPDATE_TASK_DELAY);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -59,6 +68,9 @@ public class ScoreboardHandler implements Listener {
     public void unregister(Player player) {
         BPlayerBoard board = BPlayerBoard.get(player);
         if (board != null) board.delete();
+        scoreboards.values().forEach(pluginScoreboard -> {
+            pluginScoreboard.unregister(player);
+        });
     }
 
     public void unregister(String name, Language language) {

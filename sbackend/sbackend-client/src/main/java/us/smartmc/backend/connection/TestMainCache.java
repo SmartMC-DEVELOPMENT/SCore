@@ -7,13 +7,12 @@ import us.smartmc.backend.instance.BackendUTFListener;
 public class TestMainCache implements BackendUTFListener {
 
     public static void main(String[] initArgs) throws Exception {
-        long start = System.currentTimeMillis();
         TestMainCache main = new TestMainCache();
         ConnectionInputManager.registerListeners(main);
         ConnectionInputManager.registerCommands(new SetPlayerDataCmd());
 
         BackendClient client = new BackendClient("66.70.181.34", 7723);
-        client.login("default", "asd");
+        client.login("default", "contraseñaSEGURAASDññññññ");
 
         client.run();
     }

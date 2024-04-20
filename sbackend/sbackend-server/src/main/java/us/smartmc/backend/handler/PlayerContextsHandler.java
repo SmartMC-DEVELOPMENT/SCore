@@ -1,40 +1,35 @@
 package us.smartmc.backend.handler;
 
-import us.smartmc.backend.instance.PlayerCache;
-import us.smartmc.backend.instance.PlayerContext;
+import us.smartmc.backend.instance.handler.MapHandler;
+import us.smartmc.backend.instance.player.PlayerCache;
+import us.smartmc.backend.instance.player.PlayerContext;
+import us.smartmc.backend.util.ConsoleUtil;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
-public class PlayerContextsHandler {
+public class PlayerContextsHandler extends MapHandler<UUID, PlayerContext> {
 
-    private static final Map<UUID, PlayerContext> contexts = new HashMap<>();
-
-    public static PlayerContext getOrCreate(UUID playerId) {
-        PlayerContext context = contexts.get(playerId);
-        if (context != null) return context;
-        context = new PlayerContext(playerId);
-        contexts.put(playerId, context);
-        return context;
+    @Override
+    public void remove(UUID playerId) {
+        super.remove(playerId);
+        ConsoleUtil.print("Removed playercontext " + playerId);
     }
 
-    public static void remove(UUID playerId) {
-        System.out.println(getOrCreate(playerId).getCache().getCacheMap());
-        contexts.remove(playerId);
-        System.out.println("Removed playercontext " + playerId);
-    }
-
-    public static void setCache(UUID id, String key, Object value) {
+    public void setCache(UUID id, String key, Object value) {
         getOrCreate(id).getCache().set(key, value);
         System.out.println("Cache value " + key + " ? " + value + " has been set! " + id);
     }
 
-    public static Object getCacheValue(UUID id, String key) {
+    public Object getCacheValue(UUID id, String key) {
         return getOrCreate(id).getCache().get(key);
     }
 
-    public static PlayerCache getCache(UUID id) {
+    public PlayerCache getCache(UUID id) {
         return getOrCreate(id).getCache();
+    }
+
+    @Override
+    public PlayerContext getDefaultValue(UUID playerId) {
+        return new PlayerContext(playerId);
     }
 }

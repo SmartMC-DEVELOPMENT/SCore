@@ -50,13 +50,14 @@ public class ConsoleUtil {
 
     public static String readLine() {
         try {
-            return lineReader.readLine(PROMPT);
+            return lineReader.readLine();
         } catch (UserInterruptException e) {
             return null;
         }
     }
 
     public static void print(String message) {
+        message = message + "&r";
         for (String key : formattingColors.keySet()) {
             message = message.replace(key, formattingColors.get(key));
         }

@@ -1,10 +1,6 @@
 package us.smartmc.backend;
 
 import lombok.Getter;
-import me.imsergioh.pluginsapi.connection.MongoDBConnection;
-import org.jline.reader.LineReader;
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
 import us.smartmc.backend.command.GetPlayerDataCmd;
 import us.smartmc.backend.command.HelloWorldCmd;
 import us.smartmc.backend.connection.BackendServer;
@@ -36,13 +32,10 @@ public class BackendServerMain {
         mainConfig.registerDefaultValue("port", 7723);
         mainConfig.save();
 
-        System.out.println("BACKENDSERVERMAIN=" + mainConfig.get("logins-directory"));
-
         AuthHandler.loadCache();
 
         ConnectionInputManager.registerCommands(new HelloWorldCmd(), new GetPlayerDataCmd());
 
-        MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
 
         // Al final de main: Crear BackendServer (Se quedará en hili principal aceptando conexiones)
         backendServer = new BackendServer(((Number) mainConfig.get("port")).intValue());

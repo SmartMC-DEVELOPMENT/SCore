@@ -1,3 +1,4 @@
+us\smartmc\addon\holograms\listener\JoinListener.class
 us\smartmc\addon\holograms\instance\hologram\HologramArmorStand.class
 us\smartmc\addon\holograms\util\IHologramAdapter.class
 us\smartmc\addon\holograms\util\LocationUtils.class

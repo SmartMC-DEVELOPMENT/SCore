@@ -4,6 +4,7 @@ D:\workspace2024\SCore\holograms-module\src\main\java\us\smartmc\addon\holograms
 D:\workspace2024\SCore\holograms-module\src\main\java\us\smartmc\addon\holograms\HologramsAddon.java
 D:\workspace2024\SCore\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\hologram\Hologram.java
 D:\workspace2024\SCore\holograms-module\src\main\java\us\smartmc\addon\holograms\util\LocationUtils.java
+D:\workspace2024\SCore\holograms-module\src\main\java\us\smartmc\addon\holograms\listener\JoinListener.java
 D:\workspace2024\SCore\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\hologram\HologramHolder.java
 D:\workspace2024\SCore\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\config\HologramHolderConfig.java
 D:\workspace2024\SCore\holograms-module\src\main\java\us\smartmc\addon\holograms\util\IHologramAdapter.java

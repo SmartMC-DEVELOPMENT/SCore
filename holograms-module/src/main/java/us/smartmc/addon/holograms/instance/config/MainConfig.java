@@ -9,7 +9,7 @@ public class MainConfig extends SpigotYmlConfig {
 
     private static final String UPDATE_RATE_TICKS_KEY = "updateRateTicks";
 
-    public MainConfig(String filePath) {
+    public MainConfig() {
         super(new File(HologramsAddon.getPlugin().getDataFolder(), "config.yml"));
 
         register(UPDATE_RATE_TICKS_KEY, 20);

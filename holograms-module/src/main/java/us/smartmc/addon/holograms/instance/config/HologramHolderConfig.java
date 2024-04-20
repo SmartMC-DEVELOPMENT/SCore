@@ -17,7 +17,7 @@ public class HologramHolderConfig extends SpigotYmlConfig {
     private final String holderName;
 
     public HologramHolderConfig(String hologramHolder) {
-        super(new File(HologramsAddon.getPlugin().getDataFolder(), hologramHolder + ".yml"));
+        super(new File(HologramsAddon.getPlugin().getDataFolder() + "/holders", hologramHolder + ".yml"));
         this.holderName = hologramHolder;
         register(START_LOCATION_KEY, 20);
         loadHolograms();

@@ -24,9 +24,7 @@ public class Hologram {
     }
 
     public List<HologramArmorStand> getLinesArmorStands() {
-        List<HologramArmorStand> armorStands = linesStands;
-        Collections.reverse(armorStands);
-        return armorStands;
+        return linesStands;
     }
 
     private Location loadLocation() {
@@ -50,6 +48,7 @@ public class Hologram {
     private List<HologramArmorStand> getOf(List<String> lines) {
         List<HologramArmorStand> list = new ArrayList<>();
         Location loc = location.clone();
+        Collections.reverse(lines);
         for (String line : lines) {
             list.add(new HologramArmorStand(loc, line));
             loc.add(0, 0.3, 0);

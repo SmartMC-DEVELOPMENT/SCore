@@ -20,25 +20,10 @@ public class NPCListeners extends AddonListener implements Listener {
         showAllNPCsToPlayer(event.getPlayer());
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onLanguageChange(PlayerLanguageChangedEvent event) {
-        if (!isEnabled()) return;
-        showAllNPCsToPlayer(event.getCorePlayer().getBukkitPlayer());
-    }
-
     @EventHandler
     public void interact(NPCUseEntityEvent event) {
         if (!isEnabled()) return;
         NPCCommandManager.performCommand(event);
-    }
-
-    @EventHandler
-    public void onQuit(PlayerQuitEvent event) {
-        NPCManager.forEach(npcManager -> {
-            npcManager.values().forEach(npc -> {
-                npc.removeViewer(event.getPlayer());
-            });
-        });
     }
 
     private void showAllNPCsToPlayer(Player player) {

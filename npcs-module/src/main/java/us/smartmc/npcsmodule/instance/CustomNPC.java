@@ -39,13 +39,9 @@ public class CustomNPC {
     private static final String HIDE_TAGS_TEAM_NAME = "ht-" + new Random().nextInt(9999);
 
     @Getter
-    private List<String> lines;
-    @Getter
     private List<String> commandLines = new ArrayList<>();
 
     public final ServerLevel world;
-
-    private final NPCHologramManager hologramManager;
 
     @Getter
     private final ServerPlayer npcPlayer;
@@ -61,7 +57,6 @@ public class CustomNPC {
         this.skinSignature = skinSignature;
         this.configData = configData;
         // SET SKIN VALUE & SIGNATURE IF NOT NULL BOTH STRINGS
-        hologramManager = new NPCHologramManager(this);
         this.world = world;
     }
 
@@ -71,15 +66,6 @@ public class CustomNPC {
 
     public void setCommandLines(List<String> commandLines) {
         this.commandLines = commandLines;
-    }
-
-    public void setLines(List<String> list) {
-        this.lines = list;
-        hologramManager.setupStands();
-    }
-
-    public void removeViewer(Player player) {
-        hologramManager.removeViewer(player);
     }
 
     public void showTo(Player player) {
@@ -116,7 +102,6 @@ public class CustomNPC {
                 team.addEntry(npcPlayer.getBukkitEntity().getName());
             }
         }, 10);
-        hologramManager.createHologram(player);
     }
 
     public void showToAllPlayers() {

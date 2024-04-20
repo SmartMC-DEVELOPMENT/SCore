@@ -4,7 +4,6 @@ D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\npccomman
 D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\util\ConfigUtil.java
 D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\instance\NPCSConfig.java
 D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\npccommand\MessageCommand.java
-D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\instance\HologramArmorStand.java
 D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\event\NPCEvent.java
 D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\NPCSModule.java
 D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\manager\NPCCommandManager.java
@@ -15,5 +14,4 @@ D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\manager\N
 D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\listener\PlayerClickListener.java
 D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\instance\CustomNPC.java
 D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\instance\NPCCommandExecutor.java
-D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\instance\NPCHologramManager.java
 D:\workspace2024\SCore\npcs-module\src\main\java\us\smartmc\npcsmodule\instance\ManagerRegistry.java

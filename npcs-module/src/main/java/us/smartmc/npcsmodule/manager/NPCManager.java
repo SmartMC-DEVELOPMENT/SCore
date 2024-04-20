@@ -58,7 +58,6 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
             boolean enabled = (boolean) data.get("enabled");
             if (!enabled) continue;
             String name = (String) data.get("name");
-            List<String> lines = (List<String>) data.get("lines");
             Location location = ConfigUtil.getLocation(data.get("location").toString(), " ");
             String skinValue = null;
             if (data.containsKey("skinValue")) skinValue = data.getString("skinValue");
@@ -71,8 +70,6 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
             npc.setCommandLines(data.getList("commands", String.class));
 
             if (data.containsKey("nameVisible")) npc.setNameVisible(data.getBoolean("nameVisible"));
-
-            if (lines != null) npc.setLines(lines);
 
             register(name, npc);
             list.add(npc);

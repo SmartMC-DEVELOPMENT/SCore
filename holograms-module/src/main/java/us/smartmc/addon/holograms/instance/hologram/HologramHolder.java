@@ -3,8 +3,10 @@ package us.smartmc.addon.holograms.instance.hologram;
 import lombok.Getter;
 import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 @Getter
 public class HologramHolder {
@@ -28,6 +30,10 @@ public class HologramHolder {
     public void loadHologram(String name, HologramHolderConfig config) {
         Hologram hologram = new Hologram(name, config);
         holograms.put(name, hologram);
+    }
+
+    public void forEach(Consumer<Hologram> consumer) {
+        holograms.values().forEach(consumer);
     }
 
     public static HologramHolder getOrCreate(String name) {

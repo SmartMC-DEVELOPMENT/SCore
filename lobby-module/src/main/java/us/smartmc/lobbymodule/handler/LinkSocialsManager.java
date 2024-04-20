@@ -27,8 +27,13 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
 
     @Override
     public void load() {
-        register(YouTubeLink.class, TwitchLink.class, TikTokLink.class,
-                TwitterLink.class, InstagramLink.class, GitHubLink.class, DiscordLink.class);
+        register(YouTubeLink.class,
+                TwitchLink.class,
+                TikTokLink.class,
+                TwitterLink.class,
+                InstagramLink.class,
+                GitHubLink.class,
+                DiscordLink.class);
         LobbyModule.getPlugin().registerListeners(SmartCore.getPlugin(), this);
     }
 

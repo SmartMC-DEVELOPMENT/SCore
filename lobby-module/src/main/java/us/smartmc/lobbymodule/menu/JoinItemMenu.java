@@ -35,7 +35,7 @@ public class JoinItemMenu extends ConfigurableMenu {
         set(1, ItemBuilder.of(Material.PLAYER_HEAD).data(3)
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjYzMDI5Y2M4MTY3ODk3ZTY1MzVhM2M1NzM0YmJhYmFmZjE4OGQwOTA1ZjlkOTM1M2FmYWM2MmEwNmRhZGY4NiJ9fX0=")
                 .name("<lang.lobby.items_cosmetics_name>")
-                .lore(Arrays.asList("<lang.lobby.items_cosmetics_description>")).get(initPlayer), "itemCosmetics");
+                .lore("<lang.lobby.items_cosmetics_description>").get(initPlayer), "itemCosmetics");
 
         ItemStack headItem = headItem("settings").get(initPlayer);
 
@@ -61,11 +61,10 @@ public class JoinItemMenu extends ConfigurableMenu {
     }
 
     public ItemBuilder headItem(String name) {
-        ItemBuilder builder = ItemBuilder.of(Material.PLAYER_HEAD)
+        return ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
                 .name("<lang.lobby.items_" + name + "_name>")
-                .lore(Arrays.asList("<lang.lobby.items_" + name + "_description>"));
-        return builder;
+                .lore("<lang.lobby.items_" + name + "_description>");
     }
 
     public void setItem(int slot, Material material, String name) {

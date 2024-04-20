@@ -19,7 +19,6 @@ public class WorldConfigManager {
                     world.setThunderDuration(0);
                     world.setStorm(false);
                 }
-
             });
         }, 0, 10);
 

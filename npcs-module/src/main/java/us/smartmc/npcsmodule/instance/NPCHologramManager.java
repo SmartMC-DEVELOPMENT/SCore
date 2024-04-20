@@ -1,18 +1,12 @@
 package us.smartmc.npcsmodule.instance;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.LanguageUtil;
 import me.imsergioh.pluginsapi.util.LegacyChatUtil;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -31,17 +25,15 @@ public class NPCHologramManager extends AddonListener implements Listener {
     private final HashMap<Integer, String> names = new HashMap<>();
     private final Set<Player> viewers = new HashSet<>();
 
-    private final int updateTaskID;
-
     private final Map<Language, List<String>> constantLinesMap = new HashMap<>();
 
     public NPCHologramManager(CustomNPC npc) {
         this.npc = npc;
-        updateTaskID = setupUpdateTask();
+        //updateTaskID = setupUpdateTask();
         Bukkit.getPluginManager().registerEvents(this, SmartCore.getPlugin());
     }
 
-    private int setupUpdateTask() {
+    /*private int setupUpdateTask() {
         return Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
             if (viewers.isEmpty()) return;
 
@@ -61,11 +53,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
                 updateHolograms(player, constantLinesMap.get(language));
             }
         }, 0, 20 * 3);
-    }
-
-    public void cancelUpdateTask() {
-        Bukkit.getScheduler().cancelTask(updateTaskID);
-    }
+    }*/
 
     public void setupStands() {
         List<String> lines = getLines();

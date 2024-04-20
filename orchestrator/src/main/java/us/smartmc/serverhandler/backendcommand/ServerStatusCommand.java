@@ -23,6 +23,7 @@ public class ServerStatusCommand extends BackendCommand {
         if(executeStatus(args, "active", ServerStatus.ACTIVE)) {
             ServerInfo serverInfo = ServerManager.get(args[1]);
             System.out.println("New server connected -> " + serverInfo.getName() + "!");
+            ServerManager.registerAlive(serverInfo.getName());
             return;
         }
 

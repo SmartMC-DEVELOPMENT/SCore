@@ -2,11 +2,14 @@ package me.imsergioh.loginspigot.instance;
 
 import lombok.Getter;
 import me.imsergioh.loginspigot.LoginSpigot;
+import me.imsergioh.pluginsapi.util.PluginUtils;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 public class LoginPlayer {
@@ -61,7 +64,7 @@ public class LoginPlayer {
     }
 
     public void sendToLobbyServer() {
-        me.imsergioh.pluginsapi.util.PluginUtils.redirectTo(getPlayer(), "lobby");
+        PluginUtils.redirectTo(getPlayer(), "lobby");
     }
 
     public void tryLogin(String password) {

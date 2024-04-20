@@ -2,6 +2,7 @@ package us.smartmc.serverhandler.registration;
 
 import us.smartmc.serverhandler.IRegistration;
 import us.smartmc.serverhandler.backendcommand.IAmAProxyCommand;
+import us.smartmc.serverhandler.backendcommand.KeepAliveCommand;
 import us.smartmc.serverhandler.backendcommand.RegisterServerCommand;
 import us.smartmc.serverhandler.backendcommand.ServerStatusCommand;
 import us.smartmc.serverhandler.consolecommand.*;
@@ -25,6 +26,7 @@ public class CommandRegistration implements IRegistration {
         BackendCommandManager.register(
                 new ServerStatusCommand(),
                 new RegisterServerCommand(),
-                new IAmAProxyCommand());
+                new IAmAProxyCommand(),
+                new KeepAliveCommand());
     }
 }

@@ -26,6 +26,8 @@ us\smartmc\serverhandler\instance\FileConfigData.class
 us\smartmc\serverhandler\OrchestratorMain$1.class
 us\smartmc\serverhandler\config\DataConfiguration$1.class
 us\smartmc\serverhandler\config\ServerConfiguration.class
+us\smartmc\serverhandler\backendcommand\KeepAliveCommand.class
+us\smartmc\serverhandler\manager\ServerManager$1.class
 us\smartmc\serverhandler\manager\ConsoleCommandManager.class
 us\smartmc\serverhandler\util\CommandUtilities.class
 us\smartmc\serverhandler\manager\ServerManager.class

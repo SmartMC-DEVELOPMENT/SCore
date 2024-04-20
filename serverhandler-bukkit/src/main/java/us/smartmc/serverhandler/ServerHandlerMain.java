@@ -1,5 +1,6 @@
 package us.smartmc.serverhandler;
 
+import com.velocitypowered.proxy.protocol.packet.KeepAlive;
 import lombok.Getter;
 import me.imsergioh.jbackend.BackendConnection;
 import me.imsergioh.jbackend.api.ConnectionHandler;
@@ -10,6 +11,7 @@ import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
+import us.smartmc.serverhandler.manager.KeepAliveManager;
 import us.smartmc.serverhandler.registration.CommandRegistration;
 import us.smartmc.serverhandler.registration.CommonListenerRegistration;
 import us.smartmc.serverhandler.util.ConnectionUtil;
@@ -70,6 +72,8 @@ public class ServerHandlerMain extends JavaPlugin {
                     .color("GREEN").send(RedisConnection.mainConnection.getResource());
             RedisConnection.mainConnection.getResource().set("maxSlots." + serverID, String.valueOf(Bukkit.getServer().getMaxPlayers()));
         }, 250);
+
+        KeepAliveManager.startKeepAliveTask();
     }
 
     @Override

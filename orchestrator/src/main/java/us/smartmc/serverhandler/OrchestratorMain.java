@@ -11,6 +11,7 @@ import us.smartmc.serverhandler.instance.FileConfigData;
 import us.smartmc.serverhandler.manager.CacheCleanerManager;
 import us.smartmc.serverhandler.manager.ConfigManager;
 import us.smartmc.serverhandler.manager.ConsoleCommandManager;
+import us.smartmc.serverhandler.manager.ServerManager;
 import us.smartmc.serverhandler.registration.CommandRegistration;
 import us.smartmc.serverhandler.registration.CommonListenerRegistration;
 import us.smartmc.serverhandler.registration.ConfigRegistration;
@@ -55,6 +56,10 @@ public class OrchestratorMain {
             }
         }, 5000);
 
+        ServerManager.startKeepAliveRemoveTask();
+
+
+        // ESTA LÍNEA SIEMPRE AL FINAL!!!!
         startReadingConsoleInput();
     }
 

@@ -3,26 +3,65 @@ package us.smartmc.serverhandler.manager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
+import lombok.Getter;
 import us.smartmc.serverhandler.ConsoleColors;
 import us.smartmc.serverhandler.OrchestratorMain;
 import us.smartmc.serverhandler.config.ServerConfiguration;
+import us.smartmc.serverhandler.consolecommand.StopCommand;
 import us.smartmc.serverhandler.instance.ServerConfigData;
 import us.smartmc.serverhandler.instance.ServerInfo;
-import us.smartmc.serverhandler.instance.StartupCreation;
 import us.smartmc.serverhandler.util.FileUtil;
 import us.smartmc.serverhandler.util.ServerUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 public class ServerManager {
 
     private static final HashMap<String, ServerInfo> servers = new HashMap<>();
+
+    private static final Map<String, Long> lastAlive = new HashMap<>();
+
+    private static final TimerTask removeExpiredTask = new TimerTask() {
+        @Override
+        public void run() {
+            getExpiredServers().forEach(StopCommand::stopServer);
+        }
+    };
+
+    private static boolean removeExpiredTaskStarted;
+    @Getter
+    private static final Timer removeExpiredTaskTimer = new Timer();
+
+    public static void startKeepAliveRemoveTask() {
+        if (removeExpiredTaskStarted) return;
+        removeExpiredTaskTimer.schedule(removeExpiredTask, 3000, 8000);
+        removeExpiredTaskStarted = true;
+    }
+
+    public static void registerAlive(String id) {
+        lastAlive.put(id, System.currentTimeMillis());
+    }
+
+    public static Set<String> getExpiredServers() {
+        Set<String> list = new HashSet<>();
+        for (String key : servers.keySet()) {
+            if (!lastAlive.containsKey(key)) {
+                System.out.println("getExpiredServers not registered " + key);
+                list.add(key);
+                continue;
+            }
+            if ((System.currentTimeMillis() - lastAlive.get(key)) >= 8000) {
+                System.out.println("getExpiredServers time " + System.currentTimeMillis() + " " + lastAlive.get(key));
+                list.add(key);
+            }
+        }
+        return list;
+    }
+
 
     public static boolean exists(String name) {
         return servers.containsKey(name);
@@ -68,6 +107,8 @@ public class ServerManager {
         servers.put(serverInfo.getName(), serverInfo);
 
         OrchestratorMain.log("Created new server named " + serverInfo.getName() + "!");
+
+        lastAlive.put(serverInfo.getName(), System.currentTimeMillis() + 30000);
     }
 
     public static void register(String name, String hostname, int port) {

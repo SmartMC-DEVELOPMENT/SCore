@@ -6,6 +6,7 @@ import me.imsergioh.pluginsapi.util.LanguageUtil;
 import me.imsergioh.pluginsapi.util.LegacyChatUtil;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
@@ -21,22 +22,23 @@ import java.util.*;
 public class NPCHologramManager extends AddonListener implements Listener {
 
     private final CustomNPC npc;
-    private final HashMap<Integer, ArmorStand> stands = new HashMap<>();
+    private final HashMap<Integer, HologramArmorStand> stands = new HashMap<>();
     private final HashMap<Integer, String> names = new HashMap<>();
     private final Set<Player> viewers = new HashSet<>();
+
+    private final int updateTaskID;
 
     private final Map<Language, List<String>> constantLinesMap = new HashMap<>();
 
     public NPCHologramManager(CustomNPC npc) {
         this.npc = npc;
-        //updateTaskID = setupUpdateTask();
+        updateTaskID = setupUpdateTask();
         Bukkit.getPluginManager().registerEvents(this, SmartCore.getPlugin());
     }
 
-    /*private int setupUpdateTask() {
+    private int setupUpdateTask() {
         return Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
             if (viewers.isEmpty()) return;
-
             constantLinesMap.clear();
             // Register only changed lines in the map below
             for (Player player : viewers) {
@@ -53,7 +55,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
                 updateHolograms(player, constantLinesMap.get(language));
             }
         }, 0, 20 * 3);
-    }*/
+    }
 
     public void setupStands() {
         List<String> lines = getLines();
@@ -71,7 +73,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
             stand.setVisible(false);
             stand.setGravity(false);
             stand.setSmall(true);
-            stands.put(i, stand);
+            stands.put(i, new HologramArmorStand(stand));
             names.put(stand.getEntityId(), line);
             location.add(0, 0.3, 0);
         }
@@ -83,7 +85,7 @@ public class NPCHologramManager extends AddonListener implements Listener {
         List<String> lines = new ArrayList<>(originalLines);
         if (lines.isEmpty()) return;
         for (int i = lines.size() - 1; i >= 0; i--) {
-            ArmorStand stand = stands.get(i);
+            HologramArmorStand stand = stands.get(i);
             spawnVisibleArmorStand(player, stand);
         }
     }
@@ -99,29 +101,21 @@ public class NPCHologramManager extends AddonListener implements Listener {
 
     public void updateHolograms(Player player, List<String> names) {
         for (int i = 0; i < stands.size(); i++) {
-            ArmorStand stand = stands.get(i);
+            HologramArmorStand stand = stands.get(i);
             String name = names.get(i);
             String parsedName = LegacyComponentSerializer.builder().build().serialize(PaperChatUtil.parse(player, name));
-
-            stand.setCustomName(parsedName);
-
-            //PacketPlayOutEntityMetadata metadata = new PacketPlayOutEntityMetadata(stand.getEntityId());
+            stand.getArmorStand().setCustomName(parsedName);
+            stand.updateMetadata(player);
         }
     }
 
-    public void spawnVisibleArmorStand(Player player, ArmorStand originalArmorStand) {
-        String name = originalArmorStand.getName();
+    public void spawnVisibleArmorStand(Player player, HologramArmorStand armorStand) {
+        String name = armorStand.getArmorStand().getName();
         // Obtener el EntityLiving del nuevo ArmorStand
-        originalArmorStand.setCustomName(LegacyChatUtil.parse(player, name));
-
-        Location loc = originalArmorStand.getLocation();
-
-        originalArmorStand.teleport(loc);
-
-        // Enviar un paquete para mostrar el nuevo ArmorStand solo al visibleArmorStandEntity
-        HologramArmorStand hologramArmorStand = new HologramArmorStand(originalArmorStand);
-        hologramArmorStand.spawn(player);
-
+        armorStand.getArmorStand().setCustomName(LegacyChatUtil.parse(player, name));
+        Location loc = armorStand.getArmorStand().getLocation();
+        armorStand.getArmorStand().teleport(loc);
+        armorStand.spawn(player);
         updateHolograms(player, getLines(PlayerLanguages.get(player.getUniqueId())));
         viewers.add(player);
     }

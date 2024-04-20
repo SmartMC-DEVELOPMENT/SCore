@@ -6,6 +6,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedDataValue;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Getter
 public class HologramArmorStand {
 
     private final ArmorStand armorStand;
@@ -24,7 +26,6 @@ public class HologramArmorStand {
     }
 
     public void spawn(Player player) {
-
         Location loc = armorStand.getLocation();
         PacketContainer spawnPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.SPAWN_ENTITY);
         spawnPacket.getIntegers().write(0, armorStand.getEntityId());
@@ -36,6 +37,10 @@ public class HologramArmorStand {
 
         ProtocolLibrary.getProtocolManager().sendServerPacket(player, spawnPacket);
 
+        updateMetadata(player);
+    }
+
+    public void updateMetadata(Player player) {
         PacketContainer metadataPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_METADATA);
         metadataPacket.getIntegers().write(0, armorStand.getEntityId());
         List<WrappedDataValue> metadata = new ArrayList<>();

@@ -20,6 +20,7 @@
         <module>gamesmanager-spigot</module>
         <module>serverhandler-velocity</module>
         <module>sbackend</module>
+        <module>holograms-module</module>
     </modules>
 
     <properties>

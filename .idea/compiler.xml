@@ -27,6 +27,7 @@
         <module name="staffmode-spigot" />
         <module name="sbackend-client" />
         <module name="lobby-module" />
+        <module name="holograms-module" />
         <module name="lobby-cosmetics" />
       </profile>
     </annotationProcessing>

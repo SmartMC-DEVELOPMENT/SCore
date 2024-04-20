@@ -14,4 +14,9 @@ public class MainConfig extends SpigotYmlConfig {
 
         register(UPDATE_RATE_TICKS_KEY, 20);
     }
+
+    public int getUpdateRateTicks() {
+        return getInt(UPDATE_RATE_TICKS_KEY);
+    }
+
 }

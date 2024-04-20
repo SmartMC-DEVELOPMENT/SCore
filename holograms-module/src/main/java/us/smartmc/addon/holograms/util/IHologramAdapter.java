@@ -10,6 +10,8 @@ import java.util.Collection;
 public interface IHologramAdapter {
 
     void spawnHologram(Player player, Hologram hologram);
+    void destroyHologram(Player player, Hologram hologram);
+
     void updateHologramMetaData(Player player, HologramArmorStand hologramArmorStand);
     void spawnHologramHolder(Player player, HologramHolder holder);
 

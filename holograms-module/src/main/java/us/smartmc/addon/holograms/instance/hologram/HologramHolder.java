@@ -32,8 +32,12 @@ public class HologramHolder {
         holograms.put(hologramName, hologram);
     }
 
-    public void forEach(Consumer<Hologram> consumer) {
+    public void forEachHologram(Consumer<Hologram> consumer) {
         holograms.values().forEach(consumer);
+    }
+
+    public static void forEachHolder(Consumer<HologramHolder> consumer) {
+        holders.values().forEach(consumer);
     }
 
     public static HologramHolder getHologramHolder(String name) {

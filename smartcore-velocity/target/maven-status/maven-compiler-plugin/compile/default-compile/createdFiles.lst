@@ -23,7 +23,6 @@ us\smartmc\smartcore\smartcorevelocity\command\moderation\KickCommand.class
 us\smartmc\smartcore\smartcorevelocity\instance\onlinestore\OnlineStoreCommandType.class
 us\smartmc\smartcore\smartcorevelocity\command\moderation\BanCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\moderation\MuteCommand.class
-us\smartmc\smartcore\smartcorevelocity\listener\TabHandlerListeners.class
 us\smartmc\smartcore\smartcorevelocity\rediscommand\PlayerChatCommand.class
 us\smartmc\smartcore\smartcorevelocity\customcommand\MessageCommand.class
 us\smartmc\smartcore\smartcorevelocity\listener\LoginListeners.class
@@ -47,10 +46,10 @@ us\smartmc\smartcore\smartcorevelocity\manager\TebexCommandsManager.class
 us\smartmc\smartcore\smartcorevelocity\manager\AllowedCommandsManager.class
 us\smartmc\smartcore\smartcorevelocity\command\admin\SetPrefixCommand.class
 us\smartmc\smartcore\smartcorevelocity\instance\UUIDFinderByName.class
-us\smartmc\smartcore\smartcorevelocity\rediscommand\LanguageChangeCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\LobbyCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\SmartCoreVelocityCommand.class
 us\smartmc\smartcore\smartcorevelocity\variables\LanguageVariables.class
+us\smartmc\smartcore\smartcorevelocity\manager\TabHandler$1.class
 us\smartmc\smartcore\smartcorevelocity\instance\OfflinePlayerData.class
 us\smartmc\smartcore\smartcorevelocity\manager\CustomCommandsManager.class
 us\smartmc\smartcore\smartcorevelocity\manager\TebexPackageManager.class

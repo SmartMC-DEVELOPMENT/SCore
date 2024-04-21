@@ -150,7 +150,6 @@ public class SmartCoreVelocity {
 
     private void registerListeners() {
         registerListeners(
-                new TabHandlerListeners(),
                 new OfflinePlayerDataManager(),
                 new CustomCommandsListeners(),
                 new SanctionsListeners(),
@@ -207,7 +206,6 @@ public class SmartCoreVelocity {
         RedisConnection.mainConnection = new RedisConnection("localhost", 6379);
 
         PubSubConnectionHandler.register(
-                new LanguageChangeCommand(),
                 new StopServerCommand(),
                 new PlayerChatCommand());
     }

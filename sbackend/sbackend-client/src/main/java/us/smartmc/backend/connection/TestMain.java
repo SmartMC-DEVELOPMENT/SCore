@@ -23,7 +23,6 @@ public class TestMain {
     private static JedisPool pool;
 
     public static void main(String[] initArgs) throws Exception {
-        TestMain main = new TestMain();
         ConnectionInputManager.registerCommands(new SetPlayerCacheCmd());
 
         pool = new JedisPool("66.70.181.34", 6379);
@@ -33,14 +32,7 @@ public class TestMain {
 
         UUID uuid = UUID.fromString("5f257be9-0c62-4b17-ab8a-4ad53f9acb44");
 
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                getBackendCache(uuid);
-            }
-        }, 500, 1000);
-
-        ConnectionInputManager.registerListeners(new PlayerCacheListener());
+        getBackendCache(uuid);
     }
 
     private static void set(UUID uuid, String key, Object value) {

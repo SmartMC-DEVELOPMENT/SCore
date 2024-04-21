@@ -5,12 +5,6 @@ import java.util.Map;
 
 public abstract class MapHandler<K, V> implements IMapHandler<K, V> {
 
-    private static final Map<String, MapHandler<?, ?>> handlers = new HashMap<>();
-
-    public MapHandler() {
-        handlers.put(getClass().getName(), this);
-    }
-
     private final Map<K, V> registry = new HashMap<>();
 
     @Override
@@ -29,10 +23,10 @@ public abstract class MapHandler<K, V> implements IMapHandler<K, V> {
     }
 
     @Override
-    public V getOrCreate(K key) {
+    public V getOrCreate(K key, Object... args) {
         V value = get(key);
         if (value != null) return value;
-        value = getDefaultValue(key);
+        value = getDefaultValue(key, args);
         registry.put(key, value);
         return value;
     }
@@ -47,22 +41,4 @@ public abstract class MapHandler<K, V> implements IMapHandler<K, V> {
         if (registry.containsKey(key)) return;
         registry.put(key, getDefaultValue(key));
     }
-
-    public static <T extends MapHandler<?, ?>> T getHandler(Class<T> clazzType) {
-        return (T) handlers.get(clazzType.getName());
-    }
-
-    @SafeVarargs
-    public static void registerHandler(Class<? extends MapHandler<?, ?>>... clazzTypes) {
-        for (Class<? extends MapHandler<?, ?>> clazzType : clazzTypes) {
-            try {
-                clazzType.newInstance();
-            } catch (InstantiationException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
 }

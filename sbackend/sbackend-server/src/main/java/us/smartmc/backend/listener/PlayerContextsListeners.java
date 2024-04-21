@@ -1,7 +1,8 @@
 package us.smartmc.backend.listener;
 
 import us.smartmc.backend.connection.ConnectionHandler;
-import us.smartmc.backend.handler.PlayerContextsHandler;
+import us.smartmc.backend.handler.ModulesHandler;
+import us.smartmc.backend.handler.PlayersInfoHandler;
 import us.smartmc.backend.instance.BackendObjectListener;
 import us.smartmc.backend.instance.handler.MapHandler;
 import us.smartmc.backend.instance.player.PlayerCache;
@@ -32,7 +33,7 @@ public class PlayerContextsListeners extends BackendObjectListener<PlayerContext
     }
 
     private PlayerCache getCache(PlayerContextRequest request) {
-        return MapHandler.getHandler(PlayerContextsHandler.class).getOrCreate(request.getPlayerId()).getCache();
+        return ModulesHandler.playersInfoHandler.getOrCreate(request.getPlayerId());
     }
 
 }

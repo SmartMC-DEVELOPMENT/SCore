@@ -1,5 +1,6 @@
 package us.smartmc.smartcore.smartcorevelocity.manager;
 
+import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.MongoDBPluginConfig;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bson.Document;
@@ -8,6 +9,7 @@ import java.util.HashMap;
 
 public class TabHandler extends MongoDBPluginConfig {
 
+    @Getter
     private static final HashMap<Language, TabHandler> handlers = new HashMap<>();
 
     public static void register() {
@@ -23,9 +25,5 @@ public class TabHandler extends MongoDBPluginConfig {
         registerDefault("header", "Hello world!\nLine2!?");
         registerDefault("footer", "FOOTER HAHAHAHA");
         save();
-    }
-
-    public static HashMap<Language, TabHandler> getHandlers() {
-        return handlers;
     }
 }

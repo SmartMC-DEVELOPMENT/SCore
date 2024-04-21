@@ -17,7 +17,6 @@ import us.smartmc.smartbot.listener.*;
 import us.smartmc.smartbot.logfunction.PrintConsoleMessages;
 import us.smartmc.smartbot.logfunction.SendEmbedExceptionsMessages;
 import us.smartmc.smartbot.logfunction.SendEmbedMessages;
-import us.smartmc.smartbot.manager.AutoRoleManager;
 import us.smartmc.smartbot.manager.LogsManager;
 import us.smartmc.smartbot.slashcommand.AnuncioCommand;
 import us.smartmc.smartbot.slashcommand.JoinToCommand;
@@ -51,7 +50,6 @@ public class SmartBotMain {
                         new RepliesHandler(),
                         new SuggestionListener(),
                         new ChatGPTListener(),
-                        new AutoRoleListeners(),
                         new TicketReactionListener(),
                         new TicketSavementListeners(),
                         new SurveysListener())
@@ -81,7 +79,6 @@ public class SmartBotMain {
                         new AnuncioCommand("anuncio"),
                         new JoinToCommand("jointo"),
                         new ReactToCommand());
-                AutoRoleManager.loadAutoRolesFromGuild(getMainGuildID());
             }
         }, 1000);
         EventSchedulerHandler.setup();

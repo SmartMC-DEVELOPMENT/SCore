@@ -41,8 +41,9 @@ public class ClientConnectionHandler extends ConnectionHandler {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+        } else {
+            e.printStackTrace();
         }
-        e.printStackTrace();
         System.out.println("Connection from " + connection.getInetAddress().getHostAddress() + " has been closed!");
     }
 

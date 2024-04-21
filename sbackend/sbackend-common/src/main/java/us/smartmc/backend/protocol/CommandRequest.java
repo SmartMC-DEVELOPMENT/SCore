@@ -21,5 +21,4 @@ public class CommandRequest implements Serializable {
     public String getName() {
         return label.contains(" ") ? label.split(" ")[0] : label;
     }
-
 }

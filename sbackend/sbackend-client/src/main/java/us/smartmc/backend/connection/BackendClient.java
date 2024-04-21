@@ -1,5 +1,7 @@
 package us.smartmc.backend.connection;
 
+import us.smartmc.backend.connection.listener.PlayerCacheListener;
+import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.backend.protocol.LoginRequest;
 
 import java.io.IOException;
@@ -12,6 +14,7 @@ public class BackendClient extends ConnectionHandler {
     public BackendClient(String hostname, int port) throws IOException {
         super(getSocketConection(hostname, port));
         if (mainConnection == null) mainConnection = this;
+        ConnectionInputManager.registerListeners(new PlayerCacheListener());
     }
 
     public void login(String username, String password) {

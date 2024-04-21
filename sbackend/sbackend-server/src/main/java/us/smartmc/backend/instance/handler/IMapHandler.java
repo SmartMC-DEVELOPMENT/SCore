@@ -6,6 +6,8 @@ public interface IMapHandler<K, V> {
     boolean containsKey(K key);
     void put(K key, V value);
     V getOrCreate(K key);
+    V get(K key);
+    void register(K key);
 
     V getDefaultValue(K key);
 

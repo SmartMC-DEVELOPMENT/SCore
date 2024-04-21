@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.io.Serializable;
 
 @Getter
-public class CommandRequest {
+public class CommandRequest implements Serializable {
 
     private final String label;
 

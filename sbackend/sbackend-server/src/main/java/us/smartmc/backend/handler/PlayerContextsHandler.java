@@ -5,9 +5,13 @@ import us.smartmc.backend.instance.player.PlayerCache;
 import us.smartmc.backend.instance.player.PlayerContext;
 import us.smartmc.backend.util.ConsoleUtil;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class PlayerContextsHandler extends MapHandler<UUID, PlayerContext> {
+
+    private static final Map<UUID, PlayerCache> playerCaches = new HashMap<>();
 
     @Override
     public void remove(UUID playerId) {
@@ -25,7 +29,12 @@ public class PlayerContextsHandler extends MapHandler<UUID, PlayerContext> {
     }
 
     public PlayerCache getCache(UUID id) {
-        return getOrCreate(id).getCache();
+        if (playerCaches.containsKey(id)) {
+            return playerCaches.get(id);
+        }
+        PlayerCache cache = getOrCreate(id).getCache();
+        playerCaches.put(id, cache);
+        return cache;
     }
 
     @Override

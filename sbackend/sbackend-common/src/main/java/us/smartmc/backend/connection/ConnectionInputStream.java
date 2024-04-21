@@ -2,9 +2,7 @@ package us.smartmc.backend.connection;
 
 import com.google.gson.Gson;
 import lombok.Getter;
-import us.smartmc.backend.protocol.DataType;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -14,11 +12,11 @@ public class ConnectionInputStream {
 
     private final ConnectionHandler connectionHandler;
 
-    private final DataInputStream inputStream;
+    private final ObjectInputStream inputStream;
 
-    public ConnectionInputStream(ConnectionHandler connectionHandler, InputStream inputStream) {
+    public ConnectionInputStream(ConnectionHandler connectionHandler, InputStream inputStream) throws IOException {
         this.connectionHandler = connectionHandler;
-        this.inputStream = new DataInputStream(inputStream);
+        this.inputStream = new ObjectInputStream(inputStream);
     }
 
     public void close() throws IOException {
@@ -33,15 +31,12 @@ public class ConnectionInputStream {
         return inputStream.readUTF();
     }
 
-    public Object readJsonObject(boolean readByte) throws IOException, ClassNotFoundException {
+    public Object readObject(boolean readByte) throws IOException, ClassNotFoundException {
         if (readByte) inputStream.readByte();
-        String className = inputStream.readUTF();
-        String jsonObject = inputStream.readUTF();
-        Gson gson = new Gson();
-        return gson.fromJson(jsonObject, Class.forName(className));
+        return inputStream.readObject();
     }
 
-    public Object readJsonObject() throws IOException, ClassNotFoundException {
-        return readJsonObject(false);
+    public Object readObject() throws IOException, ClassNotFoundException {
+        return readObject(false);
     }
 }

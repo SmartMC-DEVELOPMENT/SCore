@@ -52,8 +52,8 @@ public class ConnectionHandler implements Runnable {
                         String utf = inputStream.readUTF();
                         ConnectionInputManager.performListener(this, utf);
                     }
-                    case JSON_OBJECT -> {
-                        Object o = inputStream.readJsonObject();
+                    case OBJECT -> {
+                        Object o = inputStream.readObject();
                         if (o instanceof CommandRequest cmdRequest) {
                             ConnectionInputManager.performCommand(this, cmdRequest);
                         } else {
@@ -64,7 +64,6 @@ public class ConnectionHandler implements Runnable {
             }
         } catch (Exception e) {
             handleException(e);
-
         }
     }
 
@@ -100,8 +99,7 @@ public class ConnectionHandler implements Runnable {
 
     public void sendObject(Object object) {
         try {
-            System.out.println(System.currentTimeMillis() + "PUT");
-            outputStream.writeJsonObject(object);
+            outputStream.writeObject(object);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

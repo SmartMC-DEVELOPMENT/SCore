@@ -5,8 +5,7 @@ import us.smartmc.backend.protocol.LoginRequest;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
+import java.net.SocketException;
 
 public class ClientConnectionHandler extends ConnectionHandler {
 
@@ -17,7 +16,7 @@ public class ClientConnectionHandler extends ConnectionHandler {
     @Override
     public void run() {
         try {
-            Object o = inputStream.readJsonObject(true);
+            Object o = inputStream.readObject(true);
             if (o instanceof LoginRequest loginRequest) {
                 if (!AuthHandler.checkLogin(loginRequest.getUsername(), loginRequest.getPassword())) {
                     disconectConnection(connection);
@@ -34,13 +33,16 @@ public class ClientConnectionHandler extends ConnectionHandler {
 
     @Override
     public void handleException(Exception e) {
-        try {
-            inputStream.close();
-            outputStream.close();
-            connection.close();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+        if (e.getClass().equals(IOException.class) || e.getClass().equals(SocketException.class)) {
+            try {
+                inputStream.close();
+                outputStream.close();
+                connection.close();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
+        e.printStackTrace();
         System.out.println("Connection from " + connection.getInetAddress().getHostAddress() + " has been closed!");
     }
 

@@ -6,18 +6,18 @@ import java.util.UUID;
 
 public class PlayerContext {
 
-    private final UUID uuid;
+    private final UUID playerId;
 
     @Getter
     private final PlayerCache cache;
 
     public PlayerContext(UUID uuid) {
-        this.uuid = uuid;
-        this.cache = new PlayerCache();
-        cache.set("testvalue", "Esto es un valor de test predeterminado en PlayerCache a ver que tal");
+        this.playerId = uuid;
+        this.cache = new PlayerCache(uuid);
+        System.out.println("PlayerContext set!");
     }
 
     public UUID getUniqueId() {
-        return uuid;
+        return playerId;
     }
 }

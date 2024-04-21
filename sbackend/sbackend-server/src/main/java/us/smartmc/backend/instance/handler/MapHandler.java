@@ -13,6 +13,7 @@ public abstract class MapHandler<K, V> implements IMapHandler<K, V> {
 
     private final Map<K, V> registry = new HashMap<>();
 
+    @Override
     public void remove(K key) {
         registry.remove(key);
     }
@@ -30,23 +31,38 @@ public abstract class MapHandler<K, V> implements IMapHandler<K, V> {
     @Override
     public V getOrCreate(K key) {
         V value = get(key);
-        if (value != null) return get(key);
+        if (value != null) return value;
         value = getDefaultValue(key);
         registry.put(key, value);
         return value;
     }
 
+    @Override
     public V get(K key) {
         return registry.get(key);
     }
 
+    @Override
     public void register(K key) {
         if (registry.containsKey(key)) return;
         registry.put(key, getDefaultValue(key));
     }
 
-    public static MapHandler<?, ?> getHandler(Class<? extends MapHandler<?, ?>> clazzType) {
-        return handlers.get(clazzType.getName());
+    public static <T extends MapHandler<?, ?>> T getHandler(Class<T> clazzType) {
+        return (T) handlers.get(clazzType.getName());
+    }
+
+    @SafeVarargs
+    public static void registerHandler(Class<? extends MapHandler<?, ?>>... clazzTypes) {
+        for (Class<? extends MapHandler<?, ?>> clazzType : clazzTypes) {
+            try {
+                clazzType.newInstance();
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 }

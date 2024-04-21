@@ -1,5 +1,6 @@
-us\smartmc\backend\connection\TestMainMongo.class
-us\smartmc\backend\connection\command\SetPlayerDataCmd.class
-us\smartmc\backend\connection\DataTestData.class
+us\smartmc\backend\connection\listener\PlayerCacheListener.class
 us\smartmc\backend\connection\BackendClient.class
-us\smartmc\backend\connection\TestMainCache.class
+us\smartmc\backend\connection\command\SetPlayerCacheCmd.class
+us\smartmc\backend\connection\TestMain.class
+us\smartmc\backend\connection\TestMain$1.class
+us\smartmc\backend\connection\manager\PlayerCacheManager.class

@@ -1,25 +1,22 @@
 package us.smartmc.backend.connection;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
-import com.google.gson.Gson;
 import lombok.Getter;
 import us.smartmc.backend.protocol.CommandRequest;
 import us.smartmc.backend.protocol.DataType;
-import us.smartmc.backend.protocol.UTFMessage;
 
 @Getter
 public class ConnectionOutputStream  {
 
-    private final DataOutputStream out;
+    private final ObjectOutputStream out;
     private final ConnectionHandler connectionHandler;
 
     public ConnectionOutputStream(ConnectionHandler connectionHandler, OutputStream outputStream) throws IOException {
         this.connectionHandler = connectionHandler;
-        this.out = new DataOutputStream(outputStream);
+        this.out = new ObjectOutputStream(outputStream);
     }
 
     public void close() throws IOException {
@@ -27,17 +24,16 @@ public class ConnectionOutputStream  {
     }
 
     public void writeCommand(String command) throws IOException {
-        writeUTF("CMD@" + command);
+        writeObject(new CommandRequest(command));
     }
 
     public void writeUTF(String utf) throws IOException {
         send(DataType.UTF, utf);
     }
 
-    public void writeJsonObject(Object object) throws IOException {
-        out.writeByte(DataType.JSON_OBJECT.getId());
-        out.writeUTF(object.getClass().getName());
-        out.writeUTF(new Gson().toJson(object));
+    public void writeObject(Object object) throws IOException {
+        out.writeByte(DataType.OBJECT.getId());
+        out.writeObject(object);
         out.flush();
     }
 

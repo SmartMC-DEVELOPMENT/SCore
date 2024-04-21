@@ -1,12 +1,15 @@
 package us.smartmc.backend;
 
 import lombok.Getter;
-import us.smartmc.backend.command.GetPlayerDataCmd;
+import us.smartmc.backend.command.GetPlayerCacheCmd;
 import us.smartmc.backend.command.HelloWorldCmd;
 import us.smartmc.backend.connection.BackendServer;
 import us.smartmc.backend.handler.AuthHandler;
 import us.smartmc.backend.handler.ConnectionInputManager;
+import us.smartmc.backend.handler.PlayerContextsHandler;
 import us.smartmc.backend.instance.config.JsonConfig;
+import us.smartmc.backend.instance.handler.MapHandler;
+import us.smartmc.backend.listener.PlayerContextsListeners;
 import us.smartmc.backend.util.ConsoleUtil;
 
 import java.io.File;
@@ -34,7 +37,10 @@ public class BackendServerMain {
 
         AuthHandler.loadCache();
 
-        ConnectionInputManager.registerCommands(new HelloWorldCmd(), new GetPlayerDataCmd());
+        MapHandler.registerHandler(PlayerContextsHandler.class);
+
+        ConnectionInputManager.registerListeners(new PlayerContextsListeners());
+        ConnectionInputManager.registerCommands(new HelloWorldCmd(), new GetPlayerCacheCmd());
 
 
         // Al final de main: Crear BackendServer (Se quedará en hili principal aceptando conexiones)
@@ -45,6 +51,9 @@ public class BackendServerMain {
         try {
             String line;
             while ((line = ConsoleUtil.readLine()) != null) {
+                if (line.equals("end") || line.equals("stop")) {
+                    System.exit(0);
+                }
                 ConsoleUtil.print("Comando ingresado: " + line);
             }
         } catch (Exception e) {

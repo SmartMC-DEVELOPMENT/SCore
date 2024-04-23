@@ -23,6 +23,7 @@ us\smartmc\smartcore\smartcorevelocity\command\moderation\KickCommand.class
 us\smartmc\smartcore\smartcorevelocity\instance\onlinestore\OnlineStoreCommandType.class
 us\smartmc\smartcore\smartcorevelocity\command\moderation\BanCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\moderation\MuteCommand.class
+us\smartmc\smartcore\smartcorevelocity\listener\TabHandlerListeners.class
 us\smartmc\smartcore\smartcorevelocity\rediscommand\PlayerChatCommand.class
 us\smartmc\smartcore\smartcorevelocity\customcommand\MessageCommand.class
 us\smartmc\smartcore\smartcorevelocity\listener\LoginListeners.class

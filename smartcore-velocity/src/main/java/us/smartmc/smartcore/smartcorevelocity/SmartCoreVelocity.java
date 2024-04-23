@@ -154,7 +154,8 @@ public class SmartCoreVelocity {
                 new CustomCommandsListeners(),
                 new SanctionsListeners(),
                 new LoginMessageHandler(),
-                new LoginListeners());
+                new LoginListeners(),
+                new TabHandlerListeners());
     }
 
     private void registerCommands() {

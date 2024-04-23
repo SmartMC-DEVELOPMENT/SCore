@@ -207,7 +207,8 @@ public class SmartCoreVelocity {
 
         PubSubConnectionHandler.register(
                 new StopServerCommand(),
-                new PlayerChatCommand());
+                new PlayerChatCommand(),
+                new LanguageChangeCommand());
     }
 
     private void registerDefaultLanguages() {

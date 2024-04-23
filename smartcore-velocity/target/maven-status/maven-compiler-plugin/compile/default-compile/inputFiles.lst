@@ -10,6 +10,7 @@ D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\sma
 D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\LoginListeners.java
 D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\customcommand\CmdCommand.java
 D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\ICoreCommand.java
+D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\rediscommand\LanguageChangeCommand.java
 D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\util\TimeUtils.java
 D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\moderation\WarnCommand.java
 D:\workspace2024\SCore\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\messages\SanctionsManagerMessages.java

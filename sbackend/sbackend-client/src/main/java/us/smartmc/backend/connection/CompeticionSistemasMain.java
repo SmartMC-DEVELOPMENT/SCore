@@ -26,7 +26,6 @@ public class CompeticionSistemasMain {
 
         boolean backend = true;
         while (true) {
-            System.out.println("Enviando petición en 2 segundos...");
             Thread.sleep(2000);
             UUID uuid = UUID.fromString("5f257be9-0c62-4b17-ab8a-4ad53f9acb44");
             if (backend) {
@@ -54,7 +53,6 @@ public class CompeticionSistemasMain {
             Map<?, ?> dataMap = new Gson().fromJson(value, Map.class);
             PlayerCache playerCache = new PlayerCache(UUID.fromString((String) dataMap.get("_id")));
             PlayerCacheManager.parse(playerCache);
-            System.out.println(playerCache.getCacheMap());
         }
     }
 

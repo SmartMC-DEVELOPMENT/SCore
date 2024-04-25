@@ -25,7 +25,16 @@ public class PlayerCacheManager {
         long millis = System.currentTimeMillis();
         long start = startDate.get(cache.getPlayerId());
         long retardo = (millis - start);
-        System.out.println("REDIS " + redisCount + " | BACKEND " + backendCount + "\n" + "Comparación SimpleN=" + calcularRapidezInferior() + "\nProporción de Rapidez=" + calcularProporcionRapidez() + "\nDiferencia Relativa=" + calcularDiferenciaRelativa);
+
+        if (lastType == (byte) 1) {
+            String builder = "\n" +
+                    "REDIS " + redisCount + " | BACKEND " + backendCount + "\n" +
+                    "Comparación Simple=" + calcularRapidezInferior() + "\n" +
+                    "Proporción de Rapidez=" + calcularProporcionRapidez() + "\n" +
+                    "Diferencia Relativa=" + calcularDiferenciaRelativa() +
+                    "\n";
+            System.out.println(builder);
+        }
         if (lastType == 1) redisCount += retardo; else backendCount += retardo;
     }
 

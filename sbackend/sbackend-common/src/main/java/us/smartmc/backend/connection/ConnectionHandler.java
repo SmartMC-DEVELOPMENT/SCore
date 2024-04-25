@@ -41,26 +41,15 @@ public class ConnectionHandler implements Runnable {
     public void run() {
         try {
             while (!connection.isClosed()) {
-                byte d = inputStream.readByte();
-                DataType type = DataType.getValueOf(d);
-                if (type == null) {
-                    System.out.println("No type found!");
-                    break;
+                ObjectCommand objectCommand = inputStream.readObjectCommand();
+
+                if (objectCommand.getTypeClass().equals(CommandRequest.class)) {
+                    CommandRequest request = objectCommand.getObject(CommandRequest.class);
+                    ConnectionInputManager.performCommand(this, request);
+                    continue;
                 }
-                switch (type) {
-                    case UTF -> {
-                        String utf = inputStream.readUTF();
-                        ConnectionInputManager.performListener(this, utf);
-                    }
-                    case OBJECT -> {
-                        Object o = inputStream.readObject();
-                        if (o instanceof CommandRequest cmdRequest) {
-                            ConnectionInputManager.performCommand(this, cmdRequest);
-                        } else {
-                            ConnectionInputManager.performListener(this, o);
-                        }
-                    }
-                }
+
+                ConnectionInputManager.performListener(this, objectCommand.getObject(objectCommand.getTypeClass()));
             }
         } catch (Exception e) {
             handleException(e);
@@ -83,10 +72,6 @@ public class ConnectionHandler implements Runnable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void sendObjects(Object... args) {
-        sendObject(new ObjectsTransfer(args));
     }
 
     public void sendCommand(String command) {

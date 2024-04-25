@@ -1,14 +1,13 @@
 us\smartmc\backend\instance\IBackendCommandExecutor.class
 us\smartmc\backend\protocol\LoginRequest.class
 us\smartmc\backend\connection\ConnectionHandler.class
+us\smartmc\backend\protocol\ObjectCommand.class
 us\smartmc\backend\instance\plugin\PluginDescription.class
 us\smartmc\backend\handler\ConnectionInputManager.class
-us\smartmc\backend\connection\ConnectionHandler$1.class
 us\smartmc\backend\instance\IBackendObjectListener.class
 us\smartmc\backend\instance\config\IConfig.class
 us\smartmc\backend\instance\BackendObjectListener.class
-us\smartmc\backend\protocol\DataType.class
-us\smartmc\backend\protocol\ObjectsTransfer.class
+us\smartmc\backend\protocol\GetPlayerCacheRequest.class
 us\smartmc\backend\protocol\PlayerContextRequestType.class
 us\smartmc\backend\protocol\UTFMessage.class
 us\smartmc\backend\instance\plugin\PluginLoader.class

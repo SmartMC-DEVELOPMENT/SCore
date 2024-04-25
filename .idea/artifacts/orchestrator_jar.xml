@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/orchestrator_jar</output-path>
     <root id="archive" name="orchestrator.jar">
       <element id="module-output" name="orchestrator" />
-      <element id="module-output" name="common" />
+      <element id="module-output" name="serverhandler-common" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/kyori/adventure-text-logger-slf4j/4.16.0/adventure-text-logger-slf4j-4.16.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/me/imsergioh/pluginsapi/common/1.0-SNAPSHOT/common-1.0-SNAPSHOT.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/kyori/adventure-key/4.16.0/adventure-key-4.16.0.jar" path-in-jar="/" />

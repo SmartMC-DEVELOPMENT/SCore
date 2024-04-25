@@ -3,18 +3,13 @@ package us.smartmc.backend.connection;
 import com.google.gson.Gson;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import us.smartmc.backend.connection.command.SetPlayerCacheCmd;
-import us.smartmc.backend.connection.listener.PlayerCacheListener;
 import us.smartmc.backend.connection.manager.PlayerCacheManager;
-import us.smartmc.backend.handler.ConnectionInputManager;
-import us.smartmc.backend.instance.BackendUTFListener;
 import us.smartmc.backend.instance.player.PlayerCache;
+import us.smartmc.backend.protocol.GetPlayerCacheRequest;
 import us.smartmc.backend.protocol.PlayerContextRequest;
 import us.smartmc.backend.protocol.PlayerContextRequestType;
 
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.UUID;
 
 public class TestMain {
@@ -23,16 +18,19 @@ public class TestMain {
     private static JedisPool pool;
 
     public static void main(String[] initArgs) throws Exception {
-        ConnectionInputManager.registerCommands(new SetPlayerCacheCmd());
 
         pool = new JedisPool("66.70.181.34", 6379);
         client = new BackendClient("66.70.181.34", 7723);
-        client.login("default", "contraseñaSEGURAASDññññññ");
+        client.login("default", "SmartMC2024");
         new Thread(client).start();
 
-        UUID uuid = UUID.fromString("5f257be9-0c62-4b17-ab8a-4ad53f9acb44");
 
-        getBackendCache(uuid);
+        while (true) {
+            System.out.println("Enviando petición en 2 segundos...");
+            Thread.sleep(2000);
+            UUID uuid = UUID.fromString("5f257be9-0c62-4b17-ab8a-4ad53f9acb44");
+            getBackendCache(uuid);
+        }
     }
 
     private static void set(UUID uuid, String key, Object value) {
@@ -44,7 +42,7 @@ public class TestMain {
     }
 
     private static void getRedisCache(UUID uuid) {
-        PlayerCacheManager.registerStartDate(uuid);
+        PlayerCacheManager.registerStartDate(1, uuid);
         try (Jedis jedis = pool.getResource()) {
             String value = jedis.get("testCache." + uuid);
             Map<?, ?> dataMap = new Gson().fromJson(value, Map.class);
@@ -55,7 +53,7 @@ public class TestMain {
     }
 
     private static void getBackendCache(UUID uuid) {
-        PlayerCacheManager.registerStartDate(uuid);
-        client.sendCommand("getPlayerCache " + uuid);
+        client.sendObject(new GetPlayerCacheRequest(uuid));
+        PlayerCacheManager.registerStartDate(1, uuid);
     }
 }

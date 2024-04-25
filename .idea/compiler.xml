@@ -10,11 +10,13 @@
         <module name="chat-module" />
         <module name="sbackend-common" />
         <module name="survivalchat" />
+        <module name="serverhandler-common" />
         <module name="staffmode-bungee" />
         <module name="smartbot" />
         <module name="npcs-module" />
         <module name="login-spigot" />
         <module name="snowgames-ffa" />
+        <module name="orchestrator" />
         <module name="fixes-core" />
         <module name="smartcore-velocity" />
         <module name="serverhandler-bukkit" />
@@ -34,14 +36,12 @@
     <bytecodeTargetLevel>
       <module name="addons" target="1.8" />
       <module name="arenapvp" target="1.8" />
-      <module name="common" target="16" />
       <module name="core-plugins" target="1.8" />
       <module name="events-core" target="1.8" />
       <module name="games-manager" target="1.8" />
       <module name="login" target="1.8" />
       <module name="loginproxy-waterfall" target="1.8" />
       <module name="old-gamesmanager-spigot (1)" target="1.8" />
-      <module name="orchestrator" target="16" />
       <module name="plugins-api" target="17" />
       <module name="server-handler" target="1.5" />
       <module name="serverhandler-bungee" target="1.8" />

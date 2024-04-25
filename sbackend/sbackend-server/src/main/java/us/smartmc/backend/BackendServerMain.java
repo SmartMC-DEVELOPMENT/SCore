@@ -1,12 +1,12 @@
 package us.smartmc.backend;
 
 import lombok.Getter;
-import us.smartmc.backend.command.GetPlayerCacheCmd;
 import us.smartmc.backend.command.HelloWorldCmd;
 import us.smartmc.backend.connection.BackendServer;
 import us.smartmc.backend.handler.*;
 import us.smartmc.backend.instance.config.JsonConfig;
 import us.smartmc.backend.listener.PlayerContextsListeners;
+import us.smartmc.backend.listener.RequestPlayerCacheListener;
 import us.smartmc.backend.util.ConsoleUtil;
 
 import java.io.File;
@@ -36,8 +36,7 @@ public class BackendServerMain {
 
         ModulesHandler.setup();
 
-        ConnectionInputManager.registerListeners(new PlayerContextsListeners());
-        ConnectionInputManager.registerCommands(new HelloWorldCmd(), new GetPlayerCacheCmd());
+        ConnectionInputManager.registerListeners(new PlayerContextsListeners(), new RequestPlayerCacheListener());
 
         // Al final de main: Crear BackendServer (Se quedará en hili principal aceptando conexiones)
         backendServer = new BackendServer(((Number) mainConfig.get("port")).intValue());

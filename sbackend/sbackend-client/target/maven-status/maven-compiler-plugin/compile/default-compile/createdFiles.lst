@@ -1,4 +1,3 @@
-us\smartmc\backend\connection\command\SetPlayerCacheCmd.class
 us\smartmc\backend\connection\TestMain.class
 us\smartmc\backend\connection\listener\PlayerCacheListener.class
 us\smartmc\backend\connection\BackendClient.class

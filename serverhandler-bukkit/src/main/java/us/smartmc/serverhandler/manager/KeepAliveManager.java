@@ -1,6 +1,5 @@
 package us.smartmc.serverhandler.manager;
 
-import me.imsergioh.pluginsapi.util.GlobalExceptionHandler;
 import us.smartmc.serverhandler.ServerHandlerMain;
 import us.smartmc.serverhandler.util.ConnectionUtil;
 

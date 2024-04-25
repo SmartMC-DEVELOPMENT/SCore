@@ -1,9 +1,9 @@
-package us.smartmc.serverhandler.manager;
+package main.java.us.smartmc.serverhandler.manager;
 
+import main.java.us.smartmc.serverhandler.ConsoleColors;
+import main.java.us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
 import me.imsergioh.jbackend.api.ConnectionHandler;
-import us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
-import us.smartmc.serverhandler.ConsoleColors;
-import us.smartmc.serverhandler.executor.BackendCommand;
+import main.java.us.smartmc.serverhandler.executor.BackendCommand;
 
 import java.util.HashMap;
 

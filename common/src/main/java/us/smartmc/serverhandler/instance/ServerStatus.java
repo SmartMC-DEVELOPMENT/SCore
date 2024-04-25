@@ -1,4 +1,4 @@
-package us.smartmc.serverhandler.instance;
+package main.java.us.smartmc.serverhandler.instance;
 
 public enum ServerStatus {
 

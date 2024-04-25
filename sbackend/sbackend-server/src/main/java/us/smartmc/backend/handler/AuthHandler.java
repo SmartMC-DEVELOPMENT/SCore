@@ -14,16 +14,20 @@ public class AuthHandler {
     private static final Map<String, String> logins = new HashMap<>();
 
     public static void loadCache() {
-        // TODO: Cargar usuarios
-        for (File file : Objects.requireNonNull(BackendServerMain.getLoginsDirectory().listFiles())) {
-            FileConfig config = null;
-            String fileName = file.getName();
-            if (fileName.endsWith(".json")) config = new JsonConfig(file);
-            assert config != null;
-            config.load();
-            String name = file.getName().split("\\.")[0];
-            logins.put(name, (String) config.get("password"));
-            System.out.println("Loaded user " + name);
+        try {
+            for (File file : Objects.requireNonNull(BackendServerMain.getLoginsDirectory().listFiles())) {
+                FileConfig config = null;
+                String fileName = file.getName();
+                if (fileName.endsWith(".json")) config = new JsonConfig(file);
+                assert config != null;
+                config.load();
+                String name = file.getName().split("\\.")[0];
+                logins.put(name, (String) config.get("password"));
+                System.out.println("Loaded user " + name);
+            }
+        } catch (Exception e) {
+            logins.put("default", "SmartMC2024");
+            System.out.println("Loaded default credentials due to error while trying to load cache");
         }
     }
 

@@ -1,7 +1,7 @@
-package us.smartmc.serverhandler.util;
+package main.java.us.smartmc.serverhandler.util;
 
+import main.java.us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
 import me.imsergioh.jbackend.api.ConnectionHandler;
-import us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
 
 public class ConnectionUtil {
 

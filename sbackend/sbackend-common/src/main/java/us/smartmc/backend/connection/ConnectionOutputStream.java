@@ -6,7 +6,7 @@ import java.io.OutputStream;
 
 import lombok.Getter;
 import us.smartmc.backend.protocol.CommandRequest;
-import us.smartmc.backend.protocol.DataType;
+import us.smartmc.backend.protocol.ObjectCommand;
 
 @Getter
 public class ConnectionOutputStream  {
@@ -24,22 +24,19 @@ public class ConnectionOutputStream  {
     }
 
     public void writeCommand(String command) throws IOException {
-        writeObject(new CommandRequest(command));
+        send(new CommandRequest(command));
     }
 
     public void writeUTF(String utf) throws IOException {
-        send(DataType.UTF, utf);
+        send(utf);
     }
 
     public void writeObject(Object object) throws IOException {
-        out.writeByte(DataType.OBJECT.getId());
-        out.writeObject(object);
-        out.flush();
+        send(object);
     }
 
-    private void send(DataType type, String utf) throws IOException {
-        out.writeByte(type.getId());
-        out.writeUTF(utf);
+    private void send(Object o) throws IOException {
+        out.writeObject(new ObjectCommand(o));
         out.flush();
     }
 

@@ -1,4 +1,4 @@
-package us.smartmc.serverhandler;
+package main.java.us.smartmc.serverhandler;
 
 public class Registrations {
 

@@ -1,8 +1,6 @@
 package us.smartmc.serverhandler.backendcommand;
 
 import me.imsergioh.jbackend.api.ConnectionHandler;
-import me.imsergioh.pluginsapi.connection.RedisConnection;
-import me.imsergioh.pluginsapi.instance.builder.DiscordLogEmbedBuilder;
 import us.smartmc.serverhandler.executor.BackendCommand;
 import us.smartmc.serverhandler.instance.CommonServerInfo;
 import us.smartmc.serverhandler.instance.ServerInfo;

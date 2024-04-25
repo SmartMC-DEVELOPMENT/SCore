@@ -5,7 +5,11 @@ import us.smartmc.backend.connection.manager.PlayerCacheManager;
 import us.smartmc.backend.instance.BackendObjectListener;
 import us.smartmc.backend.instance.player.PlayerCache;
 
+import java.util.UUID;
+
 public class PlayerCacheListener extends BackendObjectListener<PlayerCache> {
+
+    private final UUID id = UUID.randomUUID();
 
     public PlayerCacheListener() {
         super(PlayerCache.class);
@@ -13,6 +17,6 @@ public class PlayerCacheListener extends BackendObjectListener<PlayerCache> {
 
     @Override
     public void onReceive(ConnectionHandler connection, PlayerCache cache) {
-        PlayerCacheManager.parse(cache);
+        PlayerCacheManager.parse(cache); System.out.println("ID=" + id);
     }
 }

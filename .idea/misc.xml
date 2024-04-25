@@ -57,6 +57,8 @@
         <option value="$PROJECT_DIR$/survival-placeholders/pom.xml" />
         <option value="$PROJECT_DIR$/survi-chat/survivalchat/pom.xml" />
         <option value="$PROJECT_DIR$/staffmode-velocity/pom.xml" />
+        <option value="$PROJECT_DIR$/orchestrator/pom.xml" />
+        <option value="$PROJECT_DIR$/common/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

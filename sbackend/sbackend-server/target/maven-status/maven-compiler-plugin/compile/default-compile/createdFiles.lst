@@ -1,10 +1,10 @@
-us\smartmc\backend\command\GetPlayerCacheCmd.class
 us\smartmc\backend\listener\PlayerContextsListeners$1.class
 us\smartmc\backend\BackendServerMain.class
 us\smartmc\backend\command\UpdateServerInfoCmd.class
 us\smartmc\backend\handler\PlayersInfoHandler.class
 us\smartmc\backend\connection\BackendServer.class
 us\smartmc\backend\instance\handler\MapHandler.class
+us\smartmc\backend\listener\RequestPlayerCacheListener.class
 us\smartmc\backend\handler\PluginHandler.class
 us\smartmc\backend\handler\ServersInfoHandler.class
 us\smartmc\backend\connection\ClientConnectionHandler.class

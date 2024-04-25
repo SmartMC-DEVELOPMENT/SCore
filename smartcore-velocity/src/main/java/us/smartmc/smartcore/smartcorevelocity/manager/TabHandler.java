@@ -11,10 +11,7 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bson.Document;
 import us.smartmc.smartcore.smartcorevelocity.instance.PlayerLanguages;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class TabHandler extends MongoDBPluginConfig {
 
@@ -32,6 +29,8 @@ public class TabHandler extends MongoDBPluginConfig {
     private final String HEADER_KEY = "header";
     private final String FOOTER_KEY = "footer";
 
+    private final Timer timer;
+
     public TabHandler(Language language) {
         super("proxy_data", "tab_handler", new Document("lang", language.name().toUpperCase()));
         handlers.put(language, this);
@@ -39,7 +38,8 @@ public class TabHandler extends MongoDBPluginConfig {
         registerDefault(HEADER_KEY, List.of("Hello world!\nLine2!?", "HOLAAAAAA HEADEEEER", "RATATATAA"));
         registerDefault(FOOTER_KEY, List.of("LINE1", "LINE2", "LINE3"));
         save();
-        new Timer().schedule(new TimerTask() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 int maxHeader = getMaxSizeOfList(HEADER_KEY);
@@ -56,6 +56,10 @@ public class TabHandler extends MongoDBPluginConfig {
                 });
             }
         }, 0, getInteger("interval"));
+    }
+
+    public void suspendTimer() {
+        timer.purge();
     }
 
     public void sendTab(Player player, Component header, Component footer) {
@@ -76,6 +80,10 @@ public class TabHandler extends MongoDBPluginConfig {
         String value = getList(FOOTER_KEY, String.class).get(currentFooterIndex);
         MiniMessage miniMessage = MiniMessage.miniMessage();
         return miniMessage.deserialize(LegacyComponentSerializer.legacySection().deserialize(value).content());
+    }
+
+    public static Collection<TabHandler> getTabHandlers() {
+        return handlers.values();
     }
 
 }

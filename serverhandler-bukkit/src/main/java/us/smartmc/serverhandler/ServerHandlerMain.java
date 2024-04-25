@@ -1,6 +1,5 @@
 package us.smartmc.serverhandler;
 
-import com.velocitypowered.proxy.protocol.packet.KeepAlive;
 import lombok.Getter;
 import me.imsergioh.jbackend.BackendConnection;
 import me.imsergioh.jbackend.api.ConnectionHandler;

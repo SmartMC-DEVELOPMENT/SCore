@@ -13,6 +13,7 @@ public class ConnectionHandler implements Runnable {
 
     private static boolean defaultListenersAlreadyRegistered;
 
+    @Getter
     protected final Socket connection;
 
     protected final ConnectionOutputStream outputStream;

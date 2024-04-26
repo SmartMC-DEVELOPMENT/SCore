@@ -4,6 +4,7 @@ import lombok.Getter;
 import us.smartmc.backend.util.ConsoleUtil;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,18 @@ public class BackendClientConnection {
             name = username + "-" + id;
         }
         return name;
+    }
+
+    public static void removeConnection(Socket socket) {
+        String clientName = null;
+        for (BackendClientConnection connection : connections.values()) {
+            if (!connection.getConnectionHandler().getConnection().equals(socket)) continue;
+            clientName = connection.getClientName();
+            break;
+        }
+        if (clientName == null) return;
+        connections.remove(clientName);
+        System.out.println(clientName + " disconnected!");
     }
 
 }

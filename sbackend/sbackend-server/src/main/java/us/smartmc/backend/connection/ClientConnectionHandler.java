@@ -3,6 +3,7 @@ package us.smartmc.backend.connection;
 import us.smartmc.backend.handler.AuthHandler;
 import us.smartmc.backend.protocol.LoginRequest;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
@@ -17,7 +18,6 @@ public class ClientConnectionHandler extends ConnectionHandler {
     public void run() {
         try {
             Object o = inputStream.readObject(LoginRequest.class);
-            System.out.println("o=" + o);
             if (o instanceof LoginRequest loginRequest) {
                 if (!AuthHandler.checkLogin(loginRequest.getUsername(), loginRequest.getPassword())) {
                     disconectConnection(connection);
@@ -34,11 +34,12 @@ public class ClientConnectionHandler extends ConnectionHandler {
 
     @Override
     public void handleException(Exception e) {
-        if (e.getClass().equals(IOException.class) || e.getClass().equals(SocketException.class)) {
+        if (e instanceof IOException) {
             try {
                 inputStream.close();
                 outputStream.close();
                 connection.close();
+                BackendClientConnection.removeConnection(connection);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

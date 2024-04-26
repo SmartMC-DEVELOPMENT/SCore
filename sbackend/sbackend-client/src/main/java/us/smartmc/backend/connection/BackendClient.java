@@ -4,8 +4,10 @@ import us.smartmc.backend.connection.listener.PlayerCacheListener;
 import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.backend.protocol.LoginRequest;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class BackendClient extends ConnectionHandler {
 

@@ -33,7 +33,7 @@ public class PlayerContextsListeners extends BackendObjectListener<PlayerContext
     }
 
     private PlayerCache getCache(PlayerContextRequest request) {
-        return ModulesHandler.playersInfoHandler.getOrCreate(request.getPlayerId());
+        return ModulesHandler.playersInfoHandler.getOrCreate("testCache." + request.getPlayerId());
     }
 
 }

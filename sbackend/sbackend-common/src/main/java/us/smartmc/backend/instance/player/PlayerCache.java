@@ -13,8 +13,8 @@ public class PlayerCache implements Serializable {
     private final UUID playerId;
     private final Map<Object, Object> cacheMap = new HashMap<>();
 
-    public PlayerCache(UUID playerId) {
-        this.playerId = playerId;
+    public PlayerCache(String id) {
+        this.playerId = UUID.fromString(id.split("\\.")[1]);
         cacheMap.put("_id", playerId.toString());
     }
 

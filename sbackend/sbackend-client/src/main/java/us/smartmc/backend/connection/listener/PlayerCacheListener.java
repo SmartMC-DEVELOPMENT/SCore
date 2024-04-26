@@ -17,6 +17,6 @@ public class PlayerCacheListener extends BackendObjectListener<PlayerCache> {
 
     @Override
     public void onReceive(ConnectionHandler connection, PlayerCache cache) {
-        PlayerCacheManager.parse(cache); System.out.println("ID=" + id);
+        PlayerCacheManager.parse();
     }
 }

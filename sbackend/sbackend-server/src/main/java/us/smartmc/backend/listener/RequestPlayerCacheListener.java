@@ -17,7 +17,7 @@ public class RequestPlayerCacheListener extends BackendObjectListener<GetPlayerC
     @Override
     public void onReceive(ConnectionHandler connection, GetPlayerCacheRequest request) {
         UUID playerId = request.getId();
-        PlayerCache cache = ModulesHandler.playersInfoHandler.getCache(playerId);
+        PlayerCache cache = ModulesHandler.playersInfoHandler.getCache("testCache." + playerId);
         connection.sendObject(cache);
     }
 }

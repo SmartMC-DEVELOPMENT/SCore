@@ -31,7 +31,7 @@ public class MinigamesMenu extends CoreMenu {
     private final Language language;
 
     private MinigamesMenu(Language language) {
-        super(null, 36, LanguagesHandler.get(language).get("lobby_miniGames").getString("inventory_title"));
+        super(null, 36, LanguagesHandler.get(language).get("minigames").getString("inventory_title"));
         this.language = language;
         menus.put(language, this);
 
@@ -60,16 +60,16 @@ public class MinigamesMenu extends CoreMenu {
         // DISCORD
         set(9, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
-                .name("<lang.lobby_miniGames.items_discord_name>")
-                .lore("<lang.lobby_miniGames.items_discord_description>")
+                .name("<lang.minigames.items_discord_name>")
+                .lore("<lang.minigames.items_discord_description>")
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGQ0MjMzN2JlMGJkY2EyMTI4MDk3ZjFjNWJiMTEwOWU1YzYzM2MxNzkyNmFmNWZiNmZjMjAwMDAwMTFhZWI1MyJ9fX0=")
                 .get(language), "bungeeCMD discord", "closeInv");
 
         // STORE
         set(18, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
-                .name("<lang.lobby_miniGames.items_store_name>")
-                .lore("<lang.lobby_miniGames.items_store_description>")
+                .name("<lang.minigames.items_store_name>")
+                .lore("<lang.minigames.items_store_description>")
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjI3ODQzMDdiODkyZjUyYjkyZjc0ZmE5ZGI0OTg0YzRmMGYwMmViODFjNjc1MmU1ZWJhNjlhZDY3ODU4NDI3ZSJ9fX0=")
                 .get(language), "bungeeCMD store", "closeInv");
         closeItem();

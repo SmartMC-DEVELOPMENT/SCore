@@ -9,7 +9,7 @@ public interface ILinkSocial {
 
     default void perform(CorePlayer player, String input) {
         if (!isValidInput(input)) {
-            player.get().sendMessage(ChatUtil.parse(player.get(), "&c<lang.lobby.link_socials_invalid_input>"));
+            player.get().sendMessage(PaperChatUtil.parse(player.get(), "&c<lang.lobby.link_socials_invalid_input>"));
             return;
         }
         String username = input;

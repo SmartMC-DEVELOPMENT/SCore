@@ -18,12 +18,15 @@ public class LobbyMessages extends MultiLanguageRegistry {
     @Override
     public void load(LanguageMessagesHolder holder) {
         holder.load();
-        holder.registerDefault("items_right_click", "&8(Right-Click)");
+        holder.registerDefault("items.right_click", "&8(Right-Click)");
+
         holder.registerDefault("items_lobby_name", "&aLobby");
+
         holder.registerDefault("items_lobby_description", "&7Connect to lobby ");
         holder.registerDefault("connecting_to", "&7Connecting to ");
         holder.registerDefault("title_lobbies_menu", "Lobbies");
         holder.registerDefault("title_settings_menu", "Settings");
+        holder.migrateConfigPath("items.lobby.description", "items.lobby_description");
 
         holder.registerDefault("no_store_benefit", "&aAcquire a package from the store that contains this feature.");
 
@@ -78,15 +81,15 @@ public class LobbyMessages extends MultiLanguageRegistry {
                 "&aChange language",
                 "&7Change your language at the entire network");
 
-        item(holder, "minigames", "&aMinigames <lang.lobby.items_right_click>", "&7Open minigames menu to play");
-        item(holder, "settings", "&aSettings <lang.lobby.items_right_click>", "&7Adjust your custom settings");
-        item(holder, "lobbies", "&aLobbies <lang.lobby.items_right_click>", "&7Connect to another lobbies instances");
+        item(holder, "minigames", "&aMinigames <lang.lobby.items.right_click>", "&7Open minigames menu to play");
+        item(holder, "settings", "&aSettings <lang.lobby.items.right_click>", "&7Adjust your custom settings");
+        item(holder, "lobbies", "&aLobbies <lang.lobby.items.right_click>", "&7Connect to another lobbies instances");
         item(holder, "visibility", "&bChange visibility", "");
         item(holder, "flying", "&bToggle flying", "");
         item(holder, "not_available", "&c&lNot available", "&7This game is in development and\n&7it will be published soon.\n\n&eStay tuned!");
         item(holder, "terms", "&aTerms and Conditions", "&7Accept our terms and conditions to continue");
 
-        item(holder, "cosmetics", "&bCosmetics <lang.lobby.items_right_click>", "&7Open cosmetics menu and change your current cosmetics.");
+        item(holder, "cosmetics", "&bCosmetics <lang.lobby.items.right_click>", "&7Open cosmetics menu and change your current cosmetics.");
 
         holder.save();
     }

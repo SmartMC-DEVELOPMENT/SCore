@@ -50,7 +50,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
 
     public static ItemStack getItemOf(Language language, String name) {
         Document configDoc = LobbyModule.getMinigamesConfig().get(name, Document.class);
-        Document document = LanguagesHandler.get(language).get("lobby_miniGames").get(name, Document.class);
+        Document document = LanguagesHandler.get(language).get("minigames").get(name, Document.class);
         String itemName = document.getString("name");
 
         Material material = Material.BEDROCK;
@@ -64,7 +64,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
         if (configDoc.containsKey("title_custom")) titleCustom = configDoc.getString("title_custom");
 
         ArrayList<String> description = LineLimiter.createListFromNewLines(document.getString("description"));
-        String clickToConnect = LanguagesHandler.get(language).get("lobby_miniGames").getString("click_to_connect");
+        String clickToConnect = LanguagesHandler.get(language).get("minigames").getString("click_to_connect");
         description = (ArrayList<String>) LineLimiter.limitLines(description, Integer.MAX_VALUE);
 
         ArrayList<String> list = new ArrayList<>();
@@ -76,7 +76,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
 
         if (configDoc.getBoolean("prototype", false)) {
             // IF PROTOTYPE BOOLEAN IS TRUE:
-            list.add(LanguageUtil.parse(language, "<lang.lobby_miniGames.prototype_title>"));
+            list.add(LanguageUtil.parse(language, "<lang.minigames.prototype_title>"));
         }
 
         list.addAll(description);

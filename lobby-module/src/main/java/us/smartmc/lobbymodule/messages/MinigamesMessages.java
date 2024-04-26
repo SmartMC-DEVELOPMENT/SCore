@@ -7,7 +7,7 @@ import org.bson.Document;
 
 import static us.smartmc.lobbymodule.messages.LobbyMessages.item;
 
-@LangMessagesInfo(name = "lobby_miniGames")
+@LangMessagesInfo(name = "minigames")
 public class MinigamesMessages extends MultiLanguageRegistry {
 
     @Override

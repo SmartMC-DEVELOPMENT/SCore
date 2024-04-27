@@ -34,28 +34,27 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         String line;
-        while (true) {
-            try {
-                if ((((line = reader.readLine())) != null)) {
-                    String cmdName = line.contains(" ") ? line.split(" ")[0] : line;
-                    String[] args = line.contains(" ") ? line.replace(cmdName + " ", "").split(" ") : new String[]{};
-                    switch (cmdName.toLowerCase()) {
-                        case "changepaths" -> {
-                            changePaths(ChangePathsType.valueOf(args[0]), args[1], args[2]);
-                        }
-                        case "stringtolists" -> {
-                            fromStringToList();
-                        }
-                        case "save" -> {
-                            saveAllLoadedHolders();
-                        }
-                    }
-                    break;
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            while ((((line = reader.readLine())) != null)) {
+                String cmdName = line.contains(" ") ? line.split(" ")[0] : line;
+                String[] args = line.contains(" ") ? line.replace(cmdName + " ", "").split(" ") : new String[]{};
 
+                System.out.println("PERFORMING " + cmdName + " Args=" + Arrays.toString(args));
+
+                switch (cmdName.toLowerCase()) {
+                    case "changepaths" -> {
+                        changePaths(ChangePathsType.valueOf(args[0]), args[1], args[2]);
+                    }
+                    case "stringtolists" -> {
+                        fromStringToList();
+                    }
+                    case "save" -> {
+                        saveAllLoadedHolders();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

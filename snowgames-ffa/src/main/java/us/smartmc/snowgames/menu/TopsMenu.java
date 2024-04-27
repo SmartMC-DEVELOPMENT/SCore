@@ -29,10 +29,6 @@ public class TopsMenu extends FFAMenu {
 
     @Override
     public void load() {
-        /*set(13, ItemBuilder.of(Material.BARRIER)
-                .name("&cERROR")
-                .lore(Arrays.asList("&7<lang.snowgames/ffa/main.not_available>"))
-                .get(player));*/
         set(11, Material.DIAMOND_SWORD, "kills");
         set(13, Material.PLAYER_HEAD, "deaths");
         set(15, Material.FISHING_ROD, "max_kill_streak");

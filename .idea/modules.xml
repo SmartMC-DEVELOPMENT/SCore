@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/MessagesMigration.iml" filepath="$PROJECT_DIR$/MessagesMigration.iml" />
       <module fileurl="file://$PROJECT_DIR$/SCore.iml" filepath="$PROJECT_DIR$/SCore.iml" />
       <module fileurl="file://$PROJECT_DIR$/chat-module/chat-module.iml" filepath="$PROJECT_DIR$/chat-module/chat-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/events-core/events-core.iml" filepath="$PROJECT_DIR$/events-core/events-core.iml" />

@@ -7,7 +7,6 @@ import me.imsergioh.pluginsapi.language.LanguageMessagesHolder;
 import me.imsergioh.pluginsapi.util.LineLimiter;
 import org.bson.Document;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

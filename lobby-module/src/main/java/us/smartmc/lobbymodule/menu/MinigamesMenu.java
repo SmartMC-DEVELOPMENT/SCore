@@ -60,16 +60,16 @@ public class MinigamesMenu extends CoreMenu {
         // DISCORD
         set(9, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
-                .name("<lang.minigames.items_discord_name>")
-                .lore("<lang.minigames.items_discord_description>")
+                .name("<lang.minigames.items.discord_name>")
+                .lore("<lang.minigames.items.discord.description>")
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGQ0MjMzN2JlMGJkY2EyMTI4MDk3ZjFjNWJiMTEwOWU1YzYzM2MxNzkyNmFmNWZiNmZjMjAwMDAwMTFhZWI1MyJ9fX0=")
                 .get(language), "bungeeCMD discord", "closeInv");
 
         // STORE
         set(18, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
-                .name("<lang.minigames.items_store_name>")
-                .lore("<lang.minigames.items_store_description>")
+                .name("<lang.minigames.items.store_name>")
+                .lore("<lang.minigames.items.store.description>")
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjI3ODQzMDdiODkyZjUyYjkyZjc0ZmE5ZGI0OTg0YzRmMGYwMmViODFjNjc1MmU1ZWJhNjlhZDY3ODU4NDI3ZSJ9fX0=")
                 .get(language), "bungeeCMD store", "closeInv");
         closeItem();
@@ -81,8 +81,8 @@ public class MinigamesMenu extends CoreMenu {
 
     public void setNotAvailableItems(){
         ItemStack item = ItemBuilder.of(Material.RED_STAINED_GLASS_PANE)
-                .name("<lang.lobby.items_not_available_name>")
-                .lore("<lang.lobby.items_not_available_description>")
+                .name("<lang.lobby.items.not_available_name>")
+                .lore("<lang.lobby.items.not_available.description>")
                 .get(language);
 
         for (int slot : slots) {

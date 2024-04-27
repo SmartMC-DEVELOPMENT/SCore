@@ -104,7 +104,7 @@ public class LinkSocialsMenu extends CoreMenu {
             loreList = Arrays.asList(LobbyMessages.getLangList("link_socials_description_show"));
             labelCommand = "showSocial " + type.name() + " " + currentUser;
         } else {
-            loreList = Arrays.asList(LobbyMessages.getLangList("items_link_social_network_description"));
+            loreList = Arrays.asList(LobbyMessages.getLangList("items.link_social_network_description"));
         }
 
         set(slot, ItemBuilder.of(Material.PLAYER_HEAD).data(3)

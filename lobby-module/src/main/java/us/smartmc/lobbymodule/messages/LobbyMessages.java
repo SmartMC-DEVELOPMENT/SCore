@@ -18,25 +18,24 @@ public class LobbyMessages extends MultiLanguageRegistry {
     @Override
     public void load(LanguageMessagesHolder holder) {
         holder.load();
-        holder.registerDefault("items.right_click", "&8(Right-Click)");
+        holder.registerDefaultOrMigrate("items.right_click", "items.right_click", "&8(Right-Click)");
 
-        holder.registerDefault("items_lobby_name", "&aLobby");
+        holder.registerDefaultOrMigrate("items.lobby_name", "items.lobby.name", "&aLobby");
+        holder.registerDefaultOrMigrate("items.lobby_description", "items.lobby.description", "&7Connect to lobby ");
 
-        holder.registerDefault("items_lobby_description", "&7Connect to lobby ");
-        holder.registerDefault("connecting_to", "&7Connecting to ");
-        holder.registerDefault("title_lobbies_menu", "Lobbies");
-        holder.registerDefault("title_settings_menu", "Settings");
-        holder.migrateConfigPath("items.lobby.description", "items.lobby_description");
+        holder.remove("connecting_to");
+        holder.registerDefaultOrMigrate("title_lobbies_menu", "title.lobbies_menu", "Lobbies");
+        holder.registerDefaultOrMigrate("title_settings_menu", "title.lobbies_menu", "Settings");
 
         holder.registerDefault("no_store_benefit", "&aAcquire a package from the store that contains this feature.");
 
-        holder.registerDefault("fly_enabled", "&aFlight mode has been enabled.");
-        holder.registerDefault("fly_disabled", "&cFlight mode has been disabled.");
+        holder.registerDefaultOrMigrate("fly_enabled", "fly.enabled", "&aFlight mode has been enabled.");
+        holder.registerDefaultOrMigrate("fly_disabled", "fly.disabled","&cFlight mode has been disabled.");
 
         holder.registerDefault("not_vip", "&cYou are not vip do this!");
 
-        holder.registerDefault("join_title", "&b&lWelcome!");
-        holder.registerDefault("join_subtitle", "&rThank you for coming, enjoy your stay! :D");
+        holder.remove("join_title");
+        holder.remove("join_subtitle");
         holder.registerDefault("join_message", "&r{0} &6has joined the lobby!");
 
         holder.registerDefault("lore_fly_enabled", "&7Disable your flight mode");
@@ -58,15 +57,15 @@ public class LobbyMessages extends MultiLanguageRegistry {
 
         holder.registerDefault("menu_link_socials_title", "Link socials");
         holder.registerDefault("menu_show_socials_title", "Show socials");
-        holder.registerDefault("link_socials_invalid_input", "You introduced an invalid input!");
-        holder.registerDefault("link_socials_linked_correctly", "You have successfully linked the social network!");
-        holder.registerDefault("link_socials_introduce_url", "&8➤ &bPlease introduce your social network link in the chat");
-        holder.registerDefault("link_socials.socials_cmd.usage", "&cCorrect usage: /socials <name>");
-        holder.registerDefault("link_socials_description_show",  "&7Here you have the link of {0}:\n\n&fLink:&e {1}\n\n&a▶ Click to open");
-        holder.registerDefault("link_socials_no_linked",  "&cThis user does not have an account already linked on that social network!");
-        holder.registerDefault("link_socials_show_message",  "&bClick here to open {0}'s {1}");
-        holder.registerDefault("link_socials_target_not_found",  "&cPlayer not found!");
-        holder.registerDefault("link_socials_unlinked_correctly", "&cYou have unlinked the social media correctly!");
+        holder.registerDefaultOrMigrate("link_socials_invalid_input", "link_socials.invalid_input", "You introduced an invalid input!");
+        holder.registerDefaultOrMigrate("link_socials_linked_correctly", "link_socials.linked_correctly",  "You have successfully linked the social network!");
+        holder.registerDefaultOrMigrate("link_socials_introduce_url", "link_socials.introduce_url", "&8➤ &bPlease introduce your social network link in the chat");
+        holder.registerDefaultOrMigrate("link_socials_socials_cmd.usage", "link_socials.socials_cmd.usage", "&cCorrect usage: /socials <name>");
+        holder.registerDefaultOrMigrate("link_socials_description_show", "link_socials.description_show",  "&7Here you have the link of {0}:\n\n&fLink:&e {1}\n\n&a▶ Click to open");
+        holder.registerDefaultOrMigrate("link_socials_no_linked", "link_socials.no_linked",  "&cThis user does not have an account already linked on that social network!");
+        holder.registerDefaultOrMigrate("link_socials_show_message", "link_socials.show_message", "&bClick here to open {0}'s {1}");
+        holder.registerDefaultOrMigrate("link_socials_target_not_found", "link_socials.target_not_found", "&cPlayer not found!");
+        holder.registerDefaultOrMigrate("link_socials_unlinked_correctly", "link_socials.unlinked_correctly", "&cYou have unlinked the social media correctly!");
 
         item(holder, "link_social_network", "{0}",
                 "&7Here you have the link of {0}&7:\n\n&fUsername:&e {1}\n&fExample:&e {2}\n\n&a▶ Click to set\n&c▶ Right-Click to unlink");
@@ -99,15 +98,15 @@ public class LobbyMessages extends MultiLanguageRegistry {
     }
 
     public static ItemBuilder getItem(Material material, String name) {
-        String namePath = "<lang.lobby.items_" + name + "_name>";
-        String lorePath = "<lang.lobby.items_" + name + "_description>";
+        String namePath = "<lang.lobby.items." + name + ".name>";
+        String lorePath = "<lang.lobby.items." + name + ".description>";
         return ItemBuilder.of(material)
                 .name(namePath)
                 .lore(lorePath);
     }
 
     static void item(LanguageMessagesHolder holder, String name, String displayName, String description) {
-        String mainPath = "items_" + name + "_";
+        String mainPath = "items." + name + ".";
         holder.registerDefault(mainPath + "name", displayName);
         holder.registerDefault(mainPath + "description", description);
     }

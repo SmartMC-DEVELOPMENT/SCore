@@ -43,15 +43,15 @@ public class SettingsMenu extends CoreMenu {
 
         set(20, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
-                .name("<lang.lobby.items_language_name>")
-                .lore(Arrays.asList("<lang.lobby.items_language_description>"))
+                .name("<lang.lobby.items.language_name>")
+                .lore(Arrays.asList("<lang.lobby.items.language.description>"))
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=")
                 .get(language), "cmd lang");
 
         set(31, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
-                .name("<lang.lobby.items_link_socials_name>")
-                .lore(Arrays.asList("<lang.lobby.items_link_socials_description>"))
+                .name("<lang.lobby.items.link_socials_name>")
+                .lore(Arrays.asList("<lang.lobby.items.link_socials.description>"))
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmFkNDZhNDIyYWU1OTYwM2ZkODg5YzI1MzQ0ZmY2N2JjODQzYWY4ZWU1MTg5MzJjMmUyYWQwN2NkYmY5MzliMyJ9fX0=")
                 .get(language), "cmd linkSocials");
 
@@ -59,7 +59,7 @@ public class SettingsMenu extends CoreMenu {
 
     public void setFlyingItem() {
         set(24, ItemBuilder.of(Material.FEATHER)
-                .name("<lang.lobby.items_flying_name>")
+                .name("<lang.lobby.items.flying_name>")
                 .lore(Arrays.asList("<lang.lobby.lore_fly_toggle>"))
                 .get(language), "toggleFly");
     }

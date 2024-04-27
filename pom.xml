@@ -21,6 +21,7 @@
         <module>serverhandler-velocity</module>
         <module>sbackend</module>
         <module>holograms-module</module>
+        <module>MessagesMigration</module>
     </modules>
 
     <properties>

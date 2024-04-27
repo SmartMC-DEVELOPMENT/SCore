@@ -25,22 +25,6 @@ public class CosmeticsMainMessages extends MultiLanguageRegistry {
         registerSection(CosmeticType.EFFECTS, "Effects", "Default effects description to look if the item works correcttlly. extreeemeeee looong");
         registerSection(CosmeticType.PETS, "Pets", "Pets, no sé");
 
-        holder.registerDefault("unlocked", "Unlocked");
-        holder.registerDefault("rarity", "Rarity");
-        holder.registerDefault("cost", "Cost");
-        holder.registerDefault("cost_free", "Free");
-
-        holder.registerDefault("click_to_look", "&eClick to look!");
-        holder.registerDefault("click_to_buy", "&eClick to buy!");
-        holder.registerDefault("click_to_set", "&eClick to set!");
-
-        holder.registerDefault("menu_confirm_buy_title", "Confirm purchase?");
-        holder.registerDefault("cosmetic_buyed_coins_reason", "Purchased cosmetic");
-        holder.registerDefault("cosmetic_no_balance", "&cYou don't have enough SmartCoins!");
-        holder.registerDefault("item_buy_name", "&aConfirm");
-        holder.registerDefault("item_cancel_buy_name", "&cCancel");
-        holder.registerDefault("cosmetic_set", "&bYou selected &a{0}");
-
         for (CosmeticRarity rarity : CosmeticRarity.values()) {
             holder.registerDefault("rarity_" + rarity.name() + "_name", "RARITY " + rarity.name());
         }

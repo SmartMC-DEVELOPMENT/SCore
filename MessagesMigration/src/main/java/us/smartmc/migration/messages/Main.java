@@ -51,10 +51,35 @@ public class Main {
                     case "save" -> {
                         saveAllLoadedHolders();
                     }
+                    case "fixpaths" -> {
+                        fixPaths();
+                    }
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static void fixPaths() {
+        LanguagesHandler.forEach((languageHolder) -> {
+            languageHolder.getMessagesHolders().forEach(Main::fixPaths);
+        });
+    }
+
+    private static void fixPaths(Document document) {
+        for (String key : new HashSet<>(document.keySet())) {
+            Object value = document.get(key);
+
+            if (value instanceof Document documentValue) {
+                fixPaths(documentValue);
+                continue;
+            }
+            if (key.contains(".")) {
+                System.out.println("Detected key pocho " + key);
+                document.remove(key);
+                putFixed(document, key, value);
+            }
         }
     }
 
@@ -134,7 +159,6 @@ public class Main {
                 if (value instanceof String str && str.contains(oldPathPrefix)) {
                     value = str.replace(oldPathPrefix, newPathPrefix);
                     document.put(key, value);
-                    return;
                 }
 
                 if (value instanceof ArrayList<?> list) {
@@ -152,17 +176,32 @@ public class Main {
                     }
                 }
 
-                if (value instanceof Document documentValue) {
-                    migratePathsFrom(type, documentValue, oldPathPrefix, newPathPrefix);
-                    continue;
-                }
-
                 document.remove(key);
                 String modernPath = key.replace(oldPathPrefix, newPathPrefix);
                 document.put(modernPath, value);
                 System.out.println("Migrated " + oldPathPrefix + " " + newPathPrefix + " (" + modernPath + ")");
             }
         }
+    }
+
+    public static Document putFixed(Document document, String key, Object value) {
+        if (key.contains(".")) {
+            String[] keys = key.split("\\.");
+            Document current = document;
+            for (int i = 0; i < keys.length - 1; i++) {
+                String part = keys[i];
+                Document next = (Document) current.get(part);
+                if (next == null) {
+                    next = new Document();
+                    current.put(part, next);
+                }
+                current = next;
+            }
+            current.put(keys[keys.length - 1], value);
+        } else {
+            putFixed(document, key, value);
+        }
+        return document;
     }
 
     public enum ChangePathsType {

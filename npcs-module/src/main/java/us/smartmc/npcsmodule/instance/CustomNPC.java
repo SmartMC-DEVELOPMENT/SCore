@@ -95,7 +95,7 @@ public class CustomNPC {
 
         Bukkit.getScheduler().runTaskLater(SpigotPluginsAPI.getPlugin(), () -> {
             hideTagByPlayerScoreboard(player);
-        }, 10);
+        }, 0);
     }
 
     public void hideTagByPlayerScoreboard(Player player) {

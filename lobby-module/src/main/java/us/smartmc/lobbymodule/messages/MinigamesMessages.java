@@ -13,16 +13,8 @@ public class MinigamesMessages extends MultiLanguageRegistry {
     @Override
     public void load(LanguageMessagesHolder holder) {
         holder.load();
-        holder.registerDefault("inventory_title", "Minigames");
-        holder.registerDefault("prototype_title", "&5&lPROTOTYPE");
-
-        holder.registerDefault("click_to_connect", "&eClick to connect!");
-        holder.registerDefault("in_maintenance", "&c&lIN MAINTENANCE!");
-
-        item(holder, "discord", "&9&lDiscord Server", "&7Check our Discord Server and connect with us!");
-        item(holder, "store", "&e&lServer Store", "&7Take a look at our store and if you feel like it, buy something :)");
-
-        registerMinigame(holder, "snowmatch");
+        //item(holder, "store", "&e&lServer Store", "&7Take a look at our store and if you feel like it, buy something :)");
+        //registerMinigame(holder, "snowmatch");
         holder.save();
     }
 

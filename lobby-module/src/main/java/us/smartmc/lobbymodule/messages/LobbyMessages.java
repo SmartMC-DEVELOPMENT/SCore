@@ -18,6 +18,7 @@ public class LobbyMessages extends MultiLanguageRegistry {
     @Override
     public void load(LanguageMessagesHolder holder) {
         holder.load();
+        holder.save();
     }
 
     public static String getLangList(String name) {

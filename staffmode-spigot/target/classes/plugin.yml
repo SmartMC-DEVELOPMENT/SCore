@@ -1,5 +1,0 @@
-name: Staffmode
-version: '1.0-SNAPSHOT'
-main: us.smartmc.moderation.staffmode.StaffModeMain
-depend:
-  - SmartCore23

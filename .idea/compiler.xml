@@ -19,7 +19,6 @@
         <module name="lobby-module" />
         <module name="holograms-module" />
         <module name="survivalchat" />
-        <module name="staffmode-bungee" />
         <module name="smartbot" />
         <module name="npcs-module" />
         <module name="orchestrator" />
@@ -30,7 +29,6 @@
         <module name="gamesmanager-spigot" />
         <module name="serverhandler-velocity" />
         <module name="smartantiddos-velocity" />
-        <module name="staffmode-spigot" />
         <module name="lobby-cosmetics" />
       </profile>
     </annotationProcessing>
@@ -51,6 +49,8 @@
       <module name="smartcore-waterfall" target="1.8" />
       <module name="SmartCore-Waterfall" target="16" />
       <module name="snowgames" target="1.8" />
+      <module name="staffmode-bungee" target="16" />
+      <module name="staffmode-spigot" target="16" />
       <module name="staffmode-velocity" target="1.8" />
       <module name="survival-core" target="1.8" />
     </bytecodeTargetLevel>

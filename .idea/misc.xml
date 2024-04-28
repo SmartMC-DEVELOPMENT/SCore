@@ -70,6 +70,8 @@
         <option value="$PROJECT_DIR$/login/loginproxy-waterfall/pom.xml" />
         <option value="$PROJECT_DIR$/plugins-api/pom.xml" />
         <option value="$PROJECT_DIR$/server-handler/serverhandler-bungee/pom.xml" />
+        <option value="$PROJECT_DIR$/staffmode-spigot/pom.xml" />
+        <option value="$PROJECT_DIR$/staffmode-velocity/pom.xml" />
       </set>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />

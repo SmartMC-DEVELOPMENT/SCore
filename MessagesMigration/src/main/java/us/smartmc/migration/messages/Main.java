@@ -32,10 +32,10 @@ public class Main {
                 "cosmetics_info/HATS");
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
         String line;
         try {
-            while ((((line = reader.readLine())) != null)) {
+            boolean activeRead = true;
+            while ((((line = reader.readLine())) != null) && activeRead) {
                 String cmdName = line.contains(" ") ? line.split(" ")[0] : line;
                 String[] args = line.contains(" ") ? line.replace(cmdName + " ", "").split(" ") : new String[]{};
 
@@ -54,11 +54,19 @@ public class Main {
                     case "fixpaths" -> {
                         fixPaths();
                     }
+                    case "edit" -> {
+                        activeRead = false;
+                        new EditSession();
+                    }
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static void startEditSession() {
+
     }
 
     private static void fixPaths() {

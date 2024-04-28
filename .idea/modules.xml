@@ -25,8 +25,8 @@
       <module fileurl="file://$PROJECT_DIR$/smartcore-velocity/smartcore-velocity.iml" filepath="$PROJECT_DIR$/smartcore-velocity/smartcore-velocity.iml" />
       <module fileurl="file://$PROJECT_DIR$/snowgames-ffa/snowgames-ffa.iml" filepath="$PROJECT_DIR$/snowgames-ffa/snowgames-ffa.iml" />
       <module fileurl="file://$PROJECT_DIR$/staff-mode/staff-mode.iml" filepath="$PROJECT_DIR$/staff-mode/staff-mode.iml" />
-      <module fileurl="file://$PROJECT_DIR$/staffmode-velocity/staffmode-bungee.iml" filepath="$PROJECT_DIR$/staffmode-velocity/staffmode-bungee.iml" />
       <module fileurl="file://$PROJECT_DIR$/staffmode-spigot/staffmode-spigot.iml" filepath="$PROJECT_DIR$/staffmode-spigot/staffmode-spigot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/survival/survival.iml" filepath="$PROJECT_DIR$/survival/survival.iml" />
       <module fileurl="file://$PROJECT_DIR$/survival-placeholders/survival-placeholders.iml" filepath="$PROJECT_DIR$/survival-placeholders/survival-placeholders.iml" />
       <module fileurl="file://$PROJECT_DIR$/survi-chat/survivalchat/survivalchat.iml" filepath="$PROJECT_DIR$/survi-chat/survivalchat/survivalchat.iml" />
       <module fileurl="file://$PROJECT_DIR$/testaaaa/testaaaa.iml" filepath="$PROJECT_DIR$/testaaaa/testaaaa.iml" />

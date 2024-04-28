@@ -21,7 +21,7 @@ public class SanctionsManagerMessages extends MultiLanguageRegistry {
 
         holder.registerDefault("cmd_sanction_success", "&aSanctioned correctly!");
 
-        holder.registerDefault("no_reason", "No reason");
+        holder.registerDefault("noReason", "No reason");
         holder.registerDefault("no_expiration", "&c&lPERMANENT");
 
         holder.registerDefault("kick_message", "&cYou have been kicked from the Network!\n&r\n&rReason:&a {0}");

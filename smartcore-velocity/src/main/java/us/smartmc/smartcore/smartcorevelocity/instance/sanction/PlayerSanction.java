@@ -156,7 +156,7 @@ public class PlayerSanction extends MongoDBPluginConfig {
             return getString("reason");
         }
         return SanctionsManagerMessages.get(Language.getDefault(),
-                "no_reason");
+                "noReason");
     }
 
     public SanctionType getType() {

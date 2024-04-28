@@ -36,10 +36,10 @@ public class NPCEmbedsVariables extends VariableListener<Player> {
         if (matcher.find()) {
             String serverId = matcher.group(1);
             long online = Long.parseLong(CountVariables.getCountOf(serverId));
-            String path = "online_players";
+            String path = "onlinePlayers";
 
             if (online == 1) {
-                path = "online_player";
+                path = "onlinePlayer";
             }
 
             if (language == null) language = Language.getDefault();

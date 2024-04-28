@@ -13,7 +13,7 @@ public class ItemCosmeticAction implements ItemActionExecutor {
     public void execute(ClickHandler handler, String label, String[] args) {
         Player player = handler.player();
         if (!player.hasPermission("*")) {
-            CorePlayer.get(player).sendLanguageMessage("lobby", "feature_in_development");
+            CorePlayer.get(player).sendLanguageMessage("lobby", "featureInDevelopment");
             return;
         }
         new CosmeticsMainMenu(player).open(player);

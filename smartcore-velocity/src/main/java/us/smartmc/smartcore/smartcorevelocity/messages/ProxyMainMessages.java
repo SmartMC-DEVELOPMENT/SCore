@@ -33,7 +33,7 @@ public class ProxyMainMessages extends MultiLanguageRegistry {
                         "                           &d&lGG in the chat\n" +
                         "                           &r");
 
-        holder.registerDefault("renew_package_announce",
+        holder.registerDefault("renewPackageAnnounce",
                 "&r\n" +
                         "&9&kii&b &l{0} &9&kii&a ha renovado un paquete!\n" +
                         "       {1}\n" +

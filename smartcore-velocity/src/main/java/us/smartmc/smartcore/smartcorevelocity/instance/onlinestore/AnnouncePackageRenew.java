@@ -35,7 +35,7 @@ public class AnnouncePackageRenew extends CoreCommand {
         Map<Language, Component> messages = new HashMap<>();
 
         for (Language language : Language.values()) {
-            String textMessage = LanguagesHandler.get(language).get("proxy_main").getString("renew_package_announce");
+            String textMessage = LanguagesHandler.get(language).get("proxy_main").getString("renewPackageAnnounce");
             Component message = VelocityChatUtil.parse(textMessage, username, packageName);
             messages.put(language, message);
         }

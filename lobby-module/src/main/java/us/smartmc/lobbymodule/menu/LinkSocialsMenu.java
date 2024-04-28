@@ -101,10 +101,10 @@ public class LinkSocialsMenu extends CoreMenu {
         String example = action == null ? "none" : action.getValidExample();
 
         if (showing) {
-            loreList = Arrays.asList(LobbyMessages.getLangList("link_socials_description_show"));
+            loreList = Arrays.asList(LobbyMessages.getLangList("linkSocials.descriptionShow"));
             labelCommand = "showSocial " + type.name() + " " + currentUser;
         } else {
-            loreList = Arrays.asList(LobbyMessages.getLangList("items.link_social_network_description"));
+            loreList = Arrays.asList(LobbyMessages.getLangList("linkSocials.description"));
         }
 
         set(slot, ItemBuilder.of(Material.PLAYER_HEAD).data(3)

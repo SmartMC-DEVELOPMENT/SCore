@@ -23,7 +23,7 @@ public class ShowSocialAction implements ItemActionExecutor {
 
         // Not linked account found:
         if (username.equals("none")) {
-            clickerCorePlayer.sendLanguageMessage("lobby", "link_socials_no_linked");
+            clickerCorePlayer.sendLanguageMessage("lobby", "linkSocials.noLinked");
             return;
         }
         String targetName = username;

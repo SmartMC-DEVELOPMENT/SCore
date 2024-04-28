@@ -48,7 +48,7 @@ public class LobbyModule extends AddonPlugin {
 
         lobbiesMenuConfig = new SpigotYmlConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus", "lobbies.yml"));
         lobbiesMenuConfig.register("id_prefix", "main-lobby");
-        lobbiesMenuConfig.register("item_name", "<lang.lobby.main_lobby_name>");
+        lobbiesMenuConfig.register("item_name", "<lang.lobby.main-lobby.name>");
         lobbiesMenuConfig.save();
         LobbiesInfoManager.start();
 

@@ -33,7 +33,7 @@ public class LobbiesMenu extends CoreMenu {
     }
 
     public static String getTitle(Language language) {
-        return LanguagesHandler.get(language).get("lobby").getString("title_lobbies_menu");
+        return LanguagesHandler.get(language).get("lobby").getString("title.lobbiesMenu");
     }
 
     private final Language language;
@@ -93,7 +93,7 @@ public class LobbiesMenu extends CoreMenu {
     public String getItemName(boolean isSelf) {
         String prefixPath = isSelf ? "current_lobby_name_prefix" : "lobby_name_prefix";
         String a = LanguagesHandler.get(language).get(LobbyMessages.NAME).getString(prefixPath);
-        String b = LanguagesHandler.get(language).get(LobbyMessages.NAME).getString("main_lobby_name");
+        String b = LanguagesHandler.get(language).get(LobbyMessages.NAME).getString("main-lobby.name");
         return a + b;
     }
 

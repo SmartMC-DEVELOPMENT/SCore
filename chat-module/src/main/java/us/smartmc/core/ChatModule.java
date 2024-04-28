@@ -12,6 +12,7 @@ import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;
 import org.bukkit.Bukkit;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.Plugin;
 import us.smartmc.core.newvariables.DateVariables;
 import us.smartmc.core.newvariables.LuckPermsVariables;
@@ -19,6 +20,8 @@ import us.smartmc.core.newvariables.PlayerMainVariables;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
+
+import java.util.HashSet;
 
 @AddonInfo(name = "chat-module", version = "DEV")
 public class ChatModule extends AddonPlugin {
@@ -37,7 +40,6 @@ public class ChatModule extends AddonPlugin {
         PacketListener packetListener = new PacketAdapter(SmartAddonsSpigot.getPlugin(), ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
             @Override
             public void onPacketReceiving(PacketEvent event) {
-                event.setCancelled(true);
                 String msgString = event.getPacket().getStrings().read(0);
 
                 Component message;
@@ -53,6 +55,10 @@ public class ChatModule extends AddonPlugin {
                 Component formattedMessage = PaperChatUtil.parse(event.getPlayer(), "<chat.prefix><reset><gray><name> &8&l»&7 ");
 
                 Bukkit.broadcast(Component.join(JoinConfiguration.builder().build(), formattedMessage, message));
+
+                AsyncPlayerChatEvent chatEvent = new AsyncPlayerChatEvent(true, event.getPlayer(), msgString, new HashSet<>(Bukkit.getOnlinePlayers()));
+                Bukkit.getPluginManager().callEvent(chatEvent);
+                event.setCancelled(chatEvent.isCancelled());
             }
         };
         ProtocolLibrary.getProtocolManager().addPacketListener(packetListener);

@@ -11,8 +11,8 @@ public class PluginMessages extends MultiLanguageRegistry {
     @Override
     public void load(LanguageMessagesHolder holder) {
         holder.load();
-        holder.registerDefault("online_player", "Player");
-        holder.registerDefault("online_players", "Players");
+        holder.registerDefault("onlinePlayer", "Player");
+        holder.registerDefault("onlinePlayers", "Players");
         holder.save();
     }
 }

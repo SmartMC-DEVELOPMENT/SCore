@@ -33,10 +33,10 @@ public class FlyCommand extends AddonPluginCommand {
         SmartCorePlayer corePlayer = SmartCorePlayer.get(player);
         if (!FlyManager.isFlyingEnabled(corePlayer)) {
             FlyManager.toggle(corePlayer, true);
-            SmartCorePlayer.get(player).sendLanguageMessage("lobby", "fly_enabled");
+            SmartCorePlayer.get(player).sendLanguageMessage("lobby", "flyEnabled");
         } else {
             FlyManager.toggle(corePlayer, false);
-            SmartCorePlayer.get(player).sendLanguageMessage("lobby", "fly_disabled");
+            SmartCorePlayer.get(player).sendLanguageMessage("lobby", "flyDisabled");
         }
     }
 

@@ -35,7 +35,7 @@ public class AnnouncePackagePurchase extends CoreCommand {
         Map<Language, Component> messages = new HashMap<>();
 
         for (Language language : Language.values()) {
-            String textMessage = LanguagesHandler.get(language).get("proxy_main").getString("purchase_package_announce");
+            String textMessage = LanguagesHandler.get(language).get("proxy_main").getString("purchasePackageAnnounce");
             Component message = VelocityChatUtil.parse(textMessage, username, packageName);
             messages.put(language, message);
         }

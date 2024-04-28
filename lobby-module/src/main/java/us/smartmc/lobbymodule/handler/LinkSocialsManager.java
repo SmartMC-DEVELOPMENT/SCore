@@ -7,6 +7,7 @@ import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bson.Document;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import us.smartmc.core.SmartCore;
@@ -55,7 +56,7 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
         if (document == null) document = new Document();
         document.put(type.name(), url);
         player.getPlayerData().getDocument().put(DB_DOCUMENT_PATH, document);
-        player.get().sendMessage(PaperChatUtil.parse(player.get(), "<lang.lobby.link_socials_linked_correctly>"));
+        player.get().sendMessage(PaperChatUtil.parse(player.get(), "<lang.lobby.linkSocials.linkedCorrectly>"));
     }
 
     public void removeCurrentLink(CorePlayer player, LinkSocialType type) {
@@ -63,7 +64,7 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
         if (document == null) document = new Document();
         document.remove(type.name());
         player.getPlayerData().getDocument().put(DB_DOCUMENT_PATH, document);
-        player.get().sendMessage(PaperChatUtil.parse(player.get(), "<lang.lobby.link_socials_unlinked_correctly>"));
+        player.get().sendMessage(PaperChatUtil.parse(player.get(), "<lang.lobby.linkSocials.unlinkedCorrectly>"));
         player.get().closeInventory();
     }
 
@@ -72,7 +73,7 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
         pendingLinks.put(uuid, type);
 
         player.closeInventory();
-        player.sendMessage(PaperChatUtil.parse(player, "<lang.lobby.link_socials_introduce_url>"));
+        player.sendMessage(PaperChatUtil.parse(player, "<lang.lobby.linkSocials.introduceUrl>"));
 
         // 2 minutes later removes cache
         new Timer().schedule(new TimerTask() {
@@ -98,7 +99,7 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void judgePendingLink(AsyncPlayerChatEvent event) {
         String message = event.getMessage();
         Player player = event.getPlayer();

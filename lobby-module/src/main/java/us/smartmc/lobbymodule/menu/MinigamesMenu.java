@@ -31,7 +31,7 @@ public class MinigamesMenu extends CoreMenu {
     private final Language language;
 
     private MinigamesMenu(Language language) {
-        super(null, 36, LanguagesHandler.get(language).get("minigames").getString("inventory_title"));
+        super(null, 36, LanguagesHandler.get(language).get("minigames").getString("inventoryTitle"));
         this.language = language;
         menus.put(language, this);
 
@@ -81,13 +81,13 @@ public class MinigamesMenu extends CoreMenu {
 
     public void setNotAvailableItems(){
         ItemStack item = ItemBuilder.of(Material.RED_STAINED_GLASS_PANE)
-                .name("<lang.lobby.items.not_available_name>")
-                .lore("<lang.lobby.items.not_available.description>")
+                .name("<lang.lobby.items.notAvailable.name>")
+                .lore("<lang.lobby.items.notAvailable.description>")
                 .get(language);
 
         for (int slot : slots) {
             if (get(slot) != null) continue;
-            set(slot, item, "msg <lang.lobby.not_available_message>", "closeInv");
+            set(slot, item, "msg <lang.lobby.notAvailableName>", "closeInv");
         }
     }
 }

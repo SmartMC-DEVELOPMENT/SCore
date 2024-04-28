@@ -76,7 +76,7 @@ public class MinigamesMenu extends CoreMenu {
     }
 
     public void closeItem() {
-        set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("&c<lang.language.menu_close>").get(language), "closeInv");
+        set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("&c<lang.language.menuClose>").get(language), "closeInv");
     }
 
     public void setNotAvailableItems(){

@@ -34,7 +34,7 @@ public class JoinItemMenu extends ConfigurableMenu {
         setItem(0, Material.COMPASS, "minigames");
         set(1, ItemBuilder.of(Material.PLAYER_HEAD).data(3)
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjYzMDI5Y2M4MTY3ODk3ZTY1MzVhM2M1NzM0YmJhYmFmZjE4OGQwOTA1ZjlkOTM1M2FmYWM2MmEwNmRhZGY4NiJ9fX0=")
-                .name("<lang.lobby.items.cosmetics_name>")
+                .name("<lang.lobby.items.cosmetics.name>")
                 .lore("<lang.lobby.items.cosmetics.description>").get(initPlayer), "itemCosmetics");
 
         ItemStack headItem = headItem("settings").get(initPlayer);

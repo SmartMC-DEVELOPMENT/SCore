@@ -63,8 +63,8 @@ public class VisibilityManager extends AddonListener implements Listener {
 
         return ItemBuilder
                 .of(material)
-                .name("<lang.lobby.items.visibility_name>")
-                .lore("<lang.lobby.visibility_" + visibility.name() + "_name>");
+                .name("<lang.lobby.items.visibility.name>")
+                .lore("<lang.lobby.visibility_" + visibility.name() + ".name>");
     }
 
     public static void update(Player player) {

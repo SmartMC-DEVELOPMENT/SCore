@@ -55,9 +55,9 @@ public class LinkSocialsMenu extends CoreMenu {
         ItemBuilder relleno = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).name(" ");
         MenuUtil.setBorder(relleno.get(), inventory);
         if (initCorePlayer.getPreviousOpenMenu() != null) {
-            set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("<lang.language.menu_previous>").get(initPlayer), "openPrevious");
+            set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("<lang.language.menuPrevious>").get(initPlayer), "openPrevious");
         } else {
-            set(8, ItemBuilder.of(Material.BARRIER).name("&c<lang.language.menu_close>").get(initPlayer), "closeInv");
+            set(8, ItemBuilder.of(Material.BARRIER).name("&c<lang.language.menuClose>").get(initPlayer), "closeInv");
         }
 
         register(11, LinkSocialType.YOUTUBE);

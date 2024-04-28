@@ -70,7 +70,7 @@ public class LobbiesMenu extends CoreMenu {
             boolean isSelf = serverID.equals(serverName);
             Material material = Material.QUARTZ_BLOCK;
             byte materialData = 0;
-            String variableConnect = "<lang.minigames.click_to_connect>";
+            String variableConnect = "<lang.minigames.clickToConnect>";
             String labelCommand = "connectTo " + serverID;
             if (isSelf) {
                 material = Material.CLAY;

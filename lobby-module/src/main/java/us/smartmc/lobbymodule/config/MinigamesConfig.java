@@ -65,7 +65,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
         if (configDoc.containsKey("title_custom")) titleCustom = configDoc.getString("title_custom");
 
         List<String> description = document.getList("description", String.class);
-        String clickToConnect = LanguagesHandler.get(language).get("minigames").getString("click_to_connect");
+        String clickToConnect = LanguagesHandler.get(language).get("minigames").getString("clickToConnect");
         description = LineLimiter.limitLines(description, Integer.MAX_VALUE);
 
         ArrayList<String> list = new ArrayList<>();

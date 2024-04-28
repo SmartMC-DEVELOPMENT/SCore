@@ -17,6 +17,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class MinigamesConfig extends MongoDBPluginConfig {
 
@@ -63,9 +64,9 @@ public class MinigamesConfig extends MongoDBPluginConfig {
         if (configDoc.containsKey("amount")) amount = configDoc.getInteger("amount");
         if (configDoc.containsKey("title_custom")) titleCustom = configDoc.getString("title_custom");
 
-        ArrayList<String> description = LineLimiter.createListFromNewLines(document.getString("description"));
+        List<String> description = document.getList("description", String.class);
         String clickToConnect = LanguagesHandler.get(language).get("minigames").getString("click_to_connect");
-        description = (ArrayList<String>) LineLimiter.limitLines(description, Integer.MAX_VALUE);
+        description = LineLimiter.limitLines(description, Integer.MAX_VALUE);
 
         ArrayList<String> list = new ArrayList<>();
 

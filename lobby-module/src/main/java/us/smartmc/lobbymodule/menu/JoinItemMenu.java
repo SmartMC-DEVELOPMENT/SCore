@@ -63,7 +63,7 @@ public class JoinItemMenu extends ConfigurableMenu {
     public ItemBuilder headItem(String name) {
         return ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
-                .name("<lang.lobby.items." + name + "_name>")
+                .name("<lang.lobby.items." + name + ".name>")
                 .lore("<lang.lobby.items." + name + ".description>");
     }
 

@@ -13,14 +13,22 @@ public class LanguageVariables extends VariableListener<Player> {
     @Override
     public String parse(String message) {
         if (!message.contains("<lang.")) return message;
-        return get(null, message);
+        try {
+            return get(null, message);
+        } catch (Exception e) {
+            return message;
+        }
     }
 
     @Override
     public String parse(Player player, String message) {
         if (player == null) return message;
         if (!message.contains("<lang.")) return message;
-        return get(player, message);
+        try {
+            return get(player, message);
+        } catch (Exception e) {
+            return message;
+        }
     }
 
     private String get(Player player, String message) {
@@ -40,6 +48,8 @@ public class LanguageVariables extends VariableListener<Player> {
                     .get(language)
                     .get(messageHolder)
                     .get(path);
+
+            if (object == null) return message;
 
             if (object instanceof String) {
                 args[i] = (String) object;

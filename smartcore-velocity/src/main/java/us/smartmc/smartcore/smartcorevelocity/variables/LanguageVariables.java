@@ -12,16 +12,29 @@ public class LanguageVariables extends VariableListener<Player> {
 
     @Override
     public String parse(String message) {
-        return message;
+        if (!message.contains("<lang.")) return message;
+        try {
+            return get(null, message);
+        } catch (Exception e) {
+            return message;
+        }
     }
 
     @Override
     public String parse(Player player, String message) {
-        if (player == null || message == null || !message.contains("<lang.")) {
+        if (player == null) return message;
+        if (!message.contains("<lang.")) return message;
+        try {
+            return get(player, message);
+        } catch (Exception e) {
             return message;
         }
+    }
 
-        Language language = PlayerLanguages.getLanguage(player.getUniqueId());
+    private String get(Player player, String message) {
+        Language language = Language.getDefault();
+        if (player != null) language = me.imsergioh.pluginsapi.instance.PlayerLanguages.get(player.getUniqueId());
+
         String[] args = message.split(" ");
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
@@ -35,6 +48,8 @@ public class LanguageVariables extends VariableListener<Player> {
                     .get(language)
                     .get(messageHolder)
                     .get(path);
+
+            if (object == null) return message;
 
             if (object instanceof String) {
                 args[i] = (String) object;

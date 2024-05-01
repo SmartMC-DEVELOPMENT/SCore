@@ -59,6 +59,7 @@
         <option value="$PROJECT_DIR$/staffmode-velocity/pom.xml" />
         <option value="$PROJECT_DIR$/orchestrator/pom.xml" />
         <option value="$PROJECT_DIR$/common/pom.xml" />
+        <option value="$PROJECT_DIR$/icons-module/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

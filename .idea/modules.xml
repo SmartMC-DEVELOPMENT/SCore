@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/fixes-core/fixes-core.iml" filepath="$PROJECT_DIR$/fixes-core/fixes-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/gamesmanager-spigot/gamesmanager-spigot.iml" filepath="$PROJECT_DIR$/gamesmanager-spigot/gamesmanager-spigot.iml" />
       <module fileurl="file://$PROJECT_DIR$/holograms-module.iml" filepath="$PROJECT_DIR$/holograms-module.iml" />
+      <module fileurl="file://$PROJECT_DIR$/icons-module/icons-module.iml" filepath="$PROJECT_DIR$/icons-module/icons-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/lobby-cosmetics/lobby-cosmetics.iml" filepath="$PROJECT_DIR$/lobby-cosmetics/lobby-cosmetics.iml" />
       <module fileurl="file://$PROJECT_DIR$/lobby-module/lobby-module.iml" filepath="$PROJECT_DIR$/lobby-module/lobby-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/login-spigot/login-spigot.iml" filepath="$PROJECT_DIR$/login-spigot/login-spigot.iml" />

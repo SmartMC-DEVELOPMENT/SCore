@@ -11,6 +11,7 @@
         <module name="sbackend-common" />
         <module name="serverhandler-common" />
         <module name="survivalchat" />
+        <module name="icons-module" />
         <module name="login-spigot" />
         <module name="smartbot" />
         <module name="npcs-module" />

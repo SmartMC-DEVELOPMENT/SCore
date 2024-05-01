@@ -1,4 +1,0 @@
-name: icons-module
-version: '${project.version}'
-main: us.smartmc.core.iconsmodule.Icons_module
-api-version: '1.20'

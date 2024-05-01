@@ -59,7 +59,6 @@
         <option value="$PROJECT_DIR$/staffmode-velocity/pom.xml" />
         <option value="$PROJECT_DIR$/orchestrator/pom.xml" />
         <option value="$PROJECT_DIR$/common/pom.xml" />
-        <option value="$PROJECT_DIR$/icons-module/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -68,7 +67,6 @@
         <option value="$PROJECT_DIR$/core-plugins/smartcore-waterfall/pom.xml" />
         <option value="$PROJECT_DIR$/game-manager/pom.xml" />
         <option value="$PROJECT_DIR$/games-manager/pom.xml" />
-        <option value="$PROJECT_DIR$/gamesmanager-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/login/loginproxy-waterfall/pom.xml" />
         <option value="$PROJECT_DIR$/plugins-api/pom.xml" />
         <option value="$PROJECT_DIR$/server-handler/serverhandler-bungee/pom.xml" />

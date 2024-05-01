@@ -11,6 +11,7 @@
         <module name="sbackend-common" />
         <module name="serverhandler-common" />
         <module name="survivalchat" />
+        <module name="icons-module" />
         <module name="login-spigot" />
         <module name="smartbot" />
         <module name="npcs-module" />
@@ -22,7 +23,6 @@
         <module name="serverhandler-bukkit" />
         <module name="sbackend-server" />
         <module name="survival-placeholders" />
-        <module name="gamesmanager-spigot" />
         <module name="smartcore-spigot" />
         <module name="serverhandler-velocity" />
         <module name="smartantiddos-velocity" />
@@ -38,6 +38,7 @@
       <module name="core-plugins" target="1.8" />
       <module name="events-core" target="1.8" />
       <module name="games-manager" target="1.8" />
+      <module name="gamesmanager-spigot" target="16" />
       <module name="login" target="1.8" />
       <module name="loginproxy-waterfall" target="1.8" />
       <module name="old-gamesmanager-spigot (1)" target="1.8" />

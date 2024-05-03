@@ -1,4 +1,0 @@
-name: random-war
-version: '${project.version}'
-main: us.smartmc.core.randomwar.RandomWar
-api-version: '1.20'

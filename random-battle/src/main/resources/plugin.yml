@@ -1,0 +1,12 @@
+name: random-war
+version: '${project.version}'
+main: us.smartmc.core.randomwar.RandomWar
+api-version: '1.20'
+
+commands:
+  adminGame:
+    description: "Administrate the games and more things"
+    aliases: [ag]
+  leave:
+    description: "Leave the game or lo que sea"
+    aliases: [salir, l]

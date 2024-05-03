@@ -2,12 +2,12 @@ package us.smartmc.core.randomwar.instance.player;
 
 import java.util.UUID;
 
-public class GamePlayer {
+public class GamePlayerData {
 
     private final UUID uuid;
 
-    private GamePlayer(UUID uuid) {
-         this.uuid = uuid;
+    protected GamePlayerData(UUID uuid) {
+        this.uuid = uuid;
     }
 
 }

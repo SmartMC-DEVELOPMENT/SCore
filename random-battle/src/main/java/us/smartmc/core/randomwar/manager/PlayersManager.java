@@ -1,0 +1,25 @@
+package us.smartmc.core.randomwar.manager;
+
+import me.imsergioh.pluginsapi.instance.manager.ManagerRegistry;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import us.smartmc.core.randomwar.instance.player.GamePlayer;
+
+import java.util.UUID;
+
+public class PlayersManager extends ManagerRegistry<UUID, GamePlayer> {
+
+    @Override
+    public void load() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            register(player.getUniqueId(), new GamePlayer(player.getUniqueId()));
+        }
+    }
+
+    @Override
+    public void unload() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            unregister(player.getUniqueId());
+        }
+    }
+}

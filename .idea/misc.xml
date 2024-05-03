@@ -61,6 +61,7 @@
         <option value="$PROJECT_DIR$/common/pom.xml" />
         <option value="$PROJECT_DIR$/icons-module/pom.xml" />
         <option value="$PROJECT_DIR$/random-war/pom.xml" />
+        <option value="$PROJECT_DIR$/random-battle/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

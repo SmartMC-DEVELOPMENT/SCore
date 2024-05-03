@@ -9,7 +9,9 @@ import me.imsergioh.pluginsapi.language.LangMessagesInfo;
 public enum GameMessages implements IMessageCategory {
 
     @DefaultLanguageMessage("&cYou don't have permissions to execute this command")
-    cmd_adminGame_noPermission;
+    cmd_adminGame_noPermission,
+    @DefaultLanguageMessage("&aLobby has been set correctly!")
+    cmd_adminGame_lobbySet;
 
 
     @Override

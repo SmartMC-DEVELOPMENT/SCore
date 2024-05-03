@@ -4,11 +4,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import us.smartmc.core.randomwar.RandomWar;
+import us.smartmc.core.randomwar.RandomBattle;
+import us.smartmc.core.randomwar.instance.player.GamePlayer;
 
-public class EssentialListeners implements Listener {
+public class EssentialsListeners implements Listener {
 
-    private static final RandomWar plugin = RandomWar.getPlugin();
+    private static final RandomBattle plugin = RandomBattle.getPlugin();
 
     @EventHandler
     public void removeJoinMessage(PlayerJoinEvent event) {
@@ -18,5 +19,10 @@ public class EssentialListeners implements Listener {
     @EventHandler
     public void removeQuitMessage(PlayerQuitEvent event) {
         event.quitMessage(null);
+    }
+
+    @Override
+    public void createGamePlayer(PlayerJoinEvent event) {
+        GamePlayer.get(event.getPlayer().getUniqueId());
     }
 }

@@ -12,7 +12,7 @@ public class PlayersManager extends ManagerRegistry<UUID, GamePlayer> {
     @Override
     public void load() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            register(player.getUniqueId(), new GamePlayer(player.getUniqueId()));
+            register(player.getUniqueId(), GamePlayer.get(player.getUniqueId()));
         }
     }
 

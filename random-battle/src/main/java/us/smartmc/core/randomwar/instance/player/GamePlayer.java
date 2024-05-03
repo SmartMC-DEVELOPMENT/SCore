@@ -1,21 +1,26 @@
 package us.smartmc.core.randomwar.instance.player;
 
 import lombok.Getter;
-import us.smartmc.core.randomwar.RandomWar;
+import lombok.Setter;
+import us.smartmc.core.randomwar.RandomBattle;
+import us.smartmc.core.randomwar.instance.game.GameSession;
 import us.smartmc.core.randomwar.manager.PlayersManager;
 
 import java.util.UUID;
 
 public class GamePlayer {
 
-    private static final RandomWar plugin = RandomWar.getPlugin();
-    private static final PlayersManager manager = RandomWar.getPlayersManager();
+    private static final RandomBattle plugin = RandomBattle.getPlugin();
+    private static final PlayersManager manager = RandomBattle.getPlayersManager();
 
     @Getter
     private final UUID uuid;
 
     @Getter
     private final GamePlayerData data;
+
+    @Setter @Getter
+    private GameSession gameSession;
 
     private GamePlayer(UUID uuid) {
          this.uuid = uuid;
@@ -26,8 +31,8 @@ public class GamePlayer {
         return new GamePlayerData(uuid);
     }
 
-    private static GamePlayer get(UUID uuid) {
-        GamePlayer gamePlayer = RandomWar.getPlayersManager().get(uuid);
+    public static GamePlayer get(UUID uuid) {
+        GamePlayer gamePlayer = RandomBattle.getPlayersManager().get(uuid);
         if (gamePlayer == null) {
             gamePlayer = new GamePlayer(uuid);
             manager.register(uuid, gamePlayer);

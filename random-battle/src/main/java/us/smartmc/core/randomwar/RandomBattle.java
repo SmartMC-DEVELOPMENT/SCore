@@ -2,8 +2,6 @@ package us.smartmc.core.randomwar;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.language.EnumMessagesRegistry;
-import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
-import me.imsergioh.pluginsapi.message.LanguageMessages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -12,17 +10,18 @@ import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.core.randomwar.command.AdminGameCommand;
 import us.smartmc.core.randomwar.command.LeaveCommand;
 import us.smartmc.core.randomwar.config.MainPluginConfig;
-import us.smartmc.core.randomwar.listener.EssentialListeners;
+import us.smartmc.core.randomwar.listener.EssentialsListeners;
+import us.smartmc.core.randomwar.listener.MainGameListeners;
 import us.smartmc.core.randomwar.manager.GameMapManager;
 import us.smartmc.core.randomwar.manager.GameSessionsManager;
 import us.smartmc.core.randomwar.manager.GameTemplatesManager;
 import us.smartmc.core.randomwar.manager.PlayersManager;
 import us.smartmc.core.randomwar.messages.GameMessages;
 
-public final class RandomWar extends JavaPlugin {
+public final class RandomBattle extends JavaPlugin {
 
     @Getter
-    private static RandomWar plugin = RandomWar.getPlugin(RandomWar.class);
+    private static RandomBattle plugin = RandomBattle.getPlugin(RandomBattle.class);
 
     @Getter
     private static final PlayersManager playersManager = new PlayersManager();
@@ -58,7 +57,7 @@ public final class RandomWar extends JavaPlugin {
     }
 
     private void registerListeners() {
-        registerEvents(new EssentialListeners());
+        registerEvents(new EssentialsListeners(), new MainGameListeners());
     }
 
     private void registerCommands() {
@@ -66,7 +65,7 @@ public final class RandomWar extends JavaPlugin {
         registerCommand("leave", new LeaveCommand());
     }
 
-    private RandomWar registerCommand(String cmdName, CommandExecutor executor) {
+    private RandomBattle registerCommand(String cmdName, CommandExecutor executor) {
         PluginCommand command = getCommand(cmdName);
         if (command == null) {
             System.out.println("Error while trying to register command " + cmdName);

@@ -16,11 +16,6 @@ public class PlayerCache implements Serializable {
     public PlayerCache(String id) {
         this.playerId = UUID.fromString(id.split("\\.")[1]);
         cacheMap.put("_id", playerId.toString());
-
-        // TODO: REMOVE THIS CACHE THING TEST
-        for (int i = 0; i < 10000; i++) {
-            cacheMap.put("CACHE" + i, UUID.randomUUID() + "-VALUE" + i);
-        }
     }
 
     public void remove(Object key) {

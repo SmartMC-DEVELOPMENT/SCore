@@ -60,6 +60,7 @@
         <option value="$PROJECT_DIR$/orchestrator/pom.xml" />
         <option value="$PROJECT_DIR$/common/pom.xml" />
         <option value="$PROJECT_DIR$/icons-module/pom.xml" />
+        <option value="$PROJECT_DIR$/random-war/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

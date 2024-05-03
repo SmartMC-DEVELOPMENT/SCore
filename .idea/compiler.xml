@@ -10,26 +10,26 @@
         <module name="chat-module" />
         <module name="sbackend-common" />
         <module name="serverhandler-common" />
-        <module name="survivalchat" />
         <module name="icons-module" />
+        <module name="random-war" />
         <module name="login-spigot" />
+        <module name="snowgames-ffa" />
+        <module name="MessagesMigration" />
+        <module name="survival-placeholders" />
+        <module name="smartcore-spigot" />
+        <module name="sbackend-client" />
+        <module name="lobby-module" />
+        <module name="holograms-module" />
+        <module name="survivalchat" />
         <module name="smartbot" />
         <module name="npcs-module" />
-        <module name="snowgames-ffa" />
         <module name="orchestrator" />
-        <module name="MessagesMigration" />
         <module name="fixes-core" />
         <module name="smartcore-velocity" />
         <module name="serverhandler-bukkit" />
         <module name="sbackend-server" />
-        <module name="survival-placeholders" />
-        <module name="gamesmanager-spigot" />
-        <module name="smartcore-spigot" />
         <module name="serverhandler-velocity" />
         <module name="smartantiddos-velocity" />
-        <module name="sbackend-client" />
-        <module name="lobby-module" />
-        <module name="holograms-module" />
         <module name="lobby-cosmetics" />
       </profile>
     </annotationProcessing>
@@ -39,6 +39,7 @@
       <module name="core-plugins" target="1.8" />
       <module name="events-core" target="1.8" />
       <module name="games-manager" target="1.8" />
+      <module name="gamesmanager-spigot" target="1.5" />
       <module name="login" target="1.8" />
       <module name="loginproxy-waterfall" target="1.8" />
       <module name="old-gamesmanager-spigot (1)" target="1.8" />

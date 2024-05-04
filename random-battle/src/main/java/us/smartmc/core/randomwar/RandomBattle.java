@@ -12,6 +12,7 @@ import us.smartmc.core.randomwar.command.AdminGameCommand;
 import us.smartmc.core.randomwar.command.LeaveCommand;
 import us.smartmc.core.randomwar.config.MainPluginConfig;
 import us.smartmc.core.randomwar.instance.game.GameTemplate;
+import us.smartmc.core.randomwar.itemcmd.AdminEditorCommand;
 import us.smartmc.core.randomwar.itemcmd.LobbyHotbarCommand;
 import us.smartmc.core.randomwar.itemcmd.PlayerOptionCommand;
 import us.smartmc.core.randomwar.listener.EssentialsListeners;
@@ -54,6 +55,7 @@ public final class RandomBattle extends JavaPlugin {
 
         ItemActionsManager.registerCommand("lobbyHotbar", new LobbyHotbarCommand());
         ItemActionsManager.registerCommand("playerOption", new PlayerOptionCommand());
+        ItemActionsManager.registerCommand("adminEditor", new AdminEditorCommand());
 
         registerDefaultInstances();
     }

@@ -1,9 +1,6 @@
 package us.smartmc.core.randomwar.messages;
 
-import me.imsergioh.pluginsapi.language.DefaultLanguageMessage;
-import me.imsergioh.pluginsapi.language.IMessageCategory;
-import me.imsergioh.pluginsapi.language.LangMessagesInfo;
-
+import me.imsergioh.pluginsapi.language.*;
 
 @LangMessagesInfo(name = "random-battle/game")
 public enum GameMessages implements IMessageCategory {
@@ -20,7 +17,15 @@ public enum GameMessages implements IMessageCategory {
     @DefaultLanguageMessage("&fAdmin mode:&a Enabled")
     editorMode_enabled,
     @DefaultLanguageMessage("&fAdmin mode:&c Disabled")
-    editorMode_disabled;
+    editorMode_disabled,
+
+    @DefaultLanguageItem(
+            material = "BEACON",
+            name = "&aSelect teams",
+            description = {"&7Select the team you want to edit in editor mode"}
+    )
+    @ItemMeta(key = "id", value = "SIUUUUUU")
+    editorMode_item_selectorTeam;
 
 
     @Override

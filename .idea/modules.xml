@@ -12,8 +12,8 @@
       <module fileurl="file://$PROJECT_DIR$/lobby-cosmetics/lobby-cosmetics.iml" filepath="$PROJECT_DIR$/lobby-cosmetics/lobby-cosmetics.iml" />
       <module fileurl="file://$PROJECT_DIR$/lobby-module/lobby-module.iml" filepath="$PROJECT_DIR$/lobby-module/lobby-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/login-spigot/login-spigot.iml" filepath="$PROJECT_DIR$/login-spigot/login-spigot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/random-battle/lucky-towers.iml" filepath="$PROJECT_DIR$/random-battle/lucky-towers.iml" />
       <module fileurl="file://$PROJECT_DIR$/npcs-module/npcs-module.iml" filepath="$PROJECT_DIR$/npcs-module/npcs-module.iml" />
-      <module fileurl="file://$PROJECT_DIR$/random-battle/random-battle.iml" filepath="$PROJECT_DIR$/random-battle/random-battle.iml" />
       <module fileurl="file://$PROJECT_DIR$/sbackend.iml" filepath="$PROJECT_DIR$/sbackend.iml" />
       <module fileurl="file://$PROJECT_DIR$/sbackend-client.iml" filepath="$PROJECT_DIR$/sbackend-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/sbackend-common.iml" filepath="$PROJECT_DIR$/sbackend-common.iml" />

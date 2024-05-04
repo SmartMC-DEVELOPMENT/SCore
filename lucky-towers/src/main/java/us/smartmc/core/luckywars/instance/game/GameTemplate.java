@@ -2,21 +2,21 @@ package us.smartmc.core.luckywars.instance.game;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
-import us.smartmc.core.luckywars.LuckyWars;
+import us.smartmc.core.luckywars.LuckyTowers;
 import us.smartmc.core.luckywars.manager.GameTemplatesManager;
 
 public class GameTemplate {
 
-    private static final GameTemplatesManager manager = LuckyWars.getTemplatesManager();
+    private static final GameTemplatesManager manager = LuckyTowers.getTemplatesManager();
 
     @Getter
     private final String name;
     private final FilePluginConfig config;
 
     @Getter
-    private int maxTeamSize;
+    private int maxTeamsSize, maxTeamCapacity;
     @Getter
-    private int maxTeamsAmount;
+    private int minTeamSize, minTeamsAmount;
 
     private GameTemplate(String name) {
         this.name = name;
@@ -25,8 +25,10 @@ public class GameTemplate {
     }
 
     private void registerConfigDefaults() {
-        maxTeamSize = config.getInteger("maxTeamsSize", 8);
-        maxTeamsAmount = config.getInteger("maxTeamsAmount", 1);
+        maxTeamsSize = config.getInteger("maxTeamsSize", 8);
+        maxTeamCapacity = config.getInteger("maxTeamSize", 1);
+
+        minTeamSize = config.getInteger("minTeamSize", 2);
     }
 
     public static GameTemplate get(String name) {

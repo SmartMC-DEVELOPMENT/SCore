@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import us.smartmc.core.luckywars.LuckyWars;
+import us.smartmc.core.luckywars.LuckyTowers;
 import us.smartmc.core.luckywars.event.player.PlayerStatusChangeEvent;
 import us.smartmc.core.luckywars.instance.game.GameSession;
 import us.smartmc.core.luckywars.manager.PlayersManager;
@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 
 public class GamePlayer {
 
-    private static final PlayersManager manager = LuckyWars.getPlayersManager();
+    private static final PlayersManager manager = LuckyTowers.getPlayersManager();
 
     @Getter
     private final UUID uuid;
@@ -59,7 +59,7 @@ public class GamePlayer {
     }
 
     public static GamePlayer get(UUID uuid) {
-        GamePlayer gamePlayer = LuckyWars.getPlayersManager().get(uuid);
+        GamePlayer gamePlayer = LuckyTowers.getPlayersManager().get(uuid);
         if (gamePlayer == null) {
             gamePlayer = new GamePlayer(uuid);
             manager.register(uuid, gamePlayer);

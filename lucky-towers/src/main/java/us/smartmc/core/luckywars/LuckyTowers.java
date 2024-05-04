@@ -24,10 +24,10 @@ import us.smartmc.core.luckywars.manager.GameTemplatesManager;
 import us.smartmc.core.luckywars.manager.PlayersManager;
 import us.smartmc.core.luckywars.messages.GameMessages;
 
-public final class LuckyWars extends JavaPlugin {
+public final class LuckyTowers extends JavaPlugin {
 
     @Getter
-    private static LuckyWars plugin = LuckyWars.getPlugin(LuckyWars.class);
+    private static LuckyTowers plugin = LuckyTowers.getPlugin(LuckyTowers.class);
 
     @Getter
     private static final PlayersManager playersManager = new PlayersManager();
@@ -86,7 +86,7 @@ public final class LuckyWars extends JavaPlugin {
         registerCommand("leave", new LeaveCommand());
     }
 
-    private LuckyWars registerCommand(String cmdName, CommandExecutor executor) {
+    private LuckyTowers registerCommand(String cmdName, CommandExecutor executor) {
         PluginCommand command = getCommand(cmdName);
         if (command == null) {
             System.out.println("Error while trying to register command " + cmdName);

@@ -2,7 +2,7 @@ package us.smartmc.core.luckywars.manager;
 
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import me.imsergioh.pluginsapi.instance.manager.ManagerRegistry;
-import us.smartmc.core.luckywars.LuckyWars;
+import us.smartmc.core.luckywars.LuckyTowers;
 import us.smartmc.core.luckywars.instance.game.GameTemplate;
 
 import java.io.File;
@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class GameTemplatesManager extends ManagerRegistry<String, GameTemplate> {
 
-    private static final LuckyWars plugin = LuckyWars.getPlugin();
+    private static final LuckyTowers plugin = LuckyTowers.getPlugin();
     public static final File TEMPLATES_DIR = new File(plugin.getDataFolder() + "/templates");
 
     @Override

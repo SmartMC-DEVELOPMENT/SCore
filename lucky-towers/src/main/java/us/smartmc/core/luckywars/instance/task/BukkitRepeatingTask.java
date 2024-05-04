@@ -1,11 +1,11 @@
 package us.smartmc.core.luckywars.instance.task;
 
 import org.bukkit.Bukkit;
-import us.smartmc.core.luckywars.LuckyWars;
+import us.smartmc.core.luckywars.LuckyTowers;
 
 public class BukkitRepeatingTask extends RepeatingTask {
 
-    private static final LuckyWars plugin = LuckyWars.getPlugin();
+    private static final LuckyTowers plugin = LuckyTowers.getPlugin();
 
     public BukkitRepeatingTask(boolean async, Runnable runnable) {
        super(getRunnable(async, runnable));

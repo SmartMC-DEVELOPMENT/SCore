@@ -9,14 +9,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import us.smartmc.core.luckywars.LuckyWars;
+import us.smartmc.core.luckywars.LuckyTowers;
 import us.smartmc.core.luckywars.config.MainPluginConfig;
 import us.smartmc.core.luckywars.manager.EditorModeManager;
 import us.smartmc.core.luckywars.messages.GameMessages;
 
 public class AdminGameCommand implements CommandExecutor {
 
-    private static final LuckyWars plugin = LuckyWars.getPlugin();
+    private static final LuckyTowers plugin = LuckyTowers.getPlugin();
 
     private void executePlayer(Player player, String label, String[] args) {
         if (args.length >= 1 && args[0].equalsIgnoreCase("setLobby")) {

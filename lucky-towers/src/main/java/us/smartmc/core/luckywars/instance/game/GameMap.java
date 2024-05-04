@@ -4,7 +4,7 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import org.bson.Document;
 import org.bukkit.Location;
-import us.smartmc.core.luckywars.LuckyWars;
+import us.smartmc.core.luckywars.LuckyTowers;
 import us.smartmc.core.util.ConfigUtils;
 
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 public class GameMap {
 
-    private static final LuckyWars plugin = LuckyWars.getPlugin();
+    private static final LuckyTowers plugin = LuckyTowers.getPlugin();
     private static final File MAPS_DIRECTORY = new File(plugin.getDataFolder() + "/maps");
 
     private static final String SPAWN_PATH = "spawn";

@@ -10,6 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import us.smartmc.core.randomwar.RandomBattle;
+import us.smartmc.core.randomwar.config.MainPluginConfig;
+import us.smartmc.core.randomwar.manager.EditorModeManager;
 import us.smartmc.core.randomwar.messages.GameMessages;
 
 public class AdminGameCommand implements CommandExecutor {
@@ -24,11 +26,14 @@ public class AdminGameCommand implements CommandExecutor {
         }
 
         if (args.length >= 1 && args[0].equalsIgnoreCase("lobby")) {
-            Location lobbyLocation = plugin.getMainConfig().getLobby();
+            Location lobbyLocation = MainPluginConfig.getLobby();
             player.teleport(lobbyLocation);
             return;
         }
 
+        if (args.length >= 1 && args[0].equalsIgnoreCase("editor")) {
+            EditorModeManager.toggle(player);
+        }
     }
 
     @Override

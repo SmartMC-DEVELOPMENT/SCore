@@ -2,6 +2,7 @@ package us.smartmc.core.randomwar;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.language.EnumMessagesRegistry;
+import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -10,8 +11,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.core.randomwar.command.AdminGameCommand;
 import us.smartmc.core.randomwar.command.LeaveCommand;
 import us.smartmc.core.randomwar.config.MainPluginConfig;
+import us.smartmc.core.randomwar.instance.game.GameTemplate;
+import us.smartmc.core.randomwar.itemcmd.LobbyHotbarCommand;
+import us.smartmc.core.randomwar.itemcmd.PlayerOptionCommand;
 import us.smartmc.core.randomwar.listener.EssentialsListeners;
 import us.smartmc.core.randomwar.listener.MainGameListeners;
+import us.smartmc.core.randomwar.listener.PlayerLogicListeners;
 import us.smartmc.core.randomwar.manager.GameMapManager;
 import us.smartmc.core.randomwar.manager.GameSessionsManager;
 import us.smartmc.core.randomwar.manager.GameTemplatesManager;
@@ -46,6 +51,11 @@ public final class RandomBattle extends JavaPlugin {
         mainConfig = new MainPluginConfig();
 
         EnumMessagesRegistry.registerLanguageHolder(GameMessages.class);
+
+        ItemActionsManager.registerCommand("lobbyHotbar", new LobbyHotbarCommand());
+        ItemActionsManager.registerCommand("playerOption", new PlayerOptionCommand());
+
+        registerDefaultInstances();
     }
 
     @Override
@@ -56,8 +66,17 @@ public final class RandomBattle extends JavaPlugin {
         mapsManager.unload();
     }
 
+    private void registerDefaultInstances() {
+        if (templatesManager.keySet().isEmpty()) {
+            GameTemplate.get("default");
+        }
+    }
+
     private void registerListeners() {
-        registerEvents(new EssentialsListeners(), new MainGameListeners());
+        registerEvents(
+                new EssentialsListeners(),
+                new MainGameListeners(),
+                new PlayerLogicListeners());
     }
 
     private void registerCommands() {

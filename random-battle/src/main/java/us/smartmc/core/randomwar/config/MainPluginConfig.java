@@ -23,11 +23,11 @@ public class MainPluginConfig extends FilePluginConfig {
         save();
     }
 
-    public Location getLobby() {
-        return ConfigUtils.documentToLocation(get(LOBBY_LOCATION_PATH, Document.class));
+    public static Location getLobby() {
+        return ConfigUtils.documentToLocation(plugin.getMainConfig().get(LOBBY_LOCATION_PATH, Document.class));
     }
 
-    private static boolean isLobbyEnabled() {
+    public static boolean isLobbyEnabled() {
         return plugin.getMainConfig().getBoolean(LOBBY_ENABLED_PATH);
     }
 

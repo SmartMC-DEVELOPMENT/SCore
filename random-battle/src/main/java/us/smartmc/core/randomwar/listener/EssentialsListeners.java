@@ -21,7 +21,7 @@ public class EssentialsListeners implements Listener {
         event.quitMessage(null);
     }
 
-    @Override
+    @EventHandler
     public void createGamePlayer(PlayerJoinEvent event) {
         GamePlayer.get(event.getPlayer().getUniqueId());
     }

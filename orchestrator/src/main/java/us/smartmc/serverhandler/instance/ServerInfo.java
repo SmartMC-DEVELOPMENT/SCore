@@ -8,7 +8,7 @@ import us.smartmc.serverhandler.util.ServerUtil;
 import java.io.File;
 
 @Getter
-public class ServerInfo extends CommonServerInfo {
+public class ServerInfo extends us.smartmc.serverhandler.instance.CommonServerInfo {
 
     private final ServerConfiguration<?> config;
     private final File directory;

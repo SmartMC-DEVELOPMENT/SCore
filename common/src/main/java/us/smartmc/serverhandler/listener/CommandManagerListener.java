@@ -1,7 +1,7 @@
-package main.java.us.smartmc.serverhandler.listener;
+package us.smartmc.serverhandler.listener;
 
-import main.java.us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
-import main.java.us.smartmc.serverhandler.manager.BackendCommandManager;
+import us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
+import us.smartmc.serverhandler.manager.BackendCommandManager;
 import me.imsergioh.jbackend.api.ConnectionHandler;
 import me.imsergioh.jbackend.api.process.ObjectProcessor;
 import me.imsergioh.jbackend.api.process.ProcessorType;

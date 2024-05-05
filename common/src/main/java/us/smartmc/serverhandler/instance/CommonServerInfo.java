@@ -1,4 +1,4 @@
-package main.java.us.smartmc.serverhandler.instance;
+package us.smartmc.serverhandler.instance;
 
 public class CommonServerInfo {
 

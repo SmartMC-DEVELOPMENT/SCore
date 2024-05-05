@@ -1,7 +1,9 @@
 name: random-war
 version: '${project.version}'
-main: us.smartmc.core.randomwar.RandomWar
+main: us.smartmc.game.luckytowers.LuckyTowers
 api-version: '1.20'
+depend:
+  - SmartCore23
 
 commands:
   adminGame:

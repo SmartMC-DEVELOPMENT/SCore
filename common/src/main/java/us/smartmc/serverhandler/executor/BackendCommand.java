@@ -1,4 +1,4 @@
-package main.java.us.smartmc.serverhandler.executor;
+package us.smartmc.serverhandler.executor;
 
 public abstract class BackendCommand implements IBackendCommand {
 

@@ -1,6 +1,6 @@
-package main.java.us.smartmc.serverhandler.manager;
+package us.smartmc.serverhandler.manager;
 
-import main.java.us.smartmc.serverhandler.instance.Configuration;
+import us.smartmc.serverhandler.instance.Configuration;
 
 import java.util.HashMap;
 

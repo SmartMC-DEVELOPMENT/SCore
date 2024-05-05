@@ -2,6 +2,8 @@ main: us.smartmc.core.SmartCore
 name: SmartCore23
 version: 1.0-SNAPSHOT
 api-version: '1.16'
+softdepend:
+  - ProtocolLib
 authors:
   - ImSergioh
 

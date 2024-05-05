@@ -16,10 +16,9 @@
         <module name="login-spigot" />
         <module name="smartbot" />
         <module name="npcs-module" />
-        <module name="snowgames-ffa" />
         <module name="orchestrator" />
-        <module name="MessagesMigration" />
         <module name="fixes-core" />
+        <module name="MessagesMigration" />
         <module name="smartcore-velocity" />
         <module name="serverhandler-bukkit" />
         <module name="sbackend-server" />
@@ -51,6 +50,7 @@
       <module name="smartcore-waterfall" target="1.8" />
       <module name="SmartCore-Waterfall" target="16" />
       <module name="snowgames" target="1.8" />
+      <module name="snowgames-ffa" target="16" />
       <module name="staffmode-bungee" target="16" />
       <module name="staffmode-spigot" target="16" />
       <module name="staffmode-velocity" target="1.8" />

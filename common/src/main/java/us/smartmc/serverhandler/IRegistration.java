@@ -1,4 +1,4 @@
-package main.java.us.smartmc.serverhandler;
+package us.smartmc.serverhandler;
 
 public interface IRegistration {
 

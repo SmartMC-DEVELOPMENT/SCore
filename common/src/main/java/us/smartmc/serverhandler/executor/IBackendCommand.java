@@ -1,4 +1,4 @@
-package main.java.us.smartmc.serverhandler.executor;
+package us.smartmc.serverhandler.executor;
 
 import me.imsergioh.jbackend.api.ConnectionHandler;
 

@@ -1,6 +1,6 @@
-package main.java.us.smartmc.serverhandler;
+package us.smartmc.serverhandler;
 
-import main.java.us.smartmc.serverhandler.instance.Configuration;
+import us.smartmc.serverhandler.instance.Configuration;
 
 public interface IConfigRegistration extends IRegistration {
 

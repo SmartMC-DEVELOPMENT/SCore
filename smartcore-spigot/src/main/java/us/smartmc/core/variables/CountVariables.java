@@ -45,8 +45,7 @@ public class CountVariables extends VariableListener<Player> {
 
     private static void deleteUnregisteredCacheServers() {
         for (String key : new HashSet<>(serverCounts.keySet())) {
-            boolean exists = RedisConnection.mainConnection.getResource().exists(key);
-            if (exists) continue;
+            if (RedisConnection.mainConnection.getResource().exists(key)) continue;
             serverCounts.remove(key);
         }
     }

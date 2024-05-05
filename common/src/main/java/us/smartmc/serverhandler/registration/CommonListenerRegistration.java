@@ -1,8 +1,8 @@
-package main.java.us.smartmc.serverhandler.registration;
+package us.smartmc.serverhandler.registration;
 
 import me.imsergioh.jbackend.api.manager.DataProcessorManager;
-import main.java.us.smartmc.serverhandler.listener.CommandManagerListener;
-import main.java.us.smartmc.serverhandler.IRegistration;
+import us.smartmc.serverhandler.listener.CommandManagerListener;
+import us.smartmc.serverhandler.IRegistration;
 
 public class CommonListenerRegistration implements IRegistration {
 

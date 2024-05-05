@@ -1,9 +1,9 @@
-package main.java.us.smartmc.serverhandler.instance;
+package us.smartmc.serverhandler.instance;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Getter;
-import main.java.us.smartmc.serverhandler.manager.ConfigManager;
+import us.smartmc.serverhandler.manager.ConfigManager;
 
 import java.io.*;
 import java.lang.reflect.Type;

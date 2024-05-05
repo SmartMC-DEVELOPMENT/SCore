@@ -112,7 +112,7 @@ public class ServerManager {
     }
 
     public static void register(String name, String hostname, int port) {
-        ServerConfiguration<?> configuration = (ServerConfiguration<?>) ConfigManager.getByPrefixName(name);
+        ServerConfiguration<?> configuration = (ServerConfiguration<?>) main.java.us.smartmc.serverhandler.manager.ConfigManager.getByPrefixName(name);
         if (configuration == null) {
             return;
         }

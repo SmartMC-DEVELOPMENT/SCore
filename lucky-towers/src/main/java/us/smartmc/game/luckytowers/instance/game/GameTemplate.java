@@ -29,6 +29,8 @@ public class GameTemplate {
         maxTeamCapacity = config.getInteger("maxTeamSize", 1);
 
         minTeamSize = config.getInteger("minTeamSize", 2);
+
+        config.save();
     }
 
     public static GameTemplate get(String name) {

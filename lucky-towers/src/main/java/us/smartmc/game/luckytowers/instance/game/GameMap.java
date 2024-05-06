@@ -6,6 +6,7 @@ import org.bson.Document;
 import org.bukkit.Location;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.core.util.ConfigUtils;
+import us.smartmc.game.luckytowers.manager.GameMapManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,7 +16,6 @@ import java.util.List;
 public class GameMap {
 
     private static final LuckyTowers plugin = LuckyTowers.getPlugin();
-    private static final File MAPS_DIRECTORY = new File(plugin.getDataFolder() + "/maps");
 
     private static final String SPAWN_PATH = "spawn";
     private static final String POS1_PATH = "pos1";
@@ -35,6 +35,15 @@ public class GameMap {
         registerConfigDefaults();
     }
 
+    public void saveSpawnLocations() {
+        List<Document> list = new ArrayList<>();
+        for (Location location : spawnLocations) {
+            list.add(ConfigUtils.locationToDocument(location, true));
+        }
+        config.put(LOCATIONS_PATH, list);
+        config.save();
+    }
+
     public List<Location> loadConfigLocations() {
         List<Location> list = new ArrayList<>();
         if (config.containsKey(LOCATIONS_PATH))
@@ -47,6 +56,8 @@ public class GameMap {
 
         // Loads the spawnLocations from config
         spawnLocations.addAll(loadConfigLocations());
+
+        config.save();
     }
 
     public void setPos1(Location location) {
@@ -83,7 +94,7 @@ public class GameMap {
     }
 
     private static FilePluginConfig getConfig(String name) {
-        return new FilePluginConfig(new File(MAPS_DIRECTORY, name + ".json"));
+        return new FilePluginConfig(new File(GameMapManager.MAPS_DIRECTORY, name + ".json"));
     }
 
 }

@@ -25,5 +25,20 @@ public enum GameTeamColor {
         this.namedTextColor = namedTextColor;
     }
 
+    public static GameTeamColor rotate(int indice) {
+        GameTeamColor[] valores = GameTeamColor.values();
+        int cantidadValores = valores.length;
+        int indiceRotado = indice % cantidadValores;
+        if (indiceRotado < 0) {
+            indiceRotado += cantidadValores;
+        }
+        return valores[indiceRotado];
+    }
+
+    public GameTeamColor next() {
+        int indiceActual = this.ordinal();
+        return rotate(indiceActual + 1);
+    }
+
 
 }

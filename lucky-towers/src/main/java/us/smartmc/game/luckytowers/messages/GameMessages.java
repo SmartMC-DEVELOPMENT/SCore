@@ -2,7 +2,7 @@ package us.smartmc.game.luckytowers.messages;
 
 import me.imsergioh.pluginsapi.language.*;
 
-@LangMessagesInfo(name = "random-battle/game")
+@LangMessagesInfo(name = "luckytowers/game")
 public enum GameMessages implements IMessageCategory {
 
     @DefaultLanguageMessage("&cYou don't have permissions to execute this command")
@@ -18,20 +18,6 @@ public enum GameMessages implements IMessageCategory {
     editorMode_enabled,
     @DefaultLanguageMessage("&fAdmin mode:&c Disabled")
     editorMode_disabled,
-
-    @DefaultLanguageItem(
-            material = "BEACON",
-            name = "&bSelect teams",
-            description = {"&7Select the team you want to edit in editor mode"}
-    )
-    editorMode_item_selectorTeam,
-
-    @DefaultLanguageItem(
-            material = "DIAMOND_BLOCK",
-            name = "&bAdd spawn",
-            description = {"&7Add spawn to the current team selected"}
-    )
-    editorMode_item_addSpawn,
 
     @DefaultLanguageItem(
             material = "DIAMOND_SWORD",

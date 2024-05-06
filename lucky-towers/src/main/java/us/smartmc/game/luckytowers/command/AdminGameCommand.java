@@ -11,7 +11,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.config.MainPluginConfig;
+import us.smartmc.game.luckytowers.instance.game.GameMap;
 import us.smartmc.game.luckytowers.manager.EditorModeManager;
+import us.smartmc.game.luckytowers.manager.GameMapManager;
 import us.smartmc.game.luckytowers.messages.GameMessages;
 
 public class AdminGameCommand implements CommandExecutor {
@@ -34,6 +36,12 @@ public class AdminGameCommand implements CommandExecutor {
         if (args.length >= 1 && args[0].equalsIgnoreCase("editor")) {
             EditorModeManager manager = LuckyTowers.getManager(EditorModeManager.class);
             manager.toggle(player);
+        }
+
+        if (args.length >= 2 && args[0].equalsIgnoreCase("createMap")) {
+            String name = args[1];
+            GameMapManager manager = LuckyTowers.getManager(GameMapManager.class);
+            manager.register(name, new GameMap(name));
         }
     }
 

@@ -16,10 +16,13 @@ import us.smartmc.game.luckytowers.instance.game.GameTemplate;
 import us.smartmc.game.luckytowers.itemcmd.AdminEditorCommand;
 import us.smartmc.game.luckytowers.itemcmd.LobbyHotbarCommand;
 import us.smartmc.game.luckytowers.itemcmd.PlayerOptionCommand;
+import us.smartmc.game.luckytowers.listener.EditorListeners;
 import us.smartmc.game.luckytowers.listener.EssentialsListeners;
 import us.smartmc.game.luckytowers.listener.MainGameListeners;
 import us.smartmc.game.luckytowers.listener.PlayerLogicListeners;
 import us.smartmc.game.luckytowers.manager.*;
+import us.smartmc.game.luckytowers.messages.AdminItems;
+import us.smartmc.game.luckytowers.messages.AdminMessages;
 import us.smartmc.game.luckytowers.messages.GameMessages;
 
 import java.util.HashMap;
@@ -51,7 +54,10 @@ public final class LuckyTowers extends JavaPlugin {
                 GameTemplatesManager.class,
                 PlayersManager.class);
 
-        EnumMessagesRegistry.registerLanguageHolder(GameMessages.class);
+        EnumMessagesRegistry.registerLanguageHolder(
+                GameMessages.class,
+                AdminMessages.class,
+                AdminItems.class);
 
         ItemActionsManager.registerCommand("lobbyHotbar", new LobbyHotbarCommand());
         ItemActionsManager.registerCommand("playerOption", new PlayerOptionCommand());
@@ -97,7 +103,8 @@ public final class LuckyTowers extends JavaPlugin {
         registerEvents(
                 new EssentialsListeners(),
                 new MainGameListeners(),
-                new PlayerLogicListeners());
+                new PlayerLogicListeners(),
+                new EditorListeners());
     }
 
     private void registerCommands() {

@@ -31,7 +31,8 @@ public class EssentialsListeners implements Listener {
 
     @EventHandler
     public void removeEditorMode(PlayerQuitEvent event) {
-        EditorModeManager.disable(event.getPlayer());
+        EditorModeManager manager = LuckyTowers.getManager(EditorModeManager.class);
+        manager.disable(event.getPlayer());
     }
 
     @EventHandler

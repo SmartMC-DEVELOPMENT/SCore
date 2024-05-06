@@ -179,14 +179,6 @@ public class SmartCore extends JavaPlugin {
                 new CommandListeners(),
                 new SanctionListeners());
         if (scoreboardHandler != null) registerListeners(scoreboardHandler);
-
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(plugin, PacketType.Play.Client.TAB_COMPLETE) {
-            @Override
-            public void onPacketReceiving(PacketEvent event) {
-                System.out.println("tabcompletando " + event.getPlayer());
-            }
-        });
-
     }
 
     private void registerVariables() {

@@ -41,13 +41,13 @@ public class AdminEditorCommand implements ItemActionExecutor {
             }
 
             case "removeLastSpawn" -> {
-                map.getSpawnLocations().remove(map.getSpawnLocations().size());
+                map.getSpawnLocations().remove(map.getSpawnLocations().size() - 1);
                 map.saveSpawnLocations();
                 feedbackMessage = AdminMessages.editor_spawnRemovedLast;
             }
 
             case "setCorner" -> {
-                if (handler.clickType().name().contains("RIGHT")) {
+                if (handler.interactAction().isRightClick()) {
                     map.setPos1(player.getLocation());
                     feedbackArgs = new Object[]{"1"};
                 } else {

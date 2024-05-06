@@ -10,11 +10,16 @@ import us.smartmc.core.SmartCore;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class CountVariables extends VariableListener<Player> {
+
+    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public static final HashMap<String, Integer> serverCounts = new HashMap<>();
     public static final Map<String, Integer> proxyCounts = new HashMap<>();
@@ -23,7 +28,8 @@ public class CountVariables extends VariableListener<Player> {
     private static int lastPushed = -1;
 
     public CountVariables() {
-        Bukkit.getScheduler().runTaskTimerAsynchronously(SmartCore.getPlugin(), () -> {
+
+        Runnable runnable = () -> {
             if (!uploadedMax) {
                 RedisConnection.mainConnection.getResource().set("maxSlots." + SmartCore.getServerName(), String.valueOf(Bukkit.getMaxPlayers()));
                 uploadedMax = true;
@@ -40,7 +46,8 @@ public class CountVariables extends VariableListener<Player> {
                 proxyCounts.put(key, Integer.parseInt(RedisConnection.mainConnection.getResource().get(key)));
             }
             deleteUnregisteredCacheServers();
-        }, 10, 20);
+        };
+        scheduler.scheduleAtFixedRate(runnable, 1, 2, TimeUnit.SECONDS);
     }
 
     private static void deleteUnregisteredCacheServers() {

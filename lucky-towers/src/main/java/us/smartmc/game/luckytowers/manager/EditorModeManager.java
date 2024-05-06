@@ -1,45 +1,54 @@
 package us.smartmc.game.luckytowers.manager;
 
+import me.imsergioh.pluginsapi.instance.manager.ManagerRegistry;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.entity.Player;
+import us.smartmc.game.luckytowers.instance.player.EditorSession;
 import us.smartmc.game.luckytowers.menu.EditorModeHotbar;
 import us.smartmc.game.luckytowers.messages.GameMessages;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
-public class EditorModeManager {
+public class EditorModeManager extends ManagerRegistry<UUID, EditorSession> {
 
-    private static final Set<UUID> editors = new HashSet<>();
-
-    public static boolean toggle(Player player) {
+    public void toggle(Player player) {
         if (hasEditorMode(player)) {
-            return disable(player);
+            disable(player);
+            return;
         }
-        return enable(player);
+        enable(player);
     }
 
-    public static boolean enable(Player player) {
+    public boolean enable(Player player) {
         PaperChatUtil.send(player, GameMessages.editorMode_enabled);
         new EditorModeHotbar(player).set(player);
-        editors.add(player.getUniqueId());
+        register(player.getUniqueId(), new EditorSession(player));
         return true;
     }
 
-    public static boolean disable(Player player) {
+    public boolean disable(Player player) {
         PaperChatUtil.send(player, GameMessages.editorMode_disabled);
         CorePlayer corePlayer = CorePlayer.get(player);
 
         if (corePlayer.getCurrentMenuSet() instanceof EditorModeHotbar editorModeHotbar) {
             editorModeHotbar.restore(player);
         }
-        editors.remove(player.getUniqueId());
+        unregister(player.getUniqueId());
         return false;
     }
 
-    public static boolean hasEditorMode(Player player) {
-        return editors.contains(player.getUniqueId());
+    public boolean hasEditorMode(Player player) {
+        return keySet().contains(player.getUniqueId());
+    }
+
+    @Override
+    public void load() {
+
+    }
+
+    @Override
+    public void unload() {
+
     }
 }

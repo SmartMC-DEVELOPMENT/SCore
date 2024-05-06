@@ -32,6 +32,7 @@ us\smartmc\game\luckytowers\manager\GameSessionsManager.class
 us\smartmc\game\luckytowers\menu\SpectatorHotbar.class
 us\smartmc\game\luckytowers\instance\game\GameStatus.class
 us\smartmc\game\luckytowers\itemcmd\PlayerOptionCommand.class
+us\smartmc\game\luckytowers\instance\player\EditorSession.class
 us\smartmc\game\luckytowers\instance\player\GamePlayer.class
 us\smartmc\game\luckytowers\menu\VoteMenu.class
 us\smartmc\game\luckytowers\util\MenuUtil.class

@@ -1,5 +1,6 @@
 package us.smartmc.game.luckytowers.menu;
 
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.language.IMessageCategory;
 import org.bukkit.entity.Player;
@@ -11,8 +12,16 @@ public abstract class GameMenu extends CoreMenu {
         super(player, size, getTitle(player, title));
     }
 
+    protected GameMenu(Player player, int size, String title) {
+        super(player, size, title);
+    }
+
     private static String getTitle(Player player, IMessageCategory title) {
         return MenuUtil.getTitle(player, title);
+    }
+
+    protected ItemBuilder item(IMessageCategory category) {
+        return ItemBuilder.of(initCorePlayer.getLanguage(), category);
     }
 
 }

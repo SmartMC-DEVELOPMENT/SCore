@@ -1,4 +1,4 @@
-name: random-war
+name: LuckyTowers
 version: '1.0-SNAPSHOT'
 main: us.smartmc.game.luckytowers.LuckyTowers
 api-version: '1.20'

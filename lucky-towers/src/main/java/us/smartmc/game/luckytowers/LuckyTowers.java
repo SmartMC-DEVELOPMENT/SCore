@@ -19,10 +19,7 @@ import us.smartmc.game.luckytowers.itemcmd.PlayerOptionCommand;
 import us.smartmc.game.luckytowers.listener.EssentialsListeners;
 import us.smartmc.game.luckytowers.listener.MainGameListeners;
 import us.smartmc.game.luckytowers.listener.PlayerLogicListeners;
-import us.smartmc.game.luckytowers.manager.GameMapManager;
-import us.smartmc.game.luckytowers.manager.GameSessionsManager;
-import us.smartmc.game.luckytowers.manager.GameTemplatesManager;
-import us.smartmc.game.luckytowers.manager.PlayersManager;
+import us.smartmc.game.luckytowers.manager.*;
 import us.smartmc.game.luckytowers.messages.GameMessages;
 
 import java.util.HashMap;
@@ -48,6 +45,7 @@ public final class LuckyTowers extends JavaPlugin {
         mainConfig = new MainPluginConfig();
 
         registerManagers(
+                EditorModeManager.class,
                 GameMapManager.class,
                 GameSessionsManager.class,
                 GameTemplatesManager.class,

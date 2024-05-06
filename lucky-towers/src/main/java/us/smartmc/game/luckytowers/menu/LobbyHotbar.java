@@ -1,23 +1,18 @@
 package us.smartmc.game.luckytowers.menu;
 
-import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
+import us.smartmc.game.luckytowers.messages.GameMessages;
 
-public class LobbyHotbar extends CoreMenu {
+public class LobbyHotbar extends GameMenu {
 
-    protected LobbyHotbar(Player player) {
-        super(player, InventoryType.PLAYER.getDefaultSize(), "lobbyHotbar");
+    public LobbyHotbar(Player player) {
+        super(player, 36, "lobbyHotbar");
     }
 
     @Override
     public void load() {
-        initPlayer.closeInventory();
-        set(0, ItemBuilder.of(Material.DIAMOND_SWORD).get(), "lobbyHotbar play");
-
-        set(0, ItemBuilder.of(Material.DIAMOND_SWORD).get(), "lobbyHotbar options");
+        set(0, item(GameMessages.lobbyHotbar_item_play).get(), "lobbyHotbar play");
+        set(4, item(GameMessages.lobbyHotbar_item_options).get(), "lobbyHotbar options");
     }
 
 }

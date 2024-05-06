@@ -31,7 +31,21 @@ public enum GameMessages implements IMessageCategory {
             name = "&bAdd spawn",
             description = {"&7Add spawn to the current team selected"}
     )
-    editorMode_item_addSpawn;
+    editorMode_item_addSpawn,
+
+    @DefaultLanguageItem(
+            material = "DIAMOND_SWORD",
+            name = "&bPlay",
+            description = {"&7Menu for playing the different modes", "&7or something like this"}
+    )
+    lobbyHotbar_item_play,
+
+    @DefaultLanguageItem(
+            material = "CLOCK",
+            name = "&bOptions",
+            description = {"&7Configure your options", "&7to your tastes"}
+    )
+    lobbyHotbar_item_options;
 
 
     @Override

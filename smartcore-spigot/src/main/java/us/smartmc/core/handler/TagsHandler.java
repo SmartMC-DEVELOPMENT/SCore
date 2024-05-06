@@ -6,6 +6,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
@@ -70,7 +71,13 @@ public class TagsHandler implements Listener {
 
             Team team = scoreboard.getTeam(teamName);
 
-            Component chatPrefix = PaperChatUtil.parse(player, "<chat.prefix>");
+            Component chatPrefix = null;
+
+            if (Bukkit.getPluginManager().getPlugin("LuckPerms") != null) {
+                chatPrefix = PaperChatUtil.parse(player, "<chat.prefix>");
+            } else {
+                chatPrefix = Component.empty();
+            }
 
             if (team == null) {
                 team = scoreboard.registerNewTeam(teamName);

@@ -32,7 +32,8 @@ public class AdminGameCommand implements CommandExecutor {
         }
 
         if (args.length >= 1 && args[0].equalsIgnoreCase("editor")) {
-            EditorModeManager.toggle(player);
+            EditorModeManager manager = LuckyTowers.getManager(EditorModeManager.class);
+            manager.toggle(player);
         }
     }
 

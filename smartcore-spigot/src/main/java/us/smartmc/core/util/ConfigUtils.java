@@ -27,8 +27,8 @@ public class ConfigUtils {
                         document.getDouble("y"),
                         document.getDouble("z"));
         if (document.containsKey("yaw") && document.containsKey("pitch")) {
-            location.setYaw(document.getInteger("yaw").floatValue());
-            location.setPitch(document.getInteger("pitch").floatValue());
+            location.setYaw(document.getDouble("yaw").floatValue());
+            location.setPitch(document.getDouble("pitch").floatValue());
         }
         return location;
     }

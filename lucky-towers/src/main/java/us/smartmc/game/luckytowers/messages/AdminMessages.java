@@ -21,7 +21,10 @@ public enum AdminMessages implements IMessageCategory {
     editor_spawnSet,
 
     @DefaultLanguageMessage("&aCorner {0} has been set!")
-    editor_cornerSet;
+    editor_cornerSet,
+
+    @DefaultLanguageMessage("&fMaintenance mode has been set to {0}&f!")
+    editor_maintenanceSet;
 
     @Override
     public String getFieldName() {

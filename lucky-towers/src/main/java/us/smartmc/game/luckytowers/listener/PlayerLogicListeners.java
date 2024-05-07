@@ -11,7 +11,7 @@ public class PlayerLogicListeners implements Listener {
     @EventHandler
     public void teleportToLobby(PlayerStatusChangeEvent event) {
         if (event.isCancelled()) return;
-        if (!event.getStatus().equals(PlayerStatus.LOBBY) && !MainPluginConfig.isLobbyEnabled()) return;
+        if (!(event.getStatus().equals(PlayerStatus.LOBBY) && MainPluginConfig.isLobbyEnabled())) return;
 
         // Teleport to lobby if gameplayer is online (Should xd)
         event.getGamePlayer().onlinePlayer(player -> player.teleport(MainPluginConfig.getLobby()));

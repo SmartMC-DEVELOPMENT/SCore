@@ -3,6 +3,7 @@ package us.smartmc.game.luckytowers.instance.game;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class GameSessionTeams {
 
@@ -13,6 +14,21 @@ public class GameSessionTeams {
     public GameSessionTeams(GameSession session) {
         this.session = session;
         this.gameTeams = getFilledTeamsArray();
+    }
+
+    public int getTeamsWithPlayersSize() {
+        int count = 0;
+        for (GameTeam team : gameTeams) {
+            if (team.isEmpty()) continue;
+            count++;
+        }
+        return count;
+    }
+
+    public void forEachTeam(Consumer<GameTeam> consumer) {
+        for (GameTeam team : gameTeams) {
+            consumer.accept(team);
+        }
     }
 
     public void setTeam(GamePlayer player, GameTeamColor teamColor) {

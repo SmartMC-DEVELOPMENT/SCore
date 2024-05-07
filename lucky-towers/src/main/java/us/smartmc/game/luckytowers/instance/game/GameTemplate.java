@@ -14,9 +14,9 @@ public class GameTemplate {
     private final FilePluginConfig config;
 
     @Getter
-    private int maxTeamsSize, maxTeamCapacity;
+    private int maxTeamsSize = 8, maxTeamCapacity = 1;
     @Getter
-    private int minTeamSize, minTeamsAmount;
+    private int minTeamSize = 2;
 
     private GameTemplate(String name) {
         this.name = name;
@@ -25,10 +25,13 @@ public class GameTemplate {
     }
 
     private void registerConfigDefaults() {
-        maxTeamsSize = config.getInteger("maxTeamsSize", 8);
-        maxTeamCapacity = config.getInteger("maxTeamSize", 1);
+        maxTeamsSize = config.getInteger("maxTeamsSize", maxTeamsSize);
+        maxTeamCapacity = config.getInteger("maxTeamSize", maxTeamCapacity);
+        minTeamSize = config.getInteger("minTeamSize", minTeamSize);
 
-        minTeamSize = config.getInteger("minTeamSize", 2);
+        config.put("maxTeamsSize", maxTeamsSize);
+        config.put("maxTeamSize", maxTeamCapacity);
+        config.put("minTeamSize", minTeamSize);
 
         config.save();
     }

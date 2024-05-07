@@ -26,7 +26,7 @@ public class GamePlayer {
     @Setter @Getter
     private GameSession gameSession;
 
-    private PlayerStatus status;
+    private PlayerStatus status = PlayerStatus.LOBBY;
 
     private GamePlayer(UUID uuid) {
          this.uuid = uuid;

@@ -8,11 +8,11 @@ import me.imsergioh.pluginsapi.language.LangMessagesInfo;
 public enum AdminItems implements IMessageCategory {
 
     @DefaultLanguageItem(
-            material = "BEACON",
-            name = "&bSelect teams",
-            description = {"&7Select the team you want to edit in editor mode"}
+            material = "END_PORTAL_FRAME",
+            name = "&bSet main map spawn",
+            description = {"&7Set the lobby/spawn of the map"}
     )
-    editorMode_item_selectorTeam,
+    editorMode_item_setSpawn,
 
     @DefaultLanguageItem(
             material = "DIAMOND_BLOCK",
@@ -33,7 +33,14 @@ public enum AdminItems implements IMessageCategory {
             name = "&aSet corners",
             description = {"&7Right-Click to set Pos1", "&7Left-Click to set Pos2"}
     )
-    editorMode_item_setCorners;
+    editorMode_item_setCorners,
+
+    @DefaultLanguageItem(
+            material = "BEDROCK",
+            name = "&bToggle maintenance",
+            description = {"&7Enable or disable the maintenance", "for the map"}
+    )
+    editorMode_item_toggleMaintenance;
 
     @Override
     public String getFieldName() {

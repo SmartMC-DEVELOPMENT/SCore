@@ -18,9 +18,13 @@ public interface IGameSession {
 
     void deathPlayer(GamePlayer player);
 
+    void setStatus(GameSessionStatus status);
+
     GameSessionTeams getTeams();
     GameMap getMap();
     Set<GamePlayer> getPlayers();
+
+    GameSessionStatus getStatus();
 
     default GamePlayer gamePlayer(Player player) {
         return GamePlayer.get(player.getUniqueId());

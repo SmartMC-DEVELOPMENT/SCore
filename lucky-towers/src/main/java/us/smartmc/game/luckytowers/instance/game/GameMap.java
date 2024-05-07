@@ -4,8 +4,8 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import org.bson.Document;
 import org.bukkit.Location;
-import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.core.util.ConfigUtils;
+import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.manager.GameMapManager;
 
 import java.io.File;
@@ -21,10 +21,12 @@ public class GameMap {
     private static final String POS1_PATH = "pos1";
     private static final String POS2_PATH = "pos2";
     private static final String LOCATIONS_PATH = "spawnLocations";
+    private static final String MAINTENANCE_PATH = "maintenance";
 
     private final String name;
     private final FilePluginConfig config;
 
+    private boolean maintenance = true;
     private GameTemplate template;
 
     private final List<Location> spawnLocations = new ArrayList<>();
@@ -33,6 +35,13 @@ public class GameMap {
         this.name = name;
         this.config = getConfig(name).load();
         registerConfigDefaults();
+    }
+
+    public boolean toggleMaintenance() {
+        maintenance = !maintenance;
+        config.put(MAINTENANCE_PATH, maintenance);
+        config.save();
+        return maintenance;
     }
 
     public void saveSpawnLocations() {
@@ -56,6 +65,9 @@ public class GameMap {
 
         // Loads the spawnLocations from config
         spawnLocations.addAll(loadConfigLocations());
+
+        if (config.containsKey(MAINTENANCE_PATH))
+            maintenance = config.getBoolean(MAINTENANCE_PATH);
 
         config.save();
     }

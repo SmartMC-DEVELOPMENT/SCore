@@ -1,7 +1,15 @@
 package us.smartmc.game.luckytowers.instance.game;
 
 import lombok.Getter;
+import lombok.Setter;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitRunnable;
+import us.smartmc.core.handler.SpawnHandler;
+import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
+import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
+import us.smartmc.game.luckytowers.menu.LobbyHotbar;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,21 +18,54 @@ import java.util.UUID;
 @Getter
 public class GameSession implements IGameSession {
 
+    private static final int DEFAULT_SECONDS_COOLDOWN = 5;
+
     private final UUID id;
 
     private final GameMap map;
 
     private final Set<GamePlayer> players = new HashSet<>();
-    private GameSessionTeams teams;
 
-    private GameSession(UUID id, GameMap map) {
+    @Getter
+    private final GameSessionTeams teams;
+
+    @Setter @Getter
+    private GameSessionStatus status = GameSessionStatus.WAITING;
+
+    public GameSession(UUID id, GameMap map) {
         this.id = id;
         this.map = map;
+        this.teams = new GameSessionTeams(this);
     }
 
     @Override
     public void start() {
+        setStatus(GameSessionStatus.STARTING);
 
+        teams.forEachTeam(team -> {
+            team.getPlayers().forEach(uuid -> {
+                GamePlayer gamePlayer = GamePlayer.get(uuid);
+                gamePlayer.onlinePlayer(p -> {
+                    p.teleport(team.getSpawnAssigned());
+                });
+            });
+        });
+        BukkitRunnable runnable = new BukkitRunnable() {
+            int cooldown = DEFAULT_SECONDS_COOLDOWN;
+            @Override
+            public void run() {
+                if (cooldown <= 0) {
+                    Bukkit.broadcast(Component.text("A LUCHAR HIJOS DE PU"));
+                    setStatus(GameSessionStatus.PLAYING);
+                    cancel();
+                }
+                if (cooldown >= 1) {
+                    Bukkit.broadcast(Component.text("Empezamos en " + cooldown));
+                }
+                cooldown--;
+            }
+        };
+        runnable.runTaskTimerAsynchronously(LuckyTowers.getPlugin(), 0, 20);
     }
 
     @Override
@@ -34,34 +75,32 @@ public class GameSession implements IGameSession {
 
     @Override
     public boolean canStart() {
-        return false;
+        return teams.getTeamsWithPlayersSize() >= map.getTemplate().getMinTeamSize();
     }
 
     @Override
     public boolean canEnd() {
-        return false;
+        return teams.getTeamsWithPlayersSize() == 1;
     }
 
     @Override
     public void joinPlayer(GamePlayer player) {
-        GameTeam team = teams.assignNextEmptyTeam(player);
-        player.onlinePlayer(p -> p.teleport(team.getSpawnAssigned()));
+        player.onlinePlayer(p -> p.teleport(map.getSpawn()));
+        player.setGameSession(this);
+        player.setStatus(PlayerStatus.INGAME);
+        teams.assignNextEmptyTeam(player);
+        if (canStart()) start();
     }
 
     @Override
     public void quitPlayer(GamePlayer player) {
         teams.clearTeams(player);
+        player.setStatus(PlayerStatus.LOBBY);
+        player.setGameSession(null);
     }
 
     @Override
     public void deathPlayer(GamePlayer player) {
 
-    }
-
-    // Only create instance at the first get method (Ram issues)
-    public GameSessionTeams getTeams() {
-        if (teams != null) return teams;
-        teams = new GameSessionTeams(this);
-        return teams;
     }
 }

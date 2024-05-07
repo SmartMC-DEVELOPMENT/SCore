@@ -56,6 +56,14 @@ public class AdminEditorCommand implements ItemActionExecutor {
                 }
                 feedbackMessage = AdminMessages.editor_cornerSet;
             }
+
+            case "toggleMaintenance" -> {
+                boolean activated = map.toggleMaintenance();
+                feedbackMessage = AdminMessages.editor_maintenanceSet;
+                String prefix = activated ? "&a" : "&c";
+                feedbackArgs = new Object[]{prefix + activated};
+            }
+
         }
 
         if (feedbackMessage != null) PaperChatUtil.send(player, feedbackMessage, feedbackArgs);

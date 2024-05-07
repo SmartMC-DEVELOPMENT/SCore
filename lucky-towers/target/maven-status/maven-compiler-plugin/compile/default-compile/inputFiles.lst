@@ -1,7 +1,7 @@
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\event\player\PlayerStatusChangeEvent.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\instance\game\IGameSession.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\itemcmd\LobbyHotbarCommand.java
-D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\instance\game\GameStatus.java
+D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\instance\game\GameSessionStatus.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\manager\PlayersManager.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\listener\EssentialsListeners.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\listener\MainGameListeners.java

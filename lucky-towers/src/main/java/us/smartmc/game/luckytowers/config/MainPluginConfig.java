@@ -15,6 +15,7 @@ public class MainPluginConfig extends FilePluginConfig {
 
     public MainPluginConfig() {
         super(plugin.getDataFolder() + "/config.json");
+        load();
         registerDefault(LOBBY_ENABLED_PATH, true);
     }
 

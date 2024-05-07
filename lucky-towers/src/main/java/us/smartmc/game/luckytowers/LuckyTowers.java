@@ -49,9 +49,9 @@ public final class LuckyTowers extends JavaPlugin {
 
         registerManagers(
                 EditorModeManager.class,
+                GameTemplatesManager.class,
                 GameMapManager.class,
                 GameSessionsManager.class,
-                GameTemplatesManager.class,
                 PlayersManager.class);
 
         EnumMessagesRegistry.registerLanguageHolder(
@@ -87,6 +87,7 @@ public final class LuckyTowers extends JavaPlugin {
             try {
                 ManagerRegistry<?, ?> manager = clazz.newInstance();
                 managers.put(clazz.getName(), manager);
+                manager.load();
             } catch (InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException(e);
             }

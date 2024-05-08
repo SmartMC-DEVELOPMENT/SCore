@@ -3,6 +3,7 @@ package us.smartmc.game.luckytowers.instance.game;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 
+import java.util.Collection;
 import java.util.Set;
 
 public interface IGameSession {
@@ -22,6 +23,7 @@ public interface IGameSession {
 
     GameSessionTeams getTeams();
     GameMap getMap();
+    Collection<Player> getAlivePlayers();
     Set<GamePlayer> getPlayers();
 
     GameSessionStatus getStatus();

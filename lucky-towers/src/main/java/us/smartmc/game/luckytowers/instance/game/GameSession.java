@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import us.smartmc.core.handler.SpawnHandler;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
-import us.smartmc.game.luckytowers.menu.LobbyHotbar;
+import us.smartmc.game.luckytowers.manager.GameSessionsManager;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -70,7 +71,10 @@ public class GameSession implements IGameSession {
 
     @Override
     public void end() {
-
+        if (getStatus().equals(GameSessionStatus.ENDING)) return;
+        setStatus(GameSessionStatus.ENDING);
+        GameSessionsManager manager = LuckyTowers.getManager(GameSessionsManager.class);
+        manager.unregister(id);
     }
 
     @Override
@@ -95,12 +99,27 @@ public class GameSession implements IGameSession {
     @Override
     public void quitPlayer(GamePlayer player) {
         teams.clearTeams(player);
+        players.remove(player);
         player.setStatus(PlayerStatus.LOBBY);
         player.setGameSession(null);
+        if (canEnd()) end();
     }
 
     @Override
     public void deathPlayer(GamePlayer player) {
+        if (canEnd()) end();
+    }
 
+    @Override
+    public Collection<Player> getAlivePlayers() {
+        Set<Player> players = new HashSet<>();
+        teams.forEachTeam(team -> {
+            team.getPlayers().forEach(id -> {
+                Player player = Bukkit.getPlayer(id);
+                if (player == null) return;
+                players.add(player);
+            });
+        });
+        return players;
     }
 }

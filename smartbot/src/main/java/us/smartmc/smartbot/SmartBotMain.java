@@ -22,6 +22,7 @@ import us.smartmc.smartbot.slashcommand.AnuncioCommand;
 import us.smartmc.smartbot.slashcommand.JoinToCommand;
 import us.smartmc.smartbot.slashcommand.ReactToCommand;
 import us.smartmc.smartbot.slashcommand.TiendaCommand;
+import us.smartmc.smartbot.textcommand.SendMessageCommand;
 import us.smartmc.smartbot.textcommand.TestCommand;
 
 import java.util.Objects;
@@ -75,6 +76,7 @@ public class SmartBotMain {
                 CommandHandler.register(
                         new TiendaCommand("tienda"),
                         new TestCommand("/abrir-servidor"),
+                        new SendMessageCommand("!sendMessage"),
                         new AnuncioCommand("sb-anuncio"),
                         new AnuncioCommand("anuncio"),
                         new JoinToCommand("jointo"),

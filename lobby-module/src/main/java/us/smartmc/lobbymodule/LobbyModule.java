@@ -72,8 +72,8 @@ public class LobbyModule extends AddonPlugin {
                 new CustomJoinSlotListener(),
                 new PlayerListener(),
                 new LobbiesInfoManager(),
-                new CancelListeners());
-                //new TermsListeners());
+                new CancelListeners(),
+                new TestAdminListeners());
         registerCommand(new ChangeVisibilityCommand());
 
         CommandsRegistry.register("terms", new TermsCommand());

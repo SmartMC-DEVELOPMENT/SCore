@@ -18,11 +18,6 @@ public class CancelListeners implements Listener {
     }
 
     @EventHandler
-    public void onMobSpawn(EntitySpawnEvent event) {
-        if (!(event.getEntity() instanceof Player)) event.setCancelled(true);
-    }
-
-    @EventHandler
     public void blockExplode(ExplosionPrimeEvent event) {
         event.setCancelled(true);
     }

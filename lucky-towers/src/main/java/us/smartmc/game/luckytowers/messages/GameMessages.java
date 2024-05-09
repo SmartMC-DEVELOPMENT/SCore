@@ -31,7 +31,13 @@ public enum GameMessages implements IMessageCategory {
             name = "&bOptions",
             description = {"&7Configure your options", "&7to your tastes"}
     )
-    lobbyHotbar_item_options;
+    lobbyHotbar_item_options,
+
+    @DefaultLanguageMessage("&aStarting game in &e{0}&as...")
+    session_actionBar_startingIn,
+
+    @DefaultLanguageMessage("&c&l¡FIGHT!")
+    session_message_started;
 
 
     @Override

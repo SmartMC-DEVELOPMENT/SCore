@@ -4,12 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.manager.GameSessionsManager;
+import us.smartmc.game.luckytowers.messages.GameMessages;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -53,17 +55,20 @@ public class GameSession implements IGameSession {
         });
         BukkitRunnable runnable = new BukkitRunnable() {
             int cooldown = DEFAULT_SECONDS_COOLDOWN;
+            float soundPitch = 0.0f;
             @Override
             public void run() {
                 if (cooldown <= 0) {
-                    Bukkit.broadcast(Component.text("A LUCHAR HIJOS DE PU"));
+                    broadcastMessage(GameMessages.session_message_started);
                     setStatus(GameSessionStatus.PLAYING);
                     cancel();
                 }
                 if (cooldown >= 1) {
-                    Bukkit.broadcast(Component.text("Empezamos en " + cooldown));
+                    broadcastSound(Sound.BLOCK_GRASS_BREAK, 1f, soundPitch);
+                    broadcastActionbar(GameMessages.session_actionBar_startingIn, cooldown);
                 }
                 cooldown--;
+                soundPitch += 0.2f;
             }
         };
         runnable.runTaskTimerAsynchronously(LuckyTowers.getPlugin(), 0, 20);

@@ -19,6 +19,10 @@ public class GameTeam {
         this.spawnAssigned = spawnAssigned;
     }
 
+    public int getPlayersSize() {
+        return players.size();
+    }
+
     public void addPlayer(UUID id) {
         players.add(id);
     }

@@ -8,6 +8,7 @@ import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.manager.GameMapManager;
 import us.smartmc.game.luckytowers.manager.GameSessionsManager;
+import us.smartmc.game.luckytowers.menu.VoteMenu;
 
 import java.util.UUID;
 
@@ -16,16 +17,17 @@ public class PlayerOptionCommand implements ItemActionExecutor {
     @Override
     public void execute(ClickHandler clickHandler, String label, String[] args) {
         Player player = clickHandler.player();
+        GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
 
         if (args[0].equals("playMap")) {
-            GameMapManager mapManager = LuckyTowers.getManager(GameMapManager.class);
             GameSessionsManager sessionsManager = LuckyTowers.getManager(GameSessionsManager.class);
             String name = args[1];
-            UUID id = UUID.randomUUID();
-            GameSession session = new GameSession(id, mapManager.get(name));
-            sessionsManager.register(id, session);
+            GameSession session = sessionsManager.createOrGetByName(name);
+            session.joinPlayer(gamePlayer);
+        }
 
-            session.joinPlayer(GamePlayer.get(player.getUniqueId()));
+        if (args[0].equals("vote")) {
+            new VoteMenu(player).open(player);
         }
     }
 }

@@ -22,4 +22,10 @@ public class PlayersManager extends ManagerRegistry<UUID, GamePlayer> {
             unregister(player.getUniqueId());
         }
     }
+
+    @Override
+    public void unregister(UUID id) {
+        GamePlayer.get(id).unload();
+        super.unregister(id);
+    }
 }

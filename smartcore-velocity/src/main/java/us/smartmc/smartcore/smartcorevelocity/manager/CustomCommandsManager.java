@@ -98,6 +98,31 @@ public class CustomCommandsManager extends MongoDBPluginConfig {
         return label.split(" ");
     }
 
+    public Collection<String> getCommandNames() {
+        Set<String> list = new HashSet<>();
+        for (String key : keySet()) {
+            if (key.contains(",")) {
+                for (String alias : key.split(",")) {
+                    String aliasName = alias.contains(" ") ? alias.split(" ")[0] : alias;
+                    list.add(aliasName);
+                }
+            } else list.add(key);
+        }
+        return list;
+    }
+
+    public static Collection<String> unregister(String name) {
+        Set<String> list = new HashSet<>();
+        new HashSet<>(managers).stream().filter(manager -> manager.getName().equals(name)).forEach(manager -> {
+            for (String commandName : manager.getCommandNames()) {
+                commands.remove(commandName);
+            }
+            managers.remove(manager);
+            list.add(manager.getName());
+        });
+        return list;
+    }
+
     public static void register(String name, CustomCommandExecutor executor) {
         commands.put(name, executor);
     }
@@ -107,7 +132,7 @@ public class CustomCommandsManager extends MongoDBPluginConfig {
     }
 
     public static void unregisterAll() {
-        managers.forEach(managers::remove);
+        new HashSet<>(managers).forEach(managers::remove);
     }
 
     public static void load(String database, String collection) {

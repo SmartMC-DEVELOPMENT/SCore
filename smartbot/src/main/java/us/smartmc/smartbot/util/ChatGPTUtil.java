@@ -36,7 +36,7 @@ public class ChatGPTUtil {
 
                 // Construye el cuerpo de la solicitud
                 JSONObject requestJSON = new JSONObject();
-                requestJSON.put("model", "gpt-3.5-turbo");
+                requestJSON.put("model", "gpt-4-turbo");
 
                 JSONArray messages = new JSONArray();
 

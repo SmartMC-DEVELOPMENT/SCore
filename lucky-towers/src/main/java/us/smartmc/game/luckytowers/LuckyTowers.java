@@ -1,21 +1,27 @@
 package us.smartmc.game.luckytowers;
 
 import lombok.Getter;
+import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.manager.ManagerRegistry;
 import me.imsergioh.pluginsapi.language.EnumMessagesRegistry;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.smartmc.core.SmartCore;
 import us.smartmc.game.luckytowers.command.AdminGameCommand;
 import us.smartmc.game.luckytowers.command.LeaveCommand;
 import us.smartmc.game.luckytowers.config.MainPluginConfig;
+import us.smartmc.game.luckytowers.event.GamePluginEvent;
 import us.smartmc.game.luckytowers.instance.game.GameTemplate;
+import us.smartmc.game.luckytowers.instance.player.PlayerScoreboardType;
 import us.smartmc.game.luckytowers.itemcmd.AdminEditorCommand;
 import us.smartmc.game.luckytowers.itemcmd.LobbyHotbarCommand;
 import us.smartmc.game.luckytowers.itemcmd.PlayerOptionCommand;
+import us.smartmc.game.luckytowers.itemcmd.SpectatorModeCommand;
 import us.smartmc.game.luckytowers.listener.EditorListeners;
 import us.smartmc.game.luckytowers.listener.EssentialsListeners;
 import us.smartmc.game.luckytowers.listener.MainGameListeners;
@@ -23,7 +29,9 @@ import us.smartmc.game.luckytowers.listener.PlayerLogicListeners;
 import us.smartmc.game.luckytowers.manager.*;
 import us.smartmc.game.luckytowers.messages.AdminItems;
 import us.smartmc.game.luckytowers.messages.AdminMessages;
+import us.smartmc.game.luckytowers.messages.GameItems;
 import us.smartmc.game.luckytowers.messages.GameMessages;
+import us.smartmc.game.luckytowers.variable.GameVariables;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,18 +65,29 @@ public final class LuckyTowers extends JavaPlugin {
         EnumMessagesRegistry.registerLanguageHolder(
                 GameMessages.class,
                 AdminMessages.class,
+                GameItems.class,
                 AdminItems.class);
 
         ItemActionsManager.registerCommand("lobbyHotbar", new LobbyHotbarCommand());
         ItemActionsManager.registerCommand("playerOption", new PlayerOptionCommand());
         ItemActionsManager.registerCommand("adminEditor", new AdminEditorCommand());
+        ItemActionsManager.registerCommand("spectatorMode", new SpectatorModeCommand());
 
         registerDefaultInstances();
+        registerPlayerScoreboards();
+
+        VariablesHandler.register(new GameVariables());
     }
 
     @Override
     public void onDisable() {
         unloadAllManagers();
+    }
+
+    private void registerPlayerScoreboards() {
+        for (PlayerScoreboardType type : PlayerScoreboardType.values()) {
+            SmartCore.getPlugin().getScoreboardHandler().register(type.getId());
+        }
     }
 
     private void unloadAllManagers() {
@@ -127,6 +146,12 @@ public final class LuckyTowers extends JavaPlugin {
         for (Listener listener : listeners) {
             Bukkit.getPluginManager().registerEvents(listener, plugin);
         }
+    }
+
+    public static void callEvent(GamePluginEvent event) {
+        Bukkit.getScheduler().runTask(LuckyTowers.getPlugin(), () -> {
+            Bukkit.getPluginManager().callEvent(event);
+        });
     }
 
 }

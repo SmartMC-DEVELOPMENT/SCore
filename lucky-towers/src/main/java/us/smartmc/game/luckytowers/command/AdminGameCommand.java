@@ -43,6 +43,12 @@ public class AdminGameCommand implements CommandExecutor {
             GameMapManager manager = LuckyTowers.getManager(GameMapManager.class);
             manager.register(name, new GameMap(name));
         }
+
+        if (args.length >= 2 && args[0].equalsIgnoreCase("setTimeLimit")) {
+            EditorModeManager manager = LuckyTowers.getManager(EditorModeManager.class);
+            manager.get(player.getUniqueId()).getMap().setTimeLimit(Integer.parseInt(args[1]));
+            player.sendMessage(PaperChatUtil.parse(player, "&aTime limit set!"));
+        }
     }
 
     @Override

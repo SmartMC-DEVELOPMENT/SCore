@@ -1,26 +1,31 @@
 package us.smartmc.game.luckytowers.instance.game;
 
 import lombok.Getter;
-import lombok.Setter;
-import net.kyori.adventure.text.Component;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.game.luckytowers.LuckyTowers;
+import us.smartmc.game.luckytowers.event.GameStatusChangeEvent;
+import us.smartmc.game.luckytowers.event.player.GamePlayerDeathEvent;
+import us.smartmc.game.luckytowers.event.player.GamePlayerJoinSessionEvent;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.manager.GameSessionsManager;
 import us.smartmc.game.luckytowers.messages.GameMessages;
+import us.smartmc.game.luckytowers.util.GameUtil;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Getter
 public class GameSession implements IGameSession {
 
+    private static final int GENERATION_ITEMS_TICKS = 60;
     private static final int DEFAULT_SECONDS_COOLDOWN = 5;
 
     private final UUID id;
@@ -32,8 +37,11 @@ public class GameSession implements IGameSession {
     @Getter
     private final GameSessionTeams teams;
 
-    @Setter @Getter
+    @Getter
     private GameSessionStatus status = GameSessionStatus.WAITING;
+
+    private int secondsRemaining, playersRemaining;
+    private BukkitRunnable timeLimitTask, generateItemsTask;
 
     public GameSession(UUID id, GameMap map) {
         this.id = id;
@@ -44,7 +52,7 @@ public class GameSession implements IGameSession {
     @Override
     public void start() {
         setStatus(GameSessionStatus.STARTING);
-
+        playersRemaining = getAlivePlayers().size();
         teams.forEachTeam(team -> {
             team.getPlayers().forEach(uuid -> {
                 GamePlayer gamePlayer = GamePlayer.get(uuid);
@@ -61,6 +69,8 @@ public class GameSession implements IGameSession {
                 if (cooldown <= 0) {
                     broadcastMessage(GameMessages.session_message_started);
                     setStatus(GameSessionStatus.PLAYING);
+                    getGenerateItemsTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), GENERATION_ITEMS_TICKS, GENERATION_ITEMS_TICKS);
+                    getTimeLimitTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), 0, 20);
                     cancel();
                 }
                 if (cooldown >= 1) {
@@ -89,42 +99,94 @@ public class GameSession implements IGameSession {
 
     @Override
     public boolean canEnd() {
+        if (secondsRemaining <= 0) return true;
         return teams.getTeamsWithPlayersSize() == 1;
     }
 
     @Override
-    public void joinPlayer(GamePlayer player) {
-        player.onlinePlayer(p -> p.teleport(map.getSpawn()));
-        player.setGameSession(this);
-        player.setStatus(PlayerStatus.INGAME);
-        teams.assignNextEmptyTeam(player);
+    public boolean canPlayerJoin() {
+        return false;
+    }
+
+    @Override
+    public boolean canPlayersJoin(int amount) {
+        return false;
+    }
+
+    @Override
+    public void joinPlayer(GamePlayer gamePlayer) {
+        gamePlayer.onlinePlayer(p -> p.teleport(map.getSpawn()));
+        gamePlayer.setGameSession(this);
+        gamePlayer.setStatus(PlayerStatus.INGAME);
+        teams.assignNextEmptyTeam(gamePlayer);
+        LuckyTowers.callEvent(new GamePlayerJoinSessionEvent(gamePlayer));
         if (canStart()) start();
     }
 
     @Override
-    public void quitPlayer(GamePlayer player) {
-        teams.clearTeams(player);
-        players.remove(player);
-        player.setStatus(PlayerStatus.LOBBY);
-        player.setGameSession(null);
+    public void quitPlayer(GamePlayer gamePlayer) {
+        teams.clearTeams(gamePlayer);
+        players.remove(gamePlayer);
+        gamePlayer.setStatus(PlayerStatus.LOBBY);
+        gamePlayer.setGameSession(null);
         if (canEnd()) end();
     }
 
     @Override
-    public void deathPlayer(GamePlayer player) {
-        if (canEnd()) end();
-    }
-
-    @Override
-    public Collection<Player> getAlivePlayers() {
-        Set<Player> players = new HashSet<>();
-        teams.forEachTeam(team -> {
-            team.getPlayers().forEach(id -> {
-                Player player = Bukkit.getPlayer(id);
-                if (player == null) return;
-                players.add(player);
-            });
+    public void deathPlayer(GamePlayer gamePlayer) {
+        playersRemaining--;
+        gamePlayer.setStatus(PlayerStatus.SPECTATING);
+        LuckyTowers.callEvent(new GamePlayerDeathEvent(gamePlayer));
+        gamePlayer.onlinePlayer(player -> {
+            Location location = player.getLocation();
+            if (player.isDead())
+                player.spigot().respawn();
+            player.teleport(location.add(0, 0.5, 0));
+            player.playSound(location, Sound.ENTITY_PLAYER_DEATH, 1.0f, 2.0f);
         });
-        return players;
+        if (canEnd()) end();
+    }
+
+    @Override
+    public void setStatus(GameSessionStatus status) {
+        this.status = status;
+        LuckyTowers.callEvent(new GameStatusChangeEvent(this, status));
+    }
+
+    @Override
+    public Set<GamePlayer> getAlivePlayers() {
+        return getPlayers().stream().filter(gamePlayer -> gamePlayer.getStatus().equals(PlayerStatus.INGAME)).collect(Collectors.toSet());
+    }
+
+    public BukkitRunnable getGenerateItemsTask() {
+        if (generateItemsTask != null) return generateItemsTask;
+        generateItemsTask = new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (getStatus().equals(GameSessionStatus.ENDING)) cancel();
+                getAlivePlayers().forEach(gamePlayer -> {
+                    gamePlayer.onlinePlayer(player -> {
+                        player.getInventory().addItem(ItemBuilder.of(GameUtil.getRandomMaterial()).get());
+                    });
+                });
+            }
+        };
+        return generateItemsTask;
+    }
+
+    public BukkitRunnable getTimeLimitTask() {
+        if (timeLimitTask != null) return timeLimitTask;
+        secondsRemaining = map.getTimeLimit();
+        timeLimitTask = new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (secondsRemaining <= 0) {
+                    end();
+                    cancel();
+                }
+                secondsRemaining--;
+            }
+        };
+        return timeLimitTask;
     }
 }

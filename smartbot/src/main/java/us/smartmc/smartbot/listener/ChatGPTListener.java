@@ -39,8 +39,8 @@ public class ChatGPTListener extends ListenerAdapter {
                     event.getMessage().reply(msg).complete();
                 });
 
-
             } catch (Exception e) {
+                e.printStackTrace();
                 event.getMessage().reply(e.getMessage()).complete();
             }
         }
@@ -52,7 +52,7 @@ public class ChatGPTListener extends ListenerAdapter {
                 "The ip address is play.smartmc.us and you evaluate if you can help users with messages. If not then just respond a message saying 'ignore'";
 
         if (event.getChannel().getId().equals("1168167434402930698")) {
-            content = "You know about Java programming. Your responses are discord systax messages.";
+            content = "Sabes sobre programación sobretodo de Java y Plugins Development de Minecraft, y odias detestas JavaScript (siempre lo recalcas) y tu especialidad es ayudar a debelopers";
         }
         return content;
     }

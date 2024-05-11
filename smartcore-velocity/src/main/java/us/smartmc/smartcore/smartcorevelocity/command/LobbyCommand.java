@@ -25,6 +25,6 @@ public class LobbyCommand extends CoreCommand {
 
     @Override
     public List<String> getAliases() {
-        return List.of("hub", "leave", "vestibulo", "vestíbulo", "l", "salir", "centro");
+        return List.of("hub", "vestibulo", "vestíbulo", "l");
     }
 }

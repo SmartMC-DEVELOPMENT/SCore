@@ -40,7 +40,7 @@ public abstract class SlashCommand extends ListenerAdapter implements ISlashComm
 
     @Override
     public String getName() {
-        return name;
+        return name.toLowerCase();
     }
 
     @Override

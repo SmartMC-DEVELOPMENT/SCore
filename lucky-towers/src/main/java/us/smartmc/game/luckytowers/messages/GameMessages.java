@@ -5,6 +5,15 @@ import me.imsergioh.pluginsapi.language.*;
 @LangMessagesInfo(name = "luckytowers/game")
 public enum GameMessages implements IMessageCategory {
 
+    @DefaultLanguageMessagesList({"&7Teleport to {0}"})
+    itemDescription_teleportToPlayer,
+
+    @DefaultLanguageMessage("Vote")
+    menu_vote_title,
+
+    @DefaultLanguageMessage("Navigator")
+    menu_navigator_title,
+
     @DefaultLanguageMessage("&cYou don't have permissions to execute this command")
     cmd_adminGame_noPermission,
     @DefaultLanguageMessage("&aLobby has been set correctly!")
@@ -37,7 +46,13 @@ public enum GameMessages implements IMessageCategory {
     session_actionBar_startingIn,
 
     @DefaultLanguageMessage("&c&l¡FIGHT!")
-    session_message_started;
+    session_message_started,
+
+    @DefaultLanguageMessage("&6+{0} coins!")
+    player_addedCoins,
+
+    @DefaultLanguageMessage("&b+{0} kill!")
+    player_addedKill;
 
 
     @Override

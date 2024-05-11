@@ -8,7 +8,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 
-import java.util.Collection;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -19,6 +18,9 @@ public interface IGameSession {
 
     boolean canStart();
     boolean canEnd();
+
+    boolean canPlayerJoin();
+    boolean canPlayersJoin(int amount);
 
     void joinPlayer(GamePlayer player);
     void quitPlayer(GamePlayer player);
@@ -62,7 +64,7 @@ public interface IGameSession {
 
     GameSessionTeams getTeams();
     GameMap getMap();
-    Collection<Player> getAlivePlayers();
+    Set<GamePlayer> getAlivePlayers();
     Set<GamePlayer> getPlayers();
 
     GameSessionStatus getStatus();

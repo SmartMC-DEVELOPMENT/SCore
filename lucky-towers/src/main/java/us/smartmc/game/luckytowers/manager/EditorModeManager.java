@@ -5,7 +5,7 @@ import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.instance.player.EditorSession;
-import us.smartmc.game.luckytowers.menu.EditorModeHotbar;
+import us.smartmc.game.luckytowers.menu.hotbar.EditorModeHotbar;
 import us.smartmc.game.luckytowers.messages.GameMessages;
 
 import java.util.*;

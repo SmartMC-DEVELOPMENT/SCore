@@ -8,16 +8,19 @@ import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntity;
 import net.minecraft.world.entity.Entity;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftArmorStand;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityInteractEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import us.smartmc.core.SmartCore;
 import us.smartmc.lobbymodule.util.TexturePackUtil;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
@@ -57,9 +60,19 @@ public class TestAdminListeners extends AddonListener implements Listener {
         armorStand.setVisible(false);
         armorStand.setGravity(false);
         armorStand.setCanPickupItems(false);
-        armorStand.customName(Component.text("¡WELCOME!"));
+        armorStand.setSmall(true);
         armorStand.setCustomNameVisible(true);
         armorStand.setItem(EquipmentSlot.HEAD, customItem);
+    }
+
+    @EventHandler
+    public void onHologramClick(PlayerInteractAtEntityEvent event) {
+        Player player = event.getPlayer();
+        if (!isEnabled()) return;
+        if (!player.hasPermission("*")) return;
+        if (event.getRightClicked() instanceof CraftArmorStand armorStand) {
+            armorStand.setSmall(false);
+        }
     }
 
     public static void sendEntityMetadataPacket(Player player, ArmorStand armorStand) {
@@ -67,5 +80,6 @@ public class TestAdminListeners extends AddonListener implements Listener {
         PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(armorStand.getEntityId(), List.of());
         craftPlayer.getHandle().c.b(metadataPacket);
     }
+
 
 }

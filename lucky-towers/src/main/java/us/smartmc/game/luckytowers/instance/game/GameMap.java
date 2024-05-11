@@ -22,6 +22,7 @@ public class GameMap {
     private static final String POS2_PATH = "pos2";
     private static final String LOCATIONS_PATH = "spawnLocations";
     private static final String MAINTENANCE_PATH = "maintenance";
+    private static final String TIME_LIMIT_PATH = "timeLimit";
 
     private final String name;
     private final FilePluginConfig config;
@@ -84,6 +85,10 @@ public class GameMap {
         setConfigLocation(SPAWN_PATH, location, true);
     }
 
+    public void setTimeLimit(int time) {
+        getConfig().put(TIME_LIMIT_PATH, time);
+    }
+
     public Location getPos1() {
         return getConfigLocation(POS1_PATH);
     }
@@ -94,6 +99,10 @@ public class GameMap {
 
     public Location getSpawn() {
         return getConfigLocation(SPAWN_PATH);
+    }
+
+    public int getTimeLimit() {
+        return config.getInteger(TIME_LIMIT_PATH, 480);
     }
 
     private Location getConfigLocation(String path) {

@@ -16,6 +16,19 @@ public class GameSessionTeams {
         this.gameTeams = getFilledTeamsArray();
     }
 
+    public int getFreeSlots() {
+        int slots = 0;
+        int teamCapacity = session.getMap().getTemplate().getMaxTeamCapacity();
+        for (GameTeam team : gameTeams) {
+            int size = team.getPlayersSize();
+            int min = Math.min(teamCapacity, size);
+            int max = Math.max(teamCapacity, size);
+            int difference = max - min;
+            slots += difference;
+        }
+        return slots;
+    }
+
     public int getTeamsWithPlayersSize() {
         int count = 0;
         for (GameTeam team : gameTeams) {

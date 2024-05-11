@@ -17,11 +17,9 @@ import us.smartmc.smartbot.listener.*;
 import us.smartmc.smartbot.logfunction.PrintConsoleMessages;
 import us.smartmc.smartbot.logfunction.SendEmbedExceptionsMessages;
 import us.smartmc.smartbot.logfunction.SendEmbedMessages;
+import us.smartmc.smartbot.manager.CustomProxyCommandManager;
 import us.smartmc.smartbot.manager.LogsManager;
-import us.smartmc.smartbot.slashcommand.AnuncioCommand;
-import us.smartmc.smartbot.slashcommand.JoinToCommand;
-import us.smartmc.smartbot.slashcommand.ReactToCommand;
-import us.smartmc.smartbot.slashcommand.TiendaCommand;
+import us.smartmc.smartbot.slashcommand.*;
 import us.smartmc.smartbot.textcommand.SendMessageCommand;
 import us.smartmc.smartbot.textcommand.TestCommand;
 
@@ -69,6 +67,8 @@ public class SmartBotMain {
         logsManager = new LogsManager();
         logsManager.register(new PrintConsoleMessages(), new SendEmbedMessages(), new SendEmbedExceptionsMessages());
 
+        new CustomProxyCommandManager();
+
         CommandHandler.clearCommands();
         new Timer().schedule(new TimerTask() {
             @Override
@@ -80,7 +80,9 @@ public class SmartBotMain {
                         new AnuncioCommand("sb-anuncio"),
                         new AnuncioCommand("anuncio"),
                         new JoinToCommand("jointo"),
-                        new ReactToCommand());
+                        new ReactToCommand(),
+                        new CreateQuoteCommand(),
+                        new RemoveQuoteCommand());
             }
         }, 1000);
         EventSchedulerHandler.setup();

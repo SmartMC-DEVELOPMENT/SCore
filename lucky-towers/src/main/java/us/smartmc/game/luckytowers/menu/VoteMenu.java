@@ -1,16 +1,17 @@
 package us.smartmc.game.luckytowers.menu;
 
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import org.bukkit.entity.Player;
+import us.smartmc.game.luckytowers.messages.GameItems;
+import us.smartmc.game.luckytowers.messages.GameMessages;
 
-public class VoteMenu extends CoreMenu {
+public class VoteMenu extends GameMenu {
 
-    protected VoteMenu(Player player, int size, String title) {
-        super(player, size, title);
+    public VoteMenu(Player player) {
+        super(player, 9 * 4, GameMessages.menu_vote_title);
     }
 
     @Override
     public void load() {
-
+        set(22, item(GameItems.upcoming_feature).get());
     }
 }

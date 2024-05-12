@@ -35,6 +35,7 @@ public class MainGameListeners implements Listener {
             GamePlayer.get(killer.getUniqueId()).addKill(player.getLocation());
         }
 
+
         // Calls method deathPlayer & checks if disconnected leave from game
         session.deathPlayer(gamePlayer);
         Bukkit.getScheduler().runTaskLater(LuckyTowers.getPlugin(), () -> {

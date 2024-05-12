@@ -19,7 +19,6 @@ public interface IGameSession {
     boolean canStart();
     boolean canEnd();
 
-    boolean canPlayerJoin();
     boolean canPlayersJoin(int amount);
 
     void joinPlayer(GamePlayer player);
@@ -55,7 +54,7 @@ public interface IGameSession {
     }
 
     default void forEachOnlinePlayer(Consumer<Player> consumer) {
-        getPlayers().forEach(gp -> gp.onlinePlayer(consumer));
+        getPlayers().forEach(gp -> consumer.accept(gp.getBukkitPlayer()));
     }
 
     default void forEachPlayer(Consumer<GamePlayer> consumer) {

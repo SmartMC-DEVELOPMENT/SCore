@@ -40,6 +40,7 @@ public class GamePlayer {
          this.uuid = uuid;
          this.data = loadData(uuid);
          this.bukkitPlayer = Bukkit.getPlayer(uuid);
+         setStatus(PlayerStatus.LOBBY);
     }
 
     public void addCoins(int amount) {

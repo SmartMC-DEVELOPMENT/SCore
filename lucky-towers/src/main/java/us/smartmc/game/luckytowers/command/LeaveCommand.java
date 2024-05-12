@@ -35,5 +35,4 @@ public class LeaveCommand implements CommandExecutor {
             });
         }, 1);
     }
-
 }

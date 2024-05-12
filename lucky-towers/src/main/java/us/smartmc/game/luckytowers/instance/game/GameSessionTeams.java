@@ -26,7 +26,7 @@ public class GameSessionTeams {
             int difference = max - min;
             slots += difference;
         }
-        return slots;
+        return slots - 1;
     }
 
     public int getTeamsWithPlayersSize() {

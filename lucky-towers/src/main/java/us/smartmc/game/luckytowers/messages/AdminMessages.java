@@ -24,7 +24,13 @@ public enum AdminMessages implements IMessageCategory {
     editor_cornerSet,
 
     @DefaultLanguageMessage("&fMaintenance mode has been set to {0}&f!")
-    editor_maintenanceSet;
+    editor_maintenanceSet,
+
+    @DefaultLanguageMessage("&aMap has been saved correctly!")
+    editor_regionSaved,
+
+    @DefaultLanguageMessage("&cError while trying to save region map! Reason: {0}")
+    editor_regionSaveError;
 
     @Override
     public String getFieldName() {

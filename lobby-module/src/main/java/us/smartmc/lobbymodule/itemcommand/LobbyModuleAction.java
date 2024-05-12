@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import us.smartmc.lobbymodule.menu.LobbiesMenu;
 import us.smartmc.lobbymodule.menu.MinigamesMenu;

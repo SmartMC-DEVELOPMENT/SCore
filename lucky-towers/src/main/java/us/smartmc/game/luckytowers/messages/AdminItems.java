@@ -40,7 +40,14 @@ public enum AdminItems implements IMessageCategory {
             name = "&bToggle maintenance",
             description = {"&7Enable or disable the maintenance", "for the map"}
     )
-    editorMode_item_toggleMaintenance;
+    editorMode_item_toggleMaintenance,
+
+    @DefaultLanguageItem(
+            material = "LIGHT_BLUE_SHULKER_BOX",
+            name = "&aSave map region",
+            description = {"&7Save the map region", "as a schematic les go"}
+    )
+    editorMode_item_saveMapRegion;
 
     @Override
     public String getFieldName() {

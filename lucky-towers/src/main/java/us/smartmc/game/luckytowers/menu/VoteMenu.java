@@ -7,11 +7,11 @@ import us.smartmc.game.luckytowers.messages.GameMessages;
 public class VoteMenu extends GameMenu {
 
     public VoteMenu(Player player) {
-        super(player, 9 * 4, GameMessages.menu_vote_title);
+        super(player, 9 * 3, GameMessages.menu_vote_title);
     }
 
     @Override
     public void load() {
-        set(22, item(GameItems.upcoming_feature).get());
+        set(13, item(GameItems.upcoming_feature).get());
     }
 }

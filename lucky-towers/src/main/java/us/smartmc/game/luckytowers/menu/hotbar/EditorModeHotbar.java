@@ -20,11 +20,11 @@ public class EditorModeHotbar extends GameMenu {
     public void load() {
         set(0, item(AdminItems.editorMode_item_setSpawn).get(), "adminEditor setSpawn");
         set(1, item(AdminItems.editorMode_item_addSpawn).get(), "adminEditor addTeamSpawn");
+        set(2, item(AdminItems.editorMode_item_removeLastSpawn).get(), "adminEditor removeLastSpawn");
 
-        set(4, item(AdminItems.editorMode_item_removeLastSpawn).get(), "adminEditor removeLastSpawn");
-
-        set(7, item(AdminItems.editorMode_item_toggleMaintenance).get(), "adminEditor toggleMaintenance");
-        set(8, item(AdminItems.editorMode_item_setCorners).get(), "adminEditor setCorner");
+        set(6, item(AdminItems.editorMode_item_setCorners).get(), "adminEditor setCorner");
+        set(8, item(AdminItems.editorMode_item_toggleMaintenance).get(), "adminEditor toggleMaintenance");
+        set(7, item(AdminItems.editorMode_item_saveMapRegion).get(), "adminEditor saveMap");
     }
 
     public void restore(Player player) {

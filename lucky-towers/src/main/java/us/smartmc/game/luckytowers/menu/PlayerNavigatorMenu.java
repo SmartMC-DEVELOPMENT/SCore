@@ -33,9 +33,9 @@ public class PlayerNavigatorMenu extends GameMenu {
     }
 
     private ItemStack parseBuilderToPlayersHead(ItemBuilder builder, Player player) {
-        builder.lore(GameMessages.itemDescription_teleportToPlayer.getMessageListOf(PlayerLanguages.get(initPlayer.getUniqueId())));
+        builder.lore(GameMessages.itemDescription_teleportToPlayer.getMessageListOf(PlayerLanguages.get(initPlayer.getUniqueId())), player.getName());
         ItemStack itemStack = builder.get(initPlayer);
-        SkullMeta skullMeta = (SkullMeta) itemStack;
+        SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
         skullMeta.setOwningPlayer(player);
         itemStack.setItemMeta(skullMeta);
         return itemStack;

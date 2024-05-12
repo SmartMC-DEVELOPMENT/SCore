@@ -2,12 +2,11 @@ package us.smartmc.game.luckytowers.instance.game;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.event.Event;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.game.luckytowers.LuckyTowers;
+import us.smartmc.game.luckytowers.command.LeaveCommand;
 import us.smartmc.game.luckytowers.event.GameStatusChangeEvent;
 import us.smartmc.game.luckytowers.event.player.GamePlayerDeathEvent;
 import us.smartmc.game.luckytowers.event.player.GamePlayerJoinSessionEvent;
@@ -62,22 +61,22 @@ public class GameSession implements IGameSession {
             });
         });
         BukkitRunnable runnable = new BukkitRunnable() {
-            int cooldown = DEFAULT_SECONDS_COOLDOWN;
+            int countdown = DEFAULT_SECONDS_COOLDOWN;
             float soundPitch = 0.0f;
             @Override
             public void run() {
-                if (cooldown <= 0) {
+                if (countdown <= 0) {
                     broadcastMessage(GameMessages.session_message_started);
-                    setStatus(GameSessionStatus.PLAYING);
                     getGenerateItemsTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), GENERATION_ITEMS_TICKS, GENERATION_ITEMS_TICKS);
                     getTimeLimitTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), 0, 20);
+                    setStatus(GameSessionStatus.PLAYING);
                     cancel();
                 }
-                if (cooldown >= 1) {
+                if (countdown >= 1) {
                     broadcastSound(Sound.BLOCK_GRASS_BREAK, 1f, soundPitch);
-                    broadcastActionbar(GameMessages.session_actionBar_startingIn, cooldown);
+                    broadcastActionbar(GameMessages.session_actionBar_startingIn, countdown);
                 }
-                cooldown--;
+                countdown--;
                 soundPitch += 0.2f;
             }
         };
@@ -87,7 +86,12 @@ public class GameSession implements IGameSession {
     @Override
     public void end() {
         if (getStatus().equals(GameSessionStatus.ENDING)) return;
+        System.out.println("Ending session...");
         setStatus(GameSessionStatus.ENDING);
+        new HashSet<>(players).forEach(gamePlayer -> {
+            gamePlayer.onlinePlayer(LeaveCommand::leave);
+            System.out.println("Leaving " + gamePlayer.getBukkitPlayer().getName());
+        });
         GameSessionsManager manager = LuckyTowers.getManager(GameSessionsManager.class);
         manager.unregister(id);
     }
@@ -100,21 +104,19 @@ public class GameSession implements IGameSession {
     @Override
     public boolean canEnd() {
         if (secondsRemaining <= 0) return true;
-        return teams.getTeamsWithPlayersSize() == 1;
-    }
-
-    @Override
-    public boolean canPlayerJoin() {
-        return false;
+        return playersRemaining <= 1;
     }
 
     @Override
     public boolean canPlayersJoin(int amount) {
-        return false;
+        if (status.equals(GameSessionStatus.PLAYING)) return false;
+        if (status.equals(GameSessionStatus.ENDING)) return false;
+        return teams.getFreeSlots() >= amount;
     }
 
     @Override
     public void joinPlayer(GamePlayer gamePlayer) {
+        players.add(gamePlayer);
         gamePlayer.onlinePlayer(p -> p.teleport(map.getSpawn()));
         gamePlayer.setGameSession(this);
         gamePlayer.setStatus(PlayerStatus.INGAME);
@@ -125,11 +127,12 @@ public class GameSession implements IGameSession {
 
     @Override
     public void quitPlayer(GamePlayer gamePlayer) {
+        playersRemaining--;
         teams.clearTeams(gamePlayer);
         players.remove(gamePlayer);
         gamePlayer.setStatus(PlayerStatus.LOBBY);
-        gamePlayer.setGameSession(null);
         if (canEnd()) end();
+        gamePlayer.setGameSession(null);
     }
 
     @Override
@@ -141,7 +144,7 @@ public class GameSession implements IGameSession {
             Location location = player.getLocation();
             if (player.isDead())
                 player.spigot().respawn();
-            player.teleport(location.add(0, 0.5, 0));
+            player.teleport(map.getSpawn());
             player.playSound(location, Sound.ENTITY_PLAYER_DEATH, 1.0f, 2.0f);
         });
         if (canEnd()) end();

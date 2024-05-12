@@ -115,7 +115,7 @@ public class GameMap {
     }
 
     private static FilePluginConfig getConfig(String name) {
-        return new FilePluginConfig(new File(GameMapManager.MAPS_DIRECTORY, name + ".json"));
+        return new FilePluginConfig(new File(GameMapManager.MAPS_CONFIG_DIRECTORY, name + ".json"));
     }
 
 }

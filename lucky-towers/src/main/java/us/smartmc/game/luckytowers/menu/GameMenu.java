@@ -26,7 +26,7 @@ public abstract class GameMenu extends CoreMenu {
     }
 
     protected void setLeaveItem(int slot) {
-        set(slot, getLeaveItem().get(), "cmd leave");
+        set(slot, getLeaveItem().get(), "playerOption leave");
     }
 
     private ItemBuilder getLeaveItem() {

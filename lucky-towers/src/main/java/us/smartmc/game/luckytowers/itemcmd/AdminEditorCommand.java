@@ -64,8 +64,18 @@ public class AdminEditorCommand implements ItemActionExecutor {
                 feedbackArgs = new Object[]{prefix + activated};
             }
 
-        }
+            case "saveMap" -> {
+                try {
+                    editSession.saveRegion();
+                    feedbackMessage = AdminMessages.editor_regionSaved;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    feedbackMessage = AdminMessages.editor_regionSaveError;
+                    feedbackArgs = new String[]{e.getMessage()};
+                }
+            }
 
+        }
         if (feedbackMessage != null) PaperChatUtil.send(player, feedbackMessage, feedbackArgs);
     }
 }

@@ -1,15 +1,30 @@
 package us.smartmc.game.luckytowers.instance.player;
 
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
+import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardWriter;
+import com.sk89q.worldedit.function.operation.ForwardExtentCopy;
+import com.sk89q.worldedit.function.operation.Operations;
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.CuboidRegion;
+import com.sk89q.worldedit.world.World;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.instance.game.GameMap;
 import us.smartmc.game.luckytowers.instance.game.GameTeamColor;
 import us.smartmc.game.luckytowers.manager.GameMapManager;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 public class EditorSession {
 
+    @Getter
     private final Player player;
 
     private static final GameMapManager mapManager = LuckyTowers.getManager(GameMapManager.class);
@@ -23,11 +38,42 @@ public class EditorSession {
         this.player = player;
     }
 
+    public void saveRegion() throws Exception {
+        World weWorld = WorldEdit.getInstance().getPlatformManager().getWorldForEditing(new BukkitWorld(player.getWorld()));
+        BlockVector3 pos1 = getBlockVectorByLocation(getMap().getPos1());
+        BlockVector3 pos2 = getBlockVectorByLocation(getMap().getPos2());
+        CuboidRegion region = new CuboidRegion(weWorld, pos1, pos2);
+
+        BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
+
+        ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(
+                weWorld, region, clipboard, region.getMinimumPoint()
+        );
+        Operations.complete(forwardExtentCopy);
+
+        File file = getMapSchematicFile(mapId);
+
+        try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(file))) {
+            writer.write(clipboard);
+        }
+    }
+
     public GameTeamColor rotateColor() {
         return color.next();
     }
     public GameMap getMap() {
         return mapManager.get(mapId);
+    }
+
+    private static BlockVector3 getBlockVectorByLocation(Location location) {
+        int x = (int) location.getX();
+        int y = (int) location.getY();
+        int z = (int) location.getZ();
+        return BlockVector3.at(x, y, z);
+    }
+
+    private static File getMapSchematicFile(String name) {
+        return new File(GameMapManager.MAPS_SCHEMS_DIRECTORY, name + ".schem");
     }
 
 }

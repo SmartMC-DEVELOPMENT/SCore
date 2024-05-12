@@ -12,11 +12,17 @@ public class MainPluginConfig extends FilePluginConfig {
 
     private static final String LOBBY_ENABLED_PATH = "lobbyEnabled";
     private static final String LOBBY_LOCATION_PATH = "lobbyLocation";
+    private static final String MAPS_WORLD_PATH = "mapsWorld";
 
     public MainPluginConfig() {
         super(plugin.getDataFolder() + "/config.json");
         load();
         registerDefault(LOBBY_ENABLED_PATH, true);
+        registerDefault(MAPS_WORLD_PATH, "maps");
+    }
+
+    public String getMapsWorldDirName() {
+        return getString(MAPS_WORLD_PATH);
     }
 
     public void setLobby(Location location) {

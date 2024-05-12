@@ -4,6 +4,7 @@ import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.LuckyTowers;
+import us.smartmc.game.luckytowers.command.LeaveCommand;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.manager.GameMapManager;
@@ -22,12 +23,17 @@ public class PlayerOptionCommand implements ItemActionExecutor {
         if (args[0].equals("playMap")) {
             GameSessionsManager sessionsManager = LuckyTowers.getManager(GameSessionsManager.class);
             String name = args[1];
-            GameSession session = sessionsManager.createOrGetByName(name);
+            GameSession session = sessionsManager.createOrGetByName(name, 1);
             session.joinPlayer(gamePlayer);
         }
 
         if (args[0].equals("vote")) {
             new VoteMenu(player).open(player);
         }
+
+        if (args[0].equals("leave")) {
+            LeaveCommand.leave(player);
+        }
+
     }
 }

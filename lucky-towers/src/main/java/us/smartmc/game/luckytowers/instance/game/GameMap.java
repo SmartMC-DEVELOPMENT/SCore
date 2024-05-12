@@ -97,8 +97,8 @@ public class GameMap {
         return getConfigLocation(POS2_PATH);
     }
 
-    public Location getSpawn() {
-        return getConfigLocation(SPAWN_PATH);
+    public Location getSpawn(int xLocationAddition) {
+        return getConfigLocation(SPAWN_PATH).clone().add(xLocationAddition, 0, 0);
     }
 
     public int getTimeLimit() {

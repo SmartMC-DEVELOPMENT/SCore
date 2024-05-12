@@ -23,12 +23,12 @@ public class ConfigUtils {
         Location location =
                 new Location(Bukkit.getWorld(
                         document.getString("world")),
-                        document.getDouble("x"),
-                        document.getDouble("y"),
-                        document.getDouble("z"));
+                        document.get("x", Number.class).doubleValue(),
+                        document.get("y", Number.class).doubleValue(),
+                        document.get("z", Number.class).doubleValue());
         if (document.containsKey("yaw") && document.containsKey("pitch")) {
-            location.setYaw(document.getDouble("yaw").floatValue());
-            location.setPitch(document.getDouble("pitch").floatValue());
+            location.setYaw(document.get("yaw", Number.class).floatValue());
+            location.setPitch(document.get("pitch", Number.class).floatValue());
         }
         return location;
     }

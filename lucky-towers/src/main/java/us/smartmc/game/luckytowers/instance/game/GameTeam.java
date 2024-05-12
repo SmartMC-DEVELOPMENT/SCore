@@ -7,16 +7,21 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
 public class GameTeam {
 
+    @Getter
     private final GameTeamColor color;
+    @Getter
     private final Set<UUID> players = new HashSet<>();
     private final Location spawnAssigned;
 
     public GameTeam(GameTeamColor color, Location spawnAssigned) {
         this.color = color;
         this.spawnAssigned = spawnAssigned;
+    }
+
+    public Location getSpawnAssigned(int additionXLocation) {
+        return spawnAssigned.clone().add(additionXLocation, 0, 0);
     }
 
     public int getPlayersSize() {

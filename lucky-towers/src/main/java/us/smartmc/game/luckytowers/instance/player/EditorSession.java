@@ -72,7 +72,7 @@ public class EditorSession {
         return BlockVector3.at(x, y, z);
     }
 
-    private static File getMapSchematicFile(String name) {
+    public static File getMapSchematicFile(String name) {
         return new File(GameMapManager.MAPS_SCHEMS_DIRECTORY, name + ".schem");
     }
 

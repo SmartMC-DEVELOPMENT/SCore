@@ -1,7 +1,9 @@
 package us.smartmc.game.luckytowers.instance.game;
 
+import com.sk89q.worldedit.EditSession;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -10,8 +12,10 @@ import us.smartmc.game.luckytowers.command.LeaveCommand;
 import us.smartmc.game.luckytowers.event.GameStatusChangeEvent;
 import us.smartmc.game.luckytowers.event.player.GamePlayerDeathEvent;
 import us.smartmc.game.luckytowers.event.player.GamePlayerJoinSessionEvent;
+import us.smartmc.game.luckytowers.instance.map.MapsGeneration;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
+import us.smartmc.game.luckytowers.manager.GameMapManager;
 import us.smartmc.game.luckytowers.manager.GameSessionsManager;
 import us.smartmc.game.luckytowers.messages.GameMessages;
 import us.smartmc.game.luckytowers.util.GameUtil;
@@ -26,6 +30,8 @@ public class GameSession implements IGameSession {
 
     private static final int GENERATION_ITEMS_TICKS = 60;
     private static final int DEFAULT_SECONDS_COOLDOWN = 5;
+
+    private static final GameMapManager mapManager = LuckyTowers.getManager(GameMapManager.class);
 
     private final UUID id;
 
@@ -42,10 +48,25 @@ public class GameSession implements IGameSession {
     private int secondsRemaining, playersRemaining;
     private BukkitRunnable timeLimitTask, generateItemsTask;
 
+    private int referenceXChunkReserved;
+    private int xAddition = -1;
+
+    private EditSession schemSession;
+
     public GameSession(UUID id, GameMap map) {
         this.id = id;
         this.map = map;
         this.teams = new GameSessionTeams(this);
+    }
+
+    private void loadMapSchemAndReserveChunks() {
+        if (xAddition != -1) return;
+        MapsGeneration generation = GameMapManager.getMainMapsGeneration();
+        Chunk chunk = generation.reserveNext();
+        xAddition = MapsGeneration.getXAdditionByChunk(map.getSpawn(0).getChunk(), chunk);
+        referenceXChunkReserved = chunk.getX();
+        schemSession = MapsGeneration.loadAndPasteSchematic(this);
+        if (schemSession == null) end();
     }
 
     @Override
@@ -56,7 +77,7 @@ public class GameSession implements IGameSession {
             team.getPlayers().forEach(uuid -> {
                 GamePlayer gamePlayer = GamePlayer.get(uuid);
                 gamePlayer.onlinePlayer(p -> {
-                    p.teleport(team.getSpawnAssigned());
+                    p.teleport(team.getSpawnAssigned(xAddition));
                 });
             });
         });
@@ -88,6 +109,8 @@ public class GameSession implements IGameSession {
         if (getStatus().equals(GameSessionStatus.ENDING)) return;
         System.out.println("Ending session...");
         setStatus(GameSessionStatus.ENDING);
+        schemSession.undo(schemSession);
+        GameMapManager.getMainMapsGeneration().setAvailable(referenceXChunkReserved);
         new HashSet<>(players).forEach(gamePlayer -> {
             gamePlayer.onlinePlayer(LeaveCommand::leave);
             System.out.println("Leaving " + gamePlayer.getBukkitPlayer().getName());
@@ -116,8 +139,9 @@ public class GameSession implements IGameSession {
 
     @Override
     public void joinPlayer(GamePlayer gamePlayer) {
+        loadMapSchemAndReserveChunks();
         players.add(gamePlayer);
-        gamePlayer.onlinePlayer(p -> p.teleport(map.getSpawn()));
+        gamePlayer.onlinePlayer(p -> p.teleport(map.getSpawn(xAddition)));
         gamePlayer.setGameSession(this);
         gamePlayer.setStatus(PlayerStatus.INGAME);
         teams.assignNextEmptyTeam(gamePlayer);
@@ -144,7 +168,7 @@ public class GameSession implements IGameSession {
             Location location = player.getLocation();
             if (player.isDead())
                 player.spigot().respawn();
-            player.teleport(map.getSpawn());
+            player.teleport(map.getSpawn(xAddition));
             player.playSound(location, Sound.ENTITY_PLAYER_DEATH, 1.0f, 2.0f);
         });
         if (canEnd()) end();

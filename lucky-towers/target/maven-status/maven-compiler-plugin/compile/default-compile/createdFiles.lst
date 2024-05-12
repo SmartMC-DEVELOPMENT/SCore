@@ -2,6 +2,7 @@ us\smartmc\game\luckytowers\menu\LobbyHotbar.class
 us\smartmc\game\luckytowers\instance\task\LaterTask$1.class
 us\smartmc\game\luckytowers\instance\game\GameTemplate.class
 us\smartmc\game\luckytowers\listener\PlayerLogicListeners.class
+us\smartmc\game\luckytowers\instance\map\MapsGeneration.class
 us\smartmc\game\luckytowers\event\GamePluginEvent.class
 us\smartmc\game\luckytowers\instance\game\GameSession.class
 us\smartmc\game\luckytowers\instance\game\GameTeamColor.class
@@ -57,7 +58,6 @@ us\smartmc\game\luckytowers\itemcmd\SpectatorModeCommand.class
 us\smartmc\game\luckytowers\util\GameUtil$1.class
 us\smartmc\game\luckytowers\instance\game\GameSession$2.class
 us\smartmc\game\luckytowers\event\GameEvent.class
-us\smartmc\game\luckytowers\instance\player\PlayerBox.class
 us\smartmc\game\luckytowers\menu\hotbar\EditorModeHotbar.class
 us\smartmc\game\luckytowers\messages\GameMessages.class
 us\smartmc\game\luckytowers\manager\EditorModeManager.class

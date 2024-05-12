@@ -1,5 +1,6 @@
 package us.smartmc.game.luckytowers.listener;
 
+import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,7 +29,7 @@ public class EssentialsListeners implements Listener {
     }
 
     @EventHandler
-    public void createGamePlayer(PlayerJoinEvent event) {
+    public void createGamePlayer(PlayerDataLoadedEvent event) {
         GamePlayer.get(event.getPlayer().getUniqueId());
     }
 

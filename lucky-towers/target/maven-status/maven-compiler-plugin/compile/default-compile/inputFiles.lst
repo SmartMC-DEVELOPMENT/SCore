@@ -28,9 +28,9 @@ D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\me
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\event\player\PlayerStatusChangeEvent.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\instance\game\IGameSession.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\instance\game\GameSessionStatus.java
+D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\instance\map\MapsGeneration.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\listener\MainGameListeners.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\event\GameEvent.java
-D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\instance\player\PlayerBox.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\event\GamePluginEvent.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\event\GamePlayerEvent.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\command\AdminGameCommand.java

@@ -1,7 +1,9 @@
 package us.smartmc.game.luckytowers.instance.game;
 
+import org.bukkit.Location;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -20,6 +22,7 @@ public class GameSessionTeams {
         int slots = 0;
         int teamCapacity = session.getMap().getTemplate().getMaxTeamCapacity();
         for (GameTeam team : gameTeams) {
+            if (team == null) continue;
             int size = team.getPlayersSize();
             int min = Math.min(teamCapacity, size);
             int max = Math.max(teamCapacity, size);
@@ -32,6 +35,7 @@ public class GameSessionTeams {
     public int getTeamsWithPlayersSize() {
         int count = 0;
         for (GameTeam team : gameTeams) {
+            if (team == null) continue;
             if (team.isEmpty()) continue;
             count++;
         }
@@ -40,6 +44,7 @@ public class GameSessionTeams {
 
     public void forEachTeam(Consumer<GameTeam> consumer) {
         for (GameTeam team : gameTeams) {
+            if (team == null) continue;
             consumer.accept(team);
         }
     }
@@ -47,6 +52,7 @@ public class GameSessionTeams {
     public void setTeam(GamePlayer player, GameTeamColor teamColor) {
         GameTeam teamToAssign = null;
         for (GameTeam team : gameTeams) {
+            if (team == null) continue;
             if (!team.getColor().equals(teamColor)) continue;
             teamToAssign = team;
             break;
@@ -68,6 +74,7 @@ public class GameSessionTeams {
     public void clearTeams(GamePlayer player) {
         UUID id = player.getUuid();
         for (GameTeam team : gameTeams) {
+            if (team == null) continue;
             team.removePlayer(id);
         }
     }
@@ -80,6 +87,7 @@ public class GameSessionTeams {
     private int getNextFreeIndex() {
         int index = 0;
         for (GameTeam team : gameTeams) {
+            if (team == null) continue;
             if (team.isEmpty()) return index;
             index++;
         }
@@ -90,7 +98,9 @@ public class GameSessionTeams {
         GameTeam[] teams = new GameTeam[session.getMap().getSpawnLocations().size()];
         int index = 0;
         for (GameTeamColor color : GameTeamColor.values()) {
-            GameTeam team = new GameTeam(color, session.getMap().getSpawnLocations().get(index));
+            List<Location> spawnLocations = session.getMap().getSpawnLocations();
+            if (spawnLocations.size() <= index) break;
+            GameTeam team = new GameTeam(color, spawnLocations.get(index));
             if (index >= teams.length) break;
             teams[index] = team;
             index++;

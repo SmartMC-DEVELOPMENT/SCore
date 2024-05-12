@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.util.BlockVector;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.instance.game.GameMap;
 import us.smartmc.game.luckytowers.instance.game.GameTeamColor;
@@ -42,7 +43,11 @@ public class EditorSession {
         World weWorld = WorldEdit.getInstance().getPlatformManager().getWorldForEditing(new BukkitWorld(player.getWorld()));
         BlockVector3 pos1 = getBlockVectorByLocation(getMap().getPos1());
         BlockVector3 pos2 = getBlockVectorByLocation(getMap().getPos2());
-        CuboidRegion region = new CuboidRegion(weWorld, pos1, pos2);
+
+        BlockVector3 min = min(pos1, pos2);
+        BlockVector3 max = max(pos1, pos2);
+
+        CuboidRegion region = new CuboidRegion(weWorld, min, max);
 
         BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
 
@@ -65,7 +70,7 @@ public class EditorSession {
         return mapManager.get(mapId);
     }
 
-    private static BlockVector3 getBlockVectorByLocation(Location location) {
+    public static BlockVector3 getBlockVectorByLocation(Location location) {
         int x = (int) location.getX();
         int y = (int) location.getY();
         int z = (int) location.getZ();
@@ -74,6 +79,20 @@ public class EditorSession {
 
     public static File getMapSchematicFile(String name) {
         return new File(GameMapManager.MAPS_SCHEMS_DIRECTORY, name + ".schem");
+    }
+
+    public static BlockVector3 max(BlockVector3 vec1, BlockVector3 vec2) {
+        int maxX = Math.max(vec1.getX(), vec2.getX());
+        int maxY = Math.max(vec1.getY(), vec2.getY());
+        int maxZ = Math.max(vec1.getZ(), vec2.getZ());
+        return BlockVector3.at(maxX, maxY, maxZ);
+    }
+
+    public static BlockVector3 min(BlockVector3 vec1, BlockVector3 vec2) {
+        int minX = Math.min(vec1.getX(), vec2.getX());
+        int minY = Math.min(vec1.getY(), vec2.getY());
+        int minZ = Math.min(vec1.getZ(), vec2.getZ());
+        return BlockVector3.at(minX, minY, minZ);
     }
 
 }

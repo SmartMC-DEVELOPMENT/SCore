@@ -1,6 +1,7 @@
 package us.smartmc.game.luckytowers.instance.game;
 
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 import java.util.HashSet;
@@ -13,6 +14,7 @@ public class GameTeam {
     private final GameTeamColor color;
     @Getter
     private final Set<UUID> players = new HashSet<>();
+
     private final Location spawnAssigned;
 
     public GameTeam(GameTeamColor color, Location spawnAssigned) {
@@ -21,6 +23,8 @@ public class GameTeam {
     }
 
     public Location getSpawnAssigned(int additionXLocation) {
+        if (spawnAssigned.getWorld() == null)
+            spawnAssigned.setWorld(Bukkit.getWorld(spawnAssigned.getWorld().getName()));
         return spawnAssigned.clone().add(additionXLocation, 0, 0);
     }
 

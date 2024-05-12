@@ -72,15 +72,15 @@ public class MapsGeneration {
             int xAddition = session.getXAddition();
             World bukkitWorld = session.getMap().getSpawn(0).getWorld();
 
-            Location center = session.getMap().getSpawn(xAddition);
-            int x = center.getBlockX();
-            int y = center.getBlockY();
-            int z = center.getBlockZ();
+            BlockVector3 pos1 = EditorSession.getBlockVectorByLocation(session.getMap().getPos1());
+            BlockVector3 pos2 = EditorSession.getBlockVectorByLocation(session.getMap().getPos2());
+
+            BlockVector3 min = EditorSession.min(pos1, pos2);
 
             try (EditSession editSession = WorldEdit.getInstance().newEditSession(new BukkitWorld(bukkitWorld))) {
                 Operation operation = new ClipboardHolder(clipboard)
                         .createPaste(editSession)
-                        .to(BlockVector3.at(x, y, z))
+                        .to(min)
                         // configure here
                         .build();
                 Operations.complete(operation);

@@ -2,8 +2,14 @@ package us.smartmc.backend.connection;
 
 import lombok.Getter;
 import us.smartmc.backend.handler.ConnectionInputManager;
+import us.smartmc.backend.instance.cache.CacheCommand;
+import us.smartmc.backend.instance.cache.CacheCommandType;
+import us.smartmc.backend.instance.messaging.MessageCommand;
+import us.smartmc.backend.listener.CacheCommandListener;
 import us.smartmc.backend.listener.CommandHandlerListener;
-import us.smartmc.backend.protocol.*;
+import us.smartmc.backend.listener.MessagingChannelListener;
+import us.smartmc.backend.protocol.CommandRequest;
+import us.smartmc.backend.protocol.ObjectCommand;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -34,7 +40,11 @@ public class ConnectionHandler implements Runnable {
 
     private static void registerDefaultListeners() {
         if (defaultListenersAlreadyRegistered) return;
-        ConnectionInputManager.registerListeners(new CommandHandlerListener());
+        ConnectionInputManager
+                .registerListeners(
+                        new CommandHandlerListener(),
+                        new CacheCommandListener(),
+                        new MessagingChannelListener());
         defaultListenersAlreadyRegistered = true;
     }
 
@@ -55,6 +65,27 @@ public class ConnectionHandler implements Runnable {
         } catch (Exception e) {
             handleException(e);
         }
+    }
+
+    public void sendMessagingChannel(String id, String message) {
+        sendObject(new MessageCommand(id, message));
+    }
+
+    public void registerCache(String key, Object value) {
+        sendObject(CacheCommand.build(CacheCommandType.REGISTER, key).value(value));
+    }
+
+    // TODO: HACER METODO PARA OBTENER Y TRABAJAR CON LO OBTENIDO (de momento solo envia instruccion y en segundo plano obtiene valor a local)
+    public void getCache(String key) {
+        sendObject(CacheCommand.build(CacheCommandType.GET, key));
+    }
+
+    public void updateCache(String key, Object value) {
+        sendObject(CacheCommand.build(CacheCommandType.UPDATE, key).value(value));
+    }
+
+    public void removeCache(String key) {
+        sendObject(CacheCommand.build(CacheCommandType.REMOVE, key));
     }
 
     public void handleException(Exception e) {

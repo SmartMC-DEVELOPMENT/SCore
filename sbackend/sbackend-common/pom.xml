@@ -18,7 +18,11 @@
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>me.imsergioh.pluginsapi</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

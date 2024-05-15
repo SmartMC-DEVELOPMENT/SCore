@@ -71,6 +71,7 @@ public class GameSession implements IGameSession {
 
     @Override
     public void start() {
+        if (getStatus().equals(GameSessionStatus.STARTING)) return;
         setStatus(GameSessionStatus.STARTING);
         playersRemaining = getAlivePlayers().size();
         teams.forEachTeam(team -> {

@@ -4,10 +4,17 @@ import us.smartmc.backend.instance.service.IBackendService;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class ServicesManager {
 
     private static final Map<Class<? extends IBackendService>, IBackendService> services = new HashMap<>();
+
+    public static <T extends IBackendService> void checkServiceAvailability(Class<T> clazz, Consumer<T> unloaded, Consumer<T> loaded) {
+        T service = get(clazz);
+        Consumer<T> toAccept = service.isLoaded() ? loaded : unloaded;
+        toAccept.accept(service);
+    }
 
     public static void load(Class<? extends IBackendService> clazz) {
         IBackendService service = get(clazz);

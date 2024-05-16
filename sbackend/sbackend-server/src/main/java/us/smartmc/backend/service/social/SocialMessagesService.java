@@ -7,12 +7,10 @@ public class SocialMessagesService extends BackendService {
     @Override
     public void load() {
         super.load();
-
     }
 
     @Override
     public void unload() {
         super.unload();
-
     }
 }

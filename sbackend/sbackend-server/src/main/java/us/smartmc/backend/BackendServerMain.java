@@ -6,7 +6,7 @@ import us.smartmc.backend.handler.*;
 import us.smartmc.backend.instance.config.JsonConfig;
 import us.smartmc.backend.listener.PlayerContextsListeners;
 import us.smartmc.backend.listener.RequestPlayerCacheListener;
-import us.smartmc.backend.service.TestPlayerService;
+import us.smartmc.backend.service.SocialServices;
 import us.smartmc.backend.util.ConsoleUtil;
 
 import java.io.File;
@@ -22,6 +22,8 @@ public class BackendServerMain {
     private static BackendServer backendServer;
 
     private static JsonConfig mainConfig;
+
+    private static ServicesManager serviceManager;
 
     public static void main(String[] args) throws Exception {
         parentDirectory = getJarParentDirectory();
@@ -63,7 +65,8 @@ public class BackendServerMain {
     }
 
     private static void registerServices() {
-        ServicesManager.registerServices(true, new TestPlayerService());
+        ServicesManager.registerServices(true, new SocialServices());
+        ServicesManager.get(SocialServices.class).getMessagesService().unload();
     }
 
     public static File getLoginsDirectory() {

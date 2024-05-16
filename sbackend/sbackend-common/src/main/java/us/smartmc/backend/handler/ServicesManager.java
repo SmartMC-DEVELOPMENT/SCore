@@ -28,8 +28,7 @@ public class ServicesManager {
         }
     }
 
-    public static <T extends IBackendService> T get(Class<? extends IBackendService> clazz) {
-        return (T) services.get(clazz);
+    public static <T extends IBackendService> T get(Class<T> clazz) {
+        return (T) clazz.cast(services.get(clazz));
     }
-
 }

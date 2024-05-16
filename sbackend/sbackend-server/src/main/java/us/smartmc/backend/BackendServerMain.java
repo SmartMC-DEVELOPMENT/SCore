@@ -1,15 +1,16 @@
 package us.smartmc.backend;
 
 import lombok.Getter;
-import us.smartmc.backend.command.HelloWorldCmd;
 import us.smartmc.backend.connection.BackendServer;
 import us.smartmc.backend.handler.*;
 import us.smartmc.backend.instance.config.JsonConfig;
 import us.smartmc.backend.listener.PlayerContextsListeners;
 import us.smartmc.backend.listener.RequestPlayerCacheListener;
+import us.smartmc.backend.service.TestPlayerService;
 import us.smartmc.backend.util.ConsoleUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class BackendServerMain {
@@ -25,24 +26,25 @@ public class BackendServerMain {
     public static void main(String[] args) throws Exception {
         parentDirectory = getJarParentDirectory();
 
+        setupConfiguration();
+        LoginAuthManager.loadAuthentifications();
+        ModulesHandler.setup();
+        ConnectionInputManager.registerListeners(new PlayerContextsListeners(), new RequestPlayerCacheListener());
+
+        startBackendServer();
+        startReadingConsoleInput();
+    }
+
+    private static void setupConfiguration() {
         mainConfig = new JsonConfig(new File(parentDirectory, "config.json"));
         mainConfig.load();
         mainConfig.registerDefaultValue("keystorePass", "P4ssw0rdS3cvre2024YTSMARTMCÑ");
         mainConfig.registerDefaultValue("logins-directory", "/home/network/sbackend/logins");
         mainConfig.registerDefaultValue("port", 7723);
         mainConfig.save();
+    }
 
-        AuthHandler.loadCache();
-
-        ModulesHandler.setup();
-
-        ConnectionInputManager.registerListeners(new PlayerContextsListeners(), new RequestPlayerCacheListener());
-
-        // Al final de main: Crear BackendServer (Se quedará en hili principal aceptando conexiones)
-        backendServer = new BackendServer(((Number) mainConfig.get("port")).intValue());
-
-        ConsoleUtil.print("&c¡Hola mundo pero en rojo! :D");
-
+    private static void startReadingConsoleInput() {
         try {
             String line;
             while ((line = ConsoleUtil.readLine()) != null) {
@@ -54,6 +56,14 @@ public class BackendServerMain {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void startBackendServer() throws IOException {
+        backendServer = new BackendServer(((Number) mainConfig.get("port")).intValue());
+    }
+
+    private static void registerServices() {
+        ServicesManager.registerServices(true, TestPlayerService.class);
     }
 
     public static File getLoginsDirectory() {

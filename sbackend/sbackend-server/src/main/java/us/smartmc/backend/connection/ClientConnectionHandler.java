@@ -1,12 +1,10 @@
 package us.smartmc.backend.connection;
 
-import us.smartmc.backend.handler.AuthHandler;
+import us.smartmc.backend.handler.LoginAuthManager;
 import us.smartmc.backend.protocol.LoginRequest;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketException;
 
 public class ClientConnectionHandler extends ConnectionHandler {
 
@@ -19,7 +17,7 @@ public class ClientConnectionHandler extends ConnectionHandler {
         try {
             Object o = inputStream.readObject(LoginRequest.class);
             if (o instanceof LoginRequest loginRequest) {
-                if (!AuthHandler.checkLogin(loginRequest.getUsername(), loginRequest.getPassword())) {
+                if (!LoginAuthManager.checkLogin(loginRequest.getUsername(), loginRequest.getPassword())) {
                     disconectConnection(connection);
                     return;
                 }

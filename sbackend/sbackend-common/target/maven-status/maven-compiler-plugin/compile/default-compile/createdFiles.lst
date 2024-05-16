@@ -1,4 +1,5 @@
 us\smartmc\backend\instance\IBackendCommandExecutor.class
+us\smartmc\backend\instance\service\IBackendService.class
 us\smartmc\backend\protocol\LoginRequest.class
 us\smartmc\backend\connection\ConnectionHandler.class
 us\smartmc\backend\protocol\ObjectCommand.class
@@ -12,9 +13,11 @@ us\smartmc\backend\protocol\GetPlayerCacheRequest.class
 us\smartmc\backend\instance\messaging\IMessageChannel.class
 us\smartmc\backend\protocol\PlayerContextRequestType.class
 us\smartmc\backend\protocol\UTFMessage.class
+us\smartmc\backend\instance\service\BackendService.class
 us\smartmc\backend\instance\plugin\PluginLoader.class
 us\smartmc\backend\instance\cache\CacheCommand.class
 us\smartmc\backend\instance\messaging\MessageChannel.class
+us\smartmc\backend\handler\ServicesManager.class
 us\smartmc\backend\handler\ClassLoaderUtils.class
 us\smartmc\backend\instance\config\FileConfig.class
 us\smartmc\backend\instance\messaging\MessageCommand.class

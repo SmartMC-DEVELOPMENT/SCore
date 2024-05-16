@@ -1,6 +1,7 @@
 us\smartmc\backend\listener\PlayerContextsListeners$1.class
 us\smartmc\backend\BackendServerMain.class
 us\smartmc\backend\command\UpdateServerInfoCmd.class
+us\smartmc\backend\service\TestPlayerService.class
 us\smartmc\backend\handler\PlayersInfoHandler.class
 us\smartmc\backend\connection\BackendServer.class
 us\smartmc\backend\instance\handler\MapHandler.class
@@ -14,5 +15,6 @@ us\smartmc\backend\command\HelloWorldCmd.class
 us\smartmc\backend\instance\server\ServerInfo.class
 us\smartmc\backend\listener\PlayerContextsListeners.class
 us\smartmc\backend\connection\BackendClientConnection.class
+us\smartmc\backend\command\subscribeChannel.class
 us\smartmc\backend\instance\handler\IMapHandler.class
 us\smartmc\backend\handler\AuthHandler.class

@@ -1,12 +1,6 @@
 package us.smartmc.backend.connection;
 
 import redis.clients.jedis.JedisPool;
-import us.smartmc.backend.connection.manager.PlayerCacheManager;
-import us.smartmc.backend.protocol.GetPlayerCacheRequest;
-import us.smartmc.backend.protocol.PlayerContextRequest;
-import us.smartmc.backend.protocol.PlayerContextRequestType;
-
-import java.util.UUID;
 
 public class TestMain {
 

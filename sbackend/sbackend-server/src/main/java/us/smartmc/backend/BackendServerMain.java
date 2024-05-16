@@ -63,7 +63,7 @@ public class BackendServerMain {
     }
 
     private static void registerServices() {
-        ServicesManager.registerServices(true, TestPlayerService.class);
+        ServicesManager.registerServices(true, new TestPlayerService());
     }
 
     public static File getLoginsDirectory() {

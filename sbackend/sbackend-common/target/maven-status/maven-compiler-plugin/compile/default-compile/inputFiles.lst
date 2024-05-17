@@ -17,6 +17,7 @@ D:\workspace2024\SCore\sbackend\sbackend-common\src\main\java\us\smartmc\backend
 D:\workspace2024\SCore\sbackend\sbackend-common\src\main\java\us\smartmc\backend\protocol\ObjectCommand.java
 D:\workspace2024\SCore\sbackend\sbackend-common\src\main\java\us\smartmc\backend\listener\CacheCommandListener.java
 D:\workspace2024\SCore\sbackend\sbackend-common\src\main\java\us\smartmc\backend\instance\BackendUTFListener.java
+D:\workspace2024\SCore\sbackend\sbackend-common\src\main\java\us\smartmc\backend\protocol\LoginCompleted.java
 D:\workspace2024\SCore\sbackend\sbackend-common\src\main\java\us\smartmc\backend\protocol\LoginRequest.java
 D:\workspace2024\SCore\sbackend\sbackend-common\src\main\java\us\smartmc\backend\protocol\GetPlayerCacheRequest.java
 D:\workspace2024\SCore\sbackend\sbackend-common\src\main\java\us\smartmc\backend\listener\CommandHandlerListener.java

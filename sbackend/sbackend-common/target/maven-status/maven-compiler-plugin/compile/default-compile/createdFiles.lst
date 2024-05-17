@@ -22,6 +22,7 @@ us\smartmc\backend\handler\ClassLoaderUtils.class
 us\smartmc\backend\instance\config\FileConfig.class
 us\smartmc\backend\instance\messaging\MessageCommand.class
 us\smartmc\backend\handler\CacheManager.class
+us\smartmc\backend\protocol\LoginCompleted.class
 us\smartmc\backend\connection\ConnectionOutputStream.class
 us\smartmc\backend\instance\BackendCommandExecutor.class
 us\smartmc\backend\instance\BackendUTFListener.class

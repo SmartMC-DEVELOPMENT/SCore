@@ -1,2 +1,5 @@
 us\smartmc\backend\connection\TestMain.class
+us\smartmc\backend\connection\ClientReconnectionTimer.class
+us\smartmc\backend\connection\listener\LoginCompleteListener.class
+us\smartmc\backend\connection\ClientReconnectionTimer$1.class
 us\smartmc\backend\connection\BackendClient.class

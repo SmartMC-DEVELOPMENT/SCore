@@ -1,6 +1,7 @@
 package us.smartmc.backend.connection;
 
 import lombok.Getter;
+import us.smartmc.backend.protocol.LoginCompleted;
 import us.smartmc.backend.util.ConsoleUtil;
 
 import java.net.Socket;

@@ -20,7 +20,7 @@ public class ConnectionHandler implements Runnable {
     private static boolean defaultListenersAlreadyRegistered;
 
     @Getter
-    protected final Socket connection;
+    protected Socket connection;
 
     protected final ConnectionOutputStream outputStream;
     protected final ConnectionInputStream inputStream;
@@ -94,7 +94,7 @@ public class ConnectionHandler implements Runnable {
             outputStream.close();
             connection.close();
         } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            handleException(e);
         }
     }
 
@@ -102,7 +102,7 @@ public class ConnectionHandler implements Runnable {
         try {
             outputStream.writeUTF(message);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            handleException(e);
         }
     }
 
@@ -110,7 +110,7 @@ public class ConnectionHandler implements Runnable {
         try {
             outputStream.writeCommand(command);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            handleException(e);
         }
     }
 
@@ -118,7 +118,7 @@ public class ConnectionHandler implements Runnable {
         try {
             outputStream.writeObject(object);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            handleException(e);
         }
     }
 }

@@ -17,6 +17,7 @@ public class LoginCompleteListener extends BackendObjectListener<LoginCompleted>
     public void onReceive(ConnectionHandler connection, LoginCompleted o) {
         try {
             Method method = BackendClient.class.getDeclaredMethod("registerSuccessLogin");
+            method.setAccessible(true);
             method.invoke(BackendClient.mainConnection);
         } catch (Exception e) {
             throw new RuntimeException(e);

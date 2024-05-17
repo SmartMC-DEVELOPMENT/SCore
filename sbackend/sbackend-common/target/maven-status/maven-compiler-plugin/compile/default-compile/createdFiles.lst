@@ -9,9 +9,7 @@ us\smartmc\backend\instance\IBackendObjectListener.class
 us\smartmc\backend\instance\config\IConfig.class
 us\smartmc\backend\instance\cache\CacheCommandType.class
 us\smartmc\backend\instance\BackendObjectListener.class
-us\smartmc\backend\protocol\GetPlayerCacheRequest.class
 us\smartmc\backend\instance\messaging\IMessageChannel.class
-us\smartmc\backend\protocol\PlayerContextRequestType.class
 us\smartmc\backend\protocol\UTFMessage.class
 us\smartmc\backend\instance\service\BackendService.class
 us\smartmc\backend\instance\plugin\PluginLoader.class
@@ -28,7 +26,6 @@ us\smartmc\backend\instance\BackendCommandExecutor.class
 us\smartmc\backend\instance\BackendUTFListener.class
 us\smartmc\backend\instance\config\JsonConfig.class
 us\smartmc\backend\listener\CacheCommandListener$1.class
-us\smartmc\backend\protocol\PlayerContextRequest.class
 us\smartmc\backend\listener\CacheCommandListener.class
 us\smartmc\backend\protocol\CommandRequest.class
 us\smartmc\backend\instance\player\PlayerCache.class

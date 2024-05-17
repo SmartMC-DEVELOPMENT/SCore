@@ -1,11 +1,12 @@
 package us.smartmc.backend;
 
 import lombok.Getter;
+import us.smartmc.backend.command.SubChannelCommand;
+import us.smartmc.backend.command.UnsubChannelCommand;
 import us.smartmc.backend.connection.BackendServer;
 import us.smartmc.backend.handler.*;
 import us.smartmc.backend.instance.config.JsonConfig;
-import us.smartmc.backend.listener.PlayerContextsListeners;
-import us.smartmc.backend.listener.RequestPlayerCacheListener;
+import us.smartmc.backend.listener.SubscriptionsListeners;
 import us.smartmc.backend.service.SocialServices;
 import us.smartmc.backend.util.ConsoleUtil;
 
@@ -31,10 +32,15 @@ public class BackendServerMain {
         setupConfiguration();
         LoginAuthManager.loadAuthentifications();
         ModulesHandler.setup();
-        ConnectionInputManager.registerListeners(new PlayerContextsListeners(), new RequestPlayerCacheListener());
+        registerCommands();
 
         startBackendServer();
         startReadingConsoleInput();
+    }
+
+    private static void registerCommands() {
+        ConnectionInputManager.registerCommands(new SubChannelCommand(), new UnsubChannelCommand());
+        ConnectionInputManager.registerListeners(new SubscriptionsListeners());
     }
 
     private static void setupConfiguration() {
@@ -62,6 +68,7 @@ public class BackendServerMain {
 
     private static void startBackendServer() throws IOException {
         backendServer = new BackendServer(((Number) mainConfig.get("port")).intValue());
+        backendServer.start();
     }
 
     private static void registerServices() {

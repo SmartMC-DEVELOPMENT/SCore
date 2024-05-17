@@ -1,29 +1,45 @@
 package us.smartmc.backend.connection;
 
-import redis.clients.jedis.JedisPool;
+import us.smartmc.backend.connection.listener.CacheCompleteListener;
+import us.smartmc.backend.handler.ConnectionInputManager;
+import us.smartmc.backend.handler.MessagingChannelsManager;
+import us.smartmc.backend.instance.messaging.MessageChannel;
 
-public class TestMain {
+public class TestMain extends MessageChannel {
 
     private static BackendClient client;
-    private static JedisPool pool;
+
+    private static long start;
+
+    public TestMain(String id) {
+        super(id);
+    }
 
     public static void main(String[] initArgs)  {
         try {
+            ConnectionInputManager.registerListeners(new CacheCompleteListener());
             client = new BackendClient("66.70.181.34", 7723);
             client.login("default", "SmartMC2024Ñ");
             new Thread(client).start();
 
-            client.registerCache("player.imsergioh", "MISSAWOWA");
-            client.getCache("player.imsergioh");
-            client.registerCache("player.imsergioh", "VALOOOOR NUEVO PERO NO SE DEBERIA REMPLZAZAR");
-            client.removeCache("PIMPARAPUM");
-            client.removeCache("player.imsergioh");
+            MessagingChannelsManager.register(new TestMain("test:main"));
 
-            client.registerCache("player.imsergioh", "DIOOOOOS");
-            client.registerCache("player.imsergioh", "123");
-            client.getCache("player.imsergioh");
+            client.subscribe("test:main");
+
+            for (int i = 0; i < 99; i++) {
+                start = System.currentTimeMillis();
+                client.publishMessage("test:main", "Un mensaje totalmente normal sin ningún tipo de duda");
+                Thread.sleep(1000);
+            }
         } catch (Exception e) {
             client.handleException(e);
         }
+    }
+
+    @Override
+    public void onMessage(String channelId, String message) {
+        long end = System.currentTimeMillis();
+        long difference = end - start;
+        System.out.println("RECEIVED MESSASGE CHANNEL " + channelId + " " + message + " (" + difference + "ms)");
     }
 }

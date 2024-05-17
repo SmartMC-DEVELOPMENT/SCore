@@ -13,6 +13,9 @@ import us.smartmc.backend.protocol.ObjectCommand;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
 
 @Getter
 public class ConnectionHandler implements Runnable {
@@ -67,7 +70,7 @@ public class ConnectionHandler implements Runnable {
         }
     }
 
-    public void sendMessagingChannel(String id, String message) {
+    public void publishMessage(String id, String message) {
         sendObject(new MessageCommand(id, message));
     }
 
@@ -76,7 +79,7 @@ public class ConnectionHandler implements Runnable {
     }
 
     // TODO: HACER METODO PARA OBTENER Y TRABAJAR CON LO OBTENIDO (de momento solo envia instruccion y en segundo plano obtiene valor a local)
-    public void getCache(String key) {
+    public void getCache(String key, Consumer<Object> consumer) {
         sendObject(CacheCommand.build(CacheCommandType.GET, key));
     }
 

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 @Getter
 public class BackendClientConnection {
@@ -24,6 +25,7 @@ public class BackendClientConnection {
         this.connectionHandler = connectionHandler;
         this.clientName = getClientName(username);
         connections.put(clientName, this);
+        connectionHandler.sendObject(new LoginCompleted(clientName));
         ConsoleUtil.print("New client connection logged in! (" + clientName + ")");
     }
 
@@ -59,6 +61,19 @@ public class BackendClientConnection {
         if (clientName == null) return;
         connections.remove(clientName);
         System.out.println(clientName + " disconnected!");
+    }
+
+    public static BackendClientConnection get(ConnectionHandler handler) {
+        Socket socket = handler.getConnection();
+        for (BackendClientConnection connection : connections.values()) {
+            if (!connection.getConnectionHandler().getConnection().equals(socket)) continue;
+            return connection;
+        }
+        return null;
+    }
+
+    public static void forEachBackendClient(Consumer<BackendClientConnection> consumer) {
+        connections.values().forEach(consumer);
     }
 
 }

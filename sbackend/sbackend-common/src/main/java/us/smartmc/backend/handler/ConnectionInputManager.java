@@ -25,7 +25,7 @@ public class ConnectionInputManager {
 
     public static void performListener(ConnectionHandler connection, Object object) {
         for (IBackendObjectListener listener : listeners) {
-            if (!listener.getTypeClass().getName().equals(object.getClass().getName())) continue;
+            if (!object.getClass().isAssignableFrom(listener.getTypeClass())) continue;
             listener.onReceive(connection, listener.getTypeClass().cast(object));
         }
     }

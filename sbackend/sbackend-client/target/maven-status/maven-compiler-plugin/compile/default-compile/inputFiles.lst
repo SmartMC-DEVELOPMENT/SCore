@@ -4,5 +4,6 @@ D:\workspace2024\SCore\sbackend\sbackend-client\src\main\java\us\smartmc\backend
 D:\workspace2024\SCore\sbackend\sbackend-client\src\main\java\us\smartmc\backend\connection\listener\CacheCompleteListener.java
 D:\workspace2024\SCore\sbackend\sbackend-client\src\main\java\us\smartmc\backend\connection\ClientReconnectionTimer.java
 D:\workspace2024\SCore\sbackend\sbackend-client\src\main\java\us\smartmc\backend\connection\listener\LoginCompleteListener.java
+D:\workspace2024\SCore\sbackend\sbackend-client\src\main\java\us\smartmc\backend\connection\test\TimingTestInstance.java
 D:\workspace2024\SCore\sbackend\sbackend-client\src\main\java\us\smartmc\backend\connection\command\TestCommand.java
 D:\workspace2024\SCore\sbackend\sbackend-client\src\main\java\us\smartmc\backend\connection\BackendClient.java

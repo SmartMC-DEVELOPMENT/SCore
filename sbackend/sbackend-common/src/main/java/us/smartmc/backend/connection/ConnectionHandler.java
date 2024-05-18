@@ -1,6 +1,7 @@
 package us.smartmc.backend.connection;
 
 import lombok.Getter;
+import us.smartmc.backend.command.ServiceCommand;
 import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.backend.instance.cache.CacheCommand;
 import us.smartmc.backend.instance.cache.CacheCommandType;
@@ -33,12 +34,11 @@ public class ConnectionHandler implements Runnable {
         this.outputStream = new ConnectionOutputStream(this, connection.getOutputStream());
         this.inputStream = new ConnectionInputStream(this, connection.getInputStream());
         registerDefaultListeners();
+        registerDefaultCommands();
     }
 
-    public ConnectionHandler(Socket socket, ConnectionOutputStream outputStream, ConnectionInputStream inputStream) {
-        this.connection = socket;
-        this.outputStream = outputStream;
-        this.inputStream = inputStream;
+    private static void registerDefaultCommands() {
+        ConnectionInputManager.registerCommands(new ServiceCommand());
     }
 
     private static void registerDefaultListeners() {

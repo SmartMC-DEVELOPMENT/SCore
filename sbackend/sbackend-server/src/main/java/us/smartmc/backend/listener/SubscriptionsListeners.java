@@ -14,9 +14,8 @@ public class SubscriptionsListeners extends BackendObjectListener<MessageCommand
     @Override
     public void onReceive(ConnectionHandler connection, MessageCommand messageCommand) {
         String channelId = messageCommand.getId();
-        System.out.println("Broadcasting message " + channelId + " '" + messageCommand.getMessage() + "'");
         BackendClientConnection.forEachBackendClient(client -> {
-            if (!client.isSuscriptorOf(channelId)) return;
+            if (!client.isChannelSubscriptorOf(channelId)) return;
             client.getConnectionHandler().sendObject(messageCommand);
         });
     }

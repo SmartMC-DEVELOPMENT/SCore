@@ -1,3 +1,4 @@
+us\smartmc\backend\command\ServiceCommand.class
 us\smartmc\backend\instance\IBackendCommandExecutor.class
 us\smartmc\backend\instance\service\IBackendService.class
 us\smartmc\backend\protocol\LoginRequest.class
@@ -9,9 +10,11 @@ us\smartmc\backend\instance\IBackendObjectListener.class
 us\smartmc\backend\instance\config\IConfig.class
 us\smartmc\backend\instance\cache\CacheCommandType.class
 us\smartmc\backend\instance\BackendObjectListener.class
+us\smartmc\backend\protocol\BroadcastCommandRequest.class
 us\smartmc\backend\instance\messaging\IMessageChannel.class
 us\smartmc\backend\protocol\UTFMessage.class
 us\smartmc\backend\instance\service\BackendService.class
+us\smartmc\backend\protocol\BroadcastRequest.class
 us\smartmc\backend\instance\plugin\PluginLoader.class
 us\smartmc\backend\instance\cache\CacheCommand.class
 us\smartmc\backend\instance\messaging\MessageChannel.class

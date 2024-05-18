@@ -2,8 +2,10 @@ package us.smartmc.backend.connection;
 
 import lombok.Getter;
 import us.smartmc.backend.connection.listener.LoginCompleteListener;
-import us.smartmc.backend.handler.CacheManager;
 import us.smartmc.backend.handler.ConnectionInputManager;
+import us.smartmc.backend.protocol.BroadcastCommandRequest;
+import us.smartmc.backend.protocol.BroadcastRequest;
+import us.smartmc.backend.protocol.CommandRequest;
 import us.smartmc.backend.protocol.LoginRequest;
 
 import java.io.EOFException;
@@ -29,11 +31,29 @@ public class BackendClient extends ConnectionHandler {
         if (mainConnection == null) mainConnection = this;
     }
 
-    public void subscribe(String channelId) {
+    public void broadcastCommand(String context, String command) {
+        BroadcastCommandRequest request = new BroadcastCommandRequest(context, command);
+        sendObject(request);
+    }
+
+    public void broadcast(String context, Object... args) {
+        BroadcastRequest request = new BroadcastRequest(context, args);
+        sendObject(request);
+    }
+
+    public void subscribeContext(String contextId) {
+        sendCommand("subContext " + contextId);
+    }
+
+    public void unsubscribeContext(String contextId) {
+        sendCommand("unsubContext " + contextId);
+    }
+
+    public void subscribeChannel(String channelId) {
         sendCommand("subChannel " + channelId);
     }
 
-    public void unsubscribe(String channelId) {
+    public void unsubscribeChannel(String channelId) {
         sendCommand("unsubChannel " + channelId);
     }
 

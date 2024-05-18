@@ -19,7 +19,7 @@ public class BackendClientConnection {
     private final ConnectionHandler connectionHandler;
     private final String clientName;
 
-    private final Set<String> channelSubscriptions = new HashSet<>();
+    private final Set<String> contextSubscriptions = new HashSet<>();
 
     public BackendClientConnection(ConnectionHandler connectionHandler, String username) {
         this.connectionHandler = connectionHandler;
@@ -30,15 +30,27 @@ public class BackendClientConnection {
     }
 
     public void addChannelSubscription(String channelId) {
-        channelSubscriptions.add(channelId);
+        addContextSubscription(getChannelSubscriptionId(channelId));
     }
 
     public void removeChannelSubscription(String channelId) {
-        channelSubscriptions.remove(channelId);
+        removeContextSubscription(getChannelSubscriptionId(channelId));
     }
 
-    public boolean isSuscriptorOf(String channelId) {
-        return channelSubscriptions.contains(channelId);
+    public boolean isChannelSubscriptorOf(String channelId) {
+        return hasContext(getChannelSubscriptionId(channelId));
+    }
+
+    public void addContextSubscription(String contextId) {
+        contextSubscriptions.add(contextId);
+    }
+
+    public void removeContextSubscription(String contextId) {
+        contextSubscriptions.remove(contextId);
+    }
+
+    public boolean hasContext(String contextId) {
+        return contextSubscriptions.contains(contextId);
     }
 
     public static String getClientName(String username) {
@@ -74,6 +86,10 @@ public class BackendClientConnection {
 
     public static void forEachBackendClient(Consumer<BackendClientConnection> consumer) {
         connections.values().forEach(consumer);
+    }
+
+    private static String getChannelSubscriptionId(String name) {
+        return "channel@" + name;
     }
 
 }

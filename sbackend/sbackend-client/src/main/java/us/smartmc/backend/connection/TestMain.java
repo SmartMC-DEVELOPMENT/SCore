@@ -1,19 +1,17 @@
 package us.smartmc.backend.connection;
 
+import us.smartmc.backend.connection.command.TestCommand;
 import us.smartmc.backend.connection.listener.CacheCompleteListener;
+import us.smartmc.backend.connection.test.TimingTestInstance;
 import us.smartmc.backend.handler.ConnectionInputManager;
-import us.smartmc.backend.handler.MessagingChannelsManager;
-import us.smartmc.backend.instance.messaging.MessageChannel;
+import us.smartmc.backend.instance.BackendObjectListener;
+import us.smartmc.backend.protocol.CommandRequest;
 
-public class TestMain extends MessageChannel {
+public class TestMain {
 
     private static BackendClient client;
 
-    private static long start;
-
-    public TestMain(String id) {
-        super(id);
-    }
+    public static final TimingTestInstance timingTest = new TimingTestInstance();
 
     public static void main(String[] initArgs)  {
         try {
@@ -21,25 +19,17 @@ public class TestMain extends MessageChannel {
             client = new BackendClient("66.70.181.34", 7723);
             client.login("default", "SmartMC2024Ñ");
             new Thread(client).start();
+            ConnectionInputManager.registerCommands(new TestCommand());
 
-            MessagingChannelsManager.register(new TestMain("test:main"));
-
-            client.subscribe("test:main");
+            client.subscribeContext("test");
 
             for (int i = 0; i < 99; i++) {
-                start = System.currentTimeMillis();
-                client.publishMessage("test:main", "Un mensaje totalmente normal sin ningún tipo de duda");
+                timingTest.registerStart();
+                client.broadcastCommand(null, "test");
                 Thread.sleep(1000);
             }
         } catch (Exception e) {
             client.handleException(e);
         }
-    }
-
-    @Override
-    public void onMessage(String channelId, String message) {
-        long end = System.currentTimeMillis();
-        long difference = end - start;
-        System.out.println("RECEIVED MESSASGE CHANNEL " + channelId + " " + message + " (" + difference + "ms)");
     }
 }

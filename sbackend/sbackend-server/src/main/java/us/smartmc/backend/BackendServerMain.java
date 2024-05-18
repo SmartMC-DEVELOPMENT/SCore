@@ -4,7 +4,10 @@ import lombok.Getter;
 import us.smartmc.backend.command.SubChannelCommand;
 import us.smartmc.backend.command.UnsubChannelCommand;
 import us.smartmc.backend.connection.BackendServer;
-import us.smartmc.backend.handler.*;
+import us.smartmc.backend.handler.ConnectionInputManager;
+import us.smartmc.backend.handler.LoginAuthManager;
+import us.smartmc.backend.handler.ModulesHandler;
+import us.smartmc.backend.handler.ServicesManager;
 import us.smartmc.backend.instance.config.JsonConfig;
 import us.smartmc.backend.listener.SubscriptionsListeners;
 import us.smartmc.backend.service.SocialServices;
@@ -13,6 +16,8 @@ import us.smartmc.backend.util.ConsoleUtil;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class BackendServerMain {
 
@@ -31,7 +36,12 @@ public class BackendServerMain {
 
         setupConfiguration();
         LoginAuthManager.loadAuthentifications();
-        new ModulesHandler().loadModulesJars();
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                new ModulesHandler().loadModulesJars();
+            }
+        }, 250);
         registerCommands();
 
         startBackendServer();

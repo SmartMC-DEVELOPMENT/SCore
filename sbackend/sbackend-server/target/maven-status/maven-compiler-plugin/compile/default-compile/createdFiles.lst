@@ -11,6 +11,7 @@ us\smartmc\backend\module\IModulePlugin.class
 us\smartmc\backend\connection\ClientConnectionHandler.class
 us\smartmc\backend\util\ConsoleUtil.class
 us\smartmc\backend\handler\ModulesHandler.class
+us\smartmc\backend\BackendServerMain$1.class
 us\smartmc\backend\command\HelloWorldCmd.class
 us\smartmc\backend\command\SubChannelCommand.class
 us\smartmc\backend\instance\server\ServerInfo.class

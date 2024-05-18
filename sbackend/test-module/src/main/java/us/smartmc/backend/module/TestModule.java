@@ -3,6 +3,10 @@ package us.smartmc.backend.module;
 @ModulePluginInfo(name = "TestModule", version = "DEV")
 public class TestModule extends ModulePlugin {
 
+    public TestModule() {
+        super();
+    }
+
     @Override
     public void onEnable() {
         super.onEnable();

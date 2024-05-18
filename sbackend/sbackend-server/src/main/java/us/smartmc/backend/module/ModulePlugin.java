@@ -2,13 +2,13 @@ package us.smartmc.backend.module;
 
 import lombok.Getter;
 
+@Getter
 public abstract class ModulePlugin implements IModulePlugin {
 
-    @Getter
     private final ModulePluginInfo info;
 
     public ModulePlugin() {
-        info = ModuleClassLoader.readPluginInfo(getClass());
+        info = getClass().getDeclaredAnnotation(ModulePluginInfo.class);
     }
 
     @Override

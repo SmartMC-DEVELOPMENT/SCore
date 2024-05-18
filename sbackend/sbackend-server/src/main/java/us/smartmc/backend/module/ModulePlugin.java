@@ -1,8 +1,15 @@
 package us.smartmc.backend.module;
 
+import lombok.Getter;
+
 public abstract class ModulePlugin implements IModulePlugin {
 
-    private ModulePluginInfo info;
+    @Getter
+    private final ModulePluginInfo info;
+
+    public ModulePlugin() {
+        info = ModuleClassLoader.readPluginInfo(getClass());
+    }
 
     @Override
     public void onEnable() {
@@ -12,11 +19,5 @@ public abstract class ModulePlugin implements IModulePlugin {
     @Override
     public void onDisable() {
         System.out.println("[MODULE - " + info.name() + "] Has been disabled!");
-    }
-
-    public ModulePluginInfo getInfo() {
-        if (info != null) return info;
-        info = ModuleClassLoader.readPluginInfo(getClass());
-        return info;
     }
 }

@@ -177,13 +177,6 @@
             <systemPath>D:/LIBS_PLUGINS/FastLoginVelocity.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>velocitygr</groupId>
-            <artifactId>velocityfull</artifactId>
-            <version>velocity1</version>
-            <scope>system</scope>
-            <systemPath>D:/LIBS_PLUGINS/velocity-3.3.0-SNAPSHOT-370.jar</systemPath>
-        </dependency>
-        <dependency>
             <groupId>me.imsergioh.pluginsapi</groupId>
             <artifactId>velocity-core</artifactId>
             <version>1.0-SNAPSHOT</version>

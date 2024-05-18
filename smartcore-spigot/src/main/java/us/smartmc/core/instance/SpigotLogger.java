@@ -10,7 +10,7 @@ public class SpigotLogger implements ConsoleLogger {
     public static void send(String prefix, String color, String message) {
         String pluginName = SmartCore.getPlugin().getName();
         String consoleMessage =  "<aqua>[" + pluginName + " - " + prefix + "] " + color + message;
-        Bukkit.getConsoleSender().sendMessage(Component.text(consoleMessage));
+        Bukkit.getConsoleSender().sendMessage(Component.text(consoleMessage).content());
     }
 
     @Override

@@ -21,7 +21,6 @@ import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
 import us.smartmc.survivaladdon.fixescore.command.ExecuteAtBungeeCommand;
-import us.smartmc.survivaladdon.fixescore.handler.ServerConnectionsHandler;
 import us.smartmc.survivaladdon.fixescore.listener.OnlineCountListener;
 import us.smartmc.survivaladdon.fixescore.newvariables.DateVariables;
 import us.smartmc.survivaladdon.fixescore.newvariables.LuckPermsVariables;

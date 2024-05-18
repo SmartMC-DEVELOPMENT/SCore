@@ -1,15 +1,10 @@
 package us.smartmc.core;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
-import me.imsergioh.pluginsapi.handler.PubSubConnectionHandler;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import me.imsergioh.pluginsapi.instance.exceptionlistener.SendExceptionToDiscordListener;
@@ -22,6 +17,7 @@ import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.smartmc.backend.connection.BackendClient;
 import us.smartmc.core.commands.*;
 import us.smartmc.core.handler.*;
 import us.smartmc.core.instance.SpigotLogger;
@@ -37,6 +33,7 @@ import us.smartmc.core.util.ServerUtils;
 import us.smartmc.core.variables.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 public class SmartCore extends JavaPlugin {
@@ -65,6 +62,8 @@ public class SmartCore extends JavaPlugin {
     private static String serverID;
     @Getter
     private static int serverNumber;
+
+    private BackendClient backendClient;
 
     public static String getServerAlias() {
         return config.getString("alias");
@@ -114,7 +113,13 @@ public class SmartCore extends JavaPlugin {
         MongoDBConnection.mainConnection = new MongoDBConnection(config.getString("mongodb_url"));
         RedisConnection.mainConnection = new RedisConnection(config.getString("redis_host"),
                 config.get("redis_port", Number.class).intValue());
-        PubSubConnectionHandler.register(new ServerConnectionsHandler());
+        try {
+            backendClient = new BackendClient("127.0.0.1", 7723);
+            backendClient.login("default", "SmartMC2024Ñ");
+            new Thread(backendClient).start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         SpigotPluginsAPI.setup(plugin);
 

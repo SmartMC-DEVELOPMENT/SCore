@@ -1,15 +1,8 @@
 package us.smartmc.core.handler;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.luckperms.api.LuckPerms;
-import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,15 +25,6 @@ public class TagsHandler implements Listener {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
             Bukkit.getOnlinePlayers().forEach(this::update);
         }, 0, 20 * 3);
-
-
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(SmartCore.getPlugin(), PacketType.Play.Server.PLAYER_INFO) {
-            @Override
-            public void onPacketSending(PacketEvent event) {
-
-            }
-        });
-
     }
 
     public boolean areDisabled() {

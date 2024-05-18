@@ -192,7 +192,8 @@
             <groupId>net.luckperms</groupId>
             <artifactId>api</artifactId>
             <version>5.4</version>
-            <scope>provided</scope>
+            <systemPath>${project.basedir}/../lib/LuckPerms-Bukkit-5.4.128.jar</systemPath>
+            <scope>system</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

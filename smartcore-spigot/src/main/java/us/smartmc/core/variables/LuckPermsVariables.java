@@ -3,8 +3,10 @@ package us.smartmc.core.variables;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.VariableListener;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.core.util.VariableUtil;
 
 import java.util.Objects;
@@ -14,20 +16,7 @@ import java.util.regex.Pattern;
 public class LuckPermsVariables extends VariableListener<Player> {
 
     public static String getPrefix(Player player, boolean space) {
-        net.luckperms.api.LuckPerms lp = net.luckperms.api.LuckPermsProvider.get();
-        try {
-            String prefix = Objects.requireNonNull(lp.getUserManager().getUser(player.getUniqueId())).getCachedData().getMetaData().getPrefix();
-            String prefixColor = getFirstColor(prefix);
-            if (space && prefix != null && prefix.length() > 3) prefix += " " + prefixColor;
-
-            if (prefix != null && prefix.length() > 3) {
-                return prefix;
-            } else {
-                return prefixColor;
-            }
-        } catch (NullPointerException e) {
-            return "";
-        }
+        return "";
     }
 
     public static String getFirstColor(String input) {

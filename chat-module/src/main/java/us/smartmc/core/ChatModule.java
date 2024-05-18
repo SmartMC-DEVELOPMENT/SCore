@@ -22,6 +22,8 @@ import us.smartmc.smartaddons.plugin.AddonPlugin;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
 
 import java.util.HashSet;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @AddonInfo(name = "chat-module", version = "DEV")
 public class ChatModule extends AddonPlugin {
@@ -68,7 +70,16 @@ public class ChatModule extends AddonPlugin {
 
         VariablesHandler.register(new DateVariables());
         VariablesHandler.register(new PlayerMainVariables());
-        registerVariablesIfPluginIsEnabled("LuckPerms", LuckPermsVariables.class);
+        registerDynamicVariables();
+    }
+
+    private void registerDynamicVariables() {
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                registerVariablesIfPluginIsEnabled("LuckPerms", LuckPermsVariables.class);
+            }
+        }, 250);
     }
 
     private void registerVariablesIfPluginIsEnabled(String name, Class<? extends VariableListener<?>> variablesClass) {

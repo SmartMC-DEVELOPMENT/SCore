@@ -2,5 +2,6 @@ us\smartmc\core\newvariables\DateVariables.class
 us\smartmc\core\ChatModule.class
 us\smartmc\core\handler\ChatModeHandler.class
 us\smartmc\core\newvariables\LuckPermsVariables.class
+us\smartmc\core\ChatModule$2.class
 us\smartmc\core\newvariables\PlayerMainVariables.class
 us\smartmc\core\ChatModule$1.class

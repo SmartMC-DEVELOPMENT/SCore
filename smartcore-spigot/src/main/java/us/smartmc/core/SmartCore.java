@@ -12,6 +12,7 @@ import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import me.imsergioh.pluginsapi.util.GlobalExceptionHandler;
 import me.imsergioh.pluginsapi.util.SyncUtil;
+import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandExecutor;
@@ -23,10 +24,7 @@ import us.smartmc.core.handler.*;
 import us.smartmc.core.instance.SpigotLogger;
 import us.smartmc.core.itemcommands.BungeeCommandAction;
 import us.smartmc.core.itemcommands.MessageCommand;
-import us.smartmc.core.listener.AdminModeListeners;
-import us.smartmc.core.listener.CommandListeners;
-import us.smartmc.core.listener.CorePlayersListener;
-import us.smartmc.core.listener.SanctionListeners;
+import us.smartmc.core.listener.*;
 import us.smartmc.core.messages.GeneralMessages;
 import us.smartmc.core.messages.ItemUtilsMessages;
 import us.smartmc.core.util.ServerUtils;
@@ -62,8 +60,6 @@ public class SmartCore extends JavaPlugin {
     private static String serverID;
     @Getter
     private static int serverNumber;
-
-    private BackendClient backendClient;
 
     public static String getServerAlias() {
         return config.getString("alias");
@@ -114,9 +110,9 @@ public class SmartCore extends JavaPlugin {
         RedisConnection.mainConnection = new RedisConnection(config.getString("redis_host"),
                 config.get("redis_port", Number.class).intValue());
         try {
-            backendClient = new BackendClient("127.0.0.1", 7723);
-            backendClient.login("default", "SmartMC2024Ñ");
-            new Thread(backendClient).start();
+            new BackendClient("127.0.0.1", 7723);
+            getBackendClient().login("default", "SmartMC2024Ñ");
+            new Thread(getBackendClient()).start();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -180,7 +176,8 @@ public class SmartCore extends JavaPlugin {
                 new AdminModeListeners(),
                 new CorePlayersListener(),
                 new CommandListeners(),
-                new SanctionListeners());
+                new SanctionListeners(),
+                new TestBackendListener());
         if (scoreboardHandler != null) registerListeners(scoreboardHandler);
     }
 
@@ -254,4 +251,9 @@ public class SmartCore extends JavaPlugin {
     private void registerServerName() {
         RedisConnection.mainConnection.getResource().set("serverAlias." + getServerName(), getServerAlias());
     }
+
+    public static BackendClient getBackendClient() {
+        return BackendClient.mainConnection;
+    }
+
 }

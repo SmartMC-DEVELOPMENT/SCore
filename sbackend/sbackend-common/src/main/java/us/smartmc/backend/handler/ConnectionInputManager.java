@@ -14,6 +14,17 @@ public class ConnectionInputManager {
     private static final Map<String, IBackendCommandExecutor> commands = new HashMap<>();
     private static final Set<IBackendObjectListener<?>> listeners = new HashSet<>();
 
+    public static void unregisterCommand(String name) {
+        commands.remove(name);
+    }
+
+    public static void unregisterListener(String className) {
+        for (IBackendObjectListener<?> listener : new HashSet<>(listeners)) {
+            if (!listener.getClass().getName().equals(className)) continue;
+            listeners.remove(listener);
+        }
+    }
+
     public static void performCommand(ConnectionHandler connection, CommandRequest request) {
         String name = request.getName();
         IBackendCommandExecutor executor = commands.get(name);
@@ -25,7 +36,7 @@ public class ConnectionInputManager {
 
     public static void performListener(ConnectionHandler connection, Object object) {
         for (IBackendObjectListener listener : listeners) {
-            if (!object.getClass().isAssignableFrom(listener.getTypeClass())) continue;
+            if (!listener.getTypeClass().isAssignableFrom(object.getClass())) continue;
             listener.onReceive(connection, listener.getTypeClass().cast(object));
         }
     }

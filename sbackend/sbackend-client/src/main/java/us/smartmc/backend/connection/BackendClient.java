@@ -28,7 +28,7 @@ public class BackendClient extends ConnectionHandler {
     public BackendClient(String hostname, int port) throws IOException {
         super(new Socket(hostname, port));
         ConnectionInputManager.registerListeners(new LoginCompleteListener());
-        if (mainConnection == null) mainConnection = this;
+        mainConnection = this;
     }
 
     public void broadcastCommand(String context, String command) {

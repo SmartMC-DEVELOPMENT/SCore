@@ -35,5 +35,4 @@ us\smartmc\backend\instance\player\PlayerCache.class
 us\smartmc\backend\listener\CommandHandlerListener.class
 us\smartmc\backend\connection\ConnectionInputStream.class
 us\smartmc\backend\handler\MessagingChannelsManager.class
-us\smartmc\backend\instance\config\JsonConfig$1.class
 us\smartmc\backend\listener\MessagingChannelListener.class

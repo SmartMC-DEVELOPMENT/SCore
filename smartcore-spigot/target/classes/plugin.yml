@@ -6,7 +6,8 @@ softdepend:
   - ProtocolLib
 authors:
   - ImSergioh
-
+depend:
+  - LuckPerms
 commands:
   admin:
   setspawn:

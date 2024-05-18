@@ -19,7 +19,8 @@ public class JsonConfig extends FileConfig {
     public void load() {
         Gson gson = new Gson();
         try (BufferedReader reader = new BufferedReader(new FileReader(file.getAbsolutePath()))) {
-            Map<String, Object> dataMap = gson.fromJson(reader, new TypeToken<HashMap<String, Object>>(){}.getType());
+            // Leemos el JSON como un Map sin TypeToken
+            Map<String, Object> dataMap = gson.fromJson(reader, Map.class);
             if (dataMap != null) {
                 data = new HashMap<>(dataMap);
             }
@@ -29,7 +30,6 @@ public class JsonConfig extends FileConfig {
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     public void save() {

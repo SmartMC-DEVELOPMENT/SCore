@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="chat-module" />
         <module name="sbackend-common" />
+        <module name="test-module" />
         <module name="serverhandler-common" />
         <module name="survivalchat" />
         <module name="icons-module" />

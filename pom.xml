@@ -20,6 +20,7 @@
         <module>sbackend</module>
         <module>holograms-module</module>
         <module>MessagesMigration</module>
+        <module>sbackend/test-module</module>
     </modules>
 
     <properties>

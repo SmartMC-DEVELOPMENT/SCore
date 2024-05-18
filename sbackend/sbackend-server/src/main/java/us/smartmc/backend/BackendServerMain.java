@@ -31,7 +31,7 @@ public class BackendServerMain {
 
         setupConfiguration();
         LoginAuthManager.loadAuthentifications();
-        ModulesHandler.setup();
+        new ModulesHandler().loadModulesJars();
         registerCommands();
 
         startBackendServer();

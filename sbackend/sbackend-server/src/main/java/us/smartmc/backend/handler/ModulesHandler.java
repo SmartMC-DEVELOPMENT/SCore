@@ -1,15 +1,31 @@
 package us.smartmc.backend.handler;
 
 import lombok.Getter;
+import us.smartmc.backend.BackendServerMain;
+import us.smartmc.backend.module.ModuleClassLoader;
+
+import java.io.File;
+import java.util.Objects;
 
 @Getter
 public class ModulesHandler {
 
-    public static ServersInfoHandler serversInfoHandler;
-    public static PlayersInfoHandler playersInfoHandler;
+    @Getter
+    public static final ModulesHandler mainModulesHandler = new ModulesHandler();
+    @Getter
+    private static File modulesDir;
 
-    public static void setup() {
-        serversInfoHandler = new ServersInfoHandler();
-        playersInfoHandler = new PlayersInfoHandler();
+    public ModulesHandler() {
+        modulesDir = new File(BackendServerMain.getParentDirectory() + "/modules");
+        if (!modulesDir.exists())
+            modulesDir.mkdirs();
     }
+
+    public void loadModulesJars() {
+        for (File file : Objects.requireNonNull(modulesDir.listFiles())) {
+            if (!file.getName().endsWith(".jar")) continue;
+            ModuleClassLoader.loadPluginJar(file);
+        }
+    }
+
 }

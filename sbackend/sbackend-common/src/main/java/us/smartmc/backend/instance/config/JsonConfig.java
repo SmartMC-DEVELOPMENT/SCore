@@ -1,7 +1,6 @@
 package us.smartmc.backend.instance.config;
 
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

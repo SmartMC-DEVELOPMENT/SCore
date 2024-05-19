@@ -63,6 +63,15 @@
         <option value="$PROJECT_DIR$/random-war/pom.xml" />
         <option value="$PROJECT_DIR$/random-battle/pom.xml" />
         <option value="$PROJECT_DIR$/lucky-towers/pom.xml" />
+        <option value="$PROJECT_DIR$/server-handler/common/pom.xml" />
+        <option value="$PROJECT_DIR$/addon-modules/chat-module/pom.xml" />
+        <option value="$PROJECT_DIR$/!main-core/smartcore-velocity/pom.xml" />
+        <option value="$PROJECT_DIR$/sbackend-service/players-service/pom.xml" />
+        <option value="$PROJECT_DIR$/sbackend/sbackend-client/pom.xml" />
+        <option value="$PROJECT_DIR$/sbackend/sbackend-common/pom.xml" />
+        <option value="$PROJECT_DIR$/sbackend/sbackend-server/pom.xml" />
+        <option value="$PROJECT_DIR$/addon-modules/icons-module/pom.xml" />
+        <option value="$PROJECT_DIR$/server-handler/orchestrator/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -78,11 +87,12 @@
         <option value="$PROJECT_DIR$/snowgames-ffa/pom.xml" />
         <option value="$PROJECT_DIR$/staffmode-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/staffmode-velocity/pom.xml" />
+        <option value="$PROJECT_DIR$/survival-placeholders/pom.xml" />
       </set>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="corretto-17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="azul-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

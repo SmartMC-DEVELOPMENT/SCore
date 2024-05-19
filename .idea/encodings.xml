@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/!main-core/smartcore-spigot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/!main-core/smartcore-spigot/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/!main-core/smartcore-velocity/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/!main-core/smartcore-velocity/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MessagesMigration/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MessagesMigration/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addon-modules/holograms-module/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addon-modules/holograms-module/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addon-modules/icons-module/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addon-modules/icons-module/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addon-modules/lobby-cosmetics/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addon-modules/lobby-cosmetics/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addon-modules/lobby-module/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/addon-modules/lobby-module/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/addons/chat-module/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/addons/chat-module/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/addons/lobby-cosmetics/src/main/java" charset="UTF-8" />
@@ -13,8 +25,6 @@
     <file url="file://$PROJECT_DIR$/addons/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/arenapvp/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/arenapvp/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/common/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core-plugins/smartcore-spigot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core-plugins/smartcore-spigot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core-plugins/smartcore-velocity/src/main/java" charset="UTF-8" />
@@ -35,16 +45,6 @@
     <file url="file://$PROJECT_DIR$/games-manager/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gamesmanager-spigot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gamesmanager-spigot/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/holograms-module/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/holograms-module/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/icons-module/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/icons-module/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lobby-cosmetics/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lobby-cosmetics/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lobby-module/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lobby-module/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/login-spigot/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/login-spigot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/login/login-spigot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/login/login-spigot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/login/loginproxy-waterfall/src/main/java" charset="UTF-8" />
@@ -53,10 +53,10 @@
     <file url="file://$PROJECT_DIR$/login/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lucky-towers/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lucky-towers/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/orchestrator/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/orchestrator/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/plugins-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/plugins-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sbackend-service/players-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sbackend-service/players-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sbackend/sbackend-client/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sbackend/sbackend-client/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sbackend/sbackend-common/src/main/java" charset="UTF-8" />
@@ -79,18 +79,10 @@
     <file url="file://$PROJECT_DIR$/server-handler/serverhandler-velocity/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/server-handler/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/server-handler/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/serverhandler-bukkit/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/serverhandler-bukkit/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/serverhandler-velocity/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/serverhandler-velocity/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/smartantiddos-velocity/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/smartantiddos-velocity/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/smartbot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/smartbot/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/smartcore-spigot/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/smartcore-spigot/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/smartcore-velocity/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/smartcore-velocity/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/snowgames-ffa/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/snowgames-ffa/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/snowgames/snowgames-ffa/src/main/java" charset="UTF-8" />

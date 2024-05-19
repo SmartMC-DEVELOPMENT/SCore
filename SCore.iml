@@ -15,12 +15,12 @@
       <sourceFolder url="file://$MODULE_DIR$/survival/survi-chat/survivalchat/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/survival/survi-chat/survivalchat/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../SmartEvents/events-core/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/orchestrator/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/orchestrator/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/MessagesMigration/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MessagesMigration/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/server-handler/orchestrator/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/server-handler/orchestrator/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/MessagesMigration/target" />
-      <excludeFolder url="file://$MODULE_DIR$/common/target" />
+      <excludeFolder url="file://$MODULE_DIR$/server-handler/common/target" />
     </content>
   </component>
   <component name="FacetManager">

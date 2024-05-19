@@ -2,16 +2,13 @@ package us.smartmc.backend.module;
 
 import org.bukkit.Material;
 import us.smartmc.backend.handler.ConnectionInputManager;
+import us.smartmc.backend.handler.ServicesManager;
 import us.smartmc.backend.module.command.ChatCommand;
 import us.smartmc.backend.module.listener.TestListenerReceiver;
 
 
 @ModulePluginInfo(name = "TestModule", version = "DEV")
 public class TestModule extends ModulePlugin {
-
-    public TestModule() {
-        super();
-    }
 
     @Override
     public void onEnable() {
@@ -21,7 +18,7 @@ public class TestModule extends ModulePlugin {
         ConnectionInputManager.registerListeners(new TestListenerReceiver());
         ConnectionInputManager.registerCommands(new ChatCommand());
 
-        //ConnectionInputManager.unregisterCommand("chat");
+        ServicesManager.registerServices(true, new PlayersServiceServer());
     }
 
     @Override

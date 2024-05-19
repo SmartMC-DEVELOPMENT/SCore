@@ -10,6 +10,12 @@ public class ServicesManager {
 
     private static final Map<Class<? extends IBackendService>, IBackendService> services = new HashMap<>();
 
+    public static <T extends IBackendService> void performWhenLoaded(Class<T> tClass, Consumer<T> toAcceptWhenActive) {
+        T service = get(tClass);
+        if (service == null) return;
+        if (service.isLoaded()) toAcceptWhenActive.accept(service);
+    }
+
     public static <T extends IBackendService> void checkServiceAvailability(Class<T> clazz, Consumer<T> unloaded, Consumer<T> loaded) {
         T service = get(clazz);
         Consumer<T> toAccept = service.isLoaded() ? loaded : unloaded;

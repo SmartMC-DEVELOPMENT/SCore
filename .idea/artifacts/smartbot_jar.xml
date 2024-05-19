@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/smartbot_jar</output-path>
     <root id="archive" name="smartbot.jar">
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/serverhandler-bukkit/src/main/resources/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/server-handler/serverhandler-bukkit/src/main/resources/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="smartbot" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/13.0/annotations-13.0.jar" path-in-jar="/" />

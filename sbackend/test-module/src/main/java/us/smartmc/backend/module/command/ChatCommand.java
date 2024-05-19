@@ -17,8 +17,16 @@ public class ChatCommand extends BackendCommandExecutor {
     public void onCommand(ConnectionHandler connection, String label, String[] args) {
         System.out.println("Received chat! " + Arrays.asList(args));
 
+        StringBuilder builder = new StringBuilder(args[1]);
+
+        for (int index = 2; index < args.length; index++) {
+            builder.append(args[index]).append(" ");
+        }
+        if (builder.toString().endsWith(" "))
+            builder.deleteCharAt(builder.length() -1);
+
         ServicesManager.performWhenLoaded(PlayersServiceServer.class, playersServiceServer -> {
-            playersServiceServer.sendMessage("imsergioh", "Mensaje recibido " + Arrays.asList(args));
+            playersServiceServer.sendMessage("imsergioh", builder.toString());
         });
     }
 }

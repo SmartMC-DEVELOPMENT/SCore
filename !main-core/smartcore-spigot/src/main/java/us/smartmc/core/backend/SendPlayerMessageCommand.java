@@ -16,7 +16,7 @@ public class SendPlayerMessageCommand extends BackendCommandExecutor {
     public void onCommand(ConnectionHandler connection, String label, String[] args) {
         if (args.length == 0) return;
         String username = args[0];
-        String message = label.replaceFirst(username + " ", "");
+        String message = label.replaceFirst(getName() + " " + username + " ", "");
         Player player = getPlayerFromUsername(username);
 
         if (player == null) return;

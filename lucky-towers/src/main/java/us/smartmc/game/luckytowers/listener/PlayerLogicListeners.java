@@ -1,7 +1,10 @@
 package us.smartmc.game.luckytowers.listener;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
+import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.config.MainPluginConfig;
 import us.smartmc.game.luckytowers.event.GameStatusChangeEvent;
 import us.smartmc.game.luckytowers.event.player.GamePlayerJoinSessionEvent;
@@ -9,11 +12,18 @@ import us.smartmc.game.luckytowers.event.player.PlayerStatusChangeEvent;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.instance.game.GameSessionStatus;
 import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
+import us.smartmc.game.luckytowers.manager.PlayersManager;
 import us.smartmc.game.luckytowers.menu.hotbar.SpectatorHotbar;
 import us.smartmc.game.luckytowers.menu.hotbar.WaitingHotbar;
 import us.smartmc.game.luckytowers.util.GameUtil;
 
 public class PlayerLogicListeners implements Listener {
+
+    @EventHandler
+    public void onDisconnect(PlayerQuitEvent event) {
+        PlayersManager manager = LuckyTowers.getManager(PlayersManager.class);
+        manager.unregister(event.getPlayer().getUniqueId());
+    }
 
     @EventHandler
     public void teleportToLobby(PlayerStatusChangeEvent event) {
@@ -26,6 +36,8 @@ public class PlayerLogicListeners implements Listener {
 
     @EventHandler
     public void updateScoreboard(PlayerStatusChangeEvent event) {
+        if (event.getPlayer() == null) return;
+        if (!event.getPlayer().isOnline()) return;
         GameUtil.updateScoreboard(event.getGamePlayer());
     }
 
@@ -45,6 +57,9 @@ public class PlayerLogicListeners implements Listener {
     @EventHandler
     public void giveSpectatorHotbar(PlayerStatusChangeEvent event) {
         if (!(event.getStatus().equals(PlayerStatus.SPECTATING))) return;
-        new SpectatorHotbar(event.getPlayer()).set(event.getPlayer());
+        Bukkit.getScheduler().runTask(LuckyTowers.getPlugin(), () -> {
+            if (!event.getPlayer().isOnline()) return;
+            new SpectatorHotbar(event.getPlayer()).set(event.getPlayer());
+        });
     }
 }

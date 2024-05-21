@@ -32,6 +32,7 @@ import us.smartmc.game.luckytowers.messages.AdminMessages;
 import us.smartmc.game.luckytowers.messages.GameItems;
 import us.smartmc.game.luckytowers.messages.GameMessages;
 import us.smartmc.game.luckytowers.variable.GameVariables;
+import us.smartmc.game.luckytowers.variable.PlayerStatsVariables;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -77,6 +78,7 @@ public final class LuckyTowers extends JavaPlugin {
         registerPlayerScoreboards();
 
         VariablesHandler.register(new GameVariables());
+        VariablesHandler.register(new PlayerStatsVariables());
     }
 
     @Override

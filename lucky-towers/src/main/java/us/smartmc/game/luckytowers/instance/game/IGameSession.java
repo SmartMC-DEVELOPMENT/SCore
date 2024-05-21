@@ -54,7 +54,7 @@ public interface IGameSession {
     }
 
     default void forEachOnlinePlayer(Consumer<Player> consumer) {
-        getPlayers().forEach(gp -> consumer.accept(gp.getBukkitPlayer()));
+        getPlayers().forEach(gp -> gp.onlinePlayer(consumer));
     }
 
     default void forEachPlayer(Consumer<GamePlayer> consumer) {

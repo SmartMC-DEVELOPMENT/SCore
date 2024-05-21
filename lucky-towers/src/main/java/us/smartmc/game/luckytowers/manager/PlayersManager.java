@@ -25,7 +25,7 @@ public class PlayersManager extends ManagerRegistry<UUID, GamePlayer> {
 
     @Override
     public void unregister(UUID id) {
-        GamePlayer.get(id).unload();
+        get(id).unload();
         super.unregister(id);
     }
 }

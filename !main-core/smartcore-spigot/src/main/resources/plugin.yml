@@ -4,10 +4,9 @@ version: 1.0-SNAPSHOT
 api-version: '1.16'
 softdepend:
   - ProtocolLib
+  - LuckPerms
 authors:
   - ImSergioh
-depend:
-  - LuckPerms
 commands:
   admin:
   setspawn:

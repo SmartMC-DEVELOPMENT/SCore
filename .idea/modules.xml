@@ -13,8 +13,10 @@
       <module fileurl="file://$PROJECT_DIR$/login/login-spigot/login-spigot.iml" filepath="$PROJECT_DIR$/login/login-spigot/login-spigot.iml" />
       <module fileurl="file://$PROJECT_DIR$/random-battle/lucky-towers.iml" filepath="$PROJECT_DIR$/random-battle/lucky-towers.iml" />
       <module fileurl="file://$PROJECT_DIR$/npcs-module/npcs-module.iml" filepath="$PROJECT_DIR$/npcs-module/npcs-module.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" filepath="$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" />
       <module fileurl="file://$PROJECT_DIR$/sbackend-service/players-service/players-service.iml" filepath="$PROJECT_DIR$/sbackend-service/players-service/players-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/serverhandler-bukkit/serverhandler-bukkit.iml" filepath="$PROJECT_DIR$/serverhandler-bukkit/serverhandler-bukkit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-handler/common/serverhandler-common.iml" filepath="$PROJECT_DIR$/server-handler/common/serverhandler-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/serverhandler-velocity/serverhandler-velocity.iml" filepath="$PROJECT_DIR$/server-handler/serverhandler-velocity/serverhandler-velocity.iml" />
       <module fileurl="file://$PROJECT_DIR$/smartantiddos-velocity/smartantiddos-velocity.iml" filepath="$PROJECT_DIR$/smartantiddos-velocity/smartantiddos-velocity.iml" />
       <module fileurl="file://$PROJECT_DIR$/!main-core/smartcore-spigot/smartcore-spigot.iml" filepath="$PROJECT_DIR$/!main-core/smartcore-spigot/smartcore-spigot.iml" />

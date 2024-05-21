@@ -1,6 +1,7 @@
 package us.smartmc.game.luckytowers.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,12 +38,6 @@ public class EssentialsListeners implements Listener {
     public void removeEditorMode(PlayerQuitEvent event) {
         EditorModeManager manager = LuckyTowers.getManager(EditorModeManager.class);
         manager.disable(event.getPlayer());
-    }
-
-    @EventHandler
-    public void giveLobbyHotbar(PlayerStatusChangeEvent event) {
-        if (event.getStatus() != PlayerStatus.LOBBY) return;
-        new LobbyHotbar(event.getPlayer()).set(event.getPlayer());
     }
 
     @EventHandler

@@ -3,6 +3,7 @@ package us.smartmc.game.luckytowers.instance.player;
 import lombok.Getter;
 import lombok.Setter;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.text.Component;
@@ -14,6 +15,7 @@ import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.event.player.PlayerStatusChangeEvent;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.manager.PlayersManager;
+import us.smartmc.game.luckytowers.menu.LobbyHotbar;
 import us.smartmc.game.luckytowers.messages.GameMessages;
 
 import java.util.UUID;
@@ -41,6 +43,11 @@ public class GamePlayer {
          this.data = loadData(uuid);
          this.bukkitPlayer = Bukkit.getPlayer(uuid);
          setStatus(PlayerStatus.LOBBY);
+
+        onlinePlayer(player -> {
+            new LobbyHotbar(player).set(player);
+            player.sendMessage(CorePlayer.get(player).getCurrentMenuSet().getClass().getName());
+        });
     }
 
     public void addCoins(int amount) {
@@ -54,8 +61,18 @@ public class GamePlayer {
         });
     }
 
+    public void addGamePlayed() {
+        data.increaseNumber("gamesPlayed");
+    }
+
+    public void addWin() {
+        data.increaseNumber("wins");
+        data.increaseStreak("wins");
+    }
+
     public void addKill(Location killLocation) {
         data.increaseNumber("kills");
+        data.increaseStreak("kills");
         onlinePlayer(player -> {
             player.playSound(killLocation, Sound.BLOCK_NYLIUM_HIT, 1.0f, -1.5f);
             Language language = PlayerLanguages.get(player.getUniqueId());
@@ -64,6 +81,12 @@ public class GamePlayer {
             player.sendActionBar(component);
         });
         addCoins(4);
+    }
+
+    public void addDeath() {
+        data.increaseNumber("deaths");
+        data.resetStreak("kills");
+        data.resetStreak("wins");
     }
 
     public void unload() {
@@ -80,6 +103,7 @@ public class GamePlayer {
     public void onlinePlayer(Consumer<Player> consumer) {
         if (bukkitPlayer == null) bukkitPlayer = getBukkitPlayer();
         if (bukkitPlayer == null) return;
+        if (!bukkitPlayer.isOnline()) return;
         consumer.accept(bukkitPlayer);
     }
 

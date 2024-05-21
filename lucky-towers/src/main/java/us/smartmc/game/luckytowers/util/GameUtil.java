@@ -1,6 +1,11 @@
 package us.smartmc.game.luckytowers.util;
 
+import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.handler.ScoreboardHandler;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
@@ -8,9 +13,87 @@ import us.smartmc.game.luckytowers.instance.game.GameSessionStatus;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.instance.player.PlayerScoreboardType;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class GameUtil {
+
+    public static String getFormattedTimeFromSeconds(int initialSeconds) {
+        if (initialSeconds < 0) {
+            throw new IllegalArgumentException("Initial seconds cannot be negative");
+        }
+
+        int seconds = initialSeconds % 60;
+        int totalMinutes = initialSeconds / 60;
+        int minutes = totalMinutes % 60;
+        int totalHours = totalMinutes / 60;
+        int hours = totalHours % 24;
+        int days = totalHours / 24;
+
+        StringBuilder formattedTime = new StringBuilder();
+
+        if (days > 0) {
+            formattedTime.append(days).append("d ");
+        }
+        if (hours > 0) {
+            formattedTime.append(hours).append("h ");
+        }
+        if (minutes > 0) {
+            formattedTime.append(minutes).append("min ");
+        }
+        if (seconds > 0 || formattedTime.length() == 0) {
+            formattedTime.append(seconds).append("s");
+        }
+
+        // Trim the final string to remove any extra space at the end
+        return formattedTime.toString().trim();
+    }
+
+
+    public static void removeAllEntitiesInRegion(GameSession session) {
+        Location location1 = session.getMap().getPos1();
+        Location location2 = session.getMap().getPos2();
+
+        forEachChunk(location1, location2).forEach(chunk -> {
+            for (Entity entity : chunk.getEntities()) {
+                if (entity instanceof Player) continue;
+                entity.remove();
+            }
+        });
+    }
+
+    public static Collection<Chunk> forEachChunk(Location location1, Location location2) {
+        Set<Chunk> chunks = new HashSet<>();
+
+        if (location1 == null || location2 == null) {
+            return chunks; // Si alguna localización es nula, retorna una colección vacía
+        }
+
+        if (!location1.getWorld().equals(location2.getWorld())) {
+            throw new IllegalArgumentException("Las localizaciones deben estar en el mismo mundo");
+        }
+
+        World world = location1.getWorld();
+
+        int x1 = location1.getBlockX() >> 4; // Coordenada de chunk X de location1
+        int z1 = location1.getBlockZ() >> 4; // Coordenada de chunk Z de location1
+        int x2 = location2.getBlockX() >> 4; // Coordenada de chunk X de location2
+        int z2 = location2.getBlockZ() >> 4; // Coordenada de chunk Z de location2
+
+        int minX = Math.min(x1, x2);
+        int maxX = Math.max(x1, x2);
+        int minZ = Math.min(z1, z2);
+        int maxZ = Math.max(z1, z2);
+
+        for (int x = minX; x <= maxX; x++) {
+            for (int z = minZ; z <= maxZ; z++) {
+                chunks.add(world.getChunkAt(x, z));
+            }
+        }
+        return chunks;
+    }
 
     public static Material getRandomMaterial() {
         int lenght = Material.values().length - 1;

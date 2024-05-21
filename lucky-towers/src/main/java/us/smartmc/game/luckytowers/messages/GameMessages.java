@@ -52,7 +52,10 @@ public enum GameMessages implements IMessageCategory {
     player_addedCoins,
 
     @DefaultLanguageMessage("&b+{0} kill!")
-    player_addedKill;
+    player_addedKill,
+
+    @DefaultLanguageMessage("&c&lSTART HAS BEEN CANCELLED!")
+    session_cancelled;
 
 
     @Override

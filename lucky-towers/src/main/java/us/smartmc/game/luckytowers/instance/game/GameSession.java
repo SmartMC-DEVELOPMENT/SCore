@@ -3,10 +3,12 @@ package us.smartmc.game.luckytowers.instance.game;
 import com.sk89q.worldedit.EditSession;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.command.LeaveCommand;
 import us.smartmc.game.luckytowers.event.GameStatusChangeEvent;
@@ -53,6 +55,10 @@ public class GameSession implements IGameSession {
 
     private EditSession schemSession;
 
+    @Getter
+    private int countdown;
+    private BukkitRunnable startRunnable;
+
     public GameSession(UUID id, GameMap map) {
         this.id = id;
         this.map = map;
@@ -82,8 +88,8 @@ public class GameSession implements IGameSession {
                 });
             });
         });
-        BukkitRunnable runnable = new BukkitRunnable() {
-            int countdown = DEFAULT_SECONDS_COOLDOWN;
+        countdown = DEFAULT_SECONDS_COOLDOWN;
+        startRunnable = new BukkitRunnable() {
             float soundPitch = 0.0f;
             @Override
             public void run() {
@@ -102,7 +108,7 @@ public class GameSession implements IGameSession {
                 soundPitch += 0.2f;
             }
         };
-        runnable.runTaskTimerAsynchronously(LuckyTowers.getPlugin(), 0, 20);
+        startRunnable.runTaskTimerAsynchronously(LuckyTowers.getPlugin(), 0, 20);
     }
 
     @Override
@@ -110,14 +116,27 @@ public class GameSession implements IGameSession {
         if (getStatus().equals(GameSessionStatus.ENDING)) return;
         System.out.println("Ending session...");
         setStatus(GameSessionStatus.ENDING);
+        GameUtil.removeAllEntitiesInRegion(this);
         schemSession.undo(schemSession);
         GameMapManager.getMainMapsGeneration().setAvailable(referenceXChunkReserved);
         new HashSet<>(players).forEach(gamePlayer -> {
             gamePlayer.onlinePlayer(LeaveCommand::leave);
-            System.out.println("Leaving " + gamePlayer.getBukkitPlayer().getName());
         });
         GameSessionsManager manager = LuckyTowers.getManager(GameSessionsManager.class);
         manager.unregister(id);
+    }
+
+    public void checkStartCancellation() {
+        if (status != GameSessionStatus.STARTING) return;
+        if (canStart()) return;
+        cancelStart();
+    }
+
+    public void cancelStart() {
+        forEachOnlinePlayer(player -> {
+            PaperChatUtil.send(player, GameMessages.session_cancelled);
+        });
+        startRunnable.cancel();
     }
 
     @Override
@@ -156,6 +175,7 @@ public class GameSession implements IGameSession {
         teams.clearTeams(gamePlayer);
         players.remove(gamePlayer);
         gamePlayer.setStatus(PlayerStatus.LOBBY);
+        checkStartCancellation();
         if (canEnd()) end();
         gamePlayer.setGameSession(null);
     }

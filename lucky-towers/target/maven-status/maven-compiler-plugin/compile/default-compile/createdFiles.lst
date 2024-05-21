@@ -1,6 +1,7 @@
 us\smartmc\game\luckytowers\menu\LobbyHotbar.class
 us\smartmc\game\luckytowers\instance\task\LaterTask$1.class
 us\smartmc\game\luckytowers\instance\game\GameTemplate.class
+us\smartmc\game\luckytowers\variable\PlayerStatsVariables.class
 us\smartmc\game\luckytowers\listener\PlayerLogicListeners.class
 us\smartmc\game\luckytowers\instance\map\MapsGeneration.class
 us\smartmc\game\luckytowers\event\GamePluginEvent.class

@@ -22,7 +22,7 @@ public class GameUtil {
 
     public static String getFormattedTimeFromSeconds(int initialSeconds) {
         if (initialSeconds < 0) {
-            throw new IllegalArgumentException("Initial seconds cannot be negative");
+            return "NOW";
         }
 
         int seconds = initialSeconds % 60;

@@ -15,9 +15,9 @@ public class GameVariables extends VariableListener<Player> {
 
     @Override
     public String parse(Player player, String message) {
-        VariableUtil.replace(message, "<countdown>", s -> GameUtil.getFormattedTimeFromSeconds(GamePlayer.get(player.getUniqueId()).getGameSession().getCountdown()));
-        VariableUtil.replace(message, "<timeRemaining>", s -> GameUtil.getFormattedTimeFromSeconds(GamePlayer.get(player.getUniqueId()).getGameSession().getSecondsRemaining()));
-        VariableUtil.replace(message, "<playersRemaining>", s -> String.valueOf(GamePlayer.get(player.getUniqueId()).getGameSession().getPlayersRemaining()));
+        message = VariableUtil.replace(message, "<countdown>", s -> GameUtil.getFormattedTimeFromSeconds(GamePlayer.get(player.getUniqueId()).getGameSession().getCountdown()));
+        message = VariableUtil.replace(message, "<timeRemaining>", s -> GameUtil.getFormattedTimeFromSeconds(GamePlayer.get(player.getUniqueId()).getGameSession().getSecondsRemaining()));
+        message = VariableUtil.replace(message, "<playersRemaining>", s -> String.valueOf(GamePlayer.get(player.getUniqueId()).getGameSession().getPlayersRemaining()));
         return message;
     }
 }

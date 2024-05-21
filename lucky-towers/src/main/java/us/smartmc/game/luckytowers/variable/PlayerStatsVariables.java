@@ -15,7 +15,7 @@ public class PlayerStatsVariables extends VariableListener<Player> {
 
     @Override
     public String parse(Player player, String message) {
-        //VariableUtil.replace(message, "<countdown>", s -> );
+        // message = VariableUtil.replace(message, "<countdown>", s -> );
         return message;
     }
 }

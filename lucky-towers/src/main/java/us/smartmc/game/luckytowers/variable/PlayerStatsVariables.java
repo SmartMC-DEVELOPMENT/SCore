@@ -38,7 +38,6 @@ public class PlayerStatsVariables extends VariableListener<Player> {
                 if (matcher.find()) {
                     String streakStatIdName = matcher.group(2).toLowerCase();
                     if (best) streakStatIdName = GamePlayerData.getBestStreakKey(streakStatIdName);
-                    System.out.println("Getting " + streakStatIdName);
                     GamePlayerData data = gamePlayer.getData();
                     long stat = best ? data.getBestStreak(streakStatIdName) : data.getStreak(streakStatIdName);
                     message = message.replace(word, String.valueOf(stat));

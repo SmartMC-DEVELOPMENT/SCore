@@ -32,7 +32,7 @@ public class MapsGeneration {
     private final Location initLocation;
     private final int x;
 
-    private Set<Integer> reserved = new HashSet<>();
+    private final Set<Integer> reserved = new HashSet<>();
 
     public MapsGeneration(World world) {
         initLocation = world.getSpawnLocation();
@@ -70,7 +70,7 @@ public class MapsGeneration {
                 clipboard = reader.read();
             }
             int xAddition = session.getXAddition();
-            World bukkitWorld = session.getMap().getSpawn(0).getWorld();
+            World bukkitWorld = session.getMap().getSpawn(xAddition).getWorld();
 
             BlockVector3 pos1 = EditorSession.getBlockVectorByLocation(session.getMap().getPos1());
             BlockVector3 pos2 = EditorSession.getBlockVectorByLocation(session.getMap().getPos2());
@@ -81,7 +81,6 @@ public class MapsGeneration {
                 Operation operation = new ClipboardHolder(clipboard)
                         .createPaste(editSession)
                         .to(min)
-                        // configure here
                         .build();
                 Operations.complete(operation);
                 return editSession;

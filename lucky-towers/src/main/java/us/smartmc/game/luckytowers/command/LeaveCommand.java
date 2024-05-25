@@ -23,9 +23,10 @@ public class LeaveCommand implements CommandExecutor {
 
     public static void leave(Player player) {
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
+        if (gamePlayer == null) return;
         GameSession session = gamePlayer.getGameSession();
-
         if (session == null) return;
+
         session.quitPlayer(gamePlayer);
 
         // Teleport to spawn if is online

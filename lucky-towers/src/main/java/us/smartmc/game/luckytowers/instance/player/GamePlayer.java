@@ -46,15 +46,15 @@ public class GamePlayer {
     private PlayerStatus status = PlayerStatus.LOBBY;
 
     private GamePlayer(UUID uuid) {
-         this.uuid = uuid;
-         this.data = loadData(uuid);
-         this.bukkitPlayer = Bukkit.getPlayer(uuid);
-         setStatus(PlayerStatus.LOBBY);
+        this.uuid = uuid;
+        this.data = loadData(uuid);
+        this.bukkitPlayer = Bukkit.getPlayer(uuid);
+        setStatus(PlayerStatus.LOBBY);
 
-        Bukkit.getScheduler().runTask(plugin, () ->  {
-            onlinePlayer(player -> {
+        onlinePlayer(player -> {
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
                 new LobbyHotbar(player).set(player);
-            });
+            }, 2);
         });
     }
 
@@ -148,6 +148,10 @@ public class GamePlayer {
     }
 
     public static GamePlayer get(UUID uuid) {
+        return manager.get(uuid);
+    }
+
+    public static GamePlayer create(UUID uuid) {
         GamePlayer gamePlayer = manager.get(uuid);
         if (gamePlayer == null) {
             gamePlayer = new GamePlayer(uuid);
@@ -155,5 +159,4 @@ public class GamePlayer {
         }
         return gamePlayer;
     }
-
 }

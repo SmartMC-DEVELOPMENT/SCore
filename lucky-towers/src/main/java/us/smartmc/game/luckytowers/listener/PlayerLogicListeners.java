@@ -1,5 +1,6 @@
 package us.smartmc.game.luckytowers.listener;
 
+import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,6 +13,7 @@ import us.smartmc.game.luckytowers.event.player.GamePlayerJoinSessionEvent;
 import us.smartmc.game.luckytowers.event.player.PlayerStatusChangeEvent;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.instance.game.GameSessionStatus;
+import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.manager.PlayersManager;
 import us.smartmc.game.luckytowers.menu.hotbar.SpectatorHotbar;
@@ -21,8 +23,15 @@ import us.smartmc.game.luckytowers.util.GameUtil;
 public class PlayerLogicListeners implements Listener {
 
     @EventHandler
-    public void addGamePlayed(PlayerStatusChangeEvent event) {
-        if (event.getStatus().equals(PlayerStatus.INGAME)) event.getGamePlayer().addGamePlayed();
+    public void createGamePlayer(PlayerDataLoadedEvent event) {
+        GamePlayer.create(event.getPlayer().getUniqueId());
+    }
+
+    @EventHandler
+    public void unloadGamePlayer(PlayerQuitEvent event) {
+        PlayersManager manager = LuckyTowers.getManager(PlayersManager.class);
+        manager.unregister(event.getPlayer().getUniqueId());
+        System.out.println("Unloaded player " + event.getPlayer().getName());
     }
 
     @EventHandler
@@ -31,9 +40,8 @@ public class PlayerLogicListeners implements Listener {
     }
 
     @EventHandler
-    public void onDisconnect(PlayerQuitEvent event) {
-        PlayersManager manager = LuckyTowers.getManager(PlayersManager.class);
-        manager.unregister(event.getPlayer().getUniqueId());
+    public void addGamePlayed(PlayerStatusChangeEvent event) {
+        if (event.getStatus().equals(PlayerStatus.INGAME)) event.getGamePlayer().addGamePlayed();
     }
 
     @EventHandler

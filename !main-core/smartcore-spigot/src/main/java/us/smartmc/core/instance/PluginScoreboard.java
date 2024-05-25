@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
+import us.smartmc.core.handler.ScoreboardHandler;
 
 import java.io.File;
 import java.util.*;
@@ -86,6 +87,10 @@ public class PluginScoreboard {
             String line = scores.get(index);
             board.set(line, scores.size() - index);
         }
+    }
+
+    public int getTickUpdateDelay() {
+        return config.containsKey("updateDelay") ? config.getInteger("updateDelay") : ScoreboardHandler.UPDATE_TASK_DELAY;
     }
 
     public String getTitle() {

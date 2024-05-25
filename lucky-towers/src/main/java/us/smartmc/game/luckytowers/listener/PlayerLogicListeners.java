@@ -7,6 +7,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.config.MainPluginConfig;
 import us.smartmc.game.luckytowers.event.GameStatusChangeEvent;
+import us.smartmc.game.luckytowers.event.player.GamePlayerDeathEvent;
 import us.smartmc.game.luckytowers.event.player.GamePlayerJoinSessionEvent;
 import us.smartmc.game.luckytowers.event.player.PlayerStatusChangeEvent;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
@@ -18,6 +19,16 @@ import us.smartmc.game.luckytowers.menu.hotbar.WaitingHotbar;
 import us.smartmc.game.luckytowers.util.GameUtil;
 
 public class PlayerLogicListeners implements Listener {
+
+    @EventHandler
+    public void addGamePlayed(PlayerStatusChangeEvent event) {
+        if (event.getStatus().equals(PlayerStatus.INGAME)) event.getGamePlayer().addGamePlayed();
+    }
+
+    @EventHandler
+    public void addDeath(GamePlayerDeathEvent event) {
+        event.getGamePlayer().addDeath();
+    }
 
     @EventHandler
     public void onDisconnect(PlayerQuitEvent event) {
@@ -47,6 +58,7 @@ public class PlayerLogicListeners implements Listener {
         if (session == null) return;
         if (!(session.getStatus().equals(GameSessionStatus.STARTING))) return;
         session.forEachOnlinePlayer(p -> p.getInventory().clear());
+        session.forEachOnlinePlayer(p -> p.getInventory().setArmorContents(null));
     }
 
     @EventHandler

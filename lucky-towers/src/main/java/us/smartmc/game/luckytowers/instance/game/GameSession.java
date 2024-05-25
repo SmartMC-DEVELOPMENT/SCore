@@ -8,7 +8,6 @@ import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.command.LeaveCommand;
 import us.smartmc.game.luckytowers.event.GameStatusChangeEvent;
@@ -98,6 +97,9 @@ public class GameSession implements IGameSession {
                     getGenerateItemsTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), GENERATION_ITEMS_TICKS, GENERATION_ITEMS_TICKS);
                     getTimeLimitTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), 0, 20);
                     setStatus(GameSessionStatus.PLAYING);
+
+                    // Update status to INGAME (Scoreboard update)
+                    forEachOnlinePlayer(p -> gamePlayer(p).setStatus(PlayerStatus.INGAME));
                     cancel();
                 }
                 if (countdown >= 1) {
@@ -113,6 +115,12 @@ public class GameSession implements IGameSession {
 
     @Override
     public void end() {
+        getTimeLimitTask().cancel();
+        getGenerateItemsTask().cancel();
+
+        GamePlayer winner = getAlivePlayers().isEmpty() ? null : getAlivePlayers().stream().toList().get(0);
+        if (winner != null) winner.addWin();
+
         if (getStatus().equals(GameSessionStatus.ENDING)) return;
         System.out.println("Ending session...");
         setStatus(GameSessionStatus.ENDING);

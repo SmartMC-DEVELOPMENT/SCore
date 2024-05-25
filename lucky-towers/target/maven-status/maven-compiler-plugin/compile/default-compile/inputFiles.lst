@@ -8,6 +8,7 @@ D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\me
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\instance\game\GameTeam.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\menu\GameMenu.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\menu\OptionsMenu.java
+D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\event\player\GamePlayerWinEvent.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\itemcmd\PlayerOptionCommand.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\itemcmd\AdminEditorCommand.java
 D:\workspace2024\SCore\lucky-towers\src\main\java\us\smartmc\game\luckytowers\menu\hotbar\SpectatorHotbar.java

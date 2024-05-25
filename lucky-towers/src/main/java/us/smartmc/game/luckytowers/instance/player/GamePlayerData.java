@@ -23,10 +23,20 @@ public class GamePlayerData {
         this.document = loadData();
     }
 
+    public long getBigNumber(String key) {
+        if (!document.containsKey(key)) return 0;
+        return document.get(key, Number.class).longValue();
+    }
+
+    public int getInt(String key) {
+        if (!document.containsKey(key)) return 0;
+        return document.get(key, Number.class).intValue();
+    }
+
     public void increaseStreak(String key) {
-        int bestStreak = getBestStreak(key);
+        long bestStreak = getBestStreak(key);
         increaseNumber(getStreakKey(key));
-        int currentStreak = getStreak(key);
+        long currentStreak = getStreak(key);
 
         // Check if current streak is more than last best streak and updates it if is more
         if (bestStreak < currentStreak) {
@@ -39,27 +49,29 @@ public class GamePlayerData {
     }
 
     public void increaseNumber(String key) {
-        addToInt(key, 1);
+        addToNumber(key, 1);
     }
 
-    public int getStreak(String key) {
-        return document.getInteger(getStreakKey(key), 0);
+    public long getStreak(String key) {
+        if (!document.containsKey(key)) return 0;
+        return document.get(getStreakKey(key), Number.class).longValue();
     }
 
-    public int getBestStreak(String key) {
-        return document.getInteger(getBestStreakKey(key), 0);
+    public long getBestStreak(String key) {
+        if (!document.containsKey(key)) return 0;
+        return document.get(getBestStreakKey(key), Number.class).longValue();
     }
 
-    public void addToInt(String key, int amount) {
-        int count = document.getInteger(key, 0);
+    public void addToNumber(String key, long amount) {
+        long count = document.containsKey(key) ? document.get(key, Number.class).longValue() : 0;
         document.put(key, count + amount);
     }
 
     public void resetInt(String key) {
-        document.put(key, 0);
+        document.put(key, (long) 0);
     }
 
-    private static String getBestStreakKey(String key) {
+    public static String getBestStreakKey(String key) {
         return "bestStreak-" + key;
     }
 

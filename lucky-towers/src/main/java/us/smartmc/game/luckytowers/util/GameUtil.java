@@ -21,8 +21,8 @@ import java.util.Set;
 public class GameUtil {
 
     public static String getFormattedTimeFromSeconds(int initialSeconds) {
-        if (initialSeconds < 0) {
-            return "NOW";
+        if (initialSeconds <= 0) {
+            return String.valueOf(0);
         }
 
         int seconds = initialSeconds % 60;

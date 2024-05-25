@@ -17,6 +17,7 @@ us\smartmc\game\luckytowers\messages\GameItems.class
 us\smartmc\game\luckytowers\menu\OptionsMenu.class
 us\smartmc\game\luckytowers\listener\EssentialsListeners.class
 us\smartmc\game\luckytowers\util\GameUtil.class
+us\smartmc\game\luckytowers\event\player\GamePlayerWinEvent.class
 us\smartmc\game\luckytowers\event\player\PlayerStatusChangeEvent.class
 us\smartmc\game\luckytowers\event\GameStatusChangeEvent.class
 us\smartmc\game\luckytowers\manager\GameSessionsManager.class

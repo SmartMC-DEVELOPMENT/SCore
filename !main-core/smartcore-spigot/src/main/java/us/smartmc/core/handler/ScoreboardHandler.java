@@ -20,16 +20,20 @@ import java.util.HashSet;
 
 public class ScoreboardHandler implements Listener {
 
-    private static final int UPDATE_TASK_DELAY = 60;
+    public static final int UPDATE_TASK_DELAY = 60;
     private final HashMap<String, PluginScoreboard> scoreboards = new HashMap<>();
+
+    private static long updateTaskTickCounter = 0;
 
     public ScoreboardHandler() {
         register("main");
         Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
+            updateTaskTickCounter++;
             for (PluginScoreboard pluginScoreboard : scoreboards.values()) {
+                if (updateTaskTickCounter % pluginScoreboard.getTickUpdateDelay() != 0) continue;
                 pluginScoreboard.forEachPlayer(pluginScoreboard::update);
             }
-        }, 10, UPDATE_TASK_DELAY);
+        }, 10, 1);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

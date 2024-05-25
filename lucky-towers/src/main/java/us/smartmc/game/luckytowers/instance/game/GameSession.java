@@ -4,6 +4,7 @@ import com.sk89q.worldedit.EditSession;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -103,7 +104,6 @@ public class GameSession implements IGameSession {
                     cancel();
                 }
                 if (countdown >= 1) {
-                    broadcastSound(Sound.BLOCK_GRASS_BREAK, 1f, soundPitch);
                     broadcastActionbar(GameMessages.session_actionBar_startingIn, countdown);
                 }
                 countdown--;
@@ -177,7 +177,7 @@ public class GameSession implements IGameSession {
         players.add(gamePlayer);
         gamePlayer.onlinePlayer(p -> {
             p.teleport(map.getSpawn(xAddition));
-            p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1f, 2f);
+            Bukkit.getScheduler().runTaskLater(LuckyTowers.getPlugin(), () -> p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5f, 2f), 2);
         });
         gamePlayer.setGameSession(this);
         gamePlayer.setStatus(PlayerStatus.INGAME);

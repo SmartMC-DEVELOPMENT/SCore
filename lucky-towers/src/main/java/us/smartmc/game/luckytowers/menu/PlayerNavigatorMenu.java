@@ -30,7 +30,7 @@ public class PlayerNavigatorMenu extends GameMenu {
             String name = alivePlayer.getName();
             ItemBuilder builder = ItemBuilder.of(Material.PLAYER_HEAD);
             builder.name("&a" + name);
-            set(slot, parseBuilderToPlayersHead(builder, alivePlayer));
+            set(slot, parseBuilderToPlayersHead(builder, alivePlayer), "spectatorMode tp " + alivePlayer.getName());
             slot++;
         }
     }

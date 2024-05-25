@@ -115,15 +115,21 @@ public class GameSession implements IGameSession {
 
     @Override
     public void end() {
-        getTimeLimitTask().cancel();
-        getGenerateItemsTask().cancel();
+        if (getStatus().equals(GameSessionStatus.ENDING)) return;
+
+        setStatus(GameSessionStatus.ENDING);
+
+        try {
+            getTimeLimitTask().cancel();
+        } catch (IllegalStateException ignore) {}
+
+        try {
+            getGenerateItemsTask().cancel();
+        } catch (IllegalStateException ignore) {}
 
         GamePlayer winner = getAlivePlayers().isEmpty() ? null : getAlivePlayers().stream().toList().get(0);
         if (winner != null) winner.addWin();
 
-        if (getStatus().equals(GameSessionStatus.ENDING)) return;
-        System.out.println("Ending session...");
-        setStatus(GameSessionStatus.ENDING);
         GameUtil.removeAllEntitiesInRegion(this);
         schemSession.undo(schemSession);
         GameMapManager.getMainMapsGeneration().setAvailable(referenceXChunkReserved);
@@ -169,7 +175,10 @@ public class GameSession implements IGameSession {
     public void joinPlayer(GamePlayer gamePlayer) {
         loadMapSchemAndReserveChunks();
         players.add(gamePlayer);
-        gamePlayer.onlinePlayer(p -> p.teleport(map.getSpawn(xAddition)));
+        gamePlayer.onlinePlayer(p -> {
+            p.teleport(map.getSpawn(xAddition));
+            p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1f, 2f);
+        });
         gamePlayer.setGameSession(this);
         gamePlayer.setStatus(PlayerStatus.INGAME);
         teams.assignNextEmptyTeam(gamePlayer);

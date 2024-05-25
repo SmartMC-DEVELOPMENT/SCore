@@ -50,12 +50,6 @@ public class GamePlayer {
         this.data = loadData(uuid);
         this.bukkitPlayer = Bukkit.getPlayer(uuid);
         setStatus(PlayerStatus.LOBBY);
-
-        onlinePlayer(player -> {
-            Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                new LobbyHotbar(player).set(player);
-            }, 2);
-        });
     }
 
     public long getGamesPlayed() {

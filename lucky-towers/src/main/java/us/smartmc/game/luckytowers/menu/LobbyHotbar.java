@@ -15,4 +15,9 @@ public class LobbyHotbar extends GameMenu {
         set(4, item(GameMessages.lobbyHotbar_item_options).get(), "lobbyHotbar options");
     }
 
+    @Override
+    public void set(Player player) {
+        super.set(player);
+        player.getInventory().setHeldItemSlot(0);
+    }
 }

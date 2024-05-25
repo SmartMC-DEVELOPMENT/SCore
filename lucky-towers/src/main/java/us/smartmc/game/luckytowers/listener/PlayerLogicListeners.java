@@ -2,9 +2,16 @@ package us.smartmc.game.luckytowers.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import us.smartmc.core.SmartCore;
+import us.smartmc.core.handler.AdminModeHandler;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.config.MainPluginConfig;
 import us.smartmc.game.luckytowers.event.GameStatusChangeEvent;
@@ -16,15 +23,35 @@ import us.smartmc.game.luckytowers.instance.game.GameSessionStatus;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.manager.PlayersManager;
+import us.smartmc.game.luckytowers.menu.LobbyHotbar;
 import us.smartmc.game.luckytowers.menu.hotbar.SpectatorHotbar;
 import us.smartmc.game.luckytowers.menu.hotbar.WaitingHotbar;
 import us.smartmc.game.luckytowers.util.GameUtil;
 
 public class PlayerLogicListeners implements Listener {
 
+    private static final LuckyTowers plugin = LuckyTowers.getPlugin();
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void cancelInteractIfLobbyWorld(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        String worldName = player.getLocation().getWorld().getName();
+        // Check lobby world -> If lobby world return
+        if (!plugin.getLobbyWorldNames().contains(worldName)) return;
+
+        event.setCancelled(!SmartCore.getPlugin().getAdminModeHandler().isActive(player));
+    }
+
     @EventHandler
     public void createGamePlayer(PlayerDataLoadedEvent event) {
         GamePlayer.create(event.getPlayer().getUniqueId());
+    }
+
+    @EventHandler
+    public void giveLobbyHotbar(PlayerStatusChangeEvent event) {
+        if (!event.getStatus().equals(PlayerStatus.LOBBY)) return;
+        Player player = event.getPlayer();
+        new LobbyHotbar(player).set(player);
     }
 
     @EventHandler

@@ -12,6 +12,6 @@ public class VoteMenu extends GameMenu {
 
     @Override
     public void load() {
-        set(13, item(GameItems.upcoming_feature).get());
+        set(13, item(GameItems.upcoming_feature).get(), "closeInv");
     }
 }

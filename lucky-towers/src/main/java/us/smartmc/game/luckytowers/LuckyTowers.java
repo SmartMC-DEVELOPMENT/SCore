@@ -34,8 +34,8 @@ import us.smartmc.game.luckytowers.messages.GameMessages;
 import us.smartmc.game.luckytowers.variable.GameVariables;
 import us.smartmc.game.luckytowers.variable.PlayerStatsVariables;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public final class LuckyTowers extends JavaPlugin {
 
@@ -55,6 +55,8 @@ public final class LuckyTowers extends JavaPlugin {
         registerCommands();
 
         mainConfig = new MainPluginConfig();
+
+        mainConfig.registerDefault("lobby-worlds", List.of("lobby", "spawn", "hub"));
 
         registerManagers(
                 EditorModeManager.class,
@@ -132,6 +134,10 @@ public final class LuckyTowers extends JavaPlugin {
     private void registerCommands() {
         registerCommand("adminGame", new AdminGameCommand());
         registerCommand("leave", new LeaveCommand());
+    }
+
+    public Collection<String> getLobbyWorldNames() {
+        return new HashSet<>(mainConfig.getList("lobby-worlds", String.class));
     }
 
     private LuckyTowers registerCommand(String cmdName, CommandExecutor executor) {

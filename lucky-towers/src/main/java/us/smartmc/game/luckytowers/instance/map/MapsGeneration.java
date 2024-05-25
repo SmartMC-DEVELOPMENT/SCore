@@ -72,8 +72,8 @@ public class MapsGeneration {
             int xAddition = session.getXAddition();
             World bukkitWorld = session.getMap().getSpawn(xAddition).getWorld();
 
-            BlockVector3 pos1 = EditorSession.getBlockVectorByLocation(session.getMap().getPos1());
-            BlockVector3 pos2 = EditorSession.getBlockVectorByLocation(session.getMap().getPos2());
+            BlockVector3 pos1 = EditorSession.getBlockVectorByLocation(session.getMap().getPos1(xAddition));
+            BlockVector3 pos2 = EditorSession.getBlockVectorByLocation(session.getMap().getPos2(xAddition));
 
             BlockVector3 min = EditorSession.min(pos1, pos2);
 

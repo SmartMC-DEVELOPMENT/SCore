@@ -89,12 +89,12 @@ public class GameMap {
         getConfig().put(TIME_LIMIT_PATH, time);
     }
 
-    public Location getPos1() {
-        return getConfigLocation(POS1_PATH);
+    public Location getPos1(int xAddition) {
+        return getConfigLocation(POS1_PATH).add(xAddition, 0, 0);
     }
 
-    public Location getPos2() {
-        return getConfigLocation(POS2_PATH);
+    public Location getPos2(int xAddition) {
+        return getConfigLocation(POS2_PATH).add(xAddition, 0, 0);
     }
 
     public Location getSpawn(int xLocationAddition) {

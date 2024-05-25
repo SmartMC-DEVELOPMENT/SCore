@@ -25,7 +25,7 @@ public class GameTeam {
     public Location getSpawnAssigned(int additionXLocation) {
         if (spawnAssigned.getWorld() == null)
             spawnAssigned.setWorld(Bukkit.getWorld(spawnAssigned.getWorld().getName()));
-        return spawnAssigned.clone().add(additionXLocation, 0, 0);
+        return spawnAssigned.add(additionXLocation, 0, 0);
     }
 
     public int getPlayersSize() {

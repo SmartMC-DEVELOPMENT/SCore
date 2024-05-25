@@ -4,6 +4,7 @@ import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import me.imsergioh.pluginsapi.language.IMessageCategory;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.instance.game.GameMap;
@@ -35,7 +36,13 @@ public class AdminEditorCommand implements ItemActionExecutor {
             }
 
             case "addTeamSpawn" -> {
-                map.getSpawnLocations().add(player.getLocation());
+                Location initLocation = player.getLocation();
+                Location location = new Location(initLocation.getWorld(),
+                        initLocation.getBlockX() + 0.5,
+                        initLocation.getBlockY(),
+                        initLocation.getBlockZ() + 0.5,
+                        initLocation.getYaw(), initLocation.getPitch());
+                map.getSpawnLocations().add(location);
                 map.saveSpawnLocations();
                 feedbackMessage = AdminMessages.editor_spawnAdded;
             }

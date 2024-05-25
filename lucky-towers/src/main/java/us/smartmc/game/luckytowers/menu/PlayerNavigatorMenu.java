@@ -22,6 +22,9 @@ public class PlayerNavigatorMenu extends GameMenu {
         GameSession session = gamePlayer.getGameSession();
 
         int slot = 0;
+
+        if (session == null) return;
+
         for (GamePlayer sessionPlayer : session.getAlivePlayers()) {
             Player alivePlayer = sessionPlayer.getBukkitPlayer();
             String name = alivePlayer.getName();

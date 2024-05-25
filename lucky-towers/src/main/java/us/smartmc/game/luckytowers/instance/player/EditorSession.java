@@ -41,8 +41,8 @@ public class EditorSession {
 
     public void saveRegion() throws Exception {
         World weWorld = WorldEdit.getInstance().getPlatformManager().getWorldForEditing(new BukkitWorld(player.getWorld()));
-        BlockVector3 pos1 = getBlockVectorByLocation(getMap().getPos1());
-        BlockVector3 pos2 = getBlockVectorByLocation(getMap().getPos2());
+        BlockVector3 pos1 = getBlockVectorByLocation(getMap().getPos1(0));
+        BlockVector3 pos2 = getBlockVectorByLocation(getMap().getPos2(0));
 
         BlockVector3 min = min(pos1, pos2);
         BlockVector3 max = max(pos1, pos2);

@@ -11,7 +11,7 @@ import us.smartmc.game.luckytowers.messages.GameMessages;
 public class GamesMenu extends GameMenu {
 
     public GamesMenu(Player player) {
-        super(player, 54, GameMessages.menu_games_title);
+        super(player, 9 * 4, GameMessages.menu_games_title);
     }
 
     @Override

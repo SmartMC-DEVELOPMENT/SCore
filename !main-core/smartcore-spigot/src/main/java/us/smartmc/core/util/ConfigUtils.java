@@ -4,15 +4,21 @@ import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 
 public class ConfigUtils {
 
-    public static Document locationToDocument(Location location, boolean withYawPitch) {
-        Document document = new Document("world", location.getWorld().getName())
-                .append("x", location.getX())
-                .append("y", location.getY())
-                .append("z", location.getZ());
-        if (withYawPitch) {
+    public static Document locationToDocument(Location location, boolean includeWorld, boolean includeYawAndPitch) {
+        Document document = new Document();
+
+        if (includeWorld) {
+            document.append("world", location.getWorld().getName());
+        }
+
+        document.append("x", location.getX());
+        document.append("y", location.getY());
+        document.append("z", location.getZ());
+        if (includeYawAndPitch) {
             document.append("yaw", location.getYaw())
                     .append("pitch", location.getPitch());
         }
@@ -23,6 +29,19 @@ public class ConfigUtils {
         Location location =
                 new Location(Bukkit.getWorld(
                         document.getString("world")),
+                        document.get("x", Number.class).doubleValue(),
+                        document.get("y", Number.class).doubleValue(),
+                        document.get("z", Number.class).doubleValue());
+        if (document.containsKey("yaw") && document.containsKey("pitch")) {
+            location.setYaw(document.get("yaw", Number.class).floatValue());
+            location.setPitch(document.get("pitch", Number.class).floatValue());
+        }
+        return location;
+    }
+
+    public static Location documentToLocation(World world, Document document) {
+        Location location =
+                new Location(world,
                         document.get("x", Number.class).doubleValue(),
                         document.get("y", Number.class).doubleValue(),
                         document.get("z", Number.class).doubleValue());

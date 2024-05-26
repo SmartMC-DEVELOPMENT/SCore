@@ -27,7 +27,6 @@ public class GameSessionsManager extends ManagerRegistry<UUID, GameSession> {
 
             // Check free slots for teams
             int freeSlots = s.getTeams().getFreeSlots();
-            System.out.println("Free slots=" + +freeSlots);
             if (freeSlots <= 0) continue;
             if (!s.canPlayersJoin(amount)) continue;
             session = s;

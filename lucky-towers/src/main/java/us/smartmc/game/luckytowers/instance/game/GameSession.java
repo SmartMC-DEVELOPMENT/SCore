@@ -4,10 +4,7 @@ import com.sk89q.worldedit.EditSession;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.command.LeaveCommand;
@@ -79,6 +76,10 @@ public class GameSession implements IGameSession {
     public void start() {
         if (getStatus().equals(GameSessionStatus.STARTING)) return;
         setStatus(GameSessionStatus.STARTING);
+        forEachPlayer(gamePlayer -> {
+            gamePlayer.setStatus(PlayerStatus.INGAME);
+            gamePlayer.getBukkitPlayer().setGameMode(GameMode.SURVIVAL);
+        });
         playersRemaining = getAlivePlayers().size();
         teams.forEachTeam(team -> {
             team.getPlayers().forEach(uuid -> {
@@ -173,13 +174,14 @@ public class GameSession implements IGameSession {
 
     @Override
     public void joinPlayer(GamePlayer gamePlayer) {
+        gamePlayer.setGameSession(this);
         loadMapSchemAndReserveChunks();
         players.add(gamePlayer);
         gamePlayer.onlinePlayer(p -> {
             p.teleport(map.getSpawn(xAddition));
-            Bukkit.getScheduler().runTaskLater(LuckyTowers.getPlugin(), () -> p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5f, 2f), 2);
+            p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5f, 2f);
+            p.setGameMode(GameMode.ADVENTURE);
         });
-        gamePlayer.setGameSession(this);
         gamePlayer.setStatus(PlayerStatus.INGAME);
         teams.assignNextEmptyTeam(gamePlayer);
         LuckyTowers.callEvent(new GamePlayerJoinSessionEvent(gamePlayer));
@@ -204,10 +206,12 @@ public class GameSession implements IGameSession {
         LuckyTowers.callEvent(new GamePlayerDeathEvent(gamePlayer));
         gamePlayer.onlinePlayer(player -> {
             Location location = player.getLocation();
+            player.playSound(location, Sound.ENTITY_PLAYER_DEATH, 1.0f, 2.0f);
+
             if (player.isDead())
                 player.spigot().respawn();
             player.teleport(map.getSpawn(xAddition));
-            player.playSound(location, Sound.ENTITY_PLAYER_DEATH, 1.0f, 2.0f);
+            player.setGameMode(GameMode.ADVENTURE);
         });
         if (canEnd()) end();
     }

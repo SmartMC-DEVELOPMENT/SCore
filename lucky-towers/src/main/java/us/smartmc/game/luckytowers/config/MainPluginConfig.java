@@ -3,8 +3,8 @@ package us.smartmc.game.luckytowers.config;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import org.bson.Document;
 import org.bukkit.Location;
-import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.core.util.ConfigUtils;
+import us.smartmc.game.luckytowers.LuckyTowers;
 
 public class MainPluginConfig extends FilePluginConfig {
 
@@ -26,7 +26,7 @@ public class MainPluginConfig extends FilePluginConfig {
     }
 
     public void setLobby(Location location) {
-        put(LOBBY_LOCATION_PATH, ConfigUtils.locationToDocument(location, true));
+        put(LOBBY_LOCATION_PATH, ConfigUtils.locationToDocument(location, true, true));
         save();
     }
 

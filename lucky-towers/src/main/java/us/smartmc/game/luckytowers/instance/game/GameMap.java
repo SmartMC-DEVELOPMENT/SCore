@@ -3,7 +3,9 @@ package us.smartmc.game.luckytowers.instance.game;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import us.smartmc.core.util.ConfigUtils;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.manager.GameMapManager;
@@ -48,7 +50,7 @@ public class GameMap {
     public void saveSpawnLocations() {
         List<Document> list = new ArrayList<>();
         for (Location location : spawnLocations) {
-            list.add(ConfigUtils.locationToDocument(location, true));
+            list.add(ConfigUtils.locationToDocument(location, false, true));
         }
         config.put(LOCATIONS_PATH, list);
         config.save();
@@ -74,15 +76,15 @@ public class GameMap {
     }
 
     public void setPos1(Location location) {
-        setConfigLocation(POS1_PATH, location, false);
+        setConfigLocation(POS1_PATH, location, false, false);
     }
 
     public void setPos2(Location location) {
-        setConfigLocation(POS2_PATH, location, false);
+        setConfigLocation(POS2_PATH, location, false, false);
     }
 
     public void setSpawn(Location location) {
-        setConfigLocation(SPAWN_PATH, location, true);
+        setConfigLocation(SPAWN_PATH, location, false, true);
     }
 
     public void setTimeLimit(int time) {
@@ -90,27 +92,27 @@ public class GameMap {
     }
 
     public Location getPos1(int xAddition) {
-        return getConfigLocation(POS1_PATH).add(xAddition, 0, 0);
+        return getConfigLocation(Bukkit.getWorld("maps"), POS1_PATH).add(xAddition, 0, 0);
     }
 
     public Location getPos2(int xAddition) {
-        return getConfigLocation(POS2_PATH).add(xAddition, 0, 0);
+        return getConfigLocation(Bukkit.getWorld("maps"), POS2_PATH).add(xAddition, 0, 0);
     }
 
     public Location getSpawn(int xLocationAddition) {
-        return getConfigLocation(SPAWN_PATH).clone().add(xLocationAddition, 0, 0);
+        return getConfigLocation(Bukkit.getWorld("maps"), SPAWN_PATH).clone().add(xLocationAddition, 0, 0);
     }
 
     public int getTimeLimit() {
         return config.getInteger(TIME_LIMIT_PATH, 480);
     }
 
-    private Location getConfigLocation(String path) {
-        return ConfigUtils.documentToLocation(config.get(path, Document.class));
+    private Location getConfigLocation(World world, String path) {
+        return ConfigUtils.documentToLocation(world, config.get(path, Document.class));
     }
 
-    private void setConfigLocation(String path, Location location, boolean withYawPitch) {
-        config.put(path, ConfigUtils.locationToDocument(location, withYawPitch));
+    private void setConfigLocation(String path, Location location, boolean includeWorld, boolean includeYawAndPitch) {
+        config.put(path, ConfigUtils.locationToDocument(location, includeWorld, includeYawAndPitch));
         config.save();
     }
 

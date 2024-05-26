@@ -2,42 +2,86 @@ package us.smartmc.game.luckytowers.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import us.smartmc.core.SmartCore;
-import us.smartmc.core.handler.AdminModeHandler;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.config.MainPluginConfig;
 import us.smartmc.game.luckytowers.event.GameStatusChangeEvent;
 import us.smartmc.game.luckytowers.event.player.GamePlayerDeathEvent;
 import us.smartmc.game.luckytowers.event.player.GamePlayerJoinSessionEvent;
 import us.smartmc.game.luckytowers.event.player.PlayerStatusChangeEvent;
+import us.smartmc.game.luckytowers.instance.game.GameMap;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.instance.game.GameSessionStatus;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
+import us.smartmc.game.luckytowers.manager.EditorModeManager;
+import us.smartmc.game.luckytowers.manager.GameMapManager;
+import us.smartmc.game.luckytowers.manager.GameSessionsManager;
 import us.smartmc.game.luckytowers.manager.PlayersManager;
 import us.smartmc.game.luckytowers.menu.LobbyHotbar;
 import us.smartmc.game.luckytowers.menu.hotbar.SpectatorHotbar;
 import us.smartmc.game.luckytowers.menu.hotbar.WaitingHotbar;
 import us.smartmc.game.luckytowers.util.GameUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class PlayerLogicListeners implements Listener {
 
-    private static final LuckyTowers plugin = LuckyTowers.getPlugin();
+    @EventHandler
+    public void cancelGamemodeSet(PlayerGameModeChangeEvent event) {
+        GamePlayer gamePlayer = GamePlayer.get(event.getPlayer().getUniqueId());
+        if (gamePlayer == null) {
+            event.setCancelled(true);
+        }
+    }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void cancelInteractIfLobbyWorld(PlayerInteractEvent event) {
+    public void setGamemodeEvent(PlayerStatusChangeEvent event) {
+        GameMode toSet = GameMode.ADVENTURE;
+        if (event.getStatus().equals(PlayerStatus.INGAME)) toSet = GameMode.SURVIVAL;
+        event.getPlayer().setGameMode(toSet);
+    }
+
+    @EventHandler
+    public void setGamemodeCreativeAtEditorTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
-        String worldName = player.getLocation().getWorld().getName();
-        // Check lobby world -> If lobby world return
-        if (!plugin.getLobbyWorldNames().contains(worldName)) return;
+        EditorModeManager manager = LuckyTowers.getManager(EditorModeManager.class);
+        if (!manager.hasEditorMode(player)) return;
+        player.setGameMode(GameMode.CREATIVE);
+    }
+
+    @EventHandler
+    public void joinGameAtPortal(PlayerPortalEvent event) {
+        boolean isEndPortal = event.getTo().getWorld().getName().contains("_the_end");
+        if (!isEndPortal) return;
+        event.setCancelled(true);
+
+        GameMapManager gameMapManager = LuckyTowers.getManager(GameMapManager.class);
+        GameSessionsManager sessionsManager = LuckyTowers.getManager(GameSessionsManager.class);
+
+        List<String> mapNames = new ArrayList<>();
+
+        for (GameMap map : gameMapManager.values()) {
+            mapNames.add(map.getName());
+        }
+        String randomMap = mapNames.get(new Random().nextInt(mapNames.size()));
+        GameSession session = sessionsManager.createOrGetByName(randomMap, 1);
+        session.joinPlayer(GamePlayer.get(event.getPlayer().getUniqueId()));
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void cancelInteract(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
+        if (gamePlayer.getStatus().equals(PlayerStatus.INGAME)) return;
 
         event.setCancelled(!SmartCore.getPlugin().getAdminModeHandler().isActive(player));
     }
@@ -58,7 +102,6 @@ public class PlayerLogicListeners implements Listener {
     public void unloadGamePlayer(PlayerQuitEvent event) {
         PlayersManager manager = LuckyTowers.getManager(PlayersManager.class);
         manager.unregister(event.getPlayer().getUniqueId());
-        System.out.println("Unloaded player " + event.getPlayer().getName());
     }
 
     @EventHandler

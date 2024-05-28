@@ -37,7 +37,7 @@ public class JoinItemMenu extends ConfigurableMenu {
                 .lore("<lang.lobby.items.cosmetics.description>").get(initPlayer), "itemCosmetics");
 
         PlayerVisibility visibility = VisibilityManager.getVisibility(initPlayer);
-        set(7, VisibilityManager.getVisibilityItem(visibility).lore(PlayerVisibility.getOptionItemLore(initPlayer)).get(initPlayer), "cmd changeVisibility");
+        set(7, VisibilityManager.getVisibilityItem(initPlayer, visibility).get(), "cmd changeVisibility");
 
         if (initPlayer.hasPermission("group.builder")) {
             set(13, ItemBuilder.of(Material.NETHERITE_AXE).hideFlags()

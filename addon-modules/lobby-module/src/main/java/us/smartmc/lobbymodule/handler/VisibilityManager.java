@@ -52,7 +52,7 @@ public class VisibilityManager extends AddonListener implements Listener {
         return PlayerVisibility.valueOf(visibilityName);
     }
 
-    public static ItemBuilder getVisibilityItem(PlayerVisibility visibility) {
+    public static ItemBuilder getVisibilityItem(Player player, PlayerVisibility visibility) {
         Material material;
         switch (visibility) {
             case DEFAULT -> material = Material.LIME_DYE;
@@ -64,7 +64,7 @@ public class VisibilityManager extends AddonListener implements Listener {
         return ItemBuilder
                 .of(material)
                 .name("<lang.lobby.items.visibility.name>")
-                .lore("<lang.lobby.visibility_" + visibility.name() + "_name>");
+                .lore(PlayerVisibility.getOptionItemLore(player));
     }
 
     public static void update(Player player) {

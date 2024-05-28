@@ -39,7 +39,7 @@ public class ChangeVisibilityCommand extends AddonPluginCommand {
         ItemStack item = player.getItemInHand();
         if (!(item.getType().name().startsWith("INK") || item.getType().name().contains("DYE"))) return;
         CoreMenu menu = corePlayer.getCurrentMenuSet();
-        item = VisibilityManager.getVisibilityItem(nextVisibility).get(player);
+        item = VisibilityManager.getVisibilityItem(player, nextVisibility).get(player);
         player.getInventory().setItemInHand(item);
         menu.getActionManager().registerItemAction(player.getInventory().getHeldItemSlot(),
                 item, Arrays.asList("cmd changeVisibility"));

@@ -2,6 +2,7 @@ package us.smartmc.game.luckytowers.manager;
 
 import me.imsergioh.pluginsapi.instance.manager.ManagerRegistry;
 import us.smartmc.game.luckytowers.LuckyTowers;
+import us.smartmc.game.luckytowers.instance.game.GameMap;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.instance.game.GameSessionStatus;
 
@@ -17,6 +18,14 @@ public class GameSessionsManager extends ManagerRegistry<UUID, GameSession> {
     @Override
     public void unload() {
 
+    }
+
+    public int getPlayingCount(GameMap map) {
+        int count = 0;
+        for (GameSession session : values()) {
+            if (session.getMap().equals(map)) count += session.getAlivePlayers().size();
+        }
+        return count;
     }
 
     public GameSession createOrGetByName(String mapName, int amount) {

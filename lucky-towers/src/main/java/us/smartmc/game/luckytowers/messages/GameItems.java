@@ -33,7 +33,14 @@ public enum GameItems implements IMessageCategory {
             name = "&cThis feature is upcoming",
             description = {"&7In a few days this feature is going to work.", "&7We are working and developing this!"}
     )
-    upcoming_feature;
+    upcoming_feature,
+
+    @DefaultLanguageItem(
+            material = "BEDROCK",
+            name = "&a{0}",
+            description = {"&7They are <mapPlaying.{0}> playing", "&r", "&aClick to join!"}
+    )
+    menu_games_playMapTemplate;
 
     @Override
     public String getFieldName() {

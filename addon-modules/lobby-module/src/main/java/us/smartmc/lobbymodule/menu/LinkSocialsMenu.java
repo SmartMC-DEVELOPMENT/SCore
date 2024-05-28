@@ -33,7 +33,7 @@ public class LinkSocialsMenu extends CoreMenu {
     private boolean showing;
 
     public LinkSocialsMenu(Player player) {
-        super(player, 27, "<lang.lobby.menu_link_socials_title>");
+        super(player, 54, "<lang.lobby.menu_link_socials_title>");
         showing = false;
         setup();
     }
@@ -55,13 +55,13 @@ public class LinkSocialsMenu extends CoreMenu {
         //ItemBuilder relleno = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).name(" ");
         //MenuUtil.setBorder(relleno.get(), inventory);
 
-        register(11, LinkSocialType.YOUTUBE);
-        register(13, LinkSocialType.TWITCH);
-        register(15, LinkSocialType.TIKTOK);
+        register(10, LinkSocialType.YOUTUBE);
+        register(12, LinkSocialType.TWITCH);
+        register(14, LinkSocialType.TIKTOK);
+        register(16, LinkSocialType.TWITTER);
 
-        register(17, LinkSocialType.TWITTER);
-        register(19, LinkSocialType.INSTAGRAM);
-        register(21, LinkSocialType.DISCORD);
+        register(30, LinkSocialType.INSTAGRAM);
+        register(32, LinkSocialType.DISCORD);
 
         if (initCorePlayer.getPreviousOpenMenu() != null) {
             set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("<lang.language.menuPrevious>").get(initPlayer), "openPrevious");

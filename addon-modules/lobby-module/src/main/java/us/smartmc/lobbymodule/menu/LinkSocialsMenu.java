@@ -65,12 +65,7 @@ public class LinkSocialsMenu extends CoreMenu {
 
         if (initCorePlayer.getPreviousOpenMenu() != null) {
             set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("<lang.language.menuPrevious>").get(initPlayer), "openPrevious");
-        } else {
-            set(8, ItemBuilder.of(Material.BARRIER).name("&c<lang.language.menuClose>").get(initPlayer), "closeInv");
         }
-
-        //register(43, LinkSocialType.GITHUB);
-
         document = null;
     }
 

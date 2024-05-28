@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import us.smartmc.core.util.ConfigUtils;
 import us.smartmc.game.luckytowers.LuckyTowers;
@@ -56,18 +57,24 @@ public class GameMap {
         config.save();
     }
 
-    public List<Location> loadConfigLocations() {
+    public List<Location> loadConfigLocations(World world) {
         List<Location> list = new ArrayList<>();
         if (config.containsKey(LOCATIONS_PATH))
-            config.getList(LOCATIONS_PATH, Document.class).forEach(doc -> list.add(ConfigUtils.documentToLocation(doc)));
+            config.getList(LOCATIONS_PATH, Document.class).forEach(doc -> list.add(ConfigUtils.documentToLocation(world, doc)));
         return list;
+    }
+
+    public Material getIcon() {
+        return Material.getMaterial(config.getString("icon_material"));
     }
 
     private void registerConfigDefaults() {
         template = GameTemplate.get(config.get("template", "default"));
 
         // Loads the spawnLocations from config
-        spawnLocations.addAll(loadConfigLocations());
+        spawnLocations.addAll(loadConfigLocations(Bukkit.getWorld("maps")));
+
+        config.registerDefault("icon_material", Material.GRASS_BLOCK.name());
 
         if (config.containsKey(MAINTENANCE_PATH))
             maintenance = config.getBoolean(MAINTENANCE_PATH);

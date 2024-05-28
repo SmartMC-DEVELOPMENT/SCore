@@ -22,7 +22,7 @@ public class GamesMenu extends GameMenu {
 
         for (GameMap map : mapManager.values()) {
             String name = map.getName();
-            set(slot, ItemBuilder.of(Material.ACACIA_STAIRS)
+            set(slot, ItemBuilder.of(map.getIcon())
                             .name("<color:#db03fc>" + name)
                             .lore("Click to play! Yo que sé").get(),
                     "playerOption playMap " + name);

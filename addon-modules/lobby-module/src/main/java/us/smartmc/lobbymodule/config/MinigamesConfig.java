@@ -30,6 +30,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
         registerMiniGame("snowmatch");
         registerMiniGame("survival");
         registerMiniGame("arsilexsmp");
+        registerMiniGame("luckytowers");
         save();
     }
 

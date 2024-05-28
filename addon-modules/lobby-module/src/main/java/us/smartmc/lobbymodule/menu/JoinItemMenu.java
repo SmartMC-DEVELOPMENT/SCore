@@ -2,6 +2,7 @@
 package us.smartmc.lobbymodule.menu;
 
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.ConfigurableMenu;
@@ -10,14 +11,11 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.scheduler.BukkitRunnable;
-import us.smartmc.core.SmartCore;
 import us.smartmc.lobbymodule.handler.VisibilityManager;
 import us.smartmc.lobbymodule.instance.PlayerVisibility;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
 
 import java.io.File;
-import java.util.Arrays;
 
 public class JoinItemMenu extends ConfigurableMenu {
 
@@ -27,10 +25,6 @@ public class JoinItemMenu extends ConfigurableMenu {
 
     @Override
     public void load() {
-        loadInv();
-    }
-
-    private void loadInv() {
         setItem(0, Material.COMPASS, "minigames");
 
         ItemStack headItem = headItem("settings").get(initPlayer);
@@ -43,7 +37,7 @@ public class JoinItemMenu extends ConfigurableMenu {
                 .lore("<lang.lobby.items.cosmetics.description>").get(initPlayer), "itemCosmetics");
 
         PlayerVisibility visibility = VisibilityManager.getVisibility(initPlayer);
-        set(7, VisibilityManager.getVisibilityItem(visibility).get(initPlayer), "cmd changeVisibility");
+        set(7, VisibilityManager.getVisibilityItem(visibility).lore(PlayerVisibility.getOptionItemLore(initPlayer)).get(initPlayer), "cmd changeVisibility");
 
         if (initPlayer.hasPermission("group.builder")) {
             set(13, ItemBuilder.of(Material.NETHERITE_AXE).hideFlags()

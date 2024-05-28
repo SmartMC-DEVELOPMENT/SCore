@@ -43,6 +43,10 @@ public class EssentialsListeners implements Listener {
 
         if (!(entity instanceof Player player)) return;
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
+        if (gamePlayer == null) {
+            event.setCancelled(true);
+            return;
+        }
 
         // Cancel damage event if is not ingame and not playing
         event.setCancelled(!(gamePlayer.getStatus().equals(PlayerStatus.INGAME) && gamePlayer.getGameSession().getStatus().equals(GameSessionStatus.PLAYING)));

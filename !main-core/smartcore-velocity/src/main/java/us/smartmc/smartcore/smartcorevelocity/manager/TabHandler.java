@@ -2,23 +2,24 @@ package us.smartmc.smartcore.smartcorevelocity.manager;
 
 import com.velocitypowered.api.proxy.Player;
 import lombok.Getter;
-import me.imsergioh.pluginsapi.instance.MongoDBPluginConfig;
+import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.bson.Document;
+import us.smartmc.smartcore.smartcorevelocity.SmartCoreVelocity;
 import us.smartmc.smartcore.smartcorevelocity.instance.PlayerLanguages;
 
+import java.io.File;
 import java.util.*;
 
-public class TabHandler extends MongoDBPluginConfig {
+public class TabHandler extends FilePluginConfig {
+
+    private static final SmartCoreVelocity plugin = SmartCoreVelocity.getPlugin();
 
     @Getter
     private static final HashMap<Language, TabHandler> handlers = new HashMap<>();
-
-    private int currentHeaderIndex, currentFooterIndex;
 
     public static void register() {
         for (Language language : Language.values()) {
@@ -29,37 +30,13 @@ public class TabHandler extends MongoDBPluginConfig {
     private final String HEADER_KEY = "header";
     private final String FOOTER_KEY = "footer";
 
-    private final Timer timer;
-
     public TabHandler(Language language) {
-        super("proxy_data", "tab_handler", new Document("lang", language.name().toUpperCase()));
+        super(new File(plugin.getDataDirectory().toFile(), "tab_" + language.name() + ".json"));
         handlers.put(language, this);
         load();
-        registerDefault(HEADER_KEY, List.of("Hello world!\nLine2!?", "HOLAAAAAA HEADEEEER", "RATATATAA"));
-        registerDefault(FOOTER_KEY, List.of("LINE1", "LINE2", "LINE3"));
+        registerDefault(HEADER_KEY, "Linea1");
+        registerDefault(FOOTER_KEY, "Linea2");
         save();
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                int maxHeader = getMaxSizeOfList(HEADER_KEY);
-                int maxFooter = getMaxSizeOfList(FOOTER_KEY);
-                int nextHeaderIndex = (currentHeaderIndex >= maxHeader -1) ? 0 : (++currentHeaderIndex);
-                int nextFooterIndex = (currentFooterIndex >= maxFooter -1) ? 0 : (++currentFooterIndex);
-                currentHeaderIndex = nextHeaderIndex;
-                currentFooterIndex = nextFooterIndex;
-                Component header = getCurrentHeader();
-                Component footer = getCurrentFooter();
-                VelocityPluginsAPI.proxy.getAllPlayers().forEach(p -> {
-                    if (!PlayerLanguages.getLanguage(p.getUniqueId()).equals(language)) return;
-                    sendTab(p, header, footer);
-                });
-            }
-        }, 0, getInteger("interval"));
-    }
-
-    public void suspendTimer() {
-        timer.purge();
     }
 
     public void sendTab(Player player, Component header, Component footer) {
@@ -71,13 +48,13 @@ public class TabHandler extends MongoDBPluginConfig {
     }
 
     public Component getCurrentHeader() {
-        String value = getList(HEADER_KEY, String.class).get(currentHeaderIndex);
+        String value = get(HEADER_KEY, String.class);
         MiniMessage miniMessage = MiniMessage.miniMessage();
         return miniMessage.deserialize(LegacyComponentSerializer.legacySection().deserialize(value).content());
     }
 
     public Component getCurrentFooter() {
-        String value = getList(FOOTER_KEY, String.class).get(currentFooterIndex);
+        String value = get(FOOTER_KEY, String.class);
         MiniMessage miniMessage = MiniMessage.miniMessage();
         return miniMessage.deserialize(LegacyComponentSerializer.legacySection().deserialize(value).content());
     }

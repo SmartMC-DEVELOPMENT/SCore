@@ -14,7 +14,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.util.BlockVector;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.instance.game.GameMap;
 import us.smartmc.game.luckytowers.instance.game.GameTeamColor;
@@ -39,10 +38,10 @@ public class EditorSession {
         this.player = player;
     }
 
-    public void saveRegion() throws Exception {
+    public void saveRegion(org.bukkit.World world) throws Exception {
         World weWorld = WorldEdit.getInstance().getPlatformManager().getWorldForEditing(new BukkitWorld(player.getWorld()));
-        BlockVector3 pos1 = getBlockVectorByLocation(getMap().getPos1(0));
-        BlockVector3 pos2 = getBlockVectorByLocation(getMap().getPos2(0));
+        BlockVector3 pos1 = getBlockVectorByLocation(getMap().getPos1(world, 0));
+        BlockVector3 pos2 = getBlockVectorByLocation(getMap().getPos2(world, 0));
 
         BlockVector3 min = min(pos1, pos2);
         BlockVector3 max = max(pos1, pos2);

@@ -5,8 +5,6 @@ import us.smartmc.backend.handler.ServicesManager;
 import us.smartmc.backend.instance.BackendCommandExecutor;
 import us.smartmc.backend.module.PlayersServiceServer;
 
-import java.util.Arrays;
-
 public class ChatCommand extends BackendCommandExecutor {
 
     public ChatCommand() {
@@ -15,11 +13,8 @@ public class ChatCommand extends BackendCommandExecutor {
 
     @Override
     public void onCommand(ConnectionHandler connection, String label, String[] args) {
-        System.out.println("Received chat! " + Arrays.asList(args));
-
-        StringBuilder builder = new StringBuilder(args[1]);
-
-        for (int index = 2; index < args.length; index++) {
+        /*StringBuilder builder = new StringBuilder();
+        for (int index = 1; index < args.length; index++) {
             builder.append(args[index]).append(" ");
         }
         if (builder.toString().endsWith(" "))
@@ -27,6 +22,6 @@ public class ChatCommand extends BackendCommandExecutor {
 
         ServicesManager.performWhenLoaded(PlayersServiceServer.class, playersServiceServer -> {
             playersServiceServer.sendMessage("imsergioh", builder.toString());
-        });
+        });*/
     }
 }

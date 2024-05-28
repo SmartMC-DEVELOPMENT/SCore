@@ -33,7 +33,7 @@ public class LinkSocialsMenu extends CoreMenu {
     private boolean showing;
 
     public LinkSocialsMenu(Player player) {
-        super(player, 54, "<lang.lobby.menu_link_socials_title>");
+        super(player, 27, "<lang.lobby.menu_link_socials_title>");
         showing = false;
         setup();
     }
@@ -52,23 +52,24 @@ public class LinkSocialsMenu extends CoreMenu {
 
     public void setup() {
         loadDocument();
-        ItemBuilder relleno = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).name(" ");
-        MenuUtil.setBorder(relleno.get(), inventory);
+        //ItemBuilder relleno = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).name(" ");
+        //MenuUtil.setBorder(relleno.get(), inventory);
+
+        register(11, LinkSocialType.YOUTUBE);
+        register(13, LinkSocialType.TWITCH);
+        register(15, LinkSocialType.TIKTOK);
+
+        register(17, LinkSocialType.TWITTER);
+        register(19, LinkSocialType.INSTAGRAM);
+        register(21, LinkSocialType.DISCORD);
+
         if (initCorePlayer.getPreviousOpenMenu() != null) {
             set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("<lang.language.menuPrevious>").get(initPlayer), "openPrevious");
         } else {
             set(8, ItemBuilder.of(Material.BARRIER).name("&c<lang.language.menuClose>").get(initPlayer), "closeInv");
         }
 
-        register(11, LinkSocialType.YOUTUBE);
-        register(13, LinkSocialType.TWITCH);
-        register(15, LinkSocialType.TIKTOK);
-
-        register(29, LinkSocialType.TWITTER);
-        register(31, LinkSocialType.INSTAGRAM);
-        register(33, LinkSocialType.DISCORD);
-
-        register(43, LinkSocialType.GITHUB);
+        //register(43, LinkSocialType.GITHUB);
 
         document = null;
     }

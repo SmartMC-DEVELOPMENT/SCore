@@ -52,9 +52,9 @@ public class GameUtil {
     }
 
 
-    public static void removeAllEntitiesInRegion(GameSession session) {
-        Location location1 = session.getMap().getPos1(session.getXAddition());
-        Location location2 = session.getMap().getPos2(session.getXAddition());
+    public static void removeAllEntitiesInRegion(World world, GameSession session) {
+        Location location1 = session.getMap().getPos1(world, session.getXAddition());
+        Location location2 = session.getMap().getPos2(world, session.getXAddition());
 
         forEachChunk(location1, location2).forEach(chunk -> {
             for (Entity entity : chunk.getEntities()) {

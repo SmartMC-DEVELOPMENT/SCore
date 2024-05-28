@@ -66,9 +66,9 @@ public class GameSession implements IGameSession {
         if (xAddition != -1) return;
         MapsGeneration generation = GameMapManager.getMainMapsGeneration();
         Chunk chunk = generation.reserveNext();
-        xAddition = MapsGeneration.getXAdditionByChunk(map.getSpawn(0).getChunk(), chunk);
+        xAddition = MapsGeneration.getXAdditionByChunk(map.getSpawn(getMapsWorld(), 0).getChunk(), chunk);
         referenceXChunkReserved = chunk.getX();
-        schemSession = MapsGeneration.loadAndPasteSchematic(this);
+        schemSession = MapsGeneration.loadAndPasteSchematic(getMapsWorld(), this);
         if (schemSession == null) end();
     }
 
@@ -131,7 +131,7 @@ public class GameSession implements IGameSession {
         GamePlayer winner = getAlivePlayers().isEmpty() ? null : getAlivePlayers().stream().toList().get(0);
         if (winner != null) winner.addWin();
 
-        GameUtil.removeAllEntitiesInRegion(this);
+        GameUtil.removeAllEntitiesInRegion(getMapsWorld(), this);
         schemSession.undo(schemSession);
         GameMapManager.getMainMapsGeneration().setAvailable(referenceXChunkReserved);
         new HashSet<>(players).forEach(gamePlayer -> {
@@ -178,7 +178,7 @@ public class GameSession implements IGameSession {
         loadMapSchemAndReserveChunks();
         players.add(gamePlayer);
         gamePlayer.onlinePlayer(p -> {
-            p.teleport(map.getSpawn(xAddition));
+            p.teleport(map.getSpawn(getMapsWorld(), xAddition));
             p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5f, 2f);
             p.setGameMode(GameMode.ADVENTURE);
         });
@@ -210,7 +210,7 @@ public class GameSession implements IGameSession {
 
             if (player.isDead())
                 player.spigot().respawn();
-            player.teleport(map.getSpawn(xAddition));
+            player.teleport(map.getSpawn(getMapsWorld(), xAddition));
             player.setGameMode(GameMode.ADVENTURE);
         });
         if (canEnd()) end();
@@ -236,6 +236,7 @@ public class GameSession implements IGameSession {
                 getAlivePlayers().forEach(gamePlayer -> {
                     gamePlayer.onlinePlayer(player -> {
                         player.getInventory().addItem(ItemBuilder.of(GameUtil.getRandomMaterial()).get());
+                        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1f, 1f);
                     });
                 });
             }
@@ -258,4 +259,9 @@ public class GameSession implements IGameSession {
         };
         return timeLimitTask;
     }
+
+    private static World getMapsWorld() {
+        return Bukkit.getWorld("maps");
+    }
+
 }

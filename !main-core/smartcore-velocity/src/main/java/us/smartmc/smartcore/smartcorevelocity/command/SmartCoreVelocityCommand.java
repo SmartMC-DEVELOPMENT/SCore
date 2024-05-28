@@ -57,7 +57,6 @@ public class SmartCoreVelocityCommand extends CoreCommand {
         }
 
         if (args[0].contains("tab")) {
-            TabHandler.getTabHandlers().forEach(TabHandler::suspendTimer);
             TabHandler.register();
             sender.sendMessage(VelocityChatUtil.parse("&aTabs Recargados!"));
         }

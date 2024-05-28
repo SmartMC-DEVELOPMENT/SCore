@@ -1,12 +1,14 @@
 package us.smartmc.lobbymodule.menu;
 
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.Material;
 import us.smartmc.lobbymodule.handler.FlyManager;
+import us.smartmc.lobbymodule.instance.LinkSocialType;
 import us.smartmc.lobbymodule.util.MenuUtil;
 
 import java.util.Arrays;
@@ -30,7 +32,7 @@ public class SettingsMenu extends CoreMenu {
     }
 
     public SettingsMenu(Language language) {
-        super(null, 54, getTitle(language));
+        super(null, 36, getTitle(language));
         this.language = language;
         menus.put(language, this);
     }
@@ -38,29 +40,30 @@ public class SettingsMenu extends CoreMenu {
     @Override
     public void load() {
         setFlyingItem();
-        ItemBuilder relleno = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).name(" ");
-        MenuUtil.setBorder(relleno.get(), inventory);
+        //ItemBuilder relleno = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).name(" ");
+        //MenuUtil.setBorder(relleno.get(), inventory);
 
-        set(20, ItemBuilder.of(Material.PLAYER_HEAD)
+        set(11, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
                 .name("<lang.lobby.items.language.name>")
                 .lore(Arrays.asList("<lang.lobby.items.language.description>"))
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=")
                 .get(language), "cmd lang");
 
-        set(31, ItemBuilder.of(Material.PLAYER_HEAD)
+        set(13, ItemBuilder.of(Material.PLAYER_HEAD)
                 .data((byte) 3)
                 .name("<lang.lobby.items.link_socials.name>")
                 .lore(Arrays.asList("<lang.lobby.items.link_socials.description>"))
-                .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmFkNDZhNDIyYWU1OTYwM2ZkODg5YzI1MzQ0ZmY2N2JjODQzYWY4ZWU1MTg5MzJjMmUyYWQwN2NkYmY5MzliMyJ9fX0=")
+                .skullTexture(LinkSocialType.DISCORD.getSkullTexture())
                 .get(language), "cmd linkSocials");
 
+        set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("&c<lang.language.menuClose>").get(language), "closeInv");
     }
 
     public void setFlyingItem() {
-        set(24, ItemBuilder.of(Material.FEATHER)
+        set(15, ItemBuilder.of(Material.FEATHER)
                 .name("<lang.lobby.items.flying.name>")
                 .lore(Arrays.asList("<lang.lobby.loreFlyToggle>"))
-                .get(language), "toggleFly");
+                .get(language), "closeInv", "cmd fly");
     }
 }

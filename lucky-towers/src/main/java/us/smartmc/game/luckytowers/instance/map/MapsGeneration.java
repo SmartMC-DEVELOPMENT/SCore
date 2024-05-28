@@ -61,7 +61,7 @@ public class MapsGeneration {
         return Math.max(chunkOfMap.getX(), chunkOfSession.getX()) - Math.min(chunkOfMap.getX(), chunkOfSession.getX());
     }
 
-    public static EditSession loadAndPasteSchematic(GameSession session) {
+    public static EditSession loadAndPasteSchematic(World world, GameSession session) {
         try {
             Clipboard clipboard;
             File file = EditorSession.getMapSchematicFile(session.getMap().getName());
@@ -70,10 +70,10 @@ public class MapsGeneration {
                 clipboard = reader.read();
             }
             int xAddition = session.getXAddition();
-            World bukkitWorld = session.getMap().getSpawn(xAddition).getWorld();
+            World bukkitWorld = session.getMap().getSpawn(world, xAddition).getWorld();
 
-            BlockVector3 pos1 = EditorSession.getBlockVectorByLocation(session.getMap().getPos1(xAddition));
-            BlockVector3 pos2 = EditorSession.getBlockVectorByLocation(session.getMap().getPos2(xAddition));
+            BlockVector3 pos1 = EditorSession.getBlockVectorByLocation(session.getMap().getPos1(world, xAddition));
+            BlockVector3 pos2 = EditorSession.getBlockVectorByLocation(session.getMap().getPos2(world, xAddition));
 
             BlockVector3 min = EditorSession.min(pos1, pos2);
 

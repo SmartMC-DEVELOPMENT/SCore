@@ -52,7 +52,6 @@ us\smartmc\smartcore\smartcorevelocity\rediscommand\LanguageChangeCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\LobbyCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\SmartCoreVelocityCommand.class
 us\smartmc\smartcore\smartcorevelocity\variables\LanguageVariables.class
-us\smartmc\smartcore\smartcorevelocity\manager\TabHandler$1.class
 us\smartmc\smartcore\smartcorevelocity\instance\OfflinePlayerData.class
 us\smartmc\smartcore\smartcorevelocity\manager\CustomCommandsManager.class
 us\smartmc\smartcore\smartcorevelocity\manager\TebexPackageManager.class

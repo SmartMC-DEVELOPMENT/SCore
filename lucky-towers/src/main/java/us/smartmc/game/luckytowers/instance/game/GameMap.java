@@ -91,16 +91,16 @@ public class GameMap {
         getConfig().put(TIME_LIMIT_PATH, time);
     }
 
-    public Location getPos1(int xAddition) {
-        return getConfigLocation(Bukkit.getWorld("maps"), POS1_PATH).add(xAddition, 0, 0);
+    public Location getPos1(World world, int xAddition) {
+        return getConfigLocation(world, POS1_PATH).add(xAddition, 0, 0);
     }
 
-    public Location getPos2(int xAddition) {
-        return getConfigLocation(Bukkit.getWorld("maps"), POS2_PATH).add(xAddition, 0, 0);
+    public Location getPos2(World world, int xAddition) {
+        return getConfigLocation(world, POS2_PATH).add(xAddition, 0, 0);
     }
 
-    public Location getSpawn(int xLocationAddition) {
-        return getConfigLocation(Bukkit.getWorld("maps"), SPAWN_PATH).clone().add(xLocationAddition, 0, 0);
+    public Location getSpawn(World world, int xLocationAddition) {
+        return getConfigLocation(world, SPAWN_PATH).clone().add(xLocationAddition, 0, 0);
     }
 
     public int getTimeLimit() {

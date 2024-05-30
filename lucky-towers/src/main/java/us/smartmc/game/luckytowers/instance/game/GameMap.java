@@ -83,10 +83,12 @@ public class GameMap {
     }
 
     public void setPos1(Location location) {
+        location = new Location(location.getWorld(), location.getX(), location.getWorld().getMaxHeight(), location.getZ());
         setConfigLocation(POS1_PATH, location, false, false);
     }
 
     public void setPos2(Location location) {
+        location = new Location(location.getWorld(), location.getX(), location.getWorld().getMinHeight(), location.getZ());
         setConfigLocation(POS2_PATH, location, false, false);
     }
 

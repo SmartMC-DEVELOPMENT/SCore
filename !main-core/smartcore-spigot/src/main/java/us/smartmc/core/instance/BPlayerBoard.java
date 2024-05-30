@@ -1,6 +1,7 @@
 package us.smartmc.core.instance;
 
 import com.google.common.collect.Lists;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -25,7 +26,7 @@ public class BPlayerBoard {
         this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         objective = scoreboard.registerNewObjective("aaa", Criteria.DUMMY, "bbb");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        objective.displayName(MiniMessage.miniMessage().deserialize(title));
+        objective.displayName(PaperChatUtil.parse(player, title));
         player.setScoreboard(scoreboard);
     }
 

@@ -47,7 +47,7 @@ public class BPlayerBoard {
         team.prefix(PaperChatUtil.parse(player, "&r" + line));
     }
 
-    public void delete() {
+    public void dealete() {
         boards.remove(player.getUniqueId());
     }
 
@@ -84,4 +84,7 @@ public class BPlayerBoard {
         return board;
     }
 
+    public void delete() {
+        boards.remove(player.getUniqueId());
+    }
 }

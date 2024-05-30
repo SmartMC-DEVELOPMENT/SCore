@@ -1,11 +1,15 @@
 package us.smartmc.game.luckytowers.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
+import org.bukkit.entity.Animals;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.game.luckytowers.LuckyTowers;
@@ -15,6 +19,15 @@ import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.manager.EditorModeManager;
 
 public class EssentialsListeners implements Listener {
+
+    @EventHandler
+    public void cancelNaturalSpawns(EntitySpawnEvent event) {
+        Entity entity = event.getEntity();
+        if (!(entity instanceof Mob || event.getEntity() instanceof Animals)) return;
+        if (entity.getEntitySpawnReason().equals(CreatureSpawnEvent.SpawnReason.NATURAL)) {
+            event.setCancelled(true);
+        }
+    }
 
     @EventHandler
     public void removeJoinMessage(PlayerJoinEvent event) {

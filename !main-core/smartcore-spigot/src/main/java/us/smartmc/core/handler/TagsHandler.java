@@ -9,16 +9,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import us.smartmc.core.SmartCore;
 
-import java.util.OptionalInt;
-
 public class TagsHandler implements Listener {
-
-    private Objective objective;
 
     public TagsHandler() {
         if (areDisabled()) return;
@@ -39,7 +34,9 @@ public class TagsHandler implements Listener {
     public void join(PlayerJoinEvent event) {
         if (areDisabled()) return;
         Player player = event.getPlayer();
-        registerTagAboveHead(player);
+        Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
+            registerTagAboveHead(player);
+        }, 2);
     }
 
     private void registerTagAboveHead(Player player) {

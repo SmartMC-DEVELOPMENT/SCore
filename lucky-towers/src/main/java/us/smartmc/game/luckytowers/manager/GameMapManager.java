@@ -15,9 +15,8 @@ import java.util.Objects;
 public class GameMapManager extends ManagerRegistry<String, GameMap> {
 
     private static final LuckyTowers plugin = LuckyTowers.getPlugin();
-    private static final File DATA_DIR = new File(plugin.getDataFolder() + "/../../../data-luckytowers");
-    public static final File MAPS_CONFIG_DIRECTORY = new File(DATA_DIR + "/maps");
-    public static final File MAPS_SCHEMS_DIRECTORY = new File(DATA_DIR + "/maps-schems");
+    public static final File MAPS_CONFIG_DIRECTORY = new File(LuckyTowers.DATA_DIR + "/maps");
+    public static final File MAPS_SCHEMS_DIRECTORY = new File(LuckyTowers.DATA_DIR + "/maps-schems");
     @Getter
     private static MapsGeneration mainMapsGeneration;
 
@@ -25,7 +24,6 @@ public class GameMapManager extends ManagerRegistry<String, GameMap> {
     public void load() {
         mainMapsGeneration = new MapsGeneration(getWorld());
         // Load current maps configs
-        DATA_DIR.mkdirs();
         MAPS_CONFIG_DIRECTORY.mkdirs();
         MAPS_SCHEMS_DIRECTORY.mkdirs();
         for (File file : Objects.requireNonNull(MAPS_CONFIG_DIRECTORY.listFiles())) {

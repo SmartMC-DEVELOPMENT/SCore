@@ -85,7 +85,7 @@ public class GameSession implements IGameSession {
             team.getPlayers().forEach(uuid -> {
                 GamePlayer gamePlayer = GamePlayer.get(uuid);
                 gamePlayer.onlinePlayer(p -> {
-                    p.teleport(team.getSpawnAssigned(xAddition));
+                    p.teleport(team.getSpawnAssigned(getMapsWorld(), xAddition));
                 });
             });
         });

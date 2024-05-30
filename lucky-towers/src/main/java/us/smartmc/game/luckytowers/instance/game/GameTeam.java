@@ -3,6 +3,7 @@ package us.smartmc.game.luckytowers.instance.game;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,9 +23,9 @@ public class GameTeam {
         this.spawnAssigned = spawnAssigned;
     }
 
-    public Location getSpawnAssigned(int additionXLocation) {
+    public Location getSpawnAssigned(World world, int additionXLocation) {
         if (spawnAssigned.getWorld() == null)
-            spawnAssigned.setWorld(Bukkit.getWorld(spawnAssigned.getWorld().getName()));
+            spawnAssigned.setWorld(world);
         return spawnAssigned.add(additionXLocation, 0, 0);
     }
 

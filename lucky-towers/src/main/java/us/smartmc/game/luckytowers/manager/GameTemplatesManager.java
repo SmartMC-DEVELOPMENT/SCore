@@ -10,8 +10,7 @@ import java.util.Objects;
 
 public class GameTemplatesManager extends ManagerRegistry<String, GameTemplate> {
 
-    private static final LuckyTowers plugin = LuckyTowers.getPlugin();
-    public static final File TEMPLATES_DIR = new File(plugin.getDataFolder() + "/templates");
+    public static final File TEMPLATES_DIR = new File(LuckyTowers.DATA_DIR, "templates");
 
     @Override
     public void load() {

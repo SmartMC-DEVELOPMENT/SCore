@@ -34,6 +34,7 @@ import us.smartmc.game.luckytowers.messages.GameMessages;
 import us.smartmc.game.luckytowers.variable.GameVariables;
 import us.smartmc.game.luckytowers.variable.PlayerStatsVariables;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,7 @@ public final class LuckyTowers extends JavaPlugin {
 
     @Getter
     private static LuckyTowers plugin;
+    public static final File DATA_DIR = new File("/home/network/data-luckytowers/");
 
     private static final Map<String, ManagerRegistry<?, ?>> managers = new HashMap<>();
 
@@ -51,6 +53,7 @@ public final class LuckyTowers extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         plugin.getDataFolder().mkdirs();
+        LuckyTowers.DATA_DIR.mkdirs();
         registerListeners();
         registerCommands();
 

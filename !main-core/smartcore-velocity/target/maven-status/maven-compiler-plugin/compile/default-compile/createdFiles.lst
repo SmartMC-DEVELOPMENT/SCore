@@ -12,6 +12,7 @@ us\smartmc\smartcore\smartcorevelocity\messages\ProxyMainMessages.class
 us\smartmc\smartcore\smartcorevelocity\manager\ServersHandler.class
 us\smartmc\smartcore\smartcorevelocity\manager\OfflinePlayerDataManager$1.class
 us\smartmc\smartcore\smartcorevelocity\instance\OfflinePlayerData$1.class
+us\smartmc\smartcore\smartcorevelocity\listener\TabHandlerListeners$1.class
 us\smartmc\smartcore\smartcorevelocity\instance\commandmanager\CustomCommandExecutor.class
 us\smartmc\smartcore\smartcorevelocity\listener\LanguageListeners.class
 us\smartmc\smartcore\smartcorevelocity\manager\OnlineCountHandler$1.class

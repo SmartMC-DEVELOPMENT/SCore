@@ -149,6 +149,7 @@ public class PlayerLogicListeners implements Listener {
         if (!(event.getStatus().equals(PlayerStatus.SPECTATING))) return;
         Bukkit.getScheduler().runTask(LuckyTowers.getPlugin(), () -> {
             if (!event.getPlayer().isOnline()) return;
+            if (GamePlayer.get(event.getPlayer().getUniqueId()).getGameSession() == null) return;
             new SpectatorHotbar(event.getPlayer()).set(event.getPlayer());
         });
     }

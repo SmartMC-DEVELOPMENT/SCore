@@ -29,11 +29,15 @@ public class GameSessionsManager extends ManagerRegistry<UUID, GameSession> {
     }
 
     public GameSession createOrGetByName(String mapName, int amount) {
+        GameMapManager manager = LuckyTowers.getManager(GameMapManager.class);
+        GameMap map = manager.get(mapName);
+        if (map == null) return null;
+        if (map.isMaintenance()) return null;
+
         GameSession session = null;
         for (GameSession s : values()) {
             // Check map name
-            if (!s.getMap().getName().equals(mapName)) continue;
-
+            if (!s.getMap().equals(map)) continue;
             // Check free slots for teams
             int freeSlots = s.getTeams().getFreeSlots();
             if (freeSlots <= 0) continue;
@@ -41,10 +45,11 @@ public class GameSessionsManager extends ManagerRegistry<UUID, GameSession> {
             session = s;
             break;
         }
+
+        // If not sessions available create one
         if (session == null) {
             UUID id = UUID.randomUUID();
-            GameMapManager manager = LuckyTowers.getManager(GameMapManager.class);
-            session = new GameSession(id, manager.get(mapName));
+            session = new GameSession(id, map);
             register(id, session);
         }
         return session;

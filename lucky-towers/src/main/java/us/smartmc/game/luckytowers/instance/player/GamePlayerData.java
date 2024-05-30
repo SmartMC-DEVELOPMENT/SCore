@@ -29,8 +29,9 @@ public class GamePlayerData {
     }
 
     public int getInt(String key) {
-        if (!document.containsKey(key)) return 0;
-        return document.get(key, Number.class).intValue();
+        Number number = document.get(getStreakKey(key), Number.class);
+        if (number == null) return 0;
+        return number.intValue();
     }
 
     public void increaseStreak(String key) {
@@ -53,17 +54,20 @@ public class GamePlayerData {
     }
 
     public long getStreak(String key) {
-        if (!document.containsKey(key)) return 0;
-        return document.get(getStreakKey(key), Number.class).longValue();
+        Number number = document.get(getStreakKey(key), Number.class);
+        if (number == null) return 0;
+        return number.longValue();
     }
 
     public long getBestStreak(String key) {
-        if (!document.containsKey(key)) return 0;
-        return document.get(getBestStreakKey(key), Number.class).longValue();
+        Number number = document.get(getStreakKey(key), Number.class);
+        if (number == null) return 0;
+        return number.longValue();
     }
 
     public void addToNumber(String key, long amount) {
-        long count = document.containsKey(key) ? document.get(key, Number.class).longValue() : 0;
+        Number number = document.get(key, Number.class);
+        long count = number != null ? number.longValue() : 0;
         document.put(key, count + amount);
     }
 

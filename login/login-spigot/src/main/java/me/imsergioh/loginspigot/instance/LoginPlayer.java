@@ -66,7 +66,7 @@ public class LoginPlayer {
     public void sendToLobbyServer() {
         Bukkit.getScheduler().runTaskLater(LoginSpigot.getPlugin(), () -> {
             PluginUtils.redirectTo(getPlayer(), "lobby");
-        }, 10);
+        }, 20);
     }
 
     public void tryLogin(String password) {

@@ -2,7 +2,9 @@ package us.smartmc.smartbot.slashcommand;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.channel.Channel;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.GuildMessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -38,14 +40,17 @@ public class AnuncioCommand extends SlashCommand {
 
         Message referenceMessage = null;
 
-        for (TextChannel channel : event.getGuild().getTextChannels()) {
+        for (Channel channel : event.getGuild().getChannels()) {
+
+            if (!(channel instanceof GuildMessageChannel guildMessageChannel)) continue;
             try {
-                Message message = channel.retrieveMessageById(messageId).complete();
+                Message message = guildMessageChannel.retrieveMessageById(messageId).complete();
                 if (message == null) continue;
                 referenceMessage = message;
                 break;
             } catch (Exception ignore) {
             }
+
         }
 
         if (referenceMessage == null) {
@@ -53,7 +58,7 @@ public class AnuncioCommand extends SlashCommand {
             return;
         }
 
-        TextChannel channelToSend = (TextChannel) event.getOption(SELECTION_CHANNEL_ID).getAsChannel();
+        GuildMessageChannel channelToSend = Objects.requireNonNull(event.getOption(SELECTION_CHANNEL_ID)).getAsChannel().asGuildMessageChannel();
 
         List<OptionMapping> list = event.getOptionsByName(SELECTION_PUBLISH_AT);
         long timestamp = list.isEmpty() ? 0 : list.get(0).getAsLong();

@@ -48,10 +48,9 @@ public class PlayerStatsVariables extends VariableListener<Player> {
     }
 
     public String replaceBigNumberStat(Player player, String message, String token, String databaseKey) {
-        String statKey = token.replace("<", "").replace(">", "");
         return VariableUtil.replace(message, token, s -> {
             GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
-            return String.valueOf(gamePlayer.getData().getBigNumber(statKey));
+            return String.valueOf(gamePlayer.getData().getBigNumber(databaseKey));
         });
     }
 }

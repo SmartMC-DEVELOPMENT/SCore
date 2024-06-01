@@ -80,7 +80,9 @@ public class PlayerLogicListeners implements Listener {
 
     @EventHandler
     public void createGamePlayer(PlayerDataLoadedEvent event) {
-        GamePlayer.create(event.getPlayer().getUniqueId());
+        Bukkit.getScheduler().runTask(LuckyTowers.getPlugin(), () -> {
+            GamePlayer.create(event.getPlayer().getUniqueId());
+        });
     }
 
     @EventHandler

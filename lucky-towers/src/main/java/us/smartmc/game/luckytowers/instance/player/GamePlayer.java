@@ -15,7 +15,6 @@ import us.smartmc.game.luckytowers.event.player.GamePlayerWinEvent;
 import us.smartmc.game.luckytowers.event.player.PlayerStatusChangeEvent;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.manager.PlayersManager;
-import us.smartmc.game.luckytowers.menu.LobbyHotbar;
 import us.smartmc.game.luckytowers.messages.GameMessages;
 
 import java.util.UUID;
@@ -91,6 +90,7 @@ public class GamePlayer {
         data.increaseNumber(WINS_KEY);
         data.increaseStreak(WINS_KEY);
         Bukkit.getPluginManager().callEvent(new GamePlayerWinEvent(this));
+        addCoins(10);
     }
 
     public void addKill(Location killLocation) {

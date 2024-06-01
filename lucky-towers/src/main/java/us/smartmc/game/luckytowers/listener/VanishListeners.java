@@ -25,18 +25,20 @@ public class VanishListeners implements Listener {
             Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
                 event.getPlayer().hidePlayer(plugin, onlinePlayer);
             });
-            session.getAlivePlayers().forEach(alivePlayer -> {
-                event.getPlayer().showPlayer(plugin, alivePlayer.getBukkitPlayer());
-            });
+            if (session != null)
+                session.getAlivePlayers().forEach(alivePlayer -> {
+                    event.getPlayer().showPlayer(plugin, alivePlayer.getBukkitPlayer());
+                });
         }
 
         if (status.equals(PlayerStatus.SPECTATING)) {
             Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
                 event.getPlayer().hidePlayer(plugin, onlinePlayer);
             });
-            session.getPlayers().forEach(alivePlayer -> {
-                event.getPlayer().showPlayer(plugin, alivePlayer.getBukkitPlayer());
-            });
+            if (session != null)
+                session.getPlayers().forEach(alivePlayer -> {
+                    event.getPlayer().showPlayer(plugin, alivePlayer.getBukkitPlayer());
+                });
         }
 
         if (status.equals(PlayerStatus.LOBBY)) {

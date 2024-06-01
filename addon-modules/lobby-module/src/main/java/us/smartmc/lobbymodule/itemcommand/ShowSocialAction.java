@@ -22,17 +22,16 @@ public class ShowSocialAction implements ItemActionExecutor {
         String username = args[1];
 
         // Not linked account found:
-        if (username.equals("none")) {
+        if (username.contains("✘")) {
             clickerCorePlayer.sendLanguageMessage("lobby", "linkSocials.noLinked");
             return;
         }
         String targetName = username;
-        if (clickerCorePlayer.getCurrentMenuOpen() instanceof LinkSocialsMenu) {
-            LinkSocialsMenu menu = (LinkSocialsMenu) clickerCorePlayer.getCurrentMenuOpen();
+        if (clickerCorePlayer.getCurrentMenuOpen() instanceof LinkSocialsMenu menu) {
             targetName = menu.getTargetName();
         }
 
-        Component message = PaperChatUtil.parse(clicker, "<lang.lobby.link_socials_show_message>", targetName, type.getDisplayName());
+        Component message = PaperChatUtil.parse(clicker, "<lang.lobby.linkSocials.showMessage>", targetName, type.getDisplayName());
         ClickableComponent component = new ClickableComponent();
         component.addURL(message, LobbyModule.getLinkSocialsManager().get(type).getFormattedURL(username));
         component.send(clicker);

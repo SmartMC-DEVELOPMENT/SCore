@@ -7,12 +7,13 @@ import us.smartmc.backend.service.players.common.PlayersServiceContexts;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.backend.SendPlayerMessageCommand;
 
+import java.util.UUID;
+
 public class PlayersService extends BackendService {
 
     @Override
     public void load() {
         super.load();
-
         ConnectionInputManager.registerCommands(new SendPlayerMessageCommand());
     }
 
@@ -22,15 +23,15 @@ public class PlayersService extends BackendService {
     }
 
     public void registerPlayerContext(Player player) {
-        String name = player.getName().toLowerCase();
-        String context = PlayersServiceContexts.getUsernameContextId(name);
+        UUID id = player.getUniqueId();
+        String context = PlayersServiceContexts.getPlayerContext(id);
         SmartCore.getBackendClient().subscribeContext(context);
     }
 
     public void unregisterPlayerContext(Player player) {
-        String name = player.getName().toLowerCase();
-        String context = PlayersServiceContexts.getUsernameContextId(name);
-        SmartCore.getBackendClient().unsubscribeChannel(context);
+        UUID id = player.getUniqueId();
+        String context = PlayersServiceContexts.getPlayerContext(id);
+        SmartCore.getBackendClient().unsubscribeContext(context);
     }
 
 }

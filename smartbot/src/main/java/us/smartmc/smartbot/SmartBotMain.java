@@ -2,11 +2,14 @@ package us.smartmc.smartbot;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import lombok.Getter;
+import me.imsergioh.pluginsapi.language.EnumMessagesRegistry;
+import me.imsergioh.pluginsapi.language.TestMessages;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import us.smartmc.backend.connection.BackendClient;
 import us.smartmc.smartbot.connection.MongoDBConnection;
 import us.smartmc.smartbot.connection.RedisConnection;
 import us.smartmc.smartbot.handler.CommandHandler;
@@ -19,10 +22,12 @@ import us.smartmc.smartbot.logfunction.SendEmbedExceptionsMessages;
 import us.smartmc.smartbot.logfunction.SendEmbedMessages;
 import us.smartmc.smartbot.manager.CustomProxyCommandManager;
 import us.smartmc.smartbot.manager.LogsManager;
+import us.smartmc.smartbot.message.MainMessages;
 import us.smartmc.smartbot.slashcommand.*;
 import us.smartmc.smartbot.textcommand.SendMessageCommand;
 import us.smartmc.smartbot.textcommand.TestCommand;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,10 +41,15 @@ public class SmartBotMain {
     @Getter
     private static LogsManager logsManager;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // CONNECT BACKEND SERVICES >>
         MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
         RedisConnection.mainConnection = newRedisConnection();
+        BackendClient.mainConnection = new BackendClient("localhost", 7723);
+        BackendClient.mainConnection.login("discordbot", "MRWORLDWIDEWHENISTEPINTOAROMDALEE");
+        new Thread(BackendClient.mainConnection).start();
+
+        EnumMessagesRegistry.registerLanguageHolder(MainMessages.class);
 
         // CREATION BOT >>
         api = JDABuilder.createDefault(dotenv.get("TOKEN"))
@@ -82,7 +92,8 @@ public class SmartBotMain {
                         new JoinToCommand("jointo"),
                         new ReactToCommand(),
                         new CreateQuoteCommand(),
-                        new RemoveQuoteCommand());
+                        new RemoveQuoteCommand(),
+                        new VerifyMinecraftLinkCommand("verifyminecraft"));
             }
         }, 1000);
         EventSchedulerHandler.setup();

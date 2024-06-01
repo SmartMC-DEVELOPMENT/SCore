@@ -15,5 +15,6 @@ public class SubContextCommand extends BackendCommandExecutor {
         BackendClientConnection client = BackendClientConnection.get(connection);
         if (client == null) return;
         client.addContextSubscription(args[0]);
+        System.out.println(client.getClientName() + " added context " + args[0]);
     }
 }

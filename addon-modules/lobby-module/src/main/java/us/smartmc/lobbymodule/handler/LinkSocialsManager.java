@@ -2,7 +2,6 @@ package us.smartmc.lobbymodule.handler;
 
 import me.imsergioh.pluginsapi.instance.manager.ManagerRegistry;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
-import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bson.Document;
 import org.bukkit.entity.Player;
@@ -16,7 +15,7 @@ import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.instance.LinkSocialAction;
 import us.smartmc.lobbymodule.instance.LinkSocialType;
 import us.smartmc.lobbymodule.linksocials.*;
-import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
+import us.smartmc.lobbymodule.util.DiscordLinkUtil;
 
 import java.util.*;
 
@@ -70,18 +69,23 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
 
     public void registerPendingLink(Player player, LinkSocialType type) {
         UUID uuid = player.getUniqueId();
-        pendingLinks.put(uuid, type);
-
         player.closeInventory();
-        player.sendMessage(PaperChatUtil.parse(player, "<lang.lobby.linkSocials.introduceUrl>"));
 
-        // 2 minutes later removes cache
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                pendingLinks.remove(uuid);
-            }
-        }, 120L * 1000);
+        if (!type.equals(LinkSocialType.DISCORD)) {
+            pendingLinks.put(uuid, type);
+            player.sendMessage(PaperChatUtil.parse(player, "<lang.lobby.linkSocials.introduceUrl>"));
+            // 2 minutes later removes cache
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    pendingLinks.remove(uuid);
+                }
+            }, 120L * 1000);
+        } else {
+            // DISCORD
+            String linkCode = DiscordLinkUtil.getOrGenerateLinkCode(player);
+            player.sendMessage(PaperChatUtil.parse(player, "<lang.lobby.your_discordLink_code_is>", linkCode));
+        }
     }
 
     @SafeVarargs

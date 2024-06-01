@@ -14,10 +14,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import us.smartmc.core.SmartCore;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
+import us.smartmc.lobbymodule.util.DiscordLinkUtil;
 import us.smartmc.lobbymodule.util.FireworkUtil;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
@@ -25,6 +27,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PlayerListener extends AddonListener implements Listener {
+
+    @EventHandler
+    public void removeLinkDiscordCode(PlayerQuitEvent event) {
+        DiscordLinkUtil.clearLinkDiscordCode(event.getPlayer());
+    }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void allowInteractWrittenBook(PlayerInteractEvent event) {

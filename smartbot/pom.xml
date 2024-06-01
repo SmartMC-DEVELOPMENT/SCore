@@ -24,6 +24,7 @@
             </resource>
         </resources>
         <plugins>
+            <!-- Plugin para compilar el código Java -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -32,6 +33,28 @@
                     <source>16</source>
                     <target>16</target>
                 </configuration>
+            </plugin>
+
+            <!-- Plugin para crear un JAR ejecutable y sombrear las dependencias -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>us.smartmc.smartbot.SmartBotMain</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -65,7 +88,12 @@
             <version>3.12.14</version>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>us.smartmc.backend</groupId>
+            <artifactId>sbackend-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>

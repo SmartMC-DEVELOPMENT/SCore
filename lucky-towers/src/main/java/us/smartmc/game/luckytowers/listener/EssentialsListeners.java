@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.game.luckytowers.LuckyTowers;
@@ -19,6 +20,11 @@ import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.manager.EditorModeManager;
 
 public class EssentialsListeners implements Listener {
+
+    @EventHandler
+    public void disableAchievements(PlayerAdvancementDoneEvent event) {
+        event.message(null);
+    }
 
     @EventHandler
     public void cancelNaturalSpawns(EntitySpawnEvent event) {

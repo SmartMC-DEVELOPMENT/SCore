@@ -15,6 +15,6 @@ public class UnsubChannelCommand extends BackendCommandExecutor {
         BackendClientConnection client = BackendClientConnection.get(connection);
         if (client == null) return;
         client.removeChannelSubscription(args[0]);
-        System.out.println(client.getClientName() + " subscribed to channel " + args[0]);
+        System.out.println(client.getClientName() + " unsub to channel " + args[0]);
     }
 }

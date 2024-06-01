@@ -16,10 +16,4 @@ public class PlayersServiceServer extends BackendService {
         super.unload();
     }
 
-    public void sendMessage(String username, String message) {
-        BackendClientConnection.forEachBackendClient(backendClient -> {
-            if (!backendClient.hasContext(PlayersServiceContexts.getUsernameContextId(username))) return;
-            backendClient.getConnectionHandler().sendCommand("sendPlayerMsg " + username + " " + message);
-        });
-    }
 }

@@ -21,7 +21,7 @@ public class DiscordLink extends LinkSocialAction {
 
     @Override
     public String getValidExample() {
-        return "235882085749882890";
+        return "934931";
     }
 
     @Override
@@ -30,5 +30,10 @@ public class DiscordLink extends LinkSocialAction {
                 DEFAULT_USERNAME_REGEX,
                 "\\d{17,20}"
         };
+    }
+
+    @Override
+    public String getUsernameFromUrl(String url) {
+        return super.getUsernameFromUrl(url);
     }
 }

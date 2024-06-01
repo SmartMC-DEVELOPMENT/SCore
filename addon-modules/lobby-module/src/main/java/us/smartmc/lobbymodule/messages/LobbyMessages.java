@@ -18,6 +18,7 @@ public class LobbyMessages extends MultiLanguageRegistry {
     @Override
     public void load(LanguageMessagesHolder holder) {
         holder.load();
+        holder.registerDefault("your_discordLink_code_is", "Your discord link code is: &9{0}");
         holder.save();
     }
 

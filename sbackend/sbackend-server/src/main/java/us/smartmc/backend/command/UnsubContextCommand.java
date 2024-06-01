@@ -15,5 +15,6 @@ public class UnsubContextCommand extends BackendCommandExecutor {
         BackendClientConnection client = BackendClientConnection.get(connection);
         if (client == null) return;
         client.removeContextSubscription(args[0]);
+        System.out.println(client.getClientName() + " remomed context " + args[0]);
     }
 }

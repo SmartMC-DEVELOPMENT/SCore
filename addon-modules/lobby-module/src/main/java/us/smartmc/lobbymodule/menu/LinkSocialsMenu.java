@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import us.smartmc.lobbymodule.LobbyModule;
 import us.smartmc.lobbymodule.handler.LinkSocialsManager;
+import us.smartmc.lobbymodule.instance.DiscordUserDataLoader;
 import us.smartmc.lobbymodule.instance.LinkSocialAction;
 import us.smartmc.lobbymodule.instance.LinkSocialType;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
@@ -92,9 +93,20 @@ public class LinkSocialsMenu extends CoreMenu {
         List<String> loreList;
         String labelCommand = "linkSocial " + type.name();
 
-        String currentUser = document.containsKey(type.name()) ? document.getString(type.name()) : "none";
+        String currentUser = document.containsKey(type.name()) ? document.getString(type.name()) : "&c✘";
+
+        if (type.equals(LinkSocialType.DISCORD)) {
+            DiscordUserDataLoader discordUserDataLoader = new DiscordUserDataLoader(targetUUID);
+            String discordName = discordUserDataLoader.getName();
+            if (discordName != null) {
+                currentUser = discordName;
+            } else {
+                currentUser = "";
+            }
+        }
+
         LinkSocialAction action = LobbyModule.getLinkSocialsManager().get(type);
-        String example = action == null ? "none" : action.getValidExample();
+        String example = action == null ? "&c✘" : action.getValidExample();
 
         if (showing) {
             loreList = Arrays.asList(LobbyMessages.getLangList("linkSocials.descriptionShow"));

@@ -5,10 +5,7 @@ import us.smartmc.backend.protocol.LoginCompleted;
 import us.smartmc.backend.util.ConsoleUtil;
 
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 @Getter
@@ -54,13 +51,7 @@ public class BackendClientConnection {
     }
 
     public static String getClientName(String username) {
-        int id = 0;
-        String name = username + "-" + id;
-        while (connections.containsKey(name)) {
-            id++;
-            name = username + "-" + id;
-        }
-        return name;
+        return username + "-" + new Random().nextInt(9999);
     }
 
     public static void removeConnection(Socket socket) {

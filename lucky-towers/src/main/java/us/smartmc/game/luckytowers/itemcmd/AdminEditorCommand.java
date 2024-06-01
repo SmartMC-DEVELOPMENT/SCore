@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import me.imsergioh.pluginsapi.language.IMessageCategory;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.instance.game.GameMap;
@@ -43,6 +44,7 @@ public class AdminEditorCommand implements ItemActionExecutor {
                         initLocation.getBlockZ() + 0.5,
                         initLocation.getYaw(), initLocation.getPitch());
                 map.getSpawnLocations().add(location);
+                player.sendBlockChange(location, Material.BEACON.createBlockData());
                 map.saveSpawnLocations();
                 feedbackMessage = AdminMessages.editor_spawnAdded;
             }

@@ -7,7 +7,6 @@ import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
-import com.sk89q.worldedit.extent.inventory.BlockBag;
 import com.sk89q.worldedit.function.operation.Operation;
 import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.math.BlockVector3;
@@ -76,13 +75,12 @@ public class MapsGeneration {
             BlockVector3 pos1 = EditorSession.getBlockVectorByLocation(session.getMap().getPos1(world, xAddition));
             BlockVector3 pos2 = EditorSession.getBlockVectorByLocation(session.getMap().getPos2(world, xAddition));
 
-            Location spawnLoc = session.getMap().getSpawn(world, session.getXAddition());
-            BlockVector3 center = BlockVector3.at(spawnLoc.getX(), spawnLoc.getY(), spawnLoc.getZ());
+            BlockVector3 min = EditorSession.min(pos1, pos2);
 
             try (EditSession editSession = WorldEdit.getInstance().newEditSession(new BukkitWorld(bukkitWorld))) {
                 Operation operation = new ClipboardHolder(clipboard)
                         .createPaste(editSession)
-                        .to(center)
+                        .to(min)
                         .build();
                 Operations.complete(operation);
                 return editSession;

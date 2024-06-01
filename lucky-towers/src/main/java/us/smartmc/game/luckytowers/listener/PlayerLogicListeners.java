@@ -90,7 +90,10 @@ public class PlayerLogicListeners implements Listener {
         if (!event.getStatus().equals(PlayerStatus.LOBBY)) return;
         Player player = event.getPlayer();
         if (player == null) return;
-        new LobbyHotbar(player).set(player);
+        Bukkit.getScheduler().runTask(LuckyTowers.getPlugin(), () -> {
+            if (!player.isOnline()) return;
+            new LobbyHotbar(player).set(player);
+        });
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

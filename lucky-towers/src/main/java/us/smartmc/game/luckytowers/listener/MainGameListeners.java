@@ -18,7 +18,10 @@ public class MainGameListeners implements Listener {
     @EventHandler
     public void quit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        player.damage(999);
+        GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
+        GameSession session = gamePlayer.getGameSession();
+        if (session == null) return;
+        session.quitPlayer(gamePlayer);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

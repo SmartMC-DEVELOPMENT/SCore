@@ -224,7 +224,7 @@ public class GameSession implements IGameSession {
             } else if (!gamePlayer.getBukkitPlayer().isOnline()) hasQuit = true;
             // Remove from set Players if the player is not online. To check end
             System.out.println("HAS QUIT " + hasQuit);
-            if (hasQuit) quitPlayer(gamePlayer);
+            if (hasQuit) LeaveCommand.leave(gamePlayer.getBukkitPlayer());
         }, 1);
 
 

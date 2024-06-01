@@ -30,10 +30,7 @@ public class OrchestratorMain {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        Registrations.register(
-                CommandRegistration.class,
-                CommonListenerRegistration.class,
-                ConfigRegistration.class);
+        load();
         BackendActionManager.registerConnectAction(h -> handler = h);
         DataConfiguration<FileConfigData> backendConnections = (DataConfiguration<FileConfigData>) ConfigManager.get("backend_connections");
         LinkedTreeMap<String, Object> redisDoc = (LinkedTreeMap<String, Object>) backendConnections.getData().getData().get("redis");
@@ -61,6 +58,13 @@ public class OrchestratorMain {
 
         // ESTA LÍNEA SIEMPRE AL FINAL!!!!
         startReadingConsoleInput();
+    }
+
+    public static void load() {
+        Registrations.register(
+                CommandRegistration.class,
+                CommonListenerRegistration.class,
+                ConfigRegistration.class);
     }
 
     public static File getParentFolder() {

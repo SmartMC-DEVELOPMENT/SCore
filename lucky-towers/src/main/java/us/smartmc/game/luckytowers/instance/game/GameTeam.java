@@ -26,7 +26,7 @@ public class GameTeam {
     public Location getSpawnAssigned(World world, int additionXLocation) {
         if (spawnAssigned.getWorld() == null)
             spawnAssigned.setWorld(world);
-        return spawnAssigned.add(additionXLocation, 0, 0);
+        return spawnAssigned.clone().add(additionXLocation, 0, 0);
     }
 
     public int getPlayersSize() {

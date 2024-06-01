@@ -35,14 +35,6 @@ import java.util.Random;
 
 public class PlayerLogicListeners implements Listener {
 
-    @EventHandler
-    public void cancelGamemodeSet(PlayerGameModeChangeEvent event) {
-        GamePlayer gamePlayer = GamePlayer.get(event.getPlayer().getUniqueId());
-        if (gamePlayer == null) {
-            event.setCancelled(true);
-        }
-    }
-
     @EventHandler(priority = EventPriority.MONITOR)
     public void setGamemodeEvent(PlayerStatusChangeEvent event) {
         GameMode toSet = GameMode.ADVENTURE;

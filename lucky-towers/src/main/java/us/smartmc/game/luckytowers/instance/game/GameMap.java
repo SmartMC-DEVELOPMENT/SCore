@@ -101,11 +101,11 @@ public class GameMap {
     }
 
     public Location getPos1(World world, int xAddition) {
-        return getConfigLocation(world, POS1_PATH).add(xAddition, 0, 0);
+        return getConfigLocation(world, POS1_PATH).clone().add(xAddition, 0, 0);
     }
 
     public Location getPos2(World world, int xAddition) {
-        return getConfigLocation(world, POS2_PATH).add(xAddition, 0, 0);
+        return getConfigLocation(world, POS2_PATH).clone().add(xAddition, 0, 0);
     }
 
     public Location getSpawn(World world, int xLocationAddition) {

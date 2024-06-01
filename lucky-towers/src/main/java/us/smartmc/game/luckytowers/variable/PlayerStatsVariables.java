@@ -18,7 +18,7 @@ public class PlayerStatsVariables extends VariableListener<Player> {
 
     @Override
     public String parse(Player player, String message) {
-        message = replaceBigNumberStat(player, message, "<coins>", GamePlayer.COINS_KEY);
+        message = replaceBigNumberStat(player, message, "<ltcoins>", GamePlayer.COINS_KEY);
         message = replaceBigNumberStat(player, message, "<wins>", GamePlayer.WINS_KEY);
         message = replaceBigNumberStat(player, message, "<kills>", GamePlayer.KILLS_KEY);
         message = replaceBigNumberStat(player, message, "<deaths>", GamePlayer.DEATHS_KEY);

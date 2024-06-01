@@ -6,6 +6,7 @@ import me.imsergioh.pluginsapi.instance.manager.ManagerRegistry;
 import me.imsergioh.pluginsapi.language.EnumMessagesRegistry;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.event.Event;
@@ -94,6 +95,12 @@ public final class LuckyTowers extends JavaPlugin {
     private void registerPlayerScoreboards() {
         for (PlayerScoreboardType type : PlayerScoreboardType.values()) {
             SmartCore.getPlugin().getScoreboardHandler().register(type.getId());
+        }
+    }
+
+    private void unloadWorlds() {
+        for (World world : Bukkit.getWorlds()) {
+            Bukkit.getServer().unloadWorld(world, false);
         }
     }
 

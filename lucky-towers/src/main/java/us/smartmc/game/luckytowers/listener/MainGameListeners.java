@@ -3,6 +3,7 @@ package us.smartmc.game.luckytowers.listener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -20,7 +21,7 @@ public class MainGameListeners implements Listener {
         player.damage(999);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void death(PlayerDeathEvent event) {
         event.deathMessage(null);
         Player player = event.getPlayer();
@@ -35,12 +36,11 @@ public class MainGameListeners implements Listener {
             GamePlayer.get(killer.getUniqueId()).addKill(player.getLocation());
         }
 
-
         // Calls method deathPlayer & checks if disconnected leave from game
         session.deathPlayer(gamePlayer);
         Bukkit.getScheduler().runTaskLater(LuckyTowers.getPlugin(), () -> {
             if (player.isOnline()) return;
             LeaveCommand.leave(player);
-        }, 20);
+        }, 2);
     }
 }

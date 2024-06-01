@@ -20,7 +20,7 @@ public class GameVariables extends VariableListener<Player> {
     public String parse(Player player, String message) {
         message = VariableUtil.replace(message, "<countdown>", s -> GameUtil.getFormattedTimeFromSeconds(GamePlayer.get(player.getUniqueId()).getGameSession().getCountdown()));
         message = VariableUtil.replace(message, "<timeRemaining>", s -> GameUtil.getFormattedTimeFromSeconds(GamePlayer.get(player.getUniqueId()).getGameSession().getSecondsRemaining()));
-        message = VariableUtil.replace(message, "<playersRemaining>", s -> String.valueOf(GamePlayer.get(player.getUniqueId()).getGameSession().getPlayersRemaining()));
+        message = VariableUtil.replace(message, "<playersRemaining>", s -> String.valueOf(GamePlayer.get(player.getUniqueId()).getGameSession().getAlivePlayers().size()));
 
 
         if (message.contains("<mapPlaying.")) {

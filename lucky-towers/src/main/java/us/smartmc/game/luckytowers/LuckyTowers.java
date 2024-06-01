@@ -9,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.core.SmartCore;
@@ -23,10 +22,7 @@ import us.smartmc.game.luckytowers.itemcmd.AdminEditorCommand;
 import us.smartmc.game.luckytowers.itemcmd.LobbyHotbarCommand;
 import us.smartmc.game.luckytowers.itemcmd.PlayerOptionCommand;
 import us.smartmc.game.luckytowers.itemcmd.SpectatorModeCommand;
-import us.smartmc.game.luckytowers.listener.EditorListeners;
-import us.smartmc.game.luckytowers.listener.EssentialsListeners;
-import us.smartmc.game.luckytowers.listener.MainGameListeners;
-import us.smartmc.game.luckytowers.listener.PlayerLogicListeners;
+import us.smartmc.game.luckytowers.listener.*;
 import us.smartmc.game.luckytowers.manager.*;
 import us.smartmc.game.luckytowers.messages.AdminItems;
 import us.smartmc.game.luckytowers.messages.AdminMessages;
@@ -37,7 +33,6 @@ import us.smartmc.game.luckytowers.variable.PlayerStatsVariables;
 
 import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public final class LuckyTowers extends JavaPlugin {
 
@@ -138,7 +133,8 @@ public final class LuckyTowers extends JavaPlugin {
                 new EssentialsListeners(),
                 new MainGameListeners(),
                 new PlayerLogicListeners(),
-                new EditorListeners());
+                new EditorListeners(),
+                new VanishListeners());
     }
 
     private void registerCommands() {

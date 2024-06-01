@@ -5,6 +5,7 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.*;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.command.LeaveCommand;
@@ -44,7 +45,7 @@ public class GameSession implements IGameSession {
     @Getter
     private GameSessionStatus status = GameSessionStatus.WAITING;
 
-    private int secondsRemaining, playersRemaining;
+    private int secondsRemaining;
     private BukkitRunnable timeLimitTask, generateItemsTask;
 
     private int referenceXChunkReserved;
@@ -80,15 +81,7 @@ public class GameSession implements IGameSession {
             gamePlayer.setStatus(PlayerStatus.INGAME);
             gamePlayer.getBukkitPlayer().setGameMode(GameMode.SURVIVAL);
         });
-        playersRemaining = getAlivePlayers().size();
-        teams.forEachTeam(team -> {
-            team.getPlayers().forEach(uuid -> {
-                GamePlayer gamePlayer = GamePlayer.get(uuid);
-                gamePlayer.onlinePlayer(p -> {
-                    p.teleport(team.getSpawnAssigned(getMapsWorld(), xAddition));
-                });
-            });
-        });
+
         countdown = DEFAULT_SECONDS_COOLDOWN;
         startRunnable = new BukkitRunnable() {
             float soundPitch = 0.0f;
@@ -102,6 +95,18 @@ public class GameSession implements IGameSession {
 
                     // Update status to INGAME (Scoreboard update)
                     forEachOnlinePlayer(p -> gamePlayer(p).setStatus(PlayerStatus.INGAME));
+
+                    Bukkit.getScheduler().runTask(LuckyTowers.getPlugin(), () -> {
+                        // Teleport to spawns of teams
+                        teams.forEachTeam(team -> {
+                            team.getPlayers().forEach(uuid -> {
+                                GamePlayer gamePlayer = GamePlayer.get(uuid);
+                                gamePlayer.onlinePlayer(p -> {
+                                    p.teleport(team.getSpawnAssigned(getMapsWorld(), xAddition));
+                                });
+                            });
+                        });
+                    });
                     cancel();
                 }
                 if (countdown >= 1) {
@@ -162,7 +167,7 @@ public class GameSession implements IGameSession {
     @Override
     public boolean canEnd() {
         if (secondsRemaining <= 0) return true;
-        return playersRemaining <= 1;
+        return getAlivePlayers().size() <= 1;
     }
 
     @Override
@@ -177,20 +182,24 @@ public class GameSession implements IGameSession {
         gamePlayer.setGameSession(this);
         loadMapSchemAndReserveChunks();
         players.add(gamePlayer);
+        System.out.println("[DEBUG joinPlayer] " + "players added to list");
         gamePlayer.onlinePlayer(p -> {
             p.teleport(map.getSpawn(getMapsWorld(), xAddition));
             p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5f, 2f);
             p.setGameMode(GameMode.ADVENTURE);
+            System.out.println("[DEBUG joinPlayer] " + "teleported to mid etc");
         });
         gamePlayer.setStatus(PlayerStatus.INGAME);
-        teams.assignNextEmptyTeam(gamePlayer);
+        System.out.println("[DEBUG joinPlayer] " + "status has been set!");
+        GameTeam team = teams.assignNextEmptyTeam(gamePlayer);
+        System.out.println("[DEBUG joinPlayer] " + "team assigned? " + team.getColor().name());
         LuckyTowers.callEvent(new GamePlayerJoinSessionEvent(gamePlayer));
+        System.out.println("[DEBUG joinPlayer] " + "called JoinSessionEvent");
         if (canStart()) start();
     }
 
     @Override
     public void quitPlayer(GamePlayer gamePlayer) {
-        playersRemaining--;
         teams.clearTeams(gamePlayer);
         players.remove(gamePlayer);
         gamePlayer.setStatus(PlayerStatus.LOBBY);
@@ -201,7 +210,6 @@ public class GameSession implements IGameSession {
 
     @Override
     public void deathPlayer(GamePlayer gamePlayer) {
-        playersRemaining--;
         gamePlayer.setStatus(PlayerStatus.SPECTATING);
         LuckyTowers.callEvent(new GamePlayerDeathEvent(gamePlayer));
         gamePlayer.onlinePlayer(player -> {

@@ -38,7 +38,7 @@ public class AuthPlayersListeners implements Listener {
             // PREMIUM
             Bukkit.getScheduler().runTaskLater(LoginSpigot.getPlugin(), () -> {
                 PluginUtils.redirectTo(player, "lobby");
-            }, 20);
+            }, 20 * 3);
         }
     }
 }

@@ -11,6 +11,7 @@ public class LobbyHotbar extends GameMenu {
 
     @Override
     public void load() {
+        if (initCorePlayer == null) return;
         set(0, item(GameMessages.lobbyHotbar_item_play).get(), "lobbyHotbar play");
         set(4, item(GameMessages.lobbyHotbar_item_options).get(), "lobbyHotbar options");
     }

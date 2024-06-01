@@ -89,10 +89,11 @@ public class PlayerLogicListeners implements Listener {
     public void giveLobbyHotbar(PlayerStatusChangeEvent event) {
         if (!event.getStatus().equals(PlayerStatus.LOBBY)) return;
         Player player = event.getPlayer();
+        if (player == null) return;
         new LobbyHotbar(player).set(player);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void unloadGamePlayer(PlayerQuitEvent event) {
         PlayersManager manager = LuckyTowers.getManager(PlayersManager.class);
         manager.unregister(event.getPlayer().getUniqueId());

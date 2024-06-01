@@ -5,7 +5,6 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.*;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.command.LeaveCommand;
@@ -188,7 +187,7 @@ public class GameSession implements IGameSession {
             p.setGameMode(GameMode.ADVENTURE);
         });
         gamePlayer.setStatus(PlayerStatus.INGAME);
-        GameTeam team = teams.assignNextEmptyTeam(gamePlayer);
+        teams.assignNextEmptyTeam(gamePlayer);
         LuckyTowers.callEvent(new GamePlayerJoinSessionEvent(gamePlayer));
         if (canStart()) start();
     }
@@ -198,9 +197,10 @@ public class GameSession implements IGameSession {
         teams.clearTeams(gamePlayer);
         players.remove(gamePlayer);
         gamePlayer.setStatus(PlayerStatus.LOBBY);
-        checkStartCancellation();
-        if (canEnd()) end();
         gamePlayer.setGameSession(null);
+        checkStartCancellation();
+        if (getStatus().equals(GameSessionStatus.PLAYING))
+            if (canEnd()) end();
     }
 
     @Override
@@ -216,7 +216,18 @@ public class GameSession implements IGameSession {
             player.teleport(map.getSpawn(getMapsWorld(), xAddition));
             player.setGameMode(GameMode.ADVENTURE);
         });
-        if (canEnd()) end();
+
+        Bukkit.getScheduler().runTaskLater(LuckyTowers.getPlugin(), () -> {
+            boolean hasQuit = false;
+            if (gamePlayer.getBukkitPlayer() == null) {
+                hasQuit = true;
+            } else if (!gamePlayer.getBukkitPlayer().isOnline()) hasQuit = true;
+            // Remove from set Players if the player is not online. To check end
+            System.out.println("HAS QUIT " + hasQuit);
+            if (hasQuit) quitPlayer(gamePlayer);
+        }, 1);
+
+
     }
 
     @Override

@@ -182,19 +182,14 @@ public class GameSession implements IGameSession {
         gamePlayer.setGameSession(this);
         loadMapSchemAndReserveChunks();
         players.add(gamePlayer);
-        System.out.println("[DEBUG joinPlayer] " + "players added to list");
         gamePlayer.onlinePlayer(p -> {
             p.teleport(map.getSpawn(getMapsWorld(), xAddition));
             p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5f, 2f);
             p.setGameMode(GameMode.ADVENTURE);
-            System.out.println("[DEBUG joinPlayer] " + "teleported to mid etc");
         });
         gamePlayer.setStatus(PlayerStatus.INGAME);
-        System.out.println("[DEBUG joinPlayer] " + "status has been set!");
         GameTeam team = teams.assignNextEmptyTeam(gamePlayer);
-        System.out.println("[DEBUG joinPlayer] " + "team assigned? " + team.getColor().name());
         LuckyTowers.callEvent(new GamePlayerJoinSessionEvent(gamePlayer));
-        System.out.println("[DEBUG joinPlayer] " + "called JoinSessionEvent");
         if (canStart()) start();
     }
 

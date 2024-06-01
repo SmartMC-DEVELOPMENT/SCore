@@ -22,25 +22,35 @@ public class VanishListeners implements Listener {
         GameSession session = gamePlayer.getGameSession();
 
         if (status.equals(PlayerStatus.INGAME)) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if (session.getPlayers().contains(GamePlayer.get(player.getUniqueId()))) continue;
-                event.getPlayer().hidePlayer(plugin, player);
-            }
+            Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
+                event.getPlayer().hidePlayer(plugin, onlinePlayer);
+            });
+            session.getAlivePlayers().forEach(alivePlayer -> {
+                event.getPlayer().showPlayer(plugin, alivePlayer.getBukkitPlayer());
+            });
         }
 
         if (status.equals(PlayerStatus.SPECTATING)) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if (session.getPlayers().contains(GamePlayer.get(player.getUniqueId()))) continue;
-                player.hidePlayer(plugin, event.getPlayer());
-            }
+            Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
+                event.getPlayer().hidePlayer(plugin, onlinePlayer);
+            });
+            session.getPlayers().forEach(alivePlayer -> {
+                event.getPlayer().showPlayer(plugin, alivePlayer.getBukkitPlayer());
+            });
         }
 
         if (status.equals(PlayerStatus.LOBBY)) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if (!GamePlayer.get(player.getUniqueId()).getStatus().equals(PlayerStatus.LOBBY)) continue;
-                player.showPlayer(plugin, event.getPlayer());
-                event.getPlayer().showPlayer(plugin, player);
-            }
+            Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
+                GamePlayer onlineGamePlayer = GamePlayer.get(onlinePlayer.getUniqueId());
+                if (onlineGamePlayer == null) return;
+                if (onlineGamePlayer.getStatus().equals(PlayerStatus.LOBBY)) {
+                    onlinePlayer.showPlayer(plugin, event.getPlayer());
+                    event.getPlayer().showPlayer(plugin, onlinePlayer);
+                } else {
+                    onlinePlayer.hidePlayer(plugin, event.getPlayer());
+                    event.getPlayer().hidePlayer(plugin, onlinePlayer);
+                }
+            });
         }
 
     }

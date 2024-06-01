@@ -50,8 +50,11 @@ public class EditorSession {
 
         BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
 
+        Location centerLoc = getMap().getSpawn(world, 0);
+        BlockVector3 center = BlockVector3.at(centerLoc.getX(), centerLoc.getY(), centerLoc.getZ());
+
         ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(
-                weWorld, region, clipboard, region.getMinimumPoint()
+                weWorld, region, clipboard, center
         );
         Operations.complete(forwardExtentCopy);
 
@@ -65,6 +68,7 @@ public class EditorSession {
     public GameTeamColor rotateColor() {
         return color.next();
     }
+
     public GameMap getMap() {
         return mapManager.get(mapId);
     }

@@ -199,14 +199,14 @@ public class GameSession implements IGameSession {
         gamePlayer.setStatus(PlayerStatus.LOBBY);
         gamePlayer.setGameSession(null);
         checkStartCancellation();
-        if (getStatus().equals(GameSessionStatus.PLAYING))
-            if (canEnd()) end();
+        if (canEnd()) end();
     }
 
     @Override
     public void deathPlayer(GamePlayer gamePlayer) {
         gamePlayer.setStatus(PlayerStatus.SPECTATING);
         LuckyTowers.callEvent(new GamePlayerDeathEvent(gamePlayer));
+
         gamePlayer.onlinePlayer(player -> {
             Location location = player.getLocation();
             player.playSound(location, Sound.ENTITY_PLAYER_DEATH, 1.0f, 2.0f);
@@ -216,6 +216,7 @@ public class GameSession implements IGameSession {
             player.teleport(map.getSpawn(getMapsWorld(), xAddition));
             player.setGameMode(GameMode.ADVENTURE);
         });
+        if (canEnd()) end();
 
         Bukkit.getScheduler().runTaskLater(LuckyTowers.getPlugin(), () -> {
             boolean hasQuit = false;

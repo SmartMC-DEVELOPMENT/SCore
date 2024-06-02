@@ -37,12 +37,7 @@ public class AdminEditorCommand implements ItemActionExecutor {
             }
 
             case "addTeamSpawn" -> {
-                Location initLocation = player.getLocation().getBlock().getLocation();
-                initLocation.setYaw(player.getLocation().getYaw());
-                initLocation.setPitch(player.getLocation().getPitch());
-                initLocation.setX(initLocation.getX() + 0.5);
-                initLocation.setY(initLocation.getY() + 0.5);
-                initLocation.setZ(initLocation.getZ() + 0.5);
+                Location initLocation = player.getLocation();
                 map.getSpawnLocations().add(initLocation);
                 map.saveSpawnLocations();
                 player.sendBlockChange(initLocation, Material.BEACON.createBlockData());

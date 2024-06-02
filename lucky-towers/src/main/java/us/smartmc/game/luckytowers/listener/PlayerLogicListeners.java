@@ -75,7 +75,7 @@ public class PlayerLogicListeners implements Listener {
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
         if (gamePlayer.getStatus().equals(PlayerStatus.INGAME)) return;
 
-        event.setCancelled(!SmartCore.getPlugin().getAdminModeHandler().isActive(player));
+        event.setCancelled(true);
     }
 
     @EventHandler

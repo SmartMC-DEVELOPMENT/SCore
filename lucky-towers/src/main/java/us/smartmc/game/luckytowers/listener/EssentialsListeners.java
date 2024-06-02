@@ -6,20 +6,55 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import us.smartmc.game.luckytowers.LuckyTowers;
+import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.instance.game.GameSessionStatus;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.manager.EditorModeManager;
 
 public class EssentialsListeners implements Listener {
+
+    @EventHandler
+    public void healAtTeleport(PlayerTeleportEvent event) {
+        Player player = event.getPlayer();
+        player.setHealth(20);
+        player.setFoodLevel(20);
+        player.setFireTicks(0);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void cancelBlockPlace(BlockPlaceEvent event) {
+        GamePlayer gamePlayer = GamePlayer.get(event.getPlayer().getUniqueId());
+        GameSession session = gamePlayer.getGameSession();
+
+        event.setCancelled(true);
+        if (session != null && session.getStatus().equals(GameSessionStatus.PLAYING)) {
+            event.setCancelled(false);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void cancelBlockBreak(BlockBreakEvent event) {
+        GamePlayer gamePlayer = GamePlayer.get(event.getPlayer().getUniqueId());
+        GameSession session = gamePlayer.getGameSession();
+
+        event.setCancelled(true);
+        if (session != null && session.getStatus().equals(GameSessionStatus.PLAYING)) {
+            event.setCancelled(false);
+        }
+    }
 
     @EventHandler
     public void disableAchievements(PlayerAdvancementDoneEvent event) {

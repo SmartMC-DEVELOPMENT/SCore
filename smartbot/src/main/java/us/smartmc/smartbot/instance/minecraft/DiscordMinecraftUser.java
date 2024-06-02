@@ -9,10 +9,7 @@ import us.smartmc.backend.connection.BackendClient;
 import us.smartmc.smartbot.util.MinecraftLinkUtil;
 
 import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class DiscordMinecraftUser {
 
@@ -45,7 +42,8 @@ public class DiscordMinecraftUser {
         Document requestDocument = new Document("_id", getMinecraftId().toString())
                 .append("message", formatted);
         if (args.length >= 1) {
-            requestDocument.append("args", Arrays.asList(args));
+            List<Object> argsList = Arrays.asList(args);
+            requestDocument.append("args", argsList);
         }
 
         BackendClient.mainConnection.broadcastCommand("mcPlayer@" + getMinecraftId(), "sendPlayerMsg " + requestDocument.toJson());

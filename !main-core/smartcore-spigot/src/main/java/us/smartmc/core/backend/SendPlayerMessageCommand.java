@@ -8,9 +8,7 @@ import org.bukkit.entity.Player;
 import us.smartmc.backend.connection.ConnectionHandler;
 import us.smartmc.backend.instance.BackendCommandExecutor;
 
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class SendPlayerMessageCommand extends BackendCommandExecutor {
@@ -30,7 +28,6 @@ public class SendPlayerMessageCommand extends BackendCommandExecutor {
         }
         jsonBuilder.deleteCharAt(jsonBuilder.length() - 1);
         String json = jsonBuilder.toString();
-        System.out.println("JSON=" + json);
         Document document = org.bson.Document.parse(json);
         UUID id = UUID.fromString(document.getString("_id"));
         String message = document.getString("message");
@@ -38,8 +35,11 @@ public class SendPlayerMessageCommand extends BackendCommandExecutor {
         Player player = getPlayerFromId(id);
         if (player == null) return;
 
-        Object[] messageArgs = Arrays.stream(new ArrayList[]{document.get("args", ArrayList.class)}).toArray();
+        List<?> argsList = document.get("args", List.class);
+        Object[] messageArgs = argsList != null ? argsList.toArray() : new Object[0];
+
         Component component = PaperChatUtil.parse(player, message, messageArgs);
+
         player.sendMessage(component);
     }
 

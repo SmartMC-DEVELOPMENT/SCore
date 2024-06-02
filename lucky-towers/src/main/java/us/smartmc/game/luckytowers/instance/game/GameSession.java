@@ -17,6 +17,7 @@ import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.manager.GameMapManager;
 import us.smartmc.game.luckytowers.manager.GameSessionsManager;
 import us.smartmc.game.luckytowers.messages.GameMessages;
+import us.smartmc.game.luckytowers.util.BlockUtils;
 import us.smartmc.game.luckytowers.util.GameUtil;
 
 import java.util.HashSet;
@@ -102,6 +103,7 @@ public class GameSession implements IGameSession {
                                 GamePlayer gamePlayer = GamePlayer.get(uuid);
                                 gamePlayer.onlinePlayer(p -> {
                                     p.teleport(team.getSpawnAssigned(getMapsWorld(), xAddition));
+                                    BlockUtils.sendSimpleEncapsulation(p, Material.BARRIER);
                                 });
                             });
                         });

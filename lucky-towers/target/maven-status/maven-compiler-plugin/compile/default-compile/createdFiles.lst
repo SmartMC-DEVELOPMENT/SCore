@@ -43,6 +43,7 @@ us\smartmc\game\luckytowers\menu\GameMenu.class
 us\smartmc\game\luckytowers\menu\PlayerNavigatorMenu.class
 us\smartmc\game\luckytowers\config\MainPluginConfig.class
 us\smartmc\game\luckytowers\event\player\GamePlayerJoinSessionEvent.class
+us\smartmc\game\luckytowers\util\BlockUtils.class
 us\smartmc\game\luckytowers\instance\player\GamePlayerData.class
 us\smartmc\game\luckytowers\instance\game\GameSessionTeams.class
 us\smartmc\game\luckytowers\manager\GameMapManager.class

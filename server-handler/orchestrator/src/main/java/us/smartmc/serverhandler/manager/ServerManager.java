@@ -136,7 +136,7 @@ public class ServerManager {
         if (!serverInfo.getConfig().getData().isPermanent()) {
             new Thread(() -> {
                 try {
-                    Thread.sleep(250);
+                    Thread.sleep(600);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

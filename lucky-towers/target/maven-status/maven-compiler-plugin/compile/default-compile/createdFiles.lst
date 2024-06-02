@@ -7,6 +7,7 @@ us\smartmc\game\luckytowers\instance\map\MapsGeneration.class
 us\smartmc\game\luckytowers\event\GamePluginEvent.class
 us\smartmc\game\luckytowers\instance\game\GameSession.class
 us\smartmc\game\luckytowers\instance\game\GameTeamColor.class
+us\smartmc\game\luckytowers\instance\game\LuckyTowersGameSession.class
 us\smartmc\game\luckytowers\instance\player\PlayerScoreboardType.class
 us\smartmc\game\luckytowers\instance\game\GameSession$3.class
 us\smartmc\game\luckytowers\listener\MainGameListeners.class

@@ -73,6 +73,8 @@ public class PlayerLogicListeners implements Listener {
     public void cancelInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
+
+        if (SmartCore.getPlugin().getAdminModeHandler().isActive(player)) return;
         if (gamePlayer.getStatus().equals(PlayerStatus.INGAME)) return;
 
         event.setCancelled(true);

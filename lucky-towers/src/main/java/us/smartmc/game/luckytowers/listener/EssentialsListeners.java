@@ -13,10 +13,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.player.PlayerAdvancementDoneEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.*;
+import us.smartmc.core.SmartCore;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.instance.game.GameSessionStatus;
@@ -25,6 +23,20 @@ import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.manager.EditorModeManager;
 
 public class EssentialsListeners implements Listener {
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void cancelDrop(PlayerDropItemEvent event) {
+        Player player = event.getPlayer();
+        GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
+
+        if (SmartCore.getPlugin().getAdminModeHandler().isActive(player)) return;
+
+        event.setCancelled(true);
+
+        if (gamePlayer != null && (gamePlayer.getGameSession() != null && gamePlayer.getGameSession().getStatus().equals(GameSessionStatus.PLAYING))) {
+            event.setCancelled(false);
+        }
+    }
 
     @EventHandler
     public void healAtTeleport(PlayerTeleportEvent event) {
@@ -36,8 +48,10 @@ public class EssentialsListeners implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void cancelBlockPlace(BlockPlaceEvent event) {
+        Player player = event.getPlayer();
         GamePlayer gamePlayer = GamePlayer.get(event.getPlayer().getUniqueId());
         GameSession session = gamePlayer.getGameSession();
+        if (SmartCore.getPlugin().getAdminModeHandler().isActive(player)) return;
 
         event.setCancelled(true);
         if (session != null && session.getStatus().equals(GameSessionStatus.PLAYING)) {
@@ -47,8 +61,10 @@ public class EssentialsListeners implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void cancelBlockBreak(BlockBreakEvent event) {
+        Player player = event.getPlayer();
         GamePlayer gamePlayer = GamePlayer.get(event.getPlayer().getUniqueId());
         GameSession session = gamePlayer.getGameSession();
+        if (SmartCore.getPlugin().getAdminModeHandler().isActive(player)) return;
 
         event.setCancelled(true);
         if (session != null && session.getStatus().equals(GameSessionStatus.PLAYING)) {

@@ -24,6 +24,7 @@ import us.smartmc.smartbot.manager.CustomProxyCommandManager;
 import us.smartmc.smartbot.manager.LogsManager;
 import us.smartmc.smartbot.message.MainMessages;
 import us.smartmc.smartbot.slashcommand.*;
+import us.smartmc.smartbot.textcommand.QuienSoyCommand;
 import us.smartmc.smartbot.textcommand.SendMessageCommand;
 import us.smartmc.smartbot.textcommand.TestCommand;
 
@@ -85,7 +86,8 @@ public class SmartBotMain {
             public void run() {
                 CommandHandler.register(
                         new TiendaCommand("tienda"),
-                        new TestCommand("/abrir-servidor"),
+                        new TestCommand("-test"),
+                        new QuienSoyCommand("?QuienSoy"),
                         new SendMessageCommand("!sendMessage"),
                         new AnuncioCommand("sb-anuncio"),
                         new AnuncioCommand("anuncio"),

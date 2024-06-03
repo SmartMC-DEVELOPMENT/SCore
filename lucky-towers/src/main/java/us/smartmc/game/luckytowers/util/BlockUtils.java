@@ -20,7 +20,7 @@ public class BlockUtils {
         list.add(location.clone().add(1, 0, 0));
         list.add(location.clone().add(-1, 0, 0));
 
-        list.add(location.clone().add(0, 1, 0));
+        list.add(location.clone().add(0, 2, 0));
 
         list.add(location.clone().add(0, 0, 1));
         list.add(location.clone().add(0, 0, -1));

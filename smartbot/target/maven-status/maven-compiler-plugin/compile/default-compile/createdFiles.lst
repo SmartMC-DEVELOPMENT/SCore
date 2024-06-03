@@ -6,10 +6,12 @@ us\smartmc\smartbot\handler\TicketActionHandler.class
 us\smartmc\smartbot\util\MinecraftLinkUtil.class
 us\smartmc\smartbot\responses\NextEventResponse.class
 us\smartmc\smartbot\textcommand\SendMessageCommand.class
+us\smartmc\smartbot\instance\minecraft\MinecraftCorePlayerData.class
 us\smartmc\smartbot\slashcommand\TiendaCommand.class
 us\smartmc\smartbot\logfunction\SendEmbedMessages.class
 us\smartmc\smartbot\slashcommand\JoinToCommand.class
 us\smartmc\smartbot\slashcommand\CreateQuoteCommand.class
+us\smartmc\smartbot\textcommand\QuienSoyCommand.class
 us\smartmc\smartbot\listener\CommandHandlerListener.class
 us\smartmc\smartbot\util\ConfigUtil.class
 us\smartmc\smartbot\instance\minecraft\DiscordMinecraftUser.class

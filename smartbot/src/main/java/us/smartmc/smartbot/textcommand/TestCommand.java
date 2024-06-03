@@ -1,8 +1,10 @@
 package us.smartmc.smartbot.textcommand;
 
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import us.smartmc.smartbot.instance.TextCommand;
+import us.smartmc.smartbot.instance.minecraft.DiscordMinecraftUser;
 
 public class TestCommand extends TextCommand {
 
@@ -12,6 +14,16 @@ public class TestCommand extends TextCommand {
 
     @Override
     public void execute(MessageReceivedEvent event) {
-        event.getMessage().addReaction(Emoji.fromUnicode("U+1FAE1")).queue();
+        Member member = event.getMember();
+        if (member == null) return;
+
+        DiscordMinecraftUser minecraftUser = DiscordMinecraftUser.get(member);
+
+        if (!minecraftUser.isLinkedWithMinecraft()) {
+            event.getChannel().sendMessage("No estas vinculado hijo mio").complete();
+            return;
+        }
+
+        minecraftUser.sendMessage("Hola buenas tardes {0}", member.getUser().getName());
     }
 }

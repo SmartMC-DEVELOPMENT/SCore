@@ -39,12 +39,12 @@ public class FileUtil {
     }
 
     public static void createStartup(ServerConfiguration<?> config, File destinationDir, int port, String name, String id) {
-        if (!destinationDir.exists()) {
+        //if (!destinationDir.exists()) {
             if (config.getData().isPermanent()) {
                 recentCreatedPermanentServers.add(destinationDir.getAbsolutePath());
             }
             copyDirToDir(config.getData().getStartupDirectory(), destinationDir);
-        }
+        //}
         StartupCreation creation = new StartupCreation(config.getData().getStartupDirectory(), destinationDir, port, name, id);
         startupCreations.put(destinationDir.getAbsolutePath(), creation);
         parseStartupTemplates(config, creation);

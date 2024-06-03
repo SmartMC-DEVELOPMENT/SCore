@@ -1,5 +1,6 @@
 package us.smartmc.smartbot.slashcommand;
 
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -53,6 +54,6 @@ public class VerifyMinecraftLinkCommand extends SlashCommand {
 
     @Override
     public DefaultMemberPermissions getDefaultPermission() {
-        return DefaultMemberPermissions.DISABLED;
+        return DefaultMemberPermissions.enabledFor(Permission.EMPTY_PERMISSIONS);
     }
 }

@@ -46,7 +46,7 @@ public class CommandHandler {
                 SlashCommand cmd = (SlashCommand) command;
                 registerSlashCommand(cmd);
                 SlashCommandData commandData = Commands.slash(cmd.getName(), cmd.getDescription())
-                                .setDefaultPermissions(cmd.getDefaultPermission());
+                        .setDefaultPermissions(cmd.getDefaultPermission());
                 List<OptionData> options = cmd.getOptions();
                 if (options != null) {
                     commandData.addOptions(options);

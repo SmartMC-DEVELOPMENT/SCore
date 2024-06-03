@@ -19,6 +19,7 @@ D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\slashcommand\T
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\slashcommand\RemoveQuoteCommand.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\slashcommand\CreateQuoteCommand.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\instance\ISlashCommand.java
+D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\textcommand\QuienSoyCommand.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\instance\log\LogChannelRegistry.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\responses\NextEventResponse.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\instance\ReplyListener.java
@@ -32,6 +33,7 @@ D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\instance\linkd
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\listener\DefaultUserRoleListener.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\handler\RepliesHandler.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\connection\RedisConnection.java
+D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\instance\minecraft\MinecraftCorePlayerData.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\util\ConfigUtil.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\util\ChatGPTUtil.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\slashcommand\JoinToCommand.java

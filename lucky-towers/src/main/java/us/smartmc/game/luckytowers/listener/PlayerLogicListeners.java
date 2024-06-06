@@ -1,8 +1,13 @@
 package us.smartmc.game.luckytowers.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
+import me.imsergioh.pluginsapi.instance.PlayerLanguages;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -27,6 +32,7 @@ import us.smartmc.game.luckytowers.manager.PlayersManager;
 import us.smartmc.game.luckytowers.menu.LobbyHotbar;
 import us.smartmc.game.luckytowers.menu.hotbar.SpectatorHotbar;
 import us.smartmc.game.luckytowers.menu.hotbar.WaitingHotbar;
+import us.smartmc.game.luckytowers.messages.GameMessages;
 import us.smartmc.game.luckytowers.util.GameUtil;
 
 import java.util.ArrayList;
@@ -34,6 +40,31 @@ import java.util.List;
 import java.util.Random;
 
 public class PlayerLogicListeners implements Listener {
+
+    @EventHandler
+    public void cancelMoveAtStartGame(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+        GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
+        if (gamePlayer == null) return;
+        GameSession session = gamePlayer.getGameSession();
+        if (session == null) return;
+        if (!session.isStartedRecently()) return;
+
+        Location from = event.getFrom();
+        Location to = event.getTo();
+
+        if (from.getBlockX() != to.getBlockX()) {
+            event.setCancelled(true);
+            event.getPlayer().teleport(new Location(from.getWorld(), from.getBlockX(), from.getY(), from.getBlockZ() + 0.5));
+            player.showTitle(Title.title(Component.empty(), PaperChatUtil.parse(player, GameMessages.title_dontFall.getMessageOf(PlayerLanguages.get(player.getUniqueId())))));
+        }
+
+        if (from.getBlockZ() != to.getBlockZ()) {
+            event.setCancelled(true);
+            event.getPlayer().teleport(new Location(from.getWorld(), from.getBlockX(), from.getY(), from.getBlockZ() + 0.5));
+            player.showTitle(Title.title(Component.empty(), PaperChatUtil.parse(player, GameMessages.title_dontFall.getMessageOf(PlayerLanguages.get(player.getUniqueId())))));
+        }
+    }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void setGamemodeEvent(PlayerStatusChangeEvent event) {

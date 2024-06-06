@@ -3,6 +3,7 @@ package us.smartmc.game.luckytowers.variable;
 import me.imsergioh.pluginsapi.instance.VariableListener;
 import org.bukkit.entity.Player;
 import us.smartmc.core.util.VariableUtil;
+import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.util.GameUtil;
 
@@ -20,7 +21,21 @@ public class GameVariables extends VariableListener<Player> {
     public String parse(Player player, String message) {
         message = VariableUtil.replace(message, "<countdown>", s -> GameUtil.getFormattedTimeFromSeconds(GamePlayer.get(player.getUniqueId()).getGameSession().getCountdown()));
         message = VariableUtil.replace(message, "<timeRemaining>", s -> GameUtil.getFormattedTimeFromSeconds(GamePlayer.get(player.getUniqueId()).getGameSession().getSecondsRemaining()));
-        message = VariableUtil.replace(message, "<playersRemaining>", s -> String.valueOf(GamePlayer.get(player.getUniqueId()).getGameSession().getAlivePlayers().size()));
+
+        message = VariableUtil.replace(message, "<playersRemaining>", s -> {
+            GameSession session = GamePlayer.get(player.getUniqueId()).getGameSession();
+            return session.getAlivePlayers().size() + "/" + session.getMap().getSpawnLocations().size();
+        });
+
+        message = VariableUtil.replace(message, "<playersRemainingShort>", s -> {
+            GameSession session = GamePlayer.get(player.getUniqueId()).getGameSession();
+            return session.getAlivePlayers().size()+"";
+        });
+
+        message = VariableUtil.replace(message, "<mapName>", s -> {
+            GameSession session = GamePlayer.get(player.getUniqueId()).getGameSession();
+            return session.getMap().getName();
+        });
 
 
         if (message.contains("<mapPlaying.")) {

@@ -13,6 +13,7 @@ us\smartmc\game\luckytowers\instance\game\GameSession$3.class
 us\smartmc\game\luckytowers\listener\MainGameListeners.class
 us\smartmc\game\luckytowers\menu\hotbar\SpectatorHotbar.class
 us\smartmc\game\luckytowers\instance\game\IGameSession.class
+us\smartmc\game\luckytowers\instance\game\GameSession$1$1.class
 us\smartmc\game\luckytowers\menu\GamesMenu.class
 us\smartmc\game\luckytowers\messages\GameItems.class
 us\smartmc\game\luckytowers\menu\OptionsMenu.class

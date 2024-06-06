@@ -20,9 +20,7 @@ import us.smartmc.game.luckytowers.messages.GameMessages;
 import us.smartmc.game.luckytowers.util.BlockUtils;
 import us.smartmc.game.luckytowers.util.GameUtil;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -50,6 +48,9 @@ public class GameSession implements IGameSession {
 
     private int referenceXChunkReserved;
     private int xAddition = -1;
+
+    @Getter
+    private boolean startedRecently;
 
     private EditSession schemSession;
 
@@ -92,6 +93,14 @@ public class GameSession implements IGameSession {
                     getGenerateItemsTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), GENERATION_ITEMS_TICKS, GENERATION_ITEMS_TICKS);
                     getTimeLimitTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), 0, 20);
                     setStatus(GameSessionStatus.PLAYING);
+                    startedRecently = true;
+
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            startedRecently = false;
+                        }
+                    }, 1000 * 3);
 
                     // Update status to INGAME (Scoreboard update)
                     forEachOnlinePlayer(p -> gamePlayer(p).setStatus(PlayerStatus.INGAME));
@@ -103,7 +112,6 @@ public class GameSession implements IGameSession {
                                 GamePlayer gamePlayer = GamePlayer.get(uuid);
                                 gamePlayer.onlinePlayer(p -> {
                                     p.teleport(team.getSpawnAssigned(getMapsWorld(), xAddition));
-                                    BlockUtils.sendSimpleEncapsulation(p, Material.BARRIER);
                                 });
                             });
                         });
@@ -183,12 +191,13 @@ public class GameSession implements IGameSession {
         gamePlayer.setGameSession(this);
         loadMapSchemAndReserveChunks();
         players.add(gamePlayer);
+        gamePlayer.setStatus(PlayerStatus.INGAME);
         gamePlayer.onlinePlayer(p -> {
             p.teleport(map.getSpawn(getMapsWorld(), xAddition));
             p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5f, 2f);
             p.setGameMode(GameMode.ADVENTURE);
         });
-        gamePlayer.setStatus(PlayerStatus.INGAME);
+
         teams.assignNextEmptyTeam(gamePlayer);
         LuckyTowers.callEvent(new GamePlayerJoinSessionEvent(gamePlayer));
         if (canStart()) start();

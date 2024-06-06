@@ -55,7 +55,10 @@ public enum GameMessages implements IMessageCategory {
     player_addedKill,
 
     @DefaultLanguageMessage("&c&lSTART HAS BEEN CANCELLED!")
-    session_cancelled;
+    session_cancelled,
+
+    @DefaultLanguageMessage("<color:#B7FFFF>¡CUIDADO TE PUEDES CAER!")
+    title_dontFall;
 
 
     @Override

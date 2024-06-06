@@ -166,7 +166,7 @@ public class PlayerLogicListeners implements Listener {
         GameSession session = event.getSession();
         if (session == null) return;
         if (!(session.getStatus().equals(GameSessionStatus.STARTING))) return;
-        session.forEachOnlinePlayer(p -> p.getInventory().clear());
+        //session.forEachOnlinePlayer(p -> p.getInventory().clear());
         session.forEachOnlinePlayer(p -> p.getInventory().setArmorContents(null));
     }
 

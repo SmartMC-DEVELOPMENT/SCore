@@ -17,7 +17,6 @@ import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.manager.GameMapManager;
 import us.smartmc.game.luckytowers.manager.GameSessionsManager;
 import us.smartmc.game.luckytowers.messages.GameMessages;
-import us.smartmc.game.luckytowers.util.BlockUtils;
 import us.smartmc.game.luckytowers.util.GameUtil;
 
 import java.util.*;
@@ -27,7 +26,8 @@ import java.util.stream.Collectors;
 public class GameSession implements IGameSession {
 
     private static final int GENERATION_ITEMS_TICKS = 60;
-    private static final int DEFAULT_SECONDS_COOLDOWN = 5;
+    private static final int DEFAULT_SECONDS_COOLDOWN = 60;
+    private static final int SECONDS_COOLDOWN_HALF_MAP = 30;
 
     private static final GameMapManager mapManager = LuckyTowers.getManager(GameMapManager.class);
 
@@ -43,7 +43,7 @@ public class GameSession implements IGameSession {
     @Getter
     private GameSessionStatus status = GameSessionStatus.WAITING;
 
-    private int secondsRemaining;
+    private int secondsRemaining = 10;
     private BukkitRunnable timeLimitTask, generateItemsTask;
 
     private int referenceXChunkReserved;
@@ -74,6 +74,11 @@ public class GameSession implements IGameSession {
         if (schemSession == null) end();
     }
 
+    public void forceStart() {
+        if (!status.equals(GameSessionStatus.STARTING)) return;
+        countdown = 0;
+    }
+
     @Override
     public void start() {
         if (getStatus().equals(GameSessionStatus.STARTING)) return;
@@ -88,7 +93,12 @@ public class GameSession implements IGameSession {
             float soundPitch = 0.0f;
             @Override
             public void run() {
+                if (players.size() >= (map.getSpawnLocations().size() / 2) && countdown > SECONDS_COOLDOWN_HALF_MAP) {
+                    countdown = SECONDS_COOLDOWN_HALF_MAP;
+                }
+
                 if (countdown <= 0) {
+
                     broadcastMessage(GameMessages.session_message_started);
                     getGenerateItemsTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), GENERATION_ITEMS_TICKS, GENERATION_ITEMS_TICKS);
                     getTimeLimitTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), 0, 20);
@@ -112,6 +122,7 @@ public class GameSession implements IGameSession {
                                 GamePlayer gamePlayer = GamePlayer.get(uuid);
                                 gamePlayer.onlinePlayer(p -> {
                                     p.teleport(team.getSpawnAssigned(getMapsWorld(), xAddition));
+                                    p.getInventory().clear();
                                 });
                             });
                         });
@@ -210,7 +221,9 @@ public class GameSession implements IGameSession {
         gamePlayer.setStatus(PlayerStatus.LOBBY);
         gamePlayer.setGameSession(null);
         checkStartCancellation();
-        if (canEnd()) end();
+
+        if (status.equals(GameSessionStatus.PLAYING))
+            if (canEnd()) end();
     }
 
     @Override
@@ -235,11 +248,8 @@ public class GameSession implements IGameSession {
                 hasQuit = true;
             } else if (!gamePlayer.getBukkitPlayer().isOnline()) hasQuit = true;
             // Remove from set Players if the player is not online. To check end
-            System.out.println("HAS QUIT " + hasQuit);
             if (hasQuit) LeaveCommand.leave(gamePlayer.getBukkitPlayer());
         }, 1);
-
-
     }
 
     @Override

@@ -12,3 +12,6 @@ commands:
   leave:
     description: "Leave the game or lo que sea"
     aliases: [salir, l]
+  forceStart:
+    description: "Force start the game you are in"
+    aliases: [start]

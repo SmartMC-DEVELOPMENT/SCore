@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.core.SmartCore;
 import us.smartmc.game.luckytowers.command.AdminGameCommand;
+import us.smartmc.game.luckytowers.command.ForceStartCommand;
 import us.smartmc.game.luckytowers.command.LeaveCommand;
 import us.smartmc.game.luckytowers.config.MainPluginConfig;
 import us.smartmc.game.luckytowers.event.GamePluginEvent;
@@ -80,6 +81,9 @@ public final class LuckyTowers extends JavaPlugin {
 
         VariablesHandler.register(new GameVariables());
         VariablesHandler.register(new PlayerStatsVariables());
+
+
+        VanishManager.startTask();
     }
 
     @Override
@@ -133,13 +137,13 @@ public final class LuckyTowers extends JavaPlugin {
                 new EssentialsListeners(),
                 new MainGameListeners(),
                 new PlayerLogicListeners(),
-                new EditorListeners(),
-                new VanishListeners());
+                new EditorListeners());
     }
 
     private void registerCommands() {
         registerCommand("adminGame", new AdminGameCommand());
         registerCommand("leave", new LeaveCommand());
+        registerCommand("forceStart", new ForceStartCommand());
     }
 
     public Collection<String> getLobbyWorldNames() {

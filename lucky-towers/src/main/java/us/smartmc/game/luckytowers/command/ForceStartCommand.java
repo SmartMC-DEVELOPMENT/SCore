@@ -20,10 +20,8 @@ public class ForceStartCommand implements CommandExecutor {
         if (!(sender instanceof Player player)) return true;
         if (!player.hasPermission("smartmc.vip")) return true;
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
-        System.out.println("DEBUG forceStartCmd gameplayer: " + gamePlayer);
         if (gamePlayer == null) return true;
         GameSession session = gamePlayer.getGameSession();
-        System.out.println("DEBUG forceStartCmd session: " + gamePlayer);
         if (session == null) return true;
         session.forceStart();
         PaperChatUtil.send(player, GameMessages.forceStarting);

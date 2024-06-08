@@ -57,8 +57,6 @@ public class ChatModule extends AddonPlugin {
 
                 Component formattedMessage = PaperChatUtil.parse(event.getPlayer(), "<chat.prefix><reset><gray><name> &8&l»&7 ");
 
-
-
                 AsyncPlayerChatEvent chatEvent = new AsyncPlayerChatEvent(true, event.getPlayer(), msgString, new HashSet<>(Bukkit.getOnlinePlayers()));
                 Bukkit.getPluginManager().callEvent(chatEvent);
                 if (!chatEvent.isCancelled()) {

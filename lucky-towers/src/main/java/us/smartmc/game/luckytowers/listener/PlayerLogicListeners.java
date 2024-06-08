@@ -110,7 +110,7 @@ public class PlayerLogicListeners implements Listener {
         session.joinPlayer(GamePlayer.get(event.getPlayer().getUniqueId()));
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void cancelInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());

@@ -3,6 +3,8 @@ package us.smartmc.game.luckytowers.listener;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -117,42 +119,45 @@ public class EssentialsListeners implements Listener {
         manager.disable(event.getPlayer());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void cancelDamageIfNotInGame(EntityDamageEvent event) {
+        System.out.println("cancelDamageIfNotInGame: start");
         Entity entity = event.getEntity();
         GamePlayer gamePlayer = GamePlayer.get(entity.getUniqueId());
 
-        if (gamePlayer == null || gamePlayer.getGameSession() == null) {
-            event.setCancelled(true);
+        if (gamePlayer != null && (gamePlayer.getGameSession() != null && gamePlayer.getGameSession().getAlivePlayers().contains(gamePlayer))) {
+            event.setCancelled(false);
             return;
         }
 
-        if (!gamePlayer.getStatus().equals(PlayerStatus.INGAME)) {
-            event.setCancelled(true);
-            return;
-        }
-
-        // Cancel damage event if is not ingame and not playing
-        if (gamePlayer.getGameSession().getStatus().equals(GameSessionStatus.PLAYING)) {
-            if (gamePlayer.getGameSession().getAlivePlayers().contains(gamePlayer)) {
-                event.setCancelled(false);
-                return;
-            }
-        }
         event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void allowProjectile(EntityDamageByEntityEvent event) {
+    public void allowInGameDamageFromNotPlayer(EntityDamageByEntityEvent event) {
         Entity entity = event.getEntity();
+
+        System.out.println("allowInGameDamageFromNotPlayer: start");
+        if (!(entity instanceof Player player)) return;
+        System.out.println("allowInGameDamageFromNotPlayer: is player");
+        GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
+        if (gamePlayer == null) return;
+        System.out.println("allowInGameDamageFromNotPlayer: gameplayer not null");
+        if (gamePlayer.getGameSession() == null) return;
+        System.out.println("allowInGameDamageFromNotPlayer: gamesession not null");
+
         Entity damager = event.getDamager();
-        if (damager instanceof Projectile) {
+        if (!(damager instanceof Player)) {
+            System.out.println("allowInGameDamageFromNotPlayer: damager not player");
             event.setCancelled(false);
+            System.out.println("allowInGameDamageFromNotPlayer: set cancelled false");
+            player.damage((double) 0, DamageSource.builder(DamageType.ARROW).build());
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void cancelSpectatorDamage(EntityDamageByEntityEvent event) {
+        System.out.println("cancelSpectatorDamage: start");
         Entity damager = event.getDamager();
 
         if (!(damager instanceof Player player)) return;

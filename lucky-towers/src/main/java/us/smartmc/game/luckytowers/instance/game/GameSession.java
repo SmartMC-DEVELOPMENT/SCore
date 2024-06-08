@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class GameSession implements IGameSession {
 
     private static final int GENERATION_ITEMS_TICKS = 60;
-    private static final int DEFAULT_SECONDS_COOLDOWN = 60;
+    private static final int DEFAULT_SECONDS_COOLDOWN = 30;
     private static final int SECONDS_COOLDOWN_HALF_MAP = 30;
 
     private static final GameMapManager mapManager = LuckyTowers.getManager(GameMapManager.class);
@@ -93,12 +93,11 @@ public class GameSession implements IGameSession {
             float soundPitch = 0.0f;
             @Override
             public void run() {
-                if (players.size() >= (map.getSpawnLocations().size() / 2) && countdown > SECONDS_COOLDOWN_HALF_MAP) {
+                /*if (players.size() >= (map.getSpawnLocations().size() / 2) && countdown > SECONDS_COOLDOWN_HALF_MAP) {
                     countdown = SECONDS_COOLDOWN_HALF_MAP;
-                }
+                }*/
 
                 if (countdown <= 0) {
-
                     broadcastMessage(GameMessages.session_message_started);
                     getGenerateItemsTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), GENERATION_ITEMS_TICKS, GENERATION_ITEMS_TICKS);
                     getTimeLimitTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), 0, 20);
@@ -177,6 +176,7 @@ public class GameSession implements IGameSession {
             PaperChatUtil.send(player, GameMessages.session_cancelled);
         });
         startRunnable.cancel();
+        setStatus(GameSessionStatus.WAITING);
     }
 
     @Override
@@ -206,7 +206,6 @@ public class GameSession implements IGameSession {
         gamePlayer.onlinePlayer(p -> {
             p.teleport(map.getSpawn(getMapsWorld(), xAddition));
             p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5f, 2f);
-            p.setGameMode(GameMode.ADVENTURE);
         });
 
         teams.assignNextEmptyTeam(gamePlayer);
@@ -238,7 +237,6 @@ public class GameSession implements IGameSession {
             if (player.isDead())
                 player.spigot().respawn();
             player.teleport(map.getSpawn(getMapsWorld(), xAddition));
-            player.setGameMode(GameMode.ADVENTURE);
         });
         if (canEnd()) end();
 

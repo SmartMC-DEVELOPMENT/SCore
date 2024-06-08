@@ -1,16 +1,16 @@
 package us.smartmc.game.luckytowers.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
-import org.bukkit.entity.Animals;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.*;
@@ -23,6 +23,16 @@ import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.manager.EditorModeManager;
 
 public class EssentialsListeners implements Listener {
+
+    @EventHandler
+    public void gamemode(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        Bukkit.getScheduler().runTask(LuckyTowers.getPlugin(), () -> {
+            try {
+                player.setGameMode(GameMode.SURVIVAL);
+            } catch (Exception ignore) {}
+        });
+    }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void cancelDrop(PlayerDropItemEvent event) {
@@ -110,15 +120,55 @@ public class EssentialsListeners implements Listener {
     @EventHandler
     public void cancelDamageIfNotInGame(EntityDamageEvent event) {
         Entity entity = event.getEntity();
+        GamePlayer gamePlayer = GamePlayer.get(entity.getUniqueId());
 
-        if (!(entity instanceof Player player)) return;
-        GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
-        if (gamePlayer == null) {
+        if (gamePlayer == null || gamePlayer.getGameSession() == null) {
+            event.setCancelled(true);
+            return;
+        }
+
+        if (!gamePlayer.getStatus().equals(PlayerStatus.INGAME)) {
             event.setCancelled(true);
             return;
         }
 
         // Cancel damage event if is not ingame and not playing
-        event.setCancelled(!(gamePlayer.getStatus().equals(PlayerStatus.INGAME) && gamePlayer.getGameSession().getStatus().equals(GameSessionStatus.PLAYING)));
+        if (gamePlayer.getGameSession().getStatus().equals(GameSessionStatus.PLAYING)) {
+            if (gamePlayer.getGameSession().getAlivePlayers().contains(gamePlayer)) {
+                event.setCancelled(false);
+                return;
+            }
+        }
+        event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void allowProjectile(EntityDamageByEntityEvent event) {
+        Entity entity = event.getEntity();
+        Entity damager = event.getDamager();
+        if (damager instanceof Projectile) {
+            event.setCancelled(false);
+        }
+    }
+
+    @EventHandler
+    public void cancelSpectatorDamage(EntityDamageByEntityEvent event) {
+        Entity damager = event.getDamager();
+
+        if (!(damager instanceof Player player)) return;
+        GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
+
+        if (gamePlayer != null && gamePlayer.getStatus().equals(PlayerStatus.INGAME)
+                && (gamePlayer.getGameSession() != null && gamePlayer.getGameSession().getStatus().equals(GameSessionStatus.PLAYING))) {
+            event.setCancelled(false);
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void allowFish(PlayerFishEvent event) {
+        event.setCancelled(false);
     }
 }

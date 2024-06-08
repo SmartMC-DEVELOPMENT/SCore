@@ -1,17 +1,16 @@
 package us.smartmc.game.luckytowers.util;
 
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.handler.ScoreboardHandler;
+import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.instance.game.GameSessionStatus;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.instance.player.PlayerScoreboardType;
+import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -19,6 +18,39 @@ import java.util.Random;
 import java.util.Set;
 
 public class GameUtil {
+
+    public static void updateVisibility(Player player) {
+        GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
+        if (gamePlayer == null) return;
+        GameSession session = gamePlayer.getGameSession();
+
+        if (session != null) {
+            // In game & is alive
+            if (session.getAlivePlayers().contains(gamePlayer)) {
+                session.getPlayers().stream().filter(gp -> gp.getStatus().equals(PlayerStatus.SPECTATING)).forEach(spectator -> {
+                    Player spectatorPlayer = spectator.getBukkitPlayer();
+                    if (spectatorPlayer == null) return;
+                    player.hidePlayer(LuckyTowers.getPlugin(), spectatorPlayer);
+                });
+            } else {
+                // In game & Player is not alive
+                session.getPlayers().forEach(sessionPlayer -> {
+                    Player sessionBukkitPlayer = sessionPlayer.getBukkitPlayer();
+                    if (sessionBukkitPlayer == null) return;
+                    if (sessionPlayer.getStatus().equals(PlayerStatus.SPECTATING)) {
+                        sessionPlayer.getBukkitPlayer().showPlayer(LuckyTowers.getPlugin(), player);
+                    } else {
+                        sessionPlayer.getBukkitPlayer().hidePlayer(LuckyTowers.getPlugin(), player);
+                    }
+                });
+            }
+        } else {
+            // Not in game
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                player.showPlayer(LuckyTowers.getPlugin(), p);
+            }
+        }
+    }
 
     public static String getFormattedTimeFromSeconds(int initialSeconds) {
         if (initialSeconds <= 0) {

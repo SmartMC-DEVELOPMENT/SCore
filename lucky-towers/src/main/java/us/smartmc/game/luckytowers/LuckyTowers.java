@@ -81,9 +81,6 @@ public final class LuckyTowers extends JavaPlugin {
 
         VariablesHandler.register(new GameVariables());
         VariablesHandler.register(new PlayerStatsVariables());
-
-
-        VanishManager.startTask();
     }
 
     @Override
@@ -143,7 +140,8 @@ public final class LuckyTowers extends JavaPlugin {
     private void registerCommands() {
         registerCommand("adminGame", new AdminGameCommand());
         registerCommand("leave", new LeaveCommand());
-        registerCommand("forceStart", new ForceStartCommand());
+        registerCommand("forcestart", new ForceStartCommand());
+        registerCommand("iniciarpartida", new ForceStartCommand());
     }
 
     public Collection<String> getLobbyWorldNames() {

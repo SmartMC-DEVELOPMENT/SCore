@@ -42,6 +42,23 @@ import java.util.Random;
 public class PlayerLogicListeners implements Listener {
 
     @EventHandler
+    public void updateVisiblityOnStatusChangeEvent(PlayerStatusChangeEvent event) {
+        GameUtil.updateVisibility(event.getPlayer());
+    }
+
+    @EventHandler
+    public void flyHandle(PlayerStatusChangeEvent event) {
+        Player player = event.getPlayer();
+        if (player == null) return;
+
+        if (event.getStatus().equals(PlayerStatus.SPECTATING)) {
+            player.setAllowFlight(true);
+            return;
+        }
+        player.setAllowFlight(false);
+    }
+
+    @EventHandler
     public void cancelMoveAtStartGame(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
@@ -64,13 +81,6 @@ public class PlayerLogicListeners implements Listener {
             event.getPlayer().teleport(new Location(from.getWorld(), from.getBlockX(), from.getY(), from.getBlockZ() + 0.5));
             player.showTitle(Title.title(Component.empty(), PaperChatUtil.parse(player, GameMessages.title_dontFall.getMessageOf(PlayerLanguages.get(player.getUniqueId())))));
         }
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void setGamemodeEvent(PlayerStatusChangeEvent event) {
-        GameMode toSet = GameMode.ADVENTURE;
-        if (event.getStatus().equals(PlayerStatus.INGAME)) toSet = GameMode.SURVIVAL;
-        event.getPlayer().setGameMode(toSet);
     }
 
     @EventHandler

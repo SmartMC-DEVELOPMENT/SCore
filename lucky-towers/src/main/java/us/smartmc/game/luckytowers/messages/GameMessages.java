@@ -58,7 +58,10 @@ public enum GameMessages implements IMessageCategory {
     session_cancelled,
 
     @DefaultLanguageMessage("<color:#B7FFFF>¡CUIDADO TE PUEDES CAER!")
-    title_dontFall;
+    title_dontFall,
+
+    @DefaultLanguageMessage("<green>Iniciando partida")
+    forceStarting;
 
 
     @Override

@@ -4,6 +4,8 @@ import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.IMessageCategory;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
@@ -38,6 +40,14 @@ public interface IGameSession {
     default void broadcastSound(Sound sound, float volume, float pitch) {
         forEachOnlinePlayer(player -> {
             player.playSound(player.getLocation(), sound, volume, pitch);
+        });
+    }
+
+    default void broadcastTitle(IMessageCategory titleCategory, IMessageCategory subtitleCategory, Object... args) {
+        forEachOnlinePlayer(player -> {
+            Component title = PaperChatUtil.parse(player, titleCategory, args);
+            Component subtitle = PaperChatUtil.parse(player, subtitleCategory, args);
+            player.showTitle(Title.title(title, subtitle));
         });
     }
 

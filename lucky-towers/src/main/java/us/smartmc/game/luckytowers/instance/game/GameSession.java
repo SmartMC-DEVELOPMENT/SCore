@@ -120,6 +120,8 @@ public class GameSession implements IGameSession {
                         teams.forEachTeam(team -> {
                             team.getPlayers().forEach(uuid -> {
                                 GamePlayer gamePlayer = GamePlayer.get(uuid);
+                                gamePlayer.resetActionbar();
+                                gamePlayer.resetTitle();
                                 gamePlayer.onlinePlayer(p -> {
                                     p.teleport(team.getSpawnAssigned(getMapsWorld(), xAddition));
                                     p.getInventory().clear();
@@ -131,6 +133,7 @@ public class GameSession implements IGameSession {
                 }
                 if (countdown >= 1) {
                     broadcastActionbar(GameMessages.session_actionBar_startingIn, countdown);
+                    broadcastTitle(GameMessages.starting_title, GameMessages.starting_subtitle, countdown);
                 }
                 countdown--;
                 soundPitch += 0.2f;
@@ -142,7 +145,6 @@ public class GameSession implements IGameSession {
     @Override
     public void end() {
         if (getStatus().equals(GameSessionStatus.ENDING)) return;
-
         setStatus(GameSessionStatus.ENDING);
 
         try {
@@ -154,8 +156,17 @@ public class GameSession implements IGameSession {
         } catch (IllegalStateException ignore) {}
 
         GamePlayer winner = getAlivePlayers().isEmpty() ? null : getAlivePlayers().stream().toList().get(0);
-        if (winner != null) winner.addWin();
+        if (winner != null) {
+            winner.addWin();
+            WinEffectTask winEffectTask = new WinEffectTask(this, winner);
+            winEffectTask.start();
+            return;
+        }
+        resetAndEndMap();
 
+    }
+
+    protected void resetAndEndMap() {
         GameUtil.removeAllEntitiesInRegion(getMapsWorld(), this);
         schemSession.undo(schemSession);
         GameMapManager.getMainMapsGeneration().setAvailable(referenceXChunkReserved);
@@ -236,10 +247,11 @@ public class GameSession implements IGameSession {
         gamePlayer.setStatus(PlayerStatus.SPECTATING);
         LuckyTowers.callEvent(new GamePlayerDeathEvent(gamePlayer));
 
-        gamePlayer.onlinePlayer(player -> {
-            Location location = player.getLocation();
-            player.playSound(location, Sound.ENTITY_PLAYER_DEATH, 1.0f, 2.0f);
+        broadcastSound(Sound.ENTITY_PLAYER_DEATH, 1f, 2f);
 
+        gamePlayer.sendTitle(GameMessages.death_title, GameMessages.death_subtitle);
+
+        gamePlayer.onlinePlayer(player -> {
             if (player.isDead())
                 player.spigot().respawn();
             player.teleport(map.getSpawn(getMapsWorld(), xAddition));

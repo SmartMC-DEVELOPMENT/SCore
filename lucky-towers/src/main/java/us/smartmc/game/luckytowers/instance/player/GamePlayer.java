@@ -3,9 +3,11 @@ package us.smartmc.game.luckytowers.instance.player;
 import lombok.Getter;
 import lombok.Setter;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
+import me.imsergioh.pluginsapi.language.IMessageCategory;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -51,27 +53,26 @@ public class GamePlayer {
         setStatus(PlayerStatus.LOBBY);
     }
 
-    public long getGamesPlayed() {
-        return data.getBigNumber(GAMES_PLAYED_KEY);
+    public void resetActionbar() {
+        getBukkitPlayer().sendActionBar(Component.empty());
     }
 
-    public long getDeaths() {
-        return data.getBigNumber(DEATHS_KEY);
+    public void resetTitle() {
+        getBukkitPlayer().resetTitle();
     }
 
-    public long getKills() {
-        return data.getBigNumber(KILLS_KEY);
-    }
+    public void sendTitle(IMessageCategory titleCategory, IMessageCategory subtitleCategory, Object... args) {
+        Component title = PaperChatUtil.parse(getBukkitPlayer(), titleCategory);
+        Component subtitle = PaperChatUtil.parse(getBukkitPlayer(), subtitleCategory);
 
-    public long getWins() {
-        return data.getBigNumber(WINS_KEY);
-    }
-
-    public long getCoins() {
-        return data.getBigNumber(COINS_KEY);
+        getBukkitPlayer().showTitle(Title.title(title, subtitle));
     }
 
     public void addCoins(int amount) {
+        addCoins(amount, null);
+    }
+
+    public void addCoins(int amount, IMessageCategory reason) {
         data.addToNumber(COINS_KEY, amount);
         onlinePlayer(player -> {
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.5f);
@@ -80,6 +81,14 @@ public class GamePlayer {
             Component component = PaperChatUtil.parse(player, GameMessages.player_addedCoins.getMessageOf(language), amount);
             player.sendActionBar(component);
         });
+
+        IMessageCategory message = reason == null ? GameMessages.addedCoins_withoutReason : GameMessages.addedCoins_withReason;
+
+        if (reason != null) {
+            sendMessage(message, amount, reason.getMessageOf(PlayerLanguages.get(uuid)));
+        } else {
+            sendMessage(message, amount);
+        }
     }
 
     public void addGamePlayed() {
@@ -90,7 +99,8 @@ public class GamePlayer {
         data.increaseNumber(WINS_KEY);
         data.increaseStreak(WINS_KEY);
         Bukkit.getPluginManager().callEvent(new GamePlayerWinEvent(this));
-        addCoins(10);
+        addCoins(10, GameMessages.coinsReason_win);
+        sendTitle(GameMessages.win_title, GameMessages.win_subtitle);
     }
 
     public void addKill(Location killLocation) {
@@ -103,7 +113,7 @@ public class GamePlayer {
             Component component = PaperChatUtil.parse(player, GameMessages.player_addedKill.getMessageOf(language));
             player.sendActionBar(component);
         });
-        addCoins(4);
+        addCoins(4, GameMessages.coinsReason_kill);
     }
 
     public void addDeath() {
@@ -128,6 +138,30 @@ public class GamePlayer {
         if (bukkitPlayer == null) return;
         if (!bukkitPlayer.isOnline()) return;
         consumer.accept(bukkitPlayer);
+    }
+
+    public void sendMessage(IMessageCategory messageCategory, Object... args) {
+        PaperChatUtil.send(getBukkitPlayer(), messageCategory, args);
+    }
+
+    public long getGamesPlayed() {
+        return data.getBigNumber(GAMES_PLAYED_KEY);
+    }
+
+    public long getDeaths() {
+        return data.getBigNumber(DEATHS_KEY);
+    }
+
+    public long getKills() {
+        return data.getBigNumber(KILLS_KEY);
+    }
+
+    public long getWins() {
+        return data.getBigNumber(WINS_KEY);
+    }
+
+    public long getCoins() {
+        return data.getBigNumber(COINS_KEY);
     }
 
     public Player getBukkitPlayer() {

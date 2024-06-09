@@ -61,7 +61,36 @@ public enum GameMessages implements IMessageCategory {
     title_dontFall,
 
     @DefaultLanguageMessage("<green>Iniciando partida")
-    forceStarting;
+    forceStarting,
+
+    @DefaultLanguageMessage("&a&lEmpezando en")
+    starting_title,
+    @DefaultLanguageMessage("&c&l{0}")
+    starting_subtitle,
+
+    @DefaultLanguageMessage("&c&lYOU DIED!")
+    death_title,
+
+    @DefaultLanguageMessage("&fNext game you will do better! :D")
+    death_subtitle,
+
+    @DefaultLanguageMessage("&a&lYOU WON!")
+    win_title,
+
+    @DefaultLanguageMessage("&fCongratulations! You did a very good job! :D")
+    win_subtitle,
+
+    @DefaultLanguageMessage("&6+{0} coins! ({1})")
+    addedCoins_withReason,
+
+    @DefaultLanguageMessage("&6+{0} coins!")
+    addedCoins_withoutReason,
+
+    @DefaultLanguageMessage("Kill")
+    coinsReason_kill,
+
+    @DefaultLanguageMessage("Win")
+    coinsReason_win;
 
 
     @Override

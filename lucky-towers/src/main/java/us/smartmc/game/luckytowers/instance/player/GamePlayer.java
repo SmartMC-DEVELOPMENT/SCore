@@ -63,10 +63,10 @@ public class GamePlayer {
     }
 
     public void sendTitle(IMessageCategory titleCategory, IMessageCategory subtitleCategory, Object... args) {
-        Component title = PaperChatUtil.parse(getBukkitPlayer(), titleCategory);
-        Component subtitle = PaperChatUtil.parse(getBukkitPlayer(), subtitleCategory);
+        Component title = PaperChatUtil.parse(getBukkitPlayer(), titleCategory, args);
+        Component subtitle = PaperChatUtil.parse(getBukkitPlayer(), subtitleCategory, args);
 
-        getBukkitPlayer().showTitle(Title.title(title, subtitle, Title.Times.times(Duration.ZERO, Duration.ofSeconds(1), Duration.ZERO)));
+        getBukkitPlayer().showTitle(Title.title(title, subtitle, Title.Times.times(Duration.ZERO, Duration.ofMillis(1250), Duration.ZERO)));
     }
 
     public void addCoins(int amount) {

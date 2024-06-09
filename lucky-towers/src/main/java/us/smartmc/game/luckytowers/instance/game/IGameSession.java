@@ -44,10 +44,8 @@ public interface IGameSession {
     }
 
     default void broadcastTitle(IMessageCategory titleCategory, IMessageCategory subtitleCategory, Object... args) {
-        forEachOnlinePlayer(player -> {
-            Component title = PaperChatUtil.parse(player, titleCategory, args);
-            Component subtitle = PaperChatUtil.parse(player, subtitleCategory, args);
-            player.showTitle(Title.title(title, subtitle));
+        forEachPlayer(gamePlayer -> {
+            gamePlayer.sendTitle(titleCategory, subtitleCategory, args);
         });
     }
 

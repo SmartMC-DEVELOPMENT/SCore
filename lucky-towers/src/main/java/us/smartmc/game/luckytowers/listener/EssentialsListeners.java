@@ -138,11 +138,11 @@ public class EssentialsListeners implements Listener {
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
         if (gamePlayer == null) return;
         if (gamePlayer.getGameSession() == null) return;
+        if (gamePlayer.getGameSession().getStatus().equals(GameSessionStatus.ENDING)) return;
 
         Entity damager = event.getDamager();
 
         if (!(damager instanceof Player)) {
-            System.out.println("DEBUG: Damager = " + damager.getClass());
             event.setCancelled(false);
         }
     }

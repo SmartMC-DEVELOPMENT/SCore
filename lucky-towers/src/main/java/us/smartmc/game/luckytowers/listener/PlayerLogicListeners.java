@@ -97,17 +97,17 @@ public class PlayerLogicListeners implements Listener {
         if (!isEndPortal) return;
         event.setCancelled(true);
 
-        GameMapManager gameMapManager = LuckyTowers.getManager(GameMapManager.class);
+        GamePlayer gamePlayer = GamePlayer.get(event.getPlayer().getUniqueId());
+        if (gamePlayer == null) return;
+
         GameSessionsManager sessionsManager = LuckyTowers.getManager(GameSessionsManager.class);
+        List<GameSession> prioSessions = sessionsManager.getPrioSessions();
 
-        List<String> mapNames = new ArrayList<>();
-
-        for (GameMap map : gameMapManager.values()) {
-            mapNames.add(map.getName());
+        if (prioSessions.isEmpty()) {
+            pickRandomMapToJoin(event.getPlayer());
+            return;
         }
-        String randomMap = mapNames.get(new Random().nextInt(mapNames.size()));
-        GameSession session = sessionsManager.createOrGetByName(randomMap, 1);
-        session.joinPlayer(GamePlayer.get(event.getPlayer().getUniqueId()));
+        prioSessions.get(0).joinPlayer(gamePlayer);
     }
 
     @EventHandler
@@ -176,7 +176,6 @@ public class PlayerLogicListeners implements Listener {
         GameSession session = event.getSession();
         if (session == null) return;
         if (!(session.getStatus().equals(GameSessionStatus.STARTING))) return;
-        //session.forEachOnlinePlayer(p -> p.getInventory().clear());
         session.forEachOnlinePlayer(p -> p.getInventory().setArmorContents(null));
     }
 
@@ -194,4 +193,19 @@ public class PlayerLogicListeners implements Listener {
             new SpectatorHotbar(event.getPlayer()).set(event.getPlayer());
         });
     }
+
+    public void pickRandomMapToJoin(Player player) {
+        GameMapManager gameMapManager = LuckyTowers.getManager(GameMapManager.class);
+        GameSessionsManager sessionsManager = LuckyTowers.getManager(GameSessionsManager.class);
+
+        List<String> mapNames = new ArrayList<>();
+
+        for (GameMap map : gameMapManager.values()) {
+            mapNames.add(map.getName());
+        }
+        String randomMap = mapNames.get(new Random().nextInt(mapNames.size()));
+        GameSession session = sessionsManager.createOrGetByName(randomMap, 1);
+        session.joinPlayer(GamePlayer.get(player.getUniqueId()));
+    }
+
 }

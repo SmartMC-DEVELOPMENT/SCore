@@ -20,9 +20,10 @@ public class SpectatorModeCommand implements ItemActionExecutor {
 
         if (args[0].equals("tp")) {
             String targetName = args[1];
+
             Player target = Bukkit.getPlayer(targetName);
             if (target == null) return;
-            if (target.isOnline()) return;
+            if (!target.isOnline()) return;
             player.teleport(target);
         }
     }

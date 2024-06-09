@@ -5,6 +5,7 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.*;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.command.LeaveCommand;
@@ -76,7 +77,7 @@ public class GameSession implements IGameSession {
 
     public void forceStart() {
         if (!status.equals(GameSessionStatus.STARTING)) return;
-        countdown = 0;
+        countdown = 5;
     }
 
     @Override
@@ -172,11 +173,15 @@ public class GameSession implements IGameSession {
     }
 
     public void cancelStart() {
-        forEachOnlinePlayer(player -> {
-            PaperChatUtil.send(player, GameMessages.session_cancelled);
-        });
         startRunnable.cancel();
         setStatus(GameSessionStatus.WAITING);
+
+        forEachPlayer(gamePlayer -> {
+            Player player = gamePlayer.getBukkitPlayer();
+            if (player == null) return;
+            PaperChatUtil.send(player, GameMessages.session_cancelled);
+            GameUtil.updateScoreboard(gamePlayer);
+        });
     }
 
     @Override
@@ -199,6 +204,7 @@ public class GameSession implements IGameSession {
 
     @Override
     public void joinPlayer(GamePlayer gamePlayer) {
+        if (!canPlayersJoin(1)) return;
         gamePlayer.setGameSession(this);
         loadMapSchemAndReserveChunks();
         players.add(gamePlayer);

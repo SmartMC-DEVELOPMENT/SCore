@@ -6,7 +6,7 @@ import us.smartmc.game.luckytowers.instance.game.GameMap;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.instance.game.GameSessionStatus;
 
-import java.util.UUID;
+import java.util.*;
 
 public class GameSessionsManager extends ManagerRegistry<UUID, GameSession> {
 
@@ -26,6 +26,15 @@ public class GameSessionsManager extends ManagerRegistry<UUID, GameSession> {
             if (session.getMap().equals(map)) count += session.getAlivePlayers().size();
         }
         return count;
+    }
+
+    public List<GameSession> getPrioSessions() {
+        List<GameSession> sessionsWaiting = new ArrayList<>();
+        for (GameSession session : values()) {
+            if (!session.getPlayers().isEmpty()) sessionsWaiting.add(session);
+        }
+        sessionsWaiting.sort((gs1, gs2) -> Integer.compare(gs2.getPlayers().size(), gs1.getPlayers().size()));
+        return sessionsWaiting;
     }
 
     public GameSession createOrGetByName(String mapName, int amount) {

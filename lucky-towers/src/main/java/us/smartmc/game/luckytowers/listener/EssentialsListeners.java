@@ -123,7 +123,7 @@ public class EssentialsListeners implements Listener {
             return;
         }
 
-        if (gamePlayer.getGameSession().getAlivePlayers().contains(gamePlayer)) {
+        if (session.getAlivePlayers().contains(gamePlayer) && session.getStatus().equals(GameSessionStatus.PLAYING)) {
             event.setCancelled(false);
             return;
         }
@@ -140,7 +140,9 @@ public class EssentialsListeners implements Listener {
         if (gamePlayer.getGameSession() == null) return;
 
         Entity damager = event.getDamager();
+
         if (!(damager instanceof Player)) {
+            System.out.println("DEBUG: Damager = " + damager.getClass());
             event.setCancelled(false);
         }
     }

@@ -1,12 +1,12 @@
 package us.smartmc.game.luckytowers.listener;
 
-import io.papermc.paper.event.player.PlayerPickItemEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.game.luckytowers.LuckyTowers;
@@ -14,36 +14,41 @@ import us.smartmc.game.luckytowers.command.LeaveCommand;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
+import us.smartmc.game.luckytowers.util.GameUtil;
 
 public class MainGameListeners implements Listener {
 
-    @EventHandler
-    public void cancelTakeItem(PlayerPickItemEvent event) {
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void cancelPickItem(PlayerAttemptPickupItemEvent event) {
         Player player = event.getPlayer();
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
 
-        if (gamePlayer != null && gamePlayer.getStatus().equals(PlayerStatus.INGAME)) {
-            GameSession gameSession = gamePlayer.getGameSession();
-            if (gameSession.getAlivePlayers().contains(gamePlayer)) {
-                event.setCancelled(false);
-                return;
-            }
+        if (gamePlayer == null) {
+            GameUtil.cancel(event);
+            return;
+        }
+
+        if (gamePlayer.getStatus().equals(PlayerStatus.INGAME)) {
+            event.setCancelled(false);
+            return;
         }
         event.setCancelled(true);
     }
 
-    @EventHandler
-    public void cancelDrop(PlayerDropItemEvent event) {
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void cancelDropItem(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
 
-        if (gamePlayer != null && gamePlayer.getStatus().equals(PlayerStatus.INGAME)) {
-            GameSession gameSession = gamePlayer.getGameSession();
-            if (gameSession.getAlivePlayers().contains(gamePlayer)) {
-                event.setCancelled(false);
-                return;
-            }
+        if (gamePlayer == null) {
+            GameUtil.cancel(event);
+            return;
         }
+        if (gamePlayer.getStatus().equals(PlayerStatus.INGAME)) {
+            event.setCancelled(false);
+            return;
+        }
+
         event.setCancelled(true);
     }
 

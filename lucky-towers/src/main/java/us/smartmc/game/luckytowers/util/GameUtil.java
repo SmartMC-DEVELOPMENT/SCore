@@ -3,6 +3,7 @@ package us.smartmc.game.luckytowers.util;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.handler.ScoreboardHandler;
 import us.smartmc.game.luckytowers.LuckyTowers;
@@ -18,6 +19,10 @@ import java.util.Random;
 import java.util.Set;
 
 public class GameUtil {
+
+    public static void cancel(Cancellable e) {
+        e.setCancelled(true);
+    }
 
     public static void updateVisibility(Player player) {
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());

@@ -77,7 +77,7 @@ public class GameSession implements IGameSession {
 
     public void forceStart() {
         if (!status.equals(GameSessionStatus.STARTING)) return;
-        countdown = 5;
+        countdown = 3;
     }
 
     @Override
@@ -88,6 +88,7 @@ public class GameSession implements IGameSession {
             gamePlayer.setStatus(PlayerStatus.INGAME);
             gamePlayer.getBukkitPlayer().setGameMode(GameMode.SURVIVAL);
         });
+        broadcastSound(Sound.ENTITY_ENDER_DRAGON_HURT, 1f, 0.5f);
 
         countdown = DEFAULT_SECONDS_COOLDOWN;
         startRunnable = new BukkitRunnable() {
@@ -134,6 +135,7 @@ public class GameSession implements IGameSession {
                 if (countdown >= 1) {
                     broadcastActionbar(GameMessages.session_actionBar_startingIn, countdown);
                     broadcastTitle(GameMessages.starting_title, GameMessages.starting_subtitle, countdown);
+                    broadcastSound(Sound.BLOCK_LAVA_POP, 1f, 0.1f * countdown);
                 }
                 countdown--;
                 soundPitch += 0.2f;
@@ -163,7 +165,6 @@ public class GameSession implements IGameSession {
             return;
         }
         resetAndEndMap();
-
     }
 
     protected void resetAndEndMap() {

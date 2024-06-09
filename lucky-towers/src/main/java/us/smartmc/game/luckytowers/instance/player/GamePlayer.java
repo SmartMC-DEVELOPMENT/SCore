@@ -19,6 +19,7 @@ import us.smartmc.game.luckytowers.instance.game.GameSession;
 import us.smartmc.game.luckytowers.manager.PlayersManager;
 import us.smartmc.game.luckytowers.messages.GameMessages;
 
+import java.time.Duration;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -65,7 +66,7 @@ public class GamePlayer {
         Component title = PaperChatUtil.parse(getBukkitPlayer(), titleCategory);
         Component subtitle = PaperChatUtil.parse(getBukkitPlayer(), subtitleCategory);
 
-        getBukkitPlayer().showTitle(Title.title(title, subtitle));
+        getBukkitPlayer().showTitle(Title.title(title, subtitle, Title.Times.times(Duration.ZERO, Duration.ofSeconds(1), Duration.ZERO)));
     }
 
     public void addCoins(int amount) {

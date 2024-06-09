@@ -38,11 +38,11 @@ public class WinEffectTask {
 
     public void repeatingTaskAction() {
         if (winnerBukkit == null || !winnerBukkit.isOnline()) return;
-        Location location = winnerBukkit.getLocation();
+        Location location = winnerBukkit.getLocation().add(0, 2, 0);
         Firework firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
         FireworkMeta meta = firework.getFireworkMeta();
         meta.addEffect(FireworkEffect.builder().flicker(true).withFade(Color.BLUE).withColor(Color.AQUA).trail(true).build());
-        meta.setPower(2);
+        meta.setPower(10);
 
         firework.setFireworkMeta(meta);
         firework.detonate();

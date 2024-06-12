@@ -5,6 +5,9 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.*;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.game.luckytowers.LuckyTowers;
@@ -39,6 +42,9 @@ public class GameSession implements IGameSession {
     private final Set<GamePlayer> players = new HashSet<>();
 
     @Getter
+    private int spectatorsCount;
+
+    @Getter
     private final GameSessionTeams teams;
 
     @Getter
@@ -58,6 +64,9 @@ public class GameSession implements IGameSession {
     @Getter
     private int countdown;
     private BukkitRunnable startRunnable;
+
+    private long currentItemTicks;
+    private BossBar announceNewItemBar;
 
     public GameSession(UUID id, GameMap map) {
         this.id = id;
@@ -95,13 +104,9 @@ public class GameSession implements IGameSession {
             float soundPitch = 0.0f;
             @Override
             public void run() {
-                /*if (players.size() >= (map.getSpawnLocations().size() / 2) && countdown > SECONDS_COOLDOWN_HALF_MAP) {
-                    countdown = SECONDS_COOLDOWN_HALF_MAP;
-                }*/
-
                 if (countdown <= 0) {
                     broadcastMessage(GameMessages.session_message_started);
-                    getGenerateItemsTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), GENERATION_ITEMS_TICKS, GENERATION_ITEMS_TICKS);
+                    getGenerateItemsTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), 0, 1);
                     getTimeLimitTask().runTaskTimerAsynchronously(LuckyTowers.getPlugin(), 0, 20);
                     setStatus(GameSessionStatus.PLAYING);
                     startedRecently = true;
@@ -233,11 +238,21 @@ public class GameSession implements IGameSession {
 
     @Override
     public void quitPlayer(GamePlayer gamePlayer) {
+        if (gamePlayer.getStatus().equals(PlayerStatus.SPECTATING))
+            spectatorsCount--;
+
         teams.clearTeams(gamePlayer);
         players.remove(gamePlayer);
+        if (announceNewItemBar != null)
+            announceNewItemBar.removePlayer(gamePlayer.getBukkitPlayer());
         gamePlayer.setStatus(PlayerStatus.LOBBY);
         gamePlayer.setGameSession(null);
         checkStartCancellation();
+
+        // End session if gets empty and was waiting
+        if (status.equals(GameSessionStatus.WAITING) && players.isEmpty()) {
+            end();
+        }
 
         if (status.equals(GameSessionStatus.PLAYING))
             if (canEnd()) end();
@@ -246,6 +261,7 @@ public class GameSession implements IGameSession {
     @Override
     public void deathPlayer(GamePlayer gamePlayer) {
         gamePlayer.setStatus(PlayerStatus.SPECTATING);
+        spectatorsCount++;
         LuckyTowers.callEvent(new GamePlayerDeathEvent(gamePlayer));
 
         broadcastSound(Sound.ENTITY_PLAYER_DEATH, 1f, 2f);
@@ -283,15 +299,34 @@ public class GameSession implements IGameSession {
     public BukkitRunnable getGenerateItemsTask() {
         if (generateItemsTask != null) return generateItemsTask;
         generateItemsTask = new BukkitRunnable() {
+
+            final int maxTicks = GENERATION_ITEMS_TICKS;
+
             @Override
             public void run() {
-                if (getStatus().equals(GameSessionStatus.ENDING)) cancel();
-                getAlivePlayers().forEach(gamePlayer -> {
-                    gamePlayer.onlinePlayer(player -> {
-                        player.getInventory().addItem(ItemBuilder.of(GameUtil.getRandomMaterial()).get());
-                        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1f, 1f);
+                currentItemTicks++;
+
+                // BossBar init & addition of players
+                if (announceNewItemBar == null) {
+                    announceNewItemBar = Bukkit.createBossBar("", BarColor.BLUE, BarStyle.SOLID);
+                    forEachOnlinePlayer(player -> {
+                        announceNewItemBar.addPlayer(player);
                     });
-                });
+                }
+
+                if (getStatus().equals(GameSessionStatus.ENDING)) cancel();
+
+                double progress = (double) (GENERATION_ITEMS_TICKS - (currentItemTicks % GENERATION_ITEMS_TICKS)) / GENERATION_ITEMS_TICKS;
+                announceNewItemBar.setProgress(progress);
+
+                if (currentItemTicks % GENERATION_ITEMS_TICKS == 0) {
+                    getAlivePlayers().forEach(gamePlayer -> {
+                        gamePlayer.onlinePlayer(player -> {
+                            player.getInventory().addItem(ItemBuilder.of(GameUtil.getRandomMaterial()).get());
+                            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1f, 1f);
+                        });
+                    });
+                }
             }
         };
         return generateItemsTask;

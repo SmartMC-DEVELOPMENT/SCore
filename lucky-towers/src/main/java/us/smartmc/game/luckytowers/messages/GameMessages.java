@@ -90,7 +90,12 @@ public enum GameMessages implements IMessageCategory {
     coinsReason_kill,
 
     @DefaultLanguageMessage("Win")
-    coinsReason_win;
+    coinsReason_win,
+
+    @DefaultLanguageMessage("&b&lTIRATE")
+    lobbyPortalHologram_title,
+    @DefaultLanguageMessage("&fY entra a la mejor partida :D")
+    lobbyPortalHologram_text;
 
 
     @Override

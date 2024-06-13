@@ -38,7 +38,7 @@ public class CustomCommandsListeners {
 
             // Force commands to complete
             manager.getAllowedCommands().forEach(cmdName -> {
-
+                if (cmdName.contains(" ")) return;
                 LiteralArgumentBuilder<CommandSource> builder = BrigadierCommand.literalArgumentBuilder(cmdName);
 
                 // Autocomplete usernames (TEMPORAL) TODO: REMOVE THIS AND IMPLEMENT BETTER COSAS NO SE

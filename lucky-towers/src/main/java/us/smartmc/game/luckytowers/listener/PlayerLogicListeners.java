@@ -194,7 +194,7 @@ public class PlayerLogicListeners implements Listener {
         });
     }
 
-    public void pickRandomMapToJoin(Player player) {
+    public static void pickRandomMapToJoin(Player player) {
         GameMapManager gameMapManager = LuckyTowers.getManager(GameMapManager.class);
         GameSessionsManager sessionsManager = LuckyTowers.getManager(GameSessionsManager.class);
 

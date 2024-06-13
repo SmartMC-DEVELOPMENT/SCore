@@ -42,6 +42,13 @@ public enum GameMessages implements IMessageCategory {
     )
     lobbyHotbar_item_options,
 
+    @DefaultLanguageItem(
+            material = "EMERALD",
+            name = "&bSwift play",
+            description = {"&7Enter the best map you can play", "Click"}
+    )
+    lobbyHotbar_item_randomPlay,
+
     @DefaultLanguageMessage("&aStarting game in &e{0}&as...")
     session_actionBar_startingIn,
 

@@ -26,9 +26,7 @@ public class CustomCommandsListeners {
     @Subscribe(order = PostOrder.LAST)
     public void handleCommandAnnounces(PlayerAvailableCommandsEvent event) {
         Player player = event.getPlayer();
-
         event.getRootNode().getChildren().removeIf((commandNode) -> true);
-
         Optional<ServerConnection> currentServer = player.getCurrentServer();
         if (currentServer.isEmpty()) return;
         ServerConnection serverConnection = currentServer.get();

@@ -4,6 +4,7 @@ D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\listener\Sugge
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\responses\AddressAskEventResponse.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\instance\log\ILogChannelRegistry.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\instance\TextCommand.java
+D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\TestBotMain.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\listener\ChatGPTListener.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\textcommand\TestCommand.java
 D:\workspace2024\SCore\smartbot\src\main\java\us\smartmc\smartbot\logfunction\SendEmbedExceptionsMessages.java

@@ -13,7 +13,6 @@ public class TestModule extends ModulePlugin {
     @Override
     public void onEnable() {
         super.onEnable();
-        System.out.println("LOADED MODULE TEST " + Material.AIR.name());
 
         ConnectionInputManager.registerListeners(new TestListenerReceiver());
         ConnectionInputManager.registerCommands(new ChatCommand());

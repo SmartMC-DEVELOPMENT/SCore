@@ -10,6 +10,7 @@ us\smartmc\smartcore\smartcorevelocity\instance\onlinestore\AnnouncePackagePurch
 us\smartmc\smartcore\smartcorevelocity\listener\LoginMessageHandler.class
 us\smartmc\smartcore\smartcorevelocity\messages\ProxyMainMessages.class
 us\smartmc\smartcore\smartcorevelocity\manager\ServersHandler.class
+us\smartmc\smartcore\smartcorevelocity\backend\service\PlayersService.class
 us\smartmc\smartcore\smartcorevelocity\manager\OfflinePlayerDataManager$1.class
 us\smartmc\smartcore\smartcorevelocity\instance\OfflinePlayerData$1.class
 us\smartmc\smartcore\smartcorevelocity\listener\TabHandlerListeners$1.class
@@ -19,6 +20,7 @@ us\smartmc\smartcore\smartcorevelocity\manager\OnlineCountHandler$1.class
 us\smartmc\smartcore\smartcorevelocity\command\moderation\WarnCommand.class
 us\smartmc\smartcore\smartcorevelocity\instance\CoreCommand.class
 us\smartmc\smartcore\smartcorevelocity\messages\SanctionsManagerMessages.class
+us\smartmc\smartcore\smartcorevelocity\backend\SendVelocityMessageCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\CoreServerCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\moderation\KickCommand.class
 us\smartmc\smartcore\smartcorevelocity\instance\onlinestore\OnlineStoreCommandType.class
@@ -51,6 +53,7 @@ us\smartmc\smartcore\smartcorevelocity\command\admin\SetPrefixCommand.class
 us\smartmc\smartcore\smartcorevelocity\instance\UUIDFinderByName.class
 us\smartmc\smartcore\smartcorevelocity\rediscommand\LanguageChangeCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\LobbyCommand.class
+us\smartmc\smartcore\smartcorevelocity\listener\BackendEssentialListeners.class
 us\smartmc\smartcore\smartcorevelocity\command\SmartCoreVelocityCommand.class
 us\smartmc\smartcore\smartcorevelocity\variables\LanguageVariables.class
 us\smartmc\smartcore\smartcorevelocity\instance\OfflinePlayerData.class

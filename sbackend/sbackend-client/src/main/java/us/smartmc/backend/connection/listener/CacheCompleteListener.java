@@ -10,10 +10,6 @@ import java.util.Objects;
 
 public class CacheCompleteListener extends BackendObjectListener<CacheCommand> {
 
-    public CacheCompleteListener() {
-        super(CacheCommand.class);
-    }
-
     @Override
     public void onReceive(ConnectionHandler connection, CacheCommand command) {
         if (Objects.requireNonNull(command.getType()) == CacheCommandType.UPDATE) {

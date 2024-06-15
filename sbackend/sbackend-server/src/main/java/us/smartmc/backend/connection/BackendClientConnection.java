@@ -7,6 +7,7 @@ import us.smartmc.backend.util.ConsoleUtil;
 import java.net.Socket;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @Getter
 public class BackendClientConnection {
@@ -24,6 +25,14 @@ public class BackendClientConnection {
         connections.put(clientName, this);
         connectionHandler.sendObject(new LoginCompleted(clientName));
         ConsoleUtil.print("New client connection logged in! (" + clientName + ")");
+    }
+
+    public Collection<String> getContexts() {
+        return contextSubscriptions.stream().filter(s -> !s.startsWith("channel@")).collect(Collectors.toSet());
+    }
+
+    public Collection<String> getChannelSubscriptions() {
+        return contextSubscriptions.stream().filter(s -> s.startsWith("channel@")).collect(Collectors.toSet());
     }
 
     public void addChannelSubscription(String channelId) {

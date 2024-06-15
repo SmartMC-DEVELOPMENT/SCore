@@ -15,5 +15,7 @@ public class SubChannelCommand extends BackendCommandExecutor {
         BackendClientConnection client = BackendClientConnection.get(connection);
         if (client == null) return;
         client.addChannelSubscription(args[0]);
+
+        System.out.println("CHANNELS SUBSCRIPTIONS=" + client.getContexts());
     }
 }

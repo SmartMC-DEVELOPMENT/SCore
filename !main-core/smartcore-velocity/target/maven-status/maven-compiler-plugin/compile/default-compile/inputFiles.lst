@@ -39,6 +39,7 @@ D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\sm
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\TebexCommandsManager.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\OfflinePlayerData.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\TabHandler.java
+D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\backend\SendVelocityMessageCommand.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\util\DebugUtil.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\CustomCommandsListeners.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\customcommand\CmdCommand.java
@@ -47,6 +48,8 @@ D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\sm
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\moderation\WarnCommand.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\util\TimeUtils.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\moderation\MuteCommand.java
+D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\backend\service\PlayersService.java
+D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\BackendEssentialListeners.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\CustomCommandsManager.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\OnlineCountHandler.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\TebexPackageManager.java

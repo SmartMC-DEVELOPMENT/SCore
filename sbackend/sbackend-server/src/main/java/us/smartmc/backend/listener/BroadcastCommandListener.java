@@ -11,12 +11,11 @@ import us.smartmc.backend.protocol.CommandRequest;
 
 public class BroadcastCommandListener extends BackendObjectListener<BroadcastCommandRequest> {
 
-    public BroadcastCommandListener() {
-        super(BroadcastCommandRequest.class);
-    }
-
     @Override
     public void onReceive(ConnectionHandler connection, BroadcastCommandRequest request) {
+
+        System.out.println(request.getContext() + " " + request.getLabel());
+
         ConnectionInputManager.performCommand(connection, new CommandRequest(request.getLabel()));
         BackendClientConnection.forEachBackendClient(client -> {
             perform(client, request);
@@ -25,6 +24,7 @@ public class BroadcastCommandListener extends BackendObjectListener<BroadcastCom
 
     private static void perform(BackendClientConnection clientConnection, BroadcastCommandRequest request) {
         String context = request.getContext();
+
         if (context != null && !clientConnection.hasContext(context)) return;
 
         String command = request.getLabel();

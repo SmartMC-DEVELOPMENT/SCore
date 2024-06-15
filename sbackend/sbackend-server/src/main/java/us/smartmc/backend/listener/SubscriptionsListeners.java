@@ -7,10 +7,6 @@ import us.smartmc.backend.instance.messaging.MessageCommand;
 
 public class SubscriptionsListeners extends BackendObjectListener<MessageCommand> {
 
-    public SubscriptionsListeners() {
-        super(MessageCommand.class);
-    }
-
     @Override
     public void onReceive(ConnectionHandler connection, MessageCommand messageCommand) {
         String channelId = messageCommand.getId();

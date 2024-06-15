@@ -10,10 +10,6 @@ import us.smartmc.backend.protocol.CommandRequest;
 
 public class BroadcastListener extends BackendObjectListener<BroadcastRequest> {
 
-    public BroadcastListener() {
-        super(BroadcastRequest.class);
-    }
-
     @Override
     public void onReceive(ConnectionHandler connection, BroadcastRequest request) {
         BackendClientConnection.forEachBackendClient(client -> {

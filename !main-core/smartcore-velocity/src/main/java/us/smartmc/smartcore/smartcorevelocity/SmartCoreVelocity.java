@@ -19,6 +19,11 @@ import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bson.Document;
+import us.smartmc.backend.connection.BackendClient;
+import us.smartmc.backend.handler.ConnectionInputManager;
+import us.smartmc.backend.handler.ServicesManager;
+import us.smartmc.smartcore.smartcorevelocity.backend.SendVelocityMessageCommand;
+import us.smartmc.smartcore.smartcorevelocity.backend.service.PlayersService;
 import us.smartmc.smartcore.smartcorevelocity.command.*;
 import us.smartmc.smartcore.smartcorevelocity.command.admin.BroadcastCommand;
 import us.smartmc.smartcore.smartcorevelocity.command.admin.ServerHandlerCommand;
@@ -93,6 +98,8 @@ public class SmartCoreVelocity {
 
         VelocityPluginsAPI.setup(this, proxyServer);
 
+        startBackendConnection();
+
         loadCustomCommands();
         // Register commands
         CustomCommandsManager.register("test", new TestCommand());
@@ -120,6 +127,17 @@ public class SmartCoreVelocity {
         logger.info("Plugin enabled successfully!");
 
         PubSubConnectionHandler.register(new LoginMessageHandler());
+    }
+
+    private void startBackendConnection() {
+        try {
+            new BackendClient("127.0.0.1", 7723);
+            BackendClient.mainConnection.login("velocity-proxy", "PROXYSVPERP4SSWORDRO0T2024SUFICIENTEMENTELARGAYS3GVR4");
+            new Thread(BackendClient.mainConnection).start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ServicesManager.registerServices(true, new PlayersService());
     }
 
     @Subscribe

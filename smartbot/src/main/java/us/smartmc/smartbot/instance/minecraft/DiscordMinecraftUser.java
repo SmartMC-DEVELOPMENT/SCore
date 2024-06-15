@@ -46,7 +46,7 @@ public class DiscordMinecraftUser {
             requestDocument.append("args", argsList);
         }
 
-        BackendClient.mainConnection.broadcastCommand("mcPlayer@" + getMinecraftId(), "sendPlayerMsg " + requestDocument.toJson());
+        BackendClient.mainConnection.broadcastCommand("mcPlayer@" + getMinecraftId(), "sendBukkitMsg " + requestDocument.toJson());
     }
 
     public UUID getMinecraftId() {

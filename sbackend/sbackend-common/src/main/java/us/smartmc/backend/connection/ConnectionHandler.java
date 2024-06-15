@@ -55,15 +55,12 @@ public class ConnectionHandler implements Runnable {
     public void run() {
         try {
             while (!connection.isClosed()) {
-                ObjectCommand objectCommand = inputStream.readObjectCommand();
-
-                if (objectCommand.getTypeClass().equals(CommandRequest.class)) {
-                    CommandRequest request = objectCommand.getObject(CommandRequest.class);
+                Object object = inputStream.readObject();
+                if (object instanceof CommandRequest request) {
                     ConnectionInputManager.performCommand(this, request);
                     continue;
                 }
-
-                ConnectionInputManager.performListener(this, objectCommand.getObject(objectCommand.getTypeClass()));
+                ConnectionInputManager.performListener(this, object);
             }
         } catch (Exception e) {
             handleException(e);

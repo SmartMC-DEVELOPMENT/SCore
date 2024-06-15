@@ -21,6 +21,9 @@
         <module>MessagesMigration</module>
         <module>sbackend/test-module</module>
         <module>sbackend-service/players-service</module>
+        <module>skyblock-common</module>
+        <module>skyblock-service</module>
+        <module>skyblock-bukkit</module>
     </modules>
 
     <properties>

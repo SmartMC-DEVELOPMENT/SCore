@@ -9,25 +9,28 @@
         <outputRelativeToContentRoot value="true" />
         <module name="chat-module" />
         <module name="sbackend-common" />
-        <module name="test-module" />
         <module name="serverhandler-common" />
         <module name="icons-module" />
+        <module name="skyblock-bukkit" />
+        <module name="login-spigot" />
+        <module name="MessagesMigration" />
+        <module name="skyblock-service" />
+        <module name="smartcore-spigot" />
+        <module name="holograms-module" />
+        <module name="lobby-module" />
+        <module name="sbackend-client" />
+        <module name="skyblock-common" />
+        <module name="test-module" />
         <module name="lucky-towers" />
         <module name="players-service" />
-        <module name="login-spigot" />
         <module name="smartbot" />
         <module name="npcs-module" />
         <module name="orchestrator" />
-        <module name="MessagesMigration" />
         <module name="smartcore-velocity" />
         <module name="serverhandler-bukkit" />
         <module name="sbackend-server" />
         <module name="serverhandler-velocity" />
-        <module name="smartcore-spigot" />
         <module name="smartantiddos-velocity" />
-        <module name="holograms-module" />
-        <module name="lobby-module" />
-        <module name="sbackend-client" />
         <module name="lobby-cosmetics" />
       </profile>
     </annotationProcessing>
@@ -46,6 +49,7 @@
       <module name="sbackend" target="16" />
       <module name="server-handler" target="1.5" />
       <module name="serverhandler-bungee" target="1.8" />
+      <module name="skyblock" target="17" />
       <module name="SmartBot" target="17" />
       <module name="SmartCore-Spigot" target="1.8" />
       <module name="smartcore-waterfall" target="1.8" />

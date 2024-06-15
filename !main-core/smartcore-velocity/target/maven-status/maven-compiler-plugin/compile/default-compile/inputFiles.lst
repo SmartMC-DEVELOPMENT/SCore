@@ -21,6 +21,7 @@ D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\sm
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\OfflinePlayerDataManager.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\LoginListeners.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\rediscommand\PlayerChatCommand.java
+D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\player\SmartCoreProxyPlayer.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\rediscommand\LanguageChangeCommand.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\SmartCoreVelocityCommand.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\onlinestore\OnlineStoreCommandType.java

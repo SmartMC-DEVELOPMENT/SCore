@@ -27,6 +27,7 @@ us\smartmc\smartcore\smartcorevelocity\instance\onlinestore\OnlineStoreCommandTy
 us\smartmc\smartcore\smartcorevelocity\command\moderation\BanCommand.class
 us\smartmc\smartcore\smartcorevelocity\command\moderation\MuteCommand.class
 us\smartmc\smartcore\smartcorevelocity\listener\TabHandlerListeners.class
+us\smartmc\smartcore\smartcorevelocity\instance\player\SmartCoreProxyPlayer.class
 us\smartmc\smartcore\smartcorevelocity\rediscommand\PlayerChatCommand.class
 us\smartmc\smartcore\smartcorevelocity\manager\CustomCommandsSubscriber.class
 us\smartmc\smartcore\smartcorevelocity\customcommand\MessageCommand.class

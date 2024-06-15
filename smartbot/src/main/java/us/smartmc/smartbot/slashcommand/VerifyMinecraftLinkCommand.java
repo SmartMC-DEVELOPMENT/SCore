@@ -40,9 +40,10 @@ public class VerifyMinecraftLinkCommand extends SlashCommand {
             return;
         } else {
             new SaveMinecraftLinkVinculation(code, Objects.requireNonNull(event.getMember()), UUID.fromString(id));
-            event.reply("Muchas gracias! Se ha vinculado tu Discord correctamente!").setEphemeral(true).complete();
 
-            DiscordMinecraftUser.get(event.getMember()).sendMultilanguageMessage(MainMessages.LINKED_DISCORD_SUCCESSFULLY, event.getMember().getUser().getName());
+
+            DiscordMinecraftUser.get(event.getMember())
+                    .sendMultilanguageMessage(MainMessages.LINKED_DISCORD_SUCCESSFULLY, event.getMember().getUser().getName());
         }
     }
 

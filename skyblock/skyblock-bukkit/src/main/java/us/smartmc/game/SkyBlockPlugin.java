@@ -2,6 +2,7 @@ package us.smartmc.game;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
+import me.imsergioh.pluginsapi.language.EnumMessagesRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,30 +13,59 @@ import us.smartmc.game.backend.SendInfoListener;
 import us.smartmc.game.listener.BackendBukkitListeners;
 import us.smartmc.game.listener.PlayerRegistryListeners;
 import us.smartmc.game.manager.ConfigsManager;
+import us.smartmc.game.message.SkyBlockPlayerMesssages;
 import us.smartmc.skyblock.ISkyBlockAPI;
 import us.smartmc.skyblock.instance.SkyBlockServerType;
 
-public class SkyBlockPlugin extends JavaPlugin implements ISkyBlockAPI {
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+
+@Getter
+public class SkyBlockPlugin extends JavaPlugin {
 
     @Getter
     private static SkyBlockPlugin plugin;
+    private static ISkyBlockAPI api;
 
-    @Getter
     private SpigotYmlConfig mainConfig;
 
     @Override
     public void onEnable() {
         plugin = this;
         ConfigsManager.load();
-        registerListeners();
+        setupAPI();
 
+        registerListeners();
         registerServerToBackend();
         ConnectionInputManager.registerListeners(new SendInfoListener());
+        EnumMessagesRegistry.registerLanguageHolder(SkyBlockPlayerMesssages.class);
+    }
+
+    private static void setupAPI() {
+        String configType = ConfigsManager.getConfig().getString("serverType");
+        SkyBlockServerType type = SkyBlockServerType.valueOf(configType);
+        Class<? extends ISkyBlockAPI> classType = null;
+
+        switch (type) {
+            case SPAWN -> classType = SkyBlockLobby.class;
+            case ISLAND -> classType = SkyBlockIslands.class;
+        }
+
+        if (classType == null) {
+            plugin.getLogger().log(Level.WARNING, "Error while trying to setup SkyBlock API (No classType found! " + configType + ")");
+            Bukkit.getPluginManager().disablePlugin(plugin);
+            return;
+        }
+        try {
+            api = (ISkyBlockAPI) classType.getDeclaredConstructors()[0].newInstance();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void registerServerToBackend() {
         String serverId = SmartCore.getServerID();
-        SkyBlockServerType type = plugin.getBlockModeType();
+        SkyBlockServerType type = api.getBlockModeType();
         int count = Bukkit.getOnlinePlayers().size();
         sendBackendCommand("skyblock registerserver", serverId, type.name(), String.valueOf(count));
     }
@@ -49,11 +79,6 @@ public class SkyBlockPlugin extends JavaPlugin implements ISkyBlockAPI {
     @Override
     public void onDisable() {
         sendBackendCommand("skyblock unregisterserver", SmartCore.getServerID());
-    }
-
-    @Override
-    public SkyBlockServerType getBlockModeType() {
-        return SkyBlockServerType.valueOf(ConfigsManager.getConfig().getString("serverType"));
     }
 
     private static void registerListeners(Listener... listeners) {

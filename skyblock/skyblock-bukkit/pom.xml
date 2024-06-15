@@ -43,7 +43,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <finalName>${project.name}</finalName>
+                    <finalName>${project.name}-${project.version}</finalName>
                 </configuration>
             </plugin>
         </plugins>

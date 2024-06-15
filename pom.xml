@@ -21,9 +21,6 @@
         <module>MessagesMigration</module>
         <module>sbackend/test-module</module>
         <module>sbackend-service/players-service</module>
-        <module>skyblock-common</module>
-        <module>skyblock-service</module>
-        <module>skyblock-bukkit</module>
     </modules>
 
     <properties>
@@ -50,18 +47,6 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>bson</artifactId>
-            <version>4.11.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>3.12.14</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

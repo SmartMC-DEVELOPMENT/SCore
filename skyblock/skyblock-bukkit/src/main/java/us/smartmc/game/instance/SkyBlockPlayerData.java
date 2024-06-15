@@ -14,12 +14,17 @@ public class SkyBlockPlayerData {
     private static final String DATABASE_NAME = "skyblock";
     private static final String COLLECTION_NAME = "player_data";
 
+    private static final String COINS_KEY = "coins";
+    private static final String PLAYED_TIME_KEY = "played_time";
+
     @Getter
     private final UUID id;
     private SkyBlockPlayer skyBlockPlayer;
 
     @Getter
     private final Document document;
+
+    private long startedSession;
 
     public SkyBlockPlayerData(UUID id) {
         this.id = id;
@@ -28,6 +33,31 @@ public class SkyBlockPlayerData {
 
     public SkyBlockPlayerData(SkyBlockPlayer skyBlockPlayer) {
         this(skyBlockPlayer.getId());
+    }
+
+    public void registerEndPlayTime(long startTimestamp) {
+        long end = System.currentTimeMillis() / 1000;
+        long difference = end - startTimestamp;
+        addLongNumber(PLAYED_TIME_KEY, difference);
+    }
+
+    public void addCoins(long amount) {
+        addLongNumber(COINS_KEY, amount);
+    }
+
+    private void addLongNumber(String key, long amount) {
+        long currentAmount = document.get(key, 0L);
+        long newAmount = currentAmount + amount;
+        document.put(key, newAmount);
+    }
+
+    public long getCoins() {
+        return document.get(COINS_KEY, 0L);
+    }
+
+    public void saveData() {
+        getCollection().deleteMany(getQuery());
+        getCollection().insertOne(document);
     }
 
     private Document loadData() {

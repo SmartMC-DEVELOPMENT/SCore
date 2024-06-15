@@ -1,9 +1,13 @@
 package us.smartmc.game.instance;
 
 import lombok.Getter;
+import lombok.Setter;
+import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.game.SkyBlockPlugin;
+import us.smartmc.game.message.SkyBlockPlayerMesssages;
 import us.smartmc.skyblock.instance.player.ISkyBlockPlayer;
 import us.smartmc.skyblock.manager.PlayersManager;
 
@@ -14,12 +18,23 @@ public class SkyBlockPlayer implements ISkyBlockPlayer {
 
     private final UUID id;
 
+    private Player bukkitPlayer;
+    private SmartCorePlayer corePlayer;
+
     private SkyBlockPlayerData playerData;
+
+    @Setter
+    private long joinedAt = -1;
 
     protected SkyBlockPlayer(UUID id) {
         this.id = id;
         PlayersManager.register(this);
         Bukkit.getScheduler().runTaskAsynchronously(SkyBlockPlugin.getPlugin(), this::load);
+    }
+
+    public void addCoins(long amount) {
+        playerData.addCoins(amount);
+        PaperChatUtil.send(getBukkitPlayer(), SkyBlockPlayerMesssages.coinsAdded, amount);
     }
 
     @Override
@@ -35,6 +50,24 @@ public class SkyBlockPlayer implements ISkyBlockPlayer {
     @Override
     public void unregister() {
 
+        // Register & calcular played time when leaving
+        if (joinedAt != -1)
+            playerData.registerEndPlayTime(joinedAt);
+
+    }
+
+    public SmartCorePlayer getCorePlayer() {
+        if (corePlayer == null) {
+            corePlayer = SmartCorePlayer.get(id);
+        }
+        return corePlayer;
+    }
+
+    public Player getBukkitPlayer() {
+        if (bukkitPlayer == null) {
+            bukkitPlayer = Bukkit.getPlayer(id);
+        }
+        return bukkitPlayer;
     }
 
     public static SkyBlockPlayer getOrCreate(Player player) {

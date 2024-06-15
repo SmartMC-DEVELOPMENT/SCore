@@ -1,7 +1,12 @@
 us\smartmc\game\backend\SendInfoListener.class
+us\smartmc\game\instance\SkyBlockPlayerData.class
+us\smartmc\game\message\SkyBlockPlayerMesssages.class
+us\smartmc\game\SkyBlockLobby.class
+us\smartmc\game\listener\BackendBukkitListeners.class
 us\smartmc\game\instance\SkyBlockPlayer.class
 us\smartmc\game\manager\ConfigsManager.class
 us\smartmc\game\SkyBlockPlugin.class
-us\smartmc\game\instance\SkyBlockPlayerData.class
+us\smartmc\game\SkyBlockPlugin$1.class
 us\smartmc\game\listener\PlayerRegistryListeners.class
-us\smartmc\game\listener\BackendBukkitListeners.class
+us\smartmc\game\SkyBlockIslands.class
+us\smartmc\game\listener\TestListeners.class

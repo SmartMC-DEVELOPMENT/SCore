@@ -1,0 +1,7 @@
+main: us.smartmc.game.SkyBlockPlugin
+name: SmartSkyBlock
+version: 1.0-DEV
+author: ImSergioh
+
+depend:
+  - SmartCore23

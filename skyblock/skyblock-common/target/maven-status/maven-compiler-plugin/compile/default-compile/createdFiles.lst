@@ -1,0 +1,7 @@
+us\smartmc\skyblock\instance\island\ISkyBlockIsland.class
+us\smartmc\skyblock\instance\player\ISkyBlockPlayer.class
+us\smartmc\skyblock\manager\IslandsManager.class
+us\smartmc\skyblock\instance\SkyBlockServerType.class
+us\smartmc\skyblock\ISkyBlockAPI.class
+us\smartmc\skyblock\instance\island\IslandGeneratorType.class
+us\smartmc\skyblock\manager\PlayersManager.class

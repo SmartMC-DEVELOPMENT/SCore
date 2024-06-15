@@ -81,6 +81,11 @@ public class BackendServerMain {
                 if (line.equals("end") || line.equals("stop")) {
                     System.exit(0);
                 }
+
+                if (line.toLowerCase().equals("reloadmodules")) {
+                    new ModulesHandler().loadModulesJars();
+                }
+
                 ConsoleUtil.print("Comando ingresado: " + line);
             }
         } catch (Exception e) {

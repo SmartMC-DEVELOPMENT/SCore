@@ -16,7 +16,7 @@ public class ConfigsManager {
 
     public static void load() {
         config = new SpigotYmlConfig(getConfigFile("config.yml"));
-        config.register("serverType", SkyBlockServerType.SERVER_SPAWN);
+        config.register("serverType", SkyBlockServerType.SPAWN);
     }
 
     private static File getConfigFile(String path) {

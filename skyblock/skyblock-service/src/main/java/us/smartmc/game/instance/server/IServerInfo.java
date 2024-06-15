@@ -4,7 +4,9 @@ import us.smartmc.skyblock.instance.SkyBlockServerType;
 
 public interface IServerInfo {
 
-    String getId();
+    int getOnlineCount();
+
     SkyBlockServerType getModeType();
+    String getId();
 
 }

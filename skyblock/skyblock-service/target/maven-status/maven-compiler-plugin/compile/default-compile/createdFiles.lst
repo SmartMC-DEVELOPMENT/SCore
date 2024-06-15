@@ -1,0 +1,5 @@
+us\smartmc\game\manager\ServersInfoManager.class
+us\smartmc\game\SkyBlockService.class
+us\smartmc\game\backend\SkyBlockCommand.class
+us\smartmc\game\instance\server\IServerInfo.class
+us\smartmc\game\instance\server\ServerInfo.class

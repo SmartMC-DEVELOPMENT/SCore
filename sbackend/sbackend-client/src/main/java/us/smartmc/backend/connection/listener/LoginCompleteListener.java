@@ -9,10 +9,6 @@ import java.lang.reflect.Method;
 
 public class LoginCompleteListener extends BackendObjectListener<LoginCompleted> {
 
-    public LoginCompleteListener() {
-        super(LoginCompleted.class);
-    }
-
     @Override
     public void onReceive(ConnectionHandler connection, LoginCompleted o) {
         try {

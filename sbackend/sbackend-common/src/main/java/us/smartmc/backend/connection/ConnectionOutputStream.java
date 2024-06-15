@@ -1,12 +1,11 @@
 package us.smartmc.backend.connection;
 
+import lombok.Getter;
+import us.smartmc.backend.protocol.CommandRequest;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-
-import lombok.Getter;
-import us.smartmc.backend.protocol.CommandRequest;
-import us.smartmc.backend.protocol.ObjectCommand;
 
 @Getter
 public class ConnectionOutputStream  {
@@ -36,7 +35,7 @@ public class ConnectionOutputStream  {
     }
 
     private void send(Object o) throws IOException {
-        out.writeObject(new ObjectCommand(o));
+        out.writeObject(o);
         out.flush();
     }
 

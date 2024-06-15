@@ -15,7 +15,7 @@ public class ClientConnectionHandler extends ConnectionHandler {
     @Override
     public void run() {
         try {
-            Object o = inputStream.readObject(LoginRequest.class);
+            Object o = inputStream.readObject();
             if (o instanceof LoginRequest loginRequest) {
                 if (!LoginAuthManager.checkLogin(loginRequest.getUsername(), loginRequest.getPassword())) {
                     disconectConnection(connection);

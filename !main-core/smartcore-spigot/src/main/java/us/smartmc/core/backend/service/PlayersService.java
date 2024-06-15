@@ -5,7 +5,7 @@ import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.backend.instance.service.BackendService;
 import us.smartmc.backend.service.players.common.PlayersServiceContexts;
 import us.smartmc.core.SmartCore;
-import us.smartmc.core.backend.SendPlayerMessageCommand;
+import us.smartmc.core.backend.SendBukkitMessageCommand;
 
 import java.util.UUID;
 
@@ -14,7 +14,7 @@ public class PlayersService extends BackendService {
     @Override
     public void load() {
         super.load();
-        ConnectionInputManager.registerCommands(new SendPlayerMessageCommand());
+        ConnectionInputManager.registerCommands(new SendBukkitMessageCommand());
     }
 
     @Override

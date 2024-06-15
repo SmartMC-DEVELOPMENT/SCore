@@ -23,6 +23,7 @@ us\smartmc\smartbot\manager\CustomProxyCommandManager$1.class
 us\smartmc\smartbot\listener\DefaultUserRoleListener.class
 us\smartmc\smartbot\manager\LogsManager.class
 us\smartmc\smartbot\listener\ChatGPTListener.class
+us\smartmc\smartbot\TestBotMain.class
 us\smartmc\smartbot\handler\EventSchedulerHandler$1.class
 us\smartmc\smartbot\responses\AddressAskEventResponse.class
 us\smartmc\smartbot\listener\TicketReactionListener.class

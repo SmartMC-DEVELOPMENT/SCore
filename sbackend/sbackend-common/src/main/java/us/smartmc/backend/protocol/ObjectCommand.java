@@ -2,28 +2,32 @@ package us.smartmc.backend.protocol;
 
 import com.google.gson.Gson;
 
-import java.io.Serializable;
+import java.io.*;
 
 public class ObjectCommand implements Serializable {
 
-    private final byte[] className;
-    private final byte[] jsonObject;
+    private final byte[] serializedObject;
 
-    public ObjectCommand(Object object) {
-        this.className = object.getClass().getName().getBytes();
-        this.jsonObject = new Gson().toJson(object).getBytes();
+    public ObjectCommand(Object object) throws IOException {
+        this.serializedObject = serializeObject(object);
     }
 
-    public <T> T getObject(Class<? extends T> clazz) {
-        return new Gson().fromJson(readFrom(jsonObject), clazz);
+    public <T> T getObject(Class<? extends T> clazz) throws IOException, ClassNotFoundException {
+        return deserializeObject(serializedObject, clazz);
     }
 
-    public Class<?> getTypeClass() throws ClassNotFoundException {
-        return Class.forName(readFrom(className));
+    private byte[] serializeObject(Object object) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeObject(object);
+        oos.flush();
+        return bos.toByteArray();
     }
 
-    private static String readFrom(byte[] a) {
-        return new String(a);
+    private <T> T deserializeObject(byte[] data, Class<? extends T> clazz) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream bis = new ByteArrayInputStream(data);
+        ObjectInputStream ois = new ObjectInputStream(bis);
+        return clazz.cast(ois.readObject());
     }
 
 }

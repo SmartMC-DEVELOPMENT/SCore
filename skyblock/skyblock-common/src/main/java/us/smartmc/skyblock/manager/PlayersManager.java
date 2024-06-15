@@ -28,4 +28,8 @@ public class PlayersManager {
         players.remove(id).unregister();
     }
 
+    public static ISkyBlockPlayer get(UUID uuid) {
+        return players.get(uuid);
+    }
+
 }

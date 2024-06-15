@@ -47,10 +47,13 @@ public class ChatModule extends AddonPlugin {
 
                 Component message;
 
+
                 if (event.getPlayer().hasPermission("smartmc.vip")) {
+                    // Vip >>
                     message = Component.join(JoinConfiguration.builder().build(),
-                            PaperChatUtil.parse("<white>"), Component.text(msgString));
+                            PaperChatUtil.parse("<white>"), PaperChatUtil.parse(msgString));
                 } else {
+                    // Not vip >>
                     message = Component.join(JoinConfiguration.builder().build(),
                             PaperChatUtil.parse("<gray>"), Component.text(msgString));
                 }

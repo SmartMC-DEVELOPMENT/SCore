@@ -1,6 +1,7 @@
 package us.smartmc.game;
 
 import lombok.Getter;
+import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.language.EnumMessagesRegistry;
 import org.bukkit.Bukkit;
@@ -14,6 +15,7 @@ import us.smartmc.game.listener.BackendBukkitListeners;
 import us.smartmc.game.listener.PlayerRegistryListeners;
 import us.smartmc.game.manager.ConfigsManager;
 import us.smartmc.game.message.SkyBlockPlayerMesssages;
+import us.smartmc.game.variable.SkyBlockPlayerVariables;
 import us.smartmc.skyblock.ISkyBlockAPI;
 import us.smartmc.skyblock.instance.SkyBlockServerType;
 
@@ -39,6 +41,8 @@ public class SkyBlockPlugin extends JavaPlugin {
         registerServerToBackend();
         ConnectionInputManager.registerListeners(new SendInfoListener());
         EnumMessagesRegistry.registerLanguageHolder(SkyBlockPlayerMesssages.class);
+
+        VariablesHandler.register(new SkyBlockPlayerVariables());
     }
 
     private static void setupAPI() {
@@ -58,6 +62,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         }
         try {
             api = (ISkyBlockAPI) classType.getDeclaredConstructors()[0].newInstance();
+            api.onEnable();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
@@ -78,10 +83,11 @@ public class SkyBlockPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (api != null) api.onDisable();
         sendBackendCommand("skyblock unregisterserver", SmartCore.getServerID());
     }
 
-    private static void registerListeners(Listener... listeners) {
+    public static void registerListeners(Listener... listeners) {
         for (Listener listener : listeners) {
             Bukkit.getPluginManager().registerEvents(listener, plugin);
         }
@@ -97,5 +103,4 @@ public class SkyBlockPlugin extends JavaPlugin {
         String cmdLine = stringBuilder.toString();
         BackendClient.mainConnection.sendCommand(cmdLine);
     }
-
 }

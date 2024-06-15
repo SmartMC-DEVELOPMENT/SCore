@@ -3,6 +3,7 @@ us\smartmc\game\instance\SkyBlockPlayerData.class
 us\smartmc\game\message\SkyBlockPlayerMesssages.class
 us\smartmc\game\SkyBlockLobby.class
 us\smartmc\game\listener\BackendBukkitListeners.class
+us\smartmc\game\variable\SkyBlockPlayerVariables.class
 us\smartmc\game\instance\SkyBlockPlayer.class
 us\smartmc\game\manager\ConfigsManager.class
 us\smartmc\game\SkyBlockPlugin.class

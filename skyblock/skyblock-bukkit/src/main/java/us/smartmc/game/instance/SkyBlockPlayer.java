@@ -76,4 +76,8 @@ public class SkyBlockPlayer implements ISkyBlockPlayer {
         return skyblockPlayer != null ? (SkyBlockPlayer) skyblockPlayer : new SkyBlockPlayer(id);
     }
 
+    public static SkyBlockPlayer get(Player player) {
+        return (SkyBlockPlayer) PlayersManager.get(player.getUniqueId());
+    }
+
 }

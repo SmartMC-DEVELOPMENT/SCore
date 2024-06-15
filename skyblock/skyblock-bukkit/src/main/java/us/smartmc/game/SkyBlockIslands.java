@@ -7,6 +7,16 @@ public class SkyBlockIslands implements ISkyBlockAPI {
 
 
     @Override
+    public void onEnable() {
+
+    }
+
+    @Override
+    public void onDisable() {
+
+    }
+
+    @Override
     public SkyBlockServerType getBlockModeType() {
         return SkyBlockServerType.ISLAND;
     }

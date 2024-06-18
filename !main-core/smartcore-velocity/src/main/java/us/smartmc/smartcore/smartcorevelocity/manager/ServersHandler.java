@@ -2,8 +2,6 @@ package us.smartmc.smartcore.smartcorevelocity.manager;
 
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
-import me.imsergioh.pluginsapi.connection.RedisConnection;
-import me.imsergioh.pluginsapi.instance.backend.PlayerServerConnectionsHandler;
 import org.bson.Document;
 import us.smartmc.smartcore.smartcorevelocity.SmartCoreVelocity;
 import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
@@ -23,7 +21,7 @@ public class ServersHandler {
                 randomLobby
         ).get();
 
-        PlayerServerConnectionsHandler.get(player).sendConnectionQueue(server);
+        player.createConnectionRequest(server).fireAndForget();
     }
 
     private static String getAt(Player player) {

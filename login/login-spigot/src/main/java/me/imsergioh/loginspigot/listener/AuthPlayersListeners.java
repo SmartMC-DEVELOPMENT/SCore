@@ -40,7 +40,9 @@ public class AuthPlayersListeners implements Listener {
             loginPlayer.checkSecretKey();
         } else {
             // PREMIUM
-            me.imsergioh.pluginsapi.util.PluginUtils.redirectTo(player, "lobby");
+            Bukkit.getScheduler().runTaskLater(LoginSpigot.getPlugin(), () -> {
+                me.imsergioh.pluginsapi.util.PluginUtils.redirectTo(player, "lobby");
+            }, 20);
         }
     }
 }

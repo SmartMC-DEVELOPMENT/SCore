@@ -4,14 +4,11 @@ import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
-import me.imsergioh.pluginsapi.instance.backend.PlayerServerConnectionsHandler;
 import me.imsergioh.pluginsapi.util.VelocityChatUtil;
-import net.kyori.adventure.text.Component;
 import us.smartmc.smartcore.smartcorevelocity.SmartCoreVelocity;
 import us.smartmc.smartcore.smartcorevelocity.instance.CoreCommand;
 import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public class CoreServerCommand extends CoreCommand {
@@ -44,6 +41,6 @@ public class CoreServerCommand extends CoreCommand {
         }
         RegisteredServer server = optional.get();
         player.sendMessage(VelocityChatUtil.parse("&aConectando a &e" + server.getServerInfo().getName() + "&a..."));
-        PlayerServerConnectionsHandler.get(player).sendConnectionQueue(server);
+        player.createConnectionRequest(server).fireAndForget();
     }
 }

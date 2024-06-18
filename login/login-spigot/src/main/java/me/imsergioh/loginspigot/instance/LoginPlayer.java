@@ -67,7 +67,9 @@ public class LoginPlayer {
     public void sendToLobbyServer() {
         LoginPlayer loginPlayer = LoginPlayersFactory.get(getPlayer());
         if (loginPlayer == null) return;
-        me.imsergioh.pluginsapi.util.PluginUtils.redirectTo(getPlayer(), "lobby");
+        Bukkit.getScheduler().runTaskLater(LoginSpigot.getPlugin(), () -> {
+            me.imsergioh.pluginsapi.util.PluginUtils.redirectTo(getPlayer(), "lobby");
+        }, 20);
     }
 
     public void tryLogin(String password) {

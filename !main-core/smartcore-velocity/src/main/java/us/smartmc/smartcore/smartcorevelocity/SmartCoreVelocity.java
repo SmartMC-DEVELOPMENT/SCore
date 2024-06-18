@@ -112,6 +112,8 @@ public class SmartCoreVelocity {
         // Handler to update every 3 seconds online count in redis and update online count
         OnlineCountHandler.startTask();
 
+        HostnameRulesManager.load();
+
         try {
             tebexPackageManager = new TebexPackageManager(config.getString("tebex_secret_key"));
             tebexCommandsManager = new TebexCommandsManager(tebexPackageManager);
@@ -172,7 +174,7 @@ public class SmartCoreVelocity {
                 new LoginMessageHandler(),
                 new LoginListeners(),
                 new TabHandlerListeners(),
-                new ServerRedirectionsListeners());
+                new HostnameRedirectionsListeners());
     }
 
     private void registerCommands() {

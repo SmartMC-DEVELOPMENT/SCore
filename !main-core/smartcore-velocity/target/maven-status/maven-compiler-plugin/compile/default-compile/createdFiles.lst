@@ -1,11 +1,10 @@
 us\smartmc\smartcore\smartcorevelocity\command\admin\ServerHandlerCommand.class
 us\smartmc\smartcore\smartcorevelocity\instance\onlinestore\AnnouncePackageRenew.class
 us\smartmc\smartcore\smartcorevelocity\manager\SanctionsManager.class
-us\smartmc\smartcore\smartcorevelocity\listener\ServerRedirectionsListeners$1.class
 velocity-plugin.json
 us\smartmc\smartcore\smartcorevelocity\listener\SanctionsListeners.class
-us\smartmc\smartcore\smartcorevelocity\listener\ServerRedirectionsListeners.class
 us\smartmc\smartcore\smartcorevelocity\instance\CorePluginException.class
+us\smartmc\smartcore\smartcorevelocity\listener\HostnameRedirectionsListeners.class
 us\smartmc\smartcore\smartcorevelocity\instance\MongoDataManager.class
 us\smartmc\smartcore\smartcorevelocity\manager\OnlineCountHandler.class
 us\smartmc\smartcore\smartcorevelocity\instance\onlinestore\AnnouncePackagePurchase.class
@@ -35,6 +34,7 @@ us\smartmc\smartcore\smartcorevelocity\manager\CustomCommandsSubscriber.class
 us\smartmc\smartcore\smartcorevelocity\customcommand\MessageCommand.class
 us\smartmc\smartcore\smartcorevelocity\listener\LoginListeners.class
 us\smartmc\smartcore\smartcorevelocity\instance\sanction\SanctionType.class
+us\smartmc\smartcore\smartcorevelocity\listener\HostnameRedirectionsListeners$1.class
 us\smartmc\smartcore\smartcorevelocity\SmartCoreVelocity.class
 us\smartmc\smartcore\smartcorevelocity\manager\TabHandler.class
 us\smartmc\smartcore\smartcorevelocity\manager\OfflinePlayerDataManager.class
@@ -61,6 +61,7 @@ us\smartmc\smartcore\smartcorevelocity\listener\BackendEssentialListeners.class
 us\smartmc\smartcore\smartcorevelocity\command\SmartCoreVelocityCommand.class
 us\smartmc\smartcore\smartcorevelocity\variables\LanguageVariables.class
 us\smartmc\smartcore\smartcorevelocity\instance\OfflinePlayerData.class
+us\smartmc\smartcore\smartcorevelocity\manager\HostnameRulesManager.class
 us\smartmc\smartcore\smartcorevelocity\manager\CustomCommandsManager.class
 us\smartmc\smartcore\smartcorevelocity\manager\TebexPackageManager.class
 us\smartmc\smartcore\smartcorevelocity\instance\PlayerLanguages.class

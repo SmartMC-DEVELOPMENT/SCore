@@ -13,7 +13,6 @@ D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\sm
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\admin\ServerHandlerCommand.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\onlinestore\OnlineStoreCommand.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\SanctionsManager.java
-D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\ServerRedirectionsListeners.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\PluginYMLConfig.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\ServersHandler.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\util\SanctionTimeUtils.java
@@ -41,6 +40,8 @@ D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\sm
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\BungeeMessagingListeners.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\TebexCommandsManager.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\OfflinePlayerData.java
+D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\HostnameRedirectionsListeners.java
+D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\HostnameRulesManager.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\TabHandler.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\backend\SendVelocityMessageCommand.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\util\DebugUtil.java

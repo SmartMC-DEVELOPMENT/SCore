@@ -13,6 +13,7 @@ D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\sm
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\admin\ServerHandlerCommand.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\onlinestore\OnlineStoreCommand.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\SanctionsManager.java
+D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\ServerRedirectionsListeners.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\PluginYMLConfig.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\manager\ServersHandler.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\util\SanctionTimeUtils.java
@@ -33,6 +34,7 @@ D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\sm
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\MongoDataManager.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\moderation\BanCommand.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\admin\BroadcastCommand.java
+D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\event\LoggedInProxyPlayerEvent.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\listener\TabHandlerListeners.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\instance\sanction\SanctionType.java
 D:\workspace2024\SCore\!main-core\smartcore-velocity\src\main\java\us\smartmc\smartcore\smartcorevelocity\command\CoreServerCommand.java

@@ -10,7 +10,6 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
-import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.*;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
@@ -20,9 +19,7 @@ import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bson.Document;
 import us.smartmc.backend.connection.BackendClient;
-import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.backend.handler.ServicesManager;
-import us.smartmc.smartcore.smartcorevelocity.backend.SendVelocityMessageCommand;
 import us.smartmc.smartcore.smartcorevelocity.backend.service.PlayersService;
 import us.smartmc.smartcore.smartcorevelocity.command.*;
 import us.smartmc.smartcore.smartcorevelocity.command.admin.BroadcastCommand;
@@ -152,6 +149,7 @@ public class SmartCoreVelocity {
         config.registerDefault("hubRules", new Document().append("sg-*", "sg-l*"));
         config.registerDefault("mongodb_url", "mongodb://imsergioh:Aa@66.70.181.34:27017/admin?readPreference=primary&replicaSet=ecommerce&directConnection=true");
         config.registerDefault("tebex_secret_key", UUID.randomUUID());
+        config.registerDefault("serverRedirections.variaty-smartmc-us", List.of("serie-variaty"));
         config.save();
     }
 
@@ -173,7 +171,8 @@ public class SmartCoreVelocity {
                 new SanctionsListeners(),
                 new LoginMessageHandler(),
                 new LoginListeners(),
-                new TabHandlerListeners());
+                new TabHandlerListeners(),
+                new ServerRedirectionsListeners());
     }
 
     private void registerCommands() {

@@ -15,7 +15,8 @@ public class MOTDUtil {
 
     private PluginYMLConfig config;
 
-    private HashMap<String, Component> motdMap = new HashMap<>();
+    private final HashMap<String, Component> motdMap = new HashMap<>();
+    private final Map<String, Integer> maxSlots = new HashMap<>();
 
     public MOTDUtil(){
         registerConfigFromConfig();
@@ -28,18 +29,28 @@ public class MOTDUtil {
         return null;
     }
 
+    public int getMaxSlots(String domain) {
+        return maxSlots.getOrDefault(domain, -1);
+    }
+
     public void registerConfigFromConfig(){
         File file = new File(BMotdVelocity.getPlugin().getDataFolder(), "config.yml");
         try {
             this.config = new PluginYMLConfig(file);
         } catch (Exception e){e.printStackTrace();}
         Map<String, Object> section = config.getSection("domain-profiles");
-        if (section == null) return;;
-        for(String all : section.keySet()){
-            List<String> motdList = config.getStringList("domain-profiles."+all+".motd");
+        if (section == null) return;
+        for(String all : section.keySet()) {
+            List<String> motdList = config.getStringList("domain-profiles."+ all + ".motd");
             if (motdList.isEmpty()) motdList = BMotdVelocity.getPlugin().getMotdManager().getProfileMotdList();
-            String motdStr = motdList.get(0)+"\n"+ motdList.get(1);
+            String motdStr = motdList.get(0) + "\n" + motdList.get(1);
             motdMap.put(all, ChatUtil.parseToComponent(motdStr));
+
+            String maxPath = "domain-profiles." + all + ".max-slots";
+            if (config.contains(maxPath)) {
+                int max = config.getInt(maxPath);
+                maxSlots.put(all, max);
+            }
         }
     }
 

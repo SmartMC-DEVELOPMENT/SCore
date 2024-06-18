@@ -215,7 +215,7 @@
         </dependency>
         <dependency>
             <groupId>us.smartmc.smartcore</groupId>
-            <artifactId>BMotd-Velocity</artifactId>
+            <artifactId>bmotd-velocity</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>

@@ -1,8 +1,10 @@
 us\smartmc\smartcore\smartcorevelocity\command\admin\ServerHandlerCommand.class
 us\smartmc\smartcore\smartcorevelocity\instance\onlinestore\AnnouncePackageRenew.class
 us\smartmc\smartcore\smartcorevelocity\manager\SanctionsManager.class
+us\smartmc\smartcore\smartcorevelocity\listener\ServerRedirectionsListeners$1.class
 velocity-plugin.json
 us\smartmc\smartcore\smartcorevelocity\listener\SanctionsListeners.class
+us\smartmc\smartcore\smartcorevelocity\listener\ServerRedirectionsListeners.class
 us\smartmc\smartcore\smartcorevelocity\instance\CorePluginException.class
 us\smartmc\smartcore\smartcorevelocity\instance\MongoDataManager.class
 us\smartmc\smartcore\smartcorevelocity\manager\OnlineCountHandler.class
@@ -39,6 +41,7 @@ us\smartmc\smartcore\smartcorevelocity\manager\OfflinePlayerDataManager.class
 us\smartmc\smartcore\smartcorevelocity\listener\BungeeMessagingListeners.class
 us\smartmc\smartcore\smartcorevelocity\manager\exception\RedisConnectionNotInitializedException.class
 us\smartmc\smartcore\smartcorevelocity\command\admin\BroadcastCommand.class
+us\smartmc\smartcore\smartcorevelocity\event\LoggedInProxyPlayerEvent.class
 us\smartmc\smartcore\smartcorevelocity\util\SanctionTimeUtils.class
 us\smartmc\smartcore\smartcorevelocity\messages\HelpMessages.class
 us\smartmc\smartcore\smartcorevelocity\command\onlinestore\OnlineStoreCommand.class

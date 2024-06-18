@@ -13,6 +13,7 @@
         <module name="icons-module" />
         <module name="skyblock-bukkit" />
         <module name="login-spigot" />
+        <module name="bmotd-velocity" />
         <module name="MessagesMigration" />
         <module name="skyblock-service" />
         <module name="smartcore-spigot" />

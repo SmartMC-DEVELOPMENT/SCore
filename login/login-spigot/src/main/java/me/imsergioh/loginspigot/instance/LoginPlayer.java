@@ -2,7 +2,8 @@ package me.imsergioh.loginspigot.instance;
 
 import lombok.Getter;
 import me.imsergioh.loginspigot.LoginSpigot;
-import me.imsergioh.pluginsapi.util.PluginUtils;
+import me.imsergioh.loginspigot.manager.LoginPlayersFactory;
+import me.imsergioh.loginspigot.util.PluginUtils;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -64,9 +65,9 @@ public class LoginPlayer {
     }
 
     public void sendToLobbyServer() {
-        Bukkit.getScheduler().runTaskLater(LoginSpigot.getPlugin(), () -> {
-            PluginUtils.redirectTo(getPlayer(), "lobby");
-        }, 20 * 3);
+        LoginPlayer loginPlayer = LoginPlayersFactory.get(getPlayer());
+        if (loginPlayer == null) return;
+        me.imsergioh.pluginsapi.util.PluginUtils.redirectTo(getPlayer(), "lobby");
     }
 
     public void tryLogin(String password) {

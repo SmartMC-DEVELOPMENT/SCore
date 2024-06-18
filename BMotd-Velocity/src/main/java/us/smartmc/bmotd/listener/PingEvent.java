@@ -9,9 +9,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import us.smartmc.bmotd.BMotdVelocity;
 import us.smartmc.bmotd.manager.MOTDManager;
-import us.smartmc.bmotd.util.ChatUtil;
-
-import java.util.Objects;
 
 public class PingEvent {
 
@@ -47,6 +44,8 @@ public class PingEvent {
 
         if (plugin.getMotdUtil().getMOTDFromDomain(domain.replace(".", "-")) != null) {
             builder.description(plugin.getMotdUtil().getMOTDFromDomain(domain.replace(".", "-")));
+            int max = plugin.getMotdUtil().getMaxSlots(domain.replace(".", "-"));
+            if (max != -1) builder.maximumPlayers(max);
         } else {
             builder.description(motdManager.getDescriptionComponent());
         }

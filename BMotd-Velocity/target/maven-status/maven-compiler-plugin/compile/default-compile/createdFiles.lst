@@ -1,0 +1,11 @@
+us\smartmc\bmotd\listener\PingEvent.class
+us\smartmc\bmotd\commands\bwhitelistCMD.class
+velocity-plugin.json
+us\smartmc\bmotd\commands\bmotdCMD.class
+us\smartmc\bmotd\util\ChatUtil.class
+us\smartmc\bmotd\instance\PluginYMLConfig.class
+us\smartmc\bmotd\manager\MOTDManager.class
+us\smartmc\bmotd\BMotdVelocity.class
+us\smartmc\bmotd\commands\maintenanceCMD.class
+us\smartmc\bmotd\listener\JoinEvent.class
+us\smartmc\bmotd\manager\MOTDUtil.class

@@ -55,7 +55,10 @@ public class PingEvent {
             builder.favicon(motdManager.getFavicon(domain));
         }
 
-        builder.onlinePlayers(motdManager.getOnlineCount());
+        int online = motdManager.getCustomOnlineCountServers(domain);
+        if (online == -1) online = motdManager.getOnlineCount();
+
+        builder.onlinePlayers(online);
         event.setPing(builder.build());
 
         System.out.println("[BMOTD] " + event.getConnection().getRemoteAddress() + " pinged with domain -> " + domain);

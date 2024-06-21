@@ -1,5 +1,6 @@
 package us.smartmc.bmotd.manager;
 
+import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.proxy.server.ServerPing;
 import com.velocitypowered.api.util.Favicon;
 import lombok.Getter;
@@ -55,6 +56,21 @@ public class MOTDManager {
         }
 
         saveConfig();
+    }
+
+    public int getCustomOnlineCountServers(String hostnameDomain) {
+        hostnameDomain = hostnameDomain.replace(".", "-");
+        String path = "domain-profiles." + hostnameDomain + ".serversCount";
+        if (!config.contains(path)) return -1;
+        int count = 0;
+        for (RegisteredServer server : BMotdVelocity.getPlugin().getProxy().getAllServers()) {
+            for (String serverPrefix : config.getStringList(path)) {
+                if (server.getServerInfo().getName().startsWith(serverPrefix)) {
+                    count += server.getPlayersConnected().size();
+                }
+            }
+        }
+        return count;
     }
 
     public boolean isAllowedDomain(String hostnameDomain) {

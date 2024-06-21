@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="chat-module" />
+        <module name="tonterias-module" />
         <module name="sbackend-common" />
         <module name="serverhandler-common" />
         <module name="icons-module" />

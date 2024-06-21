@@ -6,7 +6,9 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.events.PacketListener;
+import lombok.Getter;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
+import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.instance.VariableListener;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
 import net.kyori.adventure.text.Component;
@@ -14,6 +16,7 @@ import net.kyori.adventure.text.JoinConfiguration;
 import org.bukkit.Bukkit;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.Plugin;
+import us.smartmc.core.command.ReloadChatCommand;
 import us.smartmc.core.newvariables.DateVariables;
 import us.smartmc.core.newvariables.LuckPermsVariables;
 import us.smartmc.core.newvariables.PlayerMainVariables;
@@ -21,6 +24,7 @@ import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 import us.smartmc.smartaddons.spigot.SmartAddonsSpigot;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,8 +32,16 @@ import java.util.TimerTask;
 @AddonInfo(name = "chat-module", version = "DEV")
 public class ChatModule extends AddonPlugin {
 
+    @Getter
+    private static ChatModule module;
+
+    @Getter
+    private static SpigotYmlConfig config;
+
     @Override
     public void start() {
+        module = this;
+        getDataFolder().mkdirs();
         System.out.println("Started addon " + getInfo().name() + " v" + getInfo().version());
         checkAndRemoveLPC();
         checkAndRemoveAnnouncements();
@@ -39,39 +51,48 @@ public class ChatModule extends AddonPlugin {
             ProtocolLibrary.getProtocolManager().removePacketListener(listener);
         });
 
-        PacketListener packetListener = new PacketAdapter(SmartAddonsSpigot.getPlugin(), ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
-            @Override
-            public void onPacketReceiving(PacketEvent event) {
-                event.setCancelled(true);
-                String msgString = event.getPacket().getStrings().read(0);
+        Bukkit.getScheduler().runTaskLater(SmartAddonsSpigot.getPlugin(), () -> {
+            PacketListener packetListener = new PacketAdapter(SmartAddonsSpigot.getPlugin(), ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
+                @Override
+                public void onPacketReceiving(PacketEvent event) {
+                    event.setCancelled(true);
+                    String msgString = event.getPacket().getStrings().read(0);
 
-                Component message;
+                    Component message;
 
+                    if (event.getPlayer().hasPermission("smartmc.vip")) {
+                        // Vip >>
+                        message = Component.join(JoinConfiguration.builder().build(),
+                                PaperChatUtil.parse(config.getString("vipPrefix")), PaperChatUtil.parse(msgString));
+                    } else {
+                        // Not vip >>
+                        message = Component.join(JoinConfiguration.builder().build(),
+                                PaperChatUtil.parse(config.getString("defaultPrefix")), Component.text(msgString));
+                    }
 
-                if (event.getPlayer().hasPermission("smartmc.vip")) {
-                    // Vip >>
-                    message = Component.join(JoinConfiguration.builder().build(),
-                            PaperChatUtil.parse("<white>"), PaperChatUtil.parse(msgString));
-                } else {
-                    // Not vip >>
-                    message = Component.join(JoinConfiguration.builder().build(),
-                            PaperChatUtil.parse("<gray>"), Component.text(msgString));
+                    Component formattedMessage = PaperChatUtil.parse(event.getPlayer(), config.getString("format"));
+
+                    AsyncPlayerChatEvent chatEvent = new AsyncPlayerChatEvent(true, event.getPlayer(), msgString, new HashSet<>(Bukkit.getOnlinePlayers()));
+                    Bukkit.getPluginManager().callEvent(chatEvent);
+                    if (!chatEvent.isCancelled()) {
+                        Bukkit.broadcast(Component.join(JoinConfiguration.builder().build(), formattedMessage, message));
+                    }
                 }
-
-                Component formattedMessage = PaperChatUtil.parse(event.getPlayer(), "<chat.prefix><reset><gray><name> &8&l»&7 ");
-
-                AsyncPlayerChatEvent chatEvent = new AsyncPlayerChatEvent(true, event.getPlayer(), msgString, new HashSet<>(Bukkit.getOnlinePlayers()));
-                Bukkit.getPluginManager().callEvent(chatEvent);
-                if (!chatEvent.isCancelled()) {
-                    Bukkit.broadcast(Component.join(JoinConfiguration.builder().build(), formattedMessage, message));
-                }
-            }
-        };
-        ProtocolLibrary.getProtocolManager().addPacketListener(packetListener);
+            };
+            ProtocolLibrary.getProtocolManager().addPacketListener(packetListener);
+        }, 10);
 
         VariablesHandler.register(new DateVariables());
         VariablesHandler.register(new PlayerMainVariables());
         registerDynamicVariables();
+
+        loadConfig();
+
+        registerCommand(new ReloadChatCommand("reloadchat", true, "*"));
+    }
+
+    private void loadConfig() {
+        config = new SpigotYmlConfig(new File(getDataFolder(), "/config.yml"));
     }
 
     private void registerDynamicVariables() {

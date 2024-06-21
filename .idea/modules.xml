@@ -26,6 +26,7 @@
       <module fileurl="file://$PROJECT_DIR$/staff-mode/staff-mode.iml" filepath="$PROJECT_DIR$/staff-mode/staff-mode.iml" />
       <module fileurl="file://$PROJECT_DIR$/test-module.iml" filepath="$PROJECT_DIR$/test-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/testaaaa/testaaaa.iml" filepath="$PROJECT_DIR$/testaaaa/testaaaa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tonterias-module.iml" filepath="$PROJECT_DIR$/tonterias-module.iml" />
     </modules>
   </component>
 </project>

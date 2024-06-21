@@ -21,6 +21,7 @@
         <module>MessagesMigration</module>
         <module>sbackend/test-module</module>
         <module>sbackend-service/players-service</module>
+        <module>tonterias-module</module>
     </modules>
 
     <properties>

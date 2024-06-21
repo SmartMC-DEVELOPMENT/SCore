@@ -1,13 +1,13 @@
 package us.smartmc.smartcore.smartcorevelocity.listener;
 
+import com.velocitypowered.api.event.PostOrder;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.player.ServerConnectedEvent;
+import com.velocitypowered.api.event.player.ServerPreConnectEvent;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import me.imsergioh.pluginsapi.manager.VelocityPluginsAPI;
-import me.imsergioh.pluginsapi.util.VelocityChatUtil;
 import net.kyori.adventure.bossbar.BossBar;
-import net.kyori.adventure.text.Component;
 import us.smartmc.smartcore.smartcorevelocity.event.LoggedInProxyPlayerEvent;
 import us.smartmc.smartcore.smartcorevelocity.manager.HostnameRulesManager;
 
@@ -16,6 +16,19 @@ import java.util.*;
 import java.util.List;
 
 public class HostnameRedirectionsListeners {
+
+    private static final Map<UUID, String> redirections = new HashMap<>();
+
+    @Subscribe(order = PostOrder.LAST)
+    public void cancelIfRedirecting(ServerPreConnectEvent event) {
+        Player player = event.getPlayer();
+        if (!redirections.containsKey(player.getUniqueId())) return;
+        String redirectionServerName = redirections.get(player.getUniqueId());
+        String preServerName = event.getOriginalServer().getServerInfo().getName();
+        if (redirectionServerName.equals(preServerName)) return;
+
+        event.setResult(ServerPreConnectEvent.ServerResult.denied());
+    }
 
     @Subscribe
     public void handleRedirections(LoggedInProxyPlayerEvent event) {
@@ -44,11 +57,12 @@ public class HostnameRedirectionsListeners {
     }
 
     public void handleBossbars(Player player, String hostname) {
-        List<String> bossbars = HostnameRulesManager.getBossbarTexts(hostname);
-        if (bossbars.isEmpty()) return;
-        for (String text : bossbars) {
-            Component bossbarComponent = VelocityChatUtil.parse(text);
-            player.showBossBar(BossBar.bossBar(bossbarComponent, 1.0f, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS, Set.of()));
+        Set<BossBar> bossBars = HostnameRulesManager.getBossbars(hostname);
+        if (bossBars == null) return;
+
+        for (BossBar bossBar : bossBars) {
+            player.hideBossBar(bossBar);
+            player.showBossBar(bossBar);
         }
     }
 
@@ -64,12 +78,19 @@ public class HostnameRedirectionsListeners {
         if (serverOptional.isEmpty()) return;
         System.out.println("Redirecting by hostnameRedirections " + player.getUsername() + " to " + randomServerName);
 
+        redirections.put(player.getUniqueId(), serverOptional.get().getServerInfo().getName());
+
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 player.createConnectionRequest(serverOptional.get()).fireAndForget();
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        redirections.remove(player.getUniqueId());
+                    }
+                }, 1000);
             }
-        }, 865);
+        }, 1000);
     }
-
 }

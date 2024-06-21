@@ -1,3 +1,4 @@
+us\smartmc\core\command\ReloadChatCommand.class
 us\smartmc\core\newvariables\DateVariables.class
 us\smartmc\core\ChatModule.class
 us\smartmc\core\handler\ChatModeHandler.class

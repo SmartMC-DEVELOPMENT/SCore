@@ -2,6 +2,7 @@ us\smartmc\smartcore\smartcorevelocity\command\admin\ServerHandlerCommand.class
 us\smartmc\smartcore\smartcorevelocity\instance\onlinestore\AnnouncePackageRenew.class
 us\smartmc\smartcore\smartcorevelocity\manager\SanctionsManager.class
 velocity-plugin.json
+us\smartmc\smartcore\smartcorevelocity\listener\HostnameRedirectionsListeners$1$1.class
 us\smartmc\smartcore\smartcorevelocity\listener\SanctionsListeners.class
 us\smartmc\smartcore\smartcorevelocity\instance\CorePluginException.class
 us\smartmc\smartcore\smartcorevelocity\listener\HostnameRedirectionsListeners.class

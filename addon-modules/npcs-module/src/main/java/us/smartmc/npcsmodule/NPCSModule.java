@@ -5,6 +5,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import us.smartmc.core.SmartCore;
+import us.smartmc.npcsmodule.command.NPCCommand;
 import us.smartmc.npcsmodule.instance.NPCSConfig;
 import us.smartmc.npcsmodule.listener.NPCListeners;
 import us.smartmc.npcsmodule.listener.PlayerClickListener;
@@ -39,6 +40,8 @@ public class NPCSModule extends AddonPlugin {
         NPCCommandManager.register("message", new MessageCommand());
 
         VariablesHandler.register(new NPCEmbedsVariables());
+
+        registerCommand(new NPCCommand());
     }
 
     @Override

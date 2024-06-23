@@ -76,6 +76,7 @@
         <option value="$PROJECT_DIR$/skyblock/skyblock-service/pom.xml" />
         <option value="$PROJECT_DIR$/skyblock/skyblock-common/pom.xml" />
         <option value="$PROJECT_DIR$/bmotd-velocity/pom.xml" />
+        <option value="$PROJECT_DIR$/addon-modules/npcs-module/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

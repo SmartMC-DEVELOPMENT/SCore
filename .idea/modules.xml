@@ -13,7 +13,7 @@
       <module fileurl="file://$PROJECT_DIR$/addon-modules/lobby-module/lobby-module.iml" filepath="$PROJECT_DIR$/addon-modules/lobby-module/lobby-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/login/login-spigot/login-spigot.iml" filepath="$PROJECT_DIR$/login/login-spigot/login-spigot.iml" />
       <module fileurl="file://$PROJECT_DIR$/random-battle/lucky-towers.iml" filepath="$PROJECT_DIR$/random-battle/lucky-towers.iml" />
-      <module fileurl="file://$PROJECT_DIR$/npcs-module/npcs-module.iml" filepath="$PROJECT_DIR$/npcs-module/npcs-module.iml" />
+      <module fileurl="file://$PROJECT_DIR$/addon-modules/npcs-module/npcs-module.iml" filepath="$PROJECT_DIR$/addon-modules/npcs-module/npcs-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" filepath="$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" />
       <module fileurl="file://$PROJECT_DIR$/sbackend-service/players-service/players-service.iml" filepath="$PROJECT_DIR$/sbackend-service/players-service/players-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/serverhandler-bukkit/serverhandler-bukkit.iml" filepath="$PROJECT_DIR$/serverhandler-bukkit/serverhandler-bukkit.iml" />
@@ -26,7 +26,6 @@
       <module fileurl="file://$PROJECT_DIR$/staff-mode/staff-mode.iml" filepath="$PROJECT_DIR$/staff-mode/staff-mode.iml" />
       <module fileurl="file://$PROJECT_DIR$/test-module.iml" filepath="$PROJECT_DIR$/test-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/testaaaa/testaaaa.iml" filepath="$PROJECT_DIR$/testaaaa/testaaaa.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tonterias-module.iml" filepath="$PROJECT_DIR$/tonterias-module.iml" />
     </modules>
   </component>
 </project>

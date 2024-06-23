@@ -29,6 +29,8 @@ import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import us.smartmc.npcsmodule.manager.NPCManager;
+import us.smartmc.npcsmodule.util.ConfigUtil;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -41,23 +43,38 @@ public class CustomNPC {
     @Getter
     private List<String> commandLines = new ArrayList<>();
 
+    @Getter
+    private final String configId;
     public final ServerLevel world;
 
     @Getter
     private final ServerPlayer npcPlayer;
 
+    @Getter
     private Location bukkitLocation;
 
+    @Getter
     private final Document configData;
     private final String skinValue, skinSignature;
 
-    public CustomNPC(ServerLevel world, String name, String skinValue, String skinSignature, Document configData) {
+    public CustomNPC(ServerLevel world, String configId, String name, String skinValue, String skinSignature, Document configData) {
         this.npcPlayer = new ServerPlayer(server, world, new GameProfile(UUID.randomUUID(), name), ClientInformation.createDefault());
+        this.configId = configId;
         this.skinValue = skinValue;
         this.skinSignature = skinSignature;
         this.configData = configData;
         // SET SKIN VALUE & SIGNATURE IF NOT NULL BOTH STRINGS
         this.world = world;
+    }
+
+    public void updateLocation(Location location) {
+        setBukkitLocation(location);
+        updateNMSLocation(location);
+        configData.put("location", ConfigUtil.getLocationString(bukkitLocation, " "));
+        NPCManager.getManagers().stream().filter(m -> m.get(npcPlayer.getGameProfile().getName()) != null).forEach(manager -> {
+            manager.getConfig().put(configId, configData);
+            manager.getConfig().save();
+        });
     }
 
     public void setNameVisible(boolean active) {
@@ -72,8 +89,8 @@ public class CustomNPC {
 
         parseEntity(player);
 
-        npcPlayer.setCustomNameVisible(configData.getBoolean("nameVisible"));
-        npcPlayer.getBukkitEntity().setCustomNameVisible(configData.getBoolean("nameVisible"));
+        npcPlayer.setCustomNameVisible(configData.getBoolean("nameVisible", true));
+        npcPlayer.getBukkitEntity().setCustomNameVisible(configData.getBoolean("nameVisible", true));
 
         SynchedEntityData synchedEntityData = npcPlayer.getEntityData();
         synchedEntityData.set(new EntityDataAccessor<>(17, EntityDataSerializers.BYTE), (byte) 127);
@@ -121,10 +138,9 @@ public class CustomNPC {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        try {
+        if (skinValue != null && skinSignature != null) {
             npcPlayer.getGameProfile().getProperties().removeAll("textures");
             npcPlayer.getGameProfile().getProperties().put("textures", new Property("textures", skinValue, skinSignature));
-        } catch (Exception ignore) {
         }
     }
 

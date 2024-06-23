@@ -28,7 +28,7 @@ public class PlayerClickListener extends PacketAdapter {
     public void onPacketReceiving(PacketEvent event) {
         int id = event.getPacket().getIntegers().read(0);
         NPCManager.forEach(npcManager -> {
-            CustomNPC npc = npcManager.getNPC(id);
+            CustomNPC npc = npcManager.getNPCByEntityId(id);
             if (npc == null) return;
             UUID uuid = event.getPlayer().getUniqueId();
             if (clicking.contains(uuid)) return;

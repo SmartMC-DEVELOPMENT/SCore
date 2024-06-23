@@ -3,7 +3,6 @@ package us.smartmc.npcsmodule.manager;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import me.imsergioh.pluginsapi.language.Language;
-import net.minecraft.server.level.ClientInformation;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -20,8 +19,10 @@ import java.util.function.Consumer;
 @Getter
 public class NPCManager extends ManagerRegistry<String, CustomNPC> {
 
-    private static final Set<NPCManager> managers = new HashSet<>();
+    @Getter
+    private static final List<NPCManager> managers = new ArrayList<>();
 
+    @Getter
     private final FilePluginConfig config;
 
     public NPCManager() {
@@ -30,15 +31,22 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
                 new File(NPCSModule.getAddon().getDataFolder(),
                         "npcs.json"));
         config.load();
-        loadNPCs();
+        loadNPCsFromConfig();
         config.save();
     }
 
     public void register(String name, CustomNPC npc) {
         put(name, npc);
+
     }
 
-    public void delete(String name) {
+    public void saveToConfig() {
+        values().forEach(customNPC -> {
+            config.put(customNPC.getConfigId(), customNPC.getConfigData());
+        });
+    }
+
+    public CustomNPC delete(String name) {
         // ITERATE ALL ENTITIES THAT ARE THE SAME AS THE ORIGINAL REGISTERED NPC TO DELETE THEM
         Bukkit.getWorlds().forEach(world -> {
             world.getEntities().stream().filter(e -> e.getUniqueId().equals(get(name).getUUID()))
@@ -47,11 +55,10 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
                         npc.eject();
                     });
         });
-        remove(name);
+        return remove(name);
     }
 
-    private List<CustomNPC> loadNPCs() {
-        List<CustomNPC> list = new ArrayList<>();
+    private void loadNPCsFromConfig() {
         for (String key : config.keySet()) {
             Document data = config.get(key, Document.class);
             registerDefaultsToDoc(data);
@@ -64,7 +71,7 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
             String skinSignature = null;
             if (data.containsKey("skinSignature")) skinSignature = data.getString("skinSignature");
             // TO DO: HERE PARSE VARIABLES TO NPC INSTANCE AND REGISTER IT
-            CustomNPC npc = new CustomNPC(((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), name, skinValue, skinSignature, data);
+            CustomNPC npc = new CustomNPC(((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), key, name, skinValue, skinSignature, data);
             System.out.println("Loaded npc " + key + " location = " + location);
             npc.setBukkitLocation(location);
             npc.setCommandLines(data.getList("commands", String.class));
@@ -72,9 +79,7 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
             if (data.containsKey("nameVisible")) npc.setNameVisible(data.getBoolean("nameVisible"));
 
             register(name, npc);
-            list.add(npc);
         }
-        return list;
     }
 
     private void registerDefaultsToDoc(Document document) {
@@ -82,7 +87,7 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
             document.put("name", "Hello world!");
     }
 
-    public CustomNPC getNPC(int id) {
+    public CustomNPC getNPCByEntityId(int id) {
         for (Language language : Language.values()) {
             for (CustomNPC npc : values()) {
                 if (npc == null) continue;

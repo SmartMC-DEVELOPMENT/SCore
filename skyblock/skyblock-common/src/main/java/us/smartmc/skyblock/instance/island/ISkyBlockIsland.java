@@ -7,8 +7,6 @@ public interface ISkyBlockIsland {
     void register();
     void unregister();
 
-    void load();
-
     IslandGeneratorType getIslandGeneratorType();
     String displayName();
 

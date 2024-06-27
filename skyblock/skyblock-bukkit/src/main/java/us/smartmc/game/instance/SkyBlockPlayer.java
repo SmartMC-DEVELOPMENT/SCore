@@ -49,11 +49,10 @@ public class SkyBlockPlayer implements ISkyBlockPlayer {
 
     @Override
     public void unregister() {
-
         // Register & calcular played time when leaving
         if (joinedAt != -1)
             playerData.registerEndPlayTime(joinedAt);
-
+        playerData.saveData();
     }
 
     public SmartCorePlayer getCorePlayer() {

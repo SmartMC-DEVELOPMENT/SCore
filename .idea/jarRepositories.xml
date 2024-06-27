@@ -2,6 +2,11 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="exceptionflug" />
+      <option name="name" value="exceptionflug" />
+      <option name="url" value="https://mvn.exceptionflug.de/repository/exceptionflug-public/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="jitpack.io" />
       <option name="name" value="jitpack.io" />
       <option name="url" value="https://jitpack.io" />
@@ -15,6 +20,11 @@
       <option name="id" value="papermc-repo" />
       <option name="name" value="papermc-repo" />
       <option name="url" value="https://repo.papermc.io/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="packet-events-repo" />
+      <option name="name" value="packet-events-repo" />
+      <option name="url" value="https://repo.codemc.io/repository/maven-public/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="Codemc NMS" />

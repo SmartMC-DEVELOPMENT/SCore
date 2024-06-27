@@ -20,6 +20,7 @@ public class PlayersManager {
         ISkyBlockPlayer skyBlockPlayer = players.get(id);
         if (skyBlockPlayer == null) return;
         unregister(skyBlockPlayer);
+
     }
 
     public static void unregister(ISkyBlockPlayer skyBlockPlayer) {

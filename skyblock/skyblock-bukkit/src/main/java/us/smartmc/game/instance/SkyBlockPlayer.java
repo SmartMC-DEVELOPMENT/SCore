@@ -76,7 +76,11 @@ public class SkyBlockPlayer implements ISkyBlockPlayer {
     }
 
     public static SkyBlockPlayer get(Player player) {
-        return (SkyBlockPlayer) PlayersManager.get(player.getUniqueId());
+        return get(player.getUniqueId());
+    }
+
+    public static SkyBlockPlayer get(UUID id) {
+        return (SkyBlockPlayer) PlayersManager.get(id);
     }
 
 }

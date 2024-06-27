@@ -7,7 +7,6 @@ public interface ISkyBlockIsland {
     void register();
     void unregister();
 
-    IslandGeneratorType getIslandGeneratorType();
     String displayName();
 
     UUID getOwnerId();

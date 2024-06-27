@@ -20,6 +20,7 @@ public class IslandsManager {
         ISkyBlockIsland island = islands.get(id);
         if (island == null) return;
         unregister(island);
+        island.unregister();
     }
 
     public static void unregister(ISkyBlockIsland island) {

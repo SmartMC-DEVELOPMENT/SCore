@@ -15,23 +15,24 @@ import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.RegistryDataLoader;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.phys.Vec3;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import org.bukkit.util.Vector;
 import us.smartmc.npcsmodule.manager.NPCManager;
 import us.smartmc.npcsmodule.util.ConfigUtil;
 
@@ -60,6 +61,8 @@ public class CustomNPC {
     private final Document configData;
     private final String skinValue, skinSignature;
 
+    private NPCGravitySimulationTask gravityTask;
+
     public CustomNPC(ServerLevel world, String configId, String name, String skinValue, String skinSignature, Document configData) {
         this.npcPlayer = new ServerPlayer(server, world, new GameProfile(UUID.randomUUID(), name), ClientInformation.createDefault());
         this.configId = configId;
@@ -71,9 +74,9 @@ public class CustomNPC {
     }
 
     public boolean toggleVulnerability() {
-        boolean isVulnerable = isVulnerable();
-        configData.put("vulnerable", !isVulnerable);
-        return !isVulnerable;
+        boolean toggled = !isVulnerable();
+        configData.put("vulnerable", toggled);
+        return toggled;
     }
 
     public void updateLocation(Location location) {
@@ -105,8 +108,8 @@ public class CustomNPC {
         synchedEntityData.set(new EntityDataAccessor<>(17, EntityDataSerializers.BYTE), (byte) 127);
 
         setValue(npcPlayer, "c", ((CraftPlayer) player).getHandle().connection);
-        if (bukkitLocation != null)
-            npcPlayer.forceSetPositionRotation(bukkitLocation.getX(), bukkitLocation.getY(), bukkitLocation.getZ(), bukkitLocation.getYaw(), bukkitLocation.getPitch());
+        //if (bukkitLocation != null)
+        //  npcPlayer.forceSetPositionRotation(bukkitLocation.getX(), bukkitLocation.getY(), bukkitLocation.getZ(), bukkitLocation.getYaw(), bukkitLocation.getPitch());
 
         ClientboundPlayerInfoUpdatePacket infoUpdatePacket = new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, npcPlayer);
         PacketContainer packet = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
@@ -134,6 +137,15 @@ public class CustomNPC {
         }
     }
 
+    public void teleportTo(Location location) {
+        npcPlayer.moveTo(location.getX(), location.getY(), location.getZ());
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            if (!player.canSee(npcPlayer.getBukkitEntity())) return;
+            updateNPCPositionToPlayer(player, npcPlayer.getBukkitEntity().getLocation(),
+                    npcPlayer.onGround);
+        });
+    }
+
     private void updateNMSLocation(Location loc) {
         npcPlayer.setPos(loc.getX(), loc.getY(), loc.getZ());
         npcPlayer.teleportTo(((CraftWorld) loc.getWorld()).getHandle(), loc.getX(), loc.getY(), loc.getZ(), (byte) loc.getYaw() * 360.0F / 256.0F, (byte) loc.getPitch() * 360.F / 256.0F);
@@ -153,26 +165,61 @@ public class CustomNPC {
         }
     }
 
-    public void simulateAttackFrom(Entity entity) {
+    public void simulateAttack() {
         World bukkitWorld = getBukkitLocation().getWorld();
         if (bukkitWorld == null) return;
         bukkitWorld.getPlayers().iterator().forEachRemaining(player -> {
             if (!player.canSee(npcPlayer.getBukkitEntity())) return;
-            simulateAttackFor(player, entity);
+            simulateAttackFor(player);
         });
 
     }
 
-    private void simulateAttackFor(Player player, Entity entity) {
-        System.out.println("Simulating damage for " + entity.getEntityId() + " for " + player.getName());
+    public void resetGravitySimulationTask() {
+        gravityTask = null;
+    }
+
+
+    // Arreglar metodo para que el daño funcione correctamente (Si hago doble hit seguido no respeta el anterior hit)
+    private void simulateAttackFor(Player player) {
+        // Calcular la dirección del knockback
+        Vector direction = npcPlayer.getBukkitEntity().getLocation().toVector().subtract(player.getLocation().toVector()).normalize();
+        double knockbackStrength = 0.55; // Puedes ajustar la fuerza del knockback según sea necesario
+
+        // Aplicar el daño y la animación de daño
         PacketContainer damagePacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.DAMAGE_EVENT);
-        damagePacket.getIntegers().write(0, entity.getEntityId());
-        damagePacket.getBooleans().write(0, true);
-        damagePacket.getDoubles().write(0, 1.0);
-        damagePacket.getDoubles().write(1, 2.0);
-        damagePacket.getDoubles().write(2, 3.0);
+        damagePacket.getIntegers().write(0, npcPlayer.getId());
         ProtocolLibrary.getProtocolManager().sendServerPacket(player, damagePacket);
 
+        // Aplicar el knockback
+        npcPlayer.setDeltaMovement(direction.getX() * knockbackStrength, .6, direction.getZ() * knockbackStrength);
+
+        // Actualizar la posición del NPC para reflejar el knockback
+        npcPlayer.move(MoverType.SELF, new Vec3(npcPlayer.getDeltaMovement().x, npcPlayer.getDeltaMovement().y, npcPlayer.getDeltaMovement().z));
+
+        updateNPCPositionToPlayer(player, npcPlayer.getBukkitEntity().getLocation(), npcPlayer.onGround);
+        player.playSound(npcPlayer.getBukkitEntity().getLocation(), Sound.ENTITY_PLAYER_HURT, 1, 1);
+
+        if (gravityTask == null) {
+            gravityTask = new NPCGravitySimulationTask(this);
+            new Thread(gravityTask).start();
+        }
+    }
+
+    private void updateNPCPositionToPlayer(Player player, Location location, boolean onGround) {
+        // Crear y enviar el paquete de posición del NPC
+        PacketContainer positionPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_TELEPORT);
+        positionPacket.getIntegers().write(0, npcPlayer.getId());
+        positionPacket.getDoubles().write(0, location.getX());
+        positionPacket.getDoubles().write(1, location.getY());
+        positionPacket.getDoubles().write(2, location.getZ());
+        positionPacket.getBooleans().write(0, onGround);
+
+        try {
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, positionPacket);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isVulnerable() {
@@ -198,6 +245,10 @@ public class CustomNPC {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+    }
+
+    public CraftPlayer getBukkitEntity() {
+        return npcPlayer.getBukkitEntity();
     }
 
     public void setBukkitLocation(Location bukkitLocation) {

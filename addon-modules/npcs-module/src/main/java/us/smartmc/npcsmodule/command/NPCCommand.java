@@ -92,6 +92,16 @@ public class NPCCommand extends AddonPluginCommand {
                 sender.sendMessage("Deleted!");
                 updateNPCVisibility(npc, false);
             }
+
+            case "vulnerable" -> {
+                CustomNPC npc = getCustomNPCById(args[1]);
+                if (npc == null) {
+                    sender.sendMessage("NPC not found!");
+                    return;
+                }
+                boolean vulnerability = npc.toggleVulnerability();
+                sender.sendMessage(vulnerability ? "NPC is now vulnerable" : "NPC is now invulnerable");
+            }
         }
     }
 

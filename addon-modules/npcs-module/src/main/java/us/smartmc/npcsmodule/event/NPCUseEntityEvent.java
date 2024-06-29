@@ -17,6 +17,13 @@ public class NPCUseEntityEvent extends NPCEvent {
         this.player = player;
         this.action = action;
         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.6F, 2F);
+
+        if (npc.isVulnerable()) {
+            System.out.println("ACTION=" + action.name());
+            if (action.equals(EnumWrappers.EntityUseAction.ATTACK)) {
+                npc.simulateAttackFrom(npc.getNpcPlayer().getBukkitEntity());
+            }
+        }
     }
 
 }

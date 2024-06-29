@@ -8,7 +8,6 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
-import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.LegacyChatUtil;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
@@ -16,16 +15,20 @@ import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.RegistryDataLoader;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
@@ -65,6 +68,12 @@ public class CustomNPC {
         this.configData = configData;
         // SET SKIN VALUE & SIGNATURE IF NOT NULL BOTH STRINGS
         this.world = world;
+    }
+
+    public boolean toggleVulnerability() {
+        boolean isVulnerable = isVulnerable();
+        configData.put("vulnerable", !isVulnerable);
+        return !isVulnerable;
     }
 
     public void updateLocation(Location location) {
@@ -142,6 +151,32 @@ public class CustomNPC {
             npcPlayer.getGameProfile().getProperties().removeAll("textures");
             npcPlayer.getGameProfile().getProperties().put("textures", new Property("textures", skinValue, skinSignature));
         }
+    }
+
+    public void simulateAttackFrom(Entity entity) {
+        World bukkitWorld = getBukkitLocation().getWorld();
+        if (bukkitWorld == null) return;
+        bukkitWorld.getPlayers().iterator().forEachRemaining(player -> {
+            if (!player.canSee(npcPlayer.getBukkitEntity())) return;
+            simulateAttackFor(player, entity);
+        });
+
+    }
+
+    private void simulateAttackFor(Player player, Entity entity) {
+        System.out.println("Simulating damage for " + entity.getEntityId() + " for " + player.getName());
+        PacketContainer damagePacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.DAMAGE_EVENT);
+        damagePacket.getIntegers().write(0, entity.getEntityId());
+        damagePacket.getBooleans().write(0, true);
+        damagePacket.getDoubles().write(0, 1.0);
+        damagePacket.getDoubles().write(1, 2.0);
+        damagePacket.getDoubles().write(2, 3.0);
+        ProtocolLibrary.getProtocolManager().sendServerPacket(player, damagePacket);
+
+    }
+
+    public boolean isVulnerable() {
+        return configData.getBoolean("vulnerable", false);
     }
 
     public Location getLocation() {

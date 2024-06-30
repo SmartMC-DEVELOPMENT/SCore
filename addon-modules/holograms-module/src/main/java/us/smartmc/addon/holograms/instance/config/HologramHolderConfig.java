@@ -2,10 +2,12 @@ package us.smartmc.addon.holograms.instance.config;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
+import org.bukkit.configuration.ConfigurationSection;
 import us.smartmc.addon.holograms.HologramsAddon;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
 
 import java.io.File;
+import java.util.Objects;
 
 @Getter
 public class HologramHolderConfig extends SpigotYmlConfig {
@@ -24,7 +26,11 @@ public class HologramHolderConfig extends SpigotYmlConfig {
     }
 
     private void loadHolograms() {
-        for (String name : getConfig().getConfigurationSection(HOLOGRAMS_MAIN_KEY).getKeys(false)) {
+        if (getConfig() == null) return;
+        ConfigurationSection section = getConfig().getConfigurationSection(HOLOGRAMS_MAIN_KEY);
+        if (section == null) return;
+
+        for (String name : section.getKeys(false)) {
             holder.loadHologram(name, this);
         }
     }

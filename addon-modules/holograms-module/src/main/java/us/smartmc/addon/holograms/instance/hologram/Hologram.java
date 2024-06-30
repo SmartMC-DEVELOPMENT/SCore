@@ -7,7 +7,6 @@ import us.smartmc.addon.holograms.util.LocationUtils;
 
 import java.util.*;
 
-@Getter
 public class Hologram {
 
     private final String name;
@@ -21,6 +20,12 @@ public class Hologram {
         this.config = config;
         this.location = loadLocation();
         loadAllConfigHolograms();
+    }
+
+    public void removeAllStands() {
+        linesStands.forEach(hologramArmorStand -> {
+            hologramArmorStand.getStand().remove();
+        });
     }
 
     public List<HologramArmorStand> getLinesArmorStands() {

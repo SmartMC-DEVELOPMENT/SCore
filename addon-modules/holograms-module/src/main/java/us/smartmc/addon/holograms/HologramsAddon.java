@@ -3,6 +3,7 @@ package us.smartmc.addon.holograms;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import us.smartmc.addon.holograms.adapter.HologramAdapter1_20;
+import us.smartmc.addon.holograms.commands.HologramsCommand;
 import us.smartmc.addon.holograms.instance.config.MainConfig;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
 import us.smartmc.addon.holograms.listener.EssentialListeners;
@@ -43,6 +44,8 @@ public class HologramsAddon extends AddonPlugin {
         registerListeners(SpigotPluginsAPI.getPlugin(), new EssentialListeners());
 
         HologramUpdaterManager.startRunnable();
+
+        registerCommand(new HologramsCommand());
     }
 
     private void loadHolders() {

@@ -1,9 +1,13 @@
 package us.smartmc.addon.holograms.instance.hologram;
 
 import lombok.Getter;
+import org.bukkit.Location;
 import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
+import us.smartmc.addon.holograms.util.LocationUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -14,6 +18,8 @@ public class HologramHolder {
     private static final Map<String, HologramHolder> holders = new ConcurrentHashMap<>();
 
     private final String holderName;
+
+    @Getter
     private final HologramHolderConfig config;
 
     private final Map<String, Hologram> holograms = new HashMap<>();
@@ -30,6 +36,35 @@ public class HologramHolder {
     public void loadHologram(String hologramName, HologramHolderConfig config) {
         Hologram hologram = new Hologram(hologramName, config);
         holograms.put(hologramName, hologram);
+    }
+
+    public void updateHologramConfig(String name) {
+        Hologram hologram = getHologram(name);
+        config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY,
+                LocationUtils.locationToString(hologram.getLinesArmorStands().get(0).getStand().getLocation()));
+
+        List<String> lines = new ArrayList<>();
+        for (HologramArmorStand hdStand : hologram.getLinesArmorStands()) {
+            lines.add(hdStand.getStand().getCustomName());
+        }
+
+        config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.LINES_KEY, lines);
+
+        config.save();
+    }
+
+    public void registerHologram(String name, Location location, String text) {
+        config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY, LocationUtils.locationToString(location));
+        config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.LINES_KEY, List.of(text.split("\n")));
+        config.save();
+        loadHologram(name, config);
+    }
+
+    public void deleteHologram(String name) {
+        config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name, null);
+        config.save();
+        getHologram(name).removeAllStands();
+        holograms.remove(name);
     }
 
     public void forEachHologram(Consumer<Hologram> consumer) {

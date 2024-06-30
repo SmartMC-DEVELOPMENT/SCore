@@ -1,14 +1,10 @@
 package us.smartmc.npcsmodule.command;
 
-import me.imsergioh.pluginsapi.SpigotPluginsAPI;
-import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.server.level.ServerPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.npcsmodule.instance.CustomNPC;
@@ -39,7 +35,12 @@ public class NPCCommand extends AddonPluginCommand {
                 String idName = NPCUtil.getNameOrDefault(args[1]);
                 try {
                     mainManager.register(idName, NPCUtil.getDefaultCustomNPC(location, idName));
-                    player.sendMessage("Created!");
+                    Bukkit.getScheduler().runTask(SmartCore.getPlugin(), () -> {
+                        mainManager.get(idName).setBukkitLocation(player.getLocation());
+                        updateNPCVisibility(mainManager.get(idName), true);
+                        player.sendMessage("Created!");
+                    });
+                    mainManager.saveToConfig();
                 } catch (CorePluginException e) {
                     player.sendMessage("Error ocurred: " + e.getMessage());
                 }
@@ -91,6 +92,7 @@ public class NPCCommand extends AddonPluginCommand {
                 }
                 sender.sendMessage("Deleted!");
                 updateNPCVisibility(npc, false);
+                mainManager.saveToConfig();
             }
 
             case "vulnerable" -> {
@@ -118,7 +120,7 @@ public class NPCCommand extends AddonPluginCommand {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.hideEntity(SmartCore.getPlugin(), npcPlayer.getBukkitEntity());
             if (showAgain)
-                player.showEntity(SmartCore.getPlugin(), npcPlayer.getBukkitEntity());
+                npc.showTo(player);
         }
     }
 

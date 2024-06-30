@@ -44,6 +44,7 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
         values().forEach(customNPC -> {
             config.put(customNPC.getConfigId(), customNPC.getConfigData());
         });
+        config.save();
     }
 
     public CustomNPC delete(String name) {

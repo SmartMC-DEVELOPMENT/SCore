@@ -5,10 +5,7 @@ import org.bson.Document;
 import us.smartmc.npcsmodule.NPCSModule;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class NPCSConfig extends FilePluginConfig {
 
@@ -34,7 +31,11 @@ public class NPCSConfig extends FilePluginConfig {
 
         // DEFAULT NPC's CONFIG:
         for (String npcID : keySet()) {
-            Document defaultNPC = get(npcID, Document.class);
+            Object o = get(npcID);
+            Document defaultNPC =
+                    o.getClass().equals(HashMap.class) ?
+                    new Document((Map<String, ?>) o) :
+                    (Document) o;
             if (!defaultNPC.containsKey("nameVisible")) defaultNPC.put("nameVisible", true);
         }
     }

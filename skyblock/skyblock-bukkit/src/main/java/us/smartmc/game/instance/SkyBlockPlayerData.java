@@ -32,10 +32,7 @@ public class SkyBlockPlayerData {
     public SkyBlockPlayerData(UUID id) {
         this.id = id;
         this.document = loadData();
-
-        SyncUtil.async(() -> {
-            Bukkit.getPluginManager().callEvent(new SkyBlockPlayerDataLoadedEvent(SkyBlockPlayer.get(id), this));
-        });
+        SyncUtil.async(() -> Bukkit.getPluginManager().callEvent(new SkyBlockPlayerDataLoadedEvent(SkyBlockPlayer.get(id), this)));
     }
 
     public SkyBlockPlayerData(SkyBlockPlayer skyBlockPlayer) {

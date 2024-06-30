@@ -72,7 +72,12 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
             String skinSignature = null;
             if (data.containsKey("skinSignature")) skinSignature = data.getString("skinSignature");
             // TO DO: HERE PARSE VARIABLES TO NPC INSTANCE AND REGISTER IT
-            CustomNPC npc = new CustomNPC(((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), key, name, skinValue, skinSignature, data);
+            CustomNPC npc = new CustomNPC(this, ((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), key, name, data);
+
+            if (skinValue != null) {
+                npc.setSkin(skinValue, skinSignature);
+            }
+
             System.out.println("Loaded npc " + key + " location = " + location);
             npc.setBukkitLocation(location);
             npc.setCommandLines(data.getList("commands", String.class));

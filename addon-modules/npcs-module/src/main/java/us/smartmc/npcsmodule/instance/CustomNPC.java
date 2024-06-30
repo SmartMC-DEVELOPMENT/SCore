@@ -47,6 +47,7 @@ public class CustomNPC {
     @Getter
     private List<String> commandLines = new ArrayList<>();
 
+    private final NPCManager manager;
     @Getter
     private final String configId;
     public final ServerLevel world;
@@ -59,15 +60,14 @@ public class CustomNPC {
 
     @Getter
     private final Document configData;
-    private final String skinValue, skinSignature;
+    private String skinValue, skinSignature;
 
     private NPCGravitySimulationTask gravityTask;
 
-    public CustomNPC(ServerLevel world, String configId, String name, String skinValue, String skinSignature, Document configData) {
+    public CustomNPC(NPCManager manager, ServerLevel world, String configId, String name, Document configData) {
+        this.manager = manager;
         this.npcPlayer = new ServerPlayer(server, world, new GameProfile(UUID.randomUUID(), name), ClientInformation.createDefault());
         this.configId = configId;
-        this.skinValue = skinValue;
-        this.skinSignature = skinSignature;
         this.configData = configData;
         // SET SKIN VALUE & SIGNATURE IF NOT NULL BOTH STRINGS
         this.world = world;
@@ -160,9 +160,19 @@ public class CustomNPC {
             throw new RuntimeException(e);
         }
         if (skinValue != null && skinSignature != null) {
-            npcPlayer.getGameProfile().getProperties().removeAll("textures");
-            npcPlayer.getGameProfile().getProperties().put("textures", new Property("textures", skinValue, skinSignature));
+            setSkin(skinValue, skinSignature);
         }
+    }
+
+    public void setSkin(String value, String signature) {
+        skinValue = value;
+        skinSignature = signature;
+        npcPlayer.getGameProfile().getProperties().removeAll("textures");
+        npcPlayer.getGameProfile().getProperties().put("textures", new Property("textures", skinValue, skinSignature));
+        configData.put("skinValue", skinValue);
+        configData.put("skinSignature", skinSignature);
+        manager.getConfig().put(configId, configData);
+        manager.getConfig().save();
     }
 
     public void simulateAttack() {

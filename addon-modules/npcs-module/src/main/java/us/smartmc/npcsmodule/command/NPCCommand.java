@@ -35,7 +35,7 @@ public class NPCCommand extends AddonPluginCommand {
             case "create", "add", "crear", "añadir" -> {
                 String idName = NPCUtil.getNameOrDefault(args[1]);
                 try {
-                    mainManager.register(idName, NPCUtil.getDefaultCustomNPC(location, idName));
+                    mainManager.register(idName, NPCUtil.getDefaultCustomNPC(mainManager, location, idName));
                     Bukkit.getScheduler().runTask(SmartCore.getPlugin(), () -> {
                         mainManager.get(idName).setBukkitLocation(player.getLocation());
                         updateNPCVisibility(mainManager.get(idName), true);
@@ -84,6 +84,10 @@ public class NPCCommand extends AddonPluginCommand {
         NPCManager mainManager = NPCManager.getManagers().get(0);
 
         switch (args[0].toLowerCase()) {
+            case "reload" -> {
+                NPCManager.forEach(NPCManager::loadNPCsFromConfig);
+                sender.sendMessage("Reloaded!");
+            }
             case "delete", "remove", "eliminar", "remover", "quitar" -> {
                 String name = NPCUtil.getNameOrDefault(args[1]);
                 CustomNPC npc = mainManager.delete(name);

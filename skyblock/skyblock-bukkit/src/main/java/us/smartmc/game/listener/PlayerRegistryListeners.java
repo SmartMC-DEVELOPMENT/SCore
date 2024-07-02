@@ -1,6 +1,7 @@
 package us.smartmc.game.listener;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -14,7 +15,7 @@ public class PlayerRegistryListeners implements Listener {
         PlayersManager.register(SkyBlockPlayer.getOrCreate(event.getPlayer()));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void unregisterPlayer(PlayerQuitEvent event) {
         PlayersManager.unregister(event.getPlayer().getUniqueId());
     }

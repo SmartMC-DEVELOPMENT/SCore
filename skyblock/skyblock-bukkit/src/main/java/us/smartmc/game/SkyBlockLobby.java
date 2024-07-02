@@ -1,6 +1,6 @@
 package us.smartmc.game;
 
-import us.smartmc.game.listener.TestListeners;
+import us.smartmc.game.listener.MainIslandsListeners;
 import us.smartmc.skyblock.ISkyBlockAPI;
 import us.smartmc.skyblock.instance.SkyBlockServerType;
 
@@ -8,7 +8,7 @@ public class SkyBlockLobby implements ISkyBlockAPI {
 
     @Override
     public void onEnable() {
-        SkyBlockPlugin.registerListeners(new TestListeners());
+        SkyBlockPlugin.registerListeners(new MainIslandsListeners());
     }
 
     @Override

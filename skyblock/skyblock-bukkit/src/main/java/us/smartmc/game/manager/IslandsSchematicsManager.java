@@ -1,0 +1,117 @@
+package us.smartmc.game.manager;
+
+import com.sk89q.worldedit.EditSession;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
+import com.sk89q.worldedit.extent.clipboard.Clipboard;
+import com.sk89q.worldedit.extent.clipboard.io.*;
+import com.sk89q.worldedit.function.operation.ForwardExtentCopy;
+import com.sk89q.worldedit.function.operation.Operation;
+import com.sk89q.worldedit.function.operation.Operations;
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.CuboidRegion;
+import com.sk89q.worldedit.session.ClipboardHolder;
+import lombok.Getter;
+import org.bukkit.Location;
+import org.bukkit.World;
+import us.smartmc.game.instance.DefaultIsland;
+import us.smartmc.game.instance.SkyBlockPlayerIsland;
+import us.smartmc.skyblock.manager.IslandsManager;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.UUID;
+
+public class IslandsSchematicsManager {
+
+    private static final File ISLANDS_DIRECTORY = new File("/home/network/data-skyblock/islands");
+
+    @Getter
+    private static final UUID defaultIslandId = UUID.fromString("e3d71b5a-2f63-4084-abe4-f03cb33258bd");
+
+
+    public static void registerDefaults() {
+        ISLANDS_DIRECTORY.mkdirs();
+        IslandsManager.register(new DefaultIsland(defaultIslandId));
+    }
+
+    public static File getMapSchematicFile(UUID islandId) {
+        return new File(ISLANDS_DIRECTORY, islandId.toString() + ".schem");
+    }
+
+    public static void saveRegion(World world, SkyBlockPlayerIsland island) throws Exception {
+        com.sk89q.worldedit.world.World weWorld = WorldEdit.getInstance().getPlatformManager().getWorldForEditing(new BukkitWorld(world));
+        BlockVector3 pos1 = getBlockVectorByLocation(island.getIslandData().getMinLocation(world));
+        BlockVector3 pos2 = getBlockVectorByLocation(island.getIslandData().getMaxLocation(world));
+
+        BlockVector3 min = min(pos1, pos2);
+        BlockVector3 max = max(pos1, pos2);
+
+        CuboidRegion region = new CuboidRegion(weWorld, min, max);
+
+        BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
+
+        ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(
+                weWorld, region, clipboard, min
+        );
+        Operations.complete(forwardExtentCopy);
+
+        File file = getMapSchematicFile(island.getIslandId());
+
+        try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(file))) {
+            writer.write(clipboard);
+        }
+    }
+
+    public static void loadAndPasteSchematic(World world, UUID islandId) {
+        try {
+            Clipboard clipboard;
+            File file = getMapSchematicFile(islandId);
+            ClipboardFormat format = ClipboardFormats.findByFile(file);
+            try (ClipboardReader reader = format.getReader(new FileInputStream(file))) {
+                clipboard = reader.read();
+            }
+            Location location = getSpawnLocation(world, islandId);
+            BlockVector3 locVector = BlockVector3.at(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+
+            try (EditSession editSession = WorldEdit.getInstance().newEditSession(new BukkitWorld(location.getWorld()))) {
+                Operation operation = new ClipboardHolder(clipboard)
+                        .createPaste(editSession)
+                        .to(locVector)
+                        .build();
+                Operations.complete(operation);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static Location getSpawnLocation(World world, UUID islandId) {
+        SkyBlockPlayerIsland island = (SkyBlockPlayerIsland) us.smartmc.skyblock.manager.IslandsManager.get(islandId);
+        return island.getIslandData().getSpawnLocation(world);
+    }
+
+    public static BlockVector3 max(BlockVector3 vec1, BlockVector3 vec2) {
+        int maxX = Math.max(vec1.getBlockX(), vec2.getBlockX());
+        int maxY = Math.max(vec1.getBlockY(), vec2.getBlockY());
+        int maxZ = Math.max(vec1.getBlockZ(), vec2.getBlockZ());
+        return BlockVector3.at(maxX, maxY, maxZ);
+    }
+
+    public static BlockVector3 min(BlockVector3 vec1, BlockVector3 vec2) {
+        int minX = Math.min(vec1.getBlockX(), vec2.getBlockX());
+        int minY = Math.min(vec1.getBlockY(), vec2.getBlockY());
+        int minZ = Math.min(vec1.getBlockZ(), vec2.getBlockZ());
+        return BlockVector3.at(minX, minY, minZ);
+    }
+
+    public static BlockVector3 getBlockVectorByLocation(Location location) {
+        int x = (int) location.getX();
+        int y = (int) location.getY();
+        int z = (int) location.getZ();
+        return BlockVector3.at(x, y, z);
+    }
+
+}

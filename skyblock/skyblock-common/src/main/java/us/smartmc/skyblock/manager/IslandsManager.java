@@ -20,13 +20,13 @@ public class IslandsManager {
         ISkyBlockIsland island = islands.get(id);
         if (island == null) return;
         unregister(island);
-        island.unregister();
     }
 
     public static void unregister(ISkyBlockIsland island) {
         UUID id = island.getId();
         if (!islands.containsKey(id)) return;
-        islands.remove(id).unregister();
+        get(id).unregister();
+        islands.remove(id);
     }
 
     public static ISkyBlockIsland get(UUID id) {

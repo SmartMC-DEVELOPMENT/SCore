@@ -26,7 +26,8 @@ public class PlayersManager {
     public static void unregister(ISkyBlockPlayer skyBlockPlayer) {
         UUID id = skyBlockPlayer.getId();
         if (!players.containsKey(id)) return;
-        players.remove(id).unregister();
+        get(id).unregister();
+        players.remove(id);
     }
 
     public static ISkyBlockPlayer get(UUID uuid) {

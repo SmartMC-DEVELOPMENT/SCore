@@ -6,6 +6,7 @@ import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bson.Document;
 import org.bukkit.Bukkit;
+import us.smartmc.game.SkyBlockPlugin;
 import us.smartmc.game.event.SkyBlockPlayerDataLoadedEvent;
 import us.smartmc.skyblock.instance.island.ISkyBlockIsland;
 import us.smartmc.skyblock.manager.PlayersManager;
@@ -27,12 +28,17 @@ public class SkyBlockPlayerData {
     private SkyBlockPlayer skyBlockPlayer;
 
     @Getter
-    private final Document document;
+    private Document document;
 
     public SkyBlockPlayerData(UUID id) {
         this.id = id;
-        this.document = loadData();
-        SyncUtil.async(() -> Bukkit.getPluginManager().callEvent(new SkyBlockPlayerDataLoadedEvent(SkyBlockPlayer.get(id), this)));
+
+        Bukkit.getScheduler().runTaskAsynchronously(SkyBlockPlugin.getPlugin(), () -> {
+            this.document = loadData();
+            Bukkit.getScheduler().runTask(SkyBlockPlugin.getPlugin(), () -> {
+                Bukkit.getPluginManager().callEvent(new SkyBlockPlayerDataLoadedEvent(SkyBlockPlayer.get(id), this));
+            });
+        });
     }
 
     public SkyBlockPlayerData(SkyBlockPlayer skyBlockPlayer) {
@@ -41,6 +47,7 @@ public class SkyBlockPlayerData {
 
     public void setIslandSet(ISkyBlockIsland island) {
         document.put(ISLAND_SET_KEY, island.getId().toString());
+        saveData();
     }
 
     public UUID getIslandSetId() {
@@ -69,8 +76,10 @@ public class SkyBlockPlayerData {
     }
 
     public void saveData() {
-        getCollection().deleteMany(getQuery());
-        getCollection().insertOne(document);
+        SyncUtil.async(() -> {
+            getCollection().deleteMany(getQuery());
+            getCollection().insertOne(document);
+        });
     }
 
     private Document loadData() {

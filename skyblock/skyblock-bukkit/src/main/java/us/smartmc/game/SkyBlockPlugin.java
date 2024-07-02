@@ -14,6 +14,7 @@ import us.smartmc.game.backend.SendInfoListener;
 import us.smartmc.game.listener.BackendBukkitListeners;
 import us.smartmc.game.listener.PlayerRegistryListeners;
 import us.smartmc.game.manager.ConfigsManager;
+import us.smartmc.game.manager.IslandsSchematicsManager;
 import us.smartmc.game.message.SkyBlockPlayerMesssages;
 import us.smartmc.game.variable.SkyBlockPlayerVariables;
 import us.smartmc.skyblock.ISkyBlockAPI;
@@ -43,6 +44,8 @@ public class SkyBlockPlugin extends JavaPlugin {
         EnumMessagesRegistry.registerLanguageHolder(SkyBlockPlayerMesssages.class);
 
         VariablesHandler.register(new SkyBlockPlayerVariables());
+
+        IslandsSchematicsManager.registerDefaults();
     }
 
     private static void setupAPI() {

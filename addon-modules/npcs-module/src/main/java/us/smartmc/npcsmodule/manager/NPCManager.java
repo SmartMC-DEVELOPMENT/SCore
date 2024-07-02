@@ -59,11 +59,11 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
         return remove(name);
     }
 
-    private void loadNPCsFromConfig() {
+    public void loadNPCsFromConfig() {
         for (String key : config.keySet()) {
             Document data = config.get(key, Document.class);
             registerDefaultsToDoc(data);
-            boolean enabled = (boolean) data.get("enabled");
+            boolean enabled = data.get("enabled", true);
             if (!enabled) continue;
             String name = (String) data.get("name");
             Location location = ConfigUtil.getLocation(data.get("location").toString(), " ");

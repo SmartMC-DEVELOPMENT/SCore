@@ -22,11 +22,16 @@ public class NPCUtil {
     public static CustomNPC getDefaultCustomNPC(NPCManager manager, Location location, String id) throws CorePluginException {
         if (location.getWorld() == null) throw new CorePluginException("NPC could not created: Location world is null");
 
+        Document data = new Document("nameVisible", true);
+        data.put("enabled", true);
+        data.put("location", ConfigUtil.getLocationString(location, " "));
+        data.put("name", id);
+
         return new CustomNPC(manager,
                 (((CraftWorld) location.getWorld()).getHandle()),
                 getIdOrDefault(id),
                 getNameOrDefault(id),
-                new Document("nameVisible", true));
+                data);
     }
 
 }

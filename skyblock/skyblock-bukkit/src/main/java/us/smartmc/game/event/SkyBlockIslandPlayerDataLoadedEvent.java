@@ -5,7 +5,6 @@ import us.smartmc.game.instance.SkyBlockPlayer;
 import us.smartmc.game.instance.SkyBlockPlayerData;
 import us.smartmc.game.instance.SkyBlockPlayerIslandData;
 
-@Getter
 public class SkyBlockIslandPlayerDataLoadedEvent extends SkyBlockPlayerEvent {
 
     private final SkyBlockPlayerIslandData data;
@@ -15,4 +14,7 @@ public class SkyBlockIslandPlayerDataLoadedEvent extends SkyBlockPlayerEvent {
         this.data = data;
     }
 
+    public SkyBlockPlayerIslandData getData() {
+        return data;
+    }
 }

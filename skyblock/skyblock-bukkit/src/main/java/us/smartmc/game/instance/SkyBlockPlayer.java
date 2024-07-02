@@ -29,7 +29,7 @@ public class SkyBlockPlayer implements ISkyBlockPlayer {
     protected SkyBlockPlayer(UUID id) {
         this.id = id;
         PlayersManager.register(this);
-        Bukkit.getScheduler().runTaskAsynchronously(SkyBlockPlugin.getPlugin(), this::load);
+        load();
     }
 
     public void addCoins(long amount) {

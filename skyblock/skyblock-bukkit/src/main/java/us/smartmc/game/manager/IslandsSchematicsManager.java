@@ -22,6 +22,7 @@ import us.smartmc.skyblock.manager.IslandsManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.UUID;
 
 public class IslandsSchematicsManager {
@@ -43,26 +44,46 @@ public class IslandsSchematicsManager {
 
     public static void saveRegion(World world, SkyBlockPlayerIsland island) throws Exception {
         com.sk89q.worldedit.world.World weWorld = WorldEdit.getInstance().getPlatformManager().getWorldForEditing(new BukkitWorld(world));
+
         BlockVector3 pos1 = getBlockVectorByLocation(island.getIslandData().getMinLocation(world));
         BlockVector3 pos2 = getBlockVectorByLocation(island.getIslandData().getMaxLocation(world));
 
-        BlockVector3 min = min(pos1, pos2);
-        BlockVector3 max = max(pos1, pos2);
+        BlockVector3 min = pos1.getMinimum(pos2);
+        BlockVector3 max = pos1.getMaximum(pos2);
+
+        BlockVector3 center = min.add(max.subtract(min).divide(2));
+
+        // Validar que las coordenadas están dentro del mundo
+        /*if (!weWorld.isValidLocation(min) || !weWorld.isValidLocation(max) || !weWorld.isValidLocation(center)) {
+            throw new IllegalArgumentException("Las coordenadas de la región están fuera de los límites válidos del mundo.");
+        }*/
 
         CuboidRegion region = new CuboidRegion(weWorld, min, max);
 
+        // Crear el portapapeles para copiar
         BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
 
-        ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(
-                weWorld, region, clipboard, min
-        );
-        Operations.complete(forwardExtentCopy);
+        // Realizar la copia
+        try (EditSession editSession = WorldEdit.getInstance().newEditSession(weWorld)) {
+            ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(
+                    editSession, region, clipboard, region.getMinimumPoint()
+            );
+            Operations.complete(forwardExtentCopy);
+        }
 
         File file = getMapSchematicFile(island.getIslandId());
 
+        // Guardar el portapapeles en un archivo schematic
         try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(file))) {
             writer.write(clipboard);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("Error al guardar el archivo schematic.", e);
         }
+    }
+
+    private static BlockVector3 getBlockVectorByLocation(Location location) {
+        return BlockVector3.at(location.getBlockX(), location.getBlockY(), location.getBlockZ());
     }
 
     public static void loadAndPasteSchematic(World world, UUID islandId) {
@@ -73,13 +94,17 @@ public class IslandsSchematicsManager {
             try (ClipboardReader reader = format.getReader(new FileInputStream(file))) {
                 clipboard = reader.read();
             }
-            Location location = getSpawnLocation(world, islandId);
-            BlockVector3 locVector = BlockVector3.at(location.getBlockX(), location.getBlockY(), location.getBlockZ());
 
-            try (EditSession editSession = WorldEdit.getInstance().newEditSession(new BukkitWorld(location.getWorld()))) {
+            SkyBlockPlayerIsland island = (SkyBlockPlayerIsland) IslandsManager.get(islandId);
+
+            BlockVector3 pos1 = getBlockVectorByLocation(island.getIslandData().getMinLocation(world));
+            BlockVector3 pos2 = getBlockVectorByLocation(island.getIslandData().getMaxLocation(world));
+            BlockVector3 min = min(pos1, pos2);
+
+            try (EditSession editSession = WorldEdit.getInstance().newEditSession(new BukkitWorld(world))) {
                 Operation operation = new ClipboardHolder(clipboard)
                         .createPaste(editSession)
-                        .to(locVector)
+                        .to(min)
                         .build();
                 Operations.complete(operation);
             }
@@ -105,13 +130,6 @@ public class IslandsSchematicsManager {
         int minY = Math.min(vec1.getBlockY(), vec2.getBlockY());
         int minZ = Math.min(vec1.getBlockZ(), vec2.getBlockZ());
         return BlockVector3.at(minX, minY, minZ);
-    }
-
-    public static BlockVector3 getBlockVectorByLocation(Location location) {
-        int x = (int) location.getX();
-        int y = (int) location.getY();
-        int z = (int) location.getZ();
-        return BlockVector3.at(x, y, z);
     }
 
 }

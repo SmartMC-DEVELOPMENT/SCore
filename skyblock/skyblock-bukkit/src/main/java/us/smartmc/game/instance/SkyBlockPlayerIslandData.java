@@ -8,14 +8,16 @@ import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.joml.Vector3d;
 import us.smartmc.core.util.ConfigUtils;
 import us.smartmc.game.SkyBlockPlugin;
 import us.smartmc.game.event.SkyBlockIslandPlayerDataLoadedEvent;
+import us.smartmc.skyblock.instance.island.ISkyBlockIslandData;
 
 import java.util.UUID;
 
 @Getter
-public class SkyBlockPlayerIslandData {
+public class SkyBlockPlayerIslandData implements ISkyBlockIslandData {
 
     private static final String DATABASE_NAME = "skyblock";
     private static final String COLLECTION_NAME = "island_data";
@@ -67,11 +69,11 @@ public class SkyBlockPlayerIslandData {
         setLocation(location, MAX_LOC_KEY);
     }
 
-    public Location getMinLocation(World world) {
+    public Location getMinLocationBukkit(World world) {
         return getLocation(world, MIN_LOC_KEY);
     }
 
-    public Location getMaxLocation(World world) {
+    public Location getMaxLocationBukkit(World world) {
         return getLocation(world, MAX_LOC_KEY);
     }
 
@@ -106,4 +108,15 @@ public class SkyBlockPlayerIslandData {
                 .getCollection(COLLECTION_NAME);
     }
 
+    @Override
+    public Vector3d getMinLocation(Object world) {
+        Location location = getMinLocationBukkit((World) world);
+        return new Vector3d(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+    }
+
+    @Override
+    public Vector3d getMaxLocation(Object world) {
+        Location location = getMaxLocationBukkit((World) world);
+        return new Vector3d(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+    }
 }

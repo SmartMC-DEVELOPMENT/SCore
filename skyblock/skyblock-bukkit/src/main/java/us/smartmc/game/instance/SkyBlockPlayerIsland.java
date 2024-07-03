@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 public class SkyBlockPlayerIsland implements ISkyBlockIsland {
 
-    private final UUID islandId;
+    protected final UUID islandId;
     private final UUID ownerId;
 
     protected SkyBlockPlayerIslandData islandData;
@@ -42,7 +42,7 @@ public class SkyBlockPlayerIsland implements ISkyBlockIsland {
         });
     }
 
-    void setupIsland() {
+    public void setupIsland() {
         World world = createIslandWorld();
         world.setSpawnLocation(0, 70, 0);
         Location spawn = world.getSpawnLocation();
@@ -57,16 +57,11 @@ public class SkyBlockPlayerIsland implements ISkyBlockIsland {
                 // Load from island set or default one if not set!
                 UUID islandIdToGenerate =  getSkyBlockPlayer().getPlayerData().getIslandSetId();
                 if (createdIsland) islandIdToGenerate = IslandsSchematicsManager.getDefaultIslandId();
-
-
                 IslandsSchematicsManager.loadAndPasteSchematic(world, islandIdToGenerate);
-
                 Bukkit.getScheduler().runTask(SkyBlockPlugin.getPlugin(), () -> {
                     player.teleport(spawn.clone().add(0.5, 0.5, 0.5));
                 });
             });
-
-
         }
     }
 
@@ -95,7 +90,7 @@ public class SkyBlockPlayerIsland implements ISkyBlockIsland {
         return islandId;
     }
 
-    private World createIslandWorld() {
+    public World createIslandWorld() {
         WorldCreator worldCreator = new WorldCreator(getIslandWorldName(islandId));
         worldCreator.generator(new EmptyChunkGenerator());
         return worldCreator.createWorld();
@@ -105,7 +100,7 @@ public class SkyBlockPlayerIsland implements ISkyBlockIsland {
         return Bukkit.getWorld(getIslandWorldName(islandId));
     }
 
-    private static String getIslandWorldName(UUID id) {
+    protected static String getIslandWorldName(UUID id) {
         return "island-" + id.toString();
     }
 

@@ -15,8 +15,10 @@ import com.sk89q.worldedit.session.ClipboardHolder;
 import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.joml.Vector3d;
 import us.smartmc.game.instance.DefaultIsland;
 import us.smartmc.game.instance.SkyBlockPlayerIsland;
+import us.smartmc.skyblock.instance.island.ISkyBlockIsland;
 import us.smartmc.skyblock.manager.IslandsManager;
 
 import java.io.File;
@@ -42,16 +44,13 @@ public class IslandsSchematicsManager {
         return new File(ISLANDS_DIRECTORY, islandId.toString() + ".schem");
     }
 
-    public static void saveRegion(World world, SkyBlockPlayerIsland island) throws Exception {
+    public static void saveRegion(World world, ISkyBlockIsland island) throws Exception {
         com.sk89q.worldedit.world.World weWorld = WorldEdit.getInstance().getPlatformManager().getWorldForEditing(new BukkitWorld(world));
 
         BlockVector3 pos1 = getBlockVectorByLocation(island.getIslandData().getMinLocation(world));
         BlockVector3 pos2 = getBlockVectorByLocation(island.getIslandData().getMaxLocation(world));
-
-        BlockVector3 min = pos1.getMinimum(pos2);
-        BlockVector3 max = pos1.getMaximum(pos2);
-
-        BlockVector3 center = min.add(max.subtract(min).divide(2));
+        BlockVector3 min = min(pos1, pos2);
+        BlockVector3 max = max(pos1, pos2);
 
         // Validar que las coordenadas están dentro del mundo
         /*if (!weWorld.isValidLocation(min) || !weWorld.isValidLocation(max) || !weWorld.isValidLocation(center)) {
@@ -66,12 +65,12 @@ public class IslandsSchematicsManager {
         // Realizar la copia
         try (EditSession editSession = WorldEdit.getInstance().newEditSession(weWorld)) {
             ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(
-                    editSession, region, clipboard, region.getMinimumPoint()
+                    editSession, region, clipboard, min
             );
             Operations.complete(forwardExtentCopy);
         }
 
-        File file = getMapSchematicFile(island.getIslandId());
+        File file = getMapSchematicFile(island.getId());
 
         // Guardar el portapapeles en un archivo schematic
         try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(file))) {
@@ -82,8 +81,8 @@ public class IslandsSchematicsManager {
         }
     }
 
-    private static BlockVector3 getBlockVectorByLocation(Location location) {
-        return BlockVector3.at(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+    private static BlockVector3 getBlockVectorByLocation(Vector3d vector3d) {
+        return BlockVector3.at(vector3d.x(), vector3d.y(), vector3d.z());
     }
 
     public static void loadAndPasteSchematic(World world, UUID islandId) {

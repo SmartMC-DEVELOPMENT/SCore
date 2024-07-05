@@ -28,7 +28,7 @@ public class DefaultIsland extends SkyBlockPlayerIsland {
 
     @Override
     public void setupIsland() {
-        World world = createIslandWorld();
+        World world = IslandsSchematicsManager.getDefaultIslandWorld();
         world.setSpawnLocation(0, 70, 0);
         Location spawn = world.getSpawnLocation();
         Location min = spawn.clone().add(-30, -30, -30);
@@ -42,7 +42,7 @@ public class DefaultIsland extends SkyBlockPlayerIsland {
     }
 
     public World getWorld() {
-        return Bukkit.getWorld(getIslandWorldName(islandId));
+        return IslandsSchematicsManager.getDefaultIslandWorld();
     }
 
 }

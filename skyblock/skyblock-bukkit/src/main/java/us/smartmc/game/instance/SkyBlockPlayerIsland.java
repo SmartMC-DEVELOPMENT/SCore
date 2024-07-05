@@ -1,11 +1,12 @@
+
 package us.smartmc.game.instance;
 
 import lombok.Getter;
+import lombok.Setter;
 import me.imsergioh.pluginsapi.region.BukkitCuboidRegion;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import us.smartmc.game.SkyBlockPlugin;
 import us.smartmc.game.manager.IslandsSchematicsManager;
@@ -23,6 +24,9 @@ public class SkyBlockPlayerIsland implements ISkyBlockIsland {
 
     boolean createdIsland;
 
+    @Setter
+    @Getter
+    private String islandWorldName;
     private BukkitCuboidRegion cuboidRegion;
 
     // Create Island
@@ -57,7 +61,8 @@ public class SkyBlockPlayerIsland implements ISkyBlockIsland {
     }
 
     public void setupIsland() {
-        World world = createIslandWorld();
+        World world = IslandsSchematicsManager.getNextIslandWorld();
+        islandWorldName = world.getName();
         world.setSpawnLocation(0, 70, 0);
         Location spawn = world.getSpawnLocation();
         Location min = spawn.clone().add(-30, -30, -30);
@@ -104,18 +109,8 @@ public class SkyBlockPlayerIsland implements ISkyBlockIsland {
         return islandId;
     }
 
-    public World createIslandWorld() {
-        WorldCreator worldCreator = new WorldCreator(getIslandWorldName(islandId));
-        worldCreator.generator(new EmptyChunkGenerator());
-        return worldCreator.createWorld();
-    }
-
     private World getWorld() {
-        return Bukkit.getWorld(getIslandWorldName(islandId));
-    }
-
-    protected static String getIslandWorldName(UUID id) {
-        return "island-" + id.toString();
+        return Bukkit.getWorld(islandWorldName);
     }
 
 }

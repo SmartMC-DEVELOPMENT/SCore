@@ -13,10 +13,15 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.session.ClipboardHolder;
 import lombok.Getter;
+import me.imsergioh.pluginsapi.util.SyncUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.joml.Vector3d;
+import us.smartmc.game.SkyBlockPlugin;
 import us.smartmc.game.instance.DefaultIsland;
+import us.smartmc.game.instance.EmptyChunkGenerator;
 import us.smartmc.game.instance.SkyBlockPlayerIsland;
 import us.smartmc.skyblock.instance.island.ISkyBlockIsland;
 import us.smartmc.skyblock.manager.IslandsManager;
@@ -34,10 +39,12 @@ public class IslandsSchematicsManager {
     @Getter
     private static final UUID defaultIslandId = UUID.fromString("e3d71b5a-2f63-4084-abe4-f03cb33258bd");
 
+    private static World nextWorld;
 
     public static void registerDefaults() {
         ISLANDS_DIRECTORY.mkdirs();
         IslandsManager.register(new DefaultIsland(defaultIslandId));
+        nextWorld = createIslandWorld();
     }
 
     public static File getMapSchematicFile(UUID islandId) {
@@ -129,6 +136,37 @@ public class IslandsSchematicsManager {
         int minY = Math.min(vec1.getBlockY(), vec2.getBlockY());
         int minZ = Math.min(vec1.getBlockZ(), vec2.getBlockZ());
         return BlockVector3.at(minX, minY, minZ);
+    }
+
+    public static World getNextIslandWorld() {
+        prepareNextIslandWorld();
+        return nextWorld;
+    }
+
+    public static void prepareNextIslandWorld() {
+        SyncUtil.later(() -> {
+            Bukkit.getScheduler().runTask(SkyBlockPlugin.getPlugin(), () -> {
+                nextWorld = createIslandWorld();
+            });
+        }, 25);
+    }
+
+    private static World createIslandWorld() {
+        WorldCreator worldCreator = new WorldCreator(getIslandWorldName(UUID.randomUUID()));
+        worldCreator.generator(new EmptyChunkGenerator());
+        return worldCreator.createWorld();
+    }
+
+    public static World getDefaultIslandWorld() {
+        World w = Bukkit.getWorld(getIslandWorldName(defaultIslandId));
+        if (w != null) return w;
+        WorldCreator worldCreator = new WorldCreator(getIslandWorldName(defaultIslandId));
+        worldCreator.generator(new EmptyChunkGenerator());
+        return worldCreator.createWorld();
+    }
+
+    protected static String getIslandWorldName(UUID id) {
+        return "island-" + id.toString();
     }
 
 }

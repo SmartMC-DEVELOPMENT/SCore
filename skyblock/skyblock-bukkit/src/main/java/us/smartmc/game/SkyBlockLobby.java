@@ -1,6 +1,7 @@
 
 package us.smartmc.game;
 
+import com.comphenix.protocol.ProtocolLibrary;
 import us.smartmc.game.listener.MainIslandsListeners;
 import us.smartmc.game.listener.TestListeners;
 import us.smartmc.game.util.WorldUtils;

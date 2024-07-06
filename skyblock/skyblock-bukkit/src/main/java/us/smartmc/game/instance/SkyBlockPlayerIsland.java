@@ -61,27 +61,28 @@ public class SkyBlockPlayerIsland implements ISkyBlockIsland {
     }
 
     public void setupIsland() {
-        World world = IslandsSchematicsManager.getNextIslandWorld();
-        islandWorldName = world.getName();
-        world.setSpawnLocation(0, 70, 0);
-        Location spawn = world.getSpawnLocation();
-        Location min = spawn.clone().add(-30, -30, -30);
-        Location max = spawn.clone().add(30, 30, 30);
-        islandData.setupIslandData(min, max, spawn);
-        SkyBlockPlayer skyBlockPlayer = getSkyBlockPlayer();
-        if (skyBlockPlayer != null && skyBlockPlayer.getBukkitPlayer() != null) {
-            Player player = skyBlockPlayer.getBukkitPlayer();
+        IslandsSchematicsManager.createIslandWorld(islandId).thenAccept(world -> {
+            islandWorldName = world.getName();
+            world.setSpawnLocation(0, 70, 0);
+            Location spawn = world.getSpawnLocation();
+            Location min = spawn.clone().add(-30, -30, -30);
+            Location max = spawn.clone().add(30, 30, 30);
+            islandData.setupIslandData(min, max, spawn);
+            SkyBlockPlayer skyBlockPlayer = getSkyBlockPlayer();
+            if (skyBlockPlayer != null && skyBlockPlayer.getBukkitPlayer() != null) {
+                Player player = skyBlockPlayer.getBukkitPlayer();
 
-            Bukkit.getScheduler().runTaskAsynchronously(SkyBlockPlugin.getPlugin(), () -> {
-                // Load from island set or default one if not set!
-                UUID islandIdToGenerate =  getSkyBlockPlayer().getPlayerData().getIslandSetId();
-                if (createdIsland) islandIdToGenerate = IslandsSchematicsManager.getDefaultIslandId();
-                IslandsSchematicsManager.loadAndPasteSchematic(world, islandIdToGenerate);
-                Bukkit.getScheduler().runTask(SkyBlockPlugin.getPlugin(), () -> {
-                    player.teleport(spawn.clone().add(0.5, 0.5, 0.5));
+                Bukkit.getScheduler().runTaskAsynchronously(SkyBlockPlugin.getPlugin(), () -> {
+                    // Load from island set or default one if not set!
+                    UUID islandIdToGenerate =  getSkyBlockPlayer().getPlayerData().getIslandSetId();
+                    if (createdIsland) islandIdToGenerate = IslandsSchematicsManager.getDefaultIslandId();
+                    IslandsSchematicsManager.loadAndPasteSchematic(world, islandIdToGenerate);
+                    Bukkit.getScheduler().runTask(SkyBlockPlugin.getPlugin(), () -> {
+                        player.teleport(spawn.clone().add(0.5, 0.5, 0.5));
+                    });
                 });
-            });
-        }
+            }
+        });
     }
 
     // When unloads from manager

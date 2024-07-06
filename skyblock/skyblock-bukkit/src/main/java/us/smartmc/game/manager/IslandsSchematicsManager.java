@@ -18,6 +18,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.joml.Vector3d;
 import us.smartmc.game.SkyBlockPlugin;
 import us.smartmc.game.instance.DefaultIsland;
@@ -30,7 +31,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class IslandsSchematicsManager {
 
@@ -39,12 +43,9 @@ public class IslandsSchematicsManager {
     @Getter
     private static final UUID defaultIslandId = UUID.fromString("e3d71b5a-2f63-4084-abe4-f03cb33258bd");
 
-    private static World nextWorld;
-
     public static void registerDefaults() {
         ISLANDS_DIRECTORY.mkdirs();
         IslandsManager.register(new DefaultIsland(defaultIslandId));
-        nextWorld = createIslandWorld();
     }
 
     public static File getMapSchematicFile(UUID islandId) {
@@ -138,21 +139,31 @@ public class IslandsSchematicsManager {
         return BlockVector3.at(minX, minY, minZ);
     }
 
-    public static World getNextIslandWorld() {
-        prepareNextIslandWorld();
-        return nextWorld;
-    }
-
-    public static void prepareNextIslandWorld() {
-        Bukkit.getScheduler().runTask(SkyBlockPlugin.getPlugin(), () -> {
-            nextWorld = createIslandWorld();
+    public static CompletableFuture<World> createIslandWorld(UUID id) {
+        return CompletableFuture.supplyAsync(() -> {
+            // Preparación del mundo (puede ser asíncrona)
+            String worldName = getIslandWorldName(id);
+            WorldCreator worldCreator = new WorldCreator(worldName);
+            // Aquí puedes configurar el mundo (generador, tipo, etc.)
+            worldCreator.generator(new EmptyChunkGenerator());
+            // Devolver el WorldCreator para que se use en el hilo principal
+            return worldCreator;
+        }).thenCompose(worldCreator -> {
+            // Sincronizar la creación del mundo en el hilo principal
+            CompletableFuture<World> worldFuture = new CompletableFuture<>();
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    try {
+                        World world = Bukkit.createWorld(worldCreator);
+                        worldFuture.complete(world);
+                    } catch (Exception e) {
+                        worldFuture.completeExceptionally(e);
+                    }
+                }
+            }.runTask(SkyBlockPlugin.getPlugin());
+            return worldFuture;
         });
-    }
-
-    private static World createIslandWorld() {
-        WorldCreator worldCreator = new WorldCreator(getIslandWorldName(UUID.randomUUID()));
-        worldCreator.generator(new EmptyChunkGenerator());
-        return worldCreator.createWorld();
     }
 
     public static World getDefaultIslandWorld() {

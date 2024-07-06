@@ -21,4 +21,5 @@ us\smartmc\game\instance\DefaultIsland.class
 us\smartmc\game\util\WorldUtils.class
 us\smartmc\game\SkyBlockPlugin.class
 us\smartmc\game\instance\EmptyChunkGenerator.class
+us\smartmc\game\manager\IslandsSchematicsManager$1.class
 us\smartmc\game\listener\TestListeners.class

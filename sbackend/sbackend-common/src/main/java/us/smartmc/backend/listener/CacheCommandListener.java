@@ -14,9 +14,9 @@ public class CacheCommandListener extends BackendObjectListener<CacheCommandRequ
         CacheManager manager = command.getCacheManager();
         switch (command.getType()) {
             case GET -> {
-                connection.updateCache(command.getKey(), manager.get(command.getKey()));
+                connection.setCache(command.getKey(), manager.get(command.getKey()));
             }
-            case UPDATE -> {
+            case SET -> {
                 manager.put(command.getKey(), command.getValue());
             }
             case REGISTER -> {

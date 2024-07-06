@@ -13,9 +13,5 @@ public class TestCommand extends BackendCommandExecutor {
     @Override
     public void onCommand(ConnectionHandler connection, String label, String[] args) {
         System.out.println("TEST command hello world!");
-
-        TestMain.timingTest.registerEnd();
-        long duration = TestMain.timingTest.getDifference();
-        System.out.println("Ha durado " + duration + "ms");
     }
 }

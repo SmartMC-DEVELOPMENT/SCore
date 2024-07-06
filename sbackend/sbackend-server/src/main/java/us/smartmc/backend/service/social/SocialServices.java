@@ -1,9 +1,8 @@
-package us.smartmc.backend.service;
+package us.smartmc.backend.service.social;
 
 import lombok.Getter;
 import us.smartmc.backend.handler.ServicesManager;
 import us.smartmc.backend.instance.service.BackendService;
-import us.smartmc.backend.service.social.SocialMessagesService;
 
 @Getter
 public class SocialServices extends BackendService {

@@ -23,9 +23,8 @@ public class BroadcastListener extends BackendObjectListener<BroadcastRequest> {
 
         for (Object arg : request.getArgs()) {
             if (arg instanceof CommandRequest commandRequest) {
-                System.out.println("CMD REQUEST" + commandRequest);
+                ConnectionInputManager.performCommand(clientConnection.getConnectionHandler(), commandRequest);
             }
-            System.out.println("Broadcasting " + arg.toString());
             clientConnection.getConnectionHandler().sendObject(arg);
         }
     }

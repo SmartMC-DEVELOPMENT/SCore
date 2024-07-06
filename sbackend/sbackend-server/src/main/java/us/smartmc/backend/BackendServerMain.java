@@ -14,7 +14,7 @@ import us.smartmc.backend.instance.config.JsonConfig;
 import us.smartmc.backend.listener.BroadcastCommandListener;
 import us.smartmc.backend.listener.BroadcastListener;
 import us.smartmc.backend.listener.SubscriptionsListeners;
-import us.smartmc.backend.service.SocialServices;
+import us.smartmc.backend.service.social.SocialServices;
 import us.smartmc.backend.util.ConsoleUtil;
 
 import java.io.File;
@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
 
 public class BackendServerMain {
 
@@ -40,13 +42,13 @@ public class BackendServerMain {
 
         setupConfiguration();
         LoginAuthManager.loadAuthentifications();
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                new ModulesHandler().loadModulesJars();
-            }
-        }, 250);
+
         registerCommands();
+
+        // TODO: COMPROBAR SI ESTO DEL THREAD FUNCIONA, YA QUE ANTES TENÍA 250MS DELAY CON UN TIMER PARA QUE FUNCIONASE
+        new Thread(() -> {
+            new ModulesHandler().loadModulesJars();
+        }).start();
 
         startBackendServer();
         startReadingConsoleInput();
@@ -85,7 +87,6 @@ public class BackendServerMain {
                 if (line.toLowerCase().equals("reloadmodules")) {
                     new ModulesHandler().loadModulesJars();
                 }
-
                 ConsoleUtil.print("Comando ingresado: " + line);
             }
         } catch (Exception e) {

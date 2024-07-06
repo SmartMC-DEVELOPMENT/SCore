@@ -11,12 +11,9 @@ import us.smartmc.backend.listener.CommandHandlerListener;
 import us.smartmc.backend.listener.MessagingChannelListener;
 import us.smartmc.backend.protocol.CacheCommandRequest;
 import us.smartmc.backend.protocol.CommandRequest;
-import us.smartmc.backend.protocol.ObjectCommand;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Consumer;
 
 @Getter
@@ -81,8 +78,8 @@ public class ConnectionHandler implements Runnable {
         sendObject(new CacheCommandRequest(CacheCommand.build(CacheCommandType.GET, key)));
     }
 
-    public void updateCache(String key, Object value) {
-        sendObject(new CacheCommandRequest(CacheCommand.build(CacheCommandType.UPDATE, key).value(value)));
+    public void setCache(String key, Object value) {
+        sendObject(new CacheCommandRequest(CacheCommand.build(CacheCommandType.SET, key).value(value)));
     }
 
     public void removeCache(String key) {

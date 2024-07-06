@@ -1,10 +1,60 @@
 package us.smartmc.game.util;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Objects;
+
 public class WorldUtils {
+
+    public static void deleteIslandWorlds() {
+        try {
+            for (File file : Objects.requireNonNull(Bukkit.getWorlds().get(0).getWorldFolder().getParentFile().listFiles())) {
+                if (file.getName().startsWith("island-") && file.isDirectory()) {
+                    String worldName = file.getName();
+                    System.out.println("Trying to delete world: " + worldName);
+                    Bukkit.unloadWorld(worldName, false);
+                    WorldUtils.deleteWorldFolder(file);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error trying to delete island worlds: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void deleteWorldFolder(File worldFolder) {
+        File[] files = worldFolder.listFiles();
+        if (files == null) return;
+        for (File file : files) {
+            if (file.isDirectory()) {
+                // Call recursive method
+                deleteWorldFolder(file);
+                continue;
+            }
+
+            // Delete if file
+            try {
+                Files.delete(Paths.get(file.getAbsolutePath()));
+            } catch (IOException e) {
+                System.out.println("Error trying to delete File: " + file.getAbsolutePath());
+                throw new RuntimeException(e);
+            }
+        }
+
+        try {
+            Files.delete(Paths.get(worldFolder.getAbsolutePath()));
+        } catch (IOException e) {
+            System.out.println("Error trying to delete Folder: " + worldFolder.getAbsolutePath());
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void loadChunksBetweenLocations(Location pos1, Location pos2) {
         if (pos1 == null || pos2 == null) {

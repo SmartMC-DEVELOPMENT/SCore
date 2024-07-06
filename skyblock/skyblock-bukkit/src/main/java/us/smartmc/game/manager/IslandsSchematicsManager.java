@@ -144,11 +144,9 @@ public class IslandsSchematicsManager {
     }
 
     public static void prepareNextIslandWorld() {
-        SyncUtil.later(() -> {
-            Bukkit.getScheduler().runTask(SkyBlockPlugin.getPlugin(), () -> {
-                nextWorld = createIslandWorld();
-            });
-        }, 25);
+        Bukkit.getScheduler().runTask(SkyBlockPlugin.getPlugin(), () -> {
+            nextWorld = createIslandWorld();
+        });
     }
 
     private static World createIslandWorld() {

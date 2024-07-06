@@ -1,10 +1,12 @@
+
 package us.smartmc.game;
 
-import org.bukkit.WorldCreator;
 import us.smartmc.game.listener.MainIslandsListeners;
 import us.smartmc.game.listener.TestListeners;
+import us.smartmc.game.util.WorldUtils;
 import us.smartmc.skyblock.ISkyBlockAPI;
 import us.smartmc.skyblock.instance.SkyBlockServerType;
+
 
 public class SkyBlockLobby implements ISkyBlockAPI {
 
@@ -12,16 +14,18 @@ public class SkyBlockLobby implements ISkyBlockAPI {
     public void onEnable() {
         SkyBlockPlugin.registerListeners(new MainIslandsListeners(), new TestListeners());
 
-        new WorldCreator("island-72d86ee6-18a1-4714-a4a2-38d86cd70553").createWorld();
+        WorldUtils.deleteIslandWorlds();
     }
 
     @Override
     public void onDisable() {
-
+        WorldUtils.deleteIslandWorlds();
     }
 
     @Override
     public SkyBlockServerType getBlockModeType() {
         return SkyBlockServerType.SPAWN;
     }
+
+
 }

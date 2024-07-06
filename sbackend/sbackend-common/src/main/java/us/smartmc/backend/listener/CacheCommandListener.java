@@ -4,16 +4,17 @@ import us.smartmc.backend.connection.ConnectionHandler;
 import us.smartmc.backend.handler.CacheManager;
 import us.smartmc.backend.instance.BackendObjectListener;
 import us.smartmc.backend.instance.cache.CacheCommand;
-import us.smartmc.backend.instance.cache.CacheCommandType;
+import us.smartmc.backend.protocol.CacheCommandRequest;
 
-public class CacheCommandListener extends BackendObjectListener<CacheCommand> {
+public class CacheCommandListener extends BackendObjectListener<CacheCommandRequest> {
 
     @Override
-    public void onReceive(ConnectionHandler connection, CacheCommand command) {
+    public void onReceive(ConnectionHandler connection, CacheCommandRequest commandRequest) {
+        CacheCommand command = CacheCommandRequest.getCacheCommandFromRequest(commandRequest);
         CacheManager manager = command.getCacheManager();
         switch (command.getType()) {
             case GET -> {
-                connection.sendObject(CacheCommand.build(CacheCommandType.UPDATE, command.getKey()).value(manager.get(command.getKey())));
+                connection.updateCache(command.getKey(), manager.get(command.getKey()));
             }
             case UPDATE -> {
                 manager.put(command.getKey(), command.getValue());

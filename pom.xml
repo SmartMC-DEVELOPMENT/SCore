@@ -20,7 +20,7 @@
         <module>addon-modules/holograms-module</module>
         <module>MessagesMigration</module>
         <module>sbackend/test-module</module>
-        <module>sbackend-service/players-service</module>
+        <module>sbackend-services/players-service</module>
     </modules>
 
     <properties>

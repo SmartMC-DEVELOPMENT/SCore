@@ -26,10 +26,6 @@ public class ConnectionOutputStream  {
         send(new CommandRequest(command));
     }
 
-    public void writeUTF(String utf) throws IOException {
-        send(utf);
-    }
-
     public void writeObject(Object object) throws IOException {
         send(object);
     }

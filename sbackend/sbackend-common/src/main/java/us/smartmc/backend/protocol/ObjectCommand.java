@@ -1,7 +1,5 @@
 package us.smartmc.backend.protocol;
 
-import com.google.gson.Gson;
-
 import java.io.*;
 
 public class ObjectCommand implements Serializable {

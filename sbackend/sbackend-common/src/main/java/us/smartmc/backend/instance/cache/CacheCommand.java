@@ -45,7 +45,7 @@ public class CacheCommand {
     }
 
     public static CacheCommand build(CacheCommandType type, String key) {
-        return new CacheCommand("main", type, key);
+        return build(type, "main", key);
     }
 
     public static CacheCommand build(CacheCommandType type, String id, String key) {

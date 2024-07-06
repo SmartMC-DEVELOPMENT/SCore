@@ -9,6 +9,7 @@ import us.smartmc.backend.instance.messaging.MessageCommand;
 import us.smartmc.backend.listener.CacheCommandListener;
 import us.smartmc.backend.listener.CommandHandlerListener;
 import us.smartmc.backend.listener.MessagingChannelListener;
+import us.smartmc.backend.protocol.CacheCommandRequest;
 import us.smartmc.backend.protocol.CommandRequest;
 import us.smartmc.backend.protocol.ObjectCommand;
 
@@ -72,20 +73,20 @@ public class ConnectionHandler implements Runnable {
     }
 
     public void registerCache(String key, Object value) {
-        sendObject(CacheCommand.build(CacheCommandType.REGISTER, key).value(value));
+        sendObject(new CacheCommandRequest(CacheCommand.build(CacheCommandType.REGISTER, key).value(value)));
     }
 
     // TODO: HACER METODO PARA OBTENER Y TRABAJAR CON LO OBTENIDO (de momento solo envia instruccion y en segundo plano obtiene valor a local)
     public void getCache(String key, Consumer<Object> consumer) {
-        sendObject(CacheCommand.build(CacheCommandType.GET, key));
+        sendObject(new CacheCommandRequest(CacheCommand.build(CacheCommandType.GET, key)));
     }
 
     public void updateCache(String key, Object value) {
-        sendObject(CacheCommand.build(CacheCommandType.UPDATE, key).value(value));
+        sendObject(new CacheCommandRequest(CacheCommand.build(CacheCommandType.UPDATE, key).value(value)));
     }
 
     public void removeCache(String key) {
-        sendObject(CacheCommand.build(CacheCommandType.REMOVE, key));
+        sendObject(new CacheCommandRequest(CacheCommand.build(CacheCommandType.REMOVE, key)));
     }
 
     public void handleException(Exception e) {
@@ -94,14 +95,6 @@ public class ConnectionHandler implements Runnable {
             outputStream.close();
             connection.close();
         } catch (IOException ex) {
-            handleException(e);
-        }
-    }
-
-    public void sendMessage(String message) {
-        try {
-            outputStream.writeUTF(message);
-        } catch (IOException e) {
             handleException(e);
         }
     }

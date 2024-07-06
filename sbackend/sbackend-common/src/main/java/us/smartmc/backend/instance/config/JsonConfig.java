@@ -35,7 +35,6 @@ public class JsonConfig extends FileConfig {
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .create();
-        System.out.println("Saving " + data);
         try (FileWriter writer = new FileWriter(file.getAbsolutePath())) {
             gson.toJson(data, writer);
         } catch (IOException e) {

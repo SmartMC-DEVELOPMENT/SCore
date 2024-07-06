@@ -1,16 +1,18 @@
 package us.smartmc.backend.protocol;
 
-import lombok.Getter;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 
-@Getter
 public class UTFMessage implements Serializable {
 
-    private final String message;
+    private final byte[] message;
 
     public UTFMessage(String message) {
-        this.message = message;
+        this.message = message.getBytes(StandardCharsets.UTF_8);
     }
 
+    public String getMessage() {
+        return new String(message, StandardCharsets.UTF_8);
+    }
 }

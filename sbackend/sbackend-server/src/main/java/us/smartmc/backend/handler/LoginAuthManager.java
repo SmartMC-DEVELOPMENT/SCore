@@ -15,6 +15,7 @@ public class LoginAuthManager {
 
     public static void loadAuthentifications() {
         try {
+            System.out.print(BackendServerMain.getLoginsDirectory().getAbsolutePath());
             for (File file : Objects.requireNonNull(BackendServerMain.getLoginsDirectory().listFiles())) {
                 FileConfig config = null;
                 String fileName = file.getName();

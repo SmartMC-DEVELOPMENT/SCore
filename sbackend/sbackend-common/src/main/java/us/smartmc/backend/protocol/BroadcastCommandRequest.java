@@ -1,22 +1,28 @@
 package us.smartmc.backend.protocol;
 
-import lombok.Getter;
-
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 
-@Getter
 public class BroadcastCommandRequest implements Serializable {
 
-    private final String label;
-    private final String context;
+    private final byte[] label;
+    private final byte[] context;
 
     public BroadcastCommandRequest(String label) {
-        this.label = label;
+        this.label = label.getBytes(StandardCharsets.UTF_8);
         this.context = null;
     }
 
     public BroadcastCommandRequest(String context, String label) {
-        this.context = context;
-        this.label = label;
+        this.context = context.getBytes(StandardCharsets.UTF_8);
+        this.label = label.getBytes(StandardCharsets.UTF_8);
+    }
+
+    public String getLabel() {
+        return new String(label, StandardCharsets.UTF_8);
+    }
+
+    public String getContext() {
+        return new String(label, StandardCharsets.UTF_8);
     }
 }

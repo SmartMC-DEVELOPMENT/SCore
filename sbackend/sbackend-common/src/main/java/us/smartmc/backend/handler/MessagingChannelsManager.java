@@ -14,11 +14,10 @@ public class MessagingChannelsManager {
         }
     }
 
-    public static boolean perform(String channelId, String message) {
+    public static void perform(String channelId, String message) {
         MessageChannel channel = channelsRegistry.get(channelId);
-        if (channel == null) return false;
+        if (channel == null) return;
         channel.onMessage(channelId, message);
-        return true;
     }
 
 }

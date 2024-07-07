@@ -23,7 +23,6 @@ public class TestCommand extends TextCommand {
             event.getChannel().sendMessage("No estas vinculado hijo mio").complete();
             return;
         }
-
         minecraftUser.sendMessage("Hola buenas tardes {0}", member.getUser().getName());
     }
 }

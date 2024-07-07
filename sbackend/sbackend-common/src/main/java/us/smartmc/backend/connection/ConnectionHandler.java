@@ -5,14 +5,18 @@ import us.smartmc.backend.command.ServiceCommand;
 import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.backend.instance.cache.CacheCommand;
 import us.smartmc.backend.instance.cache.CacheCommandType;
+import us.smartmc.backend.instance.filetransfer.FileTransferType;
 import us.smartmc.backend.instance.messaging.MessageCommand;
-import us.smartmc.backend.listener.CacheCommandListener;
-import us.smartmc.backend.listener.CommandHandlerListener;
-import us.smartmc.backend.listener.MessagingChannelListener;
+import us.smartmc.backend.listener.*;
 import us.smartmc.backend.protocol.CacheCommandRequest;
 import us.smartmc.backend.protocol.CommandRequest;
+import us.smartmc.backend.protocol.FileTransferChunk;
+import us.smartmc.backend.protocol.FileTransferRegistrar;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.function.Consumer;
 
@@ -45,7 +49,9 @@ public class ConnectionHandler implements Runnable {
                 .registerListeners(
                         new CommandHandlerListener(),
                         new CacheCommandListener(),
-                        new MessagingChannelListener());
+                        new MessagingChannelListener(),
+                        new FileTransferRegistrarListener(),
+                        new FileTransferChunkListener());
         defaultListenersAlreadyRegistered = true;
     }
 
@@ -62,6 +68,33 @@ public class ConnectionHandler implements Runnable {
             }
         } catch (Exception e) {
             handleException(e);
+        }
+    }
+
+    public void sendFile(File file, FileTransferType type, String destionationPath) {
+        FileTransferRegistrar registrar = new FileTransferRegistrar(file, type, destionationPath);
+        try {
+            outputStream.writeObject(registrar);
+        } catch (IOException e) {
+            System.out.println("Error while trying to sendFile method at writing registry!");
+            throw new RuntimeException(e);
+        }
+
+        ObjectOutputStream oos = outputStream.getOut();
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file.getAbsolutePath());
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                FileTransferChunk chunk = new FileTransferChunk(registrar.getTransferId(), buffer, bytesRead);
+                oos.writeObject(chunk);
+                System.out.println("CHUNK -> " + chunk);
+            }
+            // Indicate finish of transferId
+            oos.writeObject(new FileTransferChunk(registrar.getTransferId(), new byte[]{}, 0));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -110,5 +143,11 @@ public class ConnectionHandler implements Runnable {
         } catch (IOException e) {
             handleException(e);
         }
+        new AAAa();
     }
+
+    private class AAAa {
+
+    }
+
 }

@@ -10,7 +10,7 @@ public enum MainMessages implements IMessageCategory {
     @DefaultLanguageMessage("&a¡You linked your discord account correctly!")
     LINKED_DISCORD_CORRECTLY,
 
-    @DefaultLanguageMessage("&aThank you, &e{0}&a! You linked your discord account successfully! ")
+    @DefaultLanguageMessage("&aThank you, &e{0}&a! You linked your discord account successfully!")
     LINKED_DISCORD_SUCCESSFULLY;
 
     @Override

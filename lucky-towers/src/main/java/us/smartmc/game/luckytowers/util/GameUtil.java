@@ -135,7 +135,14 @@ public class GameUtil {
     public static Material getRandomMaterial() {
         int lenght = Material.values().length - 1;
         int randomIndex = new Random().nextInt(lenght);
-        return Material.values()[randomIndex];
+        Material material = Material.values()[randomIndex];
+
+        // Recursive call if material not valid
+        if (material == Material.AIR) return getRandomMaterial();
+        if (material.name().contains("COPPER")) return getRandomMaterial();
+        if (material.name().contains("COMMAND")) return getRandomMaterial();
+
+        return material;
     }
 
     public static void updateScoreboard(GamePlayer gamePlayer) {

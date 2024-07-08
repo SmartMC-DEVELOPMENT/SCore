@@ -15,6 +15,10 @@ public class EditorListeners implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onChat(AsyncPlayerChatEvent event) {
+
+        if (event.getPlayer().getName().equals("ImSergioh")) {
+            event.getPlayer().sendMessage("MR WORLD WIDE! DEBUG AsyncPlayerChatEvent LuckyTowers");
+        }
         EditorSession session = get(event.getPlayer());
         String message = event.getMessage();
         if (session == null) return;

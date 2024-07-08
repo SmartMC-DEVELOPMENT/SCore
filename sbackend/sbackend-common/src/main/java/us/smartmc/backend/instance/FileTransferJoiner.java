@@ -1,65 +1,63 @@
 package us.smartmc.backend.instance;
 
 import lombok.Getter;
+import us.smartmc.backend.handler.FileRegistrarManager;
 import us.smartmc.backend.instance.cache.CacheFile;
 import us.smartmc.backend.instance.filetransfer.FileTransferType;
+import us.smartmc.backend.protocol.FileDownloadRegistrar;
 import us.smartmc.backend.protocol.FileTransferChunk;
 import us.smartmc.backend.protocol.FileTransferRegistrar;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class FileTransferJoiner {
 
-    private static final Map<Integer, FileTransferJoiner> joiners = new HashMap<>();
+    private static final Map<Long, FileTransferJoiner> joiners = new HashMap<>();
 
     @Getter
-    private final int transferId;
+    private final long id;
 
     private final StringBuilder stringBuilder = new StringBuilder();
-    private final FileOutputStream fos;
+    private FileOutputStream fos;
     @Getter
     private boolean terminated = false;
 
     @Getter
     private final FileTransferType type;
 
-    public FileTransferJoiner(int transferId, String destionationPath) {
-        this.transferId = transferId;
-        try {
-            this.fos = new FileOutputStream(destionationPath);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+    public FileTransferJoiner(long id, String destionationPath) {
+        this.id = id;
+        type = FileRegistrarManager.getTypeOf(id);
+        if (type == FileTransferType.PERMANENT) {
+            try {
+                new File(destionationPath).getParentFile().mkdirs();
+                this.fos = new FileOutputStream(destionationPath);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
-        type = FileTransferRegistrar.get(transferId).getType();
-        joiners.put(transferId, this);
+        joiners.put(id, this);
     }
 
     public void terminateTransferation() {
         terminated = true;
-        System.out.println("FILE TRANSFER COMPLETED! At = " + FileTransferRegistrar.get(transferId).getDestinationPath() + " with type " + type);
-
-        if (type == FileTransferType.PERMANENT) {
+        System.out.println("FILE TRANSFER COMPLETED! At = " + FileTransferRegistrar.get(id).getDestinationPath() + " with type " + type);
+        if (fos != null) {
             try {
-                fos.flush();
                 fos.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
-            new CacheFile(FileTransferRegistrar.get(transferId).getFileAbsolutePath(), stringBuilder.toString());
+            String fileName = FileTransferRegistrar.get(id).getFileName();
+            System.out.println("FileName=" + fileName);
+            new CacheFile(FileTransferRegistrar.get(id).getFileName(), stringBuilder.toString());
         }
     }
 
     public void handleChunk(FileTransferChunk chunk) {
-        if (chunk.getBuffer().length == 0 && chunk.getBytesRead() == 0) {
-            terminateTransferation();
-            return;
-        }
-
         if (type == FileTransferType.PERMANENT) {
             try {
                 fos.write(chunk.getBuffer(), 0, chunk.getBytesRead());
@@ -73,9 +71,15 @@ public class FileTransferJoiner {
         }
     }
 
-    public static FileTransferJoiner get(int id) {
+    public static FileTransferJoiner getTransferJoiner(long id) {
         if (!joiners.containsKey(id))
             return new FileTransferJoiner(id, FileTransferRegistrar.get(id).getDestinationPath());
+        return joiners.get(id);
+    }
+
+    public static FileTransferJoiner getDownloadJoiner(long id) {
+        if (!joiners.containsKey(id))
+            return new FileTransferJoiner(id, FileDownloadRegistrar.get(id).getDestinationPath());
         return joiners.get(id);
     }
 

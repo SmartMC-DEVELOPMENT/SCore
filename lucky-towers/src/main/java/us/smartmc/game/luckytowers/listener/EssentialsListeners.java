@@ -81,10 +81,7 @@ public class EssentialsListeners implements Listener {
     @EventHandler
     public void cancelNaturalSpawns(EntitySpawnEvent event) {
         Entity entity = event.getEntity();
-        if (!(entity instanceof Mob || event.getEntity() instanceof Animals)) return;
-        if (entity.getEntitySpawnReason().equals(CreatureSpawnEvent.SpawnReason.NATURAL)) {
-            event.setCancelled(true);
-        }
+        System.out.println("SPAWNED = " + entity.getClass().getName());
     }
 
     @EventHandler

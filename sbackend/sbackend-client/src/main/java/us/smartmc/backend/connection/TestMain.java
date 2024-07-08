@@ -2,6 +2,7 @@ package us.smartmc.backend.connection;
 
 import us.smartmc.backend.connection.listener.CacheCompleteListener;
 import us.smartmc.backend.handler.ConnectionInputManager;
+import us.smartmc.backend.instance.cache.CacheFile;
 import us.smartmc.backend.instance.filetransfer.FileTransferType;
 
 import java.io.File;
@@ -17,15 +18,21 @@ public class TestMain {
             client = new BackendClient("localhost", 7723);
             client.login("default", "SmartMC2024Ñ");
             new Thread(client).start();
-            new Thread(() -> {
-                System.out.println("Preparando transferencia...");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                client.sendFile(new File("C:\\Users\\sergi\\Documents\\EVENTOS.txt"), FileTransferType.CACHE, "C:\\Users\\sergi\\Desktop\\test\\testFile.txt");
-            }).start();
+
+
+
+            while (true) {
+                long start = System.currentTimeMillis();
+                client.downloadFile("C:\\Users\\sergi\\Desktop\\test\\backup.sql",
+                        FileTransferType.PERMANENT,
+                        "C:\\Users\\sergi\\Desktop\\test\\sqlbackuplol.sql", fileWrapper -> {
+                            long end = System.currentTimeMillis();
+                            System.out.println("ASDOUFOAIJFSOIFJDSO");
+                            System.out.println("ID=" + fileWrapper.getId());
+                            System.out.println("HEMOS RECIBIDO ARCHIVO! " + (end - start) + "ms");
+                        });
+                Thread.sleep(1000);
+            }
         } catch (Exception e) {
             client.handleException(e);
             throw new RuntimeException(e);

@@ -4,18 +4,14 @@ import java.io.*;
 
 public class FileTransferChunk implements Serializable {
 
-    private final int transferId;
+    private final long id;
     private final byte[] buffer;
     private final int bytesRead;
 
-    public FileTransferChunk(int transferId, byte[] buffer, int bytesRead) {
-        this.transferId = transferId;
+    public FileTransferChunk(long id, byte[] buffer, int bytesRead) {
+        this.id = id;
         this.buffer = buffer;
         this.bytesRead = bytesRead;
-    }
-
-    public int getTransferId() {
-        return transferId;
     }
 
     public byte[] getBuffer() {
@@ -27,6 +23,6 @@ public class FileTransferChunk implements Serializable {
     }
 
     public FileTransferRegistrar getRegistrar() {
-        return FileTransferRegistrar.get(transferId);
+        return FileTransferRegistrar.get(id);
     }
 }

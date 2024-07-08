@@ -1,11 +1,8 @@
 package us.smartmc.backend.listener;
 
 import us.smartmc.backend.connection.ConnectionHandler;
-import us.smartmc.backend.handler.CacheManager;
 import us.smartmc.backend.instance.BackendObjectListener;
 import us.smartmc.backend.instance.FileTransferJoiner;
-import us.smartmc.backend.instance.cache.CacheCommand;
-import us.smartmc.backend.protocol.CacheCommandRequest;
 import us.smartmc.backend.protocol.FileTransferChunk;
 import us.smartmc.backend.protocol.FileTransferRegistrar;
 
@@ -13,13 +10,13 @@ public class FileTransferChunkListener extends BackendObjectListener<FileTransfe
 
     @Override
     public void onReceive(ConnectionHandler connection, FileTransferChunk chunk) {
-        int transferId = chunk.getTransferId();
-        FileTransferRegistrar registrar = FileTransferRegistrar.get(transferId);
+        long id = chunk.getRegistrar().getId();
+        FileTransferRegistrar registrar = FileTransferRegistrar.get(id);
         if (registrar == null) {
-            System.out.println("File chunk received without registry! Id=" + transferId);
+            System.out.println("File chunk received without registry! Id=" + id);
             return;
         }
-        FileTransferJoiner joiner = FileTransferJoiner.get(transferId);
+        FileTransferJoiner joiner = FileTransferJoiner.getTransferJoiner(id);
         joiner.handleChunk(chunk);
     }
 }

@@ -104,7 +104,9 @@ public class BackendServerMain {
         ServicesManager.get(SocialServices.class).getMessagesService().unload();
     }
 
+
     public static File getLoginsDirectory() {
+
         return new File((String) mainConfig.get("logins-directory"));
     }
 
@@ -115,3 +117,4 @@ public class BackendServerMain {
     }
 
 }
+

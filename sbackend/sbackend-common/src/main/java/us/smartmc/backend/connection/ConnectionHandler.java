@@ -5,6 +5,7 @@ import us.smartmc.backend.command.ServiceCommand;
 import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.backend.instance.cache.CacheCommand;
 import us.smartmc.backend.instance.cache.CacheCommandType;
+import us.smartmc.backend.instance.cache.CacheObtainedWrapper;
 import us.smartmc.backend.instance.filetransfer.FileTransferType;
 import us.smartmc.backend.instance.filetransfer.FileTransferWrapper;
 import us.smartmc.backend.instance.messaging.MessageCommand;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -32,7 +34,8 @@ public class ConnectionHandler implements Runnable {
     protected final ConnectionOutputStream outputStream;
     protected final ConnectionInputStream inputStream;
 
-    private final Map<String, Set<Consumer<FileTransferWrapper>>> downloadsRunning = new HashMap<>();
+    private final Map<String, List<Consumer<FileTransferWrapper>>> downloadsRunning = new HashMap<>();
+    private final Map<String, List<Consumer<CacheObtainedWrapper>>> cacheWrappers = new HashMap<>();
 
     public ConnectionHandler(Socket socket) throws IOException {
         this.connection = socket;
@@ -76,20 +79,26 @@ public class ConnectionHandler implements Runnable {
         }
     }
 
-    public void downloadFile(String originPath, FileTransferType type, String destinationPath, Consumer<FileTransferWrapper>... consumers) {
+    @SafeVarargs
+    public final void downloadFile(String originPath, FileTransferType type, String destinationPath, Consumer<FileTransferWrapper>... consumers) {
         try {
             FileDownloadRegistrar registrar = new FileDownloadRegistrar(originPath, type, destinationPath);
             System.out.println("DOWNLOAD FILE ID " + registrar.getId());
             outputStream.writeObject(registrar);
-            downloadsRunning.put(destinationPath, Set.of(consumers));
+            downloadsRunning.put(destinationPath, List.of(consumers));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public void completeCacheObtained(CacheObtainedWrapper wrapper) {
+        List<Consumer<CacheObtainedWrapper>> consumers = cacheWrappers.remove(wrapper.getKey());
+        consumers.forEach(c -> c.accept(wrapper));
+    }
+
     public void completeDownload(FileTransferEnd registrar) {
         FileTransferWrapper wrapper = new FileTransferWrapper(registrar.getId(), registrar.getOriginPath(), registrar.getDestinationPath());
-        Set<Consumer<FileTransferWrapper>> consumers = downloadsRunning.get(registrar.getDestinationPath());
+        List<Consumer<FileTransferWrapper>> consumers = downloadsRunning.remove(registrar.getDestinationPath());
         if (consumers == null) return;
         consumers.forEach(c -> c.accept(wrapper));
     }
@@ -143,9 +152,10 @@ public class ConnectionHandler implements Runnable {
         sendObject(new CacheCommandRequest(CacheCommand.build(CacheCommandType.REGISTER, key).value(value)));
     }
 
-    // TODO: HACER METODO PARA OBTENER Y TRABAJAR CON LO OBTENIDO (de momento solo envia instruccion y en segundo plano obtiene valor a local)
-    public void getCache(String key, Consumer<Object> consumer) {
+    @SafeVarargs
+    public final void getCache(String key, Consumer<CacheObtainedWrapper>... consumers) {
         sendObject(new CacheCommandRequest(CacheCommand.build(CacheCommandType.GET, key)));
+        cacheWrappers.put(key, List.of(consumers));
     }
 
     public void setCache(String key, Object value) {

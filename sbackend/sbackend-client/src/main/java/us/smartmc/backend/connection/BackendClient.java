@@ -23,8 +23,6 @@ public class BackendClient extends ConnectionHandler {
 
     private String user, password;
 
-    private final Map<String, Consumer<Object>> pendingGets = new HashMap<>();
-
     public BackendClient(String hostname, int port) throws IOException {
         super(new Socket(hostname, port));
         ConnectionInputManager.registerListeners(new LoginCompleteListener());
@@ -61,18 +59,6 @@ public class BackendClient extends ConnectionHandler {
         this.user = username;
         this.password = password;
         sendObject(new LoginRequest(username, password));
-    }
-
-    public void completeCache(String key, Object value) {
-        Consumer<Object> consumer = pendingGets.get(key);
-        if (consumer == null) return;
-        consumer.accept(value);
-    }
-
-    @Override
-    public void getCache(String key, Consumer<Object> consumer) {
-        super.getCache(key, consumer);
-        pendingGets.put(key, consumer);
     }
 
     public void relogin() {

@@ -35,6 +35,7 @@ us\smartmc\backend\instance\filetransfer\FileTransferWrapper.class
 us\smartmc\backend\listener\FileTransferChunkListener.class
 us\smartmc\backend\instance\config\IConfig.class
 us\smartmc\backend\instance\cache\CacheCommandType.class
+us\smartmc\backend\instance\cache\CacheObtainedWrapper.class
 us\smartmc\backend\listener\FileTransferRegistrarListener.class
 us\smartmc\backend\protocol\FileTransferChunk.class
 us\smartmc\backend\instance\messaging\IMessageChannel.class

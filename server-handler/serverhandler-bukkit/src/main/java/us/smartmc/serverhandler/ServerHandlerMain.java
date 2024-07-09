@@ -1,22 +1,20 @@
 package us.smartmc.serverhandler;
 
 import lombok.Getter;
-import me.imsergioh.jbackend.BackendConnection;
-import me.imsergioh.jbackend.api.ConnectionHandler;
-import me.imsergioh.jbackend.api.manager.BackendActionManager;
-import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.pluginsapi.instance.builder.DiscordLogEmbedBuilder;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.smartmc.backend.connection.BackendClient;
+import us.smartmc.backend.connection.ConnectionHandler;
+import us.smartmc.backend.handler.ConnectionInputManager;
+import us.smartmc.serverhandler.command.ExecuteServerMessageCommand;
 import us.smartmc.serverhandler.instance.BackendCommandExecuteRequest;
-import us.smartmc.serverhandler.manager.KeepAliveManager;
-import us.smartmc.serverhandler.registration.CommandRegistration;
-import us.smartmc.serverhandler.registration.CommonListenerRegistration;
-import us.smartmc.serverhandler.util.ConnectionUtil;
+import us.smartmc.serverhandler.listener.ACommandManagerListener;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class ServerHandlerMain extends JavaPlugin {
 
@@ -24,8 +22,8 @@ public class ServerHandlerMain extends JavaPlugin {
     private static ServerHandlerMain plugin;
 
     @Getter
-    private static BackendConnection connection;
-    private static ConnectionHandler handler;
+    private static BackendClient client;
+
     @Getter
     private static String serverID;
     @Getter
@@ -36,16 +34,8 @@ public class ServerHandlerMain extends JavaPlugin {
         plugin = this;
         getDataFolder().mkdirs();
 
-        Registrations.register(
-                CommonListenerRegistration.class,
-                CommandRegistration.class
-        );
-
-        connection = new BackendConnection("localhost", 55777);
-        connection.start();
-        BackendActionManager.registerConnectAction(h -> {
-            handler = h;
-        });
+        ConnectionInputManager.registerListeners(new ACommandManagerListener());
+        ConnectionInputManager.registerCommands(new ExecuteServerMessageCommand());
 
         try {
             serverID = readBackendProperty("server-id");
@@ -54,36 +44,36 @@ public class ServerHandlerMain extends JavaPlugin {
             throw new RuntimeException(e);
         }
 
-        BackendActionManager.registerConnectAction(handler -> {
-            ConnectionUtil.sendCommand(handler,
-                    "registerServer " + serverName + " " + getServer().getIp() + " " + Bukkit.getPort());
+        try {
+            client = new BackendClient("localhost", 55777);
+            client.login("default", "SmartMC2024Ñ");
+            new Thread(client).start();
+            client.sendCommand("registerServer " + serverName + " " + getServer().getIp() + " " + Bukkit.getPort());
+            client.sendCommand("serverStatus active " + serverName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-            ConnectionUtil.sendCommand(handler,
-                    "serverStatus active " + serverName);
-        });
-
-        SyncUtil.later(() -> {
+        /*SyncUtil.later(() -> {
             new DiscordLogEmbedBuilder()
                     .title("Nuevo servidor conectado!").description("Se ha conectado un nuevo servidor correctamente a ServerHandler")
                     .addField("Nombre", serverName)
                     .addField("IP", "||" + Bukkit.getServer().getIp() + "||", true)
                     .addField("Puerto", String.valueOf(Bukkit.getPort()), true)
                     .color("GREEN").send(RedisConnection.mainConnection.getResource());
-            RedisConnection.mainConnection.getResource().set("maxSlots." + serverID, String.valueOf(Bukkit.getServer().getMaxPlayers()));
-        }, 250);
-
-        KeepAliveManager.startKeepAliveTask();
+            plugin.getHandler().setCache("maxSlots." + serverID, Bukkit.getServer().getMaxPlayers());
+        }, 250);*/
     }
 
     @Override
     public void onDisable() {
-        handler.send(new BackendCommandExecuteRequest("serverStatus idle " + serverName));
-        new DiscordLogEmbedBuilder()
+        getHandler().sendObject((new BackendCommandExecuteRequest("serverStatus idle " + serverName)));
+        /*new DiscordLogEmbedBuilder()
                 .title("Servidor desconectado!").description("Se ha desconectado un nuevo servidor correctamente de ServerHandler")
                 .addField("Nombre", serverName)
                 .addField("IP", "||" + Bukkit.getIp() + "||", true)
                 .addField("Puerto", String.valueOf(Bukkit.getPort()), true)
-                .color("RED").send(RedisConnection.mainConnection.getResource());
+                .color("RED").send(RedisConnection.mainConnection.getResource());*/
     }
 
     private String readBackendProperty(String path) throws Exception {
@@ -96,4 +86,9 @@ public class ServerHandlerMain extends JavaPlugin {
         }
         return null;
     }
+
+    public ConnectionHandler getHandler() {
+        return client.getInputStream().getConnectionHandler();
+    }
+
 }

@@ -1,5 +1,6 @@
 package us.smartmc.serverhandler.registration;
 
+import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.serverhandler.IRegistration;
 import us.smartmc.serverhandler.backendcommand.RegisterServerCommand;
 import us.smartmc.serverhandler.backendcommand.RegisterServersCommand;
@@ -10,7 +11,7 @@ public class CommandsRegistration implements IRegistration {
 
     @Override
     public void register() {
-        BackendCommandManager.register(
+        ConnectionInputManager.registerCommands(
                 new RegisterServerCommand(),
                 new RegisterServersCommand(),
                 new UnregisterServerCommand());

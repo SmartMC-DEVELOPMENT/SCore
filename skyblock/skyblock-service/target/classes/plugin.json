@@ -1,3 +1,4 @@
 {
+  "name": "smartskyblock-service",
   "main": "us.smartmc.game.SkyBlockService"
 }

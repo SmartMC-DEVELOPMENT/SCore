@@ -1,13 +1,13 @@
 package us.smartmc.serverhandler.registration;
 
-import me.imsergioh.jbackend.api.manager.DataProcessorManager;
+import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.serverhandler.IRegistration;
-import us.smartmc.serverhandler.listener.CommandManagerListener;
+import us.smartmc.serverhandler.listener.ACommandManagerListener;
 
 public class CommonListenerRegistration implements IRegistration {
 
     @Override
     public void register() {
-        DataProcessorManager.register(new CommandManagerListener());
+        ConnectionInputManager.registerListeners(new ACommandManagerListener());
     }
 }

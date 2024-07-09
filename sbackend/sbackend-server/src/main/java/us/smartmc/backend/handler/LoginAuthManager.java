@@ -1,6 +1,7 @@
 package us.smartmc.backend.handler;
 
 import us.smartmc.backend.BackendServerMain;
+import us.smartmc.backend.connection.BackendServer;
 import us.smartmc.backend.instance.config.FileConfig;
 import us.smartmc.backend.instance.config.JsonConfig;
 
@@ -15,8 +16,8 @@ public class LoginAuthManager {
 
     public static void loadAuthentifications() {
         try {
-            System.out.print(BackendServerMain.getLoginsDirectory().getAbsolutePath());
-            for (File file : Objects.requireNonNull(BackendServerMain.getLoginsDirectory().listFiles())) {
+            System.out.print(BackendServer.getLoginsDirectory().getAbsolutePath());
+            for (File file : Objects.requireNonNull(BackendServer.getLoginsDirectory().listFiles())) {
                 FileConfig config = null;
                 String fileName = file.getName();
                 if (fileName.endsWith(".json")) config = new JsonConfig(file);

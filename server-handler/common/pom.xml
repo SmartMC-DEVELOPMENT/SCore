@@ -15,14 +15,14 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>me.imsergioh.jbackend</groupId>
-            <artifactId>library-api</artifactId>
+            <groupId>me.imsergioh.pluginsapi</groupId>
+            <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>me.imsergioh.pluginsapi</groupId>
-            <artifactId>common</artifactId>
+            <groupId>us.smartmc.backend</groupId>
+            <artifactId>sbackend-common</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

@@ -1,15 +1,22 @@
 package us.smartmc.backend.module;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import lombok.Getter;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface ModulePluginInfo {
+import java.io.File;
+import java.util.List;
 
-    String name();
-    String version() default "1.0.0";
+@Getter
+public class ModulePluginInfo {
+
+    private final File file;
+    private final String mainClass;
+
+    private final List<String> dependencies;
+
+    public ModulePluginInfo(File file, String mainClass, List<String> dependencies) {
+        this.file = file;
+        this.mainClass = mainClass;
+        this.dependencies = dependencies;
+    }
 
 }

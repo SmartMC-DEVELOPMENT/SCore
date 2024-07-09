@@ -2,6 +2,7 @@ package us.smartmc.backend.handler;
 
 import lombok.Getter;
 import us.smartmc.backend.BackendServerMain;
+import us.smartmc.backend.connection.BackendServer;
 import us.smartmc.backend.module.ModuleClassLoader;
 
 import java.io.File;
@@ -16,16 +17,13 @@ public class ModulesHandler {
     private static File modulesDir;
 
     public ModulesHandler() {
-        modulesDir = new File(BackendServerMain.getParentDirectory() + "/modules");
+        modulesDir = new File(BackendServer.getParentDirectory() + "/modules");
         if (!modulesDir.exists())
             modulesDir.mkdirs();
     }
 
     public void loadModulesJars() {
-        for (File file : Objects.requireNonNull(modulesDir.listFiles())) {
-            if (!file.getName().endsWith(".jar")) continue;
-            ModuleClassLoader.loadPluginJar(file);
-        }
+        ModuleClassLoader.loadModulesJars(Objects.requireNonNull(modulesDir.listFiles()));
     }
 
 }

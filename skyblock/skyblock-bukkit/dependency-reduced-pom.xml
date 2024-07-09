@@ -97,18 +97,6 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>me.imsergioh.jbackend</groupId>
-      <artifactId>server-implement</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>me.imsergioh.jbackend</groupId>
-      <artifactId>library-api</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>me.imsergioh.pluginsapi</groupId>
       <artifactId>spigot-core</artifactId>
       <version>1.0-SNAPSHOT</version>

@@ -117,6 +117,11 @@
       <option name="url" value="https://repo.viaversion.com" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="mavenCentral" />
+      <option name="name" value="mavenCentral" />
+      <option name="url" value="https://repo1.maven.org/maven2/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="enginehub-maven" />
       <option name="name" value="enginehub-maven" />
       <option name="url" value="https://maven.enginehub.org/repo/" />

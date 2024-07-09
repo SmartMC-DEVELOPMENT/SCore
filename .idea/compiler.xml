@@ -11,6 +11,7 @@
         <module name="sbackend-common" />
         <module name="serverhandler-common" />
         <module name="icons-module" />
+        <module name="test-backend-module" />
         <module name="skyblock-bukkit" />
         <module name="login-spigot" />
         <module name="bmotd-velocity" />
@@ -21,7 +22,6 @@
         <module name="lobby-module" />
         <module name="sbackend-client" />
         <module name="skyblock-common" />
-        <module name="test-module" />
         <module name="lucky-towers" />
         <module name="players-service" />
         <module name="smartbot" />
@@ -64,6 +64,7 @@
       <module name="survival-core" target="1.8" />
       <module name="survival-placeholders" target="16" />
       <module name="survivalchat" target="1.8" />
+      <module name="test-module" target="17" />
       <module name="tonterias-module" target="17" />
     </bytecodeTargetLevel>
   </component>

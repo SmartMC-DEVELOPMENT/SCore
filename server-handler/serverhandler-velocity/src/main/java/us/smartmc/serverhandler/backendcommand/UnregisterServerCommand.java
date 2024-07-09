@@ -1,10 +1,10 @@
 package us.smartmc.serverhandler.backendcommand;
-
-import me.imsergioh.jbackend.api.ConnectionHandler;
-import us.smartmc.serverhandler.executor.BackendCommand;
+;
+import us.smartmc.backend.connection.ConnectionHandler;
+import us.smartmc.backend.instance.BackendCommandExecutor;
 import us.smartmc.serverhandler.request.ServerUnregisterRequest;
 
-public class UnregisterServerCommand extends BackendCommand {
+public class UnregisterServerCommand extends BackendCommandExecutor {
 
 
     public UnregisterServerCommand() {
@@ -12,7 +12,7 @@ public class UnregisterServerCommand extends BackendCommand {
     }
 
     @Override
-    public void execute(ConnectionHandler connectionHandler, String label, String[] args) {
+    public void onCommand(ConnectionHandler connectionHandler, String label, String[] args) {
         String name = args[0];
         new ServerUnregisterRequest(name);
     }

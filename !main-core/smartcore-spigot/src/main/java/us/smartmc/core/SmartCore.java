@@ -41,11 +41,6 @@ public class SmartCore extends JavaPlugin {
     public static final String RELEASE_ID = "release-" + RELEASE_NUM;
 
     public static final SpigotLogger logger = new SpigotLogger();
-    public static final SendExceptionToDiscordListener discordExceptionListener = new SendExceptionToDiscordListener()
-            .addField("server-id", getServerID())
-            .addField("server-name", getServerName())
-            .addField("server-port", String.valueOf(Bukkit.getPort()))
-            .addField("online-players", String.valueOf(Bukkit.getOnlinePlayers().size()));
 
     @Getter
     private static SmartCore plugin;
@@ -144,7 +139,6 @@ public class SmartCore extends JavaPlugin {
         SyncUtil.sync(() -> {
             logger.info("Plugin enabled successfully!");
         });
-        GlobalExceptionHandler.registerListener(discordExceptionListener);
     }
 
     @Override

@@ -88,6 +88,7 @@
         <option value="$PROJECT_DIR$/gamesmanager-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/login/loginproxy-waterfall/pom.xml" />
         <option value="$PROJECT_DIR$/plugins-api/pom.xml" />
+        <option value="$PROJECT_DIR$/sbackend/test-module/pom.xml" />
         <option value="$PROJECT_DIR$/server-handler/serverhandler-bungee/pom.xml" />
         <option value="$PROJECT_DIR$/skyblock/pom.xml" />
         <option value="$PROJECT_DIR$/snowgames-ffa/pom.xml" />

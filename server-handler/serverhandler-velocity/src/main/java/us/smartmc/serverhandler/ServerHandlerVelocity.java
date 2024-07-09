@@ -7,14 +7,13 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import lombok.Getter;
-import me.imsergioh.jbackend.BackendConnection;
-import me.imsergioh.jbackend.api.manager.BackendActionManager;
 import org.slf4j.Logger;
+import us.smartmc.backend.connection.BackendClient;
 import us.smartmc.serverhandler.listener.RequestsListeners;
 import us.smartmc.serverhandler.registration.CommandsRegistration;
 import us.smartmc.serverhandler.registration.CommonListenerRegistration;
-import us.smartmc.serverhandler.util.ConnectionUtil;
 
+import java.io.IOException;
 import java.nio.file.Path;
 
 @Plugin(
@@ -35,7 +34,7 @@ public class ServerHandlerVelocity {
 
     private static ServerHandlerVelocity plugin;
 
-    private static BackendConnection backendConnection;
+    private static BackendClient backendClient;
 
     @Inject
     public ServerHandlerVelocity(@DataDirectory Path dataDirectory, ProxyServer server) {
@@ -47,16 +46,18 @@ public class ServerHandlerVelocity {
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
         plugin = this;
-
-        Registrations.register(CommonListenerRegistration.class,
+        Registrations.register(
+                CommonListenerRegistration.class,
                 CommandsRegistration.class);
 
-        BackendActionManager.registerConnectAction(handler -> {
-            ConnectionUtil.sendCommand(handler, "imAProxy");
-        });
-
-        backendConnection = new BackendConnection("localhost", 55777);
-        backendConnection.start();
+        try {
+            backendClient = new BackendClient("localhost", 55777);
+            backendClient.login("default", "SmartMC2024Ñ");
+            new Thread(backendClient).start();
+            backendClient.sendCommand("imAProxy");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         proxy.getEventManager().register(this, new RequestsListeners());
     }

@@ -2,13 +2,13 @@ package us.smartmc.serverhandler.backendcommand;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
-import me.imsergioh.jbackend.api.ConnectionHandler;
-import us.smartmc.serverhandler.executor.BackendCommand;
+import us.smartmc.backend.connection.ConnectionHandler;
+import us.smartmc.backend.instance.BackendCommandExecutor;
 import us.smartmc.serverhandler.manager.VelocityServerManager;
 
 import java.util.Set;
 
-public class RegisterServersCommand extends BackendCommand {
+public class RegisterServersCommand extends BackendCommandExecutor {
 
 
     public RegisterServersCommand() {
@@ -16,7 +16,7 @@ public class RegisterServersCommand extends BackendCommand {
     }
 
     @Override
-    public void execute(ConnectionHandler connectionHandler, String label, String[] args) {
+    public void onCommand(ConnectionHandler connectionHandler, String label, String[] args) {
         String jsonText = label.split(" ")[1];
         Set<LinkedTreeMap<String, Object>> servers = new Gson().fromJson(jsonText, Set.class);
         servers.forEach(serverInfo -> {

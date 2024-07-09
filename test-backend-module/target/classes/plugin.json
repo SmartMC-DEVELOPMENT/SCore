@@ -1,0 +1,5 @@
+{
+  "name": "test-module",
+  "main": "us.smartmc.backend.TestModuleMain",
+  "dependencies": ["smartskyblock-service"]
+}

@@ -24,7 +24,6 @@
       <module fileurl="file://$PROJECT_DIR$/!main-core/smartcore-spigot/smartcore-spigot.iml" filepath="$PROJECT_DIR$/!main-core/smartcore-spigot/smartcore-spigot.iml" />
       <module fileurl="file://$PROJECT_DIR$/!main-core/smartcore-velocity/smartcore-velocity.iml" filepath="$PROJECT_DIR$/!main-core/smartcore-velocity/smartcore-velocity.iml" />
       <module fileurl="file://$PROJECT_DIR$/staff-mode/staff-mode.iml" filepath="$PROJECT_DIR$/staff-mode/staff-mode.iml" />
-      <module fileurl="file://$PROJECT_DIR$/test-module.iml" filepath="$PROJECT_DIR$/test-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/testaaaa/testaaaa.iml" filepath="$PROJECT_DIR$/testaaaa/testaaaa.iml" />
     </modules>
   </component>

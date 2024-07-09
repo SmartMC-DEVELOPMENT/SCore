@@ -5,10 +5,14 @@ import lombok.Getter;
 @Getter
 public abstract class ModulePlugin implements IModulePlugin {
 
-    private final ModulePluginInfo info;
+    private final IModulePluginInfo info;
 
     public ModulePlugin() {
-        info = getClass().getDeclaredAnnotation(ModulePluginInfo.class);
+        // Intenta obtener la anotación de la clase concreta
+        this.info = this.getClass().getDeclaredAnnotation(IModulePluginInfo.class);
+        if (this.info == null) {
+            throw new IllegalStateException("IModulePluginInfo annotation not found on " + this.getClass().getName());
+        }
     }
 
     @Override

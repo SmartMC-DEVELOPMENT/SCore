@@ -14,6 +14,7 @@ D:\workspace2024\SCore\sbackend\sbackend-server\src\main\java\us\smartmc\backend
 D:\workspace2024\SCore\sbackend\sbackend-server\src\main\java\us\smartmc\backend\service\social\SocialServices.java
 D:\workspace2024\SCore\sbackend\sbackend-server\src\main\java\us\smartmc\backend\instance\handler\MapHandler.java
 D:\workspace2024\SCore\sbackend\sbackend-server\src\main\java\us\smartmc\backend\command\UnsubChannelCommand.java
+D:\workspace2024\SCore\sbackend\sbackend-server\src\main\java\us\smartmc\backend\handler\ConfigManager.java
 D:\workspace2024\SCore\sbackend\sbackend-server\src\main\java\us\smartmc\backend\BackendServerMain.java
 D:\workspace2024\SCore\sbackend\sbackend-server\src\main\java\us\smartmc\backend\connection\ClientConnectionHandler.java
 D:\workspace2024\SCore\sbackend\sbackend-server\src\main\java\us\smartmc\backend\listener\BroadcastCommandListener.java

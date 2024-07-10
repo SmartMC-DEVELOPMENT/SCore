@@ -73,8 +73,10 @@
     <file url="file://$PROJECT_DIR$/sbackend/test-module/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/server-handler/common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/server-handler/common/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/server-handler/orchestrator/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/server-handler/orchestrator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/new-orchestrator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/new-orchestrator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/orchestrator2/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server-handler/orchestrator2/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/server-handler/serverhandler-bukkit/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/server-handler/serverhandler-bukkit/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/server-handler/serverhandler-bungee/src/main/java" charset="UTF-8" />

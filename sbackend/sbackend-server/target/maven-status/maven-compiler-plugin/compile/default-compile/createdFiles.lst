@@ -1,5 +1,6 @@
 us\smartmc\backend\module\ModuleClassLoader.class
 us\smartmc\backend\connection\BackendServer.class
+us\smartmc\backend\handler\ConfigManager.class
 us\smartmc\backend\listener\BroadcastCommandListener.class
 us\smartmc\backend\listener\BroadcastListener.class
 us\smartmc\backend\command\SubChannelCommand.class

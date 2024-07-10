@@ -64,6 +64,8 @@ public class SmartCoreVelocity {
     @Getter
     private final Path dataDirectory;
 
+    private BackendClient backendClient;
+
     @Inject
     public SmartCoreVelocity(@DataDirectory Path path, ProxyServer proxyServer) {
         this.dataDirectory = path;
@@ -130,9 +132,9 @@ public class SmartCoreVelocity {
 
     private void startBackendConnection() {
         try {
-            new BackendClient("127.0.0.1", 7723);
-            BackendClient.mainConnection.login("velocity-proxy", "PROXYSVPERP4SSWORDRO0T2024SUFICIENTEMENTELARGAYS3GVR4");
-            new Thread(BackendClient.mainConnection).start();
+            backendClient = new BackendClient("127.0.0.1", 7723);
+            backendClient.login("velocity-proxy", "PROXYSVPERP4SSWORDRO0T2024SUFICIENTEMENTELARGAYS3GVR4");
+            new Thread(backendClient).start();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

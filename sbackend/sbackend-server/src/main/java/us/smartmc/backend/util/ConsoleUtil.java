@@ -1,22 +1,18 @@
 package us.smartmc.backend.util;
 
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.reader.UserInterruptException;
-import org.jline.reader.impl.completer.NullCompleter;
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
-
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class ConsoleUtil {
 
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private static final Map<String, String> formattingColors = new HashMap<>();
     private static final String PROMPT = ">> ";
-    private static Terminal terminal;
-    private static LineReader lineReader;
 
     static {
         formattingColors.put("&0", "\u001B[0;30m");
@@ -36,22 +32,12 @@ public class ConsoleUtil {
         formattingColors.put("&e", "\u001B[0;93m");
         formattingColors.put("&f", "\u001B[0;97m");
         formattingColors.put("&r", "\u001B[0m");
-
-        try {
-            terminal = TerminalBuilder.builder().system(true).build();
-            lineReader = LineReaderBuilder.builder()
-                    .terminal(terminal)
-                    .completer(new NullCompleter())
-                    .build();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public static String readLine() {
         try {
-            return lineReader.readLine();
-        } catch (UserInterruptException e) {
+            return reader.readLine();
+        } catch (IOException e) {
             return null;
         }
     }
@@ -61,9 +47,9 @@ public class ConsoleUtil {
         for (String key : formattingColors.keySet()) {
             message = message.replace(key, formattingColors.get(key));
         }
-        terminal.writer().println(message);
-        terminal.writer().flush();
-        terminal.writer().print(PROMPT);
-        terminal.writer().flush();
+        System.out.println(message);
+        System.out.flush();
+        System.out.print(PROMPT);
+        System.out.flush();
     }
 }

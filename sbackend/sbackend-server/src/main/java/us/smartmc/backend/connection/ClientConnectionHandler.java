@@ -18,6 +18,7 @@ public class ClientConnectionHandler extends ConnectionHandler {
             Object o = inputStream.readObject();
             if (o instanceof LoginRequest loginRequest) {
                 if (!LoginAuthManager.checkLogin(loginRequest.getUsername(), loginRequest.getPassword())) {
+                    System.out.println("FAILED LOGIN " + loginRequest.getUsername() + " " + loginRequest.getPassword());
                     disconectConnection(connection);
                     return;
                 }

@@ -7,6 +7,7 @@ import us.smartmc.backend.command.SubChannelCommand;
 import us.smartmc.backend.command.SubContextCommand;
 import us.smartmc.backend.command.UnsubChannelCommand;
 import us.smartmc.backend.command.UnsubContextCommand;
+import us.smartmc.backend.handler.ConfigManager;
 import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.backend.handler.LoginAuthManager;
 import us.smartmc.backend.handler.ModulesHandler;
@@ -24,39 +25,18 @@ import java.net.URISyntaxException;
 @Getter
 public class BackendServer extends Thread {
 
-    @Getter
-    private static File parentDirectory;
-
     @Setter
     private boolean active = true;
     private final ServerSocket serverSocket;
 
-    @Getter
-    private static JsonConfig mainConfig;
-
     public BackendServer(int port) throws IOException {
-        try {
-            parentDirectory = getJarParentDirectory();
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        setupConfiguration();
-
+        ConfigManager.setupConfigurations();
         registerInputs();
         loadModules();
-
         LoginAuthManager.loadAuthentifications();
 
         serverSocket = new ServerSocket(port);
         System.out.println("Servidor iniciado en el puerto " + port + "...");
-    }
-
-    private static void setupConfiguration() {
-        mainConfig = new JsonConfig(new File(parentDirectory, "config.json"));
-        mainConfig.load();
-        mainConfig.registerDefaultValue("logins-directory", "/home/network/sbackend/logins");
-        mainConfig.registerDefaultValue("port", 7723);
-        mainConfig.save();
     }
 
     private static void loadModules() {
@@ -100,14 +80,8 @@ public class BackendServer extends Thread {
         }
     }
 
-    private static File getJarParentDirectory() throws URISyntaxException {
-        String jarPath = BackendServerMain.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-        File jarFile = new File(jarPath);
-        return new File(jarFile.getParent());
-    }
-
     public static File getLoginsDirectory() {
-        return new File((String) mainConfig.get("logins-directory"));
+        return new File((String) ConfigManager.getMainConfig().get("logins-directory"));
     }
 
 }

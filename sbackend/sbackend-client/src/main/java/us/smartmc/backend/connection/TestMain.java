@@ -19,22 +19,6 @@ public class TestMain {
             client = new BackendClient("localhost", 7723);
             client.login("default", "SmartMC2024Ñ");
             new Thread(client).start();
-            StringBuilder s = new StringBuilder("iadjfapdf");
-
-            while (true) {
-                client.setCache("keyRandom", 13);
-
-                long start = System.currentTimeMillis();
-                client.getCache("keyRandom", wrapper -> {
-                    wrapper.getOptionalOfClass(Integer.class).ifPresent(string -> System.out.println("Entero " + string));
-                    long end = System.currentTimeMillis();
-                    long diff = end - start;
-                    System.out.println("START " + start + " END " + end);
-                    System.out.println("DURATION = " + diff + " ms");
-                });
-
-                Thread.sleep(1000);
-            }
         } catch (Exception e) {
             client.handleException(e);
             throw new RuntimeException(e);

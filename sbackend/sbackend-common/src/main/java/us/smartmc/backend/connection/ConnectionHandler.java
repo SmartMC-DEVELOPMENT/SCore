@@ -65,17 +65,39 @@ public class ConnectionHandler implements Runnable {
 
     @Override
     public void run() {
-        try {
-            while (!connection.isClosed()) {
-                Object object = inputStream.readObject();
-                if (object instanceof CommandRequest request) {
-                    ConnectionInputManager.performCommand(this, request);
-                    continue;
+        while (true) {
+            try {
+                if (!this.connection.isClosed()) {
+                    try {
+                        Object object = this.inputStream.readObject();
+                        if (object instanceof CommandRequest) {
+                            CommandRequest request = (CommandRequest) object;
+                            ConnectionInputManager.performCommand(this, request);
+                        } else {
+                            ConnectionInputManager.performListener(this, object);
+                        }
+                    } catch (ClassNotFoundException e) {
+                        // Manejar excepción específica
+                        System.err.println("ClassNotFoundException: " + e.getMessage());
+                        this.handleException(e);
+                    } catch (IOException e) {
+                        // Manejar excepción específica
+                        System.err.println("IOException: " + e.getMessage());
+                        this.handleException(e);
+                    } catch (Exception e) {
+                        // Manejar cualquier otra excepción
+                        System.err.println("Exception: " + e.getMessage());
+                        this.handleException(e);
+                    }
+                } else {
+                    System.out.println("Connection closed");
+                    break;
                 }
-                ConnectionInputManager.performListener(this, object);
+            } catch (Exception e) {
+                System.err.println("Outer exception: " + e.getMessage());
+                this.handleException(e);
+                break;
             }
-        } catch (Exception e) {
-            handleException(e);
         }
     }
 
@@ -186,15 +208,11 @@ public class ConnectionHandler implements Runnable {
 
     public void sendObject(Object object) {
         try {
+            System.out.println("Sending " + object.getClass().getName());
             outputStream.writeObject(object);
         } catch (IOException e) {
             handleException(e);
         }
-        new AAAa();
-    }
-
-    private class AAAa {
-
     }
 
 }

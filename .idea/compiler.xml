@@ -12,6 +12,7 @@
         <module name="serverhandler-common" />
         <module name="icons-module" />
         <module name="test-backend-module" />
+        <module name="new-orchestrator" />
         <module name="skyblock-bukkit" />
         <module name="login-spigot" />
         <module name="bmotd-velocity" />
@@ -26,7 +27,6 @@
         <module name="players-service" />
         <module name="smartbot" />
         <module name="npcs-module" />
-        <module name="orchestrator" />
         <module name="smartcore-velocity" />
         <module name="serverhandler-bukkit" />
         <module name="sbackend-server" />
@@ -46,6 +46,7 @@
       <module name="login" target="1.8" />
       <module name="loginproxy-waterfall" target="1.8" />
       <module name="old-gamesmanager-spigot (1)" target="1.8" />
+      <module name="orchestrator" target="16" />
       <module name="plugins-api" target="17" />
       <module name="sbackend" target="16" />
       <module name="server-handler" target="1.5" />

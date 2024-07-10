@@ -2,13 +2,16 @@ package us.smartmc.backend;
 
 import lombok.Getter;
 import us.smartmc.backend.connection.BackendServer;
+import us.smartmc.backend.handler.ConfigManager;
 import us.smartmc.backend.handler.ModulesHandler;
 import us.smartmc.backend.handler.ServicesManager;
+import us.smartmc.backend.instance.config.JsonConfig;
 import us.smartmc.backend.service.social.SocialServices;
 import us.smartmc.backend.util.ConsoleUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class BackendServerMain {
 
@@ -39,7 +42,8 @@ public class BackendServerMain {
     }
 
     private static void startBackendServer() throws IOException {
-        backendServer = new BackendServer(((Number) BackendServer.getMainConfig().get("port")).intValue());
+        ConfigManager.setupConfigurations();
+        backendServer = new BackendServer(((Number) ConfigManager.getMainConfig().get("port")).intValue());
         backendServer.start();
     }
 }

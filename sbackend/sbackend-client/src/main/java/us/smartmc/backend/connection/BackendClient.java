@@ -5,28 +5,23 @@ import us.smartmc.backend.connection.listener.LoginCompleteListener;
 import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.backend.protocol.BroadcastCommandRequest;
 import us.smartmc.backend.protocol.BroadcastRequest;
-import us.smartmc.backend.protocol.CommandRequest;
 import us.smartmc.backend.protocol.LoginRequest;
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Consumer;
+import java.net.SocketException;
 
 @Getter
 public class BackendClient extends ConnectionHandler {
 
-    public static BackendClient mainConnection;
-    private static ClientReconnectionTimer reconnectionTimer;
-
+    private final ClientReconnectionTask reconnectionTimer;
     private String user, password;
 
     public BackendClient(String hostname, int port) throws IOException {
         super(new Socket(hostname, port));
-        ConnectionInputManager.registerListeners(new LoginCompleteListener());
-        mainConnection = this;
+        ConnectionInputManager.registerListeners(new LoginCompleteListener(this));
+        reconnectionTimer = new ClientReconnectionTask(this);
     }
 
     public void broadcastCommand(String context, String command) {
@@ -64,24 +59,22 @@ public class BackendClient extends ConnectionHandler {
     public void relogin() {
         try {
             BackendClient client = new BackendClient(connection.getInetAddress().getHostAddress(), connection.getPort());
-            mainConnection = client;
             client.login(user, password);
             new Thread(client).start();
-            reconnectionTimer.finish();
         } catch (IOException e) {
-            handleException(e);
+            this.handleException(e);
         }
         System.out.println("Relogging into backend...");
     }
 
     private void registerSuccessLogin() {
-        if (reconnectionTimer != null) reconnectionTimer.finish();
+        if (reconnectionTimer != null) reconnectionTimer.successLogin();
     }
 
     @Override
     public void handleException(Exception e) {
-        if (e instanceof EOFException) {
-            reconnectionTimer = new ClientReconnectionTimer(this);
+        if (!connection.isConnected()) {
+            reconnectionTimer.startReconnectionTask();
         }
         e.printStackTrace();
     }

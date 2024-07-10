@@ -28,7 +28,8 @@ public class LoginAuthManager {
                 System.out.println("Loaded user " + name);
             }
         } catch (Exception e) {
-            logins.put("default", "SmartMC2024");
+            e.printStackTrace();
+            logins.put("default", "SmartMC2024Ñ");
             System.out.println("Loaded default credentials due to error while trying to load cache");
         }
     }

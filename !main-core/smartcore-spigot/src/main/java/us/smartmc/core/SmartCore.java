@@ -52,6 +52,9 @@ public class SmartCore extends JavaPlugin {
     @Getter
     private AdminModeHandler adminModeHandler;
 
+    @Getter
+    private static BackendClient backendClient;
+
     private static String serverName;
     private static String serverID;
     @Getter
@@ -105,14 +108,17 @@ public class SmartCore extends JavaPlugin {
         MongoDBConnection.mainConnection = new MongoDBConnection(config.getString("mongodb_url"));
         RedisConnection.mainConnection = new RedisConnection(config.getString("redis_host"),
                 config.get("redis_port", Number.class).intValue());
-        try {
-            new BackendClient("127.0.0.1", 7723);
-            getBackendClient().login("default", "SmartMC2024Ñ");
-            new Thread(getBackendClient()).start();
-            ServicesManager.registerServices(true, new PlayersService());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+            try {
+                backendClient = new BackendClient("127.0.0.1", 7723);
+                backendClient.login("default", "SmartMC2024Ñ");
+                new Thread(backendClient).start();
+                ServicesManager.registerServices(true, new PlayersService());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         SpigotPluginsAPI.setup(plugin);
 
@@ -247,9 +253,4 @@ public class SmartCore extends JavaPlugin {
     private void registerServerName() {
         RedisConnection.mainConnection.getResource().set("serverAlias." + getServerName(), getServerAlias());
     }
-
-    public static BackendClient getBackendClient() {
-        return BackendClient.mainConnection;
-    }
-
 }

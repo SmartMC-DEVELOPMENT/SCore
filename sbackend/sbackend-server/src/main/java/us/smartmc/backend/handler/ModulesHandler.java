@@ -17,7 +17,7 @@ public class ModulesHandler {
     private static File modulesDir;
 
     public ModulesHandler() {
-        modulesDir = new File(BackendServer.getParentDirectory() + "/modules");
+        modulesDir = new File(ConfigManager.getParentDirectory() + "/modules");
         if (!modulesDir.exists())
             modulesDir.mkdirs();
     }

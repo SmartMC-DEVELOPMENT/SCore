@@ -19,7 +19,6 @@ us\smartmc\backend\instance\cache\CacheCommand.class
 us\smartmc\backend\instance\messaging\MessageChannel.class
 us\smartmc\backend\instance\config\FileConfig.class
 us\smartmc\backend\listener\FileTransferEndListener.class
-us\smartmc\backend\connection\ConnectionHandler$AAAa.class
 us\smartmc\backend\handler\CacheManager.class
 us\smartmc\backend\instance\cache\CacheFile.class
 us\smartmc\backend\instance\config\JsonConfig.class

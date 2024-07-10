@@ -9,10 +9,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="chat-module" />
         <module name="sbackend-common" />
-        <module name="serverhandler-common" />
         <module name="icons-module" />
         <module name="test-backend-module" />
-        <module name="new-orchestrator" />
         <module name="skyblock-bukkit" />
         <module name="login-spigot" />
         <module name="bmotd-velocity" />
@@ -28,9 +26,7 @@
         <module name="smartbot" />
         <module name="npcs-module" />
         <module name="smartcore-velocity" />
-        <module name="serverhandler-bukkit" />
         <module name="sbackend-server" />
-        <module name="serverhandler-velocity" />
         <module name="smartantiddos-velocity" />
         <module name="lobby-cosmetics" />
       </profile>
@@ -45,12 +41,16 @@
       <module name="gamesmanager-spigot" target="1.5" />
       <module name="login" target="1.8" />
       <module name="loginproxy-waterfall" target="1.8" />
+      <module name="new-orchestrator" target="16" />
       <module name="old-gamesmanager-spigot (1)" target="1.8" />
       <module name="orchestrator" target="16" />
       <module name="plugins-api" target="17" />
       <module name="sbackend" target="16" />
       <module name="server-handler" target="1.5" />
+      <module name="serverhandler-bukkit" target="16" />
       <module name="serverhandler-bungee" target="1.8" />
+      <module name="serverhandler-common" target="16" />
+      <module name="serverhandler-velocity" target="11" />
       <module name="skyblock" target="17" />
       <module name="SmartBot" target="17" />
       <module name="SmartCore-Spigot" target="1.8" />

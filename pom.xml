@@ -16,8 +16,6 @@
         <module>!main-core/smartcore-spigot</module>
         <module>!main-core/smartcore-velocity</module>
         <module>login/login-spigot</module>
-        <module>server-handler/serverhandler-velocity</module>
-        <module>server-handler/new-orchestrator</module>
         <module>addon-modules/holograms-module</module>
         <module>MessagesMigration</module>
         <module>sbackend-services/players-service</module>

@@ -4,6 +4,7 @@ import me.imsergioh.pluginsapi.instance.VariableListener;
 import org.bukkit.entity.Player;
 import us.smartmc.core.variables.CountVariables;
 import us.smartmc.lobbymodule.handler.MaxSlotsInfoManager;
+import us.smartmc.serverhandler.manager.CountsManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,7 +31,7 @@ public class MenuVariables extends VariableListener<Player> {
         if (matcher.find()) {
             String serverId = matcher.group(1);
 
-            String count = CountVariables.getCountOf(serverId);
+            String count = CountsManager.getCountOf(serverId);
             int maxCapacity = MaxSlotsInfoManager.getMaxSlotsOfServers(serverId);
 
             double percentage = Double.parseDouble(count) / maxCapacity * 100;

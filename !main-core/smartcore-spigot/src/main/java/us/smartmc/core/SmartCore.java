@@ -7,10 +7,8 @@ import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
-import me.imsergioh.pluginsapi.instance.exceptionlistener.SendExceptionToDiscordListener;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
-import me.imsergioh.pluginsapi.util.GlobalExceptionHandler;
 import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
@@ -30,6 +28,7 @@ import us.smartmc.core.messages.GeneralMessages;
 import us.smartmc.core.messages.ItemUtilsMessages;
 import us.smartmc.core.util.ServerUtils;
 import us.smartmc.core.variables.*;
+import us.smartmc.serverhandler.manager.CountsManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,7 +77,7 @@ public class SmartCore extends JavaPlugin {
         return serverName;
     }
 
-    public static String getServerID() {
+    public static String getServerId() {
         if (serverID == null) {
             try {
                 serverID = ServerUtils.readBackendProperty("server-id");
@@ -104,21 +103,19 @@ public class SmartCore extends JavaPlugin {
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         registerDefaultConfig();
-
         MongoDBConnection.mainConnection = new MongoDBConnection(config.getString("mongodb_url"));
         RedisConnection.mainConnection = new RedisConnection(config.getString("redis_host"),
                 config.get("redis_port", Number.class).intValue());
+        try {
+            backendClient = new BackendClient("127.0.0.1", 7723);
+            backendClient.login("default", "SmartMC2024Ñ");
+            new Thread(backendClient).start();
+            ServicesManager.registerServices(true, new PlayersService());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
-            try {
-                backendClient = new BackendClient("127.0.0.1", 7723);
-                backendClient.login("default", "SmartMC2024Ñ");
-                new Thread(backendClient).start();
-                ServicesManager.registerServices(true, new PlayersService());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        CountsManager.setServerId(getServerId());
 
         SpigotPluginsAPI.setup(plugin);
 

@@ -73,7 +73,7 @@
             <groupId>me.imsergioh.pluginsapi</groupId>
             <artifactId>spigot-core</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

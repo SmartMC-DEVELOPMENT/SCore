@@ -23,7 +23,7 @@ public class BackendBukkitListeners implements Listener {
     private void sendCount() {
         SkyBlockPlugin.sendBackendCommand(
                 "skyblock setonline",
-                SmartCore.getServerID(),
+                SmartCore.getServerId(),
                 String.valueOf(Bukkit.getOnlinePlayers().size()));
     }
 

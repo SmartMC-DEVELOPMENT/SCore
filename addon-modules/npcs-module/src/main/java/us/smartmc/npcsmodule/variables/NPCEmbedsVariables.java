@@ -8,6 +8,7 @@ import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.entity.Player;
 import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.core.variables.CountVariables;
+import us.smartmc.serverhandler.manager.CountsManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,7 +36,7 @@ public class NPCEmbedsVariables extends VariableListener<Player> {
 
         if (matcher.find()) {
             String serverId = matcher.group(1);
-            long online = Long.parseLong(CountVariables.getCountOf(serverId));
+            long online = Long.parseLong(CountsManager.getCountOf(serverId));
             String path = "onlinePlayers";
 
             if (online == 1) {

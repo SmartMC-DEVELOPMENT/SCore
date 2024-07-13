@@ -72,7 +72,7 @@ public class SkyBlockPlugin extends JavaPlugin {
     }
 
     public static void registerServerToBackend() {
-        String serverId = SmartCore.getServerID();
+        String serverId = SmartCore.getServerId();
         SkyBlockServerType type = api.getBlockModeType();
         int count = Bukkit.getOnlinePlayers().size();
         sendBackendCommand("skyblock registerserver", serverId, type.name(), String.valueOf(count));
@@ -87,7 +87,7 @@ public class SkyBlockPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         if (api != null) api.onDisable();
-        sendBackendCommand("skyblock unregisterserver", SmartCore.getServerID());
+        sendBackendCommand("skyblock unregisterserver", SmartCore.getServerId());
     }
 
     public static void registerListeners(Listener... listeners) {

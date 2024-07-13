@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
+import org.bukkit.Bukkit;
 import us.smartmc.core.SmartCore;
 import us.smartmc.lobbymodule.command.*;
 import us.smartmc.lobbymodule.config.LobbyConfig;
@@ -44,7 +45,10 @@ public class LobbyModule extends AddonPlugin {
         log("Module starting...");
 
         lobbyConfig = new LobbyConfig(this);
-        minigamesConfig = new MinigamesConfig();
+
+        Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
+            minigamesConfig = new MinigamesConfig();
+        }, 20);
 
         lobbiesMenuConfig = new SpigotYmlConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus", "lobbies.yml"));
         lobbiesMenuConfig.register("id_prefix", "main-lobby");

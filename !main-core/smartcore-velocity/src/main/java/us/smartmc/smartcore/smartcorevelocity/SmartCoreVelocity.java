@@ -64,7 +64,8 @@ public class SmartCoreVelocity {
     @Getter
     private final Path dataDirectory;
 
-    private BackendClient backendClient;
+    @Getter
+    private static BackendClient backendClient;
 
     @Inject
     public SmartCoreVelocity(@DataDirectory Path path, ProxyServer proxyServer) {

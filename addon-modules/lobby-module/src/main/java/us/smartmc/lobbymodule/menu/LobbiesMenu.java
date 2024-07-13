@@ -17,6 +17,7 @@ import us.smartmc.core.variables.CountVariables;
 import us.smartmc.lobbymodule.handler.LobbiesInfoManager;
 import us.smartmc.lobbymodule.handler.MaxSlotsInfoManager;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
+import us.smartmc.serverhandler.manager.CountsManager;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -66,7 +67,7 @@ public class LobbiesMenu extends CoreMenu {
         inventory.clear();
         int slot = 0;
         String serverName = SmartCore.getServerName();
-        for (String serverID : CountVariables.getKeysByPrefix(LobbiesInfoManager.getIDPrefix())) {
+        for (String serverID : CountsManager.getKeysByPrefix(LobbiesInfoManager.getIDPrefix())) {
             boolean isSelf = serverID.equals(serverName);
             Material material = Material.QUARTZ_BLOCK;
             byte materialData = 0;
@@ -80,7 +81,7 @@ public class LobbiesMenu extends CoreMenu {
             }
 
             int number = Integer.parseInt(serverID.replaceAll("[^0-9]", ""));
-            String count = CountVariables.getCountOf(serverID);
+            String count = CountsManager.getCountOf(serverID);
 
             set(slot, ItemBuilder.of(material).data(materialData).name(getItemName(isSelf), number)
                     .lore(Arrays.asList("&7" + count + "/" + MaxSlotsInfoManager.getMaxSlotsOf(serverID), "&r",
@@ -99,7 +100,7 @@ public class LobbiesMenu extends CoreMenu {
 
     public static int getDynamicInventorySize() {
 
-        int size = CountVariables.getKeysByPrefix(LobbiesInfoManager.getIDPrefix()).size();
+        int size = CountsManager.getKeysByPrefix(LobbiesInfoManager.getIDPrefix()).size();
 
         // Limitar el tamaño a un máximo de 54
         if (size > 54) size = 54;
@@ -111,7 +112,7 @@ public class LobbiesMenu extends CoreMenu {
         }
 
         // Asegurar que el tamaño sea al menos 9 si el original es mayor que 0
-        if (size == 0 && !CountVariables.getKeysByPrefix(LobbiesInfoManager.getIDPrefix()).isEmpty()) {
+        if (size == 0 && !CountsManager.getKeysByPrefix(LobbiesInfoManager.getIDPrefix()).isEmpty()) {
             size = 9;
         }
 

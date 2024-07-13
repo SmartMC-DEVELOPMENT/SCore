@@ -8,26 +8,23 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="chat-module" />
-        <module name="sbackend-common" />
         <module name="icons-module" />
+        <module name="lucky-towers" />
+        <module name="players-service" />
         <module name="test-backend-module" />
         <module name="skyblock-bukkit" />
         <module name="login-spigot" />
-        <module name="bmotd-velocity" />
-        <module name="MessagesMigration" />
-        <module name="skyblock-service" />
-        <module name="smartcore-spigot" />
-        <module name="holograms-module" />
-        <module name="lobby-module" />
-        <module name="sbackend-client" />
-        <module name="skyblock-common" />
-        <module name="lucky-towers" />
-        <module name="players-service" />
         <module name="smartbot" />
         <module name="npcs-module" />
+        <module name="bmotd-velocity" />
+        <module name="MessagesMigration" />
         <module name="smartcore-velocity" />
-        <module name="sbackend-server" />
+        <module name="skyblock-service" />
+        <module name="smartcore-spigot" />
         <module name="smartantiddos-velocity" />
+        <module name="holograms-module" />
+        <module name="lobby-module" />
+        <module name="skyblock-common" />
         <module name="lobby-cosmetics" />
       </profile>
     </annotationProcessing>
@@ -46,6 +43,9 @@
       <module name="orchestrator" target="16" />
       <module name="plugins-api" target="17" />
       <module name="sbackend" target="16" />
+      <module name="sbackend-client" target="17" />
+      <module name="sbackend-common" target="17" />
+      <module name="sbackend-server" target="17" />
       <module name="server-handler" target="1.5" />
       <module name="serverhandler-bukkit" target="16" />
       <module name="serverhandler-bungee" target="1.8" />

@@ -49,7 +49,6 @@ public class HologramsCommand extends AddonPluginCommand {
                 sender.sendMessage(PaperChatUtil.parse("&aAdded line!"));
                 mainHolder.updateHologramConfig(name);
             }
-
             case "removeline" -> {
                 if (args.length <= 2) {
                     sender.sendMessage(PaperChatUtil.parse("&cYou have to specify number!"));

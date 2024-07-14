@@ -3,7 +3,7 @@ package us.smartmc.npcsmodule.instance;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.comphenix.protocol.wrappers.*;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import lombok.Getter;
@@ -29,6 +29,7 @@ import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
@@ -98,33 +99,52 @@ public class CustomNPC {
     }
 
     public void showTo(Player player) {
-
         parseEntity(player);
 
         npcPlayer.setCustomNameVisible(configData.getBoolean("nameVisible", true));
         npcPlayer.getBukkitEntity().setCustomNameVisible(configData.getBoolean("nameVisible", true));
 
-        SynchedEntityData synchedEntityData = npcPlayer.getEntityData();
-        synchedEntityData.set(new EntityDataAccessor<>(17, EntityDataSerializers.BYTE), (byte) 127);
+        // Info Update Packet
+        PacketContainer infoUpdatePacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
+        infoUpdatePacket.getPlayerInfoActions().write(0, EnumSet.of(EnumWrappers.PlayerInfoAction.ADD_PLAYER));
 
-        setValue(npcPlayer, "c", ((CraftPlayer) player).getHandle().connection);
-        //if (bukkitLocation != null)
-        //  npcPlayer.forceSetPositionRotation(bukkitLocation.getX(), bukkitLocation.getY(), bukkitLocation.getZ(), bukkitLocation.getYaw(), bukkitLocation.getPitch());
+        WrappedGameProfile profile = new WrappedGameProfile(npcPlayer.getUUID(), npcPlayer.getName().getString());
+        profile.set
+        PlayerInfoData playerInfoData = new PlayerInfoData(profile,
+                0, EnumWrappers.NativeGameMode.SURVIVAL, WrappedChatComponent.fromText(npcPlayer.getName().getString()));
+        infoUpdatePacket.getPlayerInfoDataLists().write(1, Collections.singletonList(playerInfoData));
 
-        ClientboundPlayerInfoUpdatePacket infoUpdatePacket = new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, npcPlayer);
-        PacketContainer packet = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
-        packet.getPlayerInfoActions().write(0, EnumSet.of(EnumWrappers.PlayerInfoAction.ADD_PLAYER));
+        // Add Entity Packet
+        PacketContainer addEntityPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.SPAWN_ENTITY);
+        addEntityPacket.getModifier().writeDefaults();
+        addEntityPacket.getEntityTypeModifier().write(0, EntityType.PLAYER);
+        addEntityPacket.getIntegers().write(0, npcPlayer.getId());
+        addEntityPacket.getUUIDs().write(0, npcPlayer.getGameProfile().getId());
+        addEntityPacket.getDoubles().write(0, npcPlayer.getX());
+        addEntityPacket.getDoubles().write(1, npcPlayer.getY());
+        addEntityPacket.getDoubles().write(2, npcPlayer.getZ());
+        addEntityPacket.getBytes().write(0, (byte) getBukkitLocation().getYaw());
+        addEntityPacket.getBytes().write(1, (byte) getBukkitLocation().getPitch());
 
-        ClientboundAddEntityPacket addEntityPacket = new ClientboundAddEntityPacket(npcPlayer);
-        ClientboundSetEntityDataPacket dataPacket = new ClientboundSetEntityDataPacket(npcPlayer.getId(), synchedEntityData.getNonDefaultValues());
+        // Metadata Packet
+        PacketContainer metadataPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_METADATA);
+        metadataPacket.getIntegers().write(0, npcPlayer.getId());
 
-        ((CraftPlayer) player).getHandle().connection.send(infoUpdatePacket);
-        ((CraftPlayer) player).getHandle().connection.send(addEntityPacket);
-        ((CraftPlayer) player).getHandle().connection.send(dataPacket);
+        WrappedDataWatcher watcher = new WrappedDataWatcher(npcPlayer.getBukkitEntity());
+        List<WrappedWatchableObject> watchableObjects = watcher.getWatchableObjects();
+        metadataPacket.getWatchableCollectionModifier().write(0, watchableObjects);
+
+        try {
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, infoUpdatePacket);
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, addEntityPacket);
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, metadataPacket);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Bukkit.getScheduler().runTaskLater(SpigotPluginsAPI.getPlugin(), () -> {
             hideTagByPlayerScoreboard(player);
-        }, 0);
+        }, 6);
     }
 
     public void hideTagByPlayerScoreboard(Player player) {

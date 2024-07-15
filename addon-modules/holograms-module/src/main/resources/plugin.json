@@ -1,4 +1,5 @@
 {
   "name": "holograms-module",
-  "main": "us.smartmc.addon.holograms.HologramsAddon"
+  "main": "us.smartmc.addon.holograms.HologramsAddon",
+  "dependencies": ["npcs-module"]
 }

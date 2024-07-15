@@ -1,11 +1,15 @@
 package us.smartmc.addon.holograms.instance.hologram;
 
-import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
 import us.smartmc.addon.holograms.util.LocationUtils;
+import us.smartmc.addon.holograms.util.NPCModuleUtil;
+import us.smartmc.npcsmodule.instance.CustomNPC;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Hologram {
 
@@ -34,7 +38,19 @@ public class Hologram {
 
     private Location loadLocation() {
         String locationPath = HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY;
-        return LocationUtils.stringToLocation(config.getString(locationPath));
+        String locationString = config.getString(locationPath);
+
+        Location npcLocation = null;
+        if (locationString.startsWith("npc@")) {
+            String name = locationString.split("@")[1];
+            CustomNPC npc = NPCModuleUtil.getFirstByName(name);
+            if (npc != null)
+                npcLocation = npc.getBukkitLocation().clone().add(0, 0.8, 0);
+            if (npcLocation == null) {
+                return new Location(Bukkit.getWorlds().get(0), 0, 0, 0);
+            }
+        }
+        return npcLocation == null ? LocationUtils.stringToLocation(locationString) : npcLocation;
     }
 
     private void loadAllConfigHolograms() {
@@ -53,9 +69,12 @@ public class Hologram {
     private List<HologramArmorStand> getOf(List<String> lines) {
         List<HologramArmorStand> list = new ArrayList<>();
         Location loc = location.clone();
-        for (String line : lines) {
+        List<String> reversedLines = new ArrayList<>(lines);
+        Collections.reverse(reversedLines);
+
+        for (String line : reversedLines) {
             list.add(new HologramArmorStand(loc, line));
-            loc.add(0, -0.3, 0);
+            loc.add(0, 0.3, 0);
         }
         return list;
     }

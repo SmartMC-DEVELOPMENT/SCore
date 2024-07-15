@@ -43,7 +43,7 @@ public class HologramsCommand extends AddonPluginCommand {
                 String text = readText(2, args);
                 for (String line : text.split("\n")) {
                     Location lastLoc = hologram.getLinesArmorStands().get(hologram.getLinesArmorStands().size() - 1).getStand().getLocation();
-                    lastLoc.add(0, -0.3, 0);
+                    lastLoc.add(0, 0.3, 0);
                     hologram.getLinesArmorStands().add(new HologramArmorStand(lastLoc, line));
                 }
                 sender.sendMessage(PaperChatUtil.parse("&aAdded line!"));

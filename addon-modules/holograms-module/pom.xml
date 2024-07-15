@@ -54,22 +54,14 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20.2-R0.1-SNAPSHOT</version>
+            <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.craftbukkit.mapped</groupId>
-            <artifactId>mapasdfped</artifactId>
-            <version>1.20.4-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../../libs/craftbukkit-1.20.4.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>org.craftbukkit.mapped</groupId>
-            <artifactId>mapped</artifactId>
-            <version>1.20.4-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../../libs/mapped.0207e96c.jar</systemPath>
+            <groupId>us.smartmc.core.addon</groupId>
+            <artifactId>npcs-module</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>us.smartmc.smartaddons</groupId>
@@ -82,13 +74,6 @@
             <artifactId>smartcore-spigot</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.mojang</groupId>
-            <artifactId>authlib</artifactId>
-            <version>1.5.21</version>
-            <systemPath>${project.basedir}/../../libs/authlib-1.5.21.jar</systemPath>
-            <scope>system</scope>
         </dependency>
         <dependency>
             <groupId>me.imsergioh.pluginsapi</groupId>

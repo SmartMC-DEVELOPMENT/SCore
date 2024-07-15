@@ -34,6 +34,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.bukkit.util.Vector;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 import us.smartmc.npcsmodule.manager.NPCManager;
 import us.smartmc.npcsmodule.util.ConfigUtil;
 
@@ -109,7 +112,7 @@ public class CustomNPC {
         infoUpdatePacket.getPlayerInfoActions().write(0, EnumSet.of(EnumWrappers.PlayerInfoAction.ADD_PLAYER));
 
         WrappedGameProfile profile = new WrappedGameProfile(npcPlayer.getUUID(), npcPlayer.getName().getString());
-        profile.set
+        ((GameProfile) profile.getHandle()).getProperties().putAll(npcPlayer.getGameProfile().getProperties());
         PlayerInfoData playerInfoData = new PlayerInfoData(profile,
                 0, EnumWrappers.NativeGameMode.SURVIVAL, WrappedChatComponent.fromText(npcPlayer.getName().getString()));
         infoUpdatePacket.getPlayerInfoDataLists().write(1, Collections.singletonList(playerInfoData));
@@ -123,8 +126,19 @@ public class CustomNPC {
         addEntityPacket.getDoubles().write(0, npcPlayer.getX());
         addEntityPacket.getDoubles().write(1, npcPlayer.getY());
         addEntityPacket.getDoubles().write(2, npcPlayer.getZ());
-        addEntityPacket.getBytes().write(0, (byte) getBukkitLocation().getYaw());
-        addEntityPacket.getBytes().write(1, (byte) getBukkitLocation().getPitch());
+
+        // Head rotate
+        PacketContainer headRotationPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_HEAD_ROTATION);
+        headRotationPacket.getModifier().writeDefaults();
+        headRotationPacket.getIntegers().write(0, npcPlayer.getId());
+        headRotationPacket.getBytes().write(0, ((byte) (int) (getBukkitLocation().getYaw() * 256.0F / 360.0F)));
+
+        // Body rotate
+        PacketContainer lookPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_LOOK);
+        lookPacket.getModifier().writeDefaults();
+        lookPacket.getIntegers().write(0, npcPlayer.getId());
+        lookPacket.getBytes().write(0, ((byte) (int) (getBukkitLocation().getYaw() * 256.0F / 360.0F)));
+        lookPacket.getBytes().write(1, ((byte) (int) (getBukkitLocation().getPitch() * 256.0F / 360.0F)));
 
         // Metadata Packet
         PacketContainer metadataPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_METADATA);
@@ -138,6 +152,8 @@ public class CustomNPC {
             ProtocolLibrary.getProtocolManager().sendServerPacket(player, infoUpdatePacket);
             ProtocolLibrary.getProtocolManager().sendServerPacket(player, addEntityPacket);
             ProtocolLibrary.getProtocolManager().sendServerPacket(player, metadataPacket);
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, headRotationPacket);
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, lookPacket);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -243,6 +259,10 @@ public class CustomNPC {
         positionPacket.getDoubles().write(0, location.getX());
         positionPacket.getDoubles().write(1, location.getY());
         positionPacket.getDoubles().write(2, location.getZ());
+
+        positionPacket.getBytes().write(0, (byte) (location.getYaw() * 256.0F / 360.0F));
+        positionPacket.getBytes().write(0, (byte) (location.getPitch() * 256.0F / 360.0F));
+
         positionPacket.getBooleans().write(0, onGround);
 
         try {
@@ -261,6 +281,10 @@ public class CustomNPC {
         double y = npcPlayer.getY();
         double z = npcPlayer.getZ();
         return new Location(world.getWorld(), x, y, z);
+    }
+
+    public String getName() {
+        return npcPlayer.getGameProfile().getName();
     }
 
     public UUID getUUID() {

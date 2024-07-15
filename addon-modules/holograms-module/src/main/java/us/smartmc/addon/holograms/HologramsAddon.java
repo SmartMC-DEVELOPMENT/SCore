@@ -37,6 +37,7 @@ public class HologramsAddon extends AddonPlugin {
         config = new MainConfig();
 
         holdersDirectory = new File(plugin.getDataFolder() + "/holders");
+
         holdersDirectory.mkdirs();
 
         loadHolders();

@@ -17,6 +17,7 @@ import us.smartmc.core.variables.CountVariables;
 import us.smartmc.lobbymodule.handler.LobbiesInfoManager;
 import us.smartmc.lobbymodule.handler.MaxSlotsInfoManager;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
+import us.smartmc.serverhandler.ServerHandlerBukkit;
 import us.smartmc.serverhandler.manager.CountsManager;
 
 import java.util.Arrays;
@@ -29,6 +30,9 @@ public class LobbiesMenu extends CoreMenu {
     private static final Map<Language, LobbiesMenu> menus = new HashMap<>();
 
     public static LobbiesMenu get(Language language){
+
+        CountsManager.getCountOf(LobbiesInfoManager.getIDPrefix());
+
         if (menus.containsKey(language)) return menus.get(language);
         return new LobbiesMenu(language);
     }

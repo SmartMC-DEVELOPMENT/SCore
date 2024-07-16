@@ -10,11 +10,9 @@ import org.bson.Document;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import us.smartmc.core.SmartCore;
-import us.smartmc.core.variables.CountVariables;
 import us.smartmc.lobbymodule.LobbyModule;
-import us.smartmc.serverhandler.manager.CountsManager;
+import us.smartmc.serverhandler.manager.BukkitOnlineCountManager;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -110,7 +108,7 @@ public class MinigamesConfig extends MongoDBPluginConfig {
     }
 
     private static String getCountOf(String idName) {
-        return CountsManager.getCountOf(idName);
+        return String.valueOf(BukkitOnlineCountManager.getCount(idName));
     }
 
     public int getInventorySize() {

@@ -15,7 +15,6 @@ import us.smartmc.lobbymodule.itemcommand.*;
 import us.smartmc.lobbymodule.listener.*;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
 import us.smartmc.lobbymodule.messages.MinigamesMessages;
-import us.smartmc.lobbymodule.variables.MenuVariables;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 import us.smartmc.smartaddons.plugin.CommandsRegistry;
@@ -58,8 +57,6 @@ public class LobbyModule extends AddonPlugin {
 
         registerCommand(new LobbyCommand());
         registerListeners(SpigotPluginsAPI.getPlugin(), new DefaultConfigListeners(lobbyConfig));
-
-        VariablesHandler.register(new MenuVariables());
 
         registerCommand(
                 new FlyCommand("fly"),

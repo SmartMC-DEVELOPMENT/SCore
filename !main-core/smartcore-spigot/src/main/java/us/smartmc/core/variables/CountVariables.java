@@ -3,7 +3,7 @@ package us.smartmc.core.variables;
 import me.imsergioh.pluginsapi.instance.VariableListener;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import us.smartmc.serverhandler.manager.CountsManager;
+import us.smartmc.serverhandler.manager.BukkitOnlineCountManager;
 
 
 public class CountVariables extends VariableListener<Player> {
@@ -16,9 +16,9 @@ public class CountVariables extends VariableListener<Player> {
                 arg = ChatColor.stripColor(arg.replace("&", "§"));
                 String idName = arg.replace("<count.", "").replace(">", "");
                 if (idName.equals("all")) {
-                    message = message.replaceFirst(arg, CountsManager.getAllCount(CountsManager.values()));
+                    message = message.replaceFirst(arg, String.valueOf(BukkitOnlineCountManager.getCountsOf("proxy")));
                 } else {
-                    message = message.replaceFirst(arg, CountsManager.getCountOf(idName));
+                    message = message.replaceFirst(arg, String.valueOf(BukkitOnlineCountManager.getCountsOf(idName)));
                 }
             }
         }
@@ -29,7 +29,5 @@ public class CountVariables extends VariableListener<Player> {
     public String parse(Player player, String message) {
         return parse(message);
     }
-
-
 
 }

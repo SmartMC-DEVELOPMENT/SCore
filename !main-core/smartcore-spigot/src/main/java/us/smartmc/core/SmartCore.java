@@ -28,7 +28,6 @@ import us.smartmc.core.messages.GeneralMessages;
 import us.smartmc.core.messages.ItemUtilsMessages;
 import us.smartmc.core.util.ServerUtils;
 import us.smartmc.core.variables.*;
-import us.smartmc.serverhandler.manager.CountsManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -114,8 +113,6 @@ public class SmartCore extends JavaPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        CountsManager.setServerId(getServerId());
 
         SpigotPluginsAPI.setup(plugin);
 

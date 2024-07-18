@@ -51,7 +51,7 @@ public class SmartCore extends JavaPlugin {
     private AdminModeHandler adminModeHandler;
 
     @Getter
-    private static BackendClient backendClient;
+    private BackendClient backendClient;
 
     private static String serverName;
     private static String serverID;
@@ -247,4 +247,9 @@ public class SmartCore extends JavaPlugin {
     private void registerServerName() {
         RedisConnection.mainConnection.getResource().set("serverAlias." + getServerName(), getServerAlias());
     }
+
+    public void sendBackendCommand(String cmd) {
+        backendClient.sendCommand(cmd);
+    }
+
 }

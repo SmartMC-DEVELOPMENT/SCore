@@ -29,6 +29,7 @@ import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
@@ -40,6 +41,7 @@ import org.json.simple.parser.JSONParser;
 import us.smartmc.npcsmodule.manager.NPCManager;
 import us.smartmc.npcsmodule.util.ConfigUtil;
 
+import java.awt.print.Paper;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -95,6 +97,15 @@ public class CustomNPC {
 
     public void setNameVisible(boolean active) {
         npcPlayer.setCustomNameVisible(active);
+        configData.put("nameVisible", active);
+        NPCManager.getManagers().stream().filter(m -> m.get(npcPlayer.getGameProfile().getName()) != null).forEach(manager -> {
+            manager.getConfig().put(configId, configData);
+            manager.getConfig().save();
+        });
+    }
+
+    public boolean isNameVisible() {
+        return configData.getBoolean("nameVisible");
     }
 
     public void setCommandLines(List<String> commandLines) {

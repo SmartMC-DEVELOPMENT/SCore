@@ -109,6 +109,16 @@ public class NPCCommand extends AddonPluginCommand {
                 boolean vulnerability = npc.toggleVulnerability();
                 sender.sendMessage(vulnerability ? "NPC is now vulnerable" : "NPC is now invulnerable");
             }
+            case "name", "togglename" -> {
+                CustomNPC npc = getCustomNPCById(args[1]);
+                if (npc == null) {
+                    sender.sendMessage("NPC not found!");
+                    return;
+                }
+                boolean nameVisible = !npc.isNameVisible();
+                npc.setNameVisible(nameVisible);
+                sender.sendMessage(nameVisible ? "NPC name is now visible" : "NPC name is now invisible");
+            }
         }
     }
 

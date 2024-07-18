@@ -38,7 +38,7 @@ import java.util.concurrent.ExecutionException;
 
 public class IslandsSchematicsManager {
 
-    private static final File ISLANDS_DIRECTORY = new File("/home/network/data-skyblock/islands");
+    private static final File ISLANDS_DIRECTORY = new File("/home/data/skyblock/islands");
 
     @Getter
     private static final UUID defaultIslandId = UUID.fromString("e3d71b5a-2f63-4084-abe4-f03cb33258bd");

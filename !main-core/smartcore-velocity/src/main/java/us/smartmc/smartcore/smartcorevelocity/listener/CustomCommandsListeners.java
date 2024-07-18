@@ -26,6 +26,8 @@ public class CustomCommandsListeners {
     @Subscribe(order = PostOrder.LAST)
     public void handleCommandAnnounces(PlayerAvailableCommandsEvent event) {
         Player player = event.getPlayer();
+        if (!player.hasPermission("tabcomplete")) return;
+
         event.getRootNode().getChildren().removeIf((commandNode) -> true);
         Optional<ServerConnection> currentServer = player.getCurrentServer();
         if (currentServer.isEmpty()) return;

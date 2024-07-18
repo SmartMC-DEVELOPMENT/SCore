@@ -25,13 +25,13 @@ public class PlayersService extends BackendService {
     public void registerPlayerContext(Player player) {
         UUID id = player.getUniqueId();
         String context = PlayersServiceContexts.getPlayerContext(id);
-        SmartCore.getBackendClient().subscribeContext(context);
+        SmartCore.getPlugin().getBackendClient().subscribeContext(context);
     }
 
     public void unregisterPlayerContext(Player player) {
         UUID id = player.getUniqueId();
         String context = PlayersServiceContexts.getPlayerContext(id);
-        SmartCore.getBackendClient().unsubscribeContext(context);
+        SmartCore.getPlugin().getBackendClient().unsubscribeContext(context);
     }
 
 }

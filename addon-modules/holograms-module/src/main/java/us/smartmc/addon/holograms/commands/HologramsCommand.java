@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramArmorStand;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
+import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.smartaddons.plugin.AddonPluginCommand;
 
 import java.util.List;
@@ -30,7 +31,6 @@ public class HologramsCommand extends AddonPluginCommand {
             return;
         }
 
-
         HologramHolder mainHolder = HologramHolder.getOrCreate("main");
         switch (args[0].toLowerCase()) {
             case "addline" -> {
@@ -42,9 +42,9 @@ public class HologramsCommand extends AddonPluginCommand {
                 Hologram hologram = mainHolder.getHologram(name);
                 String text = readText(2, args);
                 for (String line : text.split("\n")) {
-                    Location lastLoc = hologram.getLinesArmorStands().get(hologram.getLinesArmorStands().size() - 1).getStand().getLocation();
-                    lastLoc.add(0, 0.3, 0);
-                    hologram.getLinesArmorStands().add(new HologramArmorStand(lastLoc, line));
+                    Location lastLoc = hologram.getLinesArmorStands().get(0).getStand().getLocation();
+                    lastLoc.add(0, -0.3, 0);
+                    hologram.addLine(lastLoc, line);
                 }
                 sender.sendMessage(PaperChatUtil.parse("&aAdded line!"));
                 mainHolder.updateHologramConfig(name);
@@ -69,7 +69,6 @@ public class HologramsCommand extends AddonPluginCommand {
                     sender.sendMessage(PaperChatUtil.parse("&aEmpty hologram has been detected and deleted! (" + name + ")"));
                 }
             }
-
             case "setline" -> {
                 if (args.length <= 2) {
                     sender.sendMessage(PaperChatUtil.parse("&cYou have to specify number & text!"));
@@ -87,7 +86,22 @@ public class HologramsCommand extends AddonPluginCommand {
                 sender.sendMessage(PaperChatUtil.parse("&aSet line!"));
                 mainHolder.updateHologramConfig(name);
             }
-
+            case "npc", "setnpc", "locationnpc", "npclocation" -> {
+                if (args.length <= 2) {
+                    sender.sendMessage(PaperChatUtil.parse("&cYou have to specify number & text!"));
+                    return;
+                }
+                String name = args[1];
+                String npcName = args[2];
+                Hologram hologram = mainHolder.getHologram(name);
+                try {
+                    hologram.assignToNPCLocation(npcName);
+                    sender.sendMessage(PaperChatUtil.parse("&aHologram location assigned to NPC!"));
+                    mainHolder.updateHologramConfig(name);
+                } catch (CorePluginException e) {
+                    sender.sendMessage(PaperChatUtil.parse("&cError while trying to execute command! (" + e.getMessage() + ")"));
+                }
+            }
         }
     }
 

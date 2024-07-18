@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
 import us.smartmc.addon.holograms.util.LocationUtils;
 import us.smartmc.addon.holograms.util.NPCModuleUtil;
+import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.npcsmodule.instance.CustomNPC;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Hologram {
     private final String name;
     private final HologramHolderConfig config;
 
-    private final Location location;
+    private Location location;
     private final List<HologramArmorStand> linesStands = new ArrayList<>();
 
     protected Hologram(String name, HologramHolderConfig config) {
@@ -30,6 +31,18 @@ public class Hologram {
         linesStands.forEach(hologramArmorStand -> {
             hologramArmorStand.getStand().remove();
         });
+    }
+
+    public void assignToNPCLocation(String npcName) throws CorePluginException {
+        CustomNPC npc = NPCModuleUtil.getFirstByName(name);
+        if (npc == null) throw new CorePluginException("No NPC found with name of '" + npcName + "'!");
+        String locationPath = HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY;
+        config.set(locationPath, "npc@" + npcName);
+        location = loadLocation();
+    }
+
+    public void addLine(Location location, String text) {
+        linesStands.add(new HologramArmorStand(location, text));
     }
 
     public List<HologramArmorStand> getLinesArmorStands() {

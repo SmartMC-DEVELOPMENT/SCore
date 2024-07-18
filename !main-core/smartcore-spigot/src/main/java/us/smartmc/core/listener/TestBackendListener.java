@@ -10,6 +10,7 @@ public class TestBackendListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onChatEvent(AsyncPlayerChatEvent event) {
-        SmartCore.getBackendClient().broadcastCommand("chat@spigot-core", "chat " + event.getPlayer().getName() + " " + event.getMessage());
+        SmartCore.getPlugin().getBackendClient().broadcastCommand("chat@spigot-core",
+                "chat " + event.getPlayer().getName() + " " + event.getMessage());
     }
 }

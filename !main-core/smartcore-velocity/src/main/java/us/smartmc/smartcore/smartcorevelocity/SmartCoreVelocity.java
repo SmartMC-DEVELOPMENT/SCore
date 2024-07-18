@@ -144,6 +144,7 @@ public class SmartCoreVelocity {
 
     @Subscribe
     public void onShutdown(ProxyShutdownEvent event) {
+
         OnlineCountHandler.unregister();
     }
 

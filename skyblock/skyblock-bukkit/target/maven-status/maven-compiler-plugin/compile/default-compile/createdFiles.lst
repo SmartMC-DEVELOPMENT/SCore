@@ -11,7 +11,6 @@ us\smartmc\game\SkyBlockPlugin$1.class
 us\smartmc\game\event\SkyBlockIslandPlayerDataLoadedEvent.class
 us\smartmc\game\listener\PlayerRegistryListeners.class
 us\smartmc\game\SkyBlockIslands.class
-us\smartmc\game\backend\SendInfoListener.class
 us\smartmc\game\SkyBlockLobby.class
 us\smartmc\game\instance\SkyBlockPlayerIsland.class
 us\smartmc\game\listener\MainIslandsListeners.class

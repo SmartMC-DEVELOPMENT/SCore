@@ -70,6 +70,8 @@ public class CustomNPC {
 
     private NPCGravitySimulationTask gravityTask;
 
+    private final Set<UUID> viewers = new HashSet<>();
+
     public CustomNPC(NPCManager manager, ServerLevel world, String configId, String name, Document configData) {
         this.manager = manager;
         this.npcPlayer = new ServerPlayer(server, world, new GameProfile(UUID.randomUUID(), name), ClientInformation.createDefault());
@@ -112,7 +114,17 @@ public class CustomNPC {
         this.commandLines = commandLines;
     }
 
+    public void checkViewer(Player player) {
+        World world = bukkitLocation.getWorld();
+        if (world == null) return;
+        boolean sameWorld = player.getWorld().getName().equals(world.getName());
+        if (sameWorld) return;
+
+        viewers.remove(player.getUniqueId());
+    }
+
     public void showTo(Player player) {
+        if (viewers.contains(player.getUniqueId())) return;
         parseEntity(player);
 
         npcPlayer.setCustomNameVisible(configData.getBoolean("nameVisible", true));

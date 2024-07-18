@@ -9,6 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
+import us.smartmc.core.SmartCore;
 import us.smartmc.npcsmodule.event.NPCUseEntityEvent;
 import us.smartmc.npcsmodule.manager.NPCCommandManager;
 import us.smartmc.npcsmodule.manager.NPCManager;
@@ -29,6 +31,13 @@ public class NPCListeners extends AddonListener implements Listener {
     }
 
     @EventHandler
+    public void onTeleport(PlayerTeleportEvent event) {
+        Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
+            showAllNPCsToPlayer(event.getPlayer());
+        }, 2);
+    }
+
+    @EventHandler
     public void onLangChange(PlayerLanguageChangedEvent event) {
         NPCManager.forEach(npcManager -> {
             Bukkit.getScheduler().runTaskLater(SpigotPluginsAPI.getPlugin(), () -> {
@@ -42,9 +51,9 @@ public class NPCListeners extends AddonListener implements Listener {
     private void showAllNPCsToPlayer(Player player) {
         NPCManager.forEach(npcManager -> {
             npcManager.values().forEach(npc -> {
+                npc.checkViewer(player);
                 npc.showTo(player);
             });
         });
     }
-
 }

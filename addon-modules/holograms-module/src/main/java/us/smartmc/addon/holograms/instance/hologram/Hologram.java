@@ -23,6 +23,10 @@ public class Hologram {
     protected Hologram(String name, HologramHolderConfig config) {
         this.name = name;
         this.config = config;
+        setup();
+    }
+
+    private void setup() {
         this.location = loadLocation();
         loadAllConfigHolograms();
     }
@@ -38,7 +42,9 @@ public class Hologram {
         if (npc == null) throw new CorePluginException("No NPC found with name of '" + npcName + "'!");
         String locationPath = HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY;
         config.set(locationPath, "npc@" + npcName);
-        location = loadLocation();
+        config.save();
+        removeAllStands();
+        setup();
     }
 
     public void addLine(Location location, String text) {

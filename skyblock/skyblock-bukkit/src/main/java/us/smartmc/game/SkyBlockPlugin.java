@@ -7,6 +7,7 @@ import me.imsergioh.pluginsapi.language.EnumMessagesRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.smartmc.backend.connection.BackendClient;
 import us.smartmc.backend.handler.ConnectionInputManager;
 import us.smartmc.core.SmartCore;
 import us.smartmc.game.listener.BackendBukkitListeners;
@@ -43,6 +44,7 @@ public class SkyBlockPlugin extends JavaPlugin {
             SkyBlockPlugin.registerServerToBackend();
         });
         EnumMessagesRegistry.registerLanguageHolder(SkyBlockPlayerMesssages.class);
+        BackendClient
 
         VariablesHandler.register(new SkyBlockPlayerVariables());
 

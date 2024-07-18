@@ -22,6 +22,7 @@ import us.smartmc.core.commands.*;
 import us.smartmc.core.handler.*;
 import us.smartmc.core.instance.SpigotLogger;
 import us.smartmc.core.itemcommands.BungeeCommandAction;
+import us.smartmc.core.itemcommands.LangMessagesCommand;
 import us.smartmc.core.itemcommands.MessageCommand;
 import us.smartmc.core.listener.*;
 import us.smartmc.core.messages.GeneralMessages;
@@ -159,10 +160,12 @@ public class SmartCore extends JavaPlugin {
                 .regCMD("executeAtBungeeCommand", new ExecuteAtBungeeCommand())
                 .regCMD("coins", new CoinsCommand())
                 .regCMD("enigmaboxes", new EnigmaBoxesCommand())
-                .regCMD("gems", new GemsCommand());
+                .regCMD("gems", new GemsCommand())
+                .regCMD("adminlanguage", new AdminLanguageCommand());
 
         ItemActionsManager.registerCommand("bungeeCMD", new BungeeCommandAction());
         ItemActionsManager.registerCommand("message", new MessageCommand());
+        ItemActionsManager.registerCommand("langMessages", new LangMessagesCommand());
     }
 
     private void registerListeners() {

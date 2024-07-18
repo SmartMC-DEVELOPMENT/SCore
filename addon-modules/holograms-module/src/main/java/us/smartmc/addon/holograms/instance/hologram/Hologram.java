@@ -38,7 +38,7 @@ public class Hologram {
     }
 
     public void assignToNPCLocation(String npcName) throws CorePluginException {
-        CustomNPC npc = NPCModuleUtil.getFirstByName(name);
+        CustomNPC npc = NPCModuleUtil.getFirstByName(npcName);
         if (npc == null) throw new CorePluginException("No NPC found with name of '" + npcName + "'!");
         String locationPath = HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY;
         config.set(locationPath, "npc@" + npcName);

@@ -38,6 +38,7 @@ import org.bukkit.util.Vector;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
+import us.smartmc.core.SmartCore;
 import us.smartmc.npcsmodule.manager.NPCManager;
 import us.smartmc.npcsmodule.util.ConfigUtil;
 
@@ -119,12 +120,13 @@ public class CustomNPC {
         if (world == null) return;
         boolean sameWorld = player.getWorld().getName().equals(world.getName());
         if (sameWorld) return;
-
         viewers.remove(player.getUniqueId());
+        player.hideEntity(SmartCore.getPlugin(), getBukkitEntity());
     }
 
     public void showTo(Player player) {
         if (viewers.contains(player.getUniqueId())) return;
+        player.hideEntity(SmartCore.getPlugin(), getBukkitEntity());
         parseEntity(player);
 
         npcPlayer.setCustomNameVisible(configData.getBoolean("nameVisible", true));

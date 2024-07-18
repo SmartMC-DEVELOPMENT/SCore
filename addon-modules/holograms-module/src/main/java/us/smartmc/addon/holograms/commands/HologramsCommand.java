@@ -42,7 +42,7 @@ public class HologramsCommand extends AddonPluginCommand {
                 Hologram hologram = mainHolder.getHologram(name);
                 String text = readText(2, args);
                 for (String line : text.split("\n")) {
-                    Location lastLoc = hologram.getLinesArmorStands().get(0).getStand().getLocation();
+                    Location lastLoc = hologram.getLinesArmorStands().get(hologram.getLinesArmorStands().size()).getStand().getLocation();
                     lastLoc.add(0, -0.3, 0);
                     hologram.addLine(lastLoc, line);
                 }
@@ -88,7 +88,7 @@ public class HologramsCommand extends AddonPluginCommand {
             }
             case "npc", "setnpc", "locationnpc", "npclocation" -> {
                 if (args.length <= 2) {
-                    sender.sendMessage(PaperChatUtil.parse("&cYou have to specify number & text!"));
+                    sender.sendMessage(PaperChatUtil.parse("&cYou have to specify number and text!"));
                     return;
                 }
                 String name = args[1];
@@ -97,7 +97,6 @@ public class HologramsCommand extends AddonPluginCommand {
                 try {
                     hologram.assignToNPCLocation(npcName);
                     sender.sendMessage(PaperChatUtil.parse("&aHologram location assigned to NPC!"));
-                    mainHolder.updateHologramConfig(name);
                 } catch (CorePluginException e) {
                     sender.sendMessage(PaperChatUtil.parse("&cError while trying to execute command! (" + e.getMessage() + ")"));
                 }

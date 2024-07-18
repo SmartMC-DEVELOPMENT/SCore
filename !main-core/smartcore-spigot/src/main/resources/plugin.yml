@@ -27,3 +27,4 @@ commands:
     aliases: [balance, eco, bal]
   enigmaboxes:
   gems:
+  adminlanguage:

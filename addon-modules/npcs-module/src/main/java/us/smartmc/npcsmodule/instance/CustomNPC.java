@@ -115,12 +115,16 @@ public class CustomNPC {
         this.commandLines = commandLines;
     }
 
+    public void removeViewer(Player player) {
+        viewers.remove(player.getUniqueId());
+    }
+
     public void checkViewer(Player player) {
         World world = bukkitLocation.getWorld();
         if (world == null) return;
         boolean sameWorld = player.getWorld().getName().equals(world.getName());
         if (sameWorld) return;
-        viewers.remove(player.getUniqueId());
+        removeViewer(player);
         player.hideEntity(SmartCore.getPlugin(), getBukkitEntity());
     }
 
@@ -128,7 +132,7 @@ public class CustomNPC {
         if (viewers.contains(player.getUniqueId())) return;
         player.hideEntity(SmartCore.getPlugin(), getBukkitEntity());
         parseEntity(player);
-
+        viewers.add(player.getUniqueId());
         npcPlayer.setCustomNameVisible(configData.getBoolean("nameVisible", true));
         npcPlayer.getBukkitEntity().setCustomNameVisible(configData.getBoolean("nameVisible", true));
 

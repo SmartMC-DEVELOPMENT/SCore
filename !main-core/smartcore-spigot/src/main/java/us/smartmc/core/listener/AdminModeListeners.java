@@ -29,7 +29,7 @@ public class AdminModeListeners implements Listener {
         event.setCancelled(false);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onDrop(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
         if (!handler.isActive(player)) return;

@@ -10,10 +10,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Arrays;
 import java.util.Set;
 
-public class LangMessagesAdminMainMenu extends CoreMenu {
+public class LanguageHoldersMenu extends CoreMenu {
 
-    public LangMessagesAdminMainMenu(Player player) {
-        super(player, 9 * 6, "Main menu | Language Messages");
+    public LanguageHoldersMenu(Player player) {
+        super(player, 9 * 6, "Holders");
     }
 
     @Override

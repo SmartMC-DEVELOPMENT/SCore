@@ -32,9 +32,10 @@ public class Hologram {
     }
 
     public void removeAllStands() {
-        linesStands.forEach(hologramArmorStand -> {
-            hologramArmorStand.getStand().remove();
-        });
+        for (HologramArmorStand stand : new ArrayList<>(linesStands)) {
+            stand.getStand().remove();
+            linesStands.remove(stand);
+        }
     }
 
     public void assignToNPCLocation(String npcName) throws CorePluginException {

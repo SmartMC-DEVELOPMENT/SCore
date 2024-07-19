@@ -6,6 +6,7 @@ import me.imsergioh.pluginsapi.language.LangMessagesInfo;
 import net.dv8tion.jda.api.entities.Member;
 import org.bson.Document;
 import us.smartmc.backend.connection.BackendClient;
+import us.smartmc.smartbot.SmartBotMain;
 import us.smartmc.smartbot.util.MinecraftLinkUtil;
 
 import java.text.MessageFormat;
@@ -46,7 +47,7 @@ public class DiscordMinecraftUser {
             requestDocument.append("args", argsList);
         }
 
-        BackendClient.mainConnection.broadcastCommand("mcPlayer@" + getMinecraftId(), "sendBukkitMsg " + requestDocument.toJson());
+        SmartBotMain.getBackendClient().broadcastCommand("mcPlayer@" + getMinecraftId(), "sendBukkitMsg " + requestDocument.toJson());
     }
 
     public UUID getMinecraftId() {

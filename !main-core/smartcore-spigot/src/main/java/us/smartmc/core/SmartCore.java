@@ -166,6 +166,7 @@ public class SmartCore extends JavaPlugin {
         ItemActionsManager.registerCommand("bungeeCMD", new BungeeCommandAction());
         ItemActionsManager.registerCommand("message", new MessageCommand());
         ItemActionsManager.registerCommand("langMessages", new LangMessagesCommand());
+        ItemActionsManager.registerCommand("adminLanguage", new us.smartmc.core.itemcommands.AdminLanguageCommand());
     }
 
     private void registerListeners() {

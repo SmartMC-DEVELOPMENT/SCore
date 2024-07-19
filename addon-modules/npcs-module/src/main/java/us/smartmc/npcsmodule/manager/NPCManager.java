@@ -80,7 +80,7 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
 
             System.out.println("Loaded npc " + key + " location = " + location);
             npc.setBukkitLocation(location);
-            npc.setCommandLines(data.getList("commands", String.class));
+            npc.setCommandLines(data.getList("commands", String.class, new ArrayList<>()));
 
             if (data.containsKey("nameVisible")) npc.setNameVisible(data.getBoolean("nameVisible"));
 

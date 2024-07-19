@@ -6,6 +6,7 @@ import me.imsergioh.pluginsapi.instance.manager.ManagerRegistry;
 import me.imsergioh.pluginsapi.language.EnumMessagesRegistry;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Difficulty;
 import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -81,6 +82,11 @@ public final class LuckyTowers extends JavaPlugin {
 
         VariablesHandler.register(new GameVariables());
         VariablesHandler.register(new PlayerStatsVariables());
+
+        World mapsWorld = Bukkit.getWorld(mainConfig.getMapsWorldDirName());
+        if (mapsWorld != null) {
+            mapsWorld.setDifficulty(Difficulty.HARD);
+        }
     }
 
     @Override

@@ -36,6 +36,9 @@ import java.util.TimerTask;
 public class SmartBotMain {
 
     @Getter
+    private static BackendClient backendClient;
+
+    @Getter
     private static final Dotenv dotenv = Dotenv.load();
     private static JDA api;
 
@@ -46,9 +49,9 @@ public class SmartBotMain {
         // CONNECT BACKEND SERVICES >>
         MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
         RedisConnection.mainConnection = newRedisConnection();
-        BackendClient.mainConnection = new BackendClient("localhost", 7723);
-        BackendClient.mainConnection.login("discordbot", "MRWORLDWIDEWHENISTEPINTOAROMDALEE");
-        new Thread(BackendClient.mainConnection).start();
+        backendClient = new BackendClient("localhost", 7723);
+        backendClient.login("discordbot", "MRWORLDWIDEWHENISTEPINTOAROMDALEE");
+        new Thread(backendClient).start();
 
         EnumMessagesRegistry.registerLanguageHolder(MainMessages.class);
 

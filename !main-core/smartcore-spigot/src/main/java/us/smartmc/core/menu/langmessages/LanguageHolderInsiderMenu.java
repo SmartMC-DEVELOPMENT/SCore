@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LangMessagesAdminSettingsMenu extends CoreMenu {
+public class LanguageHolderInsiderMenu extends CoreMenu {
 
     private final LanguageMessagesHolder defaultLangHolder;
 
-    public LangMessagesAdminSettingsMenu(Player player, String name) {
-        super(player, 9 * 6, "Settings of " + name + " | Language Messages");
+    public LanguageHolderInsiderMenu(Player player, String name) {
+        super(player, 9 * 6, "LanguageHolder Insider of " + name);
         defaultLangHolder = LanguagesHandler.get(Language.getDefault()).get(name);
     }
 

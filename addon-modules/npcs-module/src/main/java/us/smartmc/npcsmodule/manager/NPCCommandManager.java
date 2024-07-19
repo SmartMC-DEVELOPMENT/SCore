@@ -18,7 +18,7 @@ public class NPCCommandManager {
     public static void performCommand(NPCUseEntityEvent event) {
         CustomNPC npc = event.getNPC();
         List<String> commands = npc.getCommandLines();
-        if (commands.isEmpty()) return;
+        if (commands == null || commands.isEmpty()) return;
         for (String label : commands) {
             String name = label.split(" ")[0];
             NPCCommandExecutor executor = executors.get(name);

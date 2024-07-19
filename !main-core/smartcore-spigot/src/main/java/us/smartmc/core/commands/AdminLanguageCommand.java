@@ -5,8 +5,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.smartmc.core.instance.player.SmartCorePlayer;
-import us.smartmc.core.menu.ReloadLanguageConfigMenu;
-import us.smartmc.core.menu.langmessages.LangMessagesAdminMainMenu;
+import us.smartmc.core.menu.langmessages.AdminLanguageMainMenu;
+import us.smartmc.core.menu.langmessages.LanguageHoldersMenu;
 
 public class AdminLanguageCommand implements CommandExecutor {
 
@@ -19,7 +19,7 @@ public class AdminLanguageCommand implements CommandExecutor {
             corePlayer.sendLanguageMessage("general", "noPermission");
             return true;
         }
-        new LangMessagesAdminMainMenu(player).open(player);
+        new AdminLanguageMainMenu(player).open(player);
         return true;
     }
 }

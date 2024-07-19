@@ -140,7 +140,7 @@ public class GameSession implements IGameSession {
                 if (countdown >= 1) {
                     broadcastActionbar(GameMessages.session_actionBar_startingIn, countdown);
                     broadcastTitle(GameMessages.starting_title, GameMessages.starting_subtitle, countdown);
-                    broadcastSound(Sound.BLOCK_LAVA_POP, 1f, 0.1f * countdown);
+                    broadcastSound(Sound.BLOCK_LAVA_POP, 1f, 0.1f / countdown);
                 }
                 countdown--;
                 soundPitch += 0.2f;

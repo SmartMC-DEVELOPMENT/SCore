@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.command.LeaveCommand;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
+import us.smartmc.game.luckytowers.instance.game.GameSessionStatus;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.util.GameUtil;
@@ -39,16 +40,16 @@ public class MainGameListeners implements Listener {
     public void cancelDropItem(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
-
         if (gamePlayer == null) {
             GameUtil.cancel(event);
             return;
         }
-        if (gamePlayer.getStatus().equals(PlayerStatus.INGAME)) {
+
+        if (gamePlayer.getStatus().equals(PlayerStatus.INGAME) &&
+                gamePlayer.getGameSession().getStatus().equals(GameSessionStatus.PLAYING)) {
             event.setCancelled(false);
             return;
         }
-
         event.setCancelled(true);
     }
 

@@ -13,7 +13,7 @@ public class SkyBlockLobby implements ISkyBlockAPI {
 
     @Override
     public void onEnable() {
-        SkyBlockPlugin.registerListeners(new MainIslandsListeners(), new TestListeners());
+        SkyBlockPlugin.registerListeners(new TestListeners());
 
         WorldUtils.deleteIslandWorlds();
     }

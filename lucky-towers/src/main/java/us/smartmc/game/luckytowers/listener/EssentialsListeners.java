@@ -78,10 +78,13 @@ public class EssentialsListeners implements Listener {
         event.message(null);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void cancelNaturalSpawns(EntitySpawnEvent event) {
         Entity entity = event.getEntity();
-        System.out.println("SPAWNED = " + entity.getClass().getName());
+
+        if (event.getEntity().getClass().getSimpleName().toLowerCase().contains("item")) return;
+
+        event.setCancelled(false);
     }
 
     @EventHandler

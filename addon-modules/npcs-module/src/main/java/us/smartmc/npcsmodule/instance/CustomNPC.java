@@ -119,20 +119,12 @@ public class CustomNPC {
         viewers.remove(player.getUniqueId());
     }
 
-    public void checkViewer(Player player) {
-        World world = bukkitLocation.getWorld();
-        if (world == null) return;
-        boolean sameWorld = player.getWorld().getName().equals(world.getName());
-        if (sameWorld) return;
-        removeViewer(player);
-        player.hideEntity(SmartCore.getPlugin(), getBukkitEntity());
-    }
-
     public void showTo(Player player) {
         if (viewers.contains(player.getUniqueId())) return;
+        viewers.add(player.getUniqueId());
         player.hideEntity(SmartCore.getPlugin(), getBukkitEntity());
         parseEntity(player);
-        viewers.add(player.getUniqueId());
+        player.sendMessage("Show to " + npcPlayer.displayName + " " + npcPlayer.getBukkitEntity().getUniqueId());
         npcPlayer.setCustomNameVisible(configData.getBoolean("nameVisible", true));
         npcPlayer.getBukkitEntity().setCustomNameVisible(configData.getBoolean("nameVisible", true));
 
@@ -190,6 +182,13 @@ public class CustomNPC {
         Bukkit.getScheduler().runTaskLater(SpigotPluginsAPI.getPlugin(), () -> {
             hideTagByPlayerScoreboard(player);
         }, 6);
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                removeViewer(player);
+            }
+        }, 1000);
     }
 
     public void hideTagByPlayerScoreboard(Player player) {

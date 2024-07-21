@@ -5,6 +5,8 @@
     <file url="file://$PROJECT_DIR$/!main-core/smartcore-spigot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/!main-core/smartcore-velocity/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/!main-core/smartcore-velocity/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/BMotd-Velocity/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/BMotd-Velocity/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MessagesMigration/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MessagesMigration/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/addon-modules/holograms-module/src/main/java" charset="UTF-8" />
@@ -27,8 +29,6 @@
     <file url="file://$PROJECT_DIR$/addons/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/arenapvp/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/arenapvp/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/bmotd-velocity/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/bmotd-velocity/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core-plugins/smartcore-spigot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core-plugins/smartcore-spigot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core-plugins/smartcore-velocity/src/main/java" charset="UTF-8" />
@@ -123,6 +123,5 @@
     <file url="file://$PROJECT_DIR$/test-backend-module/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/tonterias-module/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/tonterias-module/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../SmartEvents/events-core/src/main/resources" charset="UTF-8" />
   </component>
 </project>

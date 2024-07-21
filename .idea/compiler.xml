@@ -14,7 +14,6 @@
         <module name="test-backend-module" />
         <module name="skyblock-bukkit" />
         <module name="login-spigot" />
-        <module name="smartbot" />
         <module name="npcs-module" />
         <module name="bmotd-velocity" />
         <module name="MessagesMigration" />
@@ -53,6 +52,7 @@
       <module name="serverhandler-velocity" target="11" />
       <module name="skyblock" target="17" />
       <module name="SmartBot" target="17" />
+      <module name="smartbot" target="16" />
       <module name="SmartCore-Spigot" target="1.8" />
       <module name="smartcore-waterfall" target="1.8" />
       <module name="SmartCore-Waterfall" target="16" />

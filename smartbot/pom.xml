@@ -83,11 +83,6 @@
             <version>1.0.4</version>
         </dependency>
         <dependency>
-            <groupId>com.github.philippheuer</groupId>
-            <artifactId>discord-api-wrapper</artifactId>
-            <version>3.1.1</version> <!-- Verifica la última versión disponible -->
-        </dependency>
-        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.10.1</version>

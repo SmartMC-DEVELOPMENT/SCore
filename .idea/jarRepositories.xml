@@ -57,9 +57,19 @@
       <option name="url" value="https://repo.dmulloy2.net/repository/public/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="rapture-snapshots" />
+      <option name="name" value="rapture-snapshots" />
+      <option name="url" value="https://repo.rapture.pw/repository/maven-snapshots/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="aikar-release-repo" />
       <option name="name" value="aikar-release-repo" />
       <option name="url" value="https://repo.aikar.co/nexus/content/repositories/aikar-release/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="is-snapshots" />
+      <option name="name" value="is-snapshots" />
+      <option name="url" value="https://repo.infernalsuite.com/repository/maven-snapshots/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="jboss.community" />
@@ -90,6 +100,11 @@
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="is-releases" />
+      <option name="name" value="is-releases" />
+      <option name="url" value="https://repo.infernalsuite.com/repository/maven-releases/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="sonatype" />

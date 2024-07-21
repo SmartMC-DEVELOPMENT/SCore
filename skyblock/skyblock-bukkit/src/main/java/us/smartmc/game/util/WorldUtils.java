@@ -1,5 +1,9 @@
 package us.smartmc.game.util;
 
+import com.grinderwolf.swm.api.SlimePlugin;
+import com.grinderwolf.swm.api.loaders.SlimeLoader;
+import com.grinderwolf.swm.plugin.SWMPlugin;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -13,47 +17,11 @@ import java.util.Objects;
 
 public class WorldUtils {
 
-    public static void deleteIslandWorlds() {
-        try {
-            for (File file : Objects.requireNonNull(Bukkit.getWorlds().get(0).getWorldFolder().getParentFile().listFiles())) {
-                if (file.getName().startsWith("island-") && file.isDirectory()) {
-                    String worldName = file.getName();
-                    System.out.println("Trying to delete world: " + worldName);
-                    Bukkit.unloadWorld(worldName, false);
-                    WorldUtils.deleteWorldFolder(file);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Error trying to delete island worlds: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
+    @Getter
+    private static final SWMPlugin slimePlugin = (SWMPlugin) Bukkit.getPluginManager().getPlugin("SlimeWorldManager");
 
-    public static void deleteWorldFolder(File worldFolder) {
-        File[] files = worldFolder.listFiles();
-        if (files == null) return;
-        for (File file : files) {
-            if (file.isDirectory()) {
-                // Call recursive method
-                deleteWorldFolder(file);
-                continue;
-            }
-
-            // Delete if file
-            try {
-                Files.delete(Paths.get(file.getAbsolutePath()));
-            } catch (IOException e) {
-                System.out.println("Error trying to delete File: " + file.getAbsolutePath());
-                throw new RuntimeException(e);
-            }
-        }
-
-        try {
-            Files.delete(Paths.get(worldFolder.getAbsolutePath()));
-        } catch (IOException e) {
-            System.out.println("Error trying to delete Folder: " + worldFolder.getAbsolutePath());
-            throw new RuntimeException(e);
-        }
+    public static SlimeLoader getMainLoader() {
+        return slimePlugin.getLoader("mongodb");
     }
 
     public static void loadChunksBetweenLocations(Location pos1, Location pos2) {

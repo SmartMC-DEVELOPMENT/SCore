@@ -21,30 +21,6 @@ import java.util.UUID;
 
 public class MainIslandsListeners  implements Listener {
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void worldInit(org.bukkit.event.world.WorldInitEvent event) {
-        World world = event.getWorld();
-        if (!world.getName().startsWith("island-")) return;
-        world.setKeepSpawnInMemory(false);
-    }
-
-    @EventHandler
-    public void loadChunks(WorldLoadEvent event) {
-        World world = event.getWorld();
-        if (!world.getName().startsWith("island-")) return;
-
-        UUID islandId = UUID.fromString(world.getName().replace("island-", ""));
-        ISkyBlockIsland island = IslandsManager.get(islandId);
-
-        if(!(island instanceof SkyBlockPlayerIsland playerIsland)) return;
-
-        Bukkit.getScheduler().runTask(SkyBlockPlugin.getPlugin(), () -> {
-            Location pos1 = playerIsland.getIslandData().getMaxLocationBukkit(world);
-            Location pos2 = playerIsland.getIslandData().getMinLocationBukkit(world);
-            WorldUtils.loadChunksBetweenLocations(pos1, pos2);
-        });
-    }
-
     @EventHandler
     public void loadOrCreateIsland(SkyBlockPlayerDataLoadedEvent event) {
         Player player = event.getSkyBlockPlayer().getBukkitPlayer();

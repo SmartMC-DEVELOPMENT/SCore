@@ -44,9 +44,7 @@ public class NPCListeners extends AddonListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerDataLoadedEvent event) {
         if (!isEnabled()) return;
-        Bukkit.getScheduler().runTask(SmartCore.getPlugin(), () -> {
-            showAllNPCsToPlayer(event.getPlayer());
-        });
+        showAllNPCsToPlayer(event.getPlayer());
     }
 
     @EventHandler
@@ -65,9 +63,7 @@ public class NPCListeners extends AddonListener implements Listener {
         // Return if is the same world (Only send npcs if changes world BRO)
         if (to.getWorld().getName().equals(from.getWorld().getName())) return;
 
-        Bukkit.getScheduler().runTask(SmartCore.getPlugin(), () -> {
-            showAllNPCsToPlayer(event.getPlayer());
-        });
+        showAllNPCsToPlayer(event.getPlayer());
     }
 
     @EventHandler
@@ -92,7 +88,6 @@ public class NPCListeners extends AddonListener implements Listener {
     private void showAllNPCsToPlayer(Player player) {
         NPCManager.forEach(npcManager -> {
             npcManager.values().forEach(npc -> {
-                npc.checkViewer(player);
                 npc.showTo(player);
             });
         });

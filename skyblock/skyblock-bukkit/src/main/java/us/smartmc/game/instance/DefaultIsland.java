@@ -1,5 +1,6 @@
 package us.smartmc.game.instance;
 
+import com.grinderwolf.swm.api.world.SlimeWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -28,20 +29,24 @@ public class DefaultIsland extends SkyBlockPlayerIsland {
 
     @Override
     public void setupIsland() {
-        World world = IslandsSchematicsManager.getDefaultIslandWorld();
-        world.setSpawnLocation(0, 70, 0);
-        Location spawn = world.getSpawnLocation();
-        Location min = spawn.clone().add(-30, -30, -30);
-        Location max = spawn.clone().add(30, 30, 30);
-        islandData.setupIslandData(min, max, spawn);
+        SlimeWorld world = null;
+        try {
+            world = IslandsSchematicsManager.getDefaultIslandWorld();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         Bukkit.getScheduler().runTaskAsynchronously(SkyBlockPlugin.getPlugin(), () -> {
             // Load from island set or default one if not set!
             UUID islandIdToGenerate = IslandsSchematicsManager.getDefaultIslandId();
-            IslandsSchematicsManager.loadAndPasteSchematic(world, islandIdToGenerate);
+            try {
+                IslandsSchematicsManager.createIslandWorld(islandIdToGenerate);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
-    public World getWorld() {
+    public SlimeWorld getWorld() throws Exception {
         return IslandsSchematicsManager.getDefaultIslandWorld();
     }
 

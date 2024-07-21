@@ -1,6 +1,8 @@
 
 package us.smartmc.game.instance;
 
+import com.grinderwolf.swm.api.world.SlimeWorld;
+import com.grinderwolf.swm.api.world.properties.SlimeProperties;
 import lombok.Getter;
 import lombok.Setter;
 import me.imsergioh.pluginsapi.region.BukkitCuboidRegion;
@@ -10,6 +12,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import us.smartmc.game.SkyBlockPlugin;
 import us.smartmc.game.manager.IslandsSchematicsManager;
+import us.smartmc.game.util.WorldUtils;
 import us.smartmc.skyblock.instance.island.ISkyBlockIsland;
 
 import java.util.UUID;
@@ -54,35 +57,27 @@ public class SkyBlockPlayerIsland implements ISkyBlockIsland {
 
     public synchronized BukkitCuboidRegion getCuboidRegion() {
         if (cuboidRegion == null) {
-            World world = getWorld();
+            World world = (World) getWorld();
             cuboidRegion = new BukkitCuboidRegion(world.getName(), islandData.getMinLocationBukkit(world), islandData.getMaxLocationBukkit(world));
         }
         return cuboidRegion;
     }
 
     public void setupIsland() {
-        IslandsSchematicsManager.createIslandWorld(islandId).thenAccept(world -> {
+        try {
+            SlimeWorld world = IslandsSchematicsManager.createIslandWorld(islandId);
             islandWorldName = world.getName();
-            world.setSpawnLocation(0, 70, 0);
-            Location spawn = world.getSpawnLocation();
+            Location spawn = new Location(
+                    Bukkit.getWorld(islandWorldName),
+                    world.getPropertyMap().getValue(SlimeProperties.SPAWN_X),
+                    world.getPropertyMap().getValue(SlimeProperties.SPAWN_Y),
+                    world.getPropertyMap().getValue(SlimeProperties.SPAWN_Z));
             Location min = spawn.clone().add(-30, -30, -30);
             Location max = spawn.clone().add(30, 30, 30);
             islandData.setupIslandData(min, max, spawn);
-            SkyBlockPlayer skyBlockPlayer = getSkyBlockPlayer();
-            if (skyBlockPlayer != null && skyBlockPlayer.getBukkitPlayer() != null) {
-                Player player = skyBlockPlayer.getBukkitPlayer();
-
-                Bukkit.getScheduler().runTaskAsynchronously(SkyBlockPlugin.getPlugin(), () -> {
-                    // Load from island set or default one if not set!
-                    UUID islandIdToGenerate =  getSkyBlockPlayer().getPlayerData().getIslandSetId();
-                    if (createdIsland) islandIdToGenerate = IslandsSchematicsManager.getDefaultIslandId();
-                    IslandsSchematicsManager.loadAndPasteSchematic(world, islandIdToGenerate);
-                    Bukkit.getScheduler().runTask(SkyBlockPlugin.getPlugin(), () -> {
-                        player.teleport(spawn.clone().add(0.5, 0.5, 0.5));
-                    });
-                });
-            }
-        });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // When unloads from manager
@@ -90,7 +85,7 @@ public class SkyBlockPlayerIsland implements ISkyBlockIsland {
     public void unregister() {
         islandData.saveData();
         try {
-            IslandsSchematicsManager.saveRegion(getWorld(), this);
+            Bukkit.unloadWorld(islandWorldName, true);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -110,8 +105,8 @@ public class SkyBlockPlayerIsland implements ISkyBlockIsland {
         return islandId;
     }
 
-    private World getWorld() {
-        return Bukkit.getWorld(islandWorldName);
+    private SlimeWorld getWorld() {
+        return WorldUtils.getSlimePlugin().getWorld(islandWorldName);
     }
 
 }

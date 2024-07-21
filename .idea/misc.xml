@@ -20,7 +20,6 @@
         <option value="$PROJECT_DIR$/addons/chat-module/pom.xml" />
         <option value="$PROJECT_DIR$/login/login-spigot/pom.xml" />
         <option value="$PROJECT_DIR$/login/loginproxy-waterfall/pom.xml" />
-        <option value="$PROJECT_DIR$/smartbot/pom.xml" />
         <option value="$PROJECT_DIR$/server-handler/serverhandler-bukkit/pom.xml" />
         <option value="$PROJECT_DIR$/server-handler/pom.xml" />
         <option value="$PROJECT_DIR$/server-handler/serverhandler-bungee/pom.xml" />
@@ -98,7 +97,6 @@
         <option value="$PROJECT_DIR$/survival-placeholders/pom.xml" />
       </set>
     </option>
-    <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="azul-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

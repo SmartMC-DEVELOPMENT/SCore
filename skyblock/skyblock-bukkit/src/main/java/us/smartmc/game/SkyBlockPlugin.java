@@ -1,5 +1,7 @@
 package us.smartmc.game;
 
+import com.grinderwolf.swm.api.SlimePlugin;
+import com.grinderwolf.swm.api.loaders.SlimeLoader;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
@@ -44,6 +46,8 @@ public class SkyBlockPlugin extends JavaPlugin {
         EnumMessagesRegistry.registerLanguageHolder(SkyBlockPlayerMesssages.class);
         VariablesHandler.register(new SkyBlockPlayerVariables());
         IslandsSchematicsManager.registerDefaults();
+
+        
     }
 
     private static void setupAPI() {

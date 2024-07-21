@@ -40,30 +40,22 @@
       <id>enginehub-maven</id>
       <url>https://maven.enginehub.org/repo/</url>
     </repository>
+    <repository>
+      <id>rapture-snapshots</id>
+      <url>https://repo.rapture.pw/repository/maven-snapshots/</url>
+    </repository>
   </repositories>
   <dependencies>
-    <dependency>
-      <groupId>us.smartmc.backend</groupId>
-      <artifactId>sbackend-client</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.sk89q.worldedit</groupId>
-      <artifactId>worldedit-bukkit</artifactId>
-      <version>7.2.9</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.sk89q.worldedit</groupId>
-      <artifactId>worldedit-core</artifactId>
-      <version>7.2.0-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
     <dependency>
       <groupId>io.papermc.paper</groupId>
       <artifactId>paper-api</artifactId>
       <version>1.20.4-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>us.smartmc.backend</groupId>
+      <artifactId>sbackend-client</artifactId>
+      <version>1.0-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -83,6 +75,13 @@
       <artifactId>lombok</artifactId>
       <version>RELEASE</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.grinderwolf</groupId>
+      <artifactId>slimeworldmanager-api</artifactId>
+      <version>local</version>
+      <scope>system</scope>
+      <systemPath>D:/workspace2024/SCore/skyblock/lib/slimeworldmanager-plugin-2.8.0-SNAPSHOT.jar</systemPath>
     </dependency>
   </dependencies>
   <properties>

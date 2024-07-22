@@ -124,7 +124,6 @@ public class CustomNPC {
         viewers.add(player.getUniqueId());
         player.hideEntity(SmartCore.getPlugin(), getBukkitEntity());
         parseEntity(player);
-        player.sendMessage("Show to " + npcPlayer.displayName + " " + npcPlayer.getBukkitEntity().getUniqueId());
         npcPlayer.setCustomNameVisible(configData.getBoolean("nameVisible", true));
         npcPlayer.getBukkitEntity().setCustomNameVisible(configData.getBoolean("nameVisible", true));
 

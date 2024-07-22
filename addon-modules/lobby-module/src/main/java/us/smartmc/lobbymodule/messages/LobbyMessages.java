@@ -5,9 +5,7 @@ import me.imsergioh.pluginsapi.language.LangMessagesInfo;
 import me.imsergioh.pluginsapi.language.LanguageMessagesHolder;
 import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 import org.bukkit.Material;
-import us.smartmc.lobbymodule.instance.PlayerVisibility;
 
-import java.util.Arrays;
 import java.util.List;
 
 @LangMessagesInfo(name = LobbyMessages.NAME)
@@ -19,6 +17,17 @@ public class LobbyMessages extends MultiLanguageRegistry {
     public void load(LanguageMessagesHolder holder) {
         holder.load();
         holder.registerDefault("your_discordLink_code_is", "Your discord link code is: &9{0}");
+
+        holder.put("join_embedmessage", List.of(
+                "&r",
+                "&f¡Welcome to <bold><egradient:#00BFFF>SmartMC<reset>&f <name>&f!",
+                " &a\uD83D\uDED2 tienda.smartmc.us",
+                " &9\uD83D\uDCAC discord.smartmc.us",
+                " &f\uD835\uDD4F twitter.smartmc.us",
+                " &b\uD83C\uDF10 www.smartmc.us",
+                "&8[Terms and conditions](http://example.com)"
+                ));
+
         holder.save();
     }
 

@@ -2,6 +2,7 @@ package us.smartmc.lobbymodule.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.instance.ClickableComponent;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.util.BukkitUtil;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.PaperChatUtil;
@@ -27,6 +28,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PlayerListener extends AddonListener implements Listener {
+
+    @EventHandler
+    public void sendJoinMessage(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
+            if (!player.isOnline()) return;
+            player.sendMessage(PaperChatUtil.parse(player, "<lang.lobby.join_embedmessage>"));
+            Sound sound = Sound.BLOCK_BAMBOO_WOOD_BUTTON_CLICK_ON;
+            player.playSound(player.getLocation(), sound, 1, 1);
+        }, 20 * 2);
+
+
+    }
 
     @EventHandler
     public void removeLinkDiscordCode(PlayerQuitEvent event) {

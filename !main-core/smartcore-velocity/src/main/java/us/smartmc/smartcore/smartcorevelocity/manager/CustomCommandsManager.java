@@ -38,7 +38,6 @@ public class CustomCommandsManager extends MongoDBPluginConfig {
             executeCommand(sender, literalCommands);
             executedAtLeastOne = true;
         }
-        if (executedAtLeastOne) return executedAtLeastOne;
 
         for (String nameCommands : getCommandsOfCommandName(label)) {
             executeCommand(sender, nameCommands);

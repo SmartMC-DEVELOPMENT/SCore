@@ -43,14 +43,14 @@ public class SettingsMenu extends CoreMenu {
         //ItemBuilder relleno = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).name(" ");
         //MenuUtil.setBorder(relleno.get(), inventory);
 
-        set(11, ItemBuilder.of(Material.PLAYER_HEAD)
+        set(11, ItemBuilder.of(Material.SKULL_ITEM)
                 .data((byte) 3)
                 .name("<lang.lobby.items.language.name>")
                 .lore(Arrays.asList("<lang.lobby.items.language.description>"))
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=")
                 .get(language), "cmd lang");
 
-        set(13, ItemBuilder.of(Material.PLAYER_HEAD)
+        set(13, ItemBuilder.of(Material.SKULL_ITEM)
                 .data((byte) 3)
                 .name("<lang.lobby.items.link_socials.name>")
                 .lore(Arrays.asList("<lang.lobby.items.link_socials.description>"))

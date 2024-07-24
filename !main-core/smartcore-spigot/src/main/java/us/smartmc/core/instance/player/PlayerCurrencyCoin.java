@@ -4,9 +4,9 @@ import org.bukkit.Sound;
 
 public enum PlayerCurrencyCoin implements IPlayerCurrencyCoin {
 
-    SMARTCOINS("coins", "coin", Sound.ENTITY_PLAYER_LEVELUP, 1F, 10F),
-    ENIGMA_BOXES("enigmaboxes", "enigmabox", Sound.ENTITY_ENDER_DRAGON_HURT),
-    GEMS("gems", "gem", Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 0.2F);
+    SMARTCOINS("coins", "coin", Sound.LEVEL_UP, 1F, 10F),
+    ENIGMA_BOXES("enigmaboxes", "enigmabox", Sound.ENDERDRAGON_HIT),
+    GEMS("gems", "gem", Sound.ORB_PICKUP, 1F, 0.2F);
 
     private final String documentKey, singleUnitName;
     private float soundPitch, soundVolume = 1;

@@ -1,6 +1,6 @@
 package us.smartmc.lobbymodule.command;
 
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.smartmc.lobbymodule.LobbyModule;
@@ -14,7 +14,7 @@ public class LobbyCommand extends AddonPluginCommand {
 
     @Override
     public void executeAll(CommandSender sender, String[] args) {
-        sender.sendMessage(PaperChatUtil.parse(
+        sender.sendMessage(ChatUtil.parse(
                 "&6lobby-module&a created by &bImSergioh &alet's go! :D (v" +
                         LobbyModule.getPlugin().getInfo().version() + ")"
         ));

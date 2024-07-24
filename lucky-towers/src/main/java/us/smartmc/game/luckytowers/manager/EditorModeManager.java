@@ -2,7 +2,7 @@ package us.smartmc.game.luckytowers.manager;
 
 import me.imsergioh.pluginsapi.instance.manager.ManagerRegistry;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.instance.player.EditorSession;
 import us.smartmc.game.luckytowers.menu.hotbar.EditorModeHotbar;

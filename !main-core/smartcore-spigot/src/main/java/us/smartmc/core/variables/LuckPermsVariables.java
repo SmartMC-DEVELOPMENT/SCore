@@ -56,7 +56,7 @@ public class LuckPermsVariables extends VariableListener<Player> {
             message = VariableUtil.replace(message, "<rank>", s -> prefix);
         } else {
             String acquireRankMessage = LanguagesHandler.get(PlayerLanguages.get(player.getUniqueId())).get("general").getString("acquireRank");
-            message = VariableUtil.replace(message, "<rank>", s-> "<red>" + acquireRankMessage);
+            message = VariableUtil.replace(message, "<rank>", s-> "&c" + acquireRankMessage);
         }
 
         // <CHAT.PREFIX>

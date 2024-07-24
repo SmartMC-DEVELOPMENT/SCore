@@ -1,6 +1,8 @@
 package us.smartmc.core.util;
 
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +17,6 @@ public class PlayerVersions {
     }
 
     public static int get(UUID uuid) {
-        return Bukkit.getPlayer(uuid).getProtocolVersion();
+        return -1;
     }
 }

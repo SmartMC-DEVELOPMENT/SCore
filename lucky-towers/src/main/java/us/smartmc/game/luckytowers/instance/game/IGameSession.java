@@ -3,7 +3,7 @@ package us.smartmc.game.luckytowers.instance.game;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.IMessageCategory;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Sound;
@@ -33,7 +33,7 @@ public interface IGameSession {
     default void broadcastActionbar(IMessageCategory message, Object... args) {
         forEachOnlinePlayer(player -> {
             Language language = PlayerLanguages.get(player.getUniqueId());
-            player.sendActionBar(PaperChatUtil.parse(player, message.getMessageOf(language), args));
+            player.sendActionBar(ChatUtil.parse(player, message.getMessageOf(language), args));
         });
     }
 
@@ -57,7 +57,7 @@ public interface IGameSession {
 
     default void broadcastMessage(String message, Object... args) {
         forEachOnlinePlayer(player -> {
-            player.sendMessage(PaperChatUtil.parse(player, message, args));
+            player.sendMessage(ChatUtil.parse(player, message, args));
         });
     }
 

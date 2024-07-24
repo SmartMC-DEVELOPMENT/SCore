@@ -31,7 +31,7 @@ public class JoinItemMenu extends ConfigurableMenu {
 
         set(1, parseHeadOwnerTo(headItem, initPlayer), "lobbyModule settings");
 
-        set(4, ItemBuilder.of(Material.PLAYER_HEAD).data(3)
+        set(4, ItemBuilder.of(Material.SKULL_ITEM).data(3)
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjYzMDI5Y2M4MTY3ODk3ZTY1MzVhM2M1NzM0YmJhYmFmZjE4OGQwOTA1ZjlkOTM1M2FmYWM2MmEwNmRhZGY4NiJ9fX0=")
                 .name("<lang.lobby.items.cosmetics.name>")
                 .lore("<lang.lobby.items.cosmetics.description>").get(initPlayer), "itemCosmetics");
@@ -39,24 +39,18 @@ public class JoinItemMenu extends ConfigurableMenu {
         PlayerVisibility visibility = VisibilityManager.getVisibility(initPlayer);
         set(7, VisibilityManager.getVisibilityItem(initPlayer, visibility).get(initPlayer), "cmd changeVisibility");
 
-        if (initPlayer.hasPermission("group.builder")) {
-            set(13, ItemBuilder.of(Material.NETHERITE_AXE).hideFlags()
-                    .name("<gradient:#00BFFF:#94E3FF>Servidor de construcción</gradient>")
-                    .lore("&8Imaginación\n\n&7Construye con toda la creatividad\n&7en este servidor y diviértete\n\n&c(Servidor privado)").get(), "connectTo builds");
-        }
-
         setItem(8, Material.PAPER, "lobbies");
     }
 
     public ItemStack parseHeadOwnerTo(ItemStack headItem, OfflinePlayer player) {
         SkullMeta skullMeta = (SkullMeta) headItem.getItemMeta();
-        skullMeta.setOwningPlayer(initPlayer);
+        skullMeta.setOwner(initPlayer.getName());
         headItem.setItemMeta(skullMeta);
         return headItem;
     }
 
     public ItemBuilder headItem(String name) {
-        return ItemBuilder.of(Material.PLAYER_HEAD)
+        return ItemBuilder.of(Material.SKULL_ITEM)
                 .data((byte) 3)
                 .name("<lang.lobby.items." + name + ".name>")
                 .lore("<lang.lobby.items." + name + ".description>");

@@ -55,9 +55,9 @@ public class VisibilityManager extends AddonListener implements Listener {
     public static ItemBuilder getVisibilityItem(Player player, PlayerVisibility visibility) {
         Material material;
         switch (visibility) {
-            case DEFAULT -> material = Material.LIME_DYE;
-            case NO_ONE -> material = Material.GRAY_DYE;
-            case VIPS -> material = Material.PINK_DYE;
+            case DEFAULT -> material = Material.BARRIER;
+            case NO_ONE -> material = Material.BARRIER;
+            case VIPS -> material = Material.BARRIER;
             default -> material = Material.BARRIER;
         }
 

@@ -3,7 +3,7 @@ package us.smartmc.game.luckytowers.itemcmd;
 import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import me.imsergioh.pluginsapi.language.IMessageCategory;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

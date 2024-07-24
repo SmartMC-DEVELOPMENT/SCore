@@ -43,7 +43,7 @@ public final class LoginSpigot extends JavaPlugin implements Listener, CommandEx
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "main:bungeecord");
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "fastlogin:fastlogin");
-        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "loginspigot:smartlogin");
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "loginspigot:slogin");
 
         Bukkit.getPluginManager().registerEvents(this, this);
         getCommand("toggle").setExecutor(this);

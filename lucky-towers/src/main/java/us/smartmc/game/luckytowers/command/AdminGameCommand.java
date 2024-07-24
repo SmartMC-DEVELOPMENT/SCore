@@ -2,7 +2,7 @@ package us.smartmc.game.luckytowers.command;
 
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -47,7 +47,7 @@ public class AdminGameCommand implements CommandExecutor {
         if (args.length >= 2 && args[0].equalsIgnoreCase("setTimeLimit")) {
             EditorModeManager manager = LuckyTowers.getManager(EditorModeManager.class);
             manager.get(player.getUniqueId()).getMap().setTimeLimit(Integer.parseInt(args[1]));
-            player.sendMessage(PaperChatUtil.parse(player, "&aTime limit set!"));
+            player.sendMessage(ChatUtil.parse(player, "&aTime limit set!"));
         }
     }
 

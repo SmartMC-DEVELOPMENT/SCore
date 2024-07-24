@@ -76,8 +76,6 @@ public class LobbyModule extends AddonPlugin {
                 new CancelListeners());
         registerCommand(new ChangeVisibilityCommand());
 
-        CommandsRegistry.register("terms", new TermsCommand());
-
         new WorldConfigManager();
         linkSocialsManager = new LinkSocialsManager();
         linkSocialsManager.load();

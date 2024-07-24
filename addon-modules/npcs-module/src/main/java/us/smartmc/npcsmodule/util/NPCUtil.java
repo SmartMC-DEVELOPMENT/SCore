@@ -2,7 +2,7 @@ package us.smartmc.npcsmodule.util;
 
 import org.bson.Document;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.npcsmodule.instance.CustomNPC;
 import us.smartmc.npcsmodule.manager.NPCManager;
@@ -28,7 +28,7 @@ public class NPCUtil {
         data.put("name", id);
 
         return new CustomNPC(manager,
-                (((CraftWorld) location.getWorld()).getHandle()),
+                location.getWorld(),
                 getIdOrDefault(id),
                 getNameOrDefault(id),
                 data);

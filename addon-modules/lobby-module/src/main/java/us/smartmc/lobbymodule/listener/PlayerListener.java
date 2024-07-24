@@ -1,12 +1,7 @@
 package us.smartmc.lobbymodule.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
-import me.imsergioh.pluginsapi.instance.ClickableComponent;
-import me.imsergioh.pluginsapi.instance.player.CorePlayer;
-import me.imsergioh.pluginsapi.util.BukkitUtil;
 import me.imsergioh.pluginsapi.util.ChatUtil;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
-import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,15 +12,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BookMeta;
 import us.smartmc.core.SmartCore;
-import us.smartmc.lobbymodule.messages.LobbyMessages;
 import us.smartmc.lobbymodule.util.DiscordLinkUtil;
 import us.smartmc.lobbymodule.util.FireworkUtil;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class PlayerListener extends AddonListener implements Listener {
 
@@ -34,12 +26,10 @@ public class PlayerListener extends AddonListener implements Listener {
         Player player = event.getPlayer();
         Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
             if (!player.isOnline()) return;
-            player.sendMessage(PaperChatUtil.parse(player, "<lang.lobby.join_embedmessage>"));
-            Sound sound = Sound.BLOCK_BAMBOO_WOOD_BUTTON_CLICK_ON;
+            player.sendMessage(ChatUtil.parse(player, "<lang.lobby.join_embedmessage>"));
+            Sound sound = Sound.CLICK;
             player.playSound(player.getLocation(), sound, 1, 1);
         }, 20 * 2);
-
-
     }
 
     @EventHandler
@@ -61,7 +51,7 @@ public class PlayerListener extends AddonListener implements Listener {
     public void sendSubliminalSoundForJoining(PlayerJoinEvent event) {
         if (!isEnabled()) return;
         Player player = event.getPlayer();
-        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 7.7F);
+        player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 7.7F);
     }
 
     @EventHandler
@@ -82,7 +72,7 @@ public class PlayerListener extends AddonListener implements Listener {
 
         for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
             String playerNamePrefixMessage = ChatUtil.parse(player, "<rank><reset><name>");
-            onlinePlayer.sendMessage(PaperChatUtil.parse(onlinePlayer, "<lang.lobby.join_message>", playerNamePrefixMessage));
+            onlinePlayer.sendMessage(ChatUtil.parse(onlinePlayer, "<lang.lobby.join_message>", playerNamePrefixMessage));
         }
     }
 }

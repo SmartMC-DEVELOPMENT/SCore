@@ -5,7 +5,7 @@ import lombok.Setter;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.IMessageCategory;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
@@ -63,8 +63,8 @@ public class GamePlayer {
     }
 
     public void sendTitle(IMessageCategory titleCategory, IMessageCategory subtitleCategory, Object... args) {
-        Component title = PaperChatUtil.parse(getBukkitPlayer(), titleCategory, args);
-        Component subtitle = PaperChatUtil.parse(getBukkitPlayer(), subtitleCategory, args);
+        Component title = ChatUtil.parse(getBukkitPlayer(), titleCategory, args);
+        Component subtitle = ChatUtil.parse(getBukkitPlayer(), subtitleCategory, args);
 
         getBukkitPlayer().showTitle(Title.title(title, subtitle, Title.Times.times(Duration.ZERO, Duration.ofMillis(1250), Duration.ZERO)));
     }
@@ -79,7 +79,7 @@ public class GamePlayer {
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.5f);
             Language language = PlayerLanguages.get(player.getUniqueId());
 
-            Component component = PaperChatUtil.parse(player, GameMessages.player_addedCoins.getMessageOf(language), amount);
+            Component component = ChatUtil.parse(player, GameMessages.player_addedCoins.getMessageOf(language), amount);
             player.sendActionBar(component);
         });
 
@@ -111,7 +111,7 @@ public class GamePlayer {
             player.playSound(killLocation, Sound.BLOCK_NYLIUM_HIT, 1.0f, -1.5f);
             Language language = PlayerLanguages.get(player.getUniqueId());
 
-            Component component = PaperChatUtil.parse(player, GameMessages.player_addedKill.getMessageOf(language));
+            Component component = ChatUtil.parse(player, GameMessages.player_addedKill.getMessageOf(language));
             player.sendActionBar(component);
         });
         addCoins(4, GameMessages.coinsReason_kill);

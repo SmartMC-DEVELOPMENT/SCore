@@ -26,14 +26,14 @@ public class NPCUseEntityEvent extends NPCEvent {
         this.action = action;
 
         if (npc.isVulnerable()) {
-            if (action.equals(EnumWrappers.EntityUseAction.ATTACK)) {
-                if (firstAttackDelay.contains(npc.getNpcPlayer().getId())) return;
+            if (action.equals(EnumWrappers.EntityUseAction.INTERACT_AT)) {
+                if (firstAttackDelay.contains(npc.getEntityPlayer().getId())) return;
                 Bukkit.getScheduler().runTask(SmartCore.getPlugin(), npc::simulateAttack);
-                firstAttackDelay.add(npc.getNpcPlayer().getId());
+                firstAttackDelay.add(npc.getEntityPlayer().getId());
                 new Timer().schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        firstAttackDelay.remove(npc.getNpcPlayer().getId());
+                        firstAttackDelay.remove(npc.getEntityPlayer().getId());
                     }
                 }, 320);
             }

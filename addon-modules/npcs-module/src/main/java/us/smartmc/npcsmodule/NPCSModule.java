@@ -1,16 +1,11 @@
 package us.smartmc.npcsmodule;
 
-import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
-import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
 import us.smartmc.npcsmodule.command.NPCCommand;
-import us.smartmc.npcsmodule.instance.CustomNPC;
 import us.smartmc.npcsmodule.instance.NPCSConfig;
 import us.smartmc.npcsmodule.listener.NPCListeners;
 import us.smartmc.npcsmodule.listener.PlayerClickListener;

@@ -1,6 +1,6 @@
 package us.smartmc.core.commands;
 
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,7 +16,7 @@ public class SpawnCommand implements CommandExecutor {
 
         Location location = SpawnHandler.getLocation();
         if (location == null) {
-            player.sendMessage(PaperChatUtil.parse(player, "&cSpawn is not set!"));
+            player.sendMessage(ChatUtil.parse(player, "&cSpawn is not set!"));
             return true;
         }
         player.teleport(location);

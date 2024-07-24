@@ -17,7 +17,6 @@ public class PlayerMainVariables extends VariableListener<Player> {
     @Override
     public String parse(Player player, String message) {
         if (message == null) return null;
-        message = VariableUtil.replace(message, "<ping>", s -> String.valueOf(player.getPing()));
         message = VariableUtil.replace(message, "<name>", s -> player.getName());
         message = VariableUtil.replace(message, "<coins>", s -> getCurrency(player, PlayerCurrencyCoin.SMARTCOINS));
         message = VariableUtil.replace(message, "<enigmaboxes>", s -> getCurrency(player, PlayerCurrencyCoin.ENIGMA_BOXES));

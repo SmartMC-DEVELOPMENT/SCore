@@ -2,7 +2,7 @@ package us.smartmc.addon.holograms;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
-import us.smartmc.addon.holograms.adapter.HologramAdapter1_20;
+import us.smartmc.addon.holograms.adapter.HologramAdapter1_8;
 import us.smartmc.addon.holograms.commands.HologramsCommand;
 import us.smartmc.addon.holograms.instance.config.MainConfig;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
@@ -33,7 +33,7 @@ public class HologramsAddon extends AddonPlugin {
     public void start() {
         plugin = this;
         getDataFolder().mkdirs();
-        hologramAdapter = new HologramAdapter1_20();
+        hologramAdapter = new HologramAdapter1_8();
         config = new MainConfig();
 
         holdersDirectory = new File(plugin.getDataFolder() + "/holders");

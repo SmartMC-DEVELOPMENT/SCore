@@ -1,0 +1,4 @@
+main: us.smartmc.smartcore.proxy.SmartCoreBungeeCord
+name: SmartCore
+version: 1.0
+author: ImSergioh

@@ -2,7 +2,7 @@ package us.smartmc.game.luckytowers.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
@@ -73,13 +73,13 @@ public class PlayerLogicListeners implements Listener {
         if (from.getBlockX() != to.getBlockX()) {
             event.setCancelled(true);
             event.getPlayer().teleport(new Location(from.getWorld(), from.getBlockX(), from.getY(), from.getBlockZ() + 0.5));
-            player.showTitle(Title.title(Component.empty(), PaperChatUtil.parse(player, GameMessages.title_dontFall.getMessageOf(PlayerLanguages.get(player.getUniqueId())))));
+            player.showTitle(Title.title(Component.empty(), ChatUtil.parse(player, GameMessages.title_dontFall.getMessageOf(PlayerLanguages.get(player.getUniqueId())))));
         }
 
         if (from.getBlockZ() != to.getBlockZ()) {
             event.setCancelled(true);
             event.getPlayer().teleport(new Location(from.getWorld(), from.getBlockX(), from.getY(), from.getBlockZ() + 0.5));
-            player.showTitle(Title.title(Component.empty(), PaperChatUtil.parse(player, GameMessages.title_dontFall.getMessageOf(PlayerLanguages.get(player.getUniqueId())))));
+            player.showTitle(Title.title(Component.empty(), ChatUtil.parse(player, GameMessages.title_dontFall.getMessageOf(PlayerLanguages.get(player.getUniqueId())))));
         }
     }
 

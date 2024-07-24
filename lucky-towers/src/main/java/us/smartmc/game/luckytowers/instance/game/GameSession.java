@@ -3,7 +3,7 @@ package us.smartmc.game.luckytowers.instance.game;
 import com.sk89q.worldedit.EditSession;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;

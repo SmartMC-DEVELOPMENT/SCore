@@ -1,7 +1,10 @@
 package us.smartmc.core.instance;
 
+import fr.minuskube.netherboard.Netherboard;
+import fr.minuskube.netherboard.bukkit.BPlayerBoard;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
@@ -66,14 +69,14 @@ public class PluginScoreboard {
             int index = entry.getKey();
             String line = entry.getValue();
             int reversedIndex = getScores().size() - index;
-            board.update(line, reversedIndex);
+            board.set(ChatUtil.parse(player, line), reversedIndex);
         }
     }
 
     private BPlayerBoard getOrCreateBoard(Player player) {
-        BPlayerBoard board = BPlayerBoard.get(player);
+        BPlayerBoard board = Netherboard.instance().getBoard(player);
         if (board == null) {
-            board = BPlayerBoard.create(player, getTitle());
+            board = Netherboard.instance().createBoard(player, ChatUtil.parse(player, getTitle()));
         }
         return board;
     }
@@ -82,10 +85,9 @@ public class PluginScoreboard {
         BPlayerBoard board = getOrCreateBoard(player);
         List<String> scores = getScores();
 
-
         for (int index = scores.size() - 1; index >= 0; index--) {
             String line = scores.get(index);
-            board.set(line, scores.size() - index);
+            board.set(ChatUtil.parse(player, line), scores.size() - index);
         }
     }
 

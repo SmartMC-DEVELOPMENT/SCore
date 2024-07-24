@@ -1,5 +1,7 @@
 package us.smartmc.core.handler;
 
+import fr.minuskube.netherboard.Netherboard;
+import fr.minuskube.netherboard.bukkit.BPlayerBoard;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.event.PlayerLanguageChangedEvent;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
@@ -12,28 +14,17 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.core.SmartCore;
-import us.smartmc.core.instance.BPlayerBoard;
 import us.smartmc.core.instance.PluginScoreboard;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class ScoreboardHandler implements Listener {
 
     public static final int UPDATE_TASK_DELAY = 60;
     private final HashMap<String, PluginScoreboard> scoreboards = new HashMap<>();
 
-    private static long updateTaskTickCounter = 0;
-
     public ScoreboardHandler() {
         register("main");
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
-            updateTaskTickCounter++;
-            for (PluginScoreboard pluginScoreboard : scoreboards.values()) {
-                if (updateTaskTickCounter % pluginScoreboard.getTickUpdateDelay() != 0) continue;
-                pluginScoreboard.forEachPlayer(pluginScoreboard::update);
-            }
-        }, 10, 1);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -70,11 +61,12 @@ public class ScoreboardHandler implements Listener {
     }
 
     public void unregister(Player player) {
-        BPlayerBoard board = BPlayerBoard.get(player);
+        BPlayerBoard board = Netherboard.instance().getBoard(player);
         if (board != null) board.delete();
-        scoreboards.values().forEach(pluginScoreboard -> {
-            pluginScoreboard.unregister(player);
-        });
+
+        for (PluginScoreboard scoreboard : scoreboards.values()) {
+            scoreboard.unregister(player);
+        }
     }
 
     public void unregister(String name, Language language) {

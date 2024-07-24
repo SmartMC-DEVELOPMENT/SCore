@@ -64,7 +64,7 @@ public class MinigamesMenu extends CoreMenu {
     }
 
     public void setNotAvailableItems(){
-        ItemStack item = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE)
+        ItemStack item = ItemBuilder.of(Material.STAINED_GLASS_PANE)
                 .name("<lang.lobby.items.notAvailable.name>")
                 .lore("<lang.lobby.items.notAvailable.description>")
                 .get(language);

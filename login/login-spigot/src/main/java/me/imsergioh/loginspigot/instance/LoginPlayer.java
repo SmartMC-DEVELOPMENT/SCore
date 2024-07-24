@@ -3,14 +3,11 @@ package me.imsergioh.loginspigot.instance;
 import lombok.Getter;
 import me.imsergioh.loginspigot.LoginSpigot;
 import me.imsergioh.loginspigot.manager.LoginPlayersFactory;
-import me.imsergioh.loginspigot.util.PluginUtils;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.UUID;
 
 public class LoginPlayer {

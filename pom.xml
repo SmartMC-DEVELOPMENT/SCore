@@ -14,7 +14,7 @@
         <module>addon-modules/lobby-cosmetics</module>
         <module>addon-modules/lobby-module</module>
         <module>!main-core/smartcore-spigot</module>
-        <module>!main-core/smartcore-velocity</module>
+        <module>!main-core/smartcore-bungee</module>
         <module>login/login-spigot</module>
         <module>addon-modules/holograms-module</module>
         <module>MessagesMigration</module>

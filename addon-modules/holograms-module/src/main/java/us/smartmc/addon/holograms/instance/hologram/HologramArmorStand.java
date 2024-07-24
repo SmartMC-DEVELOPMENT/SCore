@@ -10,7 +10,11 @@ public class HologramArmorStand {
     @Getter
     private final ArmorStand stand;
 
+    @Getter
+    private final String unformattedLine;
+
     public HologramArmorStand(Location location, String line) {
+        unformattedLine = line;
         this.stand = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
         stand.setCustomName(line);
         stand.setCustomNameVisible(false);

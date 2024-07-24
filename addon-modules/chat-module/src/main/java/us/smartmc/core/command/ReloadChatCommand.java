@@ -1,6 +1,6 @@
 package us.smartmc.core.command;
 
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.smartmc.core.ChatModule;
@@ -18,7 +18,7 @@ public class ReloadChatCommand extends AddonPluginCommand {
         if (permission == null) return;
         if (!commandSender.hasPermission(getPermission())) return;
         ChatModule.getModule().reload();
-        commandSender.sendMessage(PaperChatUtil.parse("&aConfiguración de chat recargada correctamente!"));
+        commandSender.sendMessage(ChatUtil.parse("&aConfiguración de chat recargada correctamente!"));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package us.smartmc.lobbymodule.command;
 
 import me.imsergioh.pluginsapi.util.ChatUtil;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.smartmc.lobbymodule.menu.LinkSocialsMenu;
@@ -35,7 +35,7 @@ public class SocialsCommand extends AddonPluginCommand {
         try {
             new LinkSocialsMenu(player, args[0]).open(player);
         } catch (Exception e) {
-            player.sendMessage(PaperChatUtil.parse(player, "<lang.lobby.link_socials_target_not_found>"));
+            player.sendMessage(ChatUtil.parse(player, "<lang.lobby.link_socials_target_not_found>"));
         }
     }
 

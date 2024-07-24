@@ -6,7 +6,7 @@ import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -49,7 +49,7 @@ public class LobbiesMenu extends CoreMenu {
     @Override
     public void open(Player player) {
         this.load();
-        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.1F, 2.5F);
+        player.playSound(player.getLocation(), Sound.CLICK, 0.1F, 2.5F);
         CorePlayer.get(player).setCurrentMenuOpen(this);
         player.openInventory(inventory);
     }

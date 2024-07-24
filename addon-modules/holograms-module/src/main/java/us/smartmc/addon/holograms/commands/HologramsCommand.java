@@ -1,7 +1,7 @@
 
 package us.smartmc.addon.holograms.commands;
 
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -35,7 +35,7 @@ public class HologramsCommand extends AddonPluginCommand {
         switch (args[0].toLowerCase()) {
             case "addline" -> {
                 if (args.length <= 2) {
-                    sender.sendMessage(PaperChatUtil.parse("&cYou have to specify text!"));
+                    sender.sendMessage(ChatUtil.parse("&cYou have to specify text!"));
                     return;
                 }
                 String name = args[1];
@@ -46,12 +46,12 @@ public class HologramsCommand extends AddonPluginCommand {
                     lastLoc.add(0, -0.3, 0);
                     hologram.addLine(lastLoc, line);
                 }
-                sender.sendMessage(PaperChatUtil.parse("&aAdded line!"));
+                sender.sendMessage(ChatUtil.parse("&aAdded line!"));
                 mainHolder.updateHologramConfig(name);
             }
             case "removeline" -> {
                 if (args.length <= 2) {
-                    sender.sendMessage(PaperChatUtil.parse("&cYou have to specify number!"));
+                    sender.sendMessage(ChatUtil.parse("&cYou have to specify number!"));
                     return;
                 }
                 String name = args[1];
@@ -61,17 +61,17 @@ public class HologramsCommand extends AddonPluginCommand {
                 hologramArmorStand.getStand().remove();
                 hologram.getLinesArmorStands().remove(index);
 
-                sender.sendMessage(PaperChatUtil.parse("&aRemoved line!"));
+                sender.sendMessage(ChatUtil.parse("&aRemoved line!"));
                 if (!hologram.getLinesArmorStands().isEmpty()) {
                     mainHolder.updateHologramConfig(name);
                 } else {
                     mainHolder.deleteHologram(name);
-                    sender.sendMessage(PaperChatUtil.parse("&aEmpty hologram has been detected and deleted! (" + name + ")"));
+                    sender.sendMessage(ChatUtil.parse("&aEmpty hologram has been detected and deleted! (" + name + ")"));
                 }
             }
             case "setline" -> {
                 if (args.length <= 2) {
-                    sender.sendMessage(PaperChatUtil.parse("&cYou have to specify number & text!"));
+                    sender.sendMessage(ChatUtil.parse("&cYou have to specify number & text!"));
                     return;
                 }
                 String name = args[1];
@@ -83,12 +83,12 @@ public class HologramsCommand extends AddonPluginCommand {
 
                 hologramArmorStand.getStand().remove();
                 hologram.getLinesArmorStands().set(index, new HologramArmorStand(loc, text));
-                sender.sendMessage(PaperChatUtil.parse("&aSet line!"));
+                sender.sendMessage(ChatUtil.parse("&aSet line!"));
                 mainHolder.updateHologramConfig(name);
             }
             case "npc", "setnpc", "locationnpc", "npclocation" -> {
                 if (args.length <= 2) {
-                    sender.sendMessage(PaperChatUtil.parse("&cYou have to specify number and text!"));
+                    sender.sendMessage(ChatUtil.parse("&cYou have to specify number and text!"));
                     return;
                 }
                 String name = args[1];
@@ -96,9 +96,9 @@ public class HologramsCommand extends AddonPluginCommand {
                 Hologram hologram = mainHolder.getHologram(name);
                 try {
                     hologram.assignToNPCLocation(npcName);
-                    sender.sendMessage(PaperChatUtil.parse("&aHologram location assigned to NPC!"));
+                    sender.sendMessage(ChatUtil.parse("&aHologram location assigned to NPC!"));
                 } catch (CorePluginException e) {
-                    sender.sendMessage(PaperChatUtil.parse("&cError while trying to execute command! (" + e.getMessage() + ")"));
+                    sender.sendMessage(ChatUtil.parse("&cError while trying to execute command! (" + e.getMessage() + ")"));
                 }
             }
         }
@@ -132,19 +132,19 @@ public class HologramsCommand extends AddonPluginCommand {
                 String name = args[1];
                 String text = readText(2, args);
                 mainHolder.registerHologram(name, player.getLocation(), text);
-                player.sendMessage(PaperChatUtil.parse("&aHologram added!"));
+                player.sendMessage(ChatUtil.parse("&aHologram added!"));
             }
             case "delete" -> {
                 String name = args[1];
                 mainHolder.deleteHologram(name);
-                player.sendMessage(PaperChatUtil.parse("&aHologram deleted!"));
+                player.sendMessage(ChatUtil.parse("&aHologram deleted!"));
             }
 
             case "teleport" -> {
                 String name = args[1];
                 Hologram hologram = mainHolder.getHologram(name);
                 player.teleport(hologram.getLinesArmorStands().get(0).getStand().getLocation());
-                player.sendMessage(PaperChatUtil.parse("&aTeleported!"));
+                player.sendMessage(ChatUtil.parse("&aTeleported!"));
             }
         }
 

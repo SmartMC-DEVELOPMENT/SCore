@@ -2,7 +2,7 @@ package us.smartmc.game.instance;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import us.smartmc.core.instance.player.SmartCorePlayer;

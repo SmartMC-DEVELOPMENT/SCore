@@ -10,7 +10,7 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.instance.VariableListener;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;
 import org.bukkit.Bukkit;
@@ -63,14 +63,14 @@ public class ChatModule extends AddonPlugin {
                     if (event.getPlayer().hasPermission("smartmc.vip")) {
                         // Vip >>
                         message = Component.join(JoinConfiguration.builder().build(),
-                                PaperChatUtil.parse(config.getString("vipPrefix")), PaperChatUtil.parse(msgString));
+                                ChatUtil.parse(config.getString("vipPrefix")), ChatUtil.parse(msgString));
                     } else {
                         // Not vip >>
                         message = Component.join(JoinConfiguration.builder().build(),
-                                PaperChatUtil.parse(config.getString("defaultPrefix")), Component.text(msgString));
+                                ChatUtil.parse(config.getString("defaultPrefix")), Component.text(msgString));
                     }
 
-                    Component formattedMessage = PaperChatUtil.parse(event.getPlayer(), config.getString("format"), event.getPlayer().getName());
+                    Component formattedMessage = ChatUtil.parse(event.getPlayer(), config.getString("format"), event.getPlayer().getName());
 
                     AsyncPlayerChatEvent chatEvent = new AsyncPlayerChatEvent(true, event.getPlayer(), msgString, new HashSet<>(Bukkit.getOnlinePlayers()));
                     Bukkit.getPluginManager().callEvent(chatEvent);

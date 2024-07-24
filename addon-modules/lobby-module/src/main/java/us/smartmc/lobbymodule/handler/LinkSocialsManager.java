@@ -2,7 +2,7 @@ package us.smartmc.lobbymodule.handler;
 
 import me.imsergioh.pluginsapi.instance.manager.ManagerRegistry;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bson.Document;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -55,7 +55,7 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
         if (document == null) document = new Document();
         document.put(type.name(), url);
         player.getPlayerData().getDocument().put(DB_DOCUMENT_PATH, document);
-        player.get().sendMessage(PaperChatUtil.parse(player.get(), "<lang.lobby.linkSocials.linkedCorrectly>"));
+        player.get().sendMessage(ChatUtil.parse(player.get(), "<lang.lobby.linkSocials.linkedCorrectly>"));
     }
 
     public void removeCurrentLink(CorePlayer player, LinkSocialType type) {
@@ -63,7 +63,7 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
         if (document == null) document = new Document();
         document.remove(type.name());
         player.getPlayerData().getDocument().put(DB_DOCUMENT_PATH, document);
-        player.get().sendMessage(PaperChatUtil.parse(player.get(), "<lang.lobby.linkSocials.unlinkedCorrectly>"));
+        player.get().sendMessage(ChatUtil.parse(player.get(), "<lang.lobby.linkSocials.unlinkedCorrectly>"));
         player.get().closeInventory();
     }
 
@@ -73,7 +73,7 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
 
         if (!type.equals(LinkSocialType.DISCORD)) {
             pendingLinks.put(uuid, type);
-            player.sendMessage(PaperChatUtil.parse(player, "<lang.lobby.linkSocials.introduceUrl>"));
+            player.sendMessage(ChatUtil.parse(player, "<lang.lobby.linkSocials.introduceUrl>"));
             // 2 minutes later removes cache
             new Timer().schedule(new TimerTask() {
                 @Override
@@ -84,7 +84,7 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
         } else {
             // DISCORD
             String linkCode = DiscordLinkUtil.getOrGenerateLinkCode(player);
-            player.sendMessage(PaperChatUtil.parse(player, "<lang.lobby.your_discordLink_code_is>", linkCode));
+            player.sendMessage(ChatUtil.parse(player, "<lang.lobby.your_discordLink_code_is>", linkCode));
         }
     }
 

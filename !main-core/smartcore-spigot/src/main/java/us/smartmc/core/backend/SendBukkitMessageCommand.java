@@ -1,7 +1,8 @@
 package us.smartmc.core.backend;
 
-import me.imsergioh.pluginsapi.util.PaperChatUtil;
-import net.kyori.adventure.text.Component;
+import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.ChatUtil;
+import net.md_5.bungee.api.chat.BaseComponent;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -46,9 +47,9 @@ public class SendBukkitMessageCommand extends BackendCommandExecutor {
         List<?> argsList = document.get("args", List.class);
         Object[] messageArgs = argsList != null ? argsList.toArray() : new Object[0];
 
-        Component component = PaperChatUtil.parse(player, message, messageArgs);
+        String parsedMessage = ChatUtil.parse(player, message, messageArgs);
 
-        player.sendMessage(component);
+        player.sendMessage(parsedMessage);
     }
 
     public Player getPlayerFromId(UUID id) {

@@ -87,7 +87,7 @@ public class LinkSocialsMenu extends CoreMenu {
     }
 
     private void register(int slot, LinkSocialType type) {
-        ItemStack initialItem = LobbyMessages.getItem(Material.PLAYER_HEAD, "link_social_network").get(initPlayer);
+        ItemStack initialItem = LobbyMessages.getItem(Material.SKULL_ITEM, "link_social_network").get(initPlayer);
         String name = type.getDisplayName();
         initialItem.getItemMeta().getLore();
         List<String> loreList;
@@ -115,7 +115,7 @@ public class LinkSocialsMenu extends CoreMenu {
             loreList = Arrays.asList(LobbyMessages.getLangList("linkSocials.description"));
         }
 
-        set(slot, ItemBuilder.of(Material.PLAYER_HEAD).data(3)
+        set(slot, ItemBuilder.of(Material.SKULL_ITEM).data(3)
                 .skullTexture(type.getSkullTexture())
                 .name(name)
                 .lore(loreList, name, currentUser, example).get(initPlayer), labelCommand);

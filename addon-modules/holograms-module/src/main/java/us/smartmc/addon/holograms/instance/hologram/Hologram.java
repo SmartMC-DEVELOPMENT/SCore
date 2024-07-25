@@ -1,5 +1,6 @@
 package us.smartmc.addon.holograms.instance.hologram;
 
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class Hologram {
 
+    @Getter
     private final String name;
     private final HologramHolderConfig config;
 
@@ -33,6 +35,7 @@ public class Hologram {
 
     public void removeAllStands() {
         for (HologramArmorStand stand : new ArrayList<>(linesStands)) {
+            stand.getStand().eject();
             stand.getStand().remove();
             linesStands.remove(stand);
         }

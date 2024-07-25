@@ -2,6 +2,7 @@ package us.smartmc.addon.holograms.adapter;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedDataValue;
@@ -28,15 +29,20 @@ import java.util.*;
 
 public class HologramAdapter1_8 implements IHologramAdapter {
 
-    @Override
     public void spawnHologram(Player player, Hologram hologram) {
-
-
+        ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
 
         hologram.getLinesArmorStands().forEach(hologramArmorStand -> {
-            // Enviar un paquete para mostrar el nuevo ArmorStand solo al jugador
-            PacketPlayOutSpawnEntityLiving packetPlayOutSpawnEntityLiving = new PacketPlayOutSpawnEntityLiving(((CraftArmorStand) hologramArmorStand.getStand()).getHandle());
-            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutSpawnEntityLiving);
+            ArmorStand armorStand = hologramArmorStand.getStand();
+            armorStand.setVisible(false);
+            armorStand.setCustomNameVisible(true);
+            armorStand.setCustomName(ChatUtil.parse(player, hologramArmorStand.getUnformattedLine()));
+            armorStand.setGravity(false);
+
+            PacketPlayOutSpawnEntityLiving spawnPacket = new PacketPlayOutSpawnEntityLiving(((CraftArmorStand) armorStand).getHandle());
+            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(spawnPacket);
+
+            // Actualizar la metadata del holograma si es necesario
             updateHologramMetaData(player, hologramArmorStand);
         });
     }
@@ -45,6 +51,7 @@ public class HologramAdapter1_8 implements IHologramAdapter {
     public void destroyHologram(Player player, Hologram hologram) {
         hologram.getLinesArmorStands().forEach(hologramArmorStand -> {
             ArmorStand armorStand = hologramArmorStand.getStand();
+            hologramArmorStand.getStand().eject();
             PacketContainer packetContainer = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_DESTROY);
             packetContainer.getIntegers().write(0, armorStand.getEntityId());
             ProtocolLibrary.getProtocolManager().sendServerPacket(player, packetContainer);
@@ -53,15 +60,16 @@ public class HologramAdapter1_8 implements IHologramAdapter {
 
     @Override
     public void updateHologramMetaData(Player player, HologramArmorStand hologramArmorStand) {
-        if (player == null) return;
-        ArmorStand stand = hologramArmorStand.getStand();
+        EntityArmorStand nmsArmorStand = ((CraftArmorStand) hologramArmorStand.getStand()).getHandle();
 
-        String parsedName = ChatUtil.parse(player, hologramArmorStand.getUnformattedLine());
+        // Crear el DataWatcher y establecer el nuevo nombre
+        DataWatcher dataWatcher = new DataWatcher(nmsArmorStand);
+        dataWatcher.a(2, ChatUtil.parse(player, hologramArmorStand.getUnformattedLine()));  // 2 es el índice para el nombre en DataWatcher
 
-        DataWatcher newWatcher = cloneDataWatcher((CraftArmorStand) stand);
-        newWatcher.a(2, parsedName);
-        newWatcher.update(2);
-        PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(stand.getEntityId(), newWatcher, true);
+        // Crear el paquete de metadata y enviarlo al jugador
+        PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(nmsArmorStand.getId(), dataWatcher, true);
+
+        // Enviar el paquete al jugador
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
     }
 
@@ -71,6 +79,7 @@ public class HologramAdapter1_8 implements IHologramAdapter {
             spawnHologram(player, hologram);
         });
     }
+
     public static DataWatcher cloneDataWatcher(CraftArmorStand entity) {
 
         DataWatcher originalWatcher = entity.getHandle().getDataWatcher();
@@ -83,7 +92,7 @@ public class HologramAdapter1_8 implements IHologramAdapter {
                 if (field.getName().equals("b")) {
                     field.setAccessible(true);
                     Object value = field.get(originalWatcher);
-                    if (value instanceof Map<?,?>) {
+                    if (value instanceof Map<?, ?>) {
                         originalData.putAll((Map<? extends Integer, ? extends DataWatcher.WatchableObject>) value);
                     }
                 }

@@ -20,7 +20,8 @@ public class SanctionListeners implements Listener {
         String message = event.getMessage();
         if (message.startsWith("/")) return;
         Player player = event.getPlayer();
-        event.setCancelled(!getActiveMutes(player.getUniqueId()).isEmpty());
+        if (getActiveMutes(player.getUniqueId()).isEmpty()) return;
+        event.setCancelled(true);
     }
 
     public Collection<Document> getActiveMutes(UUID uuid) {

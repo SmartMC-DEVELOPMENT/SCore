@@ -14,12 +14,12 @@ public class HologramArmorStand {
     private final String unformattedLine;
 
     public HologramArmorStand(Location location, String line) {
-        unformattedLine = line;
+        this.unformattedLine = line;
         this.stand = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
         stand.setCustomName(line);
-        stand.setCustomNameVisible(false);
+        stand.setCustomNameVisible(true);
         stand.setVisible(false);
         stand.setGravity(false);
-        stand.setSmall(true);
+        stand.setSmall(false);
     }
 }

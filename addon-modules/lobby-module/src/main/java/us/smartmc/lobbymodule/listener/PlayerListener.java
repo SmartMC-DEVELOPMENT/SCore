@@ -71,7 +71,7 @@ public class PlayerListener extends AddonListener implements Listener {
         if(!player.hasPermission("smartmc.vip")) return;
 
         for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
-            String playerNamePrefixMessage = ChatUtil.parse(player, "<rank><reset><name>");
+            String playerNamePrefixMessage = ChatUtil.parse(player, "<rank>&r<name>");
             onlinePlayer.sendMessage(ChatUtil.parse(onlinePlayer, "<lang.lobby.join_message>", playerNamePrefixMessage));
         }
     }

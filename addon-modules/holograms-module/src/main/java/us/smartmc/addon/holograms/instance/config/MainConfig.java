@@ -7,12 +7,12 @@ import java.io.File;
 
 public class MainConfig extends SpigotYmlConfig {
 
-    private static final String UPDATE_RATE_TICKS_KEY = "updateRateTicks";
+    private static final String UPDATE_RATE_TICKS_KEY = "updateRateSeconds";
 
     public MainConfig() {
         super(new File(HologramsAddon.getPlugin().getDataFolder(), "config.yml"));
-
         register(UPDATE_RATE_TICKS_KEY, 20);
+        save();
     }
 
     public int getUpdateRateTicks() {

@@ -26,7 +26,7 @@ public class HologramUpdaterManager {
                 currentTick++;
             }
         };
-        runnable.runTaskTimerAsynchronously(SpigotPluginsAPI.getPlugin(), getUpdateRateTicks(), 1);
+        runnable.runTaskTimerAsynchronously(SpigotPluginsAPI.getPlugin(), getUpdateRateTicks(), 20);
     }
 
     private static void update() {

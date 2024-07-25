@@ -2,13 +2,16 @@ package us.smartmc.addon.holograms;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
+import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import us.smartmc.addon.holograms.adapter.HologramAdapter1_8;
 import us.smartmc.addon.holograms.commands.HologramsCommand;
 import us.smartmc.addon.holograms.instance.config.MainConfig;
+import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
 import us.smartmc.addon.holograms.listener.EssentialListeners;
 import us.smartmc.addon.holograms.manager.HologramUpdaterManager;
 import us.smartmc.addon.holograms.util.IHologramAdapter;
+import us.smartmc.addon.holograms.variable.TickVariable;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 
@@ -47,6 +50,8 @@ public class HologramsAddon extends AddonPlugin {
         HologramUpdaterManager.startRunnable();
 
         registerCommand(new HologramsCommand());
+
+        VariablesHandler.register(new TickVariable());
     }
 
     private void loadHolders() {
@@ -59,6 +64,9 @@ public class HologramsAddon extends AddonPlugin {
 
     @Override
     public void stop() {
+        HologramHolder.forEachHolder(holder -> {
+            holder.forEachHologram(Hologram::removeAllStands);
+        });
 
     }
 }

@@ -20,7 +20,7 @@ public class LobbyMessages extends MultiLanguageRegistry {
 
         holder.registerDefault("join_embedmessage", List.of(
                 "&r",
-                "&f¡Welcome to <bold><egradient:#00BFFF>SmartMC<reset>&f <name>&f!",
+                "&f¡Welcome to <bold><egradient:#00BFFF>SmartMC&r&f <name>&f!",
                 " &a\uD83D\uDED2 tienda.smartmc.us",
                 " &9\uD83D\uDCAC discord.smartmc.us",
                 " &f\uD835\uDD4F twitter.smartmc.us",

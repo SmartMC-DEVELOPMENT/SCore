@@ -10,9 +10,9 @@ import lombok.Getter;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.instance.VariableListener;
+import me.imsergioh.pluginsapi.util.BukkitChatUtil;
 import me.imsergioh.pluginsapi.util.ChatUtil;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.JoinConfiguration;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.Plugin;
@@ -55,27 +55,29 @@ public class ChatModule extends AddonPlugin {
             PacketListener packetListener = new PacketAdapter(SmartAddonsSpigot.getPlugin(), ListenerPriority.HIGHEST, PacketType.Play.Client.CHAT) {
                 @Override
                 public void onPacketReceiving(PacketEvent event) {
-                    event.setCancelled(true);
                     String msgString = event.getPacket().getStrings().read(0);
+                    if (msgString.startsWith("/")) return;
+                    event.setCancelled(true);
 
-                    Component message;
+                    String message;
 
                     if (event.getPlayer().hasPermission("smartmc.vip")) {
                         // Vip >>
-                        message = Component.join(JoinConfiguration.builder().build(),
-                                ChatUtil.parse(config.getString("vipPrefix")), ChatUtil.parse(msgString));
+                        message = ChatUtil.parse(config.getString("vipPrefix") + ChatUtil.color(msgString));
                     } else {
                         // Not vip >>
-                        message = Component.join(JoinConfiguration.builder().build(),
-                                ChatUtil.parse(config.getString("defaultPrefix")), Component.text(msgString));
+                        message = ChatUtil.parse(config.getString("defaultPrefix")) + msgString;
                     }
 
-                    Component formattedMessage = ChatUtil.parse(event.getPlayer(), config.getString("format"), event.getPlayer().getName());
+                    String formattedMessage = ChatUtil.parse(event.getPlayer(), config.getString("format"), event.getPlayer().getName());
 
                     AsyncPlayerChatEvent chatEvent = new AsyncPlayerChatEvent(true, event.getPlayer(), msgString, new HashSet<>(Bukkit.getOnlinePlayers()));
+
+
                     Bukkit.getPluginManager().callEvent(chatEvent);
                     if (!chatEvent.isCancelled()) {
-                        Bukkit.broadcast(Component.join(JoinConfiguration.builder().build(), formattedMessage, message));
+                        String finalComponent = formattedMessage + message;
+                        Bukkit.broadcastMessage(finalComponent);
                     }
                 }
             };

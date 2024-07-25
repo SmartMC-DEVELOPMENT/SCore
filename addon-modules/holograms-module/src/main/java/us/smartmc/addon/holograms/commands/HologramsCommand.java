@@ -42,7 +42,7 @@ public class HologramsCommand extends AddonPluginCommand {
                 Hologram hologram = mainHolder.getHologram(name);
                 String text = readText(2, args);
                 for (String line : text.split("\n")) {
-                    Location lastLoc = hologram.getLinesArmorStands().get(hologram.getLinesArmorStands().size()).getStand().getLocation();
+                    Location lastLoc = hologram.getLinesArmorStands().get(hologram.getLinesArmorStands().size() - 1).getStand().getLocation();
                     lastLoc.add(0, -0.3, 0);
                     hologram.addLine(lastLoc, line);
                 }

@@ -31,7 +31,7 @@ public class BroadcastCommand extends CoreCommand {
 
     private void sendBroadcast(String message) {
         message = message.replace("&", "§");
-        String formattedMessage = "<gradient:#00c0ff:#94E3FF><bold>SmartMC</gradient> <reset><gray>» <reset>" + message;
+        String formattedMessage = "<gradient:#00c0ff:#94E3FF><bold>SmartMC</gradient> &r<gray>» &r" + message;
         BaseComponent component = ChatUtil.parse(formattedMessage);
         for (ProxiedPlayer player : BungeeCordPluginsAPI.proxy.getPlayers()) {
             player.sendMessage(component);

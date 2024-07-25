@@ -13,13 +13,15 @@ public class CustomCommandsListeners implements Listener {
         String label = event.getMessage();
         if (!label.startsWith("/")) return;
         if (event.isCancelled()) return;
-
         if (!(event.getSender() instanceof ProxiedPlayer player)) return;
 
         for (CustomCommandsManager manager : CustomCommandsManager.getManagers()) {
             boolean executed =
                     manager.execute(player, label);
-            event.setCancelled(executed);
+            if (executed) {
+                event.setCancelled(true);
+                System.out.println("Cancalled by CustomCommands");
+            }
         }
     }
 }

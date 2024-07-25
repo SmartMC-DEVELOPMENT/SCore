@@ -27,6 +27,7 @@ public class SanctionsListeners implements Listener {
             if (sanction.isActive()) {
                 sanction.sendPlayerInfo(false);
                 event.setCancelled(true);
+                System.out.println("Cancalled by sanction mute");
                 break;
             }
         }

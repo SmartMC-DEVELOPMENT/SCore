@@ -57,7 +57,7 @@ public class LuckPermsVariables extends VariableListener<Player> {
                 message = message.replace(arg, getPrefix(player, space));
             }
         }
-        return message+"<reset>";
+        return message+"&r";
     }
 
 }

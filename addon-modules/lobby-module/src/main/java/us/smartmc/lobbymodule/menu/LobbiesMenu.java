@@ -5,18 +5,14 @@ import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
-import me.imsergioh.pluginsapi.util.ChatUtil;
-import me.imsergioh.pluginsapi.util.ChatUtil;
-import net.kyori.adventure.text.Component;
+import org.bson.Document;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
 import us.smartmc.lobbymodule.handler.LobbiesInfoManager;
-import us.smartmc.lobbymodule.handler.MaxSlotsInfoManager;
 import us.smartmc.lobbymodule.messages.LobbyMessages;
-import us.smartmc.serverhandler.manager.BukkitOnlineCountManager;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -40,7 +36,6 @@ public class LobbiesMenu extends CoreMenu {
 
     private LobbiesMenu(Language language) {
         super(null, getDynamicInventorySize(), getTitle(language));
-        BukkitOnlineCountManager.getCountsOf(LobbiesInfoManager.getIDPrefix());
         this.language = language;
         LobbiesInfoManager.registerMenu(this);
         menus.put(language, this);
@@ -63,17 +58,16 @@ public class LobbiesMenu extends CoreMenu {
                 get(language).open(player);
             }
         }
-
         inventory.clear();
         int slot = 0;
-        String serverName = SmartCore.getServerName();
-        for (String serverID : BukkitOnlineCountManager.getKeysByPrefix(LobbiesInfoManager.getIDPrefix())) {
-            System.out.println("LOBBIES " + serverID);
-            boolean isSelf = serverID.equals(serverName);
+        String serverName = SmartCore.getServerId();
+        for (Document lobbyInfoDocument : LobbiesInfoManager.lobbyInfoModules()) {
+            String lobbyId = lobbyInfoDocument.getString("id");
+            boolean isSelf = lobbyId.equals(serverName);
             Material material = Material.QUARTZ_BLOCK;
             byte materialData = 0;
             String variableConnect = "<lang.minigames.clickToConnect>";
-            String labelCommand = "connectTo " + serverID;
+            String labelCommand = "connectTo " + lobbyId;
             if (isSelf) {
                 material = Material.CLAY;
                 materialData = 14;
@@ -81,13 +75,12 @@ public class LobbiesMenu extends CoreMenu {
                 labelCommand = "closeInv";
             }
 
-            System.out.println("serverId = " + serverID);
-            int number = Integer.parseInt(serverID.replaceAll("[^0-9]", ""));
-            String count = String.valueOf(BukkitOnlineCountManager.getCount(serverID));
-            System.out.println("serverId = " + serverID);
+            System.out.println("lobbyId = " + lobbyId);
+            int number = Integer.parseInt(lobbyId.replaceAll("[^0-9]", ""));
+            String count = String.valueOf(lobbyInfoDocument.getInteger("online"));
 
             set(slot, ItemBuilder.of(material).data(materialData).name(getItemName(isSelf), number)
-                    .lore(Arrays.asList("&7" + count + "/" + MaxSlotsInfoManager.getMaxSlotsOf(serverID), "&r",
+                    .lore(Arrays.asList("&7" + count + "/" + lobbyInfoDocument.getInteger("max"), "&r",
                             variableConnect))
                     .get(language), labelCommand);
             slot++;
@@ -102,8 +95,7 @@ public class LobbiesMenu extends CoreMenu {
     }
 
     public static int getDynamicInventorySize() {
-
-        int size = BukkitOnlineCountManager.getKeysByPrefix(LobbiesInfoManager.getIDPrefix()).size();
+        int size = LobbiesInfoManager.lobbyInfoModules().size();
 
         // Limitar el tamaño a un máximo de 54
         if (size > 54) size = 54;
@@ -112,11 +104,6 @@ public class LobbiesMenu extends CoreMenu {
         int remainder = size % 9;
         if (remainder != 0) {
             size += 9 - remainder;
-        }
-
-        // Asegurar que el tamaño sea al menos 9 si el original es mayor que 0
-        if (size == 0 && !BukkitOnlineCountManager.getKeysByPrefix(LobbiesInfoManager.getIDPrefix()).isEmpty()) {
-            size = 9;
         }
 
         if (size == 0) {

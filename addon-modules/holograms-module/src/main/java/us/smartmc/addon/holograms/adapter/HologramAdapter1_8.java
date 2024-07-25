@@ -4,19 +4,11 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.WrappedChatComponent;
-import com.comphenix.protocol.wrappers.WrappedDataValue;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
-import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.minecraft.server.v1_8_R3.*;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftArmorStand;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramArmorStand;
@@ -24,7 +16,6 @@ import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
 import us.smartmc.addon.holograms.util.IHologramAdapter;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class HologramAdapter1_8 implements IHologramAdapter {
@@ -65,6 +56,7 @@ public class HologramAdapter1_8 implements IHologramAdapter {
         // Crear el DataWatcher y establecer el nuevo nombre
         DataWatcher dataWatcher = new DataWatcher(nmsArmorStand);
         dataWatcher.a(2, ChatUtil.parse(player, hologramArmorStand.getUnformattedLine()));  // 2 es el índice para el nombre en DataWatcher
+        dataWatcher.a(3, (byte) 1);
 
         // Crear el paquete de metadata y enviarlo al jugador
         PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(nmsArmorStand.getId(), dataWatcher, true);

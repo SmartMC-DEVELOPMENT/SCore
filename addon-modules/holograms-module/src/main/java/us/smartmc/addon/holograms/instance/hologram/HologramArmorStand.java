@@ -17,7 +17,7 @@ public class HologramArmorStand {
         this.unformattedLine = line;
         this.stand = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
         stand.setCustomName(line);
-        stand.setCustomNameVisible(true);
+        stand.setCustomNameVisible(false);
         stand.setVisible(false);
         stand.setGravity(false);
         stand.setSmall(false);

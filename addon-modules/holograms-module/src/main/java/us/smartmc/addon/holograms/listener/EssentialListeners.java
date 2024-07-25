@@ -18,8 +18,6 @@ public class EssentialListeners extends AddonListener implements Listener {
     public void onJoin(PlayerDataLoadedEvent event) {
         if (!isEnabled()) return;
         Player player = event.getPlayer();
-        Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
-            hologramsAddon.getHologramAdapter().spawnHologramHolder(player, HologramHolder.getOrCreate("main"));
-        }, 20);
+        hologramsAddon.getHologramAdapter().spawnHologramHolder(player, HologramHolder.getOrCreate("main"));
     }
 }

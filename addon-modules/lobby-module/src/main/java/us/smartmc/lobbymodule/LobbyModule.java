@@ -94,6 +94,8 @@ public class LobbyModule extends AddonPlugin {
         ItemActionsManager.registerCommand("linkSocial", new LinkSocialAction());
         ItemActionsManager.registerCommand("showSocial", new ShowSocialAction());
 
+        LobbiesInfoManager.registerDefaults();
+
         log("STARTED");
     }
 

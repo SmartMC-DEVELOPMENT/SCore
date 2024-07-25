@@ -71,7 +71,7 @@ public class MinigamesMenu extends CoreMenu {
 
         for (int slot : slots) {
             if (get(slot) != null) continue;
-            set(slot, item, "msg <lang.lobby.notAvailableName>", "closeInv");
+            set(slot, item, "msg <lang.lobby.not_available_message>", "closeInv");
         }
     }
 }

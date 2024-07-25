@@ -53,16 +53,17 @@ public class VisibilityManager extends AddonListener implements Listener {
     }
 
     public static ItemBuilder getVisibilityItem(Player player, PlayerVisibility visibility) {
-        Material material;
+        Material material = Material.INK_SACK;
+        int data = 0;
         switch (visibility) {
-            case DEFAULT -> material = Material.BARRIER;
-            case NO_ONE -> material = Material.BARRIER;
-            case VIPS -> material = Material.BARRIER;
-            default -> material = Material.BARRIER;
+            case DEFAULT -> data = 10;
+            case NO_ONE -> data = 8;
+            case VIPS -> data = 9;
         }
 
         return ItemBuilder
                 .of(material)
+                .data(data)
                 .name("<lang.lobby.items.visibility.name>")
                 .lore(PlayerVisibility.getOptionItemLore(player));
     }

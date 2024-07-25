@@ -3,11 +3,9 @@ package us.smartmc.game.luckytowers.instance.game;
 import com.sk89q.worldedit.EditSession;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
+import me.imsergioh.pluginsapi.util.BukkitChatUtil;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.*;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.game.luckytowers.LuckyTowers;
@@ -66,7 +64,6 @@ public class GameSession implements IGameSession {
     private BukkitRunnable startRunnable;
 
     private long currentItemTicks;
-    private BossBar announceNewItemBar;
 
     public GameSession(UUID id, GameMap map) {
         this.id = id;
@@ -97,11 +94,12 @@ public class GameSession implements IGameSession {
             gamePlayer.setStatus(PlayerStatus.INGAME);
             gamePlayer.getBukkitPlayer().setGameMode(GameMode.SURVIVAL);
         });
-        broadcastSound(Sound.ENTITY_ENDER_DRAGON_HURT, 1f, 0.5f);
+        broadcastSound(Sound.ENDERDRAGON_HIT, 1f, 0.5f);
 
         countdown = DEFAULT_SECONDS_COOLDOWN;
         startRunnable = new BukkitRunnable() {
             float soundPitch = 0.0f;
+
             @Override
             public void run() {
                 if (countdown <= 0) {
@@ -126,7 +124,6 @@ public class GameSession implements IGameSession {
                         teams.forEachTeam(team -> {
                             team.getPlayers().forEach(uuid -> {
                                 GamePlayer gamePlayer = GamePlayer.get(uuid);
-                                gamePlayer.resetActionbar();
                                 gamePlayer.resetTitle();
                                 gamePlayer.onlinePlayer(p -> {
                                     p.teleport(team.getSpawnAssigned(getMapsWorld(), xAddition));
@@ -140,7 +137,7 @@ public class GameSession implements IGameSession {
                 if (countdown >= 1) {
                     broadcastActionbar(GameMessages.session_actionBar_startingIn, countdown);
                     broadcastTitle(GameMessages.starting_title, GameMessages.starting_subtitle, countdown);
-                    broadcastSound(Sound.BLOCK_LAVA_POP, 1f, 0.1f / countdown);
+                    broadcastSound(Sound.LAVA_POP, 1f, 0.1f / countdown);
                 }
                 countdown--;
                 soundPitch += 0.2f;
@@ -156,11 +153,13 @@ public class GameSession implements IGameSession {
 
         try {
             getTimeLimitTask().cancel();
-        } catch (IllegalStateException ignore) {}
+        } catch (IllegalStateException ignore) {
+        }
 
         try {
             getGenerateItemsTask().cancel();
-        } catch (IllegalStateException ignore) {}
+        } catch (IllegalStateException ignore) {
+        }
 
         GamePlayer winner = getAlivePlayers().isEmpty() ? null : getAlivePlayers().stream().toList().get(0);
         if (winner != null) {
@@ -196,7 +195,7 @@ public class GameSession implements IGameSession {
         forEachPlayer(gamePlayer -> {
             Player player = gamePlayer.getBukkitPlayer();
             if (player == null) return;
-            PaperChatUtil.send(player, GameMessages.session_cancelled);
+            BukkitChatUtil.send(player, GameMessages.session_cancelled);
             GameUtil.updateScoreboard(gamePlayer);
         });
     }
@@ -228,7 +227,7 @@ public class GameSession implements IGameSession {
         gamePlayer.setStatus(PlayerStatus.INGAME);
         gamePlayer.onlinePlayer(p -> {
             p.teleport(map.getSpawn(getMapsWorld(), xAddition));
-            p.playSound(p.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5f, 2f);
+            p.playSound(p.getLocation(), Sound.ITEM_PICKUP, 0.5f, 2f);
         });
 
         teams.assignNextEmptyTeam(gamePlayer);
@@ -243,8 +242,6 @@ public class GameSession implements IGameSession {
 
         teams.clearTeams(gamePlayer);
         players.remove(gamePlayer);
-        if (announceNewItemBar != null)
-            announceNewItemBar.removePlayer(gamePlayer.getBukkitPlayer());
         gamePlayer.setStatus(PlayerStatus.LOBBY);
         gamePlayer.setGameSession(null);
         checkStartCancellation();
@@ -264,7 +261,7 @@ public class GameSession implements IGameSession {
         spectatorsCount++;
         LuckyTowers.callEvent(new GamePlayerDeathEvent(gamePlayer));
 
-        broadcastSound(Sound.ENTITY_PLAYER_DEATH, 1f, 2f);
+        broadcastSound(Sound.VILLAGER_HIT, 1f, 2f);
 
         gamePlayer.sendTitle(GameMessages.death_title, GameMessages.death_subtitle);
 
@@ -306,24 +303,14 @@ public class GameSession implements IGameSession {
             public void run() {
                 currentItemTicks++;
 
-                // BossBar init & addition of players
-                if (announceNewItemBar == null) {
-                    announceNewItemBar = Bukkit.createBossBar("", BarColor.BLUE, BarStyle.SOLID);
-                    forEachOnlinePlayer(player -> {
-                        announceNewItemBar.addPlayer(player);
-                    });
-                }
 
                 if (getStatus().equals(GameSessionStatus.ENDING)) cancel();
-
-                double progress = (double) (GENERATION_ITEMS_TICKS - (currentItemTicks % GENERATION_ITEMS_TICKS)) / GENERATION_ITEMS_TICKS;
-                announceNewItemBar.setProgress(progress);
 
                 if (currentItemTicks % GENERATION_ITEMS_TICKS == 0) {
                     getAlivePlayers().forEach(gamePlayer -> {
                         gamePlayer.onlinePlayer(player -> {
                             player.getInventory().addItem(ItemBuilder.of(GameUtil.getRandomMaterial()).get());
-                            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1f, 1f);
+                            player.playSound(player.getLocation(), Sound.ITEM_PICKUP, 1f, 1f);
                         });
                     });
                 }

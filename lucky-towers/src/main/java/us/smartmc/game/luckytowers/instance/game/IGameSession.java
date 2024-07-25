@@ -3,9 +3,8 @@ package us.smartmc.game.luckytowers.instance.game;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.IMessageCategory;
 import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.util.BukkitChatUtil;
 import me.imsergioh.pluginsapi.util.ChatUtil;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.title.Title;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
@@ -16,14 +15,17 @@ import java.util.function.Consumer;
 public interface IGameSession {
 
     void start();
+
     void end();
 
     boolean canStart();
+
     boolean canEnd();
 
     boolean canPlayersJoin(int amount);
 
     void joinPlayer(GamePlayer player);
+
     void quitPlayer(GamePlayer player);
 
     void deathPlayer(GamePlayer player);
@@ -33,7 +35,7 @@ public interface IGameSession {
     default void broadcastActionbar(IMessageCategory message, Object... args) {
         forEachOnlinePlayer(player -> {
             Language language = PlayerLanguages.get(player.getUniqueId());
-            player.sendActionBar(ChatUtil.parse(player, message.getMessageOf(language), args));
+            GamePlayer.sendActionBar(player, ChatUtil.parse(player, message.getMessageOf(language), args));
         });
     }
 
@@ -51,7 +53,7 @@ public interface IGameSession {
 
     default void broadcastMessage(IMessageCategory category, Object... args) {
         forEachOnlinePlayer(player -> {
-            PaperChatUtil.send(player, category, args);
+            BukkitChatUtil.send(player, category, args);
         });
     }
 
@@ -70,8 +72,11 @@ public interface IGameSession {
     }
 
     GameSessionTeams getTeams();
+
     GameMap getMap();
+
     Set<GamePlayer> getAlivePlayers();
+
     Set<GamePlayer> getPlayers();
 
     GameSessionStatus getStatus();

@@ -74,7 +74,7 @@ public class GameMap {
         // Loads the spawnLocations from config
         spawnLocations.addAll(loadConfigLocations(Bukkit.getWorld("maps")));
 
-        config.registerDefault("icon_material", Material.GRASS_BLOCK.name());
+        config.registerDefault("icon_material", Material.GRASS.name());
 
         if (config.containsKey(MAINTENANCE_PATH))
             maintenance = config.getBoolean(MAINTENANCE_PATH);
@@ -88,7 +88,7 @@ public class GameMap {
     }
 
     public void setPos2(Location location) {
-        location = new Location(location.getWorld(), location.getX(), location.getWorld().getMinHeight(), location.getZ());
+        location = new Location(location.getWorld(), location.getX(), -64, location.getZ());
         setConfigLocation(POS2_PATH, location, false, false);
     }
 

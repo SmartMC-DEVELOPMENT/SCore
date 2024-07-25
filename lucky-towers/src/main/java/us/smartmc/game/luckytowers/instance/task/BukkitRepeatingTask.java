@@ -8,7 +8,7 @@ public class BukkitRepeatingTask extends RepeatingTask {
     private static final LuckyTowers plugin = LuckyTowers.getPlugin();
 
     public BukkitRepeatingTask(boolean async, Runnable runnable) {
-       super(getRunnable(async, runnable));
+        super(getRunnable(async, runnable));
     }
 
     private static Runnable getRunnable(boolean async, Runnable runnable) {

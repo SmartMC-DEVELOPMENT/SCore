@@ -3,10 +3,7 @@ package us.smartmc.game.luckytowers.listener;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.damage.DamageSource;
-import org.bukkit.damage.DamageType;
 import org.bukkit.entity.*;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -14,8 +11,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.SpawnEgg;
 import us.smartmc.core.SmartCore;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.instance.game.GameSession;
@@ -25,8 +20,6 @@ import us.smartmc.game.luckytowers.instance.player.PlayerStatus;
 import us.smartmc.game.luckytowers.manager.EditorModeManager;
 import us.smartmc.game.luckytowers.util.GameUtil;
 
-import java.util.Objects;
-
 public class EssentialsListeners implements Listener {
 
     @EventHandler
@@ -35,7 +28,8 @@ public class EssentialsListeners implements Listener {
         Bukkit.getScheduler().runTask(LuckyTowers.getPlugin(), () -> {
             try {
                 player.setGameMode(GameMode.SURVIVAL);
-            } catch (Exception ignore) {}
+            } catch (Exception ignore) {
+            }
         });
     }
 
@@ -73,11 +67,6 @@ public class EssentialsListeners implements Listener {
         }
     }
 
-    @EventHandler
-    public void disableAchievements(PlayerAdvancementDoneEvent event) {
-        event.message(null);
-    }
-
     @EventHandler(priority = EventPriority.MONITOR)
     public void cancelNaturalSpawns(EntitySpawnEvent event) {
         Entity entity = event.getEntity();
@@ -89,12 +78,12 @@ public class EssentialsListeners implements Listener {
 
     @EventHandler
     public void removeJoinMessage(PlayerJoinEvent event) {
-        event.joinMessage(null);
+        event.setJoinMessage(null);
     }
 
     @EventHandler
     public void removeQuitMessage(PlayerQuitEvent event) {
-        event.quitMessage(null);
+        event.setQuitMessage(null);
     }
 
     @EventHandler
@@ -148,9 +137,9 @@ public class EssentialsListeners implements Listener {
     }
 
     @EventHandler
-    public void projectileFix(ProjectileHitEvent event) {
+    public void projectileFix(ProjectileLaunchEvent event) {
         event.setCancelled(false);
-        if (!(event.getHitEntity() instanceof Player player)) return;
+        if (!(event.getEntity() instanceof Player player)) return;
 
         player.damage(0.000000001, (Entity) event.getEntity().getShooter());
     }

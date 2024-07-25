@@ -1,20 +1,19 @@
 name: LuckyTowers
 version: '1.0-SNAPSHOT'
 main: us.smartmc.game.luckytowers.LuckyTowers
-api-version: '1.20'
 depend:
   - SmartCore23
 
 commands:
   adminGame:
     description: "Administrate the games and more things"
-    aliases: [ag]
+    aliases: [ ag ]
   leave:
     description: "Leave the game or lo que sea"
-    aliases: [salir, l]
+    aliases: [ salir, l ]
   forcestart:
     description: "Force start the game you are in"
-    aliases: [start]
+    aliases: [ start ]
   iniciarpartida:
     description: "Inicia partida"
-    aliases: [iniciar]
+    aliases: [ iniciar ]

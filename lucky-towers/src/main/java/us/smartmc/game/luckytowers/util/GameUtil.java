@@ -35,7 +35,7 @@ public class GameUtil {
                 session.getPlayers().stream().filter(gp -> gp.getStatus().equals(PlayerStatus.SPECTATING)).forEach(spectator -> {
                     Player spectatorPlayer = spectator.getBukkitPlayer();
                     if (spectatorPlayer == null) return;
-                    player.hidePlayer(LuckyTowers.getPlugin(), spectatorPlayer);
+                    player.hidePlayer(spectatorPlayer);
                 });
             } else {
                 // In game & Player is not alive
@@ -43,16 +43,16 @@ public class GameUtil {
                     Player sessionBukkitPlayer = sessionPlayer.getBukkitPlayer();
                     if (sessionBukkitPlayer == null) return;
                     if (sessionPlayer.getStatus().equals(PlayerStatus.SPECTATING)) {
-                        sessionPlayer.getBukkitPlayer().showPlayer(LuckyTowers.getPlugin(), player);
+                        sessionPlayer.getBukkitPlayer().showPlayer(player);
                     } else {
-                        sessionPlayer.getBukkitPlayer().hidePlayer(LuckyTowers.getPlugin(), player);
+                        sessionPlayer.getBukkitPlayer().hidePlayer(player);
                     }
                 });
             }
         } else {
             // Not in game
             for (Player p : Bukkit.getOnlinePlayers()) {
-                player.showPlayer(LuckyTowers.getPlugin(), p);
+                player.showPlayer(p);
             }
         }
     }

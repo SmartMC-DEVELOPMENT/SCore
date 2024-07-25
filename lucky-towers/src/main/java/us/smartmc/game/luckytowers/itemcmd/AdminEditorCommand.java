@@ -3,6 +3,7 @@ package us.smartmc.game.luckytowers.itemcmd;
 import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import me.imsergioh.pluginsapi.language.IMessageCategory;
+import me.imsergioh.pluginsapi.util.BukkitChatUtil;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -24,7 +25,7 @@ public class AdminEditorCommand implements ItemActionExecutor {
         GameMap map = editSession.getMap();
 
         if (map == null) {
-            PaperChatUtil.send(player, AdminMessages.editor_unknownMap);
+            BukkitChatUtil.send(player, AdminMessages.editor_unknownMap);
             return;
         }
 
@@ -40,7 +41,7 @@ public class AdminEditorCommand implements ItemActionExecutor {
                 Location initLocation = player.getLocation();
                 map.getSpawnLocations().add(initLocation);
                 map.saveSpawnLocations();
-                player.sendBlockChange(initLocation, Material.BEACON.createBlockData());
+                player.sendBlockChange(initLocation, Material.BEACON, (byte) 0);
                 player.teleport(initLocation);
                 feedbackMessage = AdminMessages.editor_spawnAdded;
             }
@@ -52,7 +53,7 @@ public class AdminEditorCommand implements ItemActionExecutor {
             }
 
             case "setCorner" -> {
-                if (handler.interactAction().isRightClick()) {
+                if (handler.interactAction().name().contains("RIGHT")) {
                     map.setPos1(player.getLocation());
                     feedbackArgs = new Object[]{"1"};
                 } else {
@@ -82,6 +83,6 @@ public class AdminEditorCommand implements ItemActionExecutor {
             }
 
         }
-        if (feedbackMessage != null) PaperChatUtil.send(player, feedbackMessage, feedbackArgs);
+        if (feedbackMessage != null) BukkitChatUtil.send(player, feedbackMessage, feedbackArgs);
     }
 }

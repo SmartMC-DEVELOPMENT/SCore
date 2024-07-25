@@ -1,16 +1,23 @@
 package us.smartmc.game.luckytowers.instance.player;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.reflect.StructureModifier;
+import com.comphenix.protocol.wrappers.EnumWrappers;
 import lombok.Getter;
 import lombok.Setter;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.IMessageCategory;
 import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.util.BukkitChatUtil;
 import me.imsergioh.pluginsapi.util.ChatUtil;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.title.Title;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.event.player.GamePlayerWinEvent;
@@ -25,7 +32,6 @@ import java.util.function.Consumer;
 
 public class GamePlayer {
 
-    private static final LuckyTowers plugin = LuckyTowers.getPlugin();
     private static final PlayersManager manager = LuckyTowers.getManager(PlayersManager.class);
 
     public static final String WINS_KEY = "wins";
@@ -41,7 +47,8 @@ public class GamePlayer {
     @Getter
     private final GamePlayerData data;
 
-    @Setter @Getter
+    @Setter
+    @Getter
     private GameSession gameSession;
 
     @Getter
@@ -54,19 +61,15 @@ public class GamePlayer {
         setStatus(PlayerStatus.LOBBY);
     }
 
-    public void resetActionbar() {
-        getBukkitPlayer().sendActionBar(Component.empty());
-    }
-
     public void resetTitle() {
         getBukkitPlayer().resetTitle();
     }
 
     public void sendTitle(IMessageCategory titleCategory, IMessageCategory subtitleCategory, Object... args) {
-        Component title = ChatUtil.parse(getBukkitPlayer(), titleCategory, args);
-        Component subtitle = ChatUtil.parse(getBukkitPlayer(), subtitleCategory, args);
+        String title = BukkitChatUtil.parse(getBukkitPlayer(), titleCategory, args).toLegacyText();
+        String subtitle = BukkitChatUtil.parse(getBukkitPlayer(), subtitleCategory, args).toLegacyText();
 
-        getBukkitPlayer().showTitle(Title.title(title, subtitle, Title.Times.times(Duration.ZERO, Duration.ofMillis(1250), Duration.ZERO)));
+        getBukkitPlayer().sendTitle(title, subtitle);
     }
 
     public void addCoins(int amount) {
@@ -76,11 +79,11 @@ public class GamePlayer {
     public void addCoins(int amount, IMessageCategory reason) {
         data.addToNumber(COINS_KEY, amount);
         onlinePlayer(player -> {
-            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.5f);
+            player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0f, 1.5f);
             Language language = PlayerLanguages.get(player.getUniqueId());
 
-            Component component = ChatUtil.parse(player, GameMessages.player_addedCoins.getMessageOf(language), amount);
-            player.sendActionBar(component);
+            String component = BukkitChatUtil.parse(player, GameMessages.player_addedCoins.getMessageOf(language), amount).toLegacyText();
+            sendActionBar(player, component);
         });
 
         IMessageCategory message = reason == null ? GameMessages.addedCoins_withoutReason : GameMessages.addedCoins_withReason;
@@ -108,11 +111,11 @@ public class GamePlayer {
         data.increaseNumber(KILLS_KEY);
         data.increaseStreak(KILLS_KEY);
         onlinePlayer(player -> {
-            player.playSound(killLocation, Sound.BLOCK_NYLIUM_HIT, 1.0f, -1.5f);
+            player.playSound(killLocation, Sound.VILLAGER_HIT, 1.0f, -1.5f);
             Language language = PlayerLanguages.get(player.getUniqueId());
 
-            Component component = ChatUtil.parse(player, GameMessages.player_addedKill.getMessageOf(language));
-            player.sendActionBar(component);
+            BaseComponent component = BukkitChatUtil.parse(player, GameMessages.player_addedKill.getMessageOf(language));
+            sendActionBar(player, component.toLegacyText());
         });
         addCoins(4, GameMessages.coinsReason_kill);
     }
@@ -142,7 +145,7 @@ public class GamePlayer {
     }
 
     public void sendMessage(IMessageCategory messageCategory, Object... args) {
-        PaperChatUtil.send(getBukkitPlayer(), messageCategory, args);
+        BukkitChatUtil.send(getBukkitPlayer(), messageCategory, args);
     }
 
     public long getGamesPlayed() {
@@ -188,4 +191,11 @@ public class GamePlayer {
         }
         return gamePlayer;
     }
+
+    public static void sendActionBar(Player player, String message) {
+        IChatBaseComponent chat = new ChatComponentText(message);
+        PacketPlayOutChat packet = new PacketPlayOutChat(chat, (byte) 2);
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+    }
+
 }

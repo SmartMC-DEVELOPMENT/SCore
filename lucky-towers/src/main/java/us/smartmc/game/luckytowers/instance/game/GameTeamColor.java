@@ -1,27 +1,27 @@
 package us.smartmc.game.luckytowers.instance.game;
 
 import lombok.Getter;
-import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.ChatColor;
 
 @Getter
 public enum GameTeamColor {
 
-    RED(NamedTextColor.RED),
-    BLUE(NamedTextColor.BLUE),
-    AQUA(NamedTextColor.AQUA),
-    LIGHT_PURPLE(NamedTextColor.LIGHT_PURPLE),
-    YELLOW(NamedTextColor.YELLOW),
-    GOLD(NamedTextColor.GOLD),
-    GREEN(NamedTextColor.GREEN),
-    GRAY(NamedTextColor.GRAY),
-    DARK_GRAY(NamedTextColor.DARK_GRAY),
-    DARK_PURPLE(NamedTextColor.DARK_PURPLE),
-    DARK_RED(NamedTextColor.DARK_RED),
-    DARK_BLUE(NamedTextColor.DARK_BLUE);
+    RED(ChatColor.RED),
+    BLUE(ChatColor.BLUE),
+    AQUA(ChatColor.AQUA),
+    LIGHT_PURPLE(ChatColor.LIGHT_PURPLE),
+    YELLOW(ChatColor.YELLOW),
+    GOLD(ChatColor.GOLD),
+    GREEN(ChatColor.GREEN),
+    GRAY(ChatColor.GRAY),
+    DARK_GRAY(ChatColor.DARK_GRAY),
+    DARK_PURPLE(ChatColor.DARK_PURPLE),
+    DARK_RED(ChatColor.DARK_RED),
+    DARK_BLUE(ChatColor.DARK_BLUE);
 
-    final NamedTextColor namedTextColor;
+    final ChatColor namedTextColor;
 
-    GameTeamColor(NamedTextColor namedTextColor) {
+    GameTeamColor(ChatColor namedTextColor) {
         this.namedTextColor = namedTextColor;
     }
 

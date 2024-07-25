@@ -31,7 +31,8 @@ public class EditorSession {
 
     private GameTeamColor color = GameTeamColor.values()[0];
 
-    @Setter @Getter
+    @Setter
+    @Getter
     private String mapId;
 
     public EditorSession(Player player) {

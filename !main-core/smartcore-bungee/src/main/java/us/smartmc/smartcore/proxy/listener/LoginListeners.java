@@ -14,25 +14,30 @@ public class LoginListeners implements Listener {
         LoginMessageHandler.unregisterLoggedIn(event.getPlayer());
     }
 
-    @EventHandler(priority = 6)
+    @EventHandler(priority = -99)
     public void cancelCommandsIfNotLoggedIn(ChatEvent event) {
         String label = event.getMessage();
         if (!label.startsWith("/")) return;
         CommandSender sender = (CommandSender) event.getSender();
         if (!(sender instanceof ProxiedPlayer player)) return;
+
         boolean allow = LoginMessageHandler.isLoggedIn(player);
         if (event.getMessage().startsWith("/login") || event.getMessage().startsWith("/register") || event.getMessage().startsWith("/premium")) return;
         if (!allow) {
             event.setCancelled(true);
+            System.out.println("Cancelled by cancelCommandsIfNotLoggedIn 1");
         }
     }
 
     @EventHandler(priority = -1)
     public void cancelChatIfNotLoggedIn(ChatEvent event) {
+        if (event.getMessage().startsWith("/")) return;
         if (!(event.getSender() instanceof ProxiedPlayer player)) return;
+
         boolean allowed = LoginMessageHandler.isLoggedIn(player);
         if (!allowed) {
             event.setCancelled(true);
+            System.out.println("Cancelled by cancelChatIfNotLoggedIn");
         }
     }
 

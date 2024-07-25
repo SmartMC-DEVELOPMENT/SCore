@@ -81,12 +81,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-<groupId>org.spigotmc</groupId>
-<artifactId>spigot-api</artifactId>
-<version>1.8.8-R0.1-SNAPSHOT</version>
-<scope>provided</scope>
-</dependency>
-        <dependency>
             <groupId>us.smartmc.core</groupId>
             <artifactId>smartcore-spigot</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -103,6 +97,20 @@
             <artifactId>lombok</artifactId>
             <version>RELEASE</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>local</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/ProtocolLib.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>local</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../libs/spigot-1.8.8-R.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

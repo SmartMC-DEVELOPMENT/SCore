@@ -29,7 +29,7 @@ public class GameVariables extends VariableListener<Player> {
 
         message = VariableUtil.replace(message, "<playersRemainingShort>", s -> {
             GameSession session = GamePlayer.get(player.getUniqueId()).getGameSession();
-            return session.getAlivePlayers().size()+"";
+            return session.getAlivePlayers().size() + "";
         });
 
         message = VariableUtil.replace(message, "<spectatorsCount>", s -> {

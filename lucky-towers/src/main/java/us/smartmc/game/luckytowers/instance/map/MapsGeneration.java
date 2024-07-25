@@ -86,7 +86,9 @@ public class MapsGeneration {
                 Operations.complete(operation);
                 return editSession;
             }
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

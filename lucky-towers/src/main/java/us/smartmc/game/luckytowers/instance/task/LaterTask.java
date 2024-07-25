@@ -10,7 +10,7 @@ public class LaterTask {
 
     public LaterTask(Runnable runnable) {
         this.timer = new Timer();
-        task = new TimerTask(){
+        task = new TimerTask() {
             @Override
             public void run() {
                 runnable.run();

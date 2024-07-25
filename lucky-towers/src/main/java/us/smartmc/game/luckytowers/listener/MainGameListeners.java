@@ -1,13 +1,14 @@
 package us.smartmc.game.luckytowers.listener;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.command.LeaveCommand;
@@ -20,7 +21,7 @@ import us.smartmc.game.luckytowers.util.GameUtil;
 public class MainGameListeners implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void cancelPickItem(PlayerAttemptPickupItemEvent event) {
+    public void cancelPickItem(PlayerPickupItemEvent event) {
         Player player = event.getPlayer();
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
 
@@ -65,12 +66,16 @@ public class MainGameListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void death(PlayerDeathEvent event) {
-        event.deathMessage(null);
-        Player player = event.getPlayer();
+        event.setDeathMessage(null);
+        Player player = event.getEntity();
+        Location deathLocation = player.getLocation();
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
         GameSession session = gamePlayer.getGameSession();
         if (session == null) return;
-        event.setCancelled(true);
+        //event.setCancelled(true);
+        player.spigot().respawn();
+        player.teleport(deathLocation);
+        player.setHealthScale(20);
 
         // Add kill to killer if not null
         Player killer = player.getKiller();

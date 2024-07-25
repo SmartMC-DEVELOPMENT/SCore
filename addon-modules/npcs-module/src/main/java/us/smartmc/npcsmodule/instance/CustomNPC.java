@@ -131,21 +131,16 @@ public class CustomNPC {
         connection.sendPacket(new PacketPlayOutEntityMetadata(ep.getId(), ep.getDataWatcher(), true));
         connection.sendPacket(new PacketPlayOutEntityHeadRotation(ep, (byte) ((ep.yaw * 256.0F) / 360.0F)));
 
+
+
         // NAME VISIBLE:
-        if (!player.isCustomNameVisible()) {
-            ScoreboardTeam teamScore = new ScoreboardTeam(((CraftPlayer) player).getHandle().getScoreboard(), player.getName());
+        if (!ep.getBukkitEntity().isCustomNameVisible()) {
+            ScoreboardTeam teamScore = new ScoreboardTeam(((CraftPlayer) player).getHandle().getScoreboard(), ep.getBukkitEntity().getName());
             teamScore.setNameTagVisibility(ScoreboardTeamBase.EnumNameTagVisibility.NEVER);
             teamScore.getPlayerNameSet().add(entityPlayer.getName());
             connection.sendPacket(new PacketPlayOutScoreboardTeam(teamScore, 1));
             connection.sendPacket(new PacketPlayOutScoreboardTeam(teamScore, 0));
-
-            connection.sendPacket(new PacketPlayOutPlayerInfo(
-                    PacketPlayOutPlayerInfo.EnumPlayerInfoAction.UPDATE_DISPLAY_NAME,
-                    ep));
-
-            connection.sendPacket(new PacketPlayOutScoreboardTeam(teamScore, new ArrayList<String>() {{
-                add(entityPlayer.getName());
-            }}, 3));
+            connection.sendPacket(new PacketPlayOutScoreboardTeam(teamScore, List.of(entityPlayer.getName()), 3));
 
             SyncUtil.later(() -> {
                 connection.sendPacket(new PacketPlayOutPlayerInfo(

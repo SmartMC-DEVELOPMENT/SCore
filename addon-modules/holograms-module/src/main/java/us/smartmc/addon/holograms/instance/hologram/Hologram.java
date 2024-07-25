@@ -63,17 +63,19 @@ public class Hologram {
         String locationPath = HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY;
         String locationString = config.getString(locationPath);
 
-        Location npcLocation = null;
+        Location location = null;
         if (locationString.startsWith("npc@")) {
             String name = locationString.split("@")[1];
             CustomNPC npc = NPCModuleUtil.getFirstByName(name);
             if (npc != null)
-                npcLocation = npc.getBukkitLocation().clone().add(0, 0.8, 0);
-            if (npcLocation == null) {
+                location = npc.getBukkitLocation().clone().add(0, -0.2, 0);
+            if (location == null) {
                 return new Location(Bukkit.getWorlds().get(0), 0, 0, 0);
             }
         }
-        return npcLocation == null ? LocationUtils.stringToLocation(locationString) : npcLocation;
+
+        System.out.println("LOAD LOCATION: " + location);
+        return location == null ? LocationUtils.stringToLocation(locationString) : location;
     }
 
     private void loadAllConfigHolograms() {

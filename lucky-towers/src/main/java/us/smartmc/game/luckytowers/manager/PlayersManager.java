@@ -29,4 +29,12 @@ public class PlayersManager extends ManagerRegistry<UUID, GamePlayer> {
         if (gamePlayer != null) gamePlayer.unload();
         super.unregister(id);
     }
+
+    @Override
+    public GamePlayer get(UUID key) {
+        GamePlayer gamePlayer = super.get(key);
+        if (gamePlayer == null) gamePlayer = GamePlayer.create(key);
+        register(key, gamePlayer);
+        return gamePlayer;
+    }
 }

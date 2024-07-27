@@ -22,7 +22,7 @@ public enum GameItems implements IMessageCategory {
     spectator_compass,
 
     @DefaultLanguageItem(
-            material = "BLUE_BED",
+            material = "BED",
             name = "&cLeave",
             description = {"&7Go back to the lobby"}
     )

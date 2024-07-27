@@ -1,5 +1,6 @@
 package us.smartmc.game.luckytowers.command;
 
+import me.imsergioh.pluginsapi.util.BukkitChatUtil;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -24,7 +25,7 @@ public class ForceStartCommand implements CommandExecutor {
         GameSession session = gamePlayer.getGameSession();
         if (session == null) return true;
         session.forceStart();
-        PaperChatUtil.send(player, GameMessages.forceStarting);
+        BukkitChatUtil.send(player, GameMessages.forceStarting);
         return false;
     }
 }

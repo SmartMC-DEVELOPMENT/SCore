@@ -11,7 +11,7 @@ public class BlockUtils {
 
     public static void sendSimpleEncapsulation(Player player, Material material) {
         for (Location location : getSimpleEncapsulationLocations(player.getLocation())) {
-            player.sendBlockChange(location, material.createBlockData());
+            player.sendBlockChange(location, material, (byte) 0);
         }
     }
 

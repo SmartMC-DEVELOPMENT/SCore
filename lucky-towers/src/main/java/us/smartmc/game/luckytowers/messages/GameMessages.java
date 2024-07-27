@@ -36,7 +36,7 @@ public enum GameMessages implements IMessageCategory {
     lobbyHotbar_item_play,
 
     @DefaultLanguageItem(
-            material = "CLOCK",
+            material = "REDSTONE_WIRE",
             name = "&bOptions",
             description = {"&7Configure your options", "&7to your tastes"}
     )
@@ -67,7 +67,7 @@ public enum GameMessages implements IMessageCategory {
     @DefaultLanguageMessage("<color:#B7FFFF>¡CUIDADO TE PUEDES CAER!")
     title_dontFall,
 
-    @DefaultLanguageMessage("<green>Iniciando partida")
+    @DefaultLanguageMessage("&aIniciando partida")
     forceStarting,
 
     @DefaultLanguageMessage("&a&lEmpezando en")

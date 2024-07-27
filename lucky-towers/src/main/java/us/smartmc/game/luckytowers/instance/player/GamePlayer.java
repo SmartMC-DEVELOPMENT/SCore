@@ -184,12 +184,7 @@ public class GamePlayer {
     }
 
     public static GamePlayer create(UUID uuid) {
-        GamePlayer gamePlayer = manager.get(uuid);
-        if (gamePlayer == null) {
-            gamePlayer = new GamePlayer(uuid);
-            manager.register(uuid, gamePlayer);
-        }
-        return gamePlayer;
+        return new GamePlayer(uuid);
     }
 
     public static void sendActionBar(Player player, String message) {

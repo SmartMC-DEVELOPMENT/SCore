@@ -81,6 +81,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/MessagesMigration/pom.xml" />
         <option value="$PROJECT_DIR$/arenapvp/pom.xml" />
         <option value="$PROJECT_DIR$/core-plugins/smartcore-waterfall/pom.xml" />
         <option value="$PROJECT_DIR$/game-manager/pom.xml" />

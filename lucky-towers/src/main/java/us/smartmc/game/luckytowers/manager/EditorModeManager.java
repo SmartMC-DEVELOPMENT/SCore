@@ -2,6 +2,7 @@ package us.smartmc.game.luckytowers.manager;
 
 import me.imsergioh.pluginsapi.instance.manager.ManagerRegistry;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.util.BukkitChatUtil;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.instance.player.EditorSession;
@@ -21,14 +22,14 @@ public class EditorModeManager extends ManagerRegistry<UUID, EditorSession> {
     }
 
     public boolean enable(Player player) {
-        PaperChatUtil.send(player, GameMessages.editorMode_enabled);
+        BukkitChatUtil.send(player, GameMessages.editorMode_enabled);
         new EditorModeHotbar(player).set(player);
         register(player.getUniqueId(), new EditorSession(player));
         return true;
     }
 
     public boolean disable(Player player) {
-        PaperChatUtil.send(player, GameMessages.editorMode_disabled);
+        BukkitChatUtil.send(player, GameMessages.editorMode_disabled);
         CorePlayer corePlayer = CorePlayer.get(player);
 
         if (corePlayer.getCurrentMenuSet() instanceof EditorModeHotbar editorModeHotbar) {

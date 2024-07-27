@@ -28,6 +28,7 @@ public class PlayerStatsVariables extends VariableListener<Player> {
         if (message.contains("<streak") || message.contains("<bestStreak")) {
             boolean best = message.contains("<bestStreak");
             GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
+            if (gamePlayer == null) return "NaN";
             String[] words = message.split(" ");
 
             String regex = "<(bestStreak|streak)([A-Za-z]+)>";

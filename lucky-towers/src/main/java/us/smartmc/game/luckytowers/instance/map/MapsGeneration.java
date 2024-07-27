@@ -1,16 +1,9 @@
 package us.smartmc.game.luckytowers.instance.map;
 
-import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.extent.clipboard.Clipboard;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
-import com.sk89q.worldedit.function.operation.Operation;
-import com.sk89q.worldedit.function.operation.Operations;
-import com.sk89q.worldedit.math.BlockVector3;
-import com.sk89q.worldedit.session.ClipboardHolder;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.schematic.SchematicFormat;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -20,7 +13,7 @@ import us.smartmc.game.luckytowers.instance.player.EditorSession;
 import us.smartmc.game.luckytowers.manager.GameMapManager;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -62,34 +55,31 @@ public class MapsGeneration {
     }
 
     public static EditSession loadAndPasteSchematic(World world, GameSession session) {
+        EditSession editSession = null;
+        File schematicFile = EditorSession.getMapSchematicFile(session.getMap().getName());
+
         try {
-            Clipboard clipboard;
-            File file = EditorSession.getMapSchematicFile(session.getMap().getName());
-            ClipboardFormat format = ClipboardFormats.findByFile(file);
-            try (ClipboardReader reader = format.getReader(new FileInputStream(file))) {
-                clipboard = reader.read();
+            // Cargar el schematic
+            CuboidClipboard schem = SchematicFormat.MCEDIT.load(schematicFile);
+            if (schem == null) {
+                throw new IOException("No se pudo cargar el schematic.");
             }
+
             int xAddition = session.getXAddition();
-            World bukkitWorld = session.getMap().getSpawn(world, xAddition).getWorld();
 
-            BlockVector3 pos1 = EditorSession.getBlockVectorByLocation(session.getMap().getPos1(world, xAddition));
-            BlockVector3 pos2 = EditorSession.getBlockVectorByLocation(session.getMap().getPos2(world, xAddition));
+            // Crear una sesión de edición para el mundo
+            editSession = new EditSession(new BukkitWorld(world), Integer.MAX_VALUE);
 
-            BlockVector3 min = EditorSession.min(pos1, pos2);
-            min = BlockVector3.at(min.getX() + 1, min.getY(), min.getZ());
+            // Leer y pegar el schematic
+            schem.paste(editSession, new Vector(xAddition, 70, 0), false);
 
-            try (EditSession editSession = WorldEdit.getInstance().newEditSession(new BukkitWorld(bukkitWorld))) {
-                Operation operation = new ClipboardHolder(clipboard)
-                        .createPaste(editSession)
-                        .to(min)
-                        .build();
-                Operations.complete(operation);
-                return editSession;
-            }
+            // Guardar los cambios
+            editSession.flushQueue();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+
+        return editSession;
     }
 
 }

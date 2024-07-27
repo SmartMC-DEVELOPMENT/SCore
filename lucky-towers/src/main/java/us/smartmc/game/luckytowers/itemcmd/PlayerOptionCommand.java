@@ -22,7 +22,7 @@ public class PlayerOptionCommand implements ItemActionExecutor {
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
 
         if (args[0].equals("playMap")) {
-            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.5f, 1.75f);
+            player.playSound(player.getLocation(), Sound.CLICK, 0.5f, 1.75f);
             GameSessionsManager sessionsManager = LuckyTowers.getManager(GameSessionsManager.class);
             String name = args[1];
             GameSession session = sessionsManager.createOrGetByName(name, 1);

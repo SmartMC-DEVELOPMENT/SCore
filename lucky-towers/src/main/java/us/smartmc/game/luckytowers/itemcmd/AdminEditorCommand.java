@@ -73,7 +73,7 @@ public class AdminEditorCommand implements ItemActionExecutor {
             case "saveMap" -> {
                 try {
                     player.teleport(map.getSpawn(player.getWorld(), 0));
-                    editSession.saveRegion(player.getWorld());
+                    editSession.saveRegion(player.getWorld(), EditorSession.getMapSchematicFile(editSession.getMap().getName()));
                     feedbackMessage = AdminMessages.editor_regionSaved;
                 } catch (Exception e) {
                     e.printStackTrace();

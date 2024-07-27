@@ -2,6 +2,7 @@ package us.smartmc.game.luckytowers.command;
 
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.language.Language;
+import me.imsergioh.pluginsapi.util.BukkitChatUtil;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -23,7 +24,7 @@ public class AdminGameCommand implements CommandExecutor {
     private void executePlayer(Player player, String label, String[] args) {
         if (args.length >= 1 && args[0].equalsIgnoreCase("setLobby")) {
             plugin.getMainConfig().setLobby(player.getLocation());
-            PaperChatUtil.send(player, GameMessages.cmd_adminGame_lobbySet);
+            BukkitChatUtil.send(player, GameMessages.cmd_adminGame_lobbySet);
             return;
         }
 

@@ -9,28 +9,28 @@ public class SpigotLogger implements ConsoleLogger {
 
     public static void send(String prefix, String color, String message) {
         String pluginName = SmartCore.getPlugin().getName();
-        String consoleMessage =  "<aqua>[" + pluginName + " - " + prefix + "] " + color + message;
+        String consoleMessage =  "&b[" + pluginName + " - " + prefix + "] " + color + message;
         Bukkit.getConsoleSender().sendMessage(ChatUtil.parse(consoleMessage));
     }
 
     @Override
     public void log(String message) {
-        send("LOG", "<green>", message);
+        send("LOG", "&a", message);
     }
 
     @Override
     public void info(String message) {
-        send("INFO", "<blue>", message);
+        send("INFO", "&b", message);
     }
 
     @Override
     public void warning(String message) {
-        send("WARNING", "<yellow>", message);
+        send("WARNING", "&e", message);
     }
 
     @Override
     public void error(String message) {
-        send("ERROR", "<dark_red>", message);
+        send("ERROR", "&4", message);
     }
 
 }

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MessagesMigration/MessagesMigration.iml" filepath="$PROJECT_DIR$/MessagesMigration/MessagesMigration.iml" />
       <module fileurl="file://$PROJECT_DIR$/SCore.iml" filepath="$PROJECT_DIR$/SCore.iml" />
       <module fileurl="file://$PROJECT_DIR$/bmotd-velocity/bmotd-velocity.iml" filepath="$PROJECT_DIR$/bmotd-velocity/bmotd-velocity.iml" />
       <module fileurl="file://$PROJECT_DIR$/addon-modules/chat-module/chat-module.iml" filepath="$PROJECT_DIR$/addon-modules/chat-module/chat-module.iml" />

@@ -16,7 +16,6 @@
         <module name="login-spigot" />
         <module name="npcs-module" />
         <module name="bmotd-velocity" />
-        <module name="MessagesMigration" />
         <module name="smartcore-bungee" />
         <module name="skyblock-service" />
         <module name="smartcore-spigot" />
@@ -36,6 +35,7 @@
       <module name="gamesmanager-spigot" target="1.5" />
       <module name="login" target="1.8" />
       <module name="loginproxy-waterfall" target="1.8" />
+      <module name="MessagesMigration" target="17" />
       <module name="new-orchestrator" target="16" />
       <module name="old-gamesmanager-spigot (1)" target="1.8" />
       <module name="orchestrator" target="16" />

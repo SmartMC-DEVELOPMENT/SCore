@@ -28,7 +28,7 @@ public class PlayerNavigatorMenu extends GameMenu {
         for (GamePlayer sessionPlayer : session.getAlivePlayers()) {
             Player alivePlayer = sessionPlayer.getBukkitPlayer();
             String name = alivePlayer.getName();
-            ItemBuilder builder = ItemBuilder.of(Material.PLAYER_HEAD);
+            ItemBuilder builder = ItemBuilder.of(Material.SKULL_ITEM).data(3);
             builder.name("&a" + name);
             set(slot, parseBuilderToPlayersHead(builder, alivePlayer), "spectatorMode tp " + alivePlayer.getName());
             slot++;
@@ -39,7 +39,7 @@ public class PlayerNavigatorMenu extends GameMenu {
         builder.lore(GameMessages.itemDescription_teleportToPlayer.getMessageListOf(PlayerLanguages.get(initPlayer.getUniqueId())), player.getName());
         ItemStack itemStack = builder.get(initPlayer);
         SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
-        skullMeta.setOwningPlayer(player);
+        skullMeta.setOwner(player.getName());
         itemStack.setItemMeta(skullMeta);
         return itemStack;
     }

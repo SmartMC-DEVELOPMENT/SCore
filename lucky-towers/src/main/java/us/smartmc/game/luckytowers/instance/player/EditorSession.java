@@ -1,18 +1,12 @@
 package us.smartmc.game.luckytowers.instance.player;
 
-import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
-import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardWriter;
-import com.sk89q.worldedit.function.operation.ForwardExtentCopy;
-import com.sk89q.worldedit.function.operation.Operations;
-import com.sk89q.worldedit.math.BlockVector3;
-import com.sk89q.worldedit.regions.CuboidRegion;
-import com.sk89q.worldedit.world.World;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.schematic.SchematicFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.instance.game.GameMap;
@@ -20,7 +14,7 @@ import us.smartmc.game.luckytowers.instance.game.GameTeamColor;
 import us.smartmc.game.luckytowers.manager.GameMapManager;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class EditorSession {
 
@@ -39,27 +33,45 @@ public class EditorSession {
         this.player = player;
     }
 
-    public void saveRegion(org.bukkit.World world) throws Exception {
-        World weWorld = WorldEdit.getInstance().getPlatformManager().getWorldForEditing(new BukkitWorld(player.getWorld()));
-        BlockVector3 pos1 = getBlockVectorByLocation(getMap().getPos1(world, 0));
-        BlockVector3 pos2 = getBlockVectorByLocation(getMap().getPos2(world, 0));
+    public void saveRegion(org.bukkit.World bukkitWorld, File schematicFile) throws Exception {
+        try {
+            // Convert BukkitWorld to LocalWorld
+            LocalWorld localWorld = new BukkitWorld(bukkitWorld);
 
-        BlockVector3 min = min(pos1, pos2);
-        BlockVector3 max = max(pos1, pos2);
+            // Get the selection from WorldEdit
+            WorldEdit worldEdit = WorldEditPlugin.getPlugin(WorldEditPlugin.class).getWorldEdit();
+            Selection selection = WorldEditPlugin.getPlugin(WorldEditPlugin.class).getSelection(player);
+            Vector pos1 = selection.getNativeMaximumPoint();
+            Vector pos2 = selection.getNativeMinimumPoint();
 
-        CuboidRegion region = new CuboidRegion(weWorld, min, max);
+            if (selection == null) {
+                throw new Exception("No selection found.");
+            }
 
-        BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
+            // Calculate the center of the selection
+            Vector center = pos1.add(pos2).multiply(0.5);
 
-        ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(
-                weWorld, region, clipboard, min
-        );
-        Operations.complete(forwardExtentCopy);
+            // Create a Schematic
+            CuboidClipboard schem = new CuboidClipboard(pos1, pos2);
 
-        File file = getMapSchematicFile(mapId);
+            // Adjust the schematic to be centered
+            schem.setOffset(center);
 
-        try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(file))) {
-            writer.write(clipboard);
+            // Create an EditSession
+            EditSession editSession = new EditSession(localWorld, -1);
+
+            // Copy the blocks from the region to the schematic
+            schem.copy(editSession);
+
+            // Save the schematic to a file
+            SchematicFormat.MCEDIT.save(schem, schematicFile);
+
+            // Flush changes to the world
+            editSession.flushQueue();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new Exception("Error saving schematic file.", e);
         }
     }
 
@@ -71,29 +83,8 @@ public class EditorSession {
         return mapManager.get(mapId);
     }
 
-    public static BlockVector3 getBlockVectorByLocation(Location location) {
-        int x = (int) location.getX();
-        int y = (int) location.getY();
-        int z = (int) location.getZ();
-        return BlockVector3.at(x, y, z);
-    }
 
     public static File getMapSchematicFile(String name) {
-        return new File(GameMapManager.MAPS_SCHEMS_DIRECTORY, name + ".schem");
+        return new File(GameMapManager.MAPS_SCHEMS_DIRECTORY, name + ".schematic");
     }
-
-    public static BlockVector3 max(BlockVector3 vec1, BlockVector3 vec2) {
-        int maxX = Math.max(vec1.getX(), vec2.getX());
-        int maxY = Math.max(vec1.getY(), vec2.getY());
-        int maxZ = Math.max(vec1.getZ(), vec2.getZ());
-        return BlockVector3.at(maxX, maxY, maxZ);
-    }
-
-    public static BlockVector3 min(BlockVector3 vec1, BlockVector3 vec2) {
-        int minX = Math.min(vec1.getX(), vec2.getX());
-        int minY = Math.min(vec1.getY(), vec2.getY());
-        int minZ = Math.min(vec1.getZ(), vec2.getZ());
-        return BlockVector3.at(minX, minY, minZ);
-    }
-
 }

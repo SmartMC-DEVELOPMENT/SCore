@@ -15,12 +15,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Getter
 public class GameMap {
 
     private static final LuckyTowers plugin = LuckyTowers.getPlugin();
 
-    private static final String SPAWN_PATH = "spawn";
+    private static final String CENTER_PATH = "center";
     private static final String POS1_PATH = "pos1";
     private static final String POS2_PATH = "pos2";
     private static final String LOCATIONS_PATH = "spawnLocations";
@@ -82,18 +83,67 @@ public class GameMap {
         config.save();
     }
 
-    public void setPos1(Location location) {
-        location = new Location(location.getWorld(), location.getX(), location.getWorld().getMaxHeight(), location.getZ());
-        setConfigLocation(POS1_PATH, location, false, false);
+
+    public void setPos1(Location location) throws Exception {
+
+        Location center = getConfigCenter(location.getWorld());
+        if (center == null) throw new Exception("No spawn has been set already");
+
+        double deltaX = location.getX() - center.getX();
+        double deltaZ = location.getZ() - center.getZ();
+
+        Location newLocation = new Location(
+                location.getWorld(),
+                deltaX,
+                255,
+                deltaZ
+        );
+
+        setConfigLocation(POS1_PATH, newLocation, false, false);
     }
 
-    public void setPos2(Location location) {
-        location = new Location(location.getWorld(), location.getX(), -64, location.getZ());
-        setConfigLocation(POS2_PATH, location, false, false);
+    public void setPos2(Location location) throws Exception {
+        Location center = getConfigCenter(location.getWorld());
+        if (center == null) throw new Exception("No spawn has been set already");
+
+        double deltaX = location.getX() - center.getX();
+        double deltaZ = location.getZ() - center.getZ();
+
+        Location newLocation = new Location(
+                location.getWorld(),
+                deltaX,
+                -64,
+                deltaZ
+        );
+        setConfigLocation(POS2_PATH, newLocation, false, false);
     }
 
-    public void setSpawn(Location location) {
-        setConfigLocation(SPAWN_PATH, location, false, true);
+    public void addSpawnLocation(Location location) throws Exception {
+        Location center = getConfigCenter(location.getWorld());
+        if (center == null) throw new Exception("No spawn has been set already");
+
+        double deltaX = location.getX() - center.getX();
+        double deltaY = location.getY() - center.getY();
+        double deltaZ = location.getZ() - center.getZ();
+
+        Location newLocation = new Location(
+                location.getWorld(),
+                deltaX,
+                deltaY,
+                deltaZ
+        );
+        spawnLocations.add(newLocation);
+        saveSpawnLocations();
+    }
+
+    public void removeLastSpawn() throws Exception {
+        if (spawnLocations.isEmpty()) throw new Exception("No more spawns available!");
+        spawnLocations.remove(spawnLocations.size() - 1);
+        saveSpawnLocations();
+    }
+
+    public void setCenter(Location location) {
+        setConfigLocation(CENTER_PATH, location, false, true);
     }
 
     public void setTimeLimit(int time) {
@@ -101,15 +151,23 @@ public class GameMap {
     }
 
     public Location getPos1(World world, int xAddition) {
-        return getConfigLocation(world, POS1_PATH).clone().add(xAddition, 0, 0);
+        Location center = getConfigCenter(world);
+        Location location = getConfigLocation(world, POS1_PATH).clone();
+        return location.add(xAddition + center.getX(), center.getY(), center.getZ());
     }
 
-    public Location getPos2(World world, int xAddition) {
-        return getConfigLocation(world, POS2_PATH).clone().add(xAddition, 0, 0);
+    public Location getPos2(World world, int xAddition){
+        Location center = getConfigCenter(world);
+        Location location = getConfigLocation(world, POS2_PATH).clone();
+        return location.add(xAddition + center.getX(), center.getY(), center.getZ());
     }
 
     public Location getSpawn(World world, int xLocationAddition) {
-        return getConfigLocation(world, SPAWN_PATH).clone().add(xLocationAddition, 0, 0);
+        return new Location(world, xLocationAddition, 70, 0);
+    }
+
+    public Location getConfigCenter(World world) {
+        return getConfigLocation(world, CENTER_PATH).clone();
     }
 
     public int getTimeLimit() {

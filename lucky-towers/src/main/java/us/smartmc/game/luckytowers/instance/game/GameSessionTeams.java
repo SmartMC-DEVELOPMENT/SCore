@@ -1,6 +1,7 @@
 package us.smartmc.game.luckytowers.instance.game;
 
 import org.bukkit.Location;
+import org.bukkit.World;
 import us.smartmc.game.luckytowers.instance.player.GamePlayer;
 
 import java.util.List;
@@ -106,6 +107,14 @@ public class GameSessionTeams {
             index++;
         }
         return teams;
+    }
+
+    public Location getSpawnAssigned(GameTeam gameTeam, World world, int additionXLocation) {
+        Location spawnAssigned = gameTeam.getSpawnAssigned();
+        Location center = session.getMap().getSpawn(world, session.getXAddition());
+        if (spawnAssigned.getWorld() == null)
+            spawnAssigned.setWorld(world);
+        return spawnAssigned.clone().add(additionXLocation + center.getX(), center.getY(), center.getZ());
     }
 
 }

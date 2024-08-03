@@ -16,17 +16,12 @@ public class GameTeam {
     @Getter
     private final Set<UUID> players = new HashSet<>();
 
+    @Getter
     private final Location spawnAssigned;
 
     public GameTeam(GameTeamColor color, Location spawnAssigned) {
         this.color = color;
         this.spawnAssigned = spawnAssigned;
-    }
-
-    public Location getSpawnAssigned(World world, int additionXLocation) {
-        if (spawnAssigned.getWorld() == null)
-            spawnAssigned.setWorld(world);
-        return spawnAssigned.clone().add(additionXLocation, 0, 0);
     }
 
     public int getPlayersSize() {

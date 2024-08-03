@@ -73,6 +73,8 @@ public class MapsGeneration {
             // Leer y pegar el schematic
             schem.paste(editSession, new Vector(xAddition, 70, 0), false);
 
+            System.out.println("Pasted schematic at: " + new Vector(xAddition, 70, 0));
+
             // Guardar los cambios
             editSession.flushQueue();
         } catch (Exception e) {

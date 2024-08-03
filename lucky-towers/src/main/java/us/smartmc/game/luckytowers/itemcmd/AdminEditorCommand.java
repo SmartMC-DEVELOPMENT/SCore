@@ -4,7 +4,6 @@ import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import me.imsergioh.pluginsapi.language.IMessageCategory;
 import me.imsergioh.pluginsapi.util.BukkitChatUtil;
-import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -33,31 +32,49 @@ public class AdminEditorCommand implements ItemActionExecutor {
         Object[] feedbackArgs = {};
         switch (args[0]) {
             case "setSpawn" -> {
-                map.setSpawn(player.getLocation());
+                map.setCenter(player.getLocation());
                 feedbackMessage = AdminMessages.editor_spawnSet;
             }
 
             case "addTeamSpawn" -> {
                 Location initLocation = player.getLocation();
-                map.getSpawnLocations().add(initLocation);
-                map.saveSpawnLocations();
-                player.sendBlockChange(initLocation, Material.BEACON, (byte) 0);
-                player.teleport(initLocation);
-                feedbackMessage = AdminMessages.editor_spawnAdded;
+                try {
+                    map.addSpawnLocation(initLocation);
+                    player.sendBlockChange(initLocation, Material.BEACON, (byte) 0);
+                    player.teleport(initLocation);
+                    feedbackMessage = AdminMessages.editor_spawnAdded;
+                } catch (Exception e) {
+                    player.sendMessage("Error adding spawn location: " + e.getMessage());
+                    throw new RuntimeException(e);
+                }
             }
 
             case "removeLastSpawn" -> {
-                map.getSpawnLocations().remove(map.getSpawnLocations().size() - 1);
-                map.saveSpawnLocations();
+                try {
+                    map.removeLastSpawn();
+                } catch (Exception e) {
+                    player.sendMessage("No more spawns available!");
+                    throw new RuntimeException(e);
+                }
                 feedbackMessage = AdminMessages.editor_spawnRemovedLast;
             }
 
             case "setCorner" -> {
                 if (handler.interactAction().name().contains("RIGHT")) {
-                    map.setPos1(player.getLocation());
+                    try {
+                        map.setPos1(player.getLocation());
+                    } catch (Exception e) {
+                        player.sendMessage("Error setting spawn corner: " + e.getMessage());
+                        throw new RuntimeException(e);
+                    }
                     feedbackArgs = new Object[]{"1"};
                 } else {
-                    map.setPos2(player.getLocation());
+                    try {
+                        map.setPos2(player.getLocation());
+                    } catch (Exception e) {
+                        player.sendMessage("Error setting spawn corner: " + e.getMessage());
+                        throw new RuntimeException(e);
+                    }
                     feedbackArgs = new Object[]{"2"};
                 }
                 feedbackMessage = AdminMessages.editor_cornerSet;
@@ -73,7 +90,7 @@ public class AdminEditorCommand implements ItemActionExecutor {
             case "saveMap" -> {
                 try {
                     player.teleport(map.getSpawn(player.getWorld(), 0));
-                    editSession.saveRegion(player.getWorld(), EditorSession.getMapSchematicFile(editSession.getMap().getName()));
+                    editSession.saveRegion(player, EditorSession.getMapSchematicFile(editSession.getMap().getName()));
                     feedbackMessage = AdminMessages.editor_regionSaved;
                 } catch (Exception e) {
                     e.printStackTrace();

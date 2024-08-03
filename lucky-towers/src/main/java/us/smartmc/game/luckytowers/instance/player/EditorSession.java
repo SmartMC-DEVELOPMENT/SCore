@@ -15,6 +15,9 @@ import us.smartmc.game.luckytowers.manager.GameMapManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class EditorSession {
 
@@ -33,42 +36,15 @@ public class EditorSession {
         this.player = player;
     }
 
-    public void saveRegion(org.bukkit.World bukkitWorld, File schematicFile) throws Exception {
+    public void saveRegion(Player player, File toSaveSchemFile) throws Exception {
         try {
-            // Convert BukkitWorld to LocalWorld
-            LocalWorld localWorld = new BukkitWorld(bukkitWorld);
+            String name = toSaveSchemFile.getName().split("\\.")[0];
+            player.performCommand("/copy");
+            player.performCommand("/schem save " + name);
 
-            // Get the selection from WorldEdit
-            WorldEdit worldEdit = WorldEditPlugin.getPlugin(WorldEditPlugin.class).getWorldEdit();
-            Selection selection = WorldEditPlugin.getPlugin(WorldEditPlugin.class).getSelection(player);
-            Vector pos1 = selection.getNativeMaximumPoint();
-            Vector pos2 = selection.getNativeMinimumPoint();
-
-            if (selection == null) {
-                throw new Exception("No selection found.");
-            }
-
-            // Calculate the center of the selection
-            Vector center = pos1.add(pos2).multiply(0.5);
-
-            // Create a Schematic
-            CuboidClipboard schem = new CuboidClipboard(pos1, pos2);
-
-            // Adjust the schematic to be centered
-            schem.setOffset(center);
-
-            // Create an EditSession
-            EditSession editSession = new EditSession(localWorld, -1);
-
-            // Copy the blocks from the region to the schematic
-            schem.copy(editSession);
-
-            // Save the schematic to a file
-            SchematicFormat.MCEDIT.save(schem, schematicFile);
-
-            // Flush changes to the world
-            editSession.flushQueue();
-
+            File originalFile = new File(LuckyTowers.getPlugin().getDataFolder() + "/../WorldEdit/schematics/" + name + ".schematic");
+            Files.copy(Path.of(originalFile.toURI()), Path.of(toSaveSchemFile.toURI()));
+            player.sendMessage("Saved to " + toSaveSchemFile.getAbsolutePath() + "!");
         } catch (IOException e) {
             e.printStackTrace();
             throw new Exception("Error saving schematic file.", e);

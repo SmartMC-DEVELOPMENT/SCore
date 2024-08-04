@@ -22,7 +22,7 @@ public class GameMapManager extends ManagerRegistry<String, GameMap> {
 
     @Override
     public void load() {
-        mainMapsGeneration = new MapsGeneration(getWorld());
+        mainMapsGeneration = new MapsGeneration();
         // Load current maps configs
         MAPS_CONFIG_DIRECTORY.mkdirs();
         MAPS_SCHEMS_DIRECTORY.mkdirs();

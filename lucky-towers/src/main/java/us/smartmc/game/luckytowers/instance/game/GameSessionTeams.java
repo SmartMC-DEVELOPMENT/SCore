@@ -111,10 +111,10 @@ public class GameSessionTeams {
 
     public Location getSpawnAssigned(GameTeam gameTeam, World world, int additionXLocation) {
         Location spawnAssigned = gameTeam.getSpawnAssigned();
-        Location center = session.getMap().getSpawn(world, session.getXAddition());
+        Location center = session.getMap().getSpawn(world, additionXLocation);
         if (spawnAssigned.getWorld() == null)
             spawnAssigned.setWorld(world);
-        return spawnAssigned.clone().add(additionXLocation + center.getX(), center.getY(), center.getZ());
+        return spawnAssigned.clone().add(center.getX(), center.getY(), center.getZ());
     }
 
 }

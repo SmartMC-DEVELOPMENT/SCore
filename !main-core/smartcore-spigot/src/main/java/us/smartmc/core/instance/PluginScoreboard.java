@@ -32,6 +32,14 @@ public class PluginScoreboard {
         config.save();
 
         registerVariables();
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(SmartCore.getPlugin(), () -> {
+            for (UUID uuid : players) {
+                Player player = Bukkit.getPlayer(uuid);
+                if (player == null || !player.isOnline()) return;
+                update(player);
+            }
+        }, 10L, 10L);
     }
 
     public void forEachPlayer(Consumer<Player> consumer) {

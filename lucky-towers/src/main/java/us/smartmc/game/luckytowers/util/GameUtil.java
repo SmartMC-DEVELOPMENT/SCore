@@ -25,6 +25,7 @@ public class GameUtil {
     }
 
     public static void updateVisibility(Player player) {
+        if (player == null) return;
         GamePlayer gamePlayer = GamePlayer.get(player.getUniqueId());
         if (gamePlayer == null) return;
         GameSession session = gamePlayer.getGameSession();

@@ -66,10 +66,23 @@ public class GamePlayer {
     }
 
     public void sendTitle(IMessageCategory titleCategory, IMessageCategory subtitleCategory, Object... args) {
+        sendTitle(titleCategory, subtitleCategory, 0, 30, 0, args);
+    }
+
+    public void sendTitle(IMessageCategory titleCategory, IMessageCategory subtitleCategory, int fadeIn, int stay, int fadeOut, Object... args) {
         String title = BukkitChatUtil.parse(getBukkitPlayer(), titleCategory, args).toLegacyText();
         String subtitle = BukkitChatUtil.parse(getBukkitPlayer(), subtitleCategory, args).toLegacyText();
 
-        getBukkitPlayer().sendTitle(title, subtitle);
+        // Construct the packet for the title text
+        PacketPlayOutTitle titlePacket = new PacketPlayOutTitle(
+                PacketPlayOutTitle.EnumTitleAction.TITLE, new ChatMessage(title), fadeIn, stay, fadeOut);
+        // Construct the packet for the subtitle text
+        PacketPlayOutTitle subtitlePacket = new PacketPlayOutTitle(
+                PacketPlayOutTitle.EnumTitleAction.SUBTITLE, new ChatMessage(subtitle), fadeIn, stay, fadeOut);
+
+        // Send the packets to the player
+        ((CraftPlayer) getBukkitPlayer()).getHandle().playerConnection.sendPacket(titlePacket);
+        ((CraftPlayer) getBukkitPlayer()).getHandle().playerConnection.sendPacket(subtitlePacket);
     }
 
     public void addCoins(int amount) {

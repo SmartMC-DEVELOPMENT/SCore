@@ -43,6 +43,7 @@ public class EditorSession {
             player.performCommand("/schem save " + name);
 
             File originalFile = new File(LuckyTowers.getPlugin().getDataFolder() + "/../WorldEdit/schematics/" + name + ".schematic");
+            toSaveSchemFile.delete();
             Files.copy(Path.of(originalFile.toURI()), Path.of(toSaveSchemFile.toURI()));
             player.sendMessage("Saved to " + toSaveSchemFile.getAbsolutePath() + "!");
         } catch (IOException e) {

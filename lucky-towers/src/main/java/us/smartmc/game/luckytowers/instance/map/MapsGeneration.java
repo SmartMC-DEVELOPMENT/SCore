@@ -2,9 +2,7 @@ package us.smartmc.game.luckytowers.instance.map;
 
 import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.schematic.SchematicFormat;
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import us.smartmc.game.luckytowers.LuckyTowers;
@@ -22,36 +20,24 @@ public class MapsGeneration {
     private static final GameMapManager manager = LuckyTowers.getManager(GameMapManager.class);
     private static final int X_ADDITION = 640;
 
-    private final Location initLocation;
-    private final int x;
-
     private final Set<Integer> reserved = new HashSet<>();
-
-    public MapsGeneration(World world) {
-        initLocation = world.getSpawnLocation();
-        x = (int) initLocation.getX();
-    }
 
     public void setAvailable(int xCoord) {
         reserved.remove(xCoord);
     }
 
-    public Chunk reserveNext() {
+    public int reserveNext() {
         int nextXLocation = getNextXLoc();
         reserved.add(nextXLocation);
-        return manager.getWorld().getChunkAt(nextXLocation, initLocation.getBlockZ());
+        return nextXLocation;
     }
 
     private int getNextXLoc() {
-        int xLoc = x;
+        int xLoc = 0;
         while (reserved.contains(xLoc)) {
             xLoc += X_ADDITION;
         }
         return xLoc;
-    }
-
-    public static int getXAdditionByChunk(Chunk chunkOfMap, Chunk chunkOfSession) {
-        return Math.max(chunkOfMap.getX(), chunkOfSession.getX()) - Math.min(chunkOfMap.getX(), chunkOfSession.getX());
     }
 
     public static EditSession loadAndPasteSchematic(World world, GameSession session) {

@@ -73,9 +73,9 @@ public class MainGameListeners implements Listener {
         GameSession session = gamePlayer.getGameSession();
         if (session == null) return;
         //event.setCancelled(true);
-        player.spigot().respawn();
-        player.teleport(deathLocation);
-        player.setHealthScale(20);
+        Bukkit.getScheduler().runTask(LuckyTowers.getPlugin(), () -> {
+            session.deathPlayer(gamePlayer);
+        });
 
         // Add kill to killer if not null
         Player killer = player.getKiller();
@@ -84,7 +84,7 @@ public class MainGameListeners implements Listener {
         }
 
         // Calls method deathPlayer & checks if disconnected leave from game
-        session.deathPlayer(gamePlayer);
+
         Bukkit.getScheduler().runTaskLater(LuckyTowers.getPlugin(), () -> {
             if (player.isOnline()) return;
             LeaveCommand.leave(player);

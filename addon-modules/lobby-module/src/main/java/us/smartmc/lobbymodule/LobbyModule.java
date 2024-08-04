@@ -66,7 +66,8 @@ public class LobbyModule extends AddonPlugin {
                 new SocialsCommand("socials"));
 
 
-        registerListeners(SpigotPluginsAPI.getPlugin(), new JoinItemListener(),
+        registerListeners(SpigotPluginsAPI.getPlugin(),
+                new JoinItemListener(),
                 new VisibilityManager(),
                 new InventoryListeners(),
                 new FlyManager(),

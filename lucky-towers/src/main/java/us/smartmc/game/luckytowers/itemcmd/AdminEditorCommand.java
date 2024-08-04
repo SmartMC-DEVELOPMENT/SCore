@@ -4,6 +4,7 @@ import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import me.imsergioh.pluginsapi.language.IMessageCategory;
 import me.imsergioh.pluginsapi.util.BukkitChatUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -89,8 +90,15 @@ public class AdminEditorCommand implements ItemActionExecutor {
 
             case "saveMap" -> {
                 try {
-                    player.teleport(map.getSpawn(player.getWorld(), 0));
-                    editSession.saveRegion(player, EditorSession.getMapSchematicFile(editSession.getMap().getName()));
+                    player.teleport(map.getConfigCenter(player.getWorld()));
+                    Bukkit.getScheduler().runTaskLater(LuckyTowers.getPlugin(), () -> {
+                        try {
+                            editSession.saveRegion(player, EditorSession.getMapSchematicFile(editSession.getMap().getName()));
+                        } catch (Exception e) {
+                            player.sendMessage("Error! " + e.getMessage());
+                            throw new RuntimeException(e);
+                        }
+                    }, 10);
                     feedbackMessage = AdminMessages.editor_regionSaved;
                 } catch (Exception e) {
                     e.printStackTrace();

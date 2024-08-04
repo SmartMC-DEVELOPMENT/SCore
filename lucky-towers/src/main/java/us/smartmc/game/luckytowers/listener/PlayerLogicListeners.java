@@ -1,8 +1,13 @@
 package us.smartmc.game.luckytowers.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
+import me.imsergioh.pluginsapi.event.PlayerLanguageChangedEvent;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
+import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -40,7 +45,30 @@ import java.util.Random;
 public class PlayerLogicListeners implements Listener {
 
     @EventHandler
+    public void clearArmorContent(PlayerStatusChangeEvent event) {
+        Player player = event.getPlayer();
+        if (player == null) return;
+        player.getInventory().setArmorContents(null);
+    }
+
+    @EventHandler
+    public void reloadLanguageInventory(PlayerLanguageChangedEvent event) {
+        CorePlayer corePlayer = event.getCorePlayer();
+
+        CoreMenu menu = corePlayer.getCurrentMenuSet();
+        if (menu == null) return;
+
+        GamePlayer gamePlayer = GamePlayer.get(corePlayer.getUUID());
+        if (gamePlayer.getGameSession() != null && gamePlayer.getGameSession().getStatus().equals(GameSessionStatus.PLAYING)) return;
+
+        menu.load();
+        menu.set(corePlayer.getBukkitPlayer());
+    }
+
+    @EventHandler
     public void updateVisiblityOnStatusChangeEvent(PlayerStatusChangeEvent event) {
+        Player player = event.getPlayer();
+        if (player == null) return;
         GameUtil.updateVisibility(event.getPlayer());
     }
 
@@ -72,6 +100,7 @@ public class PlayerLogicListeners implements Listener {
             event.setCancelled(true);
             event.getPlayer().teleport(new Location(from.getWorld(), from.getBlockX(), from.getY(), from.getBlockZ() + 0.5));
             player.sendTitle("", ChatUtil.parse(player, GameMessages.title_dontFall.getMessageOf(PlayerLanguages.get(player.getUniqueId()))));
+
         }
 
         if (from.getBlockZ() != to.getBlockZ()) {

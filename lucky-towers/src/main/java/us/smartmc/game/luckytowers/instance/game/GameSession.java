@@ -51,7 +51,6 @@ public class GameSession implements IGameSession {
     private int secondsRemaining = 10;
     private BukkitRunnable timeLimitTask, generateItemsTask;
 
-    private int referenceXChunkReserved;
     private int xAddition = -1;
 
     @Getter
@@ -74,9 +73,7 @@ public class GameSession implements IGameSession {
     private void loadMapSchemAndReserveChunks() {
         if (xAddition != -1) return;
         MapsGeneration generation = GameMapManager.getMainMapsGeneration();
-        Chunk chunk = generation.reserveNext();
-        xAddition = MapsGeneration.getXAdditionByChunk(map.getSpawn(getMapsWorld(), 0).getChunk(), chunk);
-        referenceXChunkReserved = chunk.getX();
+        xAddition = generation.reserveNext();
         schemSession = MapsGeneration.loadAndPasteSchematic(getMapsWorld(), this);
         if (schemSession == null) end();
     }
@@ -174,7 +171,7 @@ public class GameSession implements IGameSession {
     protected void resetAndEndMap() {
         GameUtil.removeAllEntitiesInRegion(getMapsWorld(), this);
         schemSession.undo(schemSession);
-        GameMapManager.getMainMapsGeneration().setAvailable(referenceXChunkReserved);
+        GameMapManager.getMainMapsGeneration().setAvailable(xAddition);
         new HashSet<>(players).forEach(gamePlayer -> {
             gamePlayer.onlinePlayer(LeaveCommand::leave);
         });
@@ -269,6 +266,7 @@ public class GameSession implements IGameSession {
             if (player.isDead())
                 player.spigot().respawn();
             player.teleport(map.getSpawn(getMapsWorld(), xAddition));
+            player.setHealthScale(20);
         });
         if (canEnd()) end();
 
@@ -336,7 +334,7 @@ public class GameSession implements IGameSession {
     }
 
     private static World getMapsWorld() {
-        return Bukkit.getWorld("maps");
+        return new WorldCreator("maps").createWorld();
     }
 
 }

@@ -89,14 +89,11 @@ public class GameMap {
         Location center = getConfigCenter(location.getWorld());
         if (center == null) throw new Exception("No spawn has been set already");
 
-        double deltaX = location.getX() - center.getX();
-        double deltaZ = location.getZ() - center.getZ();
-
         Location newLocation = new Location(
                 location.getWorld(),
-                deltaX,
+                location.getBlockX(),
                 255,
-                deltaZ
+                location.getBlockZ()
         );
 
         setConfigLocation(POS1_PATH, newLocation, false, false);
@@ -106,14 +103,11 @@ public class GameMap {
         Location center = getConfigCenter(location.getWorld());
         if (center == null) throw new Exception("No spawn has been set already");
 
-        double deltaX = location.getX() - center.getX();
-        double deltaZ = location.getZ() - center.getZ();
-
         Location newLocation = new Location(
                 location.getWorld(),
-                deltaX,
+                location.getBlockX(),
                 -64,
-                deltaZ
+                location.getBlockZ()
         );
         setConfigLocation(POS2_PATH, newLocation, false, false);
     }
@@ -122,9 +116,9 @@ public class GameMap {
         Location center = getConfigCenter(location.getWorld());
         if (center == null) throw new Exception("No spawn has been set already");
 
-        double deltaX = location.getX() - center.getX();
-        double deltaY = location.getY() - center.getY();
-        double deltaZ = location.getZ() - center.getZ();
+        int deltaX = location.getBlockX() - center.getBlockX();
+        int deltaY = location.getBlockY() - center.getBlockY();
+        int deltaZ = location.getBlockZ() - center.getBlockZ();
 
         Location newLocation = new Location(
                 location.getWorld(),
@@ -151,15 +145,13 @@ public class GameMap {
     }
 
     public Location getPos1(World world, int xAddition) {
-        Location center = getConfigCenter(world);
-        Location location = getConfigLocation(world, POS1_PATH).clone();
-        return location.add(xAddition + center.getX(), center.getY(), center.getZ());
+        Location spawn = getSpawn(world, xAddition);
+        return spawn.add(32, world.getMaxHeight(), 32);
     }
 
     public Location getPos2(World world, int xAddition){
-        Location center = getConfigCenter(world);
-        Location location = getConfigLocation(world, POS2_PATH).clone();
-        return location.add(xAddition + center.getX(), center.getY(), center.getZ());
+        Location spawn = getSpawn(world, xAddition);
+        return spawn.add(-32, -64, -32);
     }
 
     public Location getSpawn(World world, int xLocationAddition) {

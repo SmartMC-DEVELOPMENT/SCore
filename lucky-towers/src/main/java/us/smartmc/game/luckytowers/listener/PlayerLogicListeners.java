@@ -16,6 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
+import org.bukkit.potion.PotionEffect;
 import us.smartmc.core.SmartCore;
 import us.smartmc.game.luckytowers.LuckyTowers;
 import us.smartmc.game.luckytowers.config.MainPluginConfig;
@@ -43,6 +44,13 @@ import java.util.List;
 import java.util.Random;
 
 public class PlayerLogicListeners implements Listener {
+
+    @EventHandler
+    public void clearEffects(PlayerStatusChangeEvent event) {
+        Player player = event.getPlayer();
+        if (player == null) return;
+        removeEffects(player);
+    }
 
     @EventHandler
     public void clearArmorContent(PlayerStatusChangeEvent event) {
@@ -231,6 +239,12 @@ public class PlayerLogicListeners implements Listener {
         String randomMap = mapNames.get(new Random().nextInt(mapNames.size()));
         GameSession session = sessionsManager.createOrGetByName(randomMap, 1);
         session.joinPlayer(GamePlayer.get(player.getUniqueId()));
+    }
+
+    private static void removeEffects(Player player) {
+        for (PotionEffect effect : player.getActivePotionEffects()) {
+            player.removePotionEffect(effect.getType());
+        }
     }
 
 }

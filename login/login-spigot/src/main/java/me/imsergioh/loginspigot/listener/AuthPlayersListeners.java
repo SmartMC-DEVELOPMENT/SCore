@@ -1,18 +1,13 @@
 package me.imsergioh.loginspigot.listener;
 
-import me.imsergioh.loginspigot.LoginSpigot;
 import me.imsergioh.loginspigot.instance.LoginPlayer;
 import me.imsergioh.loginspigot.manager.LoginPlayersFactory;
-import me.imsergioh.loginspigot.util.PluginUtils;
-import org.bukkit.Bukkit;
+import me.imsergioh.pluginsapi.util.PluginUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class AuthPlayersListeners implements Listener {
 
@@ -40,9 +35,7 @@ public class AuthPlayersListeners implements Listener {
             loginPlayer.checkSecretKey();
         } else {
             // PREMIUM
-            Bukkit.getScheduler().runTaskLater(LoginSpigot.getPlugin(), () -> {
-                me.imsergioh.pluginsapi.util.PluginUtils.redirectTo(player, "lobby");
-            }, 20);
+            PluginUtils.redirectTo(player, "lobby");
         }
     }
 }

@@ -21,6 +21,7 @@ D:\workspace\SCore\!main-core\smartcore-bungee\src\main\java\us\smartmc\smartcor
 D:\workspace\SCore\!main-core\smartcore-bungee\src\main\java\us\smartmc\smartcore\proxy\manager\CustomCommandsSubscriber.java
 D:\workspace\SCore\!main-core\smartcore-bungee\src\main\java\us\smartmc\smartcore\proxy\util\SanctionTimeUtils.java
 D:\workspace\SCore\!main-core\smartcore-bungee\src\main\java\us\smartmc\smartcore\proxy\instance\OfflinePlayerData.java
+D:\workspace\SCore\!main-core\smartcore-bungee\src\main\java\us\smartmc\smartcore\proxy\listener\AllowedCommandsListeners.java
 D:\workspace\SCore\!main-core\smartcore-bungee\src\main\java\us\smartmc\smartcore\proxy\instance\CorePluginException.java
 D:\workspace\SCore\!main-core\smartcore-bungee\src\main\java\us\smartmc\smartcore\proxy\command\SmartCoreVelocityCommand.java
 D:\workspace\SCore\!main-core\smartcore-bungee\src\main\java\us\smartmc\smartcore\proxy\messages\SanctionsManagerMessages.java

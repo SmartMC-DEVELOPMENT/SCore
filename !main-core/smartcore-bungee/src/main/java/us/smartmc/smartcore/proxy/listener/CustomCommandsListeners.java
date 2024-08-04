@@ -8,19 +8,21 @@ import us.smartmc.smartcore.proxy.manager.CustomCommandsManager;
 
 public class CustomCommandsListeners implements Listener {
 
-    @EventHandler(priority = -1)
+    @EventHandler(priority = 99)
     public void onChatPlayer(ChatEvent event) {
         String label = event.getMessage();
         if (!label.startsWith("/")) return;
         if (event.isCancelled()) return;
         if (!(event.getSender() instanceof ProxiedPlayer player)) return;
 
+        label = label.replaceFirst("/", "");
+
         for (CustomCommandsManager manager : CustomCommandsManager.getManagers()) {
             boolean executed =
                     manager.execute(player, label);
             if (executed) {
                 event.setCancelled(true);
-                System.out.println("Cancalled by CustomCommands");
+                break;
             }
         }
     }

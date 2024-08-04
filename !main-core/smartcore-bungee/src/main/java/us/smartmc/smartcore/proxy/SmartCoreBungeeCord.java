@@ -162,7 +162,8 @@ public class SmartCoreBungeeCord extends Plugin {
                 new SanctionsListeners(),
                 new LoginListeners(),
                 new TabHandlerListeners(),
-                new HostnameRedirectionsListeners());
+                new HostnameRedirectionsListeners(),
+                new AllowedCommandsListeners());
         PubSubConnectionHandler.register(new LoginMessageHandler());
     }
 
@@ -175,7 +176,7 @@ public class SmartCoreBungeeCord extends Plugin {
                 new WarnCommand(),
                 new MuteCommand(),
                 new BroadcastCommand(),
-                new SmartCoreVelocityCommand("smartcorevelocity"),
+                new SmartCoreVelocityCommand("bsmartcore"),
                 new ServerHandlerCommand(),
                 new AnnouncePackagePurchase(),
                 new AnnouncePackageRenew(),

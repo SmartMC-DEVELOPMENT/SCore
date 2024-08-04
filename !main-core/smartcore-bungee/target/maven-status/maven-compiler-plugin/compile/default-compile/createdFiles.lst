@@ -18,6 +18,7 @@ us\smartmc\smartcore\proxy\manager\OfflinePlayerDataManager$1.class
 us\smartmc\smartcore\proxy\command\moderation\BanCommand.class
 us\smartmc\smartcore\proxy\listener\LoginMessageHandler.class
 us\smartmc\smartcore\proxy\manager\exception\RedisConnectionNotInitializedException.class
+us\smartmc\smartcore\proxy\listener\AllowedCommandsListeners$1.class
 us\smartmc\smartcore\proxy\instance\MongoDataManager.class
 us\smartmc\smartcore\proxy\manager\AllowedCommandsManager.class
 us\smartmc\smartcore\proxy\messages\ProxyMainMessages.class
@@ -48,6 +49,7 @@ us\smartmc\smartcore\proxy\backend\service\PlayersService.class
 us\smartmc\smartcore\proxy\util\SanctionTimeUtils.class
 us\smartmc\smartcore\proxy\manager\TabHandler.class
 us\smartmc\smartcore\proxy\rediscommand\LanguageChangeCommand.class
+us\smartmc\smartcore\proxy\listener\AllowedCommandsListeners.class
 us\smartmc\smartcore\proxy\manager\CustomCommandsManager.class
 us\smartmc\smartcore\proxy\event\LoggedInProxyPlayerEvent.class
 us\smartmc\smartcore\proxy\command\moderation\MuteCommand.class

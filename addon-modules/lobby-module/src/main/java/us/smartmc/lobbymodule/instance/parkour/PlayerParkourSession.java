@@ -37,7 +37,6 @@ public class PlayerParkourSession {
 
         if (getDatabaseElapsedTime() > diff) {
             CorePlayer.get(player).getPlayerData().set(DATABASE_KEY, diff);
-            player.sendMessage(CorePlayer.get(player).getPlayerData().getDataMap().toString());
             return true;
         }
         return false;

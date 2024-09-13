@@ -35,8 +35,8 @@ public class PlayerParkourSession {
     public boolean hasReachedNewRecord() {
         double diff = getDiffInSeconds();
         if (getDatabaseElapsedTime() > diff) {
-            CorePlayer.get(player).getPlayerData().setData(DATABASE_KEY, diff);
-            player.sendMessage(CorePlayer.get(player).getPlayerData().getDocument().toString());
+            CorePlayer.get(player).getPlayerData().set(DATABASE_KEY, diff);
+            player.sendMessage(CorePlayer.get(player).getPlayerData().getDataMap().toString());
             return true;
         }
         return false;
@@ -47,8 +47,8 @@ public class PlayerParkourSession {
         if (corePlayer == null) return 99999;
         CorePlayerData data = corePlayer.getPlayerData();
         if (data == null) return 99999;
-        if (data.getDocument().containsKey(DATABASE_KEY))
-            return data.getDocument().getDouble(DATABASE_KEY);
+        if (data.containsKey(DATABASE_KEY))
+            return data.get(DATABASE_KEY, Double.class);
         return 99999;
     }
 

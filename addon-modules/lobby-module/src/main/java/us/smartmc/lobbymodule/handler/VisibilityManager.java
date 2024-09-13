@@ -55,7 +55,6 @@ public class VisibilityManager extends AddonListener implements Listener {
     public static ItemBuilder getVisibilityItem(Player player, PlayerVisibility visibility) {
         Material material = Material.INK_SACK;
         int data = 0;
-        //test commit
         switch (visibility) {
             case DEFAULT -> data = 10;
             case NO_ONE -> data = 8;

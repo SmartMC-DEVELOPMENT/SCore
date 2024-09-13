@@ -27,6 +27,8 @@ public class LobbyMessages extends MultiLanguageRegistry {
                 " &b\uD83C\uDF10 www.smartmc.us"
                 ));
 
+        holder.registerDefault("exit_parkour_name", "&cExit parkour");
+
         holder.save();
     }
 

@@ -1,12 +1,16 @@
 package us.smartmc.lobbymodule.instance.parkour;
 
 import lombok.Getter;
+import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.core.SmartCore;
+import us.smartmc.core.handler.SpawnHandler;
 import us.smartmc.core.instance.player.SmartCorePlayer;
 
 import java.util.HashMap;
@@ -25,6 +29,8 @@ public class PlayerParkourSession {
     private final boolean wasFlying;
     private boolean finish;
     private BukkitRunnable runnable;
+
+    private ItemStack[] oldInventoryContent;
 
     public PlayerParkourSession(Player player) {
         this.player = player;
@@ -56,16 +62,20 @@ public class PlayerParkourSession {
         if (runnable == null) return;
         Bukkit.getScheduler().cancelTask(runnable.getTaskId());
         runnable.cancel();
+        if (wasFlying) {
+            player.setAllowFlight(true);
+            player.setFlying(true);
+        }
+        Bukkit.getScheduler().runTask(SmartCore.getPlugin(), () -> {
+            player.getInventory().clear();
+            player.getInventory().setContents(oldInventoryContent);
+        });
     }
 
     public void cancel() {
         if (runnable != null) {
             endMillis = System.currentTimeMillis();
             cancelTask();
-            if (wasFlying) {
-                player.setAllowFlight(true);
-                player.setFlying(true);
-            }
         }
     }
 
@@ -77,6 +87,9 @@ public class PlayerParkourSession {
         startMillis = System.currentTimeMillis();
         player.setAllowFlight(false);
         player.setFlying(false);
+        oldInventoryContent = player.getInventory().getContents();
+        player.getInventory().clear();
+        player.getInventory().setItem(8, ItemBuilder.of(Material.BARRIER).name("<lang.lobby.exit_parkour_name>").get());
         runnable = new BukkitRunnable() {
             @Override
             public void run() {

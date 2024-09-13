@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.util.Vector;
 import us.smartmc.core.SmartCore;
+import us.smartmc.core.handler.SpawnHandler;
 import us.smartmc.lobbymodule.instance.parkour.PlayerParkourEndedEvent;
 import us.smartmc.lobbymodule.instance.parkour.PlayerParkourNewRecordEvent;
 import us.smartmc.lobbymodule.instance.parkour.PlayerParkourSession;
@@ -31,6 +32,17 @@ public class ParkourListeners implements Listener {
         Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
             player.setVelocity(player.getVelocity().add(new Vector(0, 2.5, 0)));
         }, 2);
+    }
+
+    @EventHandler
+    public void exitParkourMode(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+
+        if (PlayerParkourSession.isActive(player) &&
+                player.getItemInHand().getType().equals(Material.BARRIER)) {
+            PlayerParkourSession.remove(event.getPlayer());
+            player.teleport(SpawnHandler.getLocation());
+        }
     }
 
     @EventHandler

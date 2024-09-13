@@ -84,7 +84,6 @@ public class LobbiesMenu extends CoreMenu {
                             variableConnect))
                     .get(language), labelCommand);
             slot++;
-            System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
 

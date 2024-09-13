@@ -28,12 +28,13 @@ public class PlayerParkourSession {
 
     public PlayerParkourSession(Player player) {
         this.player = player;
-        this.wasFlying = player.isFlying();
+        this.wasFlying = player.getAllowFlight();
         sessions.put(player.getUniqueId(), this);
     }
 
     public boolean hasReachedNewRecord() {
-        double diff = getDiffInSeconds();
+        int diff = getDiffMillis();
+
         if (getDatabaseElapsedTime() > diff) {
             CorePlayer.get(player).getPlayerData().set(DATABASE_KEY, diff);
             player.sendMessage(CorePlayer.get(player).getPlayerData().getDataMap().toString());
@@ -44,12 +45,12 @@ public class PlayerParkourSession {
 
     public double getDatabaseElapsedTime() {
         CorePlayer corePlayer = CorePlayer.get(player);
-        if (corePlayer == null) return 99999;
         CorePlayerData data = corePlayer.getPlayerData();
-        if (data == null) return 99999;
-        if (data.containsKey(DATABASE_KEY))
-            return data.get(DATABASE_KEY, Double.class);
-        return 99999;
+        try {
+            return data.get(DATABASE_KEY, Integer.class);
+        } catch (Exception e) {
+            return Integer.MAX_VALUE;
+        }
     }
 
     public void cancelTask() {
@@ -64,18 +65,19 @@ public class PlayerParkourSession {
             cancelTask();
             if (wasFlying) {
                 player.setAllowFlight(true);
+                player.setFlying(true);
             }
         }
     }
 
-    public double getDiffInSeconds() {
-        long diff = endMillis - startMillis;
-        return diff / 1000.0;
+    public int getDiffMillis() {
+        return (int) (endMillis - startMillis);
     }
 
     public void registerStart() {
         startMillis = System.currentTimeMillis();
         player.setAllowFlight(false);
+        player.setFlying(false);
         runnable = new BukkitRunnable() {
             @Override
             public void run() {
@@ -83,7 +85,6 @@ public class PlayerParkourSession {
                     this.cancel();
                     return;
                 }
-
                 try {
                     long currentMillis = System.currentTimeMillis() - startMillis;
                     double seconds = currentMillis / 1000.0;
@@ -98,9 +99,9 @@ public class PlayerParkourSession {
     }
 
     public void registerEnd() {
-        Bukkit.getPluginManager().callEvent(new PlayerParkourEndedEvent(this));
-        finish = true;
         endMillis = System.currentTimeMillis();
+        finish = true;
+        Bukkit.getPluginManager().callEvent(new PlayerParkourEndedEvent(this));
         cancel();
     }
 

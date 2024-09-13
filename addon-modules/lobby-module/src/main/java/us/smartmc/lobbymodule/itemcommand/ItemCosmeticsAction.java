@@ -13,7 +13,6 @@ public class ItemCosmeticsAction implements ItemActionExecutor {
         CorePlayer corePlayer = CorePlayer.get(player);
 
         if (!player.hasPermission("*")) {
-            player.sendMessage("");
             return;
         }
     }

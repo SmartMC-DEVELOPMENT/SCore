@@ -25,14 +25,11 @@ public class ParkourListeners implements Listener {
         player.playSound(player.getLocation(), Sound.FIREWORK_BLAST, 1, 1);
 
         if (event.getSession().hasReachedNewRecord()) {
-            player.sendMessage("Reached New Record!");
             Bukkit.getPluginManager().callEvent(new PlayerParkourNewRecordEvent(event.getSession()));
         }
 
         Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
             player.setVelocity(player.getVelocity().add(new Vector(0, 2.5, 0)));
-            double elapsed = event.getSession().getDiffInSeconds();
-            player.sendMessage("DIFF = " + elapsed);
         }, 2);
     }
 
@@ -47,6 +44,7 @@ public class ParkourListeners implements Listener {
         if (!event.getClickedBlock().getType().equals(Material.GOLD_PLATE)) return;
         Player player = event.getPlayer();
         if (player.getLocation().getY() >= 75) return;
+        if (PlayerParkourSession.isActive(player)) return;
         PlayerParkourSession.getSession(player, true).registerStart();
     }
 

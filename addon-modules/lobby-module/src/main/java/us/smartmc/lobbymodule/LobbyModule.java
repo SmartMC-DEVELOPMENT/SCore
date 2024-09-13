@@ -46,7 +46,6 @@ public class LobbyModule extends AddonPlugin {
         lobbyConfig = new LobbyConfig(this);
 
         Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
-            System.out.println("RELEASE -> " + SmartCore.RELEASE_ID);
             minigamesConfig = new MinigamesConfig();
         }, 20);
 

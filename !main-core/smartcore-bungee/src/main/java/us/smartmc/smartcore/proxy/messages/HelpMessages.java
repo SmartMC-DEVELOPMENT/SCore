@@ -39,9 +39,9 @@ public class HelpMessages extends MultiLanguageRegistry {
                 ""
         ));
 
-        holder.registerDefault("discord", Arrays.asList("", "&9&lOur Discord Server", "", "&fJoin our Discord Server and stay connected with us!", "", "&9https://discord.smartmc.us", ""));
-        holder.registerDefault("twitter", Arrays.asList("", "&b&lFollow us on Twitter", "", "&fClick here to follow us on Twitter", "", "&bhttps://twitter.com/smartmc_net", ""));
-        holder.registerDefault("store", Arrays.asList("", "&a&lTake a look at our store!", "", "&fClick to go to our store and buy a rank!", "", "&ahttps://store.smartmc.us", ""));
+        //holder.registerDefault("discord", Arrays.asList("", "&9&lOur Discord Server", "", "&fJoin our Discord Server and stay connected with us!", "", "&9https://discord.smartmc.us", ""));
+        //holder.registerDefault("twitter", Arrays.asList("", "&b&lFollow us on Twitter", "", "&fClick here to follow us on Twitter", "", "&bhttps://twitter.com/smartmc_net", ""));
+        //holder.registerDefault("store", Arrays.asList("", "&a&lTake a look at our store!", "", "&fClick to go to our store and buy a rank!", "", "&ahttps://store.smartmc.us", ""));
 
         holder.registerDefault("broadcast_incorrect_usage", "&cIncorrect usage! Try with: /broadcast <args>");
         holder.save();

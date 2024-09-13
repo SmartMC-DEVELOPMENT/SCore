@@ -1,3 +1,0 @@
-Manifest-Version: 1.0
-us.smartmc.migration.messages.Main-Class: us.smartmc.smartbot.SmartBotMain
-

@@ -46,6 +46,7 @@ public class LobbyModule extends AddonPlugin {
         lobbyConfig = new LobbyConfig(this);
 
         Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
+            System.out.println("RELEASE -> " + SmartCore.RELEASE_ID);
             minigamesConfig = new MinigamesConfig();
         }, 20);
 
@@ -74,7 +75,9 @@ public class LobbyModule extends AddonPlugin {
                 new CustomJoinSlotListener(),
                 new PlayerListener(),
                 new LobbiesInfoManager(),
-                new CancelListeners());
+                new CancelListeners(),
+                new PlatesListener(),
+                new ParkourListeners());
         registerCommand(new ChangeVisibilityCommand());
 
         new WorldConfigManager();

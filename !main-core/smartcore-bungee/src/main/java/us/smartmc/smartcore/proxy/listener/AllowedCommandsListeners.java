@@ -70,17 +70,13 @@ public class AllowedCommandsListeners implements Listener {
                 event.getSuggestions().add(s);
             });
         }
-        event.setCancelled(true);
-
-        if (event.getSuggestions().isEmpty()) return;
-        player.sendMessage(String.valueOf(event.getSuggestions()).replaceAll("\\[", "").replaceAll("]", ""));
+        event.setCancelled(false);
     }
 
     @EventHandler(priority = 90)
     public void onTab(TabCompleteResponseEvent event) {
         if (!(event.getReceiver() instanceof ProxiedPlayer player)) return;
-        String current = tabCompletations.get(player.getUniqueId());
-        if (current == null) return;
-        event.setCancelled(current.startsWith("/"));
+        event.setCancelled(true);
+
     }
 }

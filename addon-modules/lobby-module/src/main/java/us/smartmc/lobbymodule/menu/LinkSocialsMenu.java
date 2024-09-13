@@ -93,7 +93,7 @@ public class LinkSocialsMenu extends CoreMenu {
         List<String> loreList;
         String labelCommand = "linkSocial " + type.name();
 
-        String currentUser = document.containsKey(type.name()) ? document.getString(type.name()) : "&c✘";
+        String currentUser = document.containsKey(type.name()) ? document.getString(type.name()) : "§c✘";
 
         if (type.equals(LinkSocialType.DISCORD)) {
             DiscordUserDataLoader discordUserDataLoader = new DiscordUserDataLoader(targetUUID);

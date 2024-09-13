@@ -91,9 +91,10 @@
         </dependency>
         <dependency>
             <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <version>1.20-R0.1</version>
-            <scope>provided</scope>
+            <artifactId>bungeecord</artifactId>
+            <version>local-jar</version>
+            <scope>system</scope>
+            <systemPath>D:/LIBS_PLUGINS/BungeeCord.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>me.imsergioh.pluginsapi</groupId>

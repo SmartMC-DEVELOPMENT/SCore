@@ -6,6 +6,7 @@ us\smartmc\smartcore\proxy\command\admin\SetPrefixCommand.class
 us\smartmc\smartcore\proxy\command\CoreServerCommand.class
 us\smartmc\smartcore\proxy\instance\onlinestore\AnnouncePackagePurchase.class
 us\smartmc\smartcore\proxy\listener\SanctionsListeners.class
+us\smartmc\smartcore\proxy\util\NettyUtils.class
 us\smartmc\smartcore\proxy\manager\ServersHandler.class
 us\smartmc\smartcore\proxy\listener\BackendEssentialListeners.class
 us\smartmc\smartcore\proxy\variables\LanguageVariables.class
@@ -45,6 +46,7 @@ us\smartmc\smartcore\proxy\backend\SendVelocityMessageCommand.class
 us\smartmc\smartcore\proxy\listener\LanguageListeners.class
 us\smartmc\smartcore\proxy\instance\ICoreCommand.class
 us\smartmc\smartcore\proxy\listener\HostnameRedirectionsListeners$1$1.class
+us\smartmc\smartcore\proxy\manager\PacketInterceptorHandler.class
 us\smartmc\smartcore\proxy\backend\service\PlayersService.class
 us\smartmc\smartcore\proxy\util\SanctionTimeUtils.class
 us\smartmc\smartcore\proxy\manager\TabHandler.class
@@ -55,6 +57,7 @@ us\smartmc\smartcore\proxy\event\LoggedInProxyPlayerEvent.class
 us\smartmc\smartcore\proxy\command\moderation\MuteCommand.class
 us\smartmc\smartcore\proxy\listener\TabHandlerListeners$1.class
 us\smartmc\smartcore\proxy\listener\HostnameRedirectionsListeners$1.class
+us\smartmc\smartcore\proxy\listener\TestNettyListener.class
 us\smartmc\smartcore\proxy\manager\HostnameRulesManager.class
 us\smartmc\smartcore\proxy\command\moderation\KickCommand.class
 us\smartmc\smartcore\proxy\manager\TebexCommandsManager.class

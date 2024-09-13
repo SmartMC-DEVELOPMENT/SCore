@@ -24,12 +24,10 @@ public class PlayerListener extends AddonListener implements Listener {
     @EventHandler
     public void sendJoinMessage(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
-            if (!player.isOnline()) return;
-            player.sendMessage(ChatUtil.parse(player, "<lang.lobby.join_embedmessage>", player.getName()).replace("{0}", player.getName()));
-            Sound sound = Sound.CLICK;
-            player.playSound(player.getLocation(), sound, 1, 1);
-        }, 20 * 2);
+        if (!player.isOnline()) return;
+        player.sendMessage(ChatUtil.parse(player, "<lang.lobby.join_embedmessage>", player.getName()).replace("{0}", player.getName()));
+        Sound sound = Sound.CLICK;
+        player.playSound(player.getLocation(), sound, 1, 1);
     }
 
     @EventHandler

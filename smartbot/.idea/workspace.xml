@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="SmartBot:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8fd82827-2f42-4609-bcdd-36eec0723272" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../!main-core/smartcore-spigot/src/main/java/us/smartmc/core/variables/MiniMessageAdapterVariables.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!main-core/smartcore-bungee/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../!main-core/smartcore-bungee/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!main-core/smartcore-bungee/src/main/java/us/smartmc/smartcore/proxy/listener/AllowedCommandsListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/../!main-core/smartcore-bungee/src/main/java/us/smartmc/smartcore/proxy/listener/AllowedCommandsListeners.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!main-core/smartcore-bungee/src/main/java/us/smartmc/smartcore/proxy/messages/HelpMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/../!main-core/smartcore-bungee/src/main/java/us/smartmc/smartcore/proxy/messages/HelpMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!main-core/smartcore-bungee/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../!main-core/smartcore-bungee/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!main-core/smartcore-bungee/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../!main-core/smartcore-bungee/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!main-core/smartcore-bungee/target/original-smartcore-bungee-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../!main-core/smartcore-bungee/target/original-smartcore-bungee-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!main-core/smartcore-bungee/target/smartcore-bungee-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../!main-core/smartcore-bungee/target/smartcore-bungee-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!main-core/smartcore-spigot/src/main/java/us/smartmc/core/SmartCore.java" beforeDir="false" afterPath="$PROJECT_DIR$/../!main-core/smartcore-spigot/src/main/java/us/smartmc/core/SmartCore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SCore.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../SCore.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../addon-modules/lobby-module/src/main/java/us/smartmc/lobbymodule/command/ChangeVisibilityCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/../addon-modules/lobby-module/src/main/java/us/smartmc/lobbymodule/command/ChangeVisibilityCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../addon-modules/lobby-module/src/main/java/us/smartmc/lobbymodule/config/MinigamesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../addon-modules/lobby-module/src/main/java/us/smartmc/lobbymodule/config/MinigamesConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../addon-modules/lobby-module/src/main/java/us/smartmc/lobbymodule/handler/LobbiesInfoManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../addon-modules/lobby-module/src/main/java/us/smartmc/lobbymodule/handler/LobbiesInfoManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../addon-modules/lobby-module/src/main/java/us/smartmc/lobbymodule/menu/LinkSocialsMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/../addon-modules/lobby-module/src/main/java/us/smartmc/lobbymodule/menu/LinkSocialsMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../addon-modules/lobby-module/src/main/java/us/smartmc/lobbymodule/menu/LobbiesMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/../addon-modules/lobby-module/src/main/java/us/smartmc/lobbymodule/menu/LobbiesMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../addon-modules/lobby-module/src/main/java/us/smartmc/lobbymodule/menu/MinigamesMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/../addon-modules/lobby-module/src/main/java/us/smartmc/lobbymodule/menu/MinigamesMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../login/login-spigot/src/main/java/me/imsergioh/loginspigot/instance/LoginPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../login/login-spigot/src/main/java/me/imsergioh/loginspigot/instance/LoginPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../login/login-spigot/src/main/java/me/imsergioh/loginspigot/listener/AuthPlayersListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/../login/login-spigot/src/main/java/me/imsergioh/loginspigot/listener/AuthPlayersListeners.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../login/login-spigot/target/login-spigot-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../login/login-spigot/target/login-spigot-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../login/login-spigot/target/original-login-spigot-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../login/login-spigot/target/original-login-spigot-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../random-battle/lucky-towers.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/SmartBot.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/SmartBot_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/aws.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/SmartBotMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/TestAAMAin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/connection/MongoDBConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/connection/RedisConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/handler/CommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/handler/EventSchedulerHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/handler/GuildsHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/handler/RepliesHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/handler/TicketActionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/handler/TicketsHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/instance/BotCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/instance/ISlashCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/instance/ReplyListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/instance/SenderMessagesSession.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/instance/SlashCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/instance/TextCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/instance/linkdiscord/SaveMinecraftLinkVinculation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/instance/log/ILogChannelRegistry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/instance/log/LogChannelRegistry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/instance/minecraft/DiscordMinecraftUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/instance/minecraft/MinecraftCorePlayerData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/instance/ticket/TicketStorageSaver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/listener/ChatGPTListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/listener/CommandHandlerListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/listener/DefaultUserRoleListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/listener/SuggestionListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/listener/SurveysListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/listener/TicketReactionListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/listener/TicketSavementListeners.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/logfunction/PrintConsoleMessages.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/logfunction/SendEmbedExceptionsMessages.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/logfunction/SendEmbedMessages.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/manager/CustomProxyCommandManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/manager/LogsManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/message/MainMessages.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/responses/AddressAskEventResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/responses/IpAddressEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/responses/NextEventResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/slashcommand/AnuncioCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/slashcommand/CreateQuoteCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/slashcommand/JoinToCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/slashcommand/ReactToCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/slashcommand/RemoveQuoteCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/slashcommand/TiendaCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/slashcommand/VerifyMinecraftLinkCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/textcommand/QuienSoyCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/textcommand/SendMessageCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/textcommand/TestCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/util/ChatGPTUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/util/ConfigUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/util/MinecraftLinkUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/util/RegexUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/us/smartmc/smartbot/util/TextUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2VdCUPoJPz796esZuGypsGT0psb" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.TestAAMAin.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/workspace/SmartBot",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.general",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="us.smartmc.smartbot.listener" />
+      <recent name="us.smartmc.smartbot.connection" />
+      <recent name="us.smartmc.smartbot.slashcommand" />
+      <recent name="us.smartmc.smartbot.responses" />
+      <recent name="us.smartmc.smartbot.textcommand" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn install" />
+      <command value="mvn clean" />
+      <command value="mvn clean install" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.TestAAMAin">
+    <configuration name="SmartBotMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="us.smartmc.smartbot.SmartBotMain" />
+      <module name="SmartBot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="us.smartmc.smartbot.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestAAMAin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="us.smartmc.smartbot.TestAAMAin" />
+      <module name="smartbot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="us.smartmc.smartbot.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TestAAMAin" />
+        <item itemvalue="Application.SmartBotMain" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.19072.14" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.19072.14" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8fd82827-2f42-4609-bcdd-36eec0723272" name="Changes" comment="" />
+      <created>1695156585757</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695156585757</updated>
+      <workItem from="1724439339052" duration="3691000" />
+      <workItem from="1724443791803" duration="22000" />
+      <workItem from="1725137892748" duration="1430000" />
+      <workItem from="1725140323662" duration="157000" />
+      <workItem from="1725140497881" duration="4065000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

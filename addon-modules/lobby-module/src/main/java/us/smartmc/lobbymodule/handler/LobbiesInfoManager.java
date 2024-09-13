@@ -1,5 +1,6 @@
 package us.smartmc.lobbymodule.handler;
 
+import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bson.Document;
@@ -26,7 +27,8 @@ public class LobbiesInfoManager extends AddonListener implements Listener {
 
     private static final Set<CoreMenu> menus = new HashSet<>();
 
-    private static final Map<String, Document> infos = new HashMap<>();
+    @Getter
+    private static final TreeMap<String, Document> infos = new TreeMap<>();
 
     public static void registerDefaults() {
         ConnectionInputManager.registerCommands(new UpdateLobbyInfoCommand());

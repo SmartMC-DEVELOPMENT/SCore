@@ -26,10 +26,6 @@ public class MinigamesConfig extends MongoDBPluginConfig {
         super("server_data", "menus", new Document().append("_id", SmartCore.RELEASE_ID));
         load();
         registerDefault(INV_SIZE_PATH, 27);
-        registerMiniGame("snowmatch");
-        registerMiniGame("survival");
-        registerMiniGame("arsilexsmp");
-        registerMiniGame("luckytowers");
         save();
     }
 
@@ -40,13 +36,6 @@ public class MinigamesConfig extends MongoDBPluginConfig {
             if (value instanceof Document) map.put(key, (Document) value);
         }
         return map;
-    }
-
-    private void registerMiniGame(String name) {
-        registerDefault(name, new Document()
-                .append("slot", 0)
-                .append("material", Material.BEDROCK.name())
-                .append("data", (byte) 1));
     }
 
     public static ItemStack getItemOf(Language language, String name) {
@@ -93,8 +82,8 @@ public class MinigamesConfig extends MongoDBPluginConfig {
                 .amount(amount)
                 .hideFlags();
 
-        if(configDoc.containsKey("skull-texture") && material.equals(Material.SKULL_ITEM)){
-            builder.skullTexture(configDoc.getString("skull-texture"));
+        if (configDoc.containsKey("skull-texture") && material.equals(Material.SKULL_ITEM)) {
+            builder.data(3).skullTexture(configDoc.getString("skull-texture"));
         }
 
         return builder.get(language);

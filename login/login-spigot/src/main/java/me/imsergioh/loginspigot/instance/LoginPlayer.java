@@ -9,6 +9,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 public class LoginPlayer {
@@ -65,7 +67,9 @@ public class LoginPlayer {
     public void sendToLobbyServer() {
         LoginPlayer loginPlayer = LoginPlayersFactory.get(getPlayer());
         if (loginPlayer == null) return;
-       PluginUtils.redirectTo(getPlayer(), "lobby");
+        Bukkit.getScheduler().runTaskLater(LoginSpigot.getPlugin(), () -> {
+            PluginUtils.redirectTo(getPlayer(), "lobby");
+        }, 20);
     }
 
     public void tryLogin(String password) {

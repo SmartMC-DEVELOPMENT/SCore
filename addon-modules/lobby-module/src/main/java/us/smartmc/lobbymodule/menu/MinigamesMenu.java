@@ -23,55 +23,25 @@ public class MinigamesMenu extends CoreMenu {
 
     private static final MinigamesConfig config = LobbyModule.getMinigamesConfig();
 
-    private int currentSlotIndex = 0;
-    private final int[] slots = {11,12,13,14,15};
-
-    private final Map<String, Integer> fixSlots = new HashMap<>();
-
     private final Language language;
 
     private MinigamesMenu(Language language) {
         super(null, 36, LanguagesHandler.get(language).get("minigames").getString("inventoryTitle"));
         this.language = language;
         menus.put(language, this);
-
-        config.getMiniGames().forEach((name, document) -> {
-            int slot = document.containsKey("slot") ? document.getInteger("slot") : slots[currentSlotIndex];
-            String serverPrefixId = document.getString("serverPrefixId");
-            set(slot, MinigamesConfig.getItemOf(language, name), "connectTo " + serverPrefixId, "closeInv");
-            fixSlots.put(name, slot);
-            currentSlotIndex++;
-        });
-
-        setNotAvailableItems();
     }
 
     @Override
     public void load() {
-
-        if(!fixSlots.isEmpty()){
-            config.getMiniGames().forEach((name, document) -> {
-                int slot = fixSlots.get(name);
-                String serverPrefixId = document.getString("serverPrefixId");
-                set(slot, MinigamesConfig.getItemOf(language, name), "connectTo " + serverPrefixId, "closeInv");
-            });
-        }
+        config.getMiniGames().forEach((name, document) -> {
+            int slot = document.getInteger("slot");
+            String serverPrefixId = document.getString("serverPrefixId");
+            set(slot, MinigamesConfig.getItemOf(language, name), "connectTo " + serverPrefixId, "closeInv");
+        });
         closeItem();
     }
 
     public void closeItem() {
         set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("&c<lang.language.menuClose>").get(language), "closeInv");
-    }
-
-    public void setNotAvailableItems(){
-        ItemStack item = ItemBuilder.of(Material.STAINED_GLASS_PANE)
-                .name("<lang.lobby.items.notAvailable.name>")
-                .lore("<lang.lobby.items.notAvailable.description>")
-                .get(language);
-
-        for (int slot : slots) {
-            if (get(slot) != null) continue;
-            set(slot, item, "msg <lang.lobby.not_available_message>", "closeInv");
-        }
     }
 }

@@ -55,15 +55,15 @@ public class PlayerCurrenciesHandler {
     }
 
     public void set(IPlayerCurrencyCoin coin, long amount) {
-        getData().getDocument().put(coin.getDocumentKey(), amount);
+        getData().set(coin.getDocumentKey(), amount);
     }
 
     public long get(IPlayerCurrencyCoin coin) {
-        Document document = getData().getDocument();
-        if (!document.containsKey(coin.getDocumentKey())) {
-            document.put(coin.getDocumentKey(), 0);
+        CorePlayerData data = getData();
+        if (!data.containsKey(coin.getDocumentKey())) {
+            data.set(coin.getDocumentKey(), 0);
         }
-        return document.get(coin.getDocumentKey(), Number.class).longValue();
+        return data.get(coin.getDocumentKey(), Number.class).longValue();
     }
 
     private CorePlayerData getData() {

@@ -16,6 +16,6 @@ public class TestHat extends HatCosmetic {
 
     @Override
     public Material getMaterialType() {
-        return Material.PLAYER_HEAD;
+        return Material.SKULL_ITEM;
     }
 }

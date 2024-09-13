@@ -14,7 +14,7 @@ public abstract class HatCosmetic extends Cosmetic implements IHatCosmetic {
 
     @Override
     public void onEnableEntity(LivingEntity entity) {
-        ItemBuilder itemBuilder = ItemBuilder.of(Material.PLAYER_HEAD).data(3)
+        ItemBuilder itemBuilder = ItemBuilder.of(Material.SKULL_ITEM).data(3)
                 .skullTexture(getSkullTexture());
         entity.getEquipment().setHelmet(itemBuilder.get());
     }
@@ -42,7 +42,7 @@ public abstract class HatCosmetic extends Cosmetic implements IHatCosmetic {
             }
             @Override
             public Material getMaterialType() {
-                return Material.PLAYER_HEAD;
+                return Material.SKULL_ITEM;
             }
 
             @Override

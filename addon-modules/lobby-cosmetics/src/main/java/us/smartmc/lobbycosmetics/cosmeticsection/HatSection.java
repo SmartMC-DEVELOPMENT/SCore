@@ -8,7 +8,7 @@ import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticType;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticSection;
 import us.smartmc.lobbycosmetics.instance.cosmetic.CosmeticSectionInfo;
 
-@CosmeticSectionInfo(type = CosmeticType.HATS, icon = Material.PLAYER_HEAD)
+@CosmeticSectionInfo(type = CosmeticType.HATS, icon = Material.SKULL_ITEM)
 public class HatSection extends CosmeticSection<HatCosmetic> {
 
     public HatSection() {

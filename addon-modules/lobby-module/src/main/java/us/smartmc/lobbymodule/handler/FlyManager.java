@@ -3,6 +3,7 @@ package us.smartmc.lobbymodule.handler;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
 import org.bson.Document;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,9 +26,9 @@ public class FlyManager extends AddonListener implements Listener {
             @Override
             public void run() {
                 if (canFly(corePlayer)) {
-                    event.getData().registerData(DATA_PATH, true);
+                    event.getData().register(DATA_PATH, true);
                 } else {
-                    event.getData().getDocument().remove(DATA_PATH);
+                    event.getData().remove(DATA_PATH);
                     return;
                 }
 
@@ -39,7 +40,7 @@ public class FlyManager extends AddonListener implements Listener {
 
     public static void toggle(CorePlayer corePlayer, boolean active) {
         if (active) {
-            corePlayer.getPlayerData().setData(DATA_PATH, true);
+            corePlayer.getPlayerData().set(DATA_PATH, true);
             if (!corePlayer.get().isFlying()) {
                 corePlayer.get().setAllowFlight(true);
                 corePlayer.get().setFlying(true);
@@ -47,7 +48,7 @@ public class FlyManager extends AddonListener implements Listener {
             return;
         }
 
-        corePlayer.getPlayerData().setData(DATA_PATH, false);
+        corePlayer.getPlayerData().set(DATA_PATH, false);
         if (corePlayer.get().isFlying()) {
             corePlayer.get().setAllowFlight(false);
             corePlayer.get().setFlying(false);
@@ -55,9 +56,9 @@ public class FlyManager extends AddonListener implements Listener {
     }
 
     public static boolean isFlyingEnabled(CorePlayer corePlayer) {
-        Document document = corePlayer.getPlayerData().getDocument();
-        if (document.containsKey(DATA_PATH)) {
-            return corePlayer.getPlayerData().getDocument().getBoolean(DATA_PATH);
+        CorePlayerData data = corePlayer.getPlayerData();
+        if (data.containsKey(DATA_PATH)) {
+            return corePlayer.getPlayerData().get(DATA_PATH, Boolean.class);
         }
         return false;
     }

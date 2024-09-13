@@ -16,7 +16,7 @@ public enum PlayerVisibility {
     public static List<String> getOptionItemLore(Player player) {
         CorePlayer corePlayer = CorePlayer.get(player);
         Language language = PlayerLanguages.get(player.getUniqueId());
-        String visibilityName = corePlayer.getPlayerData().getDocument().get("visibility", String.class);
+        String visibilityName = corePlayer.getPlayerData().get("visibility", String.class);
 
         if (visibilityName == null) visibilityName = DEFAULT.toString();
 

@@ -82,7 +82,7 @@ public class LinkSocialsMenu extends CoreMenu {
             data = new CorePlayerData(targetUUID);
         }
 
-        document = data.getDocument().get(LinkSocialsManager.DB_DOCUMENT_PATH, Document.class);
+        document = data.get(LinkSocialsManager.DB_DOCUMENT_PATH, Document.class);
         if (document == null) document = new Document();
     }
 

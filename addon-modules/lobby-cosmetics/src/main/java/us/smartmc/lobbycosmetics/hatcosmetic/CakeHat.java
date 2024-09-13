@@ -22,6 +22,6 @@ public class CakeHat extends HatCosmetic implements ICosmetic {
 
     @Override
     public Material getMaterialType() {
-        return Material.PLAYER_HEAD;
+        return Material.SKULL_ITEM;
     }
 }

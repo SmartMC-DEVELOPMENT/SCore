@@ -80,7 +80,7 @@ public class SmartCorePlayer extends CorePlayer {
     }
 
     public <T> T get(String path, Class<T> clazz) {
-        return playerData.getDocument().get(path, clazz);
+        return playerData.get(path, clazz);
     }
 
     public void playSound(Sound sound, float v, float p) {

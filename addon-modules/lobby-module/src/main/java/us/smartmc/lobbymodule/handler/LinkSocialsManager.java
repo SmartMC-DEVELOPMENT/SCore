@@ -51,18 +51,18 @@ public class LinkSocialsManager extends ManagerRegistry<LinkSocialType, LinkSoci
 
     public void associate(CorePlayer player, String url) {
         LinkSocialType type = pendingLinks.remove(player.getUUID());
-        Document document = player.getPlayerData().getDocument().get(DB_DOCUMENT_PATH, Document.class);
+        Document document = player.getPlayerData().get(DB_DOCUMENT_PATH, Document.class);
         if (document == null) document = new Document();
         document.put(type.name(), url);
-        player.getPlayerData().getDocument().put(DB_DOCUMENT_PATH, document);
+        player.getPlayerData().set(DB_DOCUMENT_PATH, document);
         player.get().sendMessage(ChatUtil.parse(player.get(), "<lang.lobby.linkSocials.linkedCorrectly>"));
     }
 
     public void removeCurrentLink(CorePlayer player, LinkSocialType type) {
-        Document document = player.getPlayerData().getDocument().get(DB_DOCUMENT_PATH, Document.class);
+        Document document = player.getPlayerData().get(DB_DOCUMENT_PATH, Document.class);
         if (document == null) document = new Document();
         document.remove(type.name());
-        player.getPlayerData().getDocument().put(DB_DOCUMENT_PATH, document);
+        player.getPlayerData().set(DB_DOCUMENT_PATH, document);
         player.get().sendMessage(ChatUtil.parse(player.get(), "<lang.lobby.linkSocials.unlinkedCorrectly>"));
         player.get().closeInventory();
     }

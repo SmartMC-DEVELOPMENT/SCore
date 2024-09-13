@@ -29,7 +29,7 @@ public class VisibilityManager extends AddonListener implements Listener {
     }
 
     public static void set(CorePlayer corePlayer, PlayerVisibility visibility) {
-        corePlayer.getPlayerData().getDocument().put("visibility", visibility.name());
+        corePlayer.getPlayerData().set("visibility", visibility.name());
         VisibilityManager.update(corePlayer.get());
     }
 
@@ -46,8 +46,8 @@ public class VisibilityManager extends AddonListener implements Listener {
     }
 
     public static PlayerVisibility getVisibility(Player player) {
-        String visibilityName = CorePlayer.get(player).getPlayerData().getDocument()
-                .getString("visibility");
+        String visibilityName = CorePlayer.get(player).getPlayerData()
+                .get("visibility", String.class);
         if (visibilityName == null) visibilityName = PlayerVisibility.DEFAULT.toString();
         return PlayerVisibility.valueOf(visibilityName);
     }
@@ -71,7 +71,7 @@ public class VisibilityManager extends AddonListener implements Listener {
     public static void update(Player player) {
         SmartCorePlayer corePlayer = SmartCorePlayer.get(player);
 
-        String visibilityName = corePlayer.getPlayerData().getDocument().get("visibility", String.class);
+        String visibilityName = corePlayer.getPlayerData().get("visibility", String.class);
 
         if (visibilityName == null) visibilityName = PlayerVisibility.DEFAULT.toString();
 

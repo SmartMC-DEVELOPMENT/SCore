@@ -1,18 +1,18 @@
 package us.smartmc.addon.holograms.instance.hologram;
 
 import lombok.Getter;
-import org.bukkit.Bukkit;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
-import us.smartmc.core.SmartCore;
 
 @Getter
 public class HologramArmorStand {
 
     private final ArmorStand stand;
 
-    private final String unformattedLine;
+    @Setter
+    private String unformattedLine;
 
     public HologramArmorStand(Location location, String line) {
         this.unformattedLine = line;

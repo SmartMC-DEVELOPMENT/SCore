@@ -9,6 +9,7 @@ import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.LocationSerializer;
 import org.bson.Document;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramBuilder;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
@@ -56,6 +57,7 @@ public class ParkourTop {
 
     private static void updateTop(Hologram hologram) {
         List<String> topLines = getTopsLines();
+
         // Start by index 1 (because the title is 0) & updateLine by his index getting -1 index of iteration that corresponds the correct index top
         for (int index = 1; index < TOP_LIMIT; index++) {
             hologram.updateLine(index, topLines.get(index - 1));
@@ -82,13 +84,13 @@ public class ParkourTop {
 
             double seconds = millis / 1000.0;
             String formattedTime = String.format("%.2f", seconds);
-            lines.add("<lang.lobby.parkour_top_score>", currentTop, getNameFromId(uuid), formattedTime + "s");
+            lines.add(ChatUtil.parse((Player) null, "<lang.lobby.parkour_top_score>", currentTop, getNameFromId(uuid), formattedTime + "s"));
             currentTop++;
         }
 
         // Fill until limit with blank tops
         while (currentTop != TOP_LIMIT) {
-            lines.add(ChatUtil.parse("<lang.lobby.parkour_top_score>", currentTop, "----", "-"));
+            lines.add(ChatUtil.parse((Player) null, "<lang.lobby.parkour_top_score>", currentTop, "-", "-"));
             currentTop++;
         }
 

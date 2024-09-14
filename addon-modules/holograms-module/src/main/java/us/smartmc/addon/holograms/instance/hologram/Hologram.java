@@ -14,9 +14,10 @@ import java.util.List;
 public class Hologram implements IHologram {
 
     protected final String name;
-    protected Location location;
 
     @Setter
+    protected Location location;
+
     private double lineSeparation = -0.3;
 
     protected final List<HologramArmorStand> linesStands = new ArrayList<>();
@@ -24,6 +25,18 @@ public class Hologram implements IHologram {
     public Hologram(String name, Location location) {
         this.name = name;
         this.location = location;
+    }
+
+    public void setLineSeparation(double lineSeparation) {
+        this.lineSeparation = lineSeparation;
+
+        // Recover unformatted lines, then remove method & add lines again with new separator
+        List<String> lines = new ArrayList<>();
+        for (HologramArmorStand armorStand : linesStands) {
+            lines.add(armorStand.getUnformattedLine());
+        }
+        removeAllStands();
+        lines.forEach(this::addLine);
     }
 
     @Override

@@ -9,6 +9,7 @@ import us.smartmc.addon.holograms.adapter.HologramAdapter1_8;
 import us.smartmc.addon.holograms.commands.HologramsCommand;
 import us.smartmc.addon.holograms.instance.config.MainConfig;
 import us.smartmc.addon.holograms.instance.hologram.Hologram;
+import us.smartmc.addon.holograms.instance.hologram.HologramBuilder;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
 import us.smartmc.addon.holograms.instance.hologram.IHologram;
 import us.smartmc.addon.holograms.listener.EssentialListeners;
@@ -60,12 +61,14 @@ public class HologramsAddon extends AddonPlugin {
 
         VariablesHandler.register(new TickVariable());
 
-        Hologram hologram = new Hologram("test", new Location(Bukkit.getWorlds().get(0), 0, 73, 0));
-        HologramHolder.getOrCreate("main")
-                .registerHologram(hologram);
-        hologram.addLine("FUUAAA");
-        hologram.addLine("Linea 2");
-        hologram.addLine("Linea 3");
+        HologramHolder holder = HologramHolder.getOrCreate("main");
+
+        Hologram hologram = HologramBuilder
+                .create("test", new Location(Bukkit.getWorlds().get(0), 0, 73, 0))
+                .separator(0)
+                .lines("AAAA", "BBBBB", "CCCCC", "DDDDD")
+                .registerToHolder(holder)
+                .build();
     }
 
     private void loadHolders() {

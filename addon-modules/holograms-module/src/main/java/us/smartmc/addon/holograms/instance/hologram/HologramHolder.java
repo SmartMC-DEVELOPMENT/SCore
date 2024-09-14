@@ -52,7 +52,7 @@ public class HologramHolder {
         config.save();
     }
 
-    private void registerConfigurableHologram(String name, Location location, List<String> lines) {
+    public void registerConfigurableHologram(String name, Location location, List<String> lines) {
         config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY, LocationUtils.locationToString(location));
         config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.LINES_KEY, lines);
         config.save();

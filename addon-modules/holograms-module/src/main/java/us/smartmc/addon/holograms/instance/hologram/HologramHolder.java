@@ -22,24 +22,23 @@ public class HologramHolder {
     @Getter
     private final HologramHolderConfig config;
 
-    private final Map<String, Hologram> holograms = new HashMap<>();
+    private final Map<String, IHologram> holograms = new HashMap<>();
 
     protected HologramHolder(String name) {
         this.holderName = name;
         this.config = new HologramHolderConfig(this);
     }
 
-    public Hologram getHologram(String name) {
+    public IHologram getHologram(String name) {
         return holograms.get(name);
     }
 
-    public void loadHologram(String hologramName, HologramHolderConfig config) {
-        Hologram hologram = new Hologram(hologramName, config);
-        holograms.put(hologramName, hologram);
+    public void registerHologram(IHologram hologram) {
+        holograms.put(hologram.getName(), hologram);
     }
 
     public void updateHologramConfig(String name) {
-        Hologram hologram = getHologram(name);
+        IHologram hologram = getHologram(name);
         config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY,
                 LocationUtils.locationToString(hologram.getLinesArmorStands().get(0).getStand().getLocation()));
 
@@ -53,11 +52,23 @@ public class HologramHolder {
         config.save();
     }
 
-    public void registerHologram(String name, Location location, String text) {
+    public void registerConfigurableHologram(String name, Location location, List<String> lines) {
         config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY, LocationUtils.locationToString(location));
-        config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.LINES_KEY, List.of(text.split("\n")));
+        config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.LINES_KEY, lines);
         config.save();
-        loadHologram(name, config);
+        registerHologram(new ConfigurableHologram(name, config));
+    }
+
+    public void registerHologram(IHologram hologram, String text) {
+        this.registerHologram(hologram, List.of(text.split("\n")));
+    }
+
+    public void registerHologram(IHologram hologram, List<String> lines) {
+        if (ConfigurableHologram.class.isAssignableFrom(hologram.getClass())) {
+            registerConfigurableHologram(hologram.getName(), hologram.getLocation(), lines);
+        } else {
+            registerHologram(hologram);
+        }
     }
 
     public void deleteHologram(String name) {
@@ -67,7 +78,7 @@ public class HologramHolder {
         holograms.remove(name);
     }
 
-    public void forEachHologram(Consumer<Hologram> consumer) {
+    public void forEachHologram(Consumer<IHologram> consumer) {
         holograms.values().forEach(consumer);
     }
 

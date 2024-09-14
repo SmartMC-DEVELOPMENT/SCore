@@ -6,9 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import us.smartmc.addon.holograms.instance.hologram.Hologram;
-import us.smartmc.addon.holograms.instance.hologram.HologramArmorStand;
-import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
+import us.smartmc.addon.holograms.instance.hologram.*;
 import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.smartaddons.plugin.AddonPluginCommand;
 
@@ -39,12 +37,10 @@ public class HologramsCommand extends AddonPluginCommand {
                     return;
                 }
                 String name = args[1];
-                Hologram hologram = mainHolder.getHologram(name);
+                IHologram hologram = mainHolder.getHologram(name);
                 String text = readText(2, args);
                 for (String line : text.split("\n")) {
-                    Location lastLoc = hologram.getLinesArmorStands().get(hologram.getLinesArmorStands().size() - 1).getStand().getLocation();
-                    lastLoc.add(0, -0.3, 0);
-                    hologram.addLine(lastLoc, line);
+                    hologram.addLine(line);
                 }
                 sender.sendMessage(ChatUtil.parse("&aAdded line!"));
                 mainHolder.updateHologramConfig(name);
@@ -56,7 +52,7 @@ public class HologramsCommand extends AddonPluginCommand {
                 }
                 String name = args[1];
                 int index = Integer.parseInt(args[2]);
-                Hologram hologram = mainHolder.getHologram(name);
+                IHologram hologram = mainHolder.getHologram(name);
                 HologramArmorStand hologramArmorStand = hologram.getLinesArmorStands().get(index);
                 hologramArmorStand.getStand().remove();
                 hologram.getLinesArmorStands().remove(index);
@@ -77,7 +73,7 @@ public class HologramsCommand extends AddonPluginCommand {
                 String name = args[1];
                 int index = Integer.parseInt(args[2]);
                 String text = readText(3, args);
-                Hologram hologram = mainHolder.getHologram(name);
+                IHologram hologram = mainHolder.getHologram(name);
                 HologramArmorStand hologramArmorStand = hologram.getLinesArmorStands().get(index);
                 Location loc = hologramArmorStand.getStand().getLocation();
 
@@ -93,7 +89,7 @@ public class HologramsCommand extends AddonPluginCommand {
                 }
                 String name = args[1];
                 String npcName = args[2];
-                Hologram hologram = mainHolder.getHologram(name);
+                IHologram hologram = mainHolder.getHologram(name);
                 try {
                     hologram.assignToNPCLocation(npcName);
                     sender.sendMessage(ChatUtil.parse("&aHologram location assigned to NPC!"));
@@ -131,7 +127,8 @@ public class HologramsCommand extends AddonPluginCommand {
                 }
                 String name = args[1];
                 String text = readText(2, args);
-                mainHolder.registerHologram(name, player.getLocation(), text);
+                ConfigurableHologram configurableHologram = new ConfigurableHologram(mainHolder, name, player.getLocation());
+                mainHolder.registerHologram(configurableHologram, text);
                 player.sendMessage(ChatUtil.parse("&aHologram added!"));
             }
             case "delete" -> {
@@ -142,7 +139,7 @@ public class HologramsCommand extends AddonPluginCommand {
 
             case "teleport" -> {
                 String name = args[1];
-                Hologram hologram = mainHolder.getHologram(name);
+                IHologram hologram = mainHolder.getHologram(name);
                 player.teleport(hologram.getLinesArmorStands().get(0).getStand().getLocation());
                 player.sendMessage(ChatUtil.parse("&aTeleported!"));
             }

@@ -39,7 +39,7 @@ public class PlayerParkourSession {
     }
 
     public boolean hasReachedNewRecord() {
-        int diff = getDiffMillis();
+        long diff = getDiffMillis();
 
         if (getDatabaseElapsedTime() > diff) {
             CorePlayer.get(player).getPlayerData().set(DATABASE_KEY, diff);
@@ -48,11 +48,11 @@ public class PlayerParkourSession {
         return false;
     }
 
-    public double getDatabaseElapsedTime() {
+    public long getDatabaseElapsedTime() {
         CorePlayer corePlayer = CorePlayer.get(player);
         CorePlayerData data = corePlayer.getPlayerData();
         try {
-            return data.get(DATABASE_KEY, Integer.class);
+            return data.get(DATABASE_KEY, Number.class).longValue();
         } catch (Exception e) {
             return Integer.MAX_VALUE;
         }
@@ -79,8 +79,8 @@ public class PlayerParkourSession {
         }
     }
 
-    public int getDiffMillis() {
-        return (int) (endMillis - startMillis);
+    public long getDiffMillis() {
+        return endMillis - startMillis;
     }
 
     public void registerStart() {

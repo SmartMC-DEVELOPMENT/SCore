@@ -2,11 +2,13 @@ package us.smartmc.lobbymodule;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
-import me.imsergioh.pluginsapi.handler.VariablesHandler;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
+import me.imsergioh.pluginsapi.util.LocationSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import us.smartmc.core.SmartCore;
+import us.smartmc.core.util.ConfigUtils;
 import us.smartmc.lobbymodule.command.*;
 import us.smartmc.lobbymodule.config.LobbyConfig;
 import us.smartmc.lobbymodule.config.MinigamesConfig;
@@ -17,7 +19,6 @@ import us.smartmc.lobbymodule.messages.LobbyMessages;
 import us.smartmc.lobbymodule.messages.MinigamesMessages;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
-import us.smartmc.smartaddons.plugin.CommandsRegistry;
 
 import java.io.File;
 
@@ -37,6 +38,9 @@ public class LobbyModule extends AddonPlugin {
     @Getter
     private static LinkSocialsManager linkSocialsManager;
 
+    @Getter
+    private static SpigotYmlConfig mainConfig;
+
     @Override
     public void start() {
 
@@ -48,6 +52,9 @@ public class LobbyModule extends AddonPlugin {
         Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
             minigamesConfig = new MinigamesConfig();
         }, 20);
+
+        mainConfig = new SpigotYmlConfig(new File(getDataFolder(), "config.yml"));
+        mainConfig.set("top_parkour_location", LocationSerializer.toString(new Location(Bukkit.getWorlds().get(0), 0, 0, 0)));
 
         lobbiesMenuConfig = new SpigotYmlConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus", "lobbies.yml"));
         lobbiesMenuConfig.register("id_prefix", "main-lobby");

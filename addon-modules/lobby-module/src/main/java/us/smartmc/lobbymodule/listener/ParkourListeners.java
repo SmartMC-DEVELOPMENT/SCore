@@ -8,16 +8,23 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.util.Vector;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.handler.SpawnHandler;
+import us.smartmc.lobbymodule.instance.parkour.ParkourTop;
 import us.smartmc.lobbymodule.instance.parkour.PlayerParkourEndedEvent;
 import us.smartmc.lobbymodule.instance.parkour.PlayerParkourNewRecordEvent;
 import us.smartmc.lobbymodule.instance.parkour.PlayerParkourSession;
 
 public class ParkourListeners implements Listener {
+
+    @EventHandler
+    public void setupTop(PlayerJoinEvent event) {
+        ParkourTop.setup();
+    }
 
     @EventHandler
     public void rewardPlayerTest(PlayerParkourEndedEvent event) {

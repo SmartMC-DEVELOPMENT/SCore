@@ -11,11 +11,7 @@ import org.bukkit.util.Vector;
 import us.smartmc.core.SmartCore;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
-import java.util.*;
-
 public class PlatesListener extends AddonListener implements Listener {
-
-    private static final Set<UUID> cooldowns = new HashSet<>();
 
     @EventHandler
     public void impulsePlayer(PlayerInteractEvent event) {

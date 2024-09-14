@@ -54,7 +54,7 @@ public class LobbyModule extends AddonPlugin {
         }, 20);
 
         mainConfig = new SpigotYmlConfig(new File(getDataFolder(), "config.yml"));
-        mainConfig.set("top_parkour_location", LocationSerializer.toString(new Location(Bukkit.getWorlds().get(0), 35, 75, 44)));
+        mainConfig.set("top_parkour_location", LocationSerializer.toString(new Location(Bukkit.getWorlds().get(0), 28, 73, 45)));
 
         lobbiesMenuConfig = new SpigotYmlConfig(new File(SpigotPluginsAPI.getPlugin().getDataFolder() + "/menus", "lobbies.yml"));
         lobbiesMenuConfig.register("id_prefix", "main-lobby");

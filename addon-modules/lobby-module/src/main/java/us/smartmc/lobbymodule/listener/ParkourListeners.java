@@ -1,5 +1,6 @@
 package us.smartmc.lobbymodule.listener;
 
+import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -34,6 +35,9 @@ public class ParkourListeners implements Listener {
 
         if (event.getSession().hasReachedNewRecord()) {
             Bukkit.getPluginManager().callEvent(new PlayerParkourNewRecordEvent(event.getSession()));
+
+            // Guardar el player data para actualizar top en caso de que siga conectado
+            CorePlayer.get(player).getPlayerData().save();
         }
 
         Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {

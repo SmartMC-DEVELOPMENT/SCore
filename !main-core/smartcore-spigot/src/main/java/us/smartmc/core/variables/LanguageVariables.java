@@ -12,7 +12,12 @@ public class LanguageVariables extends VariableListener<Player> {
 
     @Override
     public String parse(String message) {
-        return message;
+        if (!message.contains("<lang.")) return message;
+        try {
+            return get(null, message);
+        } catch (Exception e) {
+            return message;
+        }
     }
 
     @Override

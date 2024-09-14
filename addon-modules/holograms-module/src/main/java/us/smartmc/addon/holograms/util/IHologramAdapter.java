@@ -1,6 +1,7 @@
 package us.smartmc.addon.holograms.util;
 
 import org.bukkit.entity.Player;
+import us.smartmc.addon.holograms.instance.hologram.ConfigurableHologram;
 import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramArmorStand;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;

@@ -1,13 +1,17 @@
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\util\IHologramAdapter.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\hologram\Hologram.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\hologram\HologramHolder.java
+D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\hologram\IHologram.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\commands\HologramsCommand.java
+D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\hologram\ConfigurableHologram.java
+D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\hologram\IConfigurableHologram.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\config\HologramHolderConfig.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\variable\TickVariable.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\manager\HologramUpdaterManager.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\util\LocationUtils.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\listener\EssentialListeners.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\hologram\HologramArmorStand.java
+D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\hologram\HologramBuilder.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\HologramsAddon.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\util\NPCModuleUtil.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\adapter\HologramAdapter1_8.java

@@ -34,7 +34,7 @@ public class HologramHolder {
     }
 
     public void loadHologram(String hologramName, HologramHolderConfig config) {
-        Hologram hologram = new Hologram(hologramName, config);
+        ConfigurableHologram hologram = new ConfigurableHologram(hologramName, config);
         holograms.put(hologramName, hologram);
     }
 

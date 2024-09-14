@@ -10,7 +10,6 @@ import me.imsergioh.pluginsapi.util.LocationSerializer;
 import org.bson.Document;
 import org.bukkit.Location;
 import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
-import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
 import us.smartmc.lobbymodule.LobbyModule;
 

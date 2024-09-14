@@ -60,15 +60,6 @@ public class HologramsAddon extends AddonPlugin {
         registerCommand(new HologramsCommand());
 
         VariablesHandler.register(new TickVariable());
-
-        HologramHolder holder = HologramHolder.getOrCreate("main");
-
-        Hologram hologram = HologramBuilder
-                .create("test", new Location(Bukkit.getWorlds().get(0), 0, 73, 0))
-                .separator(0)
-                .lines("AAAA", "BBBBB", "CCCCC", "DDDDD")
-                .registerToHolder(holder)
-                .build();
     }
 
     private void loadHolders() {

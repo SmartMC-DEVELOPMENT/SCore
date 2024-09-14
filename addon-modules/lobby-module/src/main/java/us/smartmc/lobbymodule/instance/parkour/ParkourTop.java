@@ -82,13 +82,13 @@ public class ParkourTop {
 
             double seconds = millis / 1000.0;
             String formattedTime = String.format("%.2f", seconds);
-            lines.add(ChatUtil.parse("<lang.lobby.parkour_top_score>", currentTop, getNameFromId(uuid), formattedTime + "s"));
+            lines.add("<lang.lobby.parkour_top_score>", currentTop, getNameFromId(uuid), formattedTime + "s");
             currentTop++;
         }
 
         // Fill until limit with blank tops
         while (currentTop != TOP_LIMIT) {
-            lines.add(ChatUtil.parse("<lang.lobby.parkour_top_score>", currentTop, "-", "-"));
+            lines.add(ChatUtil.parse("<lang.lobby.parkour_top_score>", currentTop, "----", "-"));
             currentTop++;
         }
 

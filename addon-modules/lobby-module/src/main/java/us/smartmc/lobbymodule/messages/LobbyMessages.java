@@ -30,7 +30,7 @@ public class LobbyMessages extends MultiLanguageRegistry {
         holder.registerDefault("exit_parkour_name", "&cExit parkour");
 
         holder.registerDefault("parkour_top_title", "&e&lTOP PARKOUR");
-        holder.registerDefault("parkour_top_score", "&e#{0} &7|&b {1} ({2})");
+        holder.put("parkour_top_score", "&e#{0} &7|&b {1} &a({2})");
 
         holder.save();
     }

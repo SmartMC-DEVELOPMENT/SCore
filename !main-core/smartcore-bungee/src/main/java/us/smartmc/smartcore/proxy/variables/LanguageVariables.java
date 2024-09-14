@@ -11,12 +11,7 @@ public class LanguageVariables extends VariableListener<ProxiedPlayer> {
 
     @Override
     public String parse(String message) {
-        if (!message.contains("<lang.")) return message;
-        try {
-            return get(null, message);
-        } catch (Exception e) {
-            return message;
-        }
+        return message;
     }
 
     @Override

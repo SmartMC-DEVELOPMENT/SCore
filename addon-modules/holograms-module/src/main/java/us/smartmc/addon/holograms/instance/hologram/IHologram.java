@@ -9,13 +9,15 @@ public interface IHologram {
 
     String getName();
 
+    double getLineSeparation();
+
     void removeAllStands();
 
     List<HologramArmorStand> getLinesArmorStands();
 
     void assignToNPCLocation(String npcName) throws CorePluginException;
 
-    void addLine(Location location, String text);
+    void addLine(String text);
 
     Location getLocation();
 

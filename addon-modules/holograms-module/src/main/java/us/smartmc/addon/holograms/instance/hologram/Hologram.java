@@ -1,6 +1,7 @@
 package us.smartmc.addon.holograms.instance.hologram;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Location;
 import us.smartmc.addon.holograms.util.NPCModuleUtil;
 import us.smartmc.core.exception.CorePluginException;
@@ -13,8 +14,10 @@ import java.util.List;
 public class Hologram implements IHologram {
 
     protected final String name;
-
     protected Location location;
+
+    @Setter
+    private double lineSeparation = -0.3;
 
     protected final List<HologramArmorStand> linesStands = new ArrayList<>();
 
@@ -34,7 +37,7 @@ public class Hologram implements IHologram {
 
     @Override
     public List<HologramArmorStand> getLinesArmorStands() {
-        return List.of();
+        return linesStands;
     }
 
     @Override
@@ -46,7 +49,14 @@ public class Hologram implements IHologram {
     }
 
     @Override
-    public void addLine(Location location, String text) {
-        linesStands.add(new HologramArmorStand(location, text));
+    public void addLine(String text) {
+        Location lastLoc;
+        if (linesStands.isEmpty()) {
+            lastLoc = location.clone();
+        } else {
+            lastLoc = linesStands.get(linesStands.size() - 1).getStand().getLocation();
+            lastLoc.add(0, lineSeparation, 0);
+        }
+        linesStands.add(new HologramArmorStand(lastLoc, text));
     }
 }

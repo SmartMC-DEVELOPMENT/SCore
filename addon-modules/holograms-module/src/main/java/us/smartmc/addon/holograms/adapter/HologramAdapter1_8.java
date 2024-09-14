@@ -15,14 +15,9 @@ import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
 import us.smartmc.addon.holograms.instance.hologram.IHologram;
 import us.smartmc.addon.holograms.util.IHologramAdapter;
 
-import java.lang.reflect.Field;
-import java.util.*;
-
 public class HologramAdapter1_8 implements IHologramAdapter {
 
     public void spawnHologram(Player player, IHologram hologram) {
-        ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-
         hologram.getLinesArmorStands().forEach(hologramArmorStand -> {
             ArmorStand armorStand = hologramArmorStand.getStand();
             armorStand.setVisible(false);
@@ -71,32 +66,4 @@ public class HologramAdapter1_8 implements IHologramAdapter {
             spawnHologram(player, hologram);
         });
     }
-
-    public static DataWatcher cloneDataWatcher(CraftArmorStand entity) {
-
-        DataWatcher originalWatcher = entity.getHandle().getDataWatcher();
-        DataWatcher newWatcher = new DataWatcher(entity.getHandle()); // Create a new DataWatcher instance
-
-        HashMap<Integer, DataWatcher.WatchableObject> originalData = new HashMap<>();
-
-        try {
-            for (Field field : DataWatcher.class.getDeclaredFields()) {
-                if (field.getName().equals("b")) {
-                    field.setAccessible(true);
-                    Object value = field.get(originalWatcher);
-                    if (value instanceof Map<?, ?>) {
-                        originalData.putAll((Map<? extends Integer, ? extends DataWatcher.WatchableObject>) value);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        for (int num : originalData.keySet()) {
-            newWatcher.watch(num, originalData.get(num));
-        }
-        return newWatcher;
-    }
-
 }

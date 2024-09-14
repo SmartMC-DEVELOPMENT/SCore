@@ -15,6 +15,7 @@ import us.smartmc.addon.holograms.listener.EssentialListeners;
 import us.smartmc.addon.holograms.manager.HologramUpdaterManager;
 import us.smartmc.addon.holograms.util.IHologramAdapter;
 import us.smartmc.addon.holograms.variable.TickVariable;
+import us.smartmc.core.SmartCore;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 
@@ -59,13 +60,12 @@ public class HologramsAddon extends AddonPlugin {
 
         VariablesHandler.register(new TickVariable());
 
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Hologram hologram = new Hologram("test", new Location(Bukkit.getWorlds().get(0), 0, 0, 0));
-                HologramHolder.getOrCreate("main").registerHologram(hologram, List.of("Line1", "Line2", "Line3"));
-            }
-        }, 1000);
+        Hologram hologram = new Hologram("test", new Location(Bukkit.getWorlds().get(0), 0, 73, 0));
+        HologramHolder.getOrCreate("main")
+                .registerHologram(hologram);
+        hologram.addLine("FUUAAA");
+        hologram.addLine("Linea 2");
+        hologram.addLine("Linea 3");
     }
 
     private void loadHolders() {

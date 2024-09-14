@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
 import us.smartmc.addon.holograms.util.LocationUtils;
 import us.smartmc.addon.holograms.util.NPCModuleUtil;
+import us.smartmc.core.SmartCore;
 import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.npcsmodule.instance.CustomNPC;
 
@@ -48,10 +49,6 @@ public class ConfigurableHologram extends Hologram implements IConfigurableHolog
         setup();
     }
 
-    public List<HologramArmorStand> getLinesArmorStands() {
-        return linesStands;
-    }
-
     public static Location loadLocation(String name, HologramHolderConfig config) {
         String locationPath = HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY;
         String locationString = config.getString(locationPath);
@@ -61,7 +58,7 @@ public class ConfigurableHologram extends Hologram implements IConfigurableHolog
             String npcName = locationString.split("@")[1];
             CustomNPC npc = NPCModuleUtil.getFirstByName(npcName);
             if (npc != null)
-                location = npc.getBukkitLocation().clone().add(0, -0.2, 0);
+                location = npc.getBukkitLocation().clone().add(0, 0, 0);
             if (location == null) {
                 return new Location(Bukkit.getWorlds().get(0), 0, 0, 0);
             }
@@ -86,12 +83,9 @@ public class ConfigurableHologram extends Hologram implements IConfigurableHolog
     private List<HologramArmorStand> getOf(List<String> lines) {
         List<HologramArmorStand> list = new ArrayList<>();
         Location loc = location.clone();
-        List<String> reversedLines = new ArrayList<>(lines);
-        Collections.reverse(reversedLines);
-
-        for (String line : reversedLines) {
+        for (String line : lines) {
             list.add(new HologramArmorStand(loc, line));
-            loc.add(0, 0.3, 0);
+            loc.add(0, getLineSeparation(), 0);
         }
         return list;
     }

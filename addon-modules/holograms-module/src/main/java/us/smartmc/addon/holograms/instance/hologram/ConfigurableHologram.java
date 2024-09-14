@@ -71,8 +71,6 @@ public class ConfigurableHologram extends Hologram implements IConfigurableHolog
                 return new Location(Bukkit.getWorlds().get(0), 0, 0, 0);
             }
         }
-
-        System.out.println("LOAD LOCATION: " + location);
         return location == null ? LocationUtils.stringToLocation(locationString) : location;
     }
 

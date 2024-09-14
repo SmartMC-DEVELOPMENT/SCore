@@ -5,6 +5,7 @@ import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import us.smartmc.addon.holograms.HologramsAddon;
+import us.smartmc.addon.holograms.instance.hologram.ConfigurableHologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
 import us.smartmc.addon.holograms.util.LocationUtils;
 
@@ -38,7 +39,8 @@ public class HologramHolderConfig extends SpigotYmlConfig {
         if (section == null) return;
 
         for (String name : section.getKeys(false)) {
-            holder.loadConfigHologram(name, this);
+            ConfigurableHologram hologram = new ConfigurableHologram(name, this);
+            holder.registerHologram(hologram);
         }
     }
 

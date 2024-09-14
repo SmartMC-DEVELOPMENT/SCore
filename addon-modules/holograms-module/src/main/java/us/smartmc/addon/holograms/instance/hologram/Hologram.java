@@ -25,7 +25,11 @@ public class Hologram implements IHologram {
 
     @Override
     public void removeAllStands() {
-
+        for (HologramArmorStand stand : new ArrayList<>(linesStands)) {
+            stand.getStand().eject();
+            stand.getStand().remove();
+            linesStands.remove(stand);
+        }
     }
 
     @Override

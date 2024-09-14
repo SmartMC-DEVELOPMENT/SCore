@@ -43,15 +43,6 @@ public class ConfigurableHologram extends Hologram implements IConfigurableHolog
     }
 
     @Override
-    public void removeAllStands() {
-        for (HologramArmorStand stand : new ArrayList<>(linesStands)) {
-            stand.getStand().eject();
-            stand.getStand().remove();
-            linesStands.remove(stand);
-        }
-    }
-
-    @Override
     public void assignToNPCLocation(String npcName) throws CorePluginException {
         super.assignToNPCLocation(npcName);
         setup();

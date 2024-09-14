@@ -10,9 +10,9 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftArmorStand;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
-import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramArmorStand;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
+import us.smartmc.addon.holograms.instance.hologram.IHologram;
 import us.smartmc.addon.holograms.util.IHologramAdapter;
 
 import java.lang.reflect.Field;
@@ -20,7 +20,7 @@ import java.util.*;
 
 public class HologramAdapter1_8 implements IHologramAdapter {
 
-    public void spawnHologram(Player player, Hologram hologram) {
+    public void spawnHologram(Player player, IHologram hologram) {
         ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
 
         hologram.getLinesArmorStands().forEach(hologramArmorStand -> {
@@ -39,7 +39,7 @@ public class HologramAdapter1_8 implements IHologramAdapter {
     }
 
     @Override
-    public void destroyHologram(Player player, Hologram hologram) {
+    public void destroyHologram(Player player, IHologram hologram) {
         hologram.getLinesArmorStands().forEach(hologramArmorStand -> {
             ArmorStand armorStand = hologramArmorStand.getStand();
             hologramArmorStand.getStand().eject();

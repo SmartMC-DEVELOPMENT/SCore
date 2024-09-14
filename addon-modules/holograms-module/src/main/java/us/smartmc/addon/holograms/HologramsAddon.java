@@ -10,6 +10,7 @@ import us.smartmc.addon.holograms.commands.HologramsCommand;
 import us.smartmc.addon.holograms.instance.config.MainConfig;
 import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
+import us.smartmc.addon.holograms.instance.hologram.IHologram;
 import us.smartmc.addon.holograms.listener.EssentialListeners;
 import us.smartmc.addon.holograms.manager.HologramUpdaterManager;
 import us.smartmc.addon.holograms.util.IHologramAdapter;
@@ -78,7 +79,7 @@ public class HologramsAddon extends AddonPlugin {
     @Override
     public void stop() {
         HologramHolder.forEachHolder(holder -> {
-            holder.forEachHologram(Hologram::removeAllStands);
+            holder.forEachHologram(IHologram::removeAllStands);
         });
 
     }

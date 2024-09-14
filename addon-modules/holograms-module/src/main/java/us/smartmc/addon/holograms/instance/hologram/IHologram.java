@@ -11,6 +11,8 @@ public interface IHologram {
 
     double getLineSeparation();
 
+    void updateLine(int index, String line);
+
     void removeAllStands();
 
     List<HologramArmorStand> getLinesArmorStands();

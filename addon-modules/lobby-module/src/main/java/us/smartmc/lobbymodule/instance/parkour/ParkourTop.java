@@ -9,6 +9,8 @@ import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.LocationSerializer;
 import org.bson.Document;
 import org.bukkit.Location;
+import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
+import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
 import us.smartmc.lobbymodule.LobbyModule;
 
@@ -30,6 +32,7 @@ public class ParkourTop {
     private static void showAt(Location location) {
         HologramHolder holder = HologramHolder.getOrCreate("parkour_tops");
         holder.registerHologram("top_parkour", location, getTopText());
+        holder.loadHologram("top_parkour", new HologramHolderConfig(holder));
     }
 
 
@@ -46,11 +49,13 @@ public class ParkourTop {
             long millis = document
                     .get("lobby", Document.class)
                     .get("parkour", Document.class)
-                    .get("bestTime", Number.class).longValue();
+                    .get("bestTime", Number.class)
+                    .longValue();
 
             double seconds = millis / 1000.0;
             String formattedTime = String.format("%.2f", seconds);
-            stringBuilder.append(ChatUtil.parse("<parkour_top_score>", currentTop, getNameFromId(uuid), formattedTime));
+            stringBuilder.append(ChatUtil.parse("<lang.lobby.parkour_top_score>", currentTop, getNameFromId(uuid), formattedTime));
+            stringBuilder.append("\n");
             currentTop++;
         }
         return stringBuilder.toString();

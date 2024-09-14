@@ -8,7 +8,6 @@ import org.bukkit.Location;
 import us.smartmc.addon.holograms.adapter.HologramAdapter1_8;
 import us.smartmc.addon.holograms.commands.HologramsCommand;
 import us.smartmc.addon.holograms.instance.config.MainConfig;
-import us.smartmc.addon.holograms.instance.hologram.ConfigurableHologram;
 import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
 import us.smartmc.addon.holograms.listener.EssentialListeners;

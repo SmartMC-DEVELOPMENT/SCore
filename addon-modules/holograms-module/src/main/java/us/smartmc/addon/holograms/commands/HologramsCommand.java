@@ -6,7 +6,6 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
 import us.smartmc.addon.holograms.instance.hologram.ConfigurableHologram;
 import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramArmorStand;

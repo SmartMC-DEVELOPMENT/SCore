@@ -8,12 +8,10 @@ import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.LocationSerializer;
 import org.bson.Document;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramBuilder;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
-import us.smartmc.core.SmartCore;
 import us.smartmc.lobbymodule.LobbyModule;
 
 import java.util.ArrayList;
@@ -44,7 +42,9 @@ public class ParkourTop {
         timer = new Timer();
         hologram = HologramBuilder.create("top_parkour", location)
                 .registerToHolder(HologramHolder.getOrCreate("main"))
+                .lines("<lang.lobby.parkour_top_title>")
                 .build();
+        getTopsLines().forEach(hologram::addLine);
 
         timer.schedule(new TimerTask() {
             @Override

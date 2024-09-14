@@ -40,6 +40,11 @@ public class Hologram implements IHologram {
     }
 
     @Override
+    public void updateLine(int index, String line) {
+        getLinesArmorStands().get(index).setUnformattedLine(line);
+    }
+
+    @Override
     public void removeAllStands() {
         for (HologramArmorStand stand : new ArrayList<>(linesStands)) {
             stand.getStand().eject();

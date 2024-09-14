@@ -3,6 +3,8 @@ package us.smartmc.addon.holograms;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import us.smartmc.addon.holograms.adapter.HologramAdapter1_8;
 import us.smartmc.addon.holograms.commands.HologramsCommand;
 import us.smartmc.addon.holograms.instance.config.MainConfig;
@@ -17,7 +19,10 @@ import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 
 import java.io.File;
+import java.util.List;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @AddonInfo(name = "holograms-module", version = "1.0-DEV")
 public class HologramsAddon extends AddonPlugin {
@@ -53,6 +58,14 @@ public class HologramsAddon extends AddonPlugin {
         registerCommand(new HologramsCommand());
 
         VariablesHandler.register(new TickVariable());
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Hologram hologram = new Hologram("test", new Location(Bukkit.getWorlds().get(0), 0, 0, 0));
+                HologramHolder.getOrCreate("main").registerHologram(hologram, List.of("Line1", "Line2", "Line3"));
+            }
+        }, 1000);
     }
 
     private void loadHolders() {

@@ -2,7 +2,6 @@ package us.smartmc.addon.holograms.instance.hologram;
 
 import lombok.Getter;
 import org.bukkit.Location;
-import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
 import us.smartmc.addon.holograms.util.NPCModuleUtil;
 import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.npcsmodule.instance.CustomNPC;
@@ -25,11 +24,6 @@ public class Hologram implements IHologram {
     }
 
     @Override
-    public void setup() {
-
-    }
-
-    @Override
     public void removeAllStands() {
 
     }
@@ -45,7 +39,6 @@ public class Hologram implements IHologram {
         if (npc == null) throw new CorePluginException("No NPC found with name of '" + npcName + "'!");
         location = npc.getBukkitLocation().clone().add(0, -0.2, 0);
         removeAllStands();
-        setup();
     }
 
     @Override

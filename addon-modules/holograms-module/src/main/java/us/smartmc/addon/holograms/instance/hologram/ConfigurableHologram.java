@@ -19,7 +19,17 @@ public class ConfigurableHologram extends Hologram implements IConfigurableHolog
     private final String name;
     private final HologramHolderConfig config;
 
-    protected ConfigurableHologram(String name, HologramHolderConfig config) {
+    // Create
+    public ConfigurableHologram(HologramHolder holder, String name, Location location) {
+        super(name, location);
+        this.name = name;
+        this.config = new HologramHolderConfig(holder);
+        config.setLocation(name, location);
+        setup();
+    }
+
+    // Load
+    public ConfigurableHologram(String name, HologramHolderConfig config) {
         super(name, loadLocation(name, config));
         this.name = name;
         this.config = config;
@@ -44,12 +54,6 @@ public class ConfigurableHologram extends Hologram implements IConfigurableHolog
     @Override
     public void assignToNPCLocation(String npcName) throws CorePluginException {
         super.assignToNPCLocation(npcName);
-        CustomNPC npc = NPCModuleUtil.getFirstByName(npcName);
-        if (npc == null) throw new CorePluginException("No NPC found with name of '" + npcName + "'!");
-        String locationPath = HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY;
-        config.set(locationPath, "npc@" + npcName);
-        config.save();
-        removeAllStands();
         setup();
     }
 

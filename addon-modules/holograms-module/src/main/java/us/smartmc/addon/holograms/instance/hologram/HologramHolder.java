@@ -33,7 +33,7 @@ public class HologramHolder {
         return holograms.get(name);
     }
 
-    public void loadHologram(String hologramName, HologramHolderConfig config) {
+    public void loadConfigHologram(String hologramName, HologramHolderConfig config) {
         ConfigurableHologram hologram = new ConfigurableHologram(hologramName, config);
         holograms.put(hologramName, hologram);
     }
@@ -53,11 +53,21 @@ public class HologramHolder {
         config.save();
     }
 
-    public void registerHologram(String name, Location location, String text) {
+    private void registerConfigurableHologram(String name, Location location, List<String> lines) {
         config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY, LocationUtils.locationToString(location));
-        config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.LINES_KEY, List.of(text.split("\n")));
+        config.set(HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.LINES_KEY, lines);
         config.save();
-        loadHologram(name, config);
+        loadConfigHologram(name, config);
+    }
+
+    public void registerHologram(IHologram hologram, String text) {
+        this.registerHologram(hologram, List.of(text.split("\n")));
+    }
+
+    public void registerHologram(IHologram hologram, List<String> lines) {
+        if (ConfigurableHologram.class.isAssignableFrom(hologram.getClass())) {
+            registerConfigurableHologram(hologram.getName(), hologram.getLocation(), lines);
+        }
     }
 
     public void deleteHologram(String name) {

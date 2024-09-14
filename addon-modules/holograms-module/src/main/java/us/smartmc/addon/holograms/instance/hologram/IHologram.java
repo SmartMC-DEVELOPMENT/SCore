@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface IHologram {
 
-    void setup();
-
     String getName();
 
     void removeAllStands();

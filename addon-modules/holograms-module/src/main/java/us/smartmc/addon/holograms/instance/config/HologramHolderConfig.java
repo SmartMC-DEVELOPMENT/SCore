@@ -2,12 +2,13 @@ package us.smartmc.addon.holograms.instance.config;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.SpigotYmlConfig;
+import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import us.smartmc.addon.holograms.HologramsAddon;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
+import us.smartmc.addon.holograms.util.LocationUtils;
 
 import java.io.File;
-import java.util.Objects;
 
 @Getter
 public class HologramHolderConfig extends SpigotYmlConfig {
@@ -25,13 +26,19 @@ public class HologramHolderConfig extends SpigotYmlConfig {
         loadHolograms();
     }
 
+    public void setLocation(String name, Location location) {
+        String locationPath = HologramHolderConfig.HOLOGRAMS_MAIN_KEY + "." + name + "." + HologramHolderConfig.START_LOCATION_KEY;
+        set(locationPath, LocationUtils.locationToString(location));
+        save();
+    }
+
     private void loadHolograms() {
         if (getConfig() == null) return;
         ConfigurationSection section = getConfig().getConfigurationSection(HOLOGRAMS_MAIN_KEY);
         if (section == null) return;
 
         for (String name : section.getKeys(false)) {
-            holder.loadHologram(name, this);
+            holder.loadConfigHologram(name, this);
         }
     }
 

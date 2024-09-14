@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
 import us.smartmc.addon.holograms.instance.hologram.ConfigurableHologram;
 import us.smartmc.addon.holograms.instance.hologram.Hologram;
 import us.smartmc.addon.holograms.instance.hologram.HologramArmorStand;
@@ -132,7 +133,8 @@ public class HologramsCommand extends AddonPluginCommand {
                 }
                 String name = args[1];
                 String text = readText(2, args);
-                mainHolder.registerHologram(name, player.getLocation(), text);
+                ConfigurableHologram configurableHologram = new ConfigurableHologram(mainHolder, name, player.getLocation());
+                mainHolder.registerHologram(configurableHologram, text);
                 player.sendMessage(ChatUtil.parse("&aHologram added!"));
             }
             case "delete" -> {

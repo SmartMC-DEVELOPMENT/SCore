@@ -31,7 +31,7 @@ public class ParkourTop {
     private static void showAt(Location location) {
         HologramHolder holder = HologramHolder.getOrCreate("parkour_tops");
         holder.registerHologram("top_parkour", location, getTopText());
-        holder.loadHologram("top_parkour", new HologramHolderConfig(holder));
+        holder.loadConfigHologram("top_parkour", new HologramHolderConfig(holder));
     }
 
 

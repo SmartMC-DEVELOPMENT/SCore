@@ -53,7 +53,7 @@ public class HologramBuilder {
     }
 
     public static HologramBuilder create(String hologramName, Location location) {
-        return new HologramBuilder(hologramName);
+        return new HologramBuilder(hologramName, location);
     }
 
 }

@@ -8,10 +8,18 @@ import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.LocationSerializer;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
+import us.smartmc.addon.holograms.instance.hologram.Hologram;
+import us.smartmc.addon.holograms.instance.hologram.HologramBuilder;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
+import us.smartmc.core.SmartCore;
 import us.smartmc.lobbymodule.LobbyModule;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ParkourTop {
 
@@ -22,6 +30,9 @@ public class ParkourTop {
 
     private static boolean alreadySet;
 
+    private static Hologram hologram;
+    private static Timer timer;
+
     public static void setup() {
         if (alreadySet) return;
         showAt(LocationSerializer.toLocation(LobbyModule.getMainConfig().getString("top_parkour_location")));
@@ -29,18 +40,36 @@ public class ParkourTop {
     }
 
     private static void showAt(Location location) {
-        HologramHolder holder = HologramHolder.getOrCreate("parkour_tops");
-        holder.registerHologram("top_parkour", location, getTopText());
-        holder.loadConfigHologram("top_parkour", new HologramHolderConfig(holder));
+        if (timer != null) return;
+        timer = new Timer();
+        hologram = HologramBuilder.create("top_parkour", location)
+                .registerToHolder(HologramHolder.getOrCreate("main"))
+                .build();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                updateTop(hologram);
+            }
+        }, 100, 3000);
+    }
+
+    private static void updateTop(Hologram hologram) {
+        List<String> topLines = getTopsLines();
+        // Start by index 1 (because the title is 0) & updateLine by his index getting -1 index of iteration that corresponds the correct index top
+        for (int index = 1; index < TOP_LIMIT; index++) {
+            hologram.updateLine(index, topLines.get(index - 1));
+        }
     }
 
 
-    private static String getTopText() {
-        StringBuilder stringBuilder = new StringBuilder("<lang.lobby.parkour_top_title>");
-        stringBuilder.append("\n");
+    private static List<String> getTopsLines() {
+        List<String> lines = new ArrayList<>();
         MongoCursor<Document> cursor = getTopDocuments();
 
         int currentTop = 1;
+
+        // While documents existing in cursor get info and set to lines
         while (cursor.hasNext()) {
             Document document = cursor.next();
             String uuid = document.getString("_id");
@@ -53,11 +82,17 @@ public class ParkourTop {
 
             double seconds = millis / 1000.0;
             String formattedTime = String.format("%.2f", seconds);
-            stringBuilder.append(ChatUtil.parse("<lang.lobby.parkour_top_score>", currentTop, getNameFromId(uuid), formattedTime));
-            stringBuilder.append("\n");
+            lines.add(ChatUtil.parse("<lang.lobby.parkour_top_score>", currentTop, getNameFromId(uuid), formattedTime + "s"));
             currentTop++;
         }
-        return stringBuilder.toString();
+
+        // Fill until limit with blank tops
+        while (currentTop != TOP_LIMIT) {
+            lines.add(ChatUtil.parse("<lang.lobby.parkour_top_score>", currentTop, "-", "-"));
+            currentTop++;
+        }
+
+        return lines;
     }
 
     private static MongoCursor<Document> getTopDocuments() {

@@ -22,7 +22,7 @@ import java.util.Arrays;
 public class PlayerListener extends AddonListener implements Listener {
 
     @EventHandler
-    public void sendJoinMessage(PlayerJoinEvent event) {
+    public void sendJoinMessage(PlayerDataLoadedEvent event) {
         Player player = event.getPlayer();
         if (!player.isOnline()) return;
         player.sendMessage(ChatUtil.parse(player, "<lang.lobby.join_embedmessage>", player.getName()).replace("{0}", player.getName()));

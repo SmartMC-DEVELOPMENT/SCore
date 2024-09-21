@@ -1,11 +1,12 @@
 package us.smartmc.gamescore.instance.event;
 
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.api.GamesCoreAPI;
-import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.manager.PlayersManager;
 
+@Getter
 public abstract class GameCorePlayerEvent extends GameCoreEvent {
 
     private final GameCorePlayer corePlayer;
@@ -22,11 +23,4 @@ public abstract class GameCorePlayerEvent extends GameCoreEvent {
         this.corePlayer = playersManager == null ? null : playersManager.get(player.getUniqueId());
     }
 
-    public GameCorePlayer getCorePlayer() {
-        return corePlayer;
-    }
-
-    public Player getBukkitPlayer() {
-        return bukkitPlayer;
-    }
 }

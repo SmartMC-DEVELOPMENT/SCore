@@ -1,3 +1,4 @@
+import us.smartmc.gamescore.instance.game.team.ColorGameTeamColor;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
 
@@ -9,6 +10,8 @@ public class TestCorePlayers {
         GameCorePlayer gameCorePlayer = new GameCorePlayer(UUID.randomUUID());
         gameCorePlayer.setStatus(PlayerStatus.POST_GAME);
         System.out.println(gameCorePlayer.getStatus());
+
+        System.out.println("SIZE: " + ColorGameTeamColor.values().length);
     }
 
 }

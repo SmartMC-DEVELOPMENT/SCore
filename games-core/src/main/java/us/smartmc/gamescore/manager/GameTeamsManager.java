@@ -1,13 +1,20 @@
 package us.smartmc.gamescore.manager;
 
-import us.smartmc.gamescore.instance.game.GameTeam;
+import us.smartmc.gamescore.instance.game.team.ColorGameTeam;
+import us.smartmc.gamescore.instance.game.team.GameTeam;
 import us.smartmc.gamescore.instance.manager.MapManager;
 
-import java.util.UUID;
-
 public class GameTeamsManager extends MapManager<String, GameTeam> {
-    @Override
-    public GameTeam createValueByKey(String key) {
+
+    public ColorGameTeam getGameTeam(String name) {
+        GameTeam team = get(name);
+        if (team == null) return null;
+        if (team instanceof ColorGameTeam colorGameTeam) return colorGameTeam;
         return null;
+    }
+
+    @Override
+    public GameTeam createValueByKey(String name) {
+        return new GameTeam(name);
     }
 }

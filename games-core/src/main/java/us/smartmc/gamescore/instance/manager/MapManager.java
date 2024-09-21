@@ -1,10 +1,41 @@
 package us.smartmc.gamescore.instance.manager;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public abstract class MapManager<K, V> implements IMapManager<K, V> {
 
+    private static final Map<Class<? extends MapManager<?, ?>>, MapManager<?, ?>> registry = new HashMap<>();
+
     private final Map<K, V> map = new HashMap<>();
+
+    protected MapManager() {
+    }
+
+    public static <T extends MapManager<?, ?>> T getManager(final Class<T> clazz, Object... initArgs) {
+        MapManager<?, ?> manager = registry.get(clazz);
+        if (manager == null) {
+            try {
+                manager = (MapManager<?, ?>) createManager(clazz, initArgs);
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if (clazz.isInstance(manager)) {
+            return clazz.cast(manager);
+        }
+        return null;
+    }
+
+    private static Object createManager(final Class<? extends MapManager<?, ?>> clazz, Object... initArgs) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        Constructor<?> constructor = clazz.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        MapManager<?, ?> o = (MapManager<?, ?>) constructor.newInstance(initArgs);
+        constructor.setAccessible(false);
+        registry.put(clazz, o);
+        return o;
+    }
 
     @Override
     public int size() {

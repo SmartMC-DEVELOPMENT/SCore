@@ -1,10 +1,38 @@
 package us.smartmc.gamescore.instance.manager;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class ListManager<T> implements IListManager<T> {
 
+    private static final Map<Class<? extends ListManager<?>>, ListManager<?>> registry = new HashMap<>();
+
     private final List<T> list = new ArrayList<>();
+
+    public static <T extends ListManager<?>> T getManager(final Class<T> clazz, Object... initArgs) {
+        ListManager<?> manager = registry.get(clazz);
+        if (manager == null) {
+            try {
+                manager = (ListManager<?>) createManager(clazz, initArgs);
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if (clazz.isInstance(manager)) {
+            return clazz.cast(manager);
+        }
+        return null;
+    }
+
+    private static Object createManager(final Class<? extends ListManager<?>> clazz, Object... initArgs) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        Constructor<?> constructor = clazz.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        ListManager<?> o = (ListManager<?>) constructor.newInstance(initArgs);
+        constructor.setAccessible(false);
+        registry.put(clazz, o);
+        return o;
+    }
 
     @Override
     public int size() {

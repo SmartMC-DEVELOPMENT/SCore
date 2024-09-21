@@ -1,17 +1,42 @@
 package us.smartmc.gamescore.instance.manager;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 public class SetManager<T> implements ISetManager<T> {
+
+    private static final Map<Class<? extends SetManager<?>>, SetManager<?>> registry = new HashMap<>();
 
     private final Set<T> set = new HashSet<>();
 
     @Override
     public int size() {
         return set.size();
+    }
+
+    public static <T extends SetManager<?>> T getManager(final Class<T> clazz, Object... initArgs) {
+        SetManager<?> manager = registry.get(clazz);
+        if (manager == null) {
+            try {
+                manager = (SetManager<?>) createManager(clazz, initArgs);
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if (clazz.isInstance(manager)) {
+            return clazz.cast(manager);
+        }
+        return null;
+    }
+
+    private static Object createManager(final Class<? extends SetManager<?>> clazz, Object... initArgs) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        Constructor<?> constructor = clazz.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        SetManager<?> o = (SetManager<?>) constructor.newInstance(initArgs);
+        constructor.setAccessible(false);
+        registry.put(clazz, o);
+        return o;
     }
 
     @Override

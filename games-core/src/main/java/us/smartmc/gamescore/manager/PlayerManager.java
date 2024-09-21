@@ -7,6 +7,8 @@ import java.util.UUID;
 
 public class PlayerManager extends MapManager<UUID, GameCorePlayer> {
 
+    private PlayerManager(){}
+
     @Override
     public GameCorePlayer createValueByKey(UUID key) {
         return new GameCorePlayer(key);

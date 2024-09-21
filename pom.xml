@@ -19,6 +19,7 @@
         <module>addon-modules/holograms-module</module>
         <module>sbackend-services/players-service</module>
         <module>test-backend-module</module>
+        <module>games-core</module>
     </modules>
 
     <properties>

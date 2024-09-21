@@ -19,6 +19,7 @@
         <module name="smartcore-bungee" />
         <module name="skyblock-service" />
         <module name="smartcore-spigot" />
+        <module name="games-core" />
         <module name="holograms-module" />
         <module name="lobby-module" />
         <module name="skyblock-common" />

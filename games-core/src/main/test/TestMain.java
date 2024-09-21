@@ -1,15 +1,14 @@
-import instance.TestManager;
+import instance.manager.TestSetManager;
 
 import java.util.UUID;
 
 public class TestMain {
 
     public static void main(String[] args) {
-        TestManager testManager = new TestManager();
-        UUID randomUUID = UUID.randomUUID();
-        String value = testManager.register(randomUUID);
+        TestSetManager testManager = new TestSetManager();
+        testManager.add(UUID.randomUUID());
 
-        System.out.println("VALUE?" + value);
+        System.out.println("VALUE?" + testManager);
     }
 
 }

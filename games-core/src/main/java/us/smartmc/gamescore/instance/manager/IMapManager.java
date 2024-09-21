@@ -1,4 +1,4 @@
-package us.smartmc.gamescore.instance;
+package us.smartmc.gamescore.instance.manager;
 
 import java.util.Map;
 

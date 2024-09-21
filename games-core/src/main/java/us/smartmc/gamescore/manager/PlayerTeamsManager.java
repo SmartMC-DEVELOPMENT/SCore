@@ -1,7 +1,6 @@
 package us.smartmc.gamescore.manager;
 
 import us.smartmc.gamescore.instance.manager.MapManager;
-import us.smartmc.gamescore.instance.player.PlayerTeam;
 
 import java.util.UUID;
 

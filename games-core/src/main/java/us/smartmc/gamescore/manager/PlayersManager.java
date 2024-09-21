@@ -10,7 +10,7 @@ public class PlayersManager extends MapManager<UUID, GameCorePlayer> {
     private PlayersManager(){}
 
     @Override
-    public GameCorePlayer createValueByKey(UUID key) {
-        return new GameCorePlayer(key);
+    public GameCorePlayer createValueByKey(UUID uuid) {
+        return new GameCorePlayer(uuid);
     }
 }

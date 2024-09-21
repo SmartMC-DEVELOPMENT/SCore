@@ -1,13 +1,13 @@
 package us.smartmc.gamescore.manager;
 
-import us.smartmc.gamescore.instance.GameCorePlayer;
+import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.manager.MapManager;
 
 import java.util.UUID;
 
-public class PlayerManager extends MapManager<UUID, GameCorePlayer> {
+public class PlayersManager extends MapManager<UUID, GameCorePlayer> {
 
-    private PlayerManager(){}
+    private PlayersManager(){}
 
     @Override
     public GameCorePlayer createValueByKey(UUID key) {

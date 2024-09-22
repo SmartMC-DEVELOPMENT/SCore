@@ -3,6 +3,7 @@ package us.smartmc.gamescore.listener;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import us.smartmc.gamescore.instance.game.Game;
@@ -13,7 +14,7 @@ import us.smartmc.gamescore.manager.GenericGameTeamsManager;
 
 public class GameTeamsManagerListeners implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayersDamage(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player damager && event.getEntity() instanceof Player entity) {
             boolean areInSameTeam = areAtSameTeam(damager, entity);

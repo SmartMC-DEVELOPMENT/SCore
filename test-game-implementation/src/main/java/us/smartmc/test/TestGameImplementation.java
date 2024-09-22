@@ -29,22 +29,6 @@ public class TestGameImplementation extends JavaPlugin implements Listener {
         mainScoreboard = scoreboardsManager.getOrCreate("main_ES");
 
         mainScoreboard.load();
-
-        // Player name test variable
-        VariablesHandler.register(new IVariableListener<Player>() {
-            @Override
-            public String parse(String s) {
-                return s;
-            }
-
-            @Override
-            public String parse(Player player, String s) {
-                if (s.contains("<player_name>")) {
-                    s = s.replace("<player_name>", player.getName());
-                }
-                return s;
-            }
-        });
     }
 
     @EventHandler

@@ -26,8 +26,9 @@ public class TestGameImplementation extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
 
         scoreboardsManager = MapManager.getManager(ScoreboardsManager.class);
-        mainScoreboard = scoreboardsManager.getOrCreate("main_ES");
+        scoreboardsManager.registerMultiLanguage("main");
 
+        mainScoreboard = scoreboardsManager.get("main_ES");
         mainScoreboard.load();
     }
 

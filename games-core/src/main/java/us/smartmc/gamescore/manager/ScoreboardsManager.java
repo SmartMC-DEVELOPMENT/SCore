@@ -30,16 +30,6 @@ public class ScoreboardsManager extends MapManager<String, PluginScoreboard> {
         }
     }
 
-    @Override
-    public PluginScoreboard register(String key) {
-        if (keyEndsWithLanguage(key)) return super.register(key);
-        else {
-            registerMultiLanguage(key);
-            return get(key + "_" + Language.getDefault().name());
-        }
-    }
-
-
     private boolean keyEndsWithLanguage(String key) {
         boolean endsWithLanguage = false;
         for (Language language : Language.values()) {
@@ -57,6 +47,8 @@ public class ScoreboardsManager extends MapManager<String, PluginScoreboard> {
         String genericName = args[0];
         String langName = args[1];
         Language language = Language.valueOf(langName);
-        return new PluginScoreboard(genericName, language);
+        PluginScoreboard pluginScoreboard = new PluginScoreboard(genericName, language);
+        pluginScoreboard.load();
+        return pluginScoreboard;
     }
 }

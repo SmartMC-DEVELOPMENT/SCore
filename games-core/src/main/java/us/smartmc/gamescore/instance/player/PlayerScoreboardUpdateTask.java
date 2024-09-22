@@ -67,7 +67,6 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
 
         // Set scoreboard
         player.setScoreboard(playerScoreboard.getScoreboard());
-        player.sendMessage("Lines=" + pluginScoreboard.getLines().toString());
     }
 
     @Override

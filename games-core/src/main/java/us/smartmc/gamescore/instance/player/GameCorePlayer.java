@@ -30,11 +30,6 @@ public class GameCorePlayer {
 
         // Register to the playersManager
         GamesCoreAPI.getPlayersManager().put(uuid, this);
-
-        // TODO: REMOVE THIS CONSUME PLAYER WHEN TESTED IN BUKKIT! :D
-        BukkitUtil.consumePlayer(uuid, player -> {
-            player.sendMessage("DEBUG: Se ha creado instancia GameCorePlayer!");
-        });
     }
 
     public void setStatus(PlayerStatus status) {

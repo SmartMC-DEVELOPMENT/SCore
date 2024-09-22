@@ -4,7 +4,7 @@ import us.smartmc.gamescore.instance.player.GameCorePlayer;
 
 public abstract class PlayerStatistic<O> implements IPlayerStatistic<O> {
 
-    private final String name;
+    protected final String name;
 
     public PlayerStatistic() {
         this.name = getName(this);
@@ -12,12 +12,12 @@ public abstract class PlayerStatistic<O> implements IPlayerStatistic<O> {
 
     @Override
     public void updateValue(GameCorePlayer gamePlayer, O value) {
-        
+        gamePlayer.getStats().put(name, value);
     }
 
     @Override
     public O getValue(GameCorePlayer gamePlayer) {
-        return null;
+        return (O) gamePlayer.getStats().get(name);
     }
 
     private static String getName(PlayerStatistic<?> instance) {

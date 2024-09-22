@@ -5,20 +5,20 @@ import java.util.UUID;
 
 public class CorePlayers {
 
+    private static final TestStat stat = new TestStat();
+
     public static void main(String[] args) {
         testStats();
-
         GameCorePlayer gameCorePlayer = new GameCorePlayer(UUID.randomUUID());
-
-        System.out.println("STAT = " + gameCorePlayer.getStats().get("test_number"));
-        System.out.println("TYPEOF STAT = " + gameCorePlayer.getStats().get("test_number").getClass());
+        stat.increase(gameCorePlayer);
+        System.out.println("STAT = " + stat.getValue(gameCorePlayer));
+        System.out.println("DATA = " + gameCorePlayer.getStats().getDataDocument().toString());
     }
 
     private static void testStats() {
         PlayerStatisticsManager manager = PlayerStatisticsManager.getManager(PlayerStatisticsManager.class);
         if (manager == null) return;
-        manager.register(new TestStat());
-
+        manager.register(stat);
     }
 
 }

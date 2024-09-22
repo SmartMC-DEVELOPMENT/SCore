@@ -15,8 +15,6 @@ import java.util.function.Consumer;
 
 public class BukkitUtil {
 
-    private static final JavaPlugin plugin = GamesCoreAPI.getApi().getPlugin();
-
     public static void consumePlayer(UUID uuid, Consumer<Player> consumer) {
         getPlayer(uuid).ifPresent(consumer);
     }
@@ -48,7 +46,7 @@ public class BukkitUtil {
             }, millis);
             return;
         }
-        Bukkit.getScheduler().runTaskLater(plugin, runnable, ticksDelay);
+        Bukkit.getScheduler().runTaskLater(getPlugin(), runnable, ticksDelay);
     }
 
     public static void runSync(Runnable runnable) {
@@ -69,5 +67,9 @@ public class BukkitUtil {
 
     public static void callEvent(Event event) {
         Bukkit.getPluginManager().callEvent(event);
+    }
+
+    private static JavaPlugin getPlugin() {
+        return GamesCoreAPI.getApi().getPlugin();
     }
 }

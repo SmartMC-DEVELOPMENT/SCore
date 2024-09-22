@@ -22,7 +22,7 @@ public class PlayersManagerListeners implements Listener {
         Player player = event.getPlayer();
         if (playersManager == null) throw new NonExistentManagerExpection(PlayersManager.class);
         GameCorePlayer gameCorePlayer = playersManager.register(player.getUniqueId());
-        BukkitUtil.callEvent(new GamePlayerJoinEvent(player, gameCorePlayer));
+        BukkitUtil.callEvent(new GamePlayerJoinEvent(gameCorePlayer));
     }
 
     @EventHandler
@@ -30,6 +30,6 @@ public class PlayersManagerListeners implements Listener {
         Player player = event.getPlayer();
         if (playersManager == null) throw new NonExistentManagerExpection(PlayersManager.class);
         GameCorePlayer gameCorePlayer = playersManager.remove(player.getUniqueId());
-        BukkitUtil.callEvent(new GamePlayerQuitEvent(player, gameCorePlayer));
+        BukkitUtil.callEvent(new GamePlayerQuitEvent(gameCorePlayer));
     }
 }

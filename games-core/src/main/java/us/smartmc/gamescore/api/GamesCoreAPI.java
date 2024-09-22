@@ -1,15 +1,20 @@
 package us.smartmc.gamescore.api;
 
+import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.PlayersManager;
 
 public abstract class GamesCoreAPI implements IGamesCoreAPI {
 
+    @Getter
+    private static GamesCoreAPI api;
+
     private final JavaPlugin plugin;
 
     public GamesCoreAPI(JavaPlugin plugin) {
         this.plugin = plugin;
+        api = this;
     }
 
     @Override

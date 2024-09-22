@@ -15,8 +15,12 @@ public class GameCorePlayer {
     @Getter
     private PlayerStatus status = PlayerStatus.LOBBY;
 
+    @Getter
+    private final GamePlayerStats stats;
+
     public GameCorePlayer(UUID uuid) {
         this.uuid = uuid;
+        this.stats = new GamePlayerStats(uuid);
 
         // Register to the playersManager
         GamesCoreAPI.getPlayersManager().put(uuid, this);

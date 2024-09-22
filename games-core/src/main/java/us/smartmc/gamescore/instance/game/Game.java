@@ -47,6 +47,7 @@ public abstract class Game implements IGame {
     @Override
     public void joinPlayer(GameCorePlayer player) {
         players.add(player);
+        player.setCurrentGame(this);
         player.setStatus(PlayerStatus.PRE_GAME);
     }
 

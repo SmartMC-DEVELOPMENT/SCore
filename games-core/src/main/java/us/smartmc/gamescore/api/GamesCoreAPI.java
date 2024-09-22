@@ -2,8 +2,6 @@ package us.smartmc.gamescore.api;
 
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
-import us.smartmc.gamescore.instance.manager.ListManager;
-import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.manager.SetManager;
 import us.smartmc.gamescore.manager.GamesManager;
 import us.smartmc.gamescore.manager.PlayersManager;

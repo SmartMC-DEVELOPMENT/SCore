@@ -2,7 +2,6 @@ package us.smartmc.gamescore.instance.player;
 
 import lombok.Getter;
 import org.bson.Document;
-import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.manager.SetManager;
 import us.smartmc.gamescore.instance.player.statistic.IPlayerStatistic;
 import us.smartmc.gamescore.manager.PlayerStatisticsManager;

@@ -15,11 +15,11 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public abstract class Game implements IGame {
+public class Game implements IGame {
 
     // Identifier for the game session instance (4 the future we can use that for save histories, last games, etc...)
     @Getter
-    private final UUID sessionId = UUID.randomUUID();
+    private final UUID sessionId;
 
     protected GameStatus status = GameStatus.WAITING;
 
@@ -30,6 +30,16 @@ public abstract class Game implements IGame {
     protected final Set<GameCorePlayer> players = new HashSet<>();
 
     private final GameSessionTeamsManager teamsManager = new GameSessionTeamsManager();
+
+    // Create constructor
+    public Game() {
+        this(UUID.randomUUID());
+    }
+
+    // Main constructor (UUID impl.)
+    public Game(UUID uuid) {
+        this.sessionId = uuid;
+    }
 
     @Override
     public void start() {

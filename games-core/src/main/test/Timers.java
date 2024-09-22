@@ -2,7 +2,7 @@ import us.smartmc.gamescore.instance.timer.Timer;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TestTimers {
+public class Timers {
 
     public static void main(String[] args) {
         // GameCountdownTimer

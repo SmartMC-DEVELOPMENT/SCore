@@ -2,7 +2,7 @@ import us.smartmc.gamescore.instance.game.team.GameTeam;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.GenericGameTeamsManager;
 
-public class TestGameTeams {
+public class GameTeams {
 
     public static void main(String[] args) {
         GenericGameTeamsManager manager = MapManager.getManager(GenericGameTeamsManager.class);

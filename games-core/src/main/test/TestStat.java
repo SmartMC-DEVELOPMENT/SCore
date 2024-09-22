@@ -1,5 +1,3 @@
-package instance.stat;
-
 import us.smartmc.gamescore.instance.player.statistic.PlayerStatistic;
 import us.smartmc.gamescore.instance.player.statistic.PlayerStatisticName;
 

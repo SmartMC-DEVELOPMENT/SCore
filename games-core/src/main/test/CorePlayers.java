@@ -1,12 +1,9 @@
-import instance.stat.TestStat;
-import us.smartmc.gamescore.instance.game.team.ColorGameTeamColor;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
-import us.smartmc.gamescore.instance.player.PlayerStatus;
 import us.smartmc.gamescore.manager.PlayerStatisticsManager;
 
 import java.util.UUID;
 
-public class TestCorePlayers {
+public class CorePlayers {
 
     public static void main(String[] args) {
         testStats();

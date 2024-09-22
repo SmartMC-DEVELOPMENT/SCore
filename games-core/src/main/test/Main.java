@@ -4,7 +4,7 @@ import us.smartmc.gamescore.manager.PlayersManager;
 
 import java.util.UUID;
 
-public class TestMain {
+public class Main {
 
     public static void main(String[] args) {
         TestSetManager testManager = new TestSetManager();

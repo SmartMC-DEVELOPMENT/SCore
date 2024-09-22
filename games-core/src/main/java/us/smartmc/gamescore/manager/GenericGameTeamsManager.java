@@ -2,15 +2,21 @@ package us.smartmc.gamescore.manager;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
+import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.game.team.ColorGameTeam;
 import us.smartmc.gamescore.instance.game.team.GameTeam;
 import us.smartmc.gamescore.instance.manager.MapManager;
+import us.smartmc.gamescore.listener.GameTeamsManagerListeners;
 
-@Setter
-@Getter
+@Getter @Setter
 public class GenericGameTeamsManager extends MapManager<String, GameTeam> {
 
     private boolean allyDamageAllowed = false;
+
+    public GenericGameTeamsManager() {
+        Bukkit.getPluginManager().registerEvents(new GameTeamsManagerListeners(), GamesCoreAPI.getApi().getPlugin());
+    }
 
     public ColorGameTeam getGameTeam(String name) {
         GameTeam team = get(name);

@@ -37,7 +37,7 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
         playerScoreboard.getObjective().setDisplayName(formattedTitle);
 
         // Setup lines
-        int lineIndex = pluginScoreboard.getLines().size() -1;
+        int lineIndex = pluginScoreboard.getLines().size() - 1;
         for (String unformattedLine : pluginScoreboard.getLines()) {
             String formattedLine = ChatUtil.parse(player, unformattedLine);
 
@@ -46,14 +46,21 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
                 scoresToUpdate.add(lineIndex);
             }
             Team team = playerScoreboard.getScoreboard().registerNewTeam("l" + lineIndex);
-            String entry = entries.get(lineIndex);
-            team.addEntry(entry);
+
+            String entryAddition = null;
+
             if (formattedLine.length() > 16) {
                 String prefix = formattedLine.substring(0, 16);
                 String suffix = formattedLine.substring(16);
                 team.setSuffix(suffix);
                 team.setPrefix(prefix);
+                entryAddition = getLastFormat(prefix);
+            } else {
+                team.setPrefix(formattedLine);
             }
+
+            String entry = entries.get(lineIndex) + (entryAddition == null ? "" : entryAddition);
+            team.addEntry(entry);
             playerScoreboard.getObjective().getScore(entry).setScore(lineIndex);
             lineIndex--;
         }
@@ -88,6 +95,8 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
                 String suffix = formattedLine.substring(17);
                 team.setSuffix(suffix);
                 team.setPrefix(prefix);
+            } else {
+                team.setPrefix(formattedLine);
             }
         }
     }
@@ -115,6 +124,27 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
             set.add(stringBuilder.toString());
         }
         return new ArrayList<>(set);
+    }
+
+    public static String getLastFormat(String text) {
+        // Regex para encontrar códigos de formato: § seguido de cualquier carácter
+        String regex = "§[0-9a-fk-or]";
+        String lastFormat = null;
+
+        // Bucle por cada carácter del texto
+        for (int i = 0; i < text.length() - 1; i++) {
+            // Si se encuentra un carácter § seguido de uno válido
+            if (text.charAt(i) == '§' && i + 1 < text.length()) {
+                char formatChar = text.charAt(i + 1);
+
+                // Validar si es un código de formato correcto
+                if (ChatColor.getByChar(formatChar) != null) {
+                    lastFormat = "§" + formatChar; // Guardar el último código de formato
+                }
+            }
+        }
+
+        return lastFormat;
     }
 
 }

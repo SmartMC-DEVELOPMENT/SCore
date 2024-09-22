@@ -84,10 +84,10 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
         teams.forEach((teamName, unformattedLine) -> {
             Team team = playerScoreboard.getScoreboard().getTeam(teamName);
             String formattedLine = ChatUtil.parse(playerScoreboard.getPlayer(), unformattedLine);
-            System.out.println("UPDATING " + unformattedLine);
+
             if (formattedLine.length() > 16) {
                 String prefix = formattedLine.substring(0, 16);
-                String suffix = formattedLine.substring(17);
+                String suffix = formattedLine.substring(16);
                 team.setSuffix(suffix);
                 team.setPrefix(prefix);
             } else {

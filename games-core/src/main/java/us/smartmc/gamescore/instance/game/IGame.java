@@ -1,6 +1,6 @@
 package us.smartmc.gamescore.instance.game;
 
-import org.bukkit.entity.Player;
+import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
 import us.smartmc.gamescore.instance.timer.CountdownTimer;
 import us.smartmc.gamescore.manager.GameSessionTeamsManager;
@@ -35,21 +35,21 @@ public interface IGame {
     void setStatus(GameStatus status);
     GameStatus getStatus();
 
-    void joinPlayer(Player player);
-    void joinSpectatorViewer(Player player);
+    void joinPlayer(GameCorePlayer player);
+    void joinSpectatorViewer(GameCorePlayer player);
 
-    void killPlayer(Player player);
+    void killPlayer(GameCorePlayer player);
 
-    void leavePlayer(Player player);
+    void leavePlayer(GameCorePlayer player);
 
-    default Set<Player> getSpectators() {
-        Set<Player> players = getPlayersByStatus(PlayerStatus.SPECTATOR_VIEWER);
+    default Set<GameCorePlayer> getSpectators() {
+        Set<GameCorePlayer> players = getPlayersByStatus(PlayerStatus.SPECTATOR_VIEWER);
         players.addAll(getPlayersByStatus(PlayerStatus.SPECTATOR_DEATH));
         return players;
     }
 
-    Set<Player> getPlayersByStatus(PlayerStatus status);
-    Set<Player> getPlayers();
+    Set<GameCorePlayer> getPlayersByStatus(PlayerStatus status);
+    Set<GameCorePlayer> getPlayers();
 
     GameSessionTeamsManager getGameSessionTeamsManager();
 

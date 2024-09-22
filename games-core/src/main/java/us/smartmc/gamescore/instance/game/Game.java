@@ -1,7 +1,6 @@
 package us.smartmc.gamescore.instance.game;
 
 import lombok.Getter;
-import org.bukkit.entity.Player;
 import us.smartmc.gamescore.event.game.*;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
@@ -21,7 +20,7 @@ public abstract class Game implements IGame {
     protected CountdownTimer startTimer, endTimer;
 
     @Getter
-    protected final Set<Player> players = new HashSet<>();
+    protected final Set<GameCorePlayer> players = new HashSet<>();
 
     private final GameSessionTeamsManager teamsManager = new GameSessionTeamsManager();
 
@@ -46,33 +45,30 @@ public abstract class Game implements IGame {
     }
 
     @Override
-    public void joinPlayer(Player player) {
+    public void joinPlayer(GameCorePlayer player) {
         players.add(player);
-        GameCorePlayer.of(player).setStatus(PlayerStatus.PRE_GAME);
+        player.setStatus(PlayerStatus.PRE_GAME);
     }
 
     @Override
-    public void joinSpectatorViewer(Player player) {
-        GameCorePlayer.of(player).setStatus(PlayerStatus.SPECTATOR_VIEWER);
+    public void joinSpectatorViewer(GameCorePlayer player) {
+        player.setStatus(PlayerStatus.SPECTATOR_VIEWER);
     }
 
     @Override
-    public void leavePlayer(Player player) {
+    public void leavePlayer(GameCorePlayer player) {
         players.remove(player);
-        teamsManager.remove(player);
+        teamsManager.remove(player.getUUID());
     }
 
     @Override
-    public void killPlayer(Player player) {
-        GameCorePlayer.of(player).setStatus(PlayerStatus.SPECTATOR_DEATH);
+    public void killPlayer(GameCorePlayer player) {
+        player.setStatus(PlayerStatus.SPECTATOR_DEATH);
     }
 
     @Override
-    public Set<Player> getPlayersByStatus(PlayerStatus status) {
-        return getPlayers().stream().filter(player -> {
-            GameCorePlayer gameCorePlayer = GameCorePlayer.of(player);
-            return gameCorePlayer.getStatus().equals(status);
-        }).collect(Collectors.toSet());
+    public Set<GameCorePlayer> getPlayersByStatus(PlayerStatus status) {
+        return getPlayers().stream().filter(player -> player.getStatus().equals(status)).collect(Collectors.toSet());
     }
 
     @Override

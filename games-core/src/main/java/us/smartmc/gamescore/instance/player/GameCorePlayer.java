@@ -1,9 +1,11 @@
 package us.smartmc.gamescore.instance.player;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.event.player.GamePlayerStatusChangeEvent;
+import us.smartmc.gamescore.instance.game.Game;
 import us.smartmc.gamescore.util.BukkitUtil;
 
 import java.util.UUID;
@@ -17,6 +19,9 @@ public class GameCorePlayer {
 
     @Getter
     private final GamePlayerStats stats;
+
+    @Setter @Getter
+    private Game currentGame;
 
     public GameCorePlayer(UUID uuid) {
         this.uuid = uuid;

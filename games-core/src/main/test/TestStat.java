@@ -11,6 +11,11 @@ public class TestStat extends IntegerStatistic {
     }
 
     @Override
+    public int getMax() {
+        return 30;
+    }
+
+    @Override
     public int getMin() {
         return 0;
     }

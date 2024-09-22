@@ -11,7 +11,7 @@ public class CorePlayers {
         testStats();
         GameCorePlayer gameCorePlayer = new GameCorePlayer(UUID.randomUUID());
         for (int i = 0; i < 100; i++) {
-            stat.decrease(gameCorePlayer);
+            stat.increase(gameCorePlayer);
         }
         System.out.println("STAT = " + stat.getValue(gameCorePlayer));
         System.out.println("DATA = " + gameCorePlayer.getStats().getDataDocument().toString());

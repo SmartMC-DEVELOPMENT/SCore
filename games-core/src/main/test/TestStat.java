@@ -9,4 +9,9 @@ public class TestStat extends IntegerStatistic {
     public Integer getDefaultValue() {
         return 77;
     }
+
+    @Override
+    public int getMin() {
+        return 0;
+    }
 }

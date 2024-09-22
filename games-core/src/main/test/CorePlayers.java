@@ -10,7 +10,9 @@ public class CorePlayers {
     public static void main(String[] args) {
         testStats();
         GameCorePlayer gameCorePlayer = new GameCorePlayer(UUID.randomUUID());
-        stat.increase(gameCorePlayer);
+        for (int i = 0; i < 100; i++) {
+            stat.decrease(gameCorePlayer);
+        }
         System.out.println("STAT = " + stat.getValue(gameCorePlayer));
         System.out.println("DATA = " + gameCorePlayer.getStats().getDataDocument().toString());
     }

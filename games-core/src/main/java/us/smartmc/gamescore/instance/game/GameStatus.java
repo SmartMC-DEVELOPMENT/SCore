@@ -7,7 +7,7 @@ import java.util.Set;
 
 public enum GameStatus {
 
-    WAITING, STARTING, STARTING_FULL, IN_GAME, ENDING;
+    WAITING, STARTING, STARTING_FULL, PLAYING, ENDING;
 
     GameStatus() {
 

@@ -12,6 +12,12 @@ import java.util.Set;
 @Getter
 public class GamesManager extends SetManager<IGame> {
 
+    public void unregisterPlayer(Player player) {
+        forEach(game -> {
+            game.leavePlayer(player);
+        });
+    }
+
     public Set<IGame> getWaitingGames() {
         return getGamesByStatus(GameStatus.WAITING);
     }
@@ -20,10 +26,12 @@ public class GamesManager extends SetManager<IGame> {
         return getGamesByStatus(GameStatus.WAITING);
     }
 
-    public void unregisterPlayer(Player player) {
-        forEach(game -> {
-            game.leavePlayer(player);
-        });
+    public Set<IGame> getPlayingGames() {
+        return getGamesByStatus(GameStatus.PLAYING);
+    }
+
+    public Set<IGame> getEndingGames() {
+        return getGamesByStatus(GameStatus.ENDING);
     }
 
     public Set<IGame> getGamesByStatus(GameStatus status) {

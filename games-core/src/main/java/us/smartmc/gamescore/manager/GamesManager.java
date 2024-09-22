@@ -19,7 +19,6 @@ public class GamesManager extends MapManager<UUID, IGame> {
         forEach((id, game) -> {
             game.leavePlayer(GameCorePlayer.of(player));
         });
-
     }
 
     public Set<IGame> getWaitingGames() {

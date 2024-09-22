@@ -36,7 +36,7 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
     }
 
     public static GamesManager getGamesManager() {
-        return ListManager.getManager(GamesManager.class);
+        return SetManager.getManager(GamesManager.class);
     }
 
     public static PlayersManager getPlayersManager() {

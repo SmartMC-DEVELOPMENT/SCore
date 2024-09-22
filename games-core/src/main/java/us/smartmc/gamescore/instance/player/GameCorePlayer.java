@@ -20,7 +20,8 @@ public class GameCorePlayer {
     @Getter
     private final GamePlayerStats stats;
 
-    @Setter @Getter
+    @Setter
+    @Getter
     private Game currentGame;
 
     public GameCorePlayer(UUID uuid) {
@@ -42,6 +43,10 @@ public class GameCorePlayer {
         BukkitUtil.getPlayer(uuid).ifPresent(bukkitPlayer -> {
             BukkitUtil.callEvent(new GamePlayerStatusChangeEvent(bukkitPlayer, previousStatus, status));
         });
+    }
+
+    public Player getBukkitPlayer() {
+        return BukkitUtil.getPlayer(uuid).orElse(null);
     }
 
     public UUID getUUID() {

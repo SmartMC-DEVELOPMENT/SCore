@@ -12,8 +12,8 @@ public abstract class GameCorePlayerEvent extends GameCoreEvent {
     private final GameCorePlayer corePlayer;
     private final Player bukkitPlayer;
 
-    public GameCorePlayerEvent(Player player, GameCorePlayer corePlayer) {
-        this.bukkitPlayer = player;
+    public GameCorePlayerEvent(GameCorePlayer corePlayer) {
+        this.bukkitPlayer = corePlayer.getBukkitPlayer();
         this.corePlayer = corePlayer;
     }
 

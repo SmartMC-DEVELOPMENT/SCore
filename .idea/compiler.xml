@@ -19,11 +19,16 @@
         <module name="smartcore-bungee" />
         <module name="skyblock-service" />
         <module name="smartcore-spigot" />
-        <module name="games-core" />
         <module name="holograms-module" />
         <module name="lobby-module" />
         <module name="skyblock-common" />
         <module name="lobby-cosmetics" />
+      </profile>
+      <profile name="Annotation profile for SCore" enabled="true">
+        <sourceOutputDir name="../games-core/test-game-implementation/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../games-core/test-game-implementation/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="test-game-implementation" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

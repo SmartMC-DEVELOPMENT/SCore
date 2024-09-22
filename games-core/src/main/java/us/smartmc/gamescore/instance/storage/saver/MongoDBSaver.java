@@ -2,6 +2,7 @@ package us.smartmc.gamescore.instance.storage.saver;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.ReplaceOptions;
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import org.bson.Document;
 
 import java.util.Map;
@@ -9,10 +10,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class MongoDBSaver implements IDataSaver {
 
-    private final MongoCollection<Document> collection;
+    private final String database, collection;
     private final Document query;
 
-    public MongoDBSaver(MongoCollection<Document> collection, Document query) {
+    public MongoDBSaver(String database, String collection, Document query) {
+        this.database = database;
         this.collection = collection;
         this.query = query;
     }
@@ -20,7 +22,7 @@ public class MongoDBSaver implements IDataSaver {
     @Override
     public void save(boolean async, Map<String, Object> data) {
         Runnable action = () -> {
-            collection.replaceOne(query, new Document(data), new ReplaceOptions().upsert(true));
+            getCollection().replaceOne(query, new Document(data), new ReplaceOptions().upsert(true));
         };
 
         if (async) {
@@ -33,4 +35,9 @@ public class MongoDBSaver implements IDataSaver {
         }
         action.run();
     }
+
+    private MongoCollection<Document> getCollection() {
+        return MongoDBConnection.mainConnection.getDatabase(database).getCollection(collection);
+    }
+
 }

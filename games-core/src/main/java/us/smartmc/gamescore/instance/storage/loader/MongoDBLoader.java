@@ -1,20 +1,27 @@
 package us.smartmc.gamescore.instance.storage.loader;
 
 import com.mongodb.client.MongoCollection;
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import org.bson.Document;
 
 import java.util.Map;
 
-public class MongoDBLoader<T extends Document> implements IDataLoader<T> {
+public class MongoDBLoader implements IDataLoader<Document> {
 
-    private final MongoCollection<Document> collection;
+    private final String database, collection;
 
-    public MongoDBLoader(MongoCollection<Document> collection) {
+    public MongoDBLoader(String database, String collection) {
+        this.database = database;
         this.collection = collection;
     }
 
     @Override
     public Map<String, Object> load(Document queryDocument) {
-        return collection.find(queryDocument).first();
+        return getCollection().find(queryDocument).first();
     }
+
+    private MongoCollection<Document> getCollection() {
+        return MongoDBConnection.mainConnection.getDatabase(database).getCollection(collection);
+    }
+
 }

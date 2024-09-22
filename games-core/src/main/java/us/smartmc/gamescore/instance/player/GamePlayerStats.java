@@ -5,6 +5,8 @@ import org.bson.Document;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.manager.SetManager;
 import us.smartmc.gamescore.instance.player.statistic.IPlayerStatistic;
+import us.smartmc.gamescore.instance.storage.loader.MongoDBLoader;
+import us.smartmc.gamescore.instance.storage.saver.MongoDBSaver;
 import us.smartmc.gamescore.manager.PlayerStatisticsManager;
 
 import java.util.UUID;
@@ -17,6 +19,20 @@ public class GamePlayerStats extends MapManager<String, Object> {
     public GamePlayerStats(UUID uuid) {
         this.uuid = uuid;
         registerDefaultStats();
+    }
+
+    private void loadFromDatabase(String database, String collection) {
+        MongoDBLoader loader = new MongoDBLoader(database, collection);
+        putAll(loader.load(getDatabaseQuery()));
+    }
+
+    private void saveToDatabase(boolean async, String database, String collection) {
+        MongoDBSaver saver = new MongoDBSaver(database, collection, getDatabaseQuery());
+        saver.save(async, this);
+    }
+
+    private Document getDatabaseQuery() {
+        return new Document("_id", uuid.toString());
     }
 
     private void registerDefaultStats() {

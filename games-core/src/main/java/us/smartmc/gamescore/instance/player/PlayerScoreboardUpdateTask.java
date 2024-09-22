@@ -83,7 +83,7 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
 
         // Lines
         List<String> unformattedLines = pluginScoreboard.getLines();
-        for (int index = unformattedLines.size(); index > 0; index--) {
+        for (int index = unformattedLines.size() - 1; index > 0; index--) {
             // First checks if index is in the set of scores that have to change, when not continues iterating
             if (!scoresToUpdate.contains(index)) continue;
 

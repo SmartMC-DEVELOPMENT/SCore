@@ -2,6 +2,8 @@ package us.smartmc.gamescore.instance.game;
 
 import lombok.Getter;
 import us.smartmc.gamescore.event.game.*;
+import us.smartmc.gamescore.event.player.GamePlayerGameJoinEvent;
+import us.smartmc.gamescore.event.player.GamePlayerQuitEvent;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
 import us.smartmc.gamescore.instance.timer.CountdownTimer;
@@ -10,9 +12,14 @@ import us.smartmc.gamescore.util.BukkitUtil;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public abstract class Game implements IGame {
+
+    // Identifier for the game session instance (4 the future we can use that for save histories, last games, etc...)
+    @Getter
+    private final UUID sessionId = UUID.randomUUID();
 
     protected GameStatus status = GameStatus.WAITING;
 
@@ -49,6 +56,7 @@ public abstract class Game implements IGame {
         players.add(player);
         player.setCurrentGame(this);
         player.setStatus(PlayerStatus.PRE_GAME);
+        BukkitUtil.callEvent(new GamePlayerGameJoinEvent(player));
     }
 
     @Override
@@ -60,6 +68,8 @@ public abstract class Game implements IGame {
     public void leavePlayer(GameCorePlayer player) {
         players.remove(player);
         teamsManager.remove(player.getUUID());
+        player.setCurrentGame(null);
+        BukkitUtil.callEvent(new GamePlayerQuitEvent(player));
     }
 
     @Override

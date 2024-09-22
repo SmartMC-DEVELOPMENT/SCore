@@ -7,8 +7,11 @@ import us.smartmc.gamescore.manager.GameSessionTeamsManager;
 import us.smartmc.gamescore.manager.GamesManager;
 
 import java.util.Set;
+import java.util.UUID;
 
 public interface IGame {
+
+    UUID getSessionId();
 
     CountdownTimer getStartTimer();
     CountdownTimer getEndTimer();

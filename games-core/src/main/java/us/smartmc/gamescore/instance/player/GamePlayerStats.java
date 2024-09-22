@@ -21,12 +21,12 @@ public class GamePlayerStats extends MapManager<String, Object> {
         registerDefaultStats();
     }
 
-    private void loadFromDatabase(String database, String collection) {
+    public void loadFromDatabase(String database, String collection) {
         MongoDBLoader loader = new MongoDBLoader(database, collection);
         putAll(loader.load(getDatabaseQuery()));
     }
 
-    private void saveToDatabase(boolean async, String database, String collection) {
+    public void saveToDatabase(boolean async, String database, String collection) {
         MongoDBSaver saver = new MongoDBSaver(database, collection, getDatabaseQuery());
         saver.save(async, this);
     }

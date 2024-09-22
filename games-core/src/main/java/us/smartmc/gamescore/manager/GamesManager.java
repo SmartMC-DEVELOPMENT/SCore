@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import us.smartmc.gamescore.instance.game.GameStatus;
 import us.smartmc.gamescore.instance.game.IGame;
 import us.smartmc.gamescore.instance.manager.SetManager;
+import us.smartmc.gamescore.instance.player.GameCorePlayer;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,7 @@ public class GamesManager extends SetManager<IGame> {
 
     public void unregisterPlayer(Player player) {
         forEach(game -> {
-            game.leavePlayer(player);
+            game.leavePlayer(GameCorePlayer.of(player));
         });
     }
 

@@ -106,7 +106,7 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
         for (int i = 0; i < 200; i++) {
             if (set.size() >= size) break;
             StringBuilder stringBuilder = new StringBuilder();
-            for (int i2 = 0; i2 < 2; i2++) {
+            for (int i2 = 0; i2 < 4; i2++) {
                 int randomColor = new Random().nextInt(colorsSize);
                 ChatColor color = ChatColor.values()[randomColor];
                 stringBuilder.append('§').append(color.getChar());

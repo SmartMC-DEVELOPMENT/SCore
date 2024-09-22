@@ -2,11 +2,34 @@ package us.smartmc.gamescore.instance.game;
 
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
+import us.smartmc.gamescore.instance.timer.CountdownTimer;
 import us.smartmc.gamescore.manager.GamesManager;
 
 import java.util.Set;
 
 public interface IGame {
+
+    CountdownTimer getStartTimer();
+    CountdownTimer getEndTimer();
+
+    default void startWithCountdown() {
+        if (getStartTimer() == null) {
+            start();
+            return;
+        }
+        getStartTimer().start();
+    }
+
+    default void endWithCountdown() {
+        if (getEndTimer() == null) {
+            end();
+            return;
+        }
+        getEndTimer().start();
+    }
+
+    void start();
+    void end();
 
     void setStatus(GameStatus status);
     GameStatus getStatus();

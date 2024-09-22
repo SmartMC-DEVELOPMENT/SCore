@@ -1,7 +1,5 @@
-import us.smartmc.gamescore.instance.game.timer.CountdownTimer;
-import us.smartmc.gamescore.instance.game.timer.Timer;
+import us.smartmc.gamescore.instance.timer.Timer;
 
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestTimers {

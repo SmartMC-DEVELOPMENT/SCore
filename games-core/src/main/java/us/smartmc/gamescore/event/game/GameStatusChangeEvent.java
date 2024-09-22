@@ -1,4 +1,4 @@
-package us.smartmc.gamescore.event;
+package us.smartmc.gamescore.event.game;
 
 import lombok.Getter;
 import us.smartmc.gamescore.instance.event.GameCoreGameEvent;

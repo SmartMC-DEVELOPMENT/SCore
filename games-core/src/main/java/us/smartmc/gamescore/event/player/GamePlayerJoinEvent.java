@@ -1,12 +1,12 @@
-package us.smartmc.gamescore.event;
+package us.smartmc.gamescore.event.player;
 
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.instance.event.GameCorePlayerEvent;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 
-public class GamePlayerQuitEvent extends GameCorePlayerEvent {
+public class GamePlayerJoinEvent extends GameCorePlayerEvent {
 
-    public GamePlayerQuitEvent(Player player, GameCorePlayer corePlayer) {
+    public GamePlayerJoinEvent(Player player, GameCorePlayer corePlayer) {
         super(player, corePlayer);
     }
 }

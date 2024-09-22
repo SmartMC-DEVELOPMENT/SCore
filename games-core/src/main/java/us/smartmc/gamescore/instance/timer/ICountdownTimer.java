@@ -1,6 +1,6 @@
-package us.smartmc.gamescore.instance.game.timer;
+package us.smartmc.gamescore.instance.timer;
 
-public interface IGameCountdownTimer extends IGameTimer {
+public interface ICountdownTimer extends ITimer {
 
     long getDuration();
     long getSecondsLeft();

@@ -1,4 +1,4 @@
-package us.smartmc.gamescore.instance.game.timer;
+package us.smartmc.gamescore.instance.timer;
 
 import lombok.Getter;
 import us.smartmc.gamescore.util.BukkitUtil;
@@ -7,21 +7,21 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 @Getter
-public abstract class CountdownTimer extends Timer implements IGameCountdownTimer {
+public abstract class CountdownTimer extends Timer implements ICountdownTimer {
 
     private final CountdownTimer instance;
-    private final Consumer<IGameCountdownTimer> timerConsumer;
+    private final Consumer<ICountdownTimer> timerConsumer;
     protected final long start, end;
 
-    public CountdownTimer(Consumer<IGameCountdownTimer> timerConsumer, TimeUnit unit, long timeAmount) {
+    public CountdownTimer(Consumer<ICountdownTimer> timerConsumer, TimeUnit unit, long timeAmount) {
         this(timerConsumer, unit.toMillis(timeAmount));
     }
 
-    public CountdownTimer(Consumer<IGameCountdownTimer> timerConsumer, long countdown) {
+    public CountdownTimer(Consumer<ICountdownTimer> timerConsumer, long countdown) {
         this(timerConsumer, System.currentTimeMillis(), System.currentTimeMillis() + countdown);
     }
 
-    public CountdownTimer(Consumer<IGameCountdownTimer> timerConsumer, long start, long end) {
+    public CountdownTimer(Consumer<ICountdownTimer> timerConsumer, long start, long end) {
         super(null);
         this.instance = this;
         this.timerConsumer = timerConsumer;

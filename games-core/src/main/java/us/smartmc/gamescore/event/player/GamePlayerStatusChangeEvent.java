@@ -1,9 +1,8 @@
-package us.smartmc.gamescore.event;
+package us.smartmc.gamescore.event.player;
 
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.instance.event.GameCorePlayerEvent;
-import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
 
 @Getter

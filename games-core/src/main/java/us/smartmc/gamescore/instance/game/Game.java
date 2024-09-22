@@ -2,9 +2,10 @@ package us.smartmc.gamescore.instance.game;
 
 import lombok.Getter;
 import org.bukkit.entity.Player;
-import us.smartmc.gamescore.event.GameStatusChangeEvent;
+import us.smartmc.gamescore.event.game.*;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
+import us.smartmc.gamescore.instance.timer.CountdownTimer;
 import us.smartmc.gamescore.util.BukkitUtil;
 
 import java.util.HashSet;
@@ -16,7 +17,30 @@ public abstract class Game implements IGame {
     protected GameStatus status = GameStatus.WAITING;
 
     @Getter
+    protected CountdownTimer startTimer, endTimer;
+
+    @Getter
     protected final Set<Player> players = new HashSet<>();
+
+    @Override
+    public void start() {
+        BukkitUtil.callEvent(new GamePreStartEvent(this));
+
+        // Perform after 0,5s for call post start event
+        BukkitUtil.runLater(() -> {
+            BukkitUtil.callEvent(new GamePostStartEvent(this));
+        }, 10);
+    }
+
+    @Override
+    public void end() {
+        BukkitUtil.callEvent(new GamePreEndEvent(this));
+
+        // Perform after 0,5s for call post end event
+        BukkitUtil.runLater(() -> {
+            BukkitUtil.callEvent(new GamePostEndEvent(this));
+        }, 10);
+    }
 
     @Override
     public void joinPlayer(Player player) {

@@ -1,11 +1,11 @@
-package us.smartmc.gamescore.instance.game.timer;
+package us.smartmc.gamescore.instance.timer;
 
 import us.smartmc.gamescore.util.BukkitUtil;
 
 import java.util.TimerTask;
 import java.util.function.Consumer;
 
-public class Timer implements IGameTimer {
+public class Timer implements ITimer {
 
     private final Timer instance;
     private final java.util.Timer timer = new java.util.Timer();

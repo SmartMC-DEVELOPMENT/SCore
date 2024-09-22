@@ -111,6 +111,7 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
                 ChatColor color = ChatColor.values()[randomColor];
                 stringBuilder.append('§').append(color.getChar());
             }
+            stringBuilder.append("§r");
             set.add(stringBuilder.toString());
         }
         return new ArrayList<>(set);

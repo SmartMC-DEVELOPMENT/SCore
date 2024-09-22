@@ -49,8 +49,8 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
             String entry = entries.get(lineIndex);
             team.addEntry(entry);
             if (formattedLine.length() > 16) {
-                String suffix = formattedLine.substring(0, 16);
-                String prefix = formattedLine.substring(16);
+                String prefix = formattedLine.substring(0, 16);
+                String suffix = formattedLine.substring(16);
                 team.setSuffix(suffix);
                 team.setPrefix(prefix);
             }
@@ -84,8 +84,8 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
             String formattedLine = ChatUtil.parse(playerScoreboard.getPlayer(), unformattedLines.get(index));
 
             if (formattedLine.length() > 16) {
-                String suffix = formattedLine.substring(0, 16);
-                String prefix = formattedLine.substring(17);
+                String prefix = formattedLine.substring(0, 16);
+                String suffix = formattedLine.substring(17);
                 team.setSuffix(suffix);
                 team.setPrefix(prefix);
             }

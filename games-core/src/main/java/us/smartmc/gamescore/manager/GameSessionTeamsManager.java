@@ -2,6 +2,7 @@ package us.smartmc.gamescore.manager;
 
 import lombok.Setter;
 import org.bukkit.entity.Player;
+import us.smartmc.gamescore.instance.game.team.ColorGameTeam;
 import us.smartmc.gamescore.instance.game.team.GameTeam;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.util.BukkitUtil;
@@ -22,12 +23,18 @@ public class GameSessionTeamsManager extends MapManager<UUID, String> {
         return defaultTeamName;
     }
 
-    public String remove(Player player) {
-        String oldName = oldNames.get(player.getUniqueId());
-        if (oldName != null) {
-            player.setPlayerListName(oldName);
+    @Override
+    public String remove(Object key) {
+
+        // Rollback name if oldNames contains name
+        if (key instanceof UUID id) {
+            BukkitUtil.getPlayer(id).ifPresent(player -> {
+                String oldName = oldNames.get(player.getUniqueId());
+                if (oldName == null) return;
+                player.setDisplayName(oldName);
+            });
         }
-        return remove(player.getUniqueId());
+        return super.remove(key);
     }
 
     public GameTeam getGameTeam(Player player) {
@@ -37,12 +44,30 @@ public class GameSessionTeamsManager extends MapManager<UUID, String> {
     }
 
     @Override
+    public String put(UUID uuid, String teamName) {
+
+        BukkitUtil.getPlayer(uuid).ifPresent(player -> {
+            // Storage name for rollback later
+            String name = player.getDisplayName();
+            oldNames.put(uuid, name);
+
+            // Set displayName with color and playerName
+            GameTeam team = getGenericManager().getGameTeam(teamName);
+            if (team instanceof ColorGameTeam colorGameTeam) {
+                String formattedName = '§' + colorGameTeam.getColor().getCode() + player.getName();
+                player.setDisplayName(formattedName);
+            }
+        });
+        return super.put(uuid, teamName);
+    }
+
+    @Override
     public String getOrCreate(UUID uuid) {
         if (!containsKey(uuid)) {
             BukkitUtil.getPlayer(uuid).ifPresent(player -> {
-                String name = player.getPlayerListName();
-                oldNames.put(uuid, name);
+
             });
+
         }
         return super.getOrCreate(uuid);
     }

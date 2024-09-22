@@ -77,7 +77,7 @@ public class Game implements IGame {
     @Override
     public void leavePlayer(GameCorePlayer player) {
         players.remove(player);
-        teamsManager.remove(player.getBukkitPlayer());
+        teamsManager.remove(player.getUUID());
         player.setCurrentGame(null);
         BukkitUtil.callEvent(new GamePlayerQuitEvent(player));
     }

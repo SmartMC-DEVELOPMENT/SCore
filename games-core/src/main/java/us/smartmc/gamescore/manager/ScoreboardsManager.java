@@ -24,6 +24,33 @@ public class ScoreboardsManager extends MapManager<String, PluginScoreboard> {
         return new File(GamesCoreAPI.getApi().getPlugin().getDataFolder() + "//scoreboards");
     }
 
+    public void registerMultiLanguage(String key) {
+        for (Language language : Language.values()) {
+            register(key + "_" + language.name());
+        }
+    }
+
+    @Override
+    public PluginScoreboard register(String key) {
+        if (keyEndsWithLanguage(key)) return super.register(key);
+        else {
+            registerMultiLanguage(key);
+            return get(key + "_" + Language.getDefault().name());
+        }
+    }
+
+
+    private boolean keyEndsWithLanguage(String key) {
+        boolean endsWithLanguage = false;
+        for (Language language : Language.values()) {
+            if (key.endsWith("_" + language.name())) {
+                endsWithLanguage = true;
+                break;
+            }
+        }
+        return endsWithLanguage;
+    }
+
     @Override
     public PluginScoreboard createValueByKey(String name) {
         String[] args = name.split("_");

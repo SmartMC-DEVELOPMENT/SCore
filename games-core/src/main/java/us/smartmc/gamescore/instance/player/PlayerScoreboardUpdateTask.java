@@ -19,7 +19,7 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
     private final PluginScoreboard pluginScoreboard;
 
     private int titleIndex = 0;
-    private final Set<Integer> scoresToUpdate = new HashSet<>();
+    private final Map<String, String> teams = new HashMap<>();
     private final List<String> entries;
 
     public PlayerScoreboardUpdateTask(PlayerScoreboard playerScoreboard) {
@@ -37,16 +37,16 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
         playerScoreboard.getObjective().setDisplayName(formattedTitle);
 
         // Setup lines
-        int lineIndex = pluginScoreboard.getLines().size() - 1;
+        int lineIndex = pluginScoreboard.getLines().size();
         for (String unformattedLine : pluginScoreboard.getLines()) {
+            unformattedLine = ChatUtil.color(unformattedLine);
             String formattedLine = ChatUtil.parse(player, unformattedLine);
-
-            // If formatted and unformatted are not the same introduces index into a set for updating at run()
-            if (!unformattedLine.equals(formattedLine)) {
-                scoresToUpdate.add(lineIndex);
-            }
             Team team = playerScoreboard.getScoreboard().registerNewTeam("l" + lineIndex);
 
+            // Register for update if not equals
+            if (!formattedLine.equals(unformattedLine)) {
+                teams.put(team.getName(), unformattedLine);
+            }
             String entryAddition = null;
 
             if (formattedLine.length() > 16) {
@@ -59,7 +59,7 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
                 team.setPrefix(formattedLine);
             }
 
-            String entry = entries.get(lineIndex) + (entryAddition == null ? "" : entryAddition);
+            String entry = entries.get(lineIndex - 1) + (entryAddition == null ? "" : entryAddition);
             team.addEntry(entry);
             playerScoreboard.getObjective().getScore(entry).setScore(lineIndex);
             lineIndex--;
@@ -81,15 +81,10 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
             playerScoreboard.getObjective().setDisplayName(formattedTitle);
         }
 
-        // Lines
-        List<String> unformattedLines = pluginScoreboard.getLines();
-        for (int index = unformattedLines.size() - 1; index > 0; index--) {
-            // First checks if index is in the set of scores that have to change, when not continues iterating
-            if (!scoresToUpdate.contains(index)) continue;
-
-            Team team = playerScoreboard.getScoreboard().getTeam("l" + index);
-            String formattedLine = ChatUtil.parse(playerScoreboard.getPlayer(), unformattedLines.get(index));
-
+        teams.forEach((teamName, unformattedLine) -> {
+            Team team = playerScoreboard.getScoreboard().getTeam(teamName);
+            String formattedLine = ChatUtil.parse(playerScoreboard.getPlayer(), unformattedLine);
+            System.out.println("UPDATING " + unformattedLine);
             if (formattedLine.length() > 16) {
                 String prefix = formattedLine.substring(0, 16);
                 String suffix = formattedLine.substring(17);
@@ -98,7 +93,7 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
             } else {
                 team.setPrefix(formattedLine);
             }
-        }
+        });
     }
 
     public String getNextTitle() {

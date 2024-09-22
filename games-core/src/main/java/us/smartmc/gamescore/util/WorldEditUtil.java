@@ -25,8 +25,8 @@ public class WorldEditUtil {
 
     public static BlockArrayClipboard getClipboard(Location corner1, Location corner2) {
         com.sk89q.worldedit.world.World weWorld = BukkitUtil.getLocalWorld(corner1.getWorld());
-        Vector min = getMinFromLocs(corner1, corner2);
-        Vector max = getMaxFromLocs(corner1, corner2);
+        Vector min = getMinVector(corner1, corner2);
+        Vector max = getMaxVector(corner1, corner2);
         CuboidRegion region = new CuboidRegion(weWorld, min, max);
         return new BlockArrayClipboard(region);
     }
@@ -65,13 +65,13 @@ public class WorldEditUtil {
         }
     }
 
-    public static Vector getMaxFromLocs(Location l1, Location l2) {
+    public static Vector getMaxVector(Location l1, Location l2) {
         Vector v1 = getVectorFromLocation(l1);
         Vector v2 = getVectorFromLocation(l2);
         return Vector.getMaximum(v1, v2);
     }
 
-    public static Vector getMinFromLocs(Location l1, Location l2) {
+    public static Vector getMinVector(Location l1, Location l2) {
         Vector v1 = getVectorFromLocation(l1);
         Vector v2 = getVectorFromLocation(l2);
         return Vector.getMinimum(v1, v2);

@@ -3,6 +3,7 @@ package us.smartmc.gamescore.instance.player;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import us.smartmc.gamescore.instance.PluginScoreboard;
@@ -24,6 +25,7 @@ public class PlayerScoreboard {
         this.pluginScoreboardId = scoreboard.getId();
         this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         this.objective = this.scoreboard.registerNewObjective(pluginScoreboardId, "dummy");
+        this.objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         this.task = new PlayerScoreboardUpdateTask(this);
     }
 

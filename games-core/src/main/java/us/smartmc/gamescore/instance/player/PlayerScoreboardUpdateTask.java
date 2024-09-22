@@ -37,7 +37,7 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
         playerScoreboard.getObjective().setDisplayName(formattedTitle);
 
         // Setup lines
-        int lineIndex = pluginScoreboard.getLines().size();
+        int lineIndex = pluginScoreboard.getLines().size() -1;
         for (String unformattedLine : pluginScoreboard.getLines()) {
             String formattedLine = ChatUtil.parse(player, unformattedLine);
 
@@ -46,13 +46,21 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
                 scoresToUpdate.add(lineIndex);
             }
             Team team = playerScoreboard.getScoreboard().registerNewTeam("l" + lineIndex);
-            team.addEntry(entries.get(lineIndex));
-            team.setPrefix(formattedLine);
+            String entry = entries.get(lineIndex);
+            team.addEntry(entry);
+            if (formattedLine.length() > 16) {
+                String suffix = formattedLine.substring(0, 16);
+                String prefix = formattedLine.substring(17);
+                team.setSuffix(suffix);
+                team.setPrefix(prefix);
+            }
+            playerScoreboard.getObjective().getScore(entry).setScore(lineIndex);
             lineIndex--;
         }
 
         // Set scoreboard
         player.setScoreboard(playerScoreboard.getScoreboard());
+        player.sendMessage("Lines=" + pluginScoreboard.getLines().toString());
     }
 
     @Override
@@ -73,7 +81,14 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
             if (!scoresToUpdate.contains(index)) continue;
 
             Team team = playerScoreboard.getScoreboard().getTeam("l" + index);
-            team.setPrefix(unformattedLines.get(index));
+            String formattedLine = ChatUtil.parse(playerScoreboard.getPlayer(), unformattedLines.get(index));
+
+            if (formattedLine.length() > 16) {
+                String suffix = formattedLine.substring(0, 16);
+                String prefix = formattedLine.substring(17);
+                team.setSuffix(suffix);
+                team.setPrefix(prefix);
+            }
         }
     }
 
@@ -91,7 +106,7 @@ public class PlayerScoreboardUpdateTask extends BukkitRunnable {
         for (int i = 0; i < 200; i++) {
             if (set.size() >= size) break;
             StringBuilder stringBuilder = new StringBuilder();
-            for (int i2 = 0; i2 < 4; i2++) {
+            for (int i2 = 0; i2 < 2; i2++) {
                 int randomColor = new Random().nextInt(colorsSize);
                 ChatColor color = ChatColor.values()[randomColor];
                 stringBuilder.append('§').append(color.getChar());

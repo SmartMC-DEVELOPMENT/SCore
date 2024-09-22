@@ -28,13 +28,15 @@ public class PluginScoreboard {
     public PluginScoreboard(String name, Language language) {
         this.name = name;
         this.language = language;
-        getManager().put(getId(), this);
     }
 
     public void load() {
         File scoreboardsFolder = ScoreboardsManager.getScoreboardsFolder();
         scoreboardsFolder.mkdirs();
-        config = new SpigotYmlConfig(new File(scoreboardsFolder, getName() + ".yml"));
+        config = new SpigotYmlConfig(new File(scoreboardsFolder, getId() + ".yml"));
+        config.register(title, List.of("&b&lSMARTMC", "&9&lSMARTMC"));
+        config.register(lines, List.of("Line1", "Player: <player_name>", "Line3", "&eplay.smartmc.us"));
+        config.save();
     }
 
     public int getTicksUpdateRate() {

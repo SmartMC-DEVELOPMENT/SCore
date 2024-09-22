@@ -44,6 +44,13 @@
             <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>worldedit-team</groupId>
+            <artifactId>worldedit</artifactId>
+            <version>6.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/worldedit-bukkit-6.1.jar</systemPath>
+        </dependency>
     </dependencies>
 
 </project>

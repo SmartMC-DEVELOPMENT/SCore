@@ -6,6 +6,7 @@ import us.smartmc.gamescore.event.game.*;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
 import us.smartmc.gamescore.instance.timer.CountdownTimer;
+import us.smartmc.gamescore.manager.GameSessionTeamsManager;
 import us.smartmc.gamescore.util.BukkitUtil;
 
 import java.util.HashSet;
@@ -21,6 +22,8 @@ public abstract class Game implements IGame {
 
     @Getter
     protected final Set<Player> players = new HashSet<>();
+
+    private final GameSessionTeamsManager teamsManager = new GameSessionTeamsManager();
 
     @Override
     public void start() {
@@ -56,6 +59,7 @@ public abstract class Game implements IGame {
     @Override
     public void leavePlayer(Player player) {
         players.remove(player);
+        teamsManager.remove(player);
     }
 
     @Override
@@ -81,5 +85,10 @@ public abstract class Game implements IGame {
     @Override
     public GameStatus getStatus() {
         return status;
+    }
+
+    @Override
+    public GameSessionTeamsManager getGameSessionTeamsManager() {
+        return teamsManager;
     }
 }

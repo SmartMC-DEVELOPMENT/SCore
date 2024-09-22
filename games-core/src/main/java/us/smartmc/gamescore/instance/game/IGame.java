@@ -3,6 +3,7 @@ package us.smartmc.gamescore.instance.game;
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
 import us.smartmc.gamescore.instance.timer.CountdownTimer;
+import us.smartmc.gamescore.manager.GameSessionTeamsManager;
 import us.smartmc.gamescore.manager.GamesManager;
 
 import java.util.Set;
@@ -49,6 +50,8 @@ public interface IGame {
 
     Set<Player> getPlayersByStatus(PlayerStatus status);
     Set<Player> getPlayers();
+
+    GameSessionTeamsManager getGameSessionTeamsManager();
 
     default GamesManager getManager() {
         return GamesManager.getManager(GamesManager.class);

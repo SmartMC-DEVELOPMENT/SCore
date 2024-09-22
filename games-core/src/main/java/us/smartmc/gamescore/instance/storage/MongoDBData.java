@@ -7,7 +7,7 @@ import org.bson.Document;
 import us.smartmc.gamescore.instance.storage.loader.MongoDBLoader;
 import us.smartmc.gamescore.instance.storage.saver.MongoDBSaver;
 
-public class MongoDBData extends Data<MongoDBLoader<Document>, MongoDBSaver, Document> {
+public class MongoDBData extends Data<MongoDBLoader, MongoDBSaver, Document> {
 
     private final String database, collection;
 
@@ -31,13 +31,13 @@ public class MongoDBData extends Data<MongoDBLoader<Document>, MongoDBSaver, Doc
     }
 
     @Override
-    public MongoDBLoader<Document> getLoaderInstance() {
-        return new MongoDBLoader<>(MongoDBConnection.mainConnection.getDatabase(database).getCollection(collection));
+    public MongoDBLoader getLoaderInstance() {
+        return new MongoDBLoader(database, collection);
     }
 
     @Override
     public MongoDBSaver getSaverInstance() {
-        return new MongoDBSaver(MongoDBConnection.mainConnection.getDatabase(database).getCollection(collection), query);
+        return new MongoDBSaver(database, collection, query);
     }
 
     @Override

@@ -14,6 +14,7 @@ public class BlockStateWrapper implements Serializable {
     private final int x, y, z;
 
     private final String type;
+    private final byte typeData;
 
     // Constructor para crear el wrapper a partir de un bloque.
     public BlockStateWrapper(Block block) {
@@ -21,6 +22,7 @@ public class BlockStateWrapper implements Serializable {
         this.y = block.getY();
         this.z = block.getZ();
         this.type = block.getType().name();
+        this.typeData = block.getData();
     }
 
     // Método para deserializar y aplicar el estado del bloque en el mundo.

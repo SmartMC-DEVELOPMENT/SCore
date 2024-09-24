@@ -90,12 +90,21 @@ public class RegionsCommand extends GamesCoreCommand {
     }
 
     private String getLabelFromArgNumber(String label, int startIndex) {
+        startIndex++;
         StringBuilder builder = new StringBuilder();
         String[] args = label.split(" ");
-        for (int i = startIndex; i < label.length(); i++) {
+
+        // Verifica si el índice de inicio es válido
+        if (startIndex < 0 || startIndex >= args.length) {
+            return ""; // o manejar el error de otra manera
+        }
+
+        // Cambia la condición del bucle para evitar el ArrayIndexOutOfBoundsException
+        for (int i = startIndex; i < args.length; i++) {
             builder.append(args[i]).append(" ");
         }
-        return builder.toString();
+
+        return builder.toString().trim(); // Elimina el espacio al final
     }
 
     @Override

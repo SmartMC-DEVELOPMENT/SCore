@@ -9,7 +9,7 @@ public class Cuboid {
 
     private final Location min, max;
 
-    public Cuboid(org.bukkit.Location loc1, Location loc2) {
+    public Cuboid(Location loc1, Location loc2) {
         World world = loc1.getWorld();
         if (!loc1.getWorld().equals(loc2.getWorld())) {
             throw new IllegalArgumentException("Las dos ubicaciones deben estar en el mismo mundo");

@@ -37,6 +37,7 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storag
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\PlayerStatisticsManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\event\GameCoreGameEvent.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\serialization\BlockStateWrapper.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\CoreCommandsManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\IData.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\saver\YamlSaver.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\player\GameCorePlayer.java
@@ -59,6 +60,7 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\manage
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\saver\DataFileSaver.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\event\player\GamePlayerQuitEvent.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\loader\JsonLoader.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\GamesCoreLogger.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\timer\CountdownTimer.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\timer\Timer.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\util\CuboidUtil.java
@@ -71,12 +73,14 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storag
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\listener\PlayersManagerListeners.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\util\WorldEditUtil.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\event\GameCorePlayerEvent.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\cmd\RegionsCommand.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\GamesManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\serialization\CuboidWrapper.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\player\PlayerScoreboardUpdateTask.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\GenericGameTeamsManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\manager\SetManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\ScoreboardsManager.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\cmd\GamesCoreCommand.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\loader\IDataFileLoader.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\event\game\GamePreStartEvent.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\util\RegionUtils.java

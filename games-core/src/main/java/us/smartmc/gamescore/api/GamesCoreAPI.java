@@ -2,12 +2,15 @@ package us.smartmc.gamescore.api;
 
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.smartmc.gamescore.cmd.RegionsCommand;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.manager.SetManager;
 import us.smartmc.gamescore.listener.PlayerGameLogicListeners;
 import us.smartmc.gamescore.listener.PlayersManagerListeners;
 import us.smartmc.gamescore.manager.GamesManager;
 import us.smartmc.gamescore.manager.PlayersManager;
+
+import java.util.logging.Logger;
 
 public abstract class GamesCoreAPI implements IGamesCoreAPI {
 
@@ -19,6 +22,7 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
     public GamesCoreAPI(JavaPlugin plugin) {
         this.plugin = plugin;
         api = this;
+        new RegionsCommand();
     }
 
     @Override

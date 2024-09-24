@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
+import us.smartmc.gamescore.instance.cuboid.CuboidRegion;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.RegionsManager;
 
@@ -17,7 +18,13 @@ public class RegionsCommand extends GamesCoreCommand {
     @Override
     public void performPlayer(Player player, String label, String[] args) {
         if (args.length == 0) {
-            player.sendMessage("No valid args! create, list");
+            player.sendMessage("No valid args! create, list, tp, addmeta, removemeta");
+            return;
+        }
+
+        RegionsManager regionsManager = RegionsManager.getManager(RegionsManager.class);
+        if (regionsManager == null) {
+            player.sendMessage("No region manager found!");
             return;
         }
 
@@ -34,11 +41,6 @@ public class RegionsCommand extends GamesCoreCommand {
                     player.sendMessage("Pos 1 or 2 are null! Mark!");
                 }
                 Cuboid cuboid = selectSession.buildCuboid();
-                RegionsManager regionsManager = MapManager.getManager(RegionsManager.class);
-                if (regionsManager == null) {
-                    player.sendMessage("No region manager found!");
-                    return;
-                }
                 regionsManager.createRegion(regionName, cuboid);
                 player.sendMessage("Region created!");
             } else {
@@ -47,12 +49,6 @@ public class RegionsCommand extends GamesCoreCommand {
         }
 
         if (args[0].equalsIgnoreCase("list")) {
-            RegionsManager regionsManager = RegionsManager.getManager(RegionsManager.class);
-            if (regionsManager == null) {
-                player.sendMessage("No region manager found!");
-                return;
-            }
-
             StringBuilder stringBuilder = new StringBuilder("List of regions:\n");
             regionsManager.values().forEach(region -> {
                 stringBuilder.append(" - ").append(region.getName()).append("\n");
@@ -60,6 +56,46 @@ public class RegionsCommand extends GamesCoreCommand {
             player.sendMessage(stringBuilder.toString());
         }
 
+        if (args[0].equalsIgnoreCase("tp")) {
+            regionsManager.getRegion(args[1]).ifPresentOrElse(region -> {
+                player.teleport(region.getCuboid().getMin());
+            }, () -> {
+                player.sendMessage("No region found!");
+            });
+        }
+
+        if (args[0].equalsIgnoreCase("addmeta")) {
+            regionsManager.getRegion(args[1]).ifPresentOrElse(region -> {
+                String metaValue = getLabelFromArgNumber(label, 2);
+                region.getConfig().addMetaData(metaValue);
+                region.getConfig().save();
+                player.sendMessage("Added meta data!");
+            }, () -> {
+                player.sendMessage("No region found!");
+            });
+        }
+
+        if (args[0].equalsIgnoreCase("removemeta")) {
+            regionsManager.getRegion(args[1]).ifPresentOrElse(region -> {
+                String metaValue = getLabelFromArgNumber(label, 2);
+                region.getConfig().removeMetaData(metaValue);
+                region.getConfig().save();
+                player.sendMessage("Removed meta data!");
+            }, () -> {
+                player.sendMessage("No region found!");
+            });
+
+        }
+
+    }
+
+    private String getLabelFromArgNumber(String label, int startIndex) {
+        StringBuilder builder = new StringBuilder();
+        String[] args = label.split(" ");
+        for (int i = startIndex; i < label.length(); i++) {
+            builder.append(args[i]).append(" ");
+        }
+        return builder.toString();
     }
 
     @Override

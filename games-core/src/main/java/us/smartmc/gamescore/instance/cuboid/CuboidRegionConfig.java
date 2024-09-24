@@ -22,6 +22,14 @@ public class CuboidRegionConfig extends YamlData {
         return new File(RegionsManager.getRegionsDirectory(), name + ".yml");
     }
 
+    public void addMetaData(String value) {
+        metaData.add(value);
+    }
+
+    public void removeMetaData(String value) {
+        metaData.remove(value);
+    }
+
     @Override
     public void load() {
         super.load();

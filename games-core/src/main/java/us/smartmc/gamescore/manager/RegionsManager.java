@@ -7,6 +7,7 @@ import us.smartmc.gamescore.instance.manager.MapManager;
 
 import java.io.File;
 import java.util.Objects;
+import java.util.Optional;
 
 public class RegionsManager extends MapManager<String, CuboidRegion> {
 
@@ -17,6 +18,11 @@ public class RegionsManager extends MapManager<String, CuboidRegion> {
             String name = file.getName().replace(".yml", "");
             loadRegion(name);
         }
+    }
+
+    public Optional<CuboidRegion> getRegion(String name) {
+        if (!containsKey(name)) return Optional.empty();
+        return Optional.of(get(name));
     }
 
     public CuboidRegion createRegion(String name, Cuboid cuboid) {

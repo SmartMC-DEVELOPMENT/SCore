@@ -22,7 +22,6 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
     public GamesCoreAPI(JavaPlugin plugin) {
         this.plugin = plugin;
         api = this;
-        new RegionsCommand();
     }
 
     @Override

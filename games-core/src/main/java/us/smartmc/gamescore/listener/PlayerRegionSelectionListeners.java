@@ -1,8 +1,10 @@
 package us.smartmc.gamescore.listener;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -29,24 +31,25 @@ public class PlayerRegionSelectionListeners implements Listener {
         PlayerRegionSelectSession selectSession = manager.getOrCreate(player.getUniqueId());
         Block block = event.getClickedBlock();
         selectSession.setPos1(block.getLocation());
+        event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void handlePosition2(BlockBreakEvent event) {
-        Player player = event.getPlayer();
-        if (!PlayerRegionSelectionsManager.canWand(player)) return;
-        PlayerRegionSelectionsManager manager = getManager();
-        PlayerRegionSelectSession selectSession = manager.getOrCreate(player.getUniqueId());
-        selectSession.setPos2(event.getBlock().getLocation());
+        handlePos2(event.getPlayer(), event.getBlock().getLocation(), event);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void handlePosition2(BlockDamageEvent event) {
-        Player player = event.getPlayer();
+        handlePos2(event.getPlayer(), event.getBlock().getLocation(), event);
+    }
+
+    private static void handlePos2(Player player, Location blockLocation, Cancellable event) {
         if (!PlayerRegionSelectionsManager.canWand(player)) return;
         PlayerRegionSelectionsManager manager = getManager();
         PlayerRegionSelectSession selectSession = manager.getOrCreate(player.getUniqueId());
-        selectSession.setPos2(event.getBlock().getLocation());
+        selectSession.setPos2(blockLocation);
+        event.setCancelled(true);
     }
 
     private static PlayerRegionSelectionsManager getManager() {

@@ -57,6 +57,7 @@ us\smartmc\gamescore\instance\storage\JsonData.class
 us\smartmc\gamescore\instance\game\team\ColorGameTeam.class
 us\smartmc\gamescore\instance\storage\loader\IDataLoader.class
 us\smartmc\gamescore\instance\game\team\ColorGameTeamColor.class
+us\smartmc\gamescore\cmd\SchemsCommand.class
 us\smartmc\gamescore\instance\storage\YamlData.class
 us\smartmc\gamescore\event\game\GamePreStartEvent.class
 us\smartmc\gamescore\event\player\GamePlayerStatusChangeEvent.class

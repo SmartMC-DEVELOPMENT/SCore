@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.gamescore.cmd.RegionsCommand;
+import us.smartmc.gamescore.cmd.SchemsCommand;
 import us.smartmc.gamescore.cmd.WandCommand;
 import us.smartmc.gamescore.event.player.GamePlayerJoinEvent;
 import us.smartmc.gamescore.instance.PluginScoreboard;
@@ -37,6 +38,7 @@ public class TestGameImplementation extends JavaPlugin implements Listener {
 
         new RegionsCommand();
         new WandCommand();
+        new SchemsCommand();
     }
 
     @EventHandler

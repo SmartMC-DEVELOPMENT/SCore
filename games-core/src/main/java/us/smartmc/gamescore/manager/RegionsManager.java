@@ -11,6 +11,7 @@ import java.util.Objects;
 public class RegionsManager extends MapManager<String, CuboidRegion> {
 
     private RegionsManager() {
+        getRegionsDirectory().mkdirs();
         for (File file : Objects.requireNonNull(getRegionsDirectory().listFiles())) {
             if (!file.getName().endsWith(".yml")) continue;
             String name = file.getName().replace(".yml", "");

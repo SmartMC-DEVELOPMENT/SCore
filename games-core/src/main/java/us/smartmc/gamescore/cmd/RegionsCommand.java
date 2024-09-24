@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
+import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.RegionsManager;
 
 public class RegionsCommand extends GamesCoreCommand {
@@ -33,7 +34,7 @@ public class RegionsCommand extends GamesCoreCommand {
                     player.sendMessage("Pos 1 or 2 are null! Mark!");
                 }
                 Cuboid cuboid = selectSession.buildCuboid();
-                RegionsManager regionsManager = RegionsManager.getManager(RegionsManager.class);
+                RegionsManager regionsManager = MapManager.getManager(RegionsManager.class);
                 if (regionsManager == null) {
                     player.sendMessage("No region manager found!");
                     return;

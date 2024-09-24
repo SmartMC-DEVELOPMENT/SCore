@@ -10,13 +10,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class CuboidWrapper implements Serializable {
 
-    @Getter
     private final List<BlockStateWrapper> blocks;
-    @Getter
     private final Location min, max;
-
 
     // Constructor que toma un cuboide y serializa los bloques dentro de la región
     public CuboidWrapper(Cuboid cuboid) {
@@ -25,12 +23,14 @@ public class CuboidWrapper implements Serializable {
 
         this.blocks = new ArrayList<>();
 
-        // Itera por todos los bloques dentro del cuboide y los envuelve
         for (int x = min.getBlockX(); x <= max.getBlockX(); x++) {
             for (int y = min.getBlockY(); y <= max.getBlockY(); y++) {
                 for (int z = min.getBlockZ(); z <= max.getBlockZ(); z++) {
                     Block block = min.getWorld().getBlockAt(x, y, z);
-                    blocks.add(new BlockStateWrapper(block));
+                    // Omitir los bloques de aire para no serializarlos
+                    if (block.getType() != Material.AIR) {
+                        blocks.add(new BlockStateWrapper(block));
+                    }
                 }
             }
         }

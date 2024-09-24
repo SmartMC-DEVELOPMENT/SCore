@@ -12,6 +12,7 @@ import us.smartmc.gamescore.instance.PluginScoreboard;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.player.PlayerScoreboard;
 import us.smartmc.gamescore.manager.ScoreboardsManager;
+import us.smartmc.test.command.TestCommand;
 
 public class TestGameImplementation extends JavaPlugin implements Listener {
 
@@ -20,6 +21,8 @@ public class TestGameImplementation extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+
+        getDataFolder().mkdirs();
 
         // Integrate Games-Core
         new GameIntegration(this);
@@ -30,6 +33,8 @@ public class TestGameImplementation extends JavaPlugin implements Listener {
 
         mainScoreboard = scoreboardsManager.get("main_ES");
         mainScoreboard.load();
+
+        getCommand("test").setExecutor(new TestCommand());
     }
 
     @EventHandler

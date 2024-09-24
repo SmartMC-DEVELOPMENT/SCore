@@ -1,2 +1,3 @@
-us\smartmc\test\GameIntegration.class
 us\smartmc\test\TestGameImplementation.class
+us\smartmc\test\command\TestCommand.class
+us\smartmc\test\GameIntegration.class

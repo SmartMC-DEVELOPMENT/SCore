@@ -8,12 +8,11 @@ import org.bukkit.block.Block;
 
 import java.io.Serializable;
 
+@Getter
 public class BlockStateWrapper implements Serializable {
 
-    @Getter
     private final int x, y, z;
 
-    @Getter
     private final String type;
 
     // Constructor para crear el wrapper a partir de un bloque.

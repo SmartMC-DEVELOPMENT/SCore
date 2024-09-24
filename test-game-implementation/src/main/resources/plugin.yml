@@ -3,6 +3,3 @@ name: TestGameImplementation
 version: 1.0
 authors:
   - ImSergioh
-
-commands:
-  test:

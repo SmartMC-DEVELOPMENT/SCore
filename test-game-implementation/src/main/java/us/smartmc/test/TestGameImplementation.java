@@ -1,18 +1,17 @@
 package us.smartmc.test;
 
-import me.imsergioh.pluginsapi.handler.VariablesHandler;
-import me.imsergioh.pluginsapi.instance.IVariableListener;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.smartmc.gamescore.cmd.RegionsCommand;
+import us.smartmc.gamescore.cmd.WandCommand;
 import us.smartmc.gamescore.event.player.GamePlayerJoinEvent;
 import us.smartmc.gamescore.instance.PluginScoreboard;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.player.PlayerScoreboard;
+import us.smartmc.gamescore.listener.PlayerRegionSelectionListeners;
 import us.smartmc.gamescore.manager.ScoreboardsManager;
-import us.smartmc.test.command.TestCommand;
 
 public class TestGameImplementation extends JavaPlugin implements Listener {
 
@@ -34,7 +33,10 @@ public class TestGameImplementation extends JavaPlugin implements Listener {
         mainScoreboard = scoreboardsManager.get("main_ES");
         mainScoreboard.load();
 
-        getCommand("test").setExecutor(new TestCommand());
+        PlayerRegionSelectionListeners.register();
+
+        new RegionsCommand();
+        new WandCommand();
     }
 
     @EventHandler

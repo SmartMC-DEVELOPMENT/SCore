@@ -47,6 +47,7 @@ us\smartmc\gamescore\instance\exception\NonExistentManagerExpection.class
 us\smartmc\gamescore\manager\GenericGameTeamsManager.class
 us\smartmc\gamescore\event\game\GamePostEndEvent.class
 us\smartmc\gamescore\event\game\GamePreEndEvent.class
+us\smartmc\gamescore\instance\cmd\IGamesCoreCommand.class
 us\smartmc\gamescore\instance\player\statistic\PlayerStatistic.class
 us\smartmc\gamescore\instance\storage\LocalFileData.class
 us\smartmc\gamescore\instance\storage\saver\MongoDBSaver.class
@@ -62,7 +63,9 @@ us\smartmc\gamescore\event\player\GamePlayerStatusChangeEvent.class
 us\smartmc\gamescore\util\CuboidSerializer.class
 us\smartmc\gamescore\instance\player\statistic\IPlayerStatistic.class
 us\smartmc\gamescore\instance\storage\loader\JsonLoader.class
+us\smartmc\gamescore\adminplayer\PlayerRegionSelectSession.class
 us\smartmc\gamescore\instance\player\PlayerScoreboard.class
+us\smartmc\gamescore\manager\PlayerRegionSelectionsManager.class
 us\smartmc\gamescore\event\game\GameStatusChangeEvent.class
 us\smartmc\gamescore\instance\storage\saver\JsonSaver.class
 us\smartmc\gamescore\manager\ScoreboardsManager.class
@@ -78,11 +81,13 @@ us\smartmc\gamescore\instance\player\statistic\PlayerStatisticName.class
 us\smartmc\gamescore\instance\event\GameCorePlayerEvent.class
 us\smartmc\gamescore\manager\PlayerStatisticsManager.class
 us\smartmc\gamescore\util\ItemSerializer.class
+us\smartmc\gamescore\cmd\WandCommand.class
 us\smartmc\gamescore\instance\game\IGame.class
 us\smartmc\gamescore\instance\timer\ICountdownTimer.class
 us\smartmc\gamescore\instance\game\team\GameTeam.class
 us\smartmc\gamescore\instance\storage\IData.class
 us\smartmc\gamescore\listener\GameTeamsManagerListeners.class
+us\smartmc\gamescore\listener\PlayerRegionSelectionListeners.class
 us\smartmc\gamescore\util\RegionUtils.class
 us\smartmc\gamescore\instance\storage\loader\YamlLoader.class
 us\smartmc\gamescore\instance\cmd\GamesCoreCommand.class

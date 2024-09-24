@@ -44,6 +44,7 @@ public class CoreCommandsManager extends MapManager<String, GamesCoreCommand> im
         String name = label.split(" ")[0];
         if (!containsKey(name)) return;
         String[] args = label.replaceFirst(name + " ", "").split(" ");
+        if (label.startsWith(" ")) label = label.substring(1);
         get(name).execute(sender, label, args);
         event.setCancelled(true);
     }

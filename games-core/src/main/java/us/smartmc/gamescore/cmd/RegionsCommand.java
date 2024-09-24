@@ -90,7 +90,6 @@ public class RegionsCommand extends GamesCoreCommand {
     }
 
     private String getLabelFromArgNumber(String label, int startIndex) {
-        startIndex++;
         StringBuilder builder = new StringBuilder();
         String[] args = label.split(" ");
 

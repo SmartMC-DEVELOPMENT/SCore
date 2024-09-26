@@ -11,5 +11,8 @@
         <module name="gamescore-module" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="games-core-backend" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

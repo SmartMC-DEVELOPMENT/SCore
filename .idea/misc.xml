@@ -78,6 +78,8 @@
         <option value="$PROJECT_DIR$/addon-modules/npcs-module/pom.xml" />
         <option value="$PROJECT_DIR$/server-handler/orchestrator2/pom.xml" />
         <option value="$PROJECT_DIR$/smartbot/pom.xml" />
+        <option value="$PROJECT_DIR$/test-game-implementation/pom.xml" />
+        <option value="$PROJECT_DIR$/games-core-backend/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

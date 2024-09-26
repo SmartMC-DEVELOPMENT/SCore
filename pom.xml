@@ -20,6 +20,7 @@
         <module>sbackend-services/players-service</module>
         <module>test-backend-module</module>
         <module>games-core</module>
+        <module>games-core-backend/gamescore-client</module>
     </modules>
 
     <properties>

@@ -1,5 +1,6 @@
 package us.smartmc.gamescore.util;
 
+import com.google.gson.Gson;
 import org.bukkit.Location;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
 import us.smartmc.gamescore.instance.serialization.CuboidWrapper;
@@ -10,6 +11,8 @@ public class CuboidSerializer {
 
     public static void serialize(Cuboid cuboid, String filePath) {
         CuboidWrapper blockState = new CuboidWrapper(cuboid);
+        String json = new Gson().toJson(blockState);
+        System.out.println("SERIALIZE BLOCKSTATE " + json);
         try (FileOutputStream fileOut = new FileOutputStream(filePath);
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
 

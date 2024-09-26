@@ -8,7 +8,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="chat-module" />
+        <module name="test-game-implementation" />
         <module name="icons-module" />
+        <module name="gamescore-module" />
         <module name="lucky-towers" />
         <module name="players-service" />
         <module name="test-backend-module" />
@@ -19,16 +21,12 @@
         <module name="smartcore-bungee" />
         <module name="skyblock-service" />
         <module name="smartcore-spigot" />
+        <module name="games-core" />
+        <module name="gamescore-client" />
         <module name="holograms-module" />
         <module name="lobby-module" />
         <module name="skyblock-common" />
         <module name="lobby-cosmetics" />
-      </profile>
-      <profile name="Annotation profile for SCore" enabled="true">
-        <sourceOutputDir name="../games-core/test-game-implementation/target/generated-sources/annotations" />
-        <sourceTestOutputDir name="../games-core/test-game-implementation/target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="test-game-implementation" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

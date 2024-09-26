@@ -41,6 +41,12 @@
     <file url="file://$PROJECT_DIR$/fixes-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/game-manager/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/game-manager/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/games-core-backend/gamescore-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/games-core-backend/gamescore-client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/games-core-backend/gamescore-module/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/games-core-backend/gamescore-module/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/games-core-backend/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/games-core-backend/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/games-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/games-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/games-manager/gamesmanager-spigot/src/main/java" charset="UTF-8" />

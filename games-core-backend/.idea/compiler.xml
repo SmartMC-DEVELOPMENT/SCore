@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="gamescore-client" />
+        <module name="gamescore-common" />
         <module name="gamescore-module" />
       </profile>
     </annotationProcessing>

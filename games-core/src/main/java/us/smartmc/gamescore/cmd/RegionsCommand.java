@@ -1,13 +1,17 @@
 package us.smartmc.gamescore.cmd;
 
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
+import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
 import us.smartmc.gamescore.instance.cuboid.CuboidRegion;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.RegionsManager;
+
+import java.util.Random;
 
 public class RegionsCommand extends GamesCoreCommand {
 
@@ -18,7 +22,7 @@ public class RegionsCommand extends GamesCoreCommand {
     @Override
     public void performPlayer(Player player, String label, String[] args) {
         if (args.length == 0) {
-            player.sendMessage("No valid args! create, list, tp, addmeta, removemeta");
+            player.sendMessage("No valid args! create, list, tp, addmeta, removemeta, test");
             return;
         }
 
@@ -26,6 +30,15 @@ public class RegionsCommand extends GamesCoreCommand {
         if (regionsManager == null) {
             player.sendMessage("No region manager found!");
             return;
+        }
+
+        if (args[0].equalsIgnoreCase("test")) {
+            Location loc1 = player.getLocation().clone().add(10, 10, 10);
+            Location loc2 = player.getLocation().clone().add(-10, -10, 10);
+            Cuboid cuboid = new Cuboid(loc1, loc2);
+            GamesCoreAPI.getApi().getBackendConnection().sendCuboid("test-" + new Random().nextInt(1000), cuboid).thenAccept(res -> {
+                player.sendMessage("GETTED RES! " + res.getResponse().name());
+            });
         }
 
         if (args[0].equalsIgnoreCase("create")) {

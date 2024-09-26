@@ -13,6 +13,7 @@ public class GamesCoreBackendModule extends ModulePlugin {
 
     @Override
     public void onEnable() {
+        super.onEnable();
         module = this;
         ConnectionInputManager.registerListeners(new SaveCuboidListener(), new GetCuboidListener());
     }

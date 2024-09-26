@@ -23,8 +23,12 @@ public class BackendConnection extends BackendClient {
         super(hostname, port);
         connection = this;
         login(username, password);
-
         ConnectionInputManager.registerListeners(new CuboidSaveResponseListener(), new CuboidGetResponseListener());
+    }
+
+    @Override
+    public void run() {
+        super.run();
     }
 
     public void handleCuboidGetResponse(CuboidGetResponse response) {

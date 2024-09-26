@@ -2,11 +2,14 @@ package us.smartmc.gamescore.api;
 
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.smartmc.backend.gamescore.BackendConnection;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.listener.PlayerGameLogicListeners;
 import us.smartmc.gamescore.listener.PlayersManagerListeners;
 import us.smartmc.gamescore.manager.GamesManager;
 import us.smartmc.gamescore.manager.PlayersManager;
+
+import java.io.IOException;
 
 public abstract class GamesCoreAPI implements IGamesCoreAPI {
 
@@ -15,9 +18,18 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
 
     private final JavaPlugin plugin;
 
+    @Getter
+    private final BackendConnection backendConnection;
+
     public GamesCoreAPI(JavaPlugin plugin) {
         this.plugin = plugin;
         api = this;
+        try {
+            this.backendConnection = new BackendConnection("admin.smartmc.us", 7723, "default", "SmartMC2024Ñ");
+            new Thread(backendConnection::run).start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

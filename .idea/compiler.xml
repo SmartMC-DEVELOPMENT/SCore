@@ -10,7 +10,6 @@
         <module name="chat-module" />
         <module name="test-game-implementation" />
         <module name="icons-module" />
-        <module name="gamescore-module" />
         <module name="lucky-towers" />
         <module name="players-service" />
         <module name="test-backend-module" />
@@ -35,7 +34,9 @@
       <module name="core-plugins" target="1.8" />
       <module name="events-core" target="1.8" />
       <module name="fixes-core" target="16" />
+      <module name="games-core-backend" target="17" />
       <module name="games-manager" target="1.8" />
+      <module name="gamescore-module" target="17" />
       <module name="gamesmanager-spigot" target="1.5" />
       <module name="login" target="1.8" />
       <module name="loginproxy-waterfall" target="1.8" />

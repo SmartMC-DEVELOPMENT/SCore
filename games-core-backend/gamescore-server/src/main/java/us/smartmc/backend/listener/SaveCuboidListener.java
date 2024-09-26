@@ -13,6 +13,7 @@ public class SaveCuboidListener extends BackendObjectListener<CuboidSaveRequest>
 
     @Override
     public void onReceive(ConnectionHandler handler, CuboidSaveRequest request) {
+        System.out.println("RECEIVED " + request.getClass() + " " + request);
         String name = request.getName();
         CuboidWrapper wrapper = request.getWrapper();
         try {

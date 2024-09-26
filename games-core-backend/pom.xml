@@ -24,6 +24,12 @@
             <artifactId>sbackend-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>us.smartmc.core</groupId>
+            <artifactId>games-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

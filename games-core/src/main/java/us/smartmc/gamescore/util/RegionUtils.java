@@ -8,11 +8,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.joml.Vector3d;
+import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.serialization.BlockStateWrapper;
 import us.smartmc.gamescore.instance.serialization.CuboidWrapper;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -24,31 +27,38 @@ public class RegionUtils {
         int offsetY = newMin.getBlockY() - (int) min.y();
         int offsetZ = newMin.getBlockZ() - (int) min.z();
 
-        System.out.println("Offsets: X=" + offsetX + ", Y=" + offsetY + ", Z=" + offsetZ);
+        List<BlockStateWrapper> blocks = wrapper.getBlocks();
+        int batchSize = 1000;
+        int totalBlocks = blocks.size();
 
-        BukkitUtil.runSync(() -> {
-            for (BlockStateWrapper blockState : wrapper.getBlocks()) {
-                Location blockLocation = new Location(newMin.getWorld(),
-                        blockState.getX() + offsetX,
-                        blockState.getY() + offsetY,
-                        blockState.getZ() + offsetZ);
+        new BukkitRunnable() {
+            int index = 0;
 
-                System.out.println("Pasting block at: " + blockLocation.toString());
+            @Override
+            public void run() {
+                // Procesar un lote de bloques
+                for (int i = 0; i < batchSize && index < totalBlocks; i++, index++) {
+                    BlockStateWrapper blockState = blocks.get(index);
+                    Location blockLocation = new Location(newMin.getWorld(),
+                            blockState.getX() + offsetX,
+                            blockState.getY() + offsetY,
+                            blockState.getZ() + offsetZ);
 
-                Block newBlock = blockLocation.getBlock();
-                Material material = Material.getMaterial(blockState.getType());
+                    Block newBlock = blockLocation.getBlock();
+                    Material material = Material.getMaterial(blockState.getType());
 
-                if (material == null) {
-                    System.out.println("WARNING: Material not found for type: " + blockState.getType());
-                    continue;
+                    if (material != null) {
+                        newBlock.setType(material);
+                        newBlock.setData(blockState.getTypeData());
+                    }
                 }
 
-                newBlock.setType(material);
-                newBlock.setData(blockState.getTypeData());
-
-                System.out.println("DEBUG BLOCK SET: " + material + " " + LocationSerializer.toString(blockLocation));
+                // Verifica si se han procesado todos los bloques
+                if (index >= totalBlocks) {
+                    cancel(); // Detener la tarea si se han procesado todos los bloques
+                }
             }
-        });
+        }.runTaskTimer(GamesCoreAPI.getApi().getPlugin(), 0L, 1L); // Cambia YourPluginInstance por tu clase principal
     }
 
     public static void consumeBlocks(CuboidRegion region, Consumer<Block> consumer) {

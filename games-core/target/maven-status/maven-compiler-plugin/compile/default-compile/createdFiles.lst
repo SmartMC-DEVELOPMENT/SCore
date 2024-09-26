@@ -66,6 +66,7 @@ us\smartmc\gamescore\util\CuboidUtil.class
 us\smartmc\gamescore\listener\PlayersManagerListeners.class
 us\smartmc\gamescore\instance\storage\loader\MongoDBLoader.class
 us\smartmc\gamescore\instance\cuboid\CuboidRegion.class
+us\smartmc\gamescore\util\RegionUtils$1.class
 us\smartmc\gamescore\api\IGamesCoreAPI.class
 us\smartmc\gamescore\manager\PlayersManager.class
 us\smartmc\gamescore\event\game\GamePostStartEvent.class

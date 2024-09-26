@@ -16,12 +16,16 @@ public class PasteRegionCommand extends GamesCoreCommand {
     @Override
     public void performPlayer(Player player, String label, String[] args) {
         String name = args[0];
+        long start = System.currentTimeMillis();
+        player.sendMessage("Pasting...");
         GamesCoreAPI.getApi().getBackendConnection().getCuboid(name).thenAccept(cuboidGetResponse -> {
-            player.sendMessage("Pasting...");
+            long end = System.currentTimeMillis();
+            long duration = end - start;
             try {
                 CuboidWrapper wrapper = cuboidGetResponse.getWrapper();
                 RegionUtils.pasteAtLocation(player.getLocation(), wrapper);
-                player.sendMessage("Pasted!?");
+                int count = wrapper.getBlocks().size();
+                player.sendMessage("Pasted AT " + (duration / 1000.0) + "s (" + count + " Blocks)");
             } catch (Exception e) {
                 e.printStackTrace();
             }

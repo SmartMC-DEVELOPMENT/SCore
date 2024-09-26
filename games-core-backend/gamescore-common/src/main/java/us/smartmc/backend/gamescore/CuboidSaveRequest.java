@@ -2,6 +2,7 @@ package us.smartmc.backend.gamescore;
 
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
 import us.smartmc.gamescore.instance.serialization.CuboidWrapper;
+import us.smartmc.gamescore.instance.serialization.CuboidWrapperBuilder;
 
 import java.io.Serializable;
 
@@ -12,7 +13,7 @@ public class CuboidSaveRequest implements Serializable {
 
     public CuboidSaveRequest(String name, Cuboid cuboid) {
         this.name = name;
-        this.wrapper = new CuboidWrapper(cuboid);
+        this.wrapper = new CuboidWrapperBuilder(cuboid).getWrapper();
     }
 
     public String getName() {

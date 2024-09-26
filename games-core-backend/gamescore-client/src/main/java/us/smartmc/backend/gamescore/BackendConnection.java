@@ -26,13 +26,10 @@ public class BackendConnection extends BackendClient {
         ConnectionInputManager.registerListeners(new CuboidSaveResponseListener(), new CuboidGetResponseListener());
     }
 
-    @Override
-    public void run() {
-        super.run();
-    }
-
     public void handleCuboidGetResponse(CuboidGetResponse response) {
         CompletableFuture<CuboidGetResponse> future = cuboidGetRequests.get(response.getName());
+        System.out.println("handleCuboidGetResponse " + future);
+        System.out.println("handleCuboidGetResponse " + cuboidGetRequests.keySet());
         if (future == null) return;
         future.complete(response);
     }

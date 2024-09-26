@@ -7,8 +7,6 @@ import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
-import us.smartmc.gamescore.instance.cuboid.CuboidRegion;
-import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.RegionsManager;
 
 import java.util.Random;
@@ -32,11 +30,22 @@ public class RegionsCommand extends GamesCoreCommand {
             return;
         }
 
-        if (args[0].equalsIgnoreCase("test")) {
-            Location loc1 = player.getLocation().clone().add(10, 10, 10);
-            Location loc2 = player.getLocation().clone().add(-10, -10, 10);
-            Cuboid cuboid = new Cuboid(loc1, loc2);
-            GamesCoreAPI.getApi().getBackendConnection().sendCuboid("test-" + new Random().nextInt(1000), cuboid).thenAccept(res -> {
+        if (args[0].equalsIgnoreCase("save")) {
+            String name = args[1];
+            PlayerRegionSelectSession selectSession = PlayerRegionSelectSession.get(player);
+
+            if (selectSession == null) {
+                player.sendMessage("No session found!");
+                return;
+            }
+
+            if (selectSession.getPos1() == null || selectSession.getPos2() == null) {
+                player.sendMessage("Pos 1 or 2 are null! Mark!");
+                return;
+            }
+
+            Cuboid cuboid = new Cuboid(selectSession.getPos1(), selectSession.getPos2());
+            GamesCoreAPI.getApi().getBackendConnection().sendCuboid(name, cuboid).thenAccept(res -> {
                 player.sendMessage("GETTED RES! " + res.getResponse().name());
             });
         }

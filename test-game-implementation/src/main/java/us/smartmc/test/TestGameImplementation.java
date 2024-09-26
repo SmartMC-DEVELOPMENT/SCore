@@ -1,5 +1,9 @@
 package us.smartmc.test;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +17,7 @@ import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.player.PlayerScoreboard;
 import us.smartmc.gamescore.listener.PlayerRegionSelectionListeners;
 import us.smartmc.gamescore.manager.ScoreboardsManager;
+import us.smartmc.test.cmd.PasteRegionCommand;
 
 public class TestGameImplementation extends JavaPlugin implements Listener {
 
@@ -39,6 +44,7 @@ public class TestGameImplementation extends JavaPlugin implements Listener {
         new RegionsCommand();
         new WandCommand();
         new SchemsCommand();
+        new PasteRegionCommand();
     }
 
     @EventHandler

@@ -1,5 +1,7 @@
 main: us.smartmc.test.TestGameImplementation
 name: TestGameImplementation
 version: 1.0
+depend:
+  - ProtocolLib
 authors:
   - ImSergioh

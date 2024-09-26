@@ -7,6 +7,12 @@ import java.io.*;
 
 public class CuboidSerializer {
 
+    private static final File regionsDir;
+
+    static {
+        regionsDir = new File(BackendServer.getLoginsDirectory() + "/..");
+    }
+
     public static void serialize(CuboidWrapper wrapper, File file) throws IOException {
         try (FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath());
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
@@ -28,8 +34,6 @@ public class CuboidSerializer {
     }
 
     public static File getRegionsDir() {
-        File appDir =  new File(BackendServer.getLoginsDirectory() + "/..");
-        return new File(appDir + "/regions");
+        return regionsDir;
     }
-
 }

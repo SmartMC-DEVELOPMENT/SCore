@@ -5,8 +5,8 @@
     <file url="file://$PROJECT_DIR$/gamescore-client/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gamescore-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gamescore-common/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/gamescore-module/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/gamescore-module/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gamescore-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gamescore-server/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

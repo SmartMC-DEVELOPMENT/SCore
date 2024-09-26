@@ -1,0 +1,4 @@
+{
+  "name": "games-core",
+  "main": "us.smartmc.backend.GamesCoreBackendModule"
+}

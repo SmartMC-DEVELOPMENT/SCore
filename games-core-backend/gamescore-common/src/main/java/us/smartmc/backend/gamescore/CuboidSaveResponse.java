@@ -7,7 +7,7 @@ public class CuboidSaveResponse implements Serializable {
     private final String name;
     private final RequestResponse response;
 
-    private CuboidSaveResponse(String name, RequestResponse response) {
+    public CuboidSaveResponse(String name, RequestResponse response) {
         this.name = name;
         this.response = response;
     }

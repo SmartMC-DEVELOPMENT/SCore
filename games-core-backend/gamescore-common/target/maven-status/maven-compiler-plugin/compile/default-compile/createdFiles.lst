@@ -1,1 +1,5 @@
+us\smartmc\backend\gamescore\CuboidGetResponse.class
 us\smartmc\backend\gamescore\CuboidSaveRequest.class
+us\smartmc\backend\gamescore\CuboidGetRequest.class
+us\smartmc\backend\gamescore\CuboidSaveResponse$RequestResponse.class
+us\smartmc\backend\gamescore\CuboidSaveResponse.class

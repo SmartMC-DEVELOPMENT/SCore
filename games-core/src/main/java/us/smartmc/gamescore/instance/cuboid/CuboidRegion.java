@@ -29,6 +29,18 @@ public class CuboidRegion {
         this.cuboid = new Cuboid(getMinLocation(config), getMaxLocation(config));
     }
 
+    // Subregion
+    public CuboidRegion(CuboidRegion parent, String name) {
+        this.name = name;
+        this.config = new CuboidRegionConfig(name);
+        config.load();
+        this.cuboid = new Cuboid(getMinLocation(config), getMaxLocation(config));
+    }
+
+    public CuboidRegion getSubRegion(String name) {
+        return config.getSubRegions().get(name);
+    }
+
     private void setCuboidLocations(CuboidRegionConfig config) {
         config.set("min", LocationSerializer.toString(cuboid.getMin()));
         config.set("max", LocationSerializer.toString(cuboid.getMax()));

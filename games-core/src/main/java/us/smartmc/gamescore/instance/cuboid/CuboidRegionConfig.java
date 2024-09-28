@@ -5,17 +5,45 @@ import us.smartmc.gamescore.instance.storage.YamlData;
 import us.smartmc.gamescore.manager.RegionsManager;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 public class CuboidRegionConfig extends YamlData {
 
-    private final Set<String> metaData = new HashSet<>();
+    private static final String SUBREGIONS_KEY = "subregions";
 
-    public CuboidRegionConfig(String regionName) {
-        super(getFileRegion(regionName));
+    private final String name;
+
+    private final Set<String> metaData = new HashSet<>();
+    private final Map<String, CuboidRegion> subRegions = new HashMap<>();
+
+    // Default region config (no subregion)
+    public CuboidRegionConfig(String name) {
+        super(getFileRegion(name));
+        loadRegionData();
+        this.name = name;
+    }
+
+    // Subregion into a existent CuboidRegion (subregion)
+    public CuboidRegionConfig(String name, CuboidRegionConfig parentConfig) {
+        super(getFileRegion(parentConfig.getName()));
+        loadRegionData(parentConfig.getName());
+        this.name = name;
+    }
+
+    public void unregisterSubRegion(CuboidRegion region) {
+        String path = SUBREGIONS_KEY + "." + region.getName();
+        set(path, null);
+        save();
+        subRegions.remove(region.getName());
+    }
+
+    public void registerSubRegion(CuboidRegion region) {
+        String path = SUBREGIONS_KEY + "." + region.getName();
+        CuboidRegionConfig subRegionConfig = new CuboidRegionConfig(region.getName(), this);
+        set(path, subRegionConfig.getData());
+        save();
+        subRegions.put(region.getName(), region);
     }
 
     private static File getFileRegion(String name) {
@@ -30,12 +58,16 @@ public class CuboidRegionConfig extends YamlData {
         metaData.remove(value);
     }
 
-    @Override
-    public void load() {
-        super.load();
-        if (containsKey("metadata")) {
+    public void loadRegionData(String key) {
+        String path = key == null ? "" : SUBREGIONS_KEY + "." + key;
+
+        if (containsKey(path + "metadata")) {
             metaData.addAll(getList("metadata", String.class));
         }
+    }
+
+    public void loadRegionData() {
+        loadRegionData(null);
     }
 
     @Override
@@ -44,5 +76,9 @@ public class CuboidRegionConfig extends YamlData {
             set("metadata", new ArrayList<>(metaData));
         }
         super.save();
+    }
+
+    private static RegionsManager getManager() {
+        return RegionsManager.getManager(RegionsManager.class);
     }
 }

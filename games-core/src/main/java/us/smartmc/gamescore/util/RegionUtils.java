@@ -11,12 +11,11 @@ import org.bukkit.block.Block;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.joml.Vector3d;
 import us.smartmc.gamescore.api.GamesCoreAPI;
+import us.smartmc.gamescore.instance.cuboid.Cuboid;
 import us.smartmc.gamescore.instance.serialization.BlockStateWrapper;
 import us.smartmc.gamescore.instance.serialization.CuboidWrapper;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class RegionUtils {
@@ -59,6 +58,11 @@ public class RegionUtils {
                 }
             }
         }.runTaskTimer(GamesCoreAPI.getApi().getPlugin(), 0L, 1L); // Cambia YourPluginInstance por tu clase principal
+    }
+
+    public static Set<Block> getBlocksAt(Cuboid cuboid) {
+        Set<Block> list = new HashSet<>();
+        us.smartmc.gamescore.instance.cuboid.CuboidRegion region =
     }
 
     public static void consumeBlocks(CuboidRegion region, Consumer<Block> consumer) {

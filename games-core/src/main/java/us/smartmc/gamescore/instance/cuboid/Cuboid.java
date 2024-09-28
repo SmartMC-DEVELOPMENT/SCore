@@ -3,11 +3,13 @@ package us.smartmc.gamescore.instance.cuboid;
 import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.joml.Vector3d;
+import org.joml.Vector3i;
 
 @Getter
 public class Cuboid {
 
-    private final Location min, max;
+    private final Vector3i min, max;
 
     public Cuboid(Location loc1, Location loc2) {
         World world = loc1.getWorld();
@@ -25,7 +27,6 @@ public class Cuboid {
 
         this.min = new Location(world, xMin, yMin, zMin);
         this.max = new Location(world, xMax, yMax, zMax);
-
     }
 
     public boolean contains(Location loc) {

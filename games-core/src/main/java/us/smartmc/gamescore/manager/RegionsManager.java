@@ -4,7 +4,6 @@ import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
 import us.smartmc.gamescore.instance.cuboid.CuboidRegion;
 import us.smartmc.gamescore.instance.manager.MapManager;
-import us.smartmc.gamescore.util.RegionUtils;
 
 import java.io.File;
 import java.util.Objects;
@@ -21,28 +20,6 @@ public class RegionsManager extends MapManager<String, CuboidRegion> {
             loadRegion(name);
         }
     }
-
-    @Override
-    public CuboidRegion put(String name, CuboidRegion region) {
-        RegionUtils.consumeBlocks();
-
-        return super.put(name, region);
-    }
-
-    /*@Override
-    public CuboidRegion get(Object key) {
-        if (key instanceof String strKey && strKey.contains(".")) {
-            String[] parts = strKey.split("\\.");
-            String parentRegionName = parts[0];
-            CuboidRegion currentRegion = get(parentRegionName);
-            for (String part : parts) {
-                currentRegion = currentRegion.getSubRegion(part);
-            }
-            return currentRegion;
-        }
-
-        return super.get(key);
-    }*/
 
     @Override
     public CuboidRegion get(Object key) {
@@ -82,7 +59,9 @@ public class RegionsManager extends MapManager<String, CuboidRegion> {
     }
 
     public static File getRegionsDirectory() {
-        return new File(GamesCoreAPI.getApi().getPlugin().getDataFolder() + "/../../regions");
+        return new File(GamesCoreAPI.getApiOptional()
+                .map(api -> api.getPlugin().getDataFolder() + "/../../regions")
+                .orElse("D:\\workspace\\SCore\\games-core\\test_data"));
     }
 
 }

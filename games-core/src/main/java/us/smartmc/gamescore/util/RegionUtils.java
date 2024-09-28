@@ -60,11 +60,6 @@ public class RegionUtils {
         }.runTaskTimer(GamesCoreAPI.getApi().getPlugin(), 0L, 1L); // Cambia YourPluginInstance por tu clase principal
     }
 
-    public static Set<Block> getBlocksAt(Cuboid cuboid) {
-        Set<Block> list = new HashSet<>();
-        us.smartmc.gamescore.instance.cuboid.CuboidRegion region =
-    }
-
     public static void consumeBlocks(CuboidRegion region, Consumer<Block> consumer) {
         consumeRegion(region, vec -> {
             Block block = Bukkit.getWorld(Objects.requireNonNull(region.getWorld()).getName()).getBlockAt(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ());

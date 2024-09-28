@@ -10,6 +10,7 @@ import us.smartmc.gamescore.manager.GamesManager;
 import us.smartmc.gamescore.manager.PlayersManager;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public abstract class GamesCoreAPI implements IGamesCoreAPI {
 
@@ -53,5 +54,9 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
 
     public static PlayersManager getPlayersManager() {
         return MapManager.getManager(PlayersManager.class);
+    }
+
+    public static Optional<GamesCoreAPI> getApiOptional() {
+        return Optional.ofNullable(api);
     }
 }

@@ -8,12 +8,12 @@ import org.bukkit.Location;
 public class CuboidRegion {
 
     private final String name;
-    private final Cuboid cuboid;
+    private final CuboidBukkit cuboid;
 
     private final CuboidRegionConfig config;
 
     // Create new cuboid region & config
-    public CuboidRegion(String name, Cuboid cuboid) {
+    public CuboidRegion(String name, CuboidBukkit cuboid) {
         this.name = name;
         this.cuboid = cuboid;
         this.config = new CuboidRegionConfig(name);
@@ -26,7 +26,7 @@ public class CuboidRegion {
         this.name = name;
         this.config = new CuboidRegionConfig(name);
         config.load();
-        this.cuboid = new Cuboid(getMinLocation(config), getMaxLocation(config));
+        this.cuboid = new CuboidBukkit(getMinLocation(config), getMaxLocation(config));
     }
 
     // Subregion
@@ -34,7 +34,7 @@ public class CuboidRegion {
         this.name = name;
         this.config = new CuboidRegionConfig(name);
         config.load();
-        this.cuboid = new Cuboid(getMinLocation(config), getMaxLocation(config));
+        this.cuboid = new CuboidBukkit(getMinLocation(config), getMaxLocation(config));
     }
 
     public CuboidRegion getSubRegion(String name) {
@@ -42,8 +42,8 @@ public class CuboidRegion {
     }
 
     private void setCuboidLocations(CuboidRegionConfig config) {
-        config.set("min", LocationSerializer.toString(cuboid.getMin()));
-        config.set("max", LocationSerializer.toString(cuboid.getMax()));
+        config.set("min", LocationSerializer.toString(cuboid.getMinLocation()));
+        config.set("max", LocationSerializer.toString(cuboid.getMaxLocation()));
     }
 
     private static Location getMaxLocation(CuboidRegionConfig config) {

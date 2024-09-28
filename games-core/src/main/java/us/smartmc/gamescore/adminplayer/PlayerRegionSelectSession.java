@@ -6,6 +6,7 @@ import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
+import us.smartmc.gamescore.instance.cuboid.CuboidBukkit;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.PlayerRegionSelectionsManager;
 import us.smartmc.gamescore.util.BukkitUtil;
@@ -38,8 +39,8 @@ public class PlayerRegionSelectSession {
         });
     }
 
-    public Cuboid buildCuboid() {
-        return new Cuboid(pos1, pos2);
+    public CuboidBukkit buildCuboid() {
+        return new CuboidBukkit(pos1, pos2);
     }
 
     public static PlayerRegionSelectSession get(Player player) {

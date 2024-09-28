@@ -9,7 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.joml.Vector3d;
+import org.joml.Vector3i;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
 import us.smartmc.gamescore.instance.serialization.BlockStateWrapper;
@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 public class RegionUtils {
 
     public static void pasteAtLocation(Location newMin, CuboidWrapper wrapper) {
-        Vector3d min = wrapper.getMin();
+        Vector3i min = wrapper.getMin();
         int offsetX = newMin.getBlockX() - (int) min.x();
         int offsetY = newMin.getBlockY() - (int) min.y();
         int offsetZ = newMin.getBlockZ() - (int) min.z();

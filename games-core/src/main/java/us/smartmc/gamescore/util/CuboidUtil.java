@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
+import us.smartmc.gamescore.instance.cuboid.CuboidBukkit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +20,10 @@ public class CuboidUtil {
      * @param cuboid El cuboide que contiene los bloques.
      * @param blockAction La acción a aplicar en cada bloque (Consumer).
      */
-    public static void forEachBlock(Cuboid cuboid, Consumer<Block> blockAction) {
-        World world = cuboid.getMin().getWorld();
-        Location min = cuboid.getMin();
-        Location max = cuboid.getMax();
+    public static void forEachBlock(CuboidBukkit cuboid, Consumer<Block> blockAction) {
+        World world = cuboid.getWorld();
+        Location min = cuboid.getMinLocation();
+        Location max = cuboid.getMaxLocation();
 
         for (int x = min.getBlockX(); x <= max.getBlockX(); x++) {
             for (int y = min.getBlockY(); y <= max.getBlockY(); y++) {
@@ -40,11 +41,11 @@ public class CuboidUtil {
      * @param cuboid El cuboide que contiene los bloques.
      * @return Una lista de bloques dentro del cuboide.
      */
-    public static List<Block> getBlocks(Cuboid cuboid) {
+    public static List<Block> getBlocks(CuboidBukkit cuboid) {
         List<Block> blocks = new ArrayList<>();
-        World world = cuboid.getMin().getWorld();
-        Location min = cuboid.getMin();
-        Location max = cuboid.getMax();
+        World world = cuboid.getWorld();
+        Location min = cuboid.getMinLocation();
+        Location max = cuboid.getMaxLocation();
 
         for (int x = min.getBlockX(); x <= max.getBlockX(); x++) {
             for (int y = min.getBlockY(); y <= max.getBlockY(); y++) {
@@ -63,7 +64,7 @@ public class CuboidUtil {
      * @param cuboid El cuboide que contiene los bloques.
      * @param material El material al que quieres cambiar todos los bloques.
      */
-    public static void replaceBlocks(Cuboid cuboid, Material material) {
+    public static void replaceBlocks(CuboidBukkit cuboid, Material material) {
         forEachBlock(cuboid, block -> block.setType(material));
     }
 
@@ -74,7 +75,7 @@ public class CuboidUtil {
      * @param material El material a contar.
      * @return El número de bloques del material especificado.
      */
-    public static int countBlocks(Cuboid cuboid, Material material) {
+    public static int countBlocks(CuboidBukkit cuboid, Material material) {
         final int[] count = {0};
         forEachBlock(cuboid, block -> {
             if (block.getType() == material) {

@@ -4,8 +4,9 @@ import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.joml.Vector3d;
+import org.joml.Vector3i;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
+import us.smartmc.gamescore.instance.cuboid.CuboidBukkit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +17,12 @@ public class CuboidWrapperBuilder {
     private final CuboidWrapper wrapper;
 
     // Constructor que toma un cuboide y serializa los bloques dentro de la región
-    public CuboidWrapperBuilder(Cuboid cuboid) {
-        Vector3d min = new Vector3d(cuboid.getMin().getX(), cuboid.getMin().getY(), cuboid.getMin().getZ());
-        Vector3d max = new Vector3d(cuboid.getMax().getX(), cuboid.getMax().getY(), cuboid.getMax().getZ());
+    public CuboidWrapperBuilder(CuboidBukkit cuboid) {
+        Vector3i min = new Vector3i(cuboid.getMin().x(), cuboid.getMin().y(), cuboid.getMin().z());
+        Vector3i max = new Vector3i(cuboid.getMax().x(), cuboid.getMax().y(), cuboid.getMax().z());
 
-        Location minLoc = cuboid.getMin();
-        Location maxLoc = cuboid.getMax();
+        Location minLoc = cuboid.getMinLocation();
+        Location maxLoc = cuboid.getMaxLocation();
 
         List<BlockStateWrapper> blocks = new ArrayList<>();
 

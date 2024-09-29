@@ -5,6 +5,7 @@ import lombok.Setter;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.PlayerRegionSelectionsManager;
 import us.smartmc.gamescore.util.BukkitUtil;
@@ -37,8 +38,8 @@ public class PlayerRegionSelectSession {
         });
     }
 
-    public CuboidBukkit buildCuboid() {
-        return new CuboidBukkit(pos1, pos2);
+    public BukkitCuboid buildCuboid() {
+        return new BukkitCuboid(pos1, pos2);
     }
 
     public static PlayerRegionSelectSession get(Player player) {

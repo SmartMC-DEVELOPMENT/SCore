@@ -1,6 +1,7 @@
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\manager\IManagerValue.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\cmd\SchemsCommand.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\IGame.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\cuboid\BukkitCuboidRegion.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\util\InventorySerializer.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\MongoDBData.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\PluginScoreboard.java
@@ -75,7 +76,6 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\GameSes
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\exception\GameCoreException.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\saver\JsonSaver.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\listener\PlayersManagerListeners.java
-D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\util\WorldEditUtil.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\event\GameCorePlayerEvent.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\cmd\RegionsCommand.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\GamesManager.java
@@ -86,6 +86,7 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\Generic
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\manager\SetManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\listener\PlayerRegionSelectionListeners.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\ScoreboardsManager.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\cuboid\BukkitCuboidConfig.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\cmd\GamesCoreCommand.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\loader\IDataFileLoader.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\event\game\GamePreStartEvent.java

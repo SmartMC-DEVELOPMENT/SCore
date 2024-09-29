@@ -11,6 +11,10 @@ public class BukkitCuboidConfig extends CuboidRegionConfig {
         super(name);
     }
 
+    public BukkitCuboidConfig(String name, CuboidRegionConfig parentConfig) {
+        super(name, parentConfig);
+    }
+
     @Override
     public void loadRegionData(String key) {
         super.loadRegionData(key);

@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.joml.Vector3i;
+import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class CuboidWrapperBuilder {
     private final CuboidWrapper wrapper;
 
     // Constructor que toma un cuboide y serializa los bloques dentro de la región
-    public CuboidWrapperBuilder(CuboidBukkit cuboid) {
+    public CuboidWrapperBuilder(BukkitCuboid cuboid) {
         Vector3i min = new Vector3i(cuboid.getMin().x(), cuboid.getMin().y(), cuboid.getMin().z());
         Vector3i max = new Vector3i(cuboid.getMax().x(), cuboid.getMax().y(), cuboid.getMax().z());
 

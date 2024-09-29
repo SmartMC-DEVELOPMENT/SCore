@@ -5,7 +5,10 @@ import org.bukkit.entity.Player;
 import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
+import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
+import us.smartmc.gamescore.instance.cuboid.BukkitCuboidRegion;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
+import us.smartmc.gamescore.instance.cuboid.CuboidRegion;
 import us.smartmc.gamescore.manager.RegionsManager;
 
 public class RegionsCommand extends GamesCoreCommand {
@@ -41,7 +44,7 @@ public class RegionsCommand extends GamesCoreCommand {
                 return;
             }
 
-            Cuboid cuboid = new CuboidBukkit(selectSession.getPos1(), selectSession.getPos2());
+            Cuboid cuboid = new BukkitCuboid(selectSession.getPos1(), selectSession.getPos2());
             GamesCoreAPI.getApi().getBackendConnection().sendCuboid(name, cuboid).thenAccept(res -> {
                 player.sendMessage("GETTED RES! " + res.getResponse().name());
             });
@@ -59,7 +62,7 @@ public class RegionsCommand extends GamesCoreCommand {
                 if (selectSession.getPos1() == null || selectSession.getPos2() == null) {
                     player.sendMessage("Pos 1 or 2 are null! Mark!");
                 }
-                CuboidBukkit cuboid = selectSession.buildCuboid();
+                BukkitCuboid cuboid = selectSession.buildCuboid();
                 regionsManager.createRegion(regionName, cuboid);
                 player.sendMessage("Region created!");
             } else {
@@ -76,18 +79,20 @@ public class RegionsCommand extends GamesCoreCommand {
         }
 
         if (args[0].equalsIgnoreCase("tp")) {
-            regionsManager.getRegion(args[1]).ifPresentOrElse(region -> {
-                player.teleport(region.getCuboid().getMinLocation());
-            }, () -> {
-                player.sendMessage("No region found!");
-            });
+
+            CuboidRegion region = regionsManager.get(args[1]);
+            if (region != null) {
+                if (region instanceof BukkitCuboidRegion bRegion) {
+                    player.teleport(bRegion.getCuboid().getMinLocation());
+                }
+            } else player.sendMessage("No region found!");
         }
 
         if (args[0].equalsIgnoreCase("addmeta")) {
             regionsManager.getRegion(args[1]).ifPresentOrElse(region -> {
                 String metaValue = getLabelFromArgNumber(label, 2);
-                region.getConfig().addMetaData(metaValue);
-                region.getConfig().save();
+                region.getDefaultConfig().addMetaData(metaValue);
+                region.getDefaultConfig().save();
                 player.sendMessage("Added meta data!");
             }, () -> {
                 player.sendMessage("No region found!");
@@ -97,8 +102,8 @@ public class RegionsCommand extends GamesCoreCommand {
         if (args[0].equalsIgnoreCase("removemeta")) {
             regionsManager.getRegion(args[1]).ifPresentOrElse(region -> {
                 String metaValue = getLabelFromArgNumber(label, 2);
-                region.getConfig().removeMetaData(metaValue);
-                region.getConfig().save();
+                region.getDefaultConfig().removeMetaData(metaValue);
+                region.getDefaultConfig().save();
                 player.sendMessage("Removed meta data!");
             }, () -> {
                 player.sendMessage("No region found!");

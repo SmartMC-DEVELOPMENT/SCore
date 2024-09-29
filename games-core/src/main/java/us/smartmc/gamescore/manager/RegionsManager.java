@@ -2,6 +2,7 @@ package us.smartmc.gamescore.manager;
 
 import us.smartmc.gamescore.api.GamesCoreAPI;
 
+import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 import us.smartmc.gamescore.instance.cuboid.CuboidRegion;
 import us.smartmc.gamescore.instance.manager.MapManager;
 
@@ -40,12 +41,12 @@ public class RegionsManager extends MapManager<String, CuboidRegion> {
         return super.get(key);
     }
 
-    public Optional<CuboidRegion> getRegion(String name) {
+    public Optional<? extends CuboidRegion> getRegion(String name) {
         if (!containsKey(name)) return Optional.empty();
         return Optional.of(get(name));
     }
 
-    public CuboidRegion createRegion(String name, CuboidBukkit cuboid) {
+    public CuboidRegion createRegion(String name, BukkitCuboid cuboid) {
         return put(name, new CuboidRegion(name, cuboid));
     }
 

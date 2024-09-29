@@ -8,42 +8,42 @@ import us.smartmc.gamescore.util.CuboidUtil;
 public class CuboidRegion {
 
     protected final String name;
-    protected final Cuboid cuboid;
+    protected final Cuboid defaultCuboid;
 
-    protected final CuboidRegionConfig config;
+    private final CuboidRegionConfig defaultConfig;
 
     // Create new cuboid region & config
     public CuboidRegion(String name, Cuboid cuboid) {
         this.name = name;
-        this.cuboid = cuboid;
-        this.config = new CuboidRegionConfig(name);
-        setCuboidLocations(config);
-        config.save();
+        this.defaultCuboid = cuboid;
+        this.defaultConfig = new CuboidRegionConfig(name);
+        setCuboidLocations(defaultConfig);
+        defaultConfig.save();
     }
 
     // Load
     public CuboidRegion(String name) {
         this.name = name;
-        this.config = new CuboidRegionConfig(name);
-        config.load();
-        this.cuboid = new Cuboid(getMinVector(config), getMaxVector(config));
+        this.defaultConfig = new CuboidRegionConfig(name);
+        defaultConfig.load();
+        this.defaultCuboid = new Cuboid(getMinVector(defaultConfig), getMaxVector(defaultConfig));
     }
 
     // Subregion
     public CuboidRegion(CuboidRegion parent, String name) {
         this.name = name;
-        this.config = new CuboidRegionConfig(name);
-        config.load();
-        this.cuboid = new Cuboid(getMinVector(config), getMaxVector(config));
+        this.defaultConfig = new CuboidRegionConfig(name);
+        defaultConfig.load();
+        this.defaultCuboid = new Cuboid(getMinVector(defaultConfig), getMaxVector(defaultConfig));
     }
 
     public CuboidRegion getSubRegion(String name) {
-        return config.getSubRegions().get(name);
+        return defaultConfig.getSubRegions().get(name);
     }
 
     private void setCuboidLocations(CuboidRegionConfig config) {
-        config.set("min", CuboidUtil.vectorToString(cuboid.getMin()));
-        config.set("max", CuboidUtil.vectorToString(cuboid.getMax()));
+        config.set("min", CuboidUtil.vectorToString(defaultCuboid.getMin()));
+        config.set("max", CuboidUtil.vectorToString(defaultCuboid.getMax()));
     }
 
     private static Vector3i getMaxVector(CuboidRegionConfig config) {

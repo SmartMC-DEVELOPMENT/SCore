@@ -5,8 +5,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.joml.Vector3i;
-import us.smartmc.gamescore.instance.cuboid.Cuboid;
-import us.smartmc.gamescore.instance.cuboid.CuboidBukkit;
 
 import java.util.ArrayList;
 import java.util.List;

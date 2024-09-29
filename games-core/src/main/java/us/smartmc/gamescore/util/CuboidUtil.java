@@ -4,8 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import us.smartmc.gamescore.instance.cuboid.Cuboid;
-import us.smartmc.gamescore.instance.cuboid.CuboidBukkit;
+import org.joml.Vector3i;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +12,18 @@ import java.util.function.Consumer;
 
 public class CuboidUtil {
 
+    private static final String SERIALIZER_SEPARATOR = " ";
+
+    public static String vectorToString(Vector3i vector3i) {
+        return vector3i.x() + SERIALIZER_SEPARATOR +
+                vector3i.y() + SERIALIZER_SEPARATOR +
+                vector3i.z() + SERIALIZER_SEPARATOR;
+    }
+
+    public static Vector3i stringToVector(String str) {
+        String[] parts = str.split(SERIALIZER_SEPARATOR);
+        return new Vector3i(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+    }
 
     /**
      * Recorre todos los bloques dentro del cuboide y aplica una acción sobre cada bloque.

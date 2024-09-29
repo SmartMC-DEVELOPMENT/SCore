@@ -1,16 +1,12 @@
 package us.smartmc.gamescore.cmd;
 
-import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
-import us.smartmc.gamescore.instance.cuboid.CuboidBukkit;
 import us.smartmc.gamescore.manager.RegionsManager;
-
-import java.util.Random;
 
 public class RegionsCommand extends GamesCoreCommand {
 

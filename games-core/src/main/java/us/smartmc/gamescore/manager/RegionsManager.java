@@ -2,7 +2,6 @@ package us.smartmc.gamescore.manager;
 
 import us.smartmc.gamescore.api.GamesCoreAPI;
 
-import us.smartmc.gamescore.instance.cuboid.CuboidBukkit;
 import us.smartmc.gamescore.instance.cuboid.CuboidRegion;
 import us.smartmc.gamescore.instance.manager.MapManager;
 

@@ -10,7 +10,7 @@ import java.util.*;
 @Getter
 public class CuboidRegionConfig extends YamlData {
 
-    private static final String SUBREGIONS_KEY = "subregions";
+    protected static final String SUBREGIONS_KEY = "subregions";
 
     private final String name;
 
@@ -61,7 +61,7 @@ public class CuboidRegionConfig extends YamlData {
     public void loadRegionData(String key) {
         String path = key == null ? "" : SUBREGIONS_KEY + "." + key;
 
-        if (containsKey(path + "metadata")) {
+        if (containsKey(getKey(path, "metadata"))) {
             metaData.addAll(getList("metadata", String.class));
         }
     }
@@ -76,6 +76,10 @@ public class CuboidRegionConfig extends YamlData {
             set("metadata", new ArrayList<>(metaData));
         }
         super.save();
+    }
+
+    protected static String getKey(String path, String name) {
+        return path.isEmpty() ? name : path + "." + name;
     }
 
     private static RegionsManager getManager() {

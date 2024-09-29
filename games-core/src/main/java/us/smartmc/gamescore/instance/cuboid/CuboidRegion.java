@@ -1,19 +1,19 @@
 package us.smartmc.gamescore.instance.cuboid;
 
 import lombok.Getter;
-import me.imsergioh.pluginsapi.util.LocationSerializer;
-import org.bukkit.Location;
+import org.joml.Vector3i;
+import us.smartmc.gamescore.util.CuboidUtil;
 
 @Getter
 public class CuboidRegion {
 
-    private final String name;
-    private final CuboidBukkit cuboid;
+    protected final String name;
+    protected final Cuboid cuboid;
 
-    private final CuboidRegionConfig config;
+    protected final CuboidRegionConfig config;
 
     // Create new cuboid region & config
-    public CuboidRegion(String name, CuboidBukkit cuboid) {
+    public CuboidRegion(String name, Cuboid cuboid) {
         this.name = name;
         this.cuboid = cuboid;
         this.config = new CuboidRegionConfig(name);
@@ -26,7 +26,7 @@ public class CuboidRegion {
         this.name = name;
         this.config = new CuboidRegionConfig(name);
         config.load();
-        this.cuboid = new CuboidBukkit(getMinLocation(config), getMaxLocation(config));
+        this.cuboid = new Cuboid(getMinVector(config), getMaxVector(config));
     }
 
     // Subregion
@@ -34,7 +34,7 @@ public class CuboidRegion {
         this.name = name;
         this.config = new CuboidRegionConfig(name);
         config.load();
-        this.cuboid = new CuboidBukkit(getMinLocation(config), getMaxLocation(config));
+        this.cuboid = new Cuboid(getMinVector(config), getMaxVector(config));
     }
 
     public CuboidRegion getSubRegion(String name) {
@@ -42,16 +42,15 @@ public class CuboidRegion {
     }
 
     private void setCuboidLocations(CuboidRegionConfig config) {
-        config.set("min", LocationSerializer.toString(cuboid.getMinLocation()));
-        config.set("max", LocationSerializer.toString(cuboid.getMaxLocation()));
+        config.set("min", CuboidUtil.vectorToString(cuboid.getMin()));
+        config.set("max", CuboidUtil.vectorToString(cuboid.getMax()));
     }
 
-    private static Location getMaxLocation(CuboidRegionConfig config) {
-        return LocationSerializer.toLocation(config.getString("max"));
+    private static Vector3i getMaxVector(CuboidRegionConfig config) {
+        return CuboidUtil.stringToVector(config.getString("max"));
     }
 
-    private static Location getMinLocation(CuboidRegionConfig config) {
-        return LocationSerializer.toLocation(config.getString("min"));
+    private static Vector3i getMinVector(CuboidRegionConfig config) {
+        return CuboidUtil.stringToVector(config.getString("min"));
     }
-
 }

@@ -25,20 +25,7 @@ public class CuboidRegion {
     public CuboidRegion(String name) {
         this.name = name;
         this.defaultConfig = new CuboidRegionConfig(name);
-        defaultConfig.load();
         this.defaultCuboid = new Cuboid(getMinVector(defaultConfig), getMaxVector(defaultConfig));
-    }
-
-    // Subregion
-    public CuboidRegion(CuboidRegion parent, String name) {
-        this.name = name;
-        this.defaultConfig = new CuboidRegionConfig(name);
-        defaultConfig.load();
-        this.defaultCuboid = new Cuboid(getMinVector(defaultConfig), getMaxVector(defaultConfig));
-    }
-
-    public CuboidRegion getSubRegion(String name) {
-        return defaultConfig.getSubRegions().get(name);
     }
 
     private void setCuboidLocations(CuboidRegionConfig config) {

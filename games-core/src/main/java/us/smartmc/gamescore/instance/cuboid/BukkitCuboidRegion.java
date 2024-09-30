@@ -21,18 +21,12 @@ public class BukkitCuboidRegion extends CuboidRegion {
 
     public BukkitCuboidRegion(String name, Cuboid cuboid) {
         super(name, cuboid);
-        this.config = new BukkitCuboidConfig(name, getDefaultConfig());
+        this.config = new BukkitCuboidConfig(name);
         this.cuboid = new BukkitCuboid(getMinLocation(config), getMaxLocation(config));
     }
 
     public BukkitCuboidRegion(String name) {
         super(name);
-        this.config = new BukkitCuboidConfig(name);
-        this.cuboid = new BukkitCuboid(getMinLocation(config), getMaxLocation(config));
-    }
-
-    public BukkitCuboidRegion(CuboidRegion parent, String name) {
-        super(parent, name);
         this.config = new BukkitCuboidConfig(name);
         this.cuboid = new BukkitCuboid(getMinLocation(config), getMaxLocation(config));
     }

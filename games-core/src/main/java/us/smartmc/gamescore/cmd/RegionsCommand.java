@@ -63,7 +63,7 @@ public class RegionsCommand extends GamesCoreCommand {
                     player.sendMessage("Pos 1 or 2 are null! Mark!");
                 }
                 BukkitCuboid cuboid = selectSession.buildCuboid();
-                regionsManager.createRegion(regionName, cuboid);
+                regionsManager.createBukkitRegion(regionName, cuboid);
                 player.sendMessage("Region created!");
             } else {
                 player.sendMessage("Invalid number of arguments! Specify a region name.");

@@ -19,7 +19,7 @@ public class CuboidUtil {
     public static String vectorToString(Vector3i vector3i) {
         return vector3i.x() + SERIALIZER_SEPARATOR +
                 vector3i.y() + SERIALIZER_SEPARATOR +
-                vector3i.z() + SERIALIZER_SEPARATOR;
+                vector3i.z();
     }
 
     public static Vector3i stringToVector(String str) {

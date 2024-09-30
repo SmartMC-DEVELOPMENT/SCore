@@ -3,6 +3,8 @@ package us.smartmc.gamescore.instance.cuboid;
 import lombok.Getter;
 import org.joml.Vector3i;
 
+import java.util.*;
+
 @Getter
 public class Cuboid {
 
@@ -20,6 +22,19 @@ public class Cuboid {
         this.min = new Vector3i(xMin, yMin, zMin);
         this.max = new Vector3i(xMax, yMax, zMax);
     }
+
+    public List<Vector3i> getVectors() {
+        List<Vector3i> vectors = new ArrayList<>();
+        for (int x = min.x(); x <= max.x(); x++) {
+            for (int y = min.y(); y <= max.y(); y++) {
+                for (int z = min.z(); z <= max.z(); z++) {
+                    vectors.add(new Vector3i(x, y, z));
+                }
+            }
+        }
+        return vectors;
+    }
+
 
     public boolean contains(Vector3i vector) {
         int vectorX = vector.x;

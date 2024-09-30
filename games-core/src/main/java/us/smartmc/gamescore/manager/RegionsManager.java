@@ -1,10 +1,16 @@
 package us.smartmc.gamescore.manager;
 
+import lombok.Getter;
+import me.imsergioh.pluginsapi.util.SyncUtil;
+import org.joml.Vector3i;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
+import us.smartmc.gamescore.instance.cuboid.BukkitCuboidRegion;
+import us.smartmc.gamescore.instance.cuboid.Cuboid;
 import us.smartmc.gamescore.instance.cuboid.CuboidRegion;
 import us.smartmc.gamescore.instance.manager.MapManager;
+import us.smartmc.gamescore.util.CuboidUtil;
 
 import java.io.File;
 import java.util.Objects;
@@ -13,32 +19,20 @@ import java.util.stream.Stream;
 
 public class RegionsManager extends MapManager<String, CuboidRegion> {
 
+    @Getter
+    private static RegionsManager manager;
+
     private RegionsManager() {
+        manager = this;
+        System.out.println("CREATING REGIONSMANAGER");
         getRegionsDirectory().mkdirs();
-        for (File file : Objects.requireNonNull(getRegionsDirectory().listFiles())) {
-            if (!file.getName().endsWith(".yml")) continue;
-            String name = file.getName().replace(".yml", "");
-            loadRegion(name);
-        }
-    }
-
-    @Override
-    public CuboidRegion get(Object key) {
-        if (key instanceof String path && path.contains(".")) {
-            final String[] pathParts = path.split("\\.");
-            if (pathParts.length == 0) {
-                throw new IllegalArgumentException("Invalid path: " + path);
+        SyncUtil.async(() -> {
+            for (File file : Objects.requireNonNull(getRegionsDirectory().listFiles())) {
+                if (!file.getName().endsWith(".yml")) continue;
+                String name = file.getName().replace(".yml", "");
+                loadRegion(name);
             }
-
-            final CuboidRegion parentRegion = get(pathParts[0]);
-
-            final String[] remainingPathParts = new String[pathParts.length - 1];
-            System.arraycopy(pathParts, 1, remainingPathParts, 0, remainingPathParts.length);
-
-            return Stream.of(remainingPathParts).reduce(parentRegion,
-                    (subRegion, part) -> subRegion.getSubRegion(part), (a, b) -> a);
-        }
-        return super.get(key);
+        });
     }
 
     public Optional<? extends CuboidRegion> getRegion(String name) {
@@ -46,12 +40,23 @@ public class RegionsManager extends MapManager<String, CuboidRegion> {
         return Optional.of(get(name));
     }
 
-    public CuboidRegion createRegion(String name, BukkitCuboid cuboid) {
+    public BukkitCuboidRegion createBukkitRegion(String name, BukkitCuboid cuboid) {
+        return (BukkitCuboidRegion) put(name, new BukkitCuboidRegion(name, cuboid));
+    }
+
+    public BukkitCuboidRegion loadBukkitRegion(String name) {
+        return (BukkitCuboidRegion) put(name, new BukkitCuboidRegion(name));
+    }
+
+    public CuboidRegion createRegion(String name, Cuboid cuboid) {
         return put(name, new CuboidRegion(name, cuboid));
     }
 
     public CuboidRegion loadRegion(String name) {
-        return put(name, new CuboidRegion(name));
+        if (containsKey(name)) return get(name);
+        CuboidRegion region = new CuboidRegion(name);
+        super.put(name, region);
+        return region;
     }
 
     @Override

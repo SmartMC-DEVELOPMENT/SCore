@@ -3,28 +3,44 @@ package us.smartmc.test.instance;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cuboid.CuboidPaster;
 import us.smartmc.gamescore.instance.serialization.BlockStateWrapper;
 
 import java.util.Map;
-import java.util.Set;
-import java.util.function.BiConsumer;
 
 
 public class RegionPacketSender {
 
     public static void sendPasteChanges(Player player, Location location, CuboidPaster paster) {
+        Map<Location, BlockStateWrapper> blocks = paster.getRelativeLocationsWithMaterials(location);
+        final int batchSize = 1000;
+        final int totalBlocks = blocks.size();
 
-        for (Map.Entry<Location, BlockStateWrapper> entry : paster.getRelativeLocationsWithMaterials(location).entrySet()) {
-            Location blockLoc = entry.getKey();
-            BlockStateWrapper wrapper = entry.getValue();
-            Material material = Material.getMaterial(wrapper.getType());
-            byte materialData = wrapper.getTypeData();
-        }
+        // Crear un nuevo BukkitRunnable para enviar bloques
+        new BukkitRunnable() {
+            int index = 0;
 
-        .forEach((loc, wrapper) -> {
+            @Override
+            public void run() {
+                // Si hemos enviado todos los bloques, cancelar la tarea
+                if (index >= totalBlocks) {
+                    this.cancel();
+                    return;
+                }
 
-            player.sendBlockChange(loc, material, materialData);
-        });
+                // Enviar bloques en lotes
+                for (int i = 0; i < batchSize && index < totalBlocks; i++, index++) {
+                    Map.Entry<Location, BlockStateWrapper> entry = (Map.Entry<Location, BlockStateWrapper>) blocks.entrySet().toArray()[index];
+                    Location loc = entry.getKey();
+                    BlockStateWrapper block = entry.getValue();
+                    Material material = Material.getMaterial(block.getType());
+                    byte materialData = block.getTypeData();
+                    player.sendBlockChange(loc, material, materialData);
+                }
+            }
+        }.runTaskTimer(GamesCoreAPI.getApi().getPlugin(), 0, 1);
     }
+
 }

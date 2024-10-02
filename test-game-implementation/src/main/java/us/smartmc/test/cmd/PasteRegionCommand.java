@@ -59,9 +59,7 @@ public class PasteRegionCommand extends GamesCoreCommand {
                     sender.sendMessage(ChatUtil.parse("&cPasted AT &b" + pasteDuration + "s&c (" + count + " Blocks)"));
 
                     if (sender instanceof Player player) {
-                        new Thread(() -> {
-                            RegionPacketSender.sendPasteChanges(player, location, paster);
-                        }).start();
+                        //RegionPacketSender.sendPasteChanges(player, location, paster);
                     }
                 });
             } catch (Exception e) {

@@ -11,34 +11,13 @@ import us.smartmc.gamescore.instance.serialization.BlockStateWrapper;
 import us.smartmc.gamescore.instance.serialization.CuboidWrapper;
 
 import java.util.*;
-import java.util.function.BiConsumer;
 
 public class CuboidPaster {
 
-    private static final Set<CuboidPaster> sessions = new HashSet<>();
-
-    public static boolean areAffectingChunk(Chunk chunk) {
-        boolean affecting = false;
-        for (CuboidPaster paster : sessions) {
-            if (paster.isAffectingChunk(chunk)) {
-                affecting = true;
-                break;
-            }
-        }
-        return affecting;
-    }
-
     private final CuboidWrapper wrapper;
-
-    private final Set<Chunk> affectingChunks = new HashSet<>();
 
     public CuboidPaster(CuboidWrapper wrapper) {
         this.wrapper = wrapper;
-        sessions.add(this);
-    }
-
-    public boolean isAffectingChunk(Chunk chunk) {
-        return affectingChunks.contains(chunk);
     }
 
     public Map<Location, BlockStateWrapper> getRelativeLocationsWithMaterials(Location newMin) {
@@ -68,7 +47,7 @@ public class CuboidPaster {
         int offsetZ = newMin.getBlockZ() - (int) min.z();
 
         List<BlockStateWrapper> blocks = wrapper.getBlocks();
-        int batchSize = 1000;
+        int batchSize = 4096;
         int totalBlocks = blocks.size();
 
         new BukkitRunnable() {
@@ -90,8 +69,6 @@ public class CuboidPaster {
                     if (material != null) {
                         newBlock.setType(material);
                         newBlock.setData(blockState.getTypeData());
-
-                        affectingChunks.add(newBlock.getChunk());
                     }
                 }
 
@@ -102,7 +79,6 @@ public class CuboidPaster {
                     for (Runnable runnable : completedActions) {
                         runnable.run();
                     }
-                    sessions.remove(CuboidPaster.this);
                     cancel(); // Detener la tarea si se han procesado todos los bloques
                 }
             }

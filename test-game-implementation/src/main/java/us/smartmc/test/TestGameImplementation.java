@@ -51,24 +51,6 @@ public class TestGameImplementation extends JavaPlugin implements Listener {
         new WandCommand();
         new SchemsCommand();
         new PasteRegionCommand();
-
-        ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-
-        protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.HIGHEST, PacketType.Play.Server.MAP_CHUNK) {
-            @Override
-            public void onPacketSending(PacketEvent event) {
-                Player player = event.getPlayer();
-
-                int chunkX = event.getPacket().getIntegers().read(0);
-                int chunkZ = event.getPacket().getIntegers().read(1);
-                World world = player.getWorld();
-                Chunk chunk = world.getChunkAt(chunkX, chunkZ);
-
-                if (CuboidPaster.areAffectingChunk(chunk)) {
-                    event.setCancelled(true);
-                }
-            }
-        });
     }
 
     @EventHandler

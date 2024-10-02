@@ -12,13 +12,11 @@ public class BukkitCuboidConfig extends CuboidRegionConfig {
     }
 
     @Override
-    public void loadRegionData(String key) {
-        super.loadRegionData(key);
-        String path = key == null ? "" : SUBREGIONS_KEY + "." + key;
+    public void loadRegionData() {
+        super.loadRegionData();
 
-        String worldKey = getKey(path, "world");
-        if (containsKey(worldKey)) {
-            this.worldReference = getString(worldKey);
+        if (containsKey("world")) {
+            this.worldReference = getString("world");
         }
     }
 

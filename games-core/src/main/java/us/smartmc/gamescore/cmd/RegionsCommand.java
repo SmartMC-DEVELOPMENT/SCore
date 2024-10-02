@@ -2,6 +2,7 @@ package us.smartmc.gamescore.cmd;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import us.smartmc.backend.gamescore.CuboidSaveRequest;
 import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
@@ -44,10 +45,12 @@ public class RegionsCommand extends GamesCoreCommand {
                 return;
             }
 
-            Cuboid cuboid = new BukkitCuboid(selectSession.getPos1(), selectSession.getPos2());
+            BukkitCuboid cuboid = new BukkitCuboid(selectSession.getPos1(), selectSession.getPos2());
             GamesCoreAPI.getApi().getBackendConnection().sendCuboid(name, cuboid).thenAccept(res -> {
                 player.sendMessage("GETTED RES! " + res.getResponse().name());
             });
+
+            GamesCoreAPI.getApi().getBackendConnection().sendObject("test command");
         }
 
         if (args[0].equalsIgnoreCase("create")) {

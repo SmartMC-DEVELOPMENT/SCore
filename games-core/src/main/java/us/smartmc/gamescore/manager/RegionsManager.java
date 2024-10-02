@@ -2,7 +2,6 @@ package us.smartmc.gamescore.manager;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.util.SyncUtil;
-import org.joml.Vector3i;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
@@ -10,20 +9,18 @@ import us.smartmc.gamescore.instance.cuboid.BukkitCuboidRegion;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
 import us.smartmc.gamescore.instance.cuboid.CuboidRegion;
 import us.smartmc.gamescore.instance.manager.MapManager;
-import us.smartmc.gamescore.util.CuboidUtil;
 
 import java.io.File;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public class RegionsManager extends MapManager<String, CuboidRegion> {
 
     @Getter
-    private static RegionsManager manager;
+    private static RegionsManager instance;
 
     private RegionsManager() {
-        manager = this;
+        instance = this;
         System.out.println("CREATING REGIONSMANAGER");
         getRegionsDirectory().mkdirs();
         SyncUtil.async(() -> {

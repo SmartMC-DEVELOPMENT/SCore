@@ -4,6 +4,7 @@ import us.smartmc.backend.connection.BackendClient;
 import us.smartmc.backend.gamescore.listener.CuboidGetResponseListener;
 import us.smartmc.backend.gamescore.listener.CuboidSaveResponseListener;
 import us.smartmc.backend.handler.ConnectionInputManager;
+import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
 
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class BackendConnection extends BackendClient {
         return future;
     }
 
-    public CompletableFuture<CuboidSaveResponse> sendCuboid(String name, Cuboid cuboid) {
+    public CompletableFuture<CuboidSaveResponse> sendCuboid(String name, BukkitCuboid cuboid) {
         CompletableFuture<CuboidSaveResponse> future = new CompletableFuture<>();
         cuboidSendRequests.put(name, future);
         sendObject(new CuboidSaveRequest(name, cuboid));

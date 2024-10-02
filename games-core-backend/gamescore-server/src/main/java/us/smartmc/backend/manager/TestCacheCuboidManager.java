@@ -11,9 +11,11 @@ public class TestCacheCuboidManager {
 
     public static void saveCache(String name, CuboidWrapper wrapper) {
         cache.put(name, wrapper);
+        System.out.println("SAVING CACHE CUBOIDWRAPPER " + name);
     }
 
     public static CuboidWrapper get(String name) {
+        System.out.println("GET CACHE CUBOIDWRAPPER " + name);
         return cache.get(name);
     }
 

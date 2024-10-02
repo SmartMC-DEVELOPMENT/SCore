@@ -1,11 +1,16 @@
 package us.smartmc.gamescore.api;
 
 import lombok.Getter;
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
+import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.backend.gamescore.BackendConnection;
 import us.smartmc.gamescore.instance.manager.MapManager;
+import us.smartmc.gamescore.itemcmd.AddCustomMetadataItemCmd;
+import us.smartmc.gamescore.itemcmd.ToggleMetadataItemCmd;
 import us.smartmc.gamescore.listener.PlayerGameLogicListeners;
 import us.smartmc.gamescore.listener.PlayersManagerListeners;
+import us.smartmc.gamescore.listener.RegionsMetadataListeners;
 import us.smartmc.gamescore.manager.GamesManager;
 import us.smartmc.gamescore.manager.PlayersManager;
 
@@ -25,18 +30,21 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
     public GamesCoreAPI(JavaPlugin plugin) {
         this.plugin = plugin;
         api = this;
+        SpigotPluginsAPI.setup(plugin);
         try {
             this.backendConnection = new BackendConnection("admin.smartmc.us", 7723, "default", "SmartMC2024Ñ");
-            new Thread(backendConnection::run).start();
+            new Thread(backendConnection).start();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        ItemActionsManager.registerCommand("toggleRegionMetadata", new ToggleMetadataItemCmd());
+        ItemActionsManager.registerCommand("addMetadata", new AddCustomMetadataItemCmd());
     }
 
     @Override
     public void initialize(JavaPlugin plugin) {
         try {
-            registerListeners(new PlayerGameLogicListeners(), new PlayersManagerListeners());
+            registerListeners(new PlayerGameLogicListeners(), new PlayersManagerListeners(), new RegionsMetadataListeners());
         } catch (Exception e) {
             getLogger().severe("Error trying to register Listeners from default listeners package!");
             throw new RuntimeException(e);

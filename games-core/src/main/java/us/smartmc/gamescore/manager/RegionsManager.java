@@ -2,6 +2,7 @@ package us.smartmc.gamescore.manager;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.util.SyncUtil;
+import org.bukkit.World;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
@@ -27,7 +28,7 @@ public class RegionsManager extends MapManager<String, CuboidRegion> {
             for (File file : Objects.requireNonNull(getRegionsDirectory().listFiles())) {
                 if (!file.getName().endsWith(".yml")) continue;
                 String name = file.getName().replace(".yml", "");
-                loadRegion(name);
+                loadBukkitRegion(name);
             }
         });
     }

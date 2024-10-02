@@ -2,15 +2,14 @@ package us.smartmc.gamescore.cmd;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import us.smartmc.backend.gamescore.CuboidSaveRequest;
 import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboidRegion;
-import us.smartmc.gamescore.instance.cuboid.Cuboid;
 import us.smartmc.gamescore.instance.cuboid.CuboidRegion;
 import us.smartmc.gamescore.manager.RegionsManager;
+import us.smartmc.gamescore.menu.ManageMetadataRegionMenu;
 
 public class RegionsCommand extends GamesCoreCommand {
 
@@ -29,6 +28,15 @@ public class RegionsCommand extends GamesCoreCommand {
         if (regionsManager == null) {
             player.sendMessage("No region manager found!");
             return;
+        }
+
+        if (args[0].equalsIgnoreCase("metadata")) {
+            String name = args[1];
+            regionsManager.getRegion(name).ifPresentOrElse(region -> {
+                new ManageMetadataRegionMenu(player, region).open(player);
+            }, () -> {
+                player.sendMessage("Region not found!");
+            });
         }
 
         if (args[0].equalsIgnoreCase("save")) {

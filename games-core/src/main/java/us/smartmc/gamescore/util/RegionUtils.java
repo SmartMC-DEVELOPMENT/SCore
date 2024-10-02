@@ -13,11 +13,24 @@ import us.smartmc.gamescore.instance.cuboid.BukkitCuboidRegion;
 import us.smartmc.gamescore.instance.cuboid.CuboidRegion;
 import us.smartmc.gamescore.instance.serialization.BlockStateWrapper;
 import us.smartmc.gamescore.instance.serialization.CuboidWrapper;
+import us.smartmc.gamescore.manager.RegionsManager;
 
 import java.util.*;
 import java.util.function.Consumer;
 
 public class RegionUtils {
+
+    public static CuboidRegion getFirstRegionByLocation(Location location) {
+        RegionsManager regionsManager = RegionsManager.getManager(RegionsManager.class);
+        if (regionsManager == null) return null;
+        Vector3i vector3i = new Vector3i(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+        for (CuboidRegion region : regionsManager.values()) {
+            if (region.getDefaultCuboid().contains(vector3i)) {
+                return region;
+            }
+        }
+        return null;
+    }
 
     public static void consumeBlocks(BukkitCuboidRegion region, Consumer<Block> consumer) {
         consumeRegion(region, vec -> {

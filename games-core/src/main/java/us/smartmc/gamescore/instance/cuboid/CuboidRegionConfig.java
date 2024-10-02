@@ -29,20 +29,41 @@ public class CuboidRegionConfig extends YamlData {
         metaData.add(value);
     }
 
+    public boolean hasMetaData(String value) {
+        return metaData.contains(value);
+    }
+
+    public boolean toggleMetadata(String value) {
+        if (metaData.contains(value)) {
+            removeMetaData(value);
+            return false;
+        }
+        addMetaData(value);
+        return true;
+    }
+
+    public Set<String> getMetadata() {
+        return new HashSet<>(getList("metadata", String.class));
+    }
+
     public void removeMetaData(String value) {
         metaData.remove(value);
     }
 
     public void loadRegionData() {
         if (containsKey("metadata")) {
-            metaData.addAll(new HashSet<>(getList("metadata", String.class)));
+            metaData.addAll(getMetadata());
         }
+    }
+
+    public void saveMetadata() {
+        set("metadata", metaData);
     }
 
     @Override
     public void save() {
         if (!metaData.isEmpty()) {
-            set("metadata", new ArrayList<>(metaData));
+            saveMetadata();
         }
         super.save();
     }

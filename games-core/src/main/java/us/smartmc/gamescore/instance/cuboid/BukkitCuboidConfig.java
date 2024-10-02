@@ -7,8 +7,17 @@ public class BukkitCuboidConfig extends CuboidRegionConfig {
 
     private String worldReference;
 
+    // Load
     public BukkitCuboidConfig(String name) {
         super(name);
+    }
+
+    // Create
+    public BukkitCuboidConfig(String name, World world) {
+        super(name);
+        this.worldReference = world.getName();
+        registerDefault("world", world.getName());
+        save();
     }
 
     @Override

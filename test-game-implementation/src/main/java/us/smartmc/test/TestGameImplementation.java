@@ -1,15 +1,6 @@
 package us.smartmc.test;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.ListenerPriority;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,7 +9,6 @@ import us.smartmc.gamescore.cmd.SchemsCommand;
 import us.smartmc.gamescore.cmd.WandCommand;
 import us.smartmc.gamescore.event.player.GamePlayerJoinEvent;
 import us.smartmc.gamescore.instance.PluginScoreboard;
-import us.smartmc.gamescore.instance.cuboid.CuboidPaster;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.player.PlayerScoreboard;
 import us.smartmc.gamescore.listener.PlayerRegionSelectionListeners;

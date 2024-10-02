@@ -19,10 +19,10 @@ public class BukkitCuboidRegion extends CuboidRegion {
     protected final BukkitCuboid cuboid;
     private final BukkitCuboidConfig config;
 
-    public BukkitCuboidRegion(String name, Cuboid cuboid) {
+    public BukkitCuboidRegion(String name, BukkitCuboid cuboid) {
         super(name, cuboid);
-        this.config = new BukkitCuboidConfig(name);
-        this.cuboid = new BukkitCuboid(getMinLocation(config), getMaxLocation(config));
+        this.config = new BukkitCuboidConfig(name, cuboid.getWorld());
+        this.cuboid = cuboid;
     }
 
     public BukkitCuboidRegion(String name) {

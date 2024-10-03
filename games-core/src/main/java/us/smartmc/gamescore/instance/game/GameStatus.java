@@ -13,7 +13,7 @@ public enum GameStatus {
 
     }
 
-    public Set<IGame> getGames() {
+    public Set<Game> getGames() {
         GamesManager manager = GamesManager.getManager(GamesManager.class);
         if (manager == null) return new HashSet<>();
         return manager.getGamesByStatus(this);

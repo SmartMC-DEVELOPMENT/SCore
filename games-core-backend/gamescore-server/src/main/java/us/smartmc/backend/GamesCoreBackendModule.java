@@ -16,7 +16,6 @@ public class GamesCoreBackendModule extends ModulePlugin {
         super.onEnable();
         module = this;
         ConnectionInputManager.registerListeners(new SaveCuboidListener(), new GetCuboidListener());
-        System.out.println("Listeners registrados! (games-core)");
     }
 
     public static GamesCoreBackendModule getModule() {

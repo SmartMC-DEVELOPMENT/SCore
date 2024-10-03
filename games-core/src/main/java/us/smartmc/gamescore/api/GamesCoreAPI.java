@@ -6,13 +6,16 @@ import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.backend.gamescore.BackendConnection;
 import us.smartmc.gamescore.instance.manager.MapManager;
-import us.smartmc.gamescore.itemcmd.AddCustomMetadataItemCmd;
-import us.smartmc.gamescore.itemcmd.ToggleMetadataItemCmd;
+import us.smartmc.gamescore.itemcmd.AddCustomMetadataItemCMD;
+import us.smartmc.gamescore.itemcmd.ListMetadataItemCMD;
+import us.smartmc.gamescore.itemcmd.RemoveCustomMetadataItemCMD;
+import us.smartmc.gamescore.itemcmd.ToggleMetadataItemCMD;
 import us.smartmc.gamescore.listener.PlayerGameLogicListeners;
 import us.smartmc.gamescore.listener.PlayersManagerListeners;
 import us.smartmc.gamescore.listener.RegionsMetadataListeners;
 import us.smartmc.gamescore.manager.GamesManager;
 import us.smartmc.gamescore.manager.PlayersManager;
+import us.smartmc.gamescore.manager.RegionsManager;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -37,8 +40,14 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        ItemActionsManager.registerCommand("toggleRegionMetadata", new ToggleMetadataItemCmd());
-        ItemActionsManager.registerCommand("addMetadata", new AddCustomMetadataItemCmd());
+        ItemActionsManager.registerCommand("toggleRegionMetadata", new ToggleMetadataItemCMD());
+        ItemActionsManager.registerCommand("addRegionMetadata", new AddCustomMetadataItemCMD());
+        ItemActionsManager.registerCommand("removeRegionMetadata", new RemoveCustomMetadataItemCMD());
+
+        ItemActionsManager.registerCommand("listRegionMetadata", new ListMetadataItemCMD());
+
+        // Create at setup of API Regions Manager (to load regions, etc.)
+        RegionsManager.getManager(RegionsManager.class);
     }
 
     @Override

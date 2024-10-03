@@ -1,5 +1,5 @@
 us\smartmc\backend\listener\SaveCuboidListener.class
 us\smartmc\backend\listener\GetCuboidListener.class
+us\smartmc\backend\manager\CacheCuboidManager.class
 us\smartmc\backend\GamesCoreBackendModule.class
-us\smartmc\backend\manager\TestCacheCuboidManager.class
 us\smartmc\backend\util\CuboidSerializer.class

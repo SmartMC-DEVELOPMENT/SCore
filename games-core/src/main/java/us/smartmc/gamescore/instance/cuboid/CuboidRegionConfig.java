@@ -57,14 +57,7 @@ public class CuboidRegionConfig extends YamlData {
     }
 
     public void saveMetadata() {
-        set("metadata", metaData);
-    }
-
-    @Override
-    public void save() {
-        if (!metaData.isEmpty()) {
-            saveMetadata();
-        }
-        super.save();
+        set("metadata", new ArrayList<>(metaData));
+        save();
     }
 }

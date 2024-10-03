@@ -14,13 +14,14 @@ public class ManageMetadataRegionMenu extends GUIMenu {
     private final CuboidRegion region;
 
     public ManageMetadataRegionMenu(Player player, CuboidRegion region) {
-        super(player, 9 * 3, "Manage metadata " + region.getName());
+        super(player, 9 * 5, "Manage Metadata | " + region.getName());
         this.region = region;
         setItems();
     }
 
     public void setItems() {
-        set(4, ItemBuilder.of(Material.NAME_TAG).name("ADD CUSTOM METADATA").get(), "addMetadata " + region.getName());
+        set(3, ItemBuilder.of(Material.NAME_TAG).name("&a&lADD CUSTOM METADATA").get(), "addRegionMetadata " + region.getName());
+        set(5, ItemBuilder.of(Material.DROPPER).name("&c&lREMOVE CUSTOM METADATA").get(), "removeRegionMetadata " + region.getName());
 
         registerMetadata(19, "DENY@PVP", Material.DIAMOND_SWORD);
         registerMetadata(20, "DENY@DAMAGE", Material.REDSTONE);
@@ -29,6 +30,8 @@ public class ManageMetadataRegionMenu extends GUIMenu {
         registerMetadata(23, "DENY@BLOCK_BREAK", Material.REDSTONE_BLOCK);
         registerMetadata(24, "DENY@BLOCKS", Material.STONE);
         registerMetadata(25, "DENY@DROPS", Material.HOPPER);
+
+        set(40, ItemBuilder.of(Material.PAPER).name("&b&lLIST ALL METADATA").get(), "listRegionMetadata " + region.getName());
     }
 
     @Override
@@ -37,10 +40,9 @@ public class ManageMetadataRegionMenu extends GUIMenu {
 
     private void registerMetadata(int slot, String id, Material material) {
         boolean enabled = region.getDefaultConfig().hasMetaData(id);
-
         String enabledPrefix = enabled ? "&a" : "&c";
         ItemBuilder builder = ItemBuilder.of(material)
-                .name(id).lore("&7Enabled: " + enabledPrefix + enabled);
+                .name("&b&l" + id).lore("&7Enabled: " + enabledPrefix + enabled);
         ItemStack item = builder.get();
 
 

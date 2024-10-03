@@ -1,6 +1,7 @@
 us\smartmc\gamescore\util\InventorySerializer.class
 us\smartmc\gamescore\instance\player\GameCorePlayer.class
 us\smartmc\gamescore\instance\serialization\BlockStateWrapper.class
+us\smartmc\gamescore\itemcmd\ListMetadataItemCMD.class
 us\smartmc\gamescore\instance\PluginScoreboard.class
 us\smartmc\gamescore\manager\GamesManager.class
 us\smartmc\gamescore\instance\manager\IMapManager.class
@@ -8,7 +9,6 @@ us\smartmc\gamescore\instance\storage\loader\IDataFileLoader.class
 us\smartmc\gamescore\instance\serialization\CuboidWrapperBuilder.class
 us\smartmc\gamescore\api\GamesCoreAPI.class
 us\smartmc\gamescore\instance\event\GameCoreGameEvent.class
-us\smartmc\gamescore\itemcmd\ToggleMetadataItemCmd.class
 us\smartmc\gamescore\instance\cuboid\BukkitCuboidRegion.class
 us\smartmc\gamescore\instance\event\GameCoreEvent.class
 us\smartmc\gamescore\manager\GameSessionTeamsManager.class
@@ -17,7 +17,9 @@ us\smartmc\gamescore\listener\PlayerGameLogicListeners.class
 us\smartmc\gamescore\instance\manager\SetManager.class
 us\smartmc\gamescore\instance\serialization\CuboidWrapper.class
 us\smartmc\gamescore\instance\storage\loader\JsonLoader$1.class
+us\smartmc\gamescore\itemcmd\ToggleMetadataItemCMD.class
 us\smartmc\gamescore\manager\CoreCommandsManager.class
+us\smartmc\gamescore\itemcmd\AddCustomMetadataItemCMD$1.class
 us\smartmc\gamescore\instance\storage\saver\IDataSaver.class
 us\smartmc\gamescore\event\player\GamePlayerQuitEvent.class
 us\smartmc\gamescore\instance\GamesCoreLogger.class
@@ -38,6 +40,7 @@ us\smartmc\gamescore\instance\cuboid\BukkitCuboidConfig.class
 us\smartmc\gamescore\instance\storage\saver\JsonSaver.class
 us\smartmc\gamescore\instance\cuboid\Cuboid.class
 us\smartmc\gamescore\cmd\RegionsCommand.class
+us\smartmc\gamescore\itemcmd\RemoveCustomMetadataItemCMD.class
 us\smartmc\gamescore\manager\RegionsManager.class
 us\smartmc\gamescore\instance\player\GamePlayerStats.class
 us\smartmc\gamescore\event\player\GamePlayerJoinEvent.class
@@ -64,6 +67,7 @@ us\smartmc\gamescore\instance\manager\IManagerValue.class
 us\smartmc\gamescore\instance\storage\saver\YamlSaver.class
 us\smartmc\gamescore\instance\timer\ITimer.class
 us\smartmc\gamescore\instance\game\GameStatus.class
+us\smartmc\gamescore\itemcmd\AddCustomMetadataItemCMD.class
 us\smartmc\gamescore\instance\cuboid\CuboidRegionConfig.class
 us\smartmc\gamescore\instance\storage\ILocalFileConfig.class
 us\smartmc\gamescore\instance\storage\MongoDBData.class
@@ -72,7 +76,6 @@ us\smartmc\gamescore\util\CuboidUtil.class
 us\smartmc\gamescore\listener\PlayersManagerListeners.class
 us\smartmc\gamescore\instance\cuboid\BukkitCuboid.class
 us\smartmc\gamescore\instance\storage\loader\MongoDBLoader.class
-us\smartmc\gamescore\itemcmd\AddCustomMetadataItemCmd.class
 us\smartmc\gamescore\instance\cuboid\CuboidRegion.class
 us\smartmc\gamescore\api\IGamesCoreAPI.class
 us\smartmc\gamescore\manager\PlayersManager.class
@@ -89,6 +92,7 @@ us\smartmc\gamescore\instance\storage\YamlData.class
 us\smartmc\gamescore\event\player\GamePlayerStatusChangeEvent.class
 us\smartmc\gamescore\adminplayer\PlayerRegionSelectSession.class
 us\smartmc\gamescore\instance\player\PlayerScoreboard.class
+us\smartmc\gamescore\itemcmd\RemoveCustomMetadataItemCMD$1.class
 us\smartmc\gamescore\event\game\GameStatusChangeEvent.class
 us\smartmc\gamescore\manager\ScoreboardsManager.class
 us\smartmc\gamescore\instance\manager\ISetManager.class

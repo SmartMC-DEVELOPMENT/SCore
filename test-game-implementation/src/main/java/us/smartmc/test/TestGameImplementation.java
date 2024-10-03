@@ -12,12 +12,18 @@ import us.smartmc.gamescore.instance.PluginScoreboard;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.player.PlayerScoreboard;
 import us.smartmc.gamescore.listener.PlayerRegionSelectionListeners;
+import us.smartmc.gamescore.manager.GamesManager;
 import us.smartmc.gamescore.manager.ScoreboardsManager;
+import us.smartmc.test.cmd.LeaveCommand;
 import us.smartmc.test.cmd.PasteRegionCommand;
+import us.smartmc.test.game.TestGame;
 
 public class TestGameImplementation extends JavaPlugin implements Listener {
 
-    private static ScoreboardsManager scoreboardsManager;
+    private static TestGame mainGame;
+
+    private static GamesManager gamesManager;
+
     private static PluginScoreboard mainScoreboard;
 
     @Override
@@ -29,8 +35,13 @@ public class TestGameImplementation extends JavaPlugin implements Listener {
         new GameIntegration(this);
         Bukkit.getPluginManager().registerEvents(this, this);
 
-        scoreboardsManager = MapManager.getManager(ScoreboardsManager.class);
+        ScoreboardsManager scoreboardsManager = MapManager.getManager(ScoreboardsManager.class);
         scoreboardsManager.registerMultiLanguage("main");
+
+        gamesManager = MapManager.getManager(GamesManager.class);
+
+        mainGame = new TestGame();
+        gamesManager.put(mainGame.getSessionId(), mainGame);
 
         mainScoreboard = scoreboardsManager.get("main_ES");
         mainScoreboard.load();
@@ -41,11 +52,16 @@ public class TestGameImplementation extends JavaPlugin implements Listener {
         new WandCommand();
         new SchemsCommand();
         new PasteRegionCommand();
+        new LeaveCommand();
     }
 
     @EventHandler
     public void onGamePlayerJoin(GamePlayerJoinEvent event) {
         new PlayerScoreboard(event.getBukkitPlayer(), mainScoreboard);
-        event.getBukkitPlayer().sendMessage("Se ha puesto o intentando por lo menos poner scoreboard");
+        gamesManager.get(TestGame.getMainGame().getSessionId()).joinPlayer(event.getCorePlayer());
+    }
+
+    public static GamesManager getGamesManager() {
+        return gamesManager;
     }
 }

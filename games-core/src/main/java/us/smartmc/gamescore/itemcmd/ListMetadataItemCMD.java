@@ -18,7 +18,10 @@ public class ListMetadataItemCMD implements ItemActionExecutor {
         Player player = handler.getPlayer();
         String regionName = args[0];
 
-        Optional<? extends CuboidRegion> optionalCuboidRegion = RegionsManager.getInstance().getRegion(regionName);
+        RegionsManager manager = RegionsManager.getManager(RegionsManager.class);
+        if (manager == null) return;
+
+        Optional<? extends CuboidRegion> optionalCuboidRegion = manager.getRegion(regionName);
 
         if (optionalCuboidRegion.isEmpty()) {
             player.sendMessage(ChatUtil.color("&cRegion not found!"));

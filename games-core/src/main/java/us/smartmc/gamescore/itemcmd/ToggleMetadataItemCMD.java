@@ -15,8 +15,10 @@ public class ToggleMetadataItemCMD implements ItemActionExecutor {
         Player player = handler.getPlayer();
         String regionName = args[0];
         String metadataId = args[1];
-        boolean toggled = RegionsManager.getInstance().get(regionName).getDefaultConfig().toggleMetadata(metadataId);
-        RegionsManager.getInstance().get(regionName).getDefaultConfig().saveMetadata();
+        RegionsManager manager = RegionsManager.getManager(RegionsManager.class);
+        if (manager == null) return;
+        boolean toggled = manager.get(regionName).getDefaultConfig().toggleMetadata(metadataId);
+        manager.get(regionName).getDefaultConfig().saveMetadata();
         String message = toggled ? "&aAdded metadata!" : "&cRemoved metadata!";
         player.sendMessage(ChatUtil.parse(message));
 

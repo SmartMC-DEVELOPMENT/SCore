@@ -13,6 +13,7 @@ import us.smartmc.gamescore.itemcmd.ToggleMetadataItemCMD;
 import us.smartmc.gamescore.listener.PlayerGameLogicListeners;
 import us.smartmc.gamescore.listener.PlayersManagerListeners;
 import us.smartmc.gamescore.listener.RegionsMetadataListeners;
+import us.smartmc.gamescore.listener.TestCustomRegionMetadataListener;
 import us.smartmc.gamescore.manager.GamesManager;
 import us.smartmc.gamescore.manager.PlayersManager;
 import us.smartmc.gamescore.manager.RegionsManager;
@@ -45,6 +46,8 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
         ItemActionsManager.registerCommand("removeRegionMetadata", new RemoveCustomMetadataItemCMD());
 
         ItemActionsManager.registerCommand("listRegionMetadata", new ListMetadataItemCMD());
+
+        registerListeners(new TestCustomRegionMetadataListener());
 
         // Create at setup of API Regions Manager (to load regions, etc.)
         RegionsManager.getManager(RegionsManager.class);

@@ -17,11 +17,8 @@ import java.util.Optional;
 
 public class RegionsManager extends MapManager<String, CuboidRegion> {
 
-    @Getter
-    private static RegionsManager instance;
 
     private RegionsManager() {
-        instance = this;
         System.out.println("CREATING REGIONSMANAGER");
         getRegionsDirectory().mkdirs();
         SyncUtil.async(() -> {

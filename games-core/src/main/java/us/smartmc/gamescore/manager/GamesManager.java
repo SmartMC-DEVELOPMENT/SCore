@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.instance.game.Game;
 import us.smartmc.gamescore.instance.game.GameStatus;
-import us.smartmc.gamescore.instance.game.IGame;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 
@@ -13,7 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Getter
-public class GamesManager extends MapManager<UUID, IGame> {
+public class GamesManager extends MapManager<UUID, Game> {
 
     public void unregisterPlayer(Player player) {
         forEach((id, game) -> {
@@ -21,24 +20,24 @@ public class GamesManager extends MapManager<UUID, IGame> {
         });
     }
 
-    public Set<IGame> getWaitingGames() {
+    public Set<Game> getWaitingGames() {
         return getGamesByStatus(GameStatus.WAITING);
     }
 
-    public Set<IGame> getStartingGames() {
+    public Set<Game> getStartingGames() {
         return getGamesByStatus(GameStatus.WAITING);
     }
 
-    public Set<IGame> getPlayingGames() {
+    public Set<Game> getPlayingGames() {
         return getGamesByStatus(GameStatus.PLAYING);
     }
 
-    public Set<IGame> getEndingGames() {
+    public Set<Game> getEndingGames() {
         return getGamesByStatus(GameStatus.ENDING);
     }
 
-    public Set<IGame> getGamesByStatus(GameStatus status) {
-        Set<IGame> games = new HashSet<>();
+    public Set<Game> getGamesByStatus(GameStatus status) {
+        Set<Game> games = new HashSet<>();
         forEach((id, game) -> {
            if (!game.getStatus().equals(status)) return;
            games.add(game);
@@ -47,7 +46,7 @@ public class GamesManager extends MapManager<UUID, IGame> {
     }
 
     @Override
-    public IGame createValueByKey(UUID id) {
+    public Game createValueByKey(UUID id) {
         return new Game(id);
     }
 }

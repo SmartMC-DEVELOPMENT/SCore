@@ -3,6 +3,7 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\cmd\SchemsComma
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\IGame.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\cuboid\BukkitCuboidRegion.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\Data.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\listener\TestCustomRegionMetadataListener.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\cuboid\Cuboid.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\player\PlayerStatus.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\saver\IDataSaver.java
@@ -46,6 +47,7 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\cmd\Ga
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\loader\IDataFileLoader.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\event\game\GamePreStartEvent.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\cmd\WandCommand.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\region\metadata\ICustomRegionMetadata.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\util\InventorySerializer.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\itemcmd\ListMetadataItemCMD.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\MongoDBData.java
@@ -59,6 +61,7 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\player
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\event\player\GamePlayerGameJoinEvent.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\LocalFileData.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\util\BukkitUtil.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\region\metadata\CustomRegionMetadata.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\api\IGamesCoreAPI.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\event\game\GamePostStartEvent.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\event\GameCoreEvent.java

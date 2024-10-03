@@ -3,6 +3,7 @@ package us.smartmc.gamescore.instance.game;
 import lombok.Getter;
 import us.smartmc.gamescore.event.game.*;
 import us.smartmc.gamescore.event.player.GamePlayerGameJoinEvent;
+import us.smartmc.gamescore.event.player.GamePlayerGameLeaveEvent;
 import us.smartmc.gamescore.event.player.GamePlayerQuitEvent;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
@@ -79,7 +80,7 @@ public class Game implements IGame {
         players.remove(player);
         teamsManager.remove(player.getUUID());
         player.setCurrentGame(null);
-        BukkitUtil.callEvent(new GamePlayerQuitEvent(player));
+        BukkitUtil.callEvent(new GamePlayerGameLeaveEvent(player));
     }
 
     @Override

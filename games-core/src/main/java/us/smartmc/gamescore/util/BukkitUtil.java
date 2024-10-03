@@ -66,7 +66,7 @@ public class BukkitUtil {
     }
 
     public static void callEvent(Event event) {
-        Bukkit.getPluginManager().callEvent(event);
+        runSync(() -> Bukkit.getPluginManager().callEvent(event));
     }
 
     private static JavaPlugin getPlugin() {

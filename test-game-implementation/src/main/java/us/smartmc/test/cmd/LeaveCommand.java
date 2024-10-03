@@ -11,7 +11,7 @@ import java.util.List;
 public class LeaveCommand extends GamesCoreCommand {
 
     public LeaveCommand() {
-        super("leave");
+        super("salir");
     }
 
     @Override
@@ -28,10 +28,5 @@ public class LeaveCommand extends GamesCoreCommand {
     @Override
     public boolean perform(CommandSender sender, String s, String[] args) {
         return false;
-    }
-
-    @Override
-    public List<String> getAliases() {
-        return List.of("salir", "s", "l", "abandonar");
     }
 }

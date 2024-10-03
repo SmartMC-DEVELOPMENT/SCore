@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import us.smartmc.gamescore.instance.game.Game;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
+import us.smartmc.gamescore.util.BukkitUtil;
 import us.smartmc.test.TestGameImplementation;
 
 public class TestGame extends Game {
@@ -16,7 +17,7 @@ public class TestGame extends Game {
     public TestGame() {
         super();
         world = Bukkit.getWorlds().get(0);
-        TestGameImplementation.getGamesManager().register(getSessionId(), this);
+        TestGameImplementation.getGamesManager().put(getSessionId(), this);
     }
 
     @Override
@@ -30,9 +31,11 @@ public class TestGame extends Game {
     }
 
     @Override
-    public void leavePlayer(GameCorePlayer player) {
-        super.leavePlayer(player);
-        player.getBukkitPlayer().sendMessage("Poes te has salido del juego cabrón");
+    public void leavePlayer(GameCorePlayer gamePlayer) {
+        super.leavePlayer(gamePlayer);
+        BukkitUtil.getPlayer(gamePlayer.getUUID()).ifPresent(player -> {
+            player.sendMessage("Poes te has salido crack del juego");
+        });
     }
 
     public static TestGame getMainGame() {

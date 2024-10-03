@@ -10,7 +10,6 @@ import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
 import us.smartmc.gamescore.instance.cuboid.CuboidPaster;
 import us.smartmc.gamescore.instance.serialization.CuboidWrapper;
-import us.smartmc.test.instance.RegionPacketSender;
 
 import java.util.Arrays;
 

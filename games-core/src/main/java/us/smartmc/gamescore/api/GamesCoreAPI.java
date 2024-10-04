@@ -15,7 +15,7 @@ import us.smartmc.gamescore.listener.PlayersManagerListeners;
 import us.smartmc.gamescore.listener.RegionsMetadataListeners;
 import us.smartmc.gamescore.listener.TestCustomRegionMetadataListener;
 import us.smartmc.gamescore.manager.GamesManager;
-import us.smartmc.gamescore.manager.PlayersManager;
+import us.smartmc.gamescore.manager.player.PlayersManager;
 import us.smartmc.gamescore.manager.RegionsManager;
 
 import java.io.IOException;

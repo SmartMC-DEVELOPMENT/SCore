@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
-import us.smartmc.gamescore.manager.PlayersManager;
+import us.smartmc.gamescore.manager.player.PlayersManager;
 
 @Getter
 public abstract class GameCorePlayerEvent extends GameCoreEvent {

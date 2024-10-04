@@ -7,16 +7,19 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import us.smartmc.gamescore.instance.game.Game;
+import us.smartmc.gamescore.instance.game.GameStatus;
 import us.smartmc.gamescore.instance.game.team.GameTeam;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
-import us.smartmc.gamescore.manager.GenericGameTeamsManager;
+import us.smartmc.gamescore.manager.team.GenericGameTeamsManager;
 
 public class GameTeamsManagerListeners implements Listener {
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayersDamage(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player damager && event.getEntity() instanceof Player entity) {
+            Game game = GameCorePlayer.of(damager).getCurrentGame();
+            if (game != null && !game.getStatus().equals(GameStatus.PLAYING)) return;
             boolean areInSameTeam = areAtSameTeam(damager, entity);
             if (isAllyDamageAllowed()) {
                 if (areInSameTeam) {

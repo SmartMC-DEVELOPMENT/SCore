@@ -35,6 +35,26 @@ public class Cuboid {
         return vectors;
     }
 
+    public Vector3i getRelativeCoordinates(Vector3i location) {
+        if (!contains(location)) {
+            throw new IllegalArgumentException("La ubicación está fuera del cubo.");
+        }
+
+        int relativeX = location.x() - min.x();
+        int relativeY = location.y() - min.y();
+        int relativeZ = location.z() - min.z();
+
+        return new Vector3i(relativeX, relativeY, relativeZ);
+    }
+
+    public Vector3i getGlobalCoords(Vector3i relativeCoordinates) {
+        int globalX = min.x() + relativeCoordinates.x();
+        int globalY = min.y() + relativeCoordinates.y();
+        int globalZ = min.z() + relativeCoordinates.z();
+
+        return new Vector3i(globalX, globalY, globalZ);
+    }
+
 
     public boolean contains(Vector3i vector) {
         int vectorX = vector.x;

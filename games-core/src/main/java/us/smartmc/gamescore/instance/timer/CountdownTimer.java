@@ -11,26 +11,24 @@ public abstract class CountdownTimer extends Timer implements ICountdownTimer {
 
     private final CountdownTimer instance;
     private final Consumer<ICountdownTimer> timerConsumer;
-    protected final long start, end;
+    private final long countdown;
+    protected long start, end;
 
     public CountdownTimer(Consumer<ICountdownTimer> timerConsumer, TimeUnit unit, long timeAmount) {
         this(timerConsumer, unit.toMillis(timeAmount));
     }
 
     public CountdownTimer(Consumer<ICountdownTimer> timerConsumer, long countdown) {
-        this(timerConsumer, System.currentTimeMillis(), System.currentTimeMillis() + countdown);
-    }
-
-    public CountdownTimer(Consumer<ICountdownTimer> timerConsumer, long start, long end) {
         super(null);
         this.instance = this;
         this.timerConsumer = timerConsumer;
-        this.start = start / 1000;
-        this.end = end / 1000;
+        this.countdown = countdown;
     }
 
     @Override
     public void start() {
+        this.start = System.currentTimeMillis();
+        this.end = start + countdown;
         repeatingTask(0, 1000);
         performStart();
     }
@@ -42,7 +40,7 @@ public abstract class CountdownTimer extends Timer implements ICountdownTimer {
 
     @Override
     public long getSecondsLeft() {
-        return end - (System.currentTimeMillis() / 1000);
+        return (end - System.currentTimeMillis()) / 1000;
     }
 
     @Override
@@ -57,6 +55,7 @@ public abstract class CountdownTimer extends Timer implements ICountdownTimer {
     protected Runnable getRunnable() {
         return () -> {
             BukkitUtil.runSync(() -> {
+                perform();
                 timerConsumer.accept(instance);
             });
         };

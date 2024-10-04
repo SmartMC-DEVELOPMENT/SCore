@@ -1,8 +1,6 @@
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
-import org.bson.Document;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
-import us.smartmc.gamescore.instance.storage.MongoDBData;
-import us.smartmc.gamescore.manager.PlayerStatisticsManager;
+import us.smartmc.gamescore.manager.player.PlayerStatisticsManager;
 
 import java.util.UUID;
 

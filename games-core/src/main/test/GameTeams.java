@@ -1,6 +1,6 @@
 import us.smartmc.gamescore.instance.game.team.GameTeam;
 import us.smartmc.gamescore.instance.manager.MapManager;
-import us.smartmc.gamescore.manager.GenericGameTeamsManager;
+import us.smartmc.gamescore.manager.team.GenericGameTeamsManager;
 
 public class GameTeams {
 

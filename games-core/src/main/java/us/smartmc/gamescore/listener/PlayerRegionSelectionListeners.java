@@ -13,7 +13,7 @@ import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
 import us.smartmc.gamescore.api.GamesCoreAPI;
-import us.smartmc.gamescore.manager.PlayerRegionSelectionsManager;
+import us.smartmc.gamescore.manager.player.PlayerRegionSelectionsManager;
 
 public class PlayerRegionSelectionListeners implements Listener {
 

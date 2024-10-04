@@ -3,7 +3,7 @@ package us.smartmc.gamescore.instance.game;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
 import us.smartmc.gamescore.instance.timer.CountdownTimer;
-import us.smartmc.gamescore.manager.GameSessionTeamsManager;
+import us.smartmc.gamescore.manager.team.GameSessionTeamsManager;
 import us.smartmc.gamescore.manager.GamesManager;
 
 import java.util.Set;

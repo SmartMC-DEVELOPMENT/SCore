@@ -4,11 +4,10 @@ import lombok.Getter;
 import us.smartmc.gamescore.event.game.*;
 import us.smartmc.gamescore.event.player.GamePlayerGameJoinEvent;
 import us.smartmc.gamescore.event.player.GamePlayerGameLeaveEvent;
-import us.smartmc.gamescore.event.player.GamePlayerQuitEvent;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
 import us.smartmc.gamescore.instance.timer.CountdownTimer;
-import us.smartmc.gamescore.manager.GameSessionTeamsManager;
+import us.smartmc.gamescore.manager.team.GameSessionTeamsManager;
 import us.smartmc.gamescore.util.BukkitUtil;
 
 import java.util.HashSet;
@@ -50,6 +49,8 @@ public class Game implements IGame {
         BukkitUtil.runLater(() -> {
             BukkitUtil.callEvent(new GamePostStartEvent(this));
         }, 10);
+        setStatus(GameStatus.PLAYING);
+        players.forEach(gamePlayer -> gamePlayer.setStatus(PlayerStatus.IN_GAME));
     }
 
     @Override
@@ -81,10 +82,12 @@ public class Game implements IGame {
         teamsManager.remove(player.getUUID());
         player.setCurrentGame(null);
         BukkitUtil.callEvent(new GamePlayerGameLeaveEvent(player));
+        BukkitUtil.getPlayer(player.getUUID()).ifPresent(p -> player.setStatus(PlayerStatus.LOBBY));
     }
 
     @Override
     public void killPlayer(GameCorePlayer player) {
+        joinSpectatorViewer(player);
         player.setStatus(PlayerStatus.SPECTATOR_DEATH);
     }
 

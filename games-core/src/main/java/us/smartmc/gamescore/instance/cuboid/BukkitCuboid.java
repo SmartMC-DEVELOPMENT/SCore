@@ -18,6 +18,15 @@ public class BukkitCuboid extends Cuboid {
         }
     }
 
+    public Vector3i getRelativeCoordinates(Location location) {
+        return getRelativeCoordinates(locToIntVector(location));
+    }
+
+    public Location getGlobalLocation(Vector3i relativeCoords) {
+        Vector3i coords =  getGlobalCoords(relativeCoords);
+        return new Location(getWorld(), coords.x, coords.y, coords.z);
+    }
+
     public Location getMinLocation() {
         return intVectorToLoc(getWorld(), super.getMin());
     }

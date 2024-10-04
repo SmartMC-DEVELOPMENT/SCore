@@ -2,11 +2,8 @@ package us.smartmc.gamescore.cmd;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
-import us.smartmc.gamescore.instance.cuboid.Cuboid;
-import us.smartmc.gamescore.manager.PlayerRegionSelectionsManager;
-import us.smartmc.gamescore.manager.RegionsManager;
+import us.smartmc.gamescore.manager.player.PlayerRegionSelectionsManager;
 
 public class WandCommand extends GamesCoreCommand {
 

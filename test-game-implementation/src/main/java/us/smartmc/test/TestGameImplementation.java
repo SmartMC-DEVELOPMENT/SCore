@@ -1,6 +1,7 @@
 package us.smartmc.test;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -9,10 +10,13 @@ import us.smartmc.gamescore.cmd.SchemsCommand;
 import us.smartmc.gamescore.cmd.WandCommand;
 import us.smartmc.gamescore.event.player.GamePlayerJoinEvent;
 import us.smartmc.gamescore.instance.PluginScoreboard;
+import us.smartmc.gamescore.instance.game.team.ColorGameTeam;
+import us.smartmc.gamescore.instance.game.team.ColorGameTeamColor;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.player.PlayerScoreboard;
 import us.smartmc.gamescore.listener.PlayerRegionSelectionListeners;
 import us.smartmc.gamescore.manager.GamesManager;
+import us.smartmc.gamescore.manager.GenericGameTeamsManager;
 import us.smartmc.gamescore.manager.ScoreboardsManager;
 import us.smartmc.test.cmd.LeaveCommand;
 import us.smartmc.test.cmd.PasteRegionCommand;
@@ -53,6 +57,13 @@ public class TestGameImplementation extends JavaPlugin implements Listener {
         new SchemsCommand();
         new PasteRegionCommand();
         new LeaveCommand();
+
+        ColorGameTeam redTeam = new ColorGameTeam(ColorGameTeamColor.RED);
+        MapManager.getManager(GenericGameTeamsManager.class).put(redTeam.getName(), redTeam);
+        ColorGameTeam blueTeam = new ColorGameTeam(ColorGameTeamColor.BLUE);
+        MapManager.getManager(GenericGameTeamsManager.class).put(blueTeam.getName(), blueTeam);
+
+        MapManager.getManager(GenericGameTeamsManager.class).setAllyDamageAllowed(true);
     }
 
     @EventHandler

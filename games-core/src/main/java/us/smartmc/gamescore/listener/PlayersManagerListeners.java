@@ -10,7 +10,7 @@ import us.smartmc.gamescore.event.player.GamePlayerQuitEvent;
 import us.smartmc.gamescore.instance.exception.NonExistentManagerExpection;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
-import us.smartmc.gamescore.manager.PlayersManager;
+import us.smartmc.gamescore.manager.player.PlayersManager;
 import us.smartmc.gamescore.util.BukkitUtil;
 
 public class PlayersManagerListeners implements Listener {

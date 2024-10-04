@@ -7,7 +7,7 @@ import us.smartmc.gamescore.instance.manager.SetManager;
 import us.smartmc.gamescore.instance.player.statistic.IPlayerStatistic;
 import us.smartmc.gamescore.instance.storage.loader.MongoDBLoader;
 import us.smartmc.gamescore.instance.storage.saver.MongoDBSaver;
-import us.smartmc.gamescore.manager.PlayerStatisticsManager;
+import us.smartmc.gamescore.manager.player.PlayerStatisticsManager;
 
 import java.util.UUID;
 

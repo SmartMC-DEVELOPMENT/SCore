@@ -7,7 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 import us.smartmc.gamescore.instance.manager.MapManager;
-import us.smartmc.gamescore.manager.PlayerRegionSelectionsManager;
+import us.smartmc.gamescore.manager.player.PlayerRegionSelectionsManager;
 import us.smartmc.gamescore.util.BukkitUtil;
 
 import java.util.UUID;

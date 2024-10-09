@@ -6,7 +6,7 @@ import us.smartmc.gamescore.api.GamesCoreAPI;
 public class GameIntegration extends GamesCoreAPI {
 
     public GameIntegration(JavaPlugin plugin) {
-        super(plugin);
+        super("test_integration", plugin);
         initialize(plugin);
     }
 }

@@ -8,16 +8,18 @@ import java.util.List;
 
 public class GameMapData extends MongoDBData {
 
-    private static final String MAX_PLAYERS = "max_players";
-    private static final String MIN_PLAYERS = "min_players";
+    public static final String ENABLED = "enabled";
+    public static final String MAX_PLAYERS = "max_players";
+    public static final String MIN_PLAYERS = "min_players";
 
-    private static final String TEAMS_LIMIT = "teams_limit";
-    private static final String TEAMS_NAMES = "teams_names";
+    public static final String TEAMS_LIMIT = "teams_limit";
+    public static final String TEAMS_NAMES = "teams_names";
 
     public GameMapData(GameMap map, MapsManager manager) {
         super(manager.getDatabaseId(), manager.getCollectionId(), getQuery(map));
         load();
 
+        registerDefault(ENABLED, false);
         registerDefault(MAX_PLAYERS, 8);
         registerDefault(MIN_PLAYERS, 2);
 
@@ -25,6 +27,10 @@ public class GameMapData extends MongoDBData {
         registerDefault(TEAMS_NAMES, List.of("blue", "red"));
 
         save();
+    }
+
+    public boolean isEnabled() {
+        return getBoolean(ENABLED);
     }
 
     public List<String> getTeamsNames() {

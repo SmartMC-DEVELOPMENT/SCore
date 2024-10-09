@@ -2,19 +2,20 @@ package us.smartmc.gamescore.api;
 
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
+import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.backend.gamescore.BackendConnection;
+import us.smartmc.gamescore.cmd.EditMapCommand;
+import us.smartmc.gamescore.cmd.WandCommand;
 import us.smartmc.gamescore.instance.manager.MapManager;
-import us.smartmc.gamescore.itemcmd.AddCustomMetadataItemCMD;
-import us.smartmc.gamescore.itemcmd.ListMetadataItemCMD;
-import us.smartmc.gamescore.itemcmd.RemoveCustomMetadataItemCMD;
-import us.smartmc.gamescore.itemcmd.ToggleMetadataItemCMD;
+import us.smartmc.gamescore.itemcmd.*;
 import us.smartmc.gamescore.listener.PlayerGameLogicListeners;
 import us.smartmc.gamescore.listener.PlayersManagerListeners;
 import us.smartmc.gamescore.listener.RegionsMetadataListeners;
 import us.smartmc.gamescore.listener.TestCustomRegionMetadataListener;
 import us.smartmc.gamescore.manager.GamesManager;
+import us.smartmc.gamescore.manager.map.MapsManager;
 import us.smartmc.gamescore.manager.player.PlayersManager;
 import us.smartmc.gamescore.manager.RegionsManager;
 
@@ -26,15 +27,19 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
     @Getter
     private static GamesCoreAPI api;
 
+    @Getter
+    private final String gameId;
     private final JavaPlugin plugin;
 
     @Getter
     private final BackendConnection backendConnection;
 
-    public GamesCoreAPI(JavaPlugin plugin) {
+    public GamesCoreAPI(String gameId, JavaPlugin plugin) {
+        this.gameId = gameId;
         this.plugin = plugin;
         api = this;
         SpigotPluginsAPI.setup(plugin);
+        MongoDBConnection.mainConnection = new MongoDBConnection("localhost", 27017);
         try {
             this.backendConnection = new BackendConnection("admin.smartmc.us", 7723, "default", "SmartMC2024Ñ");
             new Thread(backendConnection).start();
@@ -46,11 +51,18 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
         ItemActionsManager.registerCommand("removeRegionMetadata", new RemoveCustomMetadataItemCMD());
 
         ItemActionsManager.registerCommand("listRegionMetadata", new ListMetadataItemCMD());
+        ItemActionsManager.registerCommand("startEditSession", new StartEditSessionCMD());
+        ItemActionsManager.registerCommand("editMapSelectMenu", new EditMapSelectMenuCMD());
 
         registerListeners(new TestCustomRegionMetadataListener());
 
         // Create at setup of API Regions Manager (to load regions, etc.)
         RegionsManager.getManager(RegionsManager.class);
+        MapsManager.getManager(MapsManager.class);
+
+        // Default Commands (Native in API)
+        new EditMapCommand();
+        new WandCommand();
     }
 
     @Override

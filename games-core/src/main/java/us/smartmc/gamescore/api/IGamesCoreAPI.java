@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 public interface IGamesCoreAPI {
 
     void initialize(JavaPlugin plugin);
+
+    String getGameId();
     JavaPlugin getPlugin();
 
     default Logger getLogger() {

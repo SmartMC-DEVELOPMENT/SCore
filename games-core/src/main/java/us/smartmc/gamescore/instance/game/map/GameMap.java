@@ -15,4 +15,8 @@ public class GameMap {
         this.data = new GameMapData(this, manager);
     }
 
+    public boolean isEnabled() {
+        return data.isEnabled();
+    }
+
 }

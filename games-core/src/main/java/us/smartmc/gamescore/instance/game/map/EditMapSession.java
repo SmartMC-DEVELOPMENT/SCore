@@ -1,6 +1,8 @@
 package us.smartmc.gamescore.instance.game.map;
 
 import lombok.Getter;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import us.smartmc.gamescore.instance.manager.MapManager;
@@ -17,6 +19,8 @@ public class EditMapSession {
     private final GameMap map;
 
     private final boolean canFly;
+    private final GameMode gamemode;
+    private final Location location;
     private final ItemStack[] invContent;
 
     public EditMapSession(Player player, String mapName) {
@@ -27,15 +31,27 @@ public class EditMapSession {
 
         canFly = player.getAllowFlight();
         invContent = player.getInventory().getContents();
+        gamemode = player.getGameMode();
+        location = player.getLocation();
 
         player.setAllowFlight(true);
         player.setFlying(true);
+
+        player.setGameMode(GameMode.SURVIVAL);
+        player.setFoodLevel(20);
+        player.setHealthScale(20);
     }
 
     public void leave() {
-        player.setAllowFlight(canFly);
+        if (!canFly && !player.getGameMode().equals(GameMode.CREATIVE)) {
+            player.setAllowFlight(false);
+        }
+
+        player.setGameMode(gamemode);
         player.getInventory().clear();
         player.getInventory().setContents(invContent);
+
+        player.teleport(location);
     }
 
     public void setTeamsNames(Set<String> teamNames) {

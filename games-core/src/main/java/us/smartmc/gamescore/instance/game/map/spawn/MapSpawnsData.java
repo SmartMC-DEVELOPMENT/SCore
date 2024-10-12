@@ -26,6 +26,10 @@ public class MapSpawnsData extends Document {
         }
 
         // Create holder
+        loadHolder();
+    }
+
+    private void loadHolder() {
         SpawnType type = getSpawnType();
         holder = switch (type) {
             case ONE_ALL, ONE_TEAM -> new OneSpawnHolder(this);
@@ -58,6 +62,7 @@ public class MapSpawnsData extends Document {
             case LIST_TEAM -> SpawnType.ONE_ALL;
         };
         put("type", newType.name());
+        loadHolder();
         return getSpawnType();
     }
 

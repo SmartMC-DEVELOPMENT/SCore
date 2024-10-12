@@ -6,12 +6,19 @@ import org.bukkit.entity.Player;
 import org.joml.Vector3i;
 import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
+import us.smartmc.gamescore.instance.game.map.EditMapSession;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.PlayerRegionSelectionsManager;
 import us.smartmc.gamescore.manager.map.EditMapSessionsManager;
 import us.smartmc.gamescore.menu.EditMapInventoryMenu;
 
 public class EditorModeUtil {
+
+    public static boolean isInEditorMode(Player player) {
+        EditMapSessionsManager manager = MapManager.getManager(EditMapSessionsManager.class);
+        if (manager == null) return false;
+        return manager.get(player.getUniqueId()) != null;
+    }
 
     public static Vector3i getRelativePosition(Player player, Location location) {
         BukkitCuboid cuboid = getBukkitCuboidFromSelection(player);
@@ -24,6 +31,12 @@ public class EditorModeUtil {
         if (session == null) return null;
         if (session.getPos1() == null || session.getPos2() == null) return null;
         return new BukkitCuboid(session.getPos1(), session.getPos2());
+    }
+
+    public static EditMapSession getEditMapSession(Player player) {
+        EditMapSessionsManager manager = MapManager.getManager(EditMapSessionsManager.class);
+        if (manager == null) return null;
+        return manager.get(player.getUniqueId());
     }
 
     public static PlayerRegionSelectSession getSelectionSession(Player player) {

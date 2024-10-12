@@ -9,10 +9,12 @@ import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboidRegion;
 import us.smartmc.gamescore.instance.cuboid.CuboidRegion;
+import us.smartmc.gamescore.instance.game.map.EditMapSession;
 import us.smartmc.gamescore.manager.RegionsManager;
 import us.smartmc.gamescore.menu.EditMapInventoryMenu;
 import us.smartmc.gamescore.menu.EditMapSelectionMenu;
 import us.smartmc.gamescore.menu.ManageMetadataRegionMenu;
+import us.smartmc.gamescore.util.EditorModeUtil;
 
 public class EditMapCommand extends GamesCoreCommand {
 
@@ -22,13 +24,15 @@ public class EditMapCommand extends GamesCoreCommand {
 
     @Override
     public void performPlayer(Player player, String label, String[] args) {
-        GUIMenu menu = GUIMenu.getSetGUI(player);
-        if (menu instanceof EditMapInventoryMenu inv) {
-            inv.leave(player);
-            GUIMenu.unregisterSetGUI(player.getUniqueId());
+
+        // Leave
+        EditMapSession session = EditorModeUtil.getEditMapSession(player);
+        if (session != null) {
+            EditorModeUtil.leaveEditorMode(player);
             return;
         }
 
+        // Join
         new EditMapSelectionMenu(player).open(player);
     }
 

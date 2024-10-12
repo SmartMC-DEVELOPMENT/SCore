@@ -64,6 +64,9 @@ public class EditMapInventoryMenu extends GUIMenu {
                         .lore(Arrays.asList("&7Click to save map region"))
                         .get(),
                 "editMapInv save");
+
+        // WorldEdit Wand + Custom GameCore Wand
+        set(5, ItemBuilder.of(Material.WOOD_AXE).get());
         set(8, PlayerRegionSelectionsManager.wandItem);
 
         String maintenancePrefix = map.isEnabled() ? "&a" : "&c";
@@ -83,7 +86,7 @@ public class EditMapInventoryMenu extends GUIMenu {
                 .get(), "editMapInv leave");
 
         String spawnTypeName = map.getData().getSpawnsData().getSpawnType().name();
-        set(29, ItemBuilder.of(Material.REDSTONE_WIRE)
+        set(29, ItemBuilder.of(Material.REDSTONE)
                 .name("&bSpawnType selector:&a " + spawnTypeName)
                 .get(), "editMapInv toggleSpawnType");
 
@@ -97,7 +100,7 @@ public class EditMapInventoryMenu extends GUIMenu {
                 .get(), "editMapInv addSetPosition");
 
         if (map.getData().getSpawnsData().getHolder() instanceof ListSpawnsHolder) {
-            set(33, ItemBuilder.of(Material.ENDER_PORTAL_FRAME)
+            set(33, ItemBuilder.of(Material.LAVA_BUCKET)
                     .name("&bRemove last spawn position")
                     .get(), "editMapInv removeLastPos");
         } else {

@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import us.smartmc.gamescore.util.BukkitUtil;
 import us.smartmc.gamescore.util.EditorModeUtil;
 
 public class AdminManagerListeners implements Listener {
@@ -16,8 +17,11 @@ public class AdminManagerListeners implements Listener {
 
     @EventHandler
     public void setFlyingAtEditorMode(PlayerGameModeChangeEvent event) {
-        Player player = event.getPlayer();
-        if (!EditorModeUtil.isInEditorMode(player)) return;
-        player.setAllowFlight(true);
+        BukkitUtil.runLater(() -> {
+            Player player = event.getPlayer();
+            if (!EditorModeUtil.isInEditorMode(player)) return;
+            player.setAllowFlight(true);
+            player.setFlying(true);
+        }, 1);
     }
 }

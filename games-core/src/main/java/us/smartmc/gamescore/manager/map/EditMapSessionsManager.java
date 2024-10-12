@@ -4,12 +4,12 @@ import me.imsergioh.pluginsapi.util.ChatUtil;
 import org.bukkit.entity.Player;
 import us.smartmc.backend.gamescore.BackendConnection;
 import us.smartmc.backend.gamescore.CuboidSaveResponse;
-import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
+import us.smartmc.gamescore.adminplayer.PlayerSelectSession;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cuboid.CuboidPaster;
 import us.smartmc.gamescore.instance.game.map.EditMapSession;
 import us.smartmc.gamescore.instance.manager.MapManager;
-import us.smartmc.gamescore.manager.player.PlayerRegionSelectionsManager;
+import us.smartmc.gamescore.manager.player.PlayerSelectionsManager;
 
 import java.util.UUID;
 
@@ -22,7 +22,8 @@ public class EditMapSessionsManager extends MapManager<UUID, EditMapSession> {
 
     @Override
     public EditMapSession remove(Object key) {
-        get(key).leave();
+        if (containsKey(key))
+            get(key).leave();
         return super.remove(key);
     }
 
@@ -46,9 +47,9 @@ public class EditMapSessionsManager extends MapManager<UUID, EditMapSession> {
     public void saveMap(Player player) {
         EditMapSession session = of(player);
         if (session == null) return;
-        PlayerRegionSelectionsManager regionSelectionsManager = MapManager.getManager(PlayerRegionSelectionsManager.class);
+        PlayerSelectionsManager regionSelectionsManager = MapManager.getManager(PlayerSelectionsManager.class);
         if (regionSelectionsManager == null) return;
-        PlayerRegionSelectSession selectSession = regionSelectionsManager.get(player.getUniqueId());
+        PlayerSelectSession selectSession = regionSelectionsManager.get(player.getUniqueId());
 
         if (selectSession.getPos2() == null || selectSession.getPos1() == null) {
             player.sendMessage(ChatUtil.color("&cYou need to set a map selection!"));

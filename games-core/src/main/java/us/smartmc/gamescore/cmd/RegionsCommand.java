@@ -2,7 +2,7 @@ package us.smartmc.gamescore.cmd;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
+import us.smartmc.gamescore.adminplayer.PlayerSelectSession;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
@@ -41,7 +41,7 @@ public class RegionsCommand extends GamesCoreCommand {
 
         if (args[0].equalsIgnoreCase("save")) {
             String name = args[1];
-            PlayerRegionSelectSession selectSession = PlayerRegionSelectSession.get(player);
+            PlayerSelectSession selectSession = PlayerSelectSession.get(player);
 
             if (selectSession == null) {
                 player.sendMessage("No session found!");
@@ -64,7 +64,7 @@ public class RegionsCommand extends GamesCoreCommand {
         if (args[0].equalsIgnoreCase("create")) {
             if (args.length >= 2) {
                 String regionName = args[1];
-                PlayerRegionSelectSession selectSession = PlayerRegionSelectSession.get(player);
+                PlayerSelectSession selectSession = PlayerSelectSession.get(player);
                 if (selectSession == null) {
                     player.sendMessage("No session found!");
                     return;

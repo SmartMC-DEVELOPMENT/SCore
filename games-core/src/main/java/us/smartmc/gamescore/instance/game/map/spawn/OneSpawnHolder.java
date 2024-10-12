@@ -16,6 +16,12 @@ public class OneSpawnHolder implements ISpawnHolder {
         this.spawnsData = data;
     }
 
+    public void removePosition(GameTeam team) {
+        String key = team == null ? "position" : team.getName();
+        spawnsData.remove(key);
+        spawnsData.getMapData().save();
+    }
+
     @Override
     public void setPosition(GameTeam team, Vector3i relativePosition) {
         String strPosition = CuboidUtil.vectorToString(relativePosition);
@@ -48,6 +54,7 @@ public class OneSpawnHolder implements ISpawnHolder {
             doc = spawnsData;
         } else {
             doc = (Document) spawnsData.getOrDefault(team.getName(), new Document());
+            spawnsData.put(team.getName(), doc);
         }
         return doc;
     }

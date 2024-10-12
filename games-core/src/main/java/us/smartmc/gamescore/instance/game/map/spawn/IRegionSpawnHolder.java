@@ -5,7 +5,7 @@ import us.smartmc.gamescore.instance.game.team.GameTeam;
 
 public interface IRegionSpawnHolder {
 
-    Vector3i getNextPosition(GameTeam team, Vector3i minPositionReference);
+    Vector3i getNextRelativePosition(GameTeam team, Vector3i minPositionReference);
 
     Vector3i getRelativePosition(GameTeam team, int index, Vector3i minPositionReference);
 

@@ -3,7 +3,7 @@ package us.smartmc.gamescore.cmd;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
-import us.smartmc.gamescore.manager.player.PlayerRegionSelectionsManager;
+import us.smartmc.gamescore.manager.player.PlayerSelectionsManager;
 
 public class WandCommand extends GamesCoreCommand {
 
@@ -13,7 +13,7 @@ public class WandCommand extends GamesCoreCommand {
 
     @Override
     public void performPlayer(Player player, String label, String[] args) {
-       player.getInventory().addItem(PlayerRegionSelectionsManager.wandItem);
+       player.getInventory().addItem(PlayerSelectionsManager.wandItem);
     }
 
     @Override

@@ -63,6 +63,7 @@ public class ListSpawnsHolder implements ISpawnsHolder {
             doc = spawnsData;
         } else {
             doc = (Document) spawnsData.getOrDefault(team.getName(), new Document());
+            spawnsData.put(team.getName(), doc);
         }
         return doc;
     }

@@ -11,9 +11,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
+import us.smartmc.gamescore.adminplayer.PlayerSelectSession;
 import us.smartmc.gamescore.api.GamesCoreAPI;
-import us.smartmc.gamescore.manager.player.PlayerRegionSelectionsManager;
+import us.smartmc.gamescore.manager.player.PlayerSelectionsManager;
 
 public class PlayerRegionSelectionListeners implements Listener {
 
@@ -24,11 +24,11 @@ public class PlayerRegionSelectionListeners implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void handlePosition1(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (!PlayerRegionSelectionsManager.canWand(player)) return;
+        if (!PlayerSelectionsManager.canWand(player)) return;
         if (event.getClickedBlock() == null) return;
         if (!event.getAction().name().contains("RIGHT")) return;
-        PlayerRegionSelectionsManager manager = getManager();
-        PlayerRegionSelectSession selectSession = manager.getOrCreate(player.getUniqueId());
+        PlayerSelectionsManager manager = getManager();
+        PlayerSelectSession selectSession = manager.getOrCreate(player.getUniqueId());
         Block block = event.getClickedBlock();
         selectSession.setPos1(block.getLocation());
         event.setCancelled(true);
@@ -37,11 +37,11 @@ public class PlayerRegionSelectionListeners implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void handlePosition2(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (!PlayerRegionSelectionsManager.canWand(player)) return;
+        if (!PlayerSelectionsManager.canWand(player)) return;
         if (event.getClickedBlock() == null) return;
         if (!event.getAction().name().contains("LEFT")) return;
-        PlayerRegionSelectionsManager manager = getManager();
-        PlayerRegionSelectSession selectSession = manager.getOrCreate(player.getUniqueId());
+        PlayerSelectionsManager manager = getManager();
+        PlayerSelectSession selectSession = manager.getOrCreate(player.getUniqueId());
         Block block = event.getClickedBlock();
         selectSession.setPos2(block.getLocation());
         event.setCancelled(true);
@@ -58,15 +58,15 @@ public class PlayerRegionSelectionListeners implements Listener {
     }
 
     private static void handlePos2(Player player, Location blockLocation, Cancellable event) {
-        if (!PlayerRegionSelectionsManager.canWand(player)) return;
-        PlayerRegionSelectionsManager manager = getManager();
-        PlayerRegionSelectSession selectSession = manager.getOrCreate(player.getUniqueId());
+        if (!PlayerSelectionsManager.canWand(player)) return;
+        PlayerSelectionsManager manager = getManager();
+        PlayerSelectSession selectSession = manager.getOrCreate(player.getUniqueId());
         selectSession.setPos2(blockLocation);
         event.setCancelled(true);
     }
 
-    private static PlayerRegionSelectionsManager getManager() {
-        return PlayerRegionSelectionsManager.getManager(PlayerRegionSelectionsManager.class);
+    private static PlayerSelectionsManager getManager() {
+        return PlayerSelectionsManager.getManager(PlayerSelectionsManager.class);
     }
 
 }

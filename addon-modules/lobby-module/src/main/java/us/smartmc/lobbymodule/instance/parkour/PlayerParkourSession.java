@@ -5,12 +5,12 @@ import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.core.SmartCore;
-import us.smartmc.core.handler.SpawnHandler;
 import us.smartmc.core.instance.player.SmartCorePlayer;
 
 import java.util.HashMap;
@@ -32,10 +32,14 @@ public class PlayerParkourSession {
 
     private ItemStack[] oldInventoryContent;
 
+    @Getter
+    private Location exitLocation;
+
     public PlayerParkourSession(Player player) {
         this.player = player;
         this.wasFlying = player.getAllowFlight();
         sessions.put(player.getUniqueId(), this);
+        exitLocation = player.getLocation().add(0, 0, -5);
     }
 
     public boolean hasReachedNewRecord() {
@@ -111,7 +115,7 @@ public class PlayerParkourSession {
     }
 
     public void registerEnd() {
-        endMillis = System.currentTimeMillis();
+        endMillis = System.currentTimeMillis() - 100;
         finish = true;
         Bukkit.getPluginManager().callEvent(new PlayerParkourEndedEvent(this));
         cancel();
@@ -129,7 +133,15 @@ public class PlayerParkourSession {
     }
 
     public static void remove(Player player) {
+        remove(player, false);
+    }
+
+    public static void remove(Player player, boolean exit) {
         PlayerParkourSession session = sessions.remove(player.getUniqueId());
+        if (exit) {
+            player.teleport(session.getExitLocation());
+        }
+
         if (session != null)
             session.cancelTask();
     }

@@ -1,7 +1,6 @@
 us\smartmc\gamescore\util\InventorySerializer.class
 us\smartmc\gamescore\instance\player\GameCorePlayer.class
 us\smartmc\gamescore\instance\serialization\BlockStateWrapper.class
-us\smartmc\gamescore\manager\player\PlayerRegionSelectionsManager.class
 us\smartmc\gamescore\itemcmd\ListMetadataItemCMD.class
 us\smartmc\gamescore\instance\game\map\GameMapSession.class
 us\smartmc\gamescore\instance\PluginScoreboard.class
@@ -27,6 +26,7 @@ us\smartmc\gamescore\manager\CoreCommandsManager.class
 us\smartmc\gamescore\itemcmd\AddCustomMetadataItemCMD$1.class
 us\smartmc\gamescore\instance\storage\saver\IDataSaver.class
 us\smartmc\gamescore\event\player\GamePlayerQuitEvent.class
+us\smartmc\gamescore\manager\player\PlayerSelectionsManager.class
 us\smartmc\gamescore\instance\GamesCoreLogger.class
 us\smartmc\gamescore\instance\game\map\spawn\MapSpawnsData$1.class
 us\smartmc\gamescore\event\game\GamePostEndEvent.class
@@ -60,6 +60,7 @@ us\smartmc\gamescore\util\ItemSerializer.class
 us\smartmc\gamescore\cmd\WandCommand.class
 us\smartmc\gamescore\listener\AdminManagerListeners.class
 us\smartmc\gamescore\instance\timer\ICountdownTimer.class
+us\smartmc\gamescore\adminplayer\PlayerSelectSession.class
 us\smartmc\gamescore\listener\GameTeamsManagerListeners.class
 us\smartmc\gamescore\listener\TestCustomRegionMetadataListener.class
 us\smartmc\gamescore\instance\cmd\GamesCoreCommand.class
@@ -114,7 +115,6 @@ us\smartmc\gamescore\instance\game\team\ColorGameTeamColor.class
 us\smartmc\gamescore\instance\storage\YamlData.class
 us\smartmc\gamescore\event\player\GamePlayerStatusChangeEvent.class
 us\smartmc\gamescore\itemcmd\EditMapInvCMD.class
-us\smartmc\gamescore\adminplayer\PlayerRegionSelectSession.class
 us\smartmc\gamescore\instance\player\PlayerScoreboard.class
 us\smartmc\gamescore\itemcmd\RemoveCustomMetadataItemCMD$1.class
 us\smartmc\gamescore\menu\EditMapSelectionMenu.class

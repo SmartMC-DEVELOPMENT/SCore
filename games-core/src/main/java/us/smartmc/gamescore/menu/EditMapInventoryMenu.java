@@ -9,9 +9,8 @@ import us.smartmc.gamescore.instance.game.map.GameMap;
 import us.smartmc.gamescore.instance.game.map.spawn.ListSpawnsHolder;
 import us.smartmc.gamescore.instance.game.team.GameTeam;
 import us.smartmc.gamescore.instance.manager.MapManager;
-import us.smartmc.gamescore.manager.map.EditMapSessionsManager;
 import us.smartmc.gamescore.manager.map.MapsManager;
-import us.smartmc.gamescore.manager.player.PlayerRegionSelectionsManager;
+import us.smartmc.gamescore.manager.player.PlayerSelectionsManager;
 import us.smartmc.gamescore.manager.team.GenericGameTeamsManager;
 
 import java.util.ArrayList;
@@ -67,14 +66,14 @@ public class EditMapInventoryMenu extends GUIMenu {
 
         // WorldEdit Wand + Custom GameCore Wand
         set(5, ItemBuilder.of(Material.WOOD_AXE).get());
-        set(8, PlayerRegionSelectionsManager.wandItem);
+        set(8, PlayerSelectionsManager.wandItem);
 
-        String maintenancePrefix = map.isEnabled() ? "&a" : "&c";
-        String texture = map.isEnabled() ?
+        String maintenancePrefix = !map.isEnabled() ? "&a" : "&c";
+        String texture = !map.isEnabled() ?
                 "ewogICJ0aW1lc3RhbXAiIDogMTcyNzI2NzEwNTQ3MywKICAicHJvZmlsZUlkIiA6ICI0M2NmNWJkNjUyMDM0YzU5ODVjMDIwYWI3NDE0OGQxYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJrYW1pbDQ0NSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS81YWVhZjRkNDRiMzhmNGI1NmFlY2JkZGRiM2I1ZjRhOWFhNzMzZjY2NzY0YmY0YzE1NjdjNjkxOGM0YTIxMzEwIgogICAgfQogIH0KfQ==" :
                 "ewogICJ0aW1lc3RhbXAiIDogMTcxOTE0NTkzNTI0MCwKICAicHJvZmlsZUlkIiA6ICI5ODY5ZmUyY2FjMjA0YmJmYjc1Y2Y1Mjk2ZTY0MDQ5MiIsCiAgInByb2ZpbGVOYW1lIiA6ICJIZW5yaXF1ZTkzIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzYwNDQwMGM2MWE5MjZiNWFhNDIyOGQ5ZmRjOWM1OWQxZGUyYTY4MjY4MDc1NDNkODE3NGQwODBlNTdiY2U5MDEiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==";
 
-        List<String> lore = map.isEnabled() ? List.of("&7ENABLED") : List.of("&7DISABLED");
+        List<String> lore = !map.isEnabled() ? List.of("&7ENABLED") : List.of("&7DISABLED");
 
         set(13, ItemBuilder.of(Material.SKULL_ITEM).data(3).skullTexture(texture)
                 .name(maintenancePrefix + "Maintenance")
@@ -104,7 +103,9 @@ public class EditMapInventoryMenu extends GUIMenu {
                     .name("&bRemove last spawn position")
                     .get(), "editMapInv removeLastPos");
         } else {
-            set(33, null);
+            set(33, ItemBuilder.of(Material.LAVA_BUCKET)
+                    .name("&bRemove spawn position")
+                    .get(), "editMapInv removePos");
         }
     }
 

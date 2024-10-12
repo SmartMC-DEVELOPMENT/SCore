@@ -1,6 +1,5 @@
 package us.smartmc.gamescore.instance.cuboid;
 
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

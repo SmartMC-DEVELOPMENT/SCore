@@ -35,7 +35,6 @@ public class ParkourListeners implements Listener {
 
         if (event.getSession().hasReachedNewRecord()) {
             Bukkit.getPluginManager().callEvent(new PlayerParkourNewRecordEvent(event.getSession()));
-
             // Guardar el player data para actualizar top en caso de que siga conectado
             CorePlayer.get(player).getPlayerData().save();
         }
@@ -49,10 +48,10 @@ public class ParkourListeners implements Listener {
     public void exitParkourMode(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
+        if (!(event.getAction().name().contains("LEFT") || event.getAction().name().contains("RIGHT"))) return;
         if (PlayerParkourSession.isActive(player) &&
                 player.getItemInHand().getType().equals(Material.BARRIER)) {
-            PlayerParkourSession.remove(event.getPlayer());
-            player.teleport(SpawnHandler.getLocation());
+            PlayerParkourSession.remove(event.getPlayer(), true);
         }
     }
 

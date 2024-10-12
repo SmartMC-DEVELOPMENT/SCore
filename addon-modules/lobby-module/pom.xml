@@ -20,10 +20,6 @@
             <url>https://repo.dmulloy2.net/repository/public/</url>
         </repository>
         <repository>
-            <id>CodeMC</id>
-            <url>https://minevolt.net/repo/</url>
-        </repository>
-        <repository>
             <id>papermc-repo</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>

@@ -23,8 +23,18 @@ public class RegionSpawnHolder implements IRegionSpawnHolder {
         this.spawnsData = data;
     }
 
+    public void removeMin(GameTeam team) {
+        getDocument(team).remove("min");
+        spawnsData.getMapData().save();
+    }
+
+    public void removeMax(GameTeam team) {
+        getDocument(team).remove("max");
+        spawnsData.getMapData().save();
+    }
+
     @Override
-    public Vector3i getNextPosition(GameTeam team, Vector3i minPositionReference) {
+    public Vector3i getNextRelativePosition(GameTeam team, Vector3i minPositionReference) {
         String name = team == null ? null : team.getName();
         int nextIndex = indexes.getOrDefault(name, -1) + 1;
         return getRelativePosition(team, nextIndex, minPositionReference);
@@ -67,6 +77,7 @@ public class RegionSpawnHolder implements IRegionSpawnHolder {
             doc = spawnsData;
         } else {
             doc = (Document) spawnsData.getOrDefault(team.getName(), new Document());
+            spawnsData.put(team.getName(), doc);
         }
         return doc;
     }

@@ -105,7 +105,8 @@ public class EditMapInvCMD implements ItemActionExecutor {
         if (args.length == 1 && args[0].equals("toggleTeam")) {
             EditMapInventoryMenu menu = (EditMapInventoryMenu) GUIMenu.getSetGUI(handler.player());
             GameTeam newTeam = menu.toggleTeam();
-            String message = "&aChanged to: &f" + newTeam.getName();
+            String name = newTeam == null ? "null" : newTeam.getName();
+            String message = "&aChanged to: &f" + name;
             handler.clicker().sendMessage(ChatUtil.color(message));
             menu.load();
             menu.set(handler.player());

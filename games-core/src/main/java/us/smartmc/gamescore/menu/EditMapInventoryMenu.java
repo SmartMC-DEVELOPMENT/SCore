@@ -90,8 +90,9 @@ public class EditMapInventoryMenu extends GUIMenu {
                 .name("&bSpawnType selector:&a " + spawnTypeName)
                 .get(), "editMapInv toggleSpawnType");
 
+        String teamName = team == null ? "null" : team.getName();
         set(30, ItemBuilder.of(Material.STICK)
-                .name("&bTeam selector: " + team.getName())
+                .name("&bTeam selector: " + teamName)
                 .get(), "editMapInv toggleTeam");
 
         set(32, ItemBuilder.of(Material.ENDER_PORTAL_FRAME)
@@ -111,16 +112,25 @@ public class EditMapInventoryMenu extends GUIMenu {
         List<GameTeam> teams = new ArrayList<>();
         GenericGameTeamsManager manager = MapManager.getManager(GenericGameTeamsManager.class);
         if (manager == null) return null;
-
+        System.out.println("TOGGLETEAM " + map.getData().getTeamsNames());
         for (String name : map.getData().getTeamsNames()) {
             teams.add(manager.getGameTeam(name));
         }
+        System.out.println("TOGGLETEAM " + teams);
 
-        int currentIndex = (team == null ? -1 : teams.indexOf(team));
-        int nextIndex = (currentIndex + 1) % (teams.size() + 1);
 
-        team = (nextIndex == teams.size()) ? null : teams.get(nextIndex);
+        if (team == null) {
+            team = teams.get(0);
+        } else {
+            int currentIndex = teams.indexOf(team);
+            if (currentIndex == teams.size() - 1) {
+                team = null;
+            } else {
+                team = teams.get(currentIndex + 1);
+            }
+        }
 
+        System.out.println("TOGGLETEAM " + team);
         return team;
     }
 

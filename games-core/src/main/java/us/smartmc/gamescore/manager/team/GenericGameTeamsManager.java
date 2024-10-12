@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.game.team.ColorGameTeam;
+import us.smartmc.gamescore.instance.game.team.ColorGameTeamColor;
 import us.smartmc.gamescore.instance.game.team.GameTeam;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.listener.GameTeamsManagerListeners;
@@ -16,6 +17,12 @@ public class GenericGameTeamsManager extends MapManager<String, GameTeam> {
 
     public GenericGameTeamsManager() {
         Bukkit.getPluginManager().registerEvents(new GameTeamsManagerListeners(), GamesCoreAPI.getApi().getPlugin());
+
+        // Register all color teams as default
+        for (ColorGameTeamColor color : ColorGameTeamColor.values()) {
+            put(color.getName(), new ColorGameTeam(color));
+        }
+
     }
 
     public ColorGameTeam getGameTeam(String name) {

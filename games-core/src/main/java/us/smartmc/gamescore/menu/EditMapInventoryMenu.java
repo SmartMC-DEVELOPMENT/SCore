@@ -109,13 +109,9 @@ public class EditMapInventoryMenu extends GUIMenu {
         List<GameTeam> teams = new ArrayList<>();
         GenericGameTeamsManager manager = MapManager.getManager(GenericGameTeamsManager.class);
         if (manager == null) return null;
-        System.out.println("TOGGLETEAM " + map.getData().getTeamsNames());
         for (String name : map.getData().getTeamsNames()) {
             teams.add(manager.getGameTeam(name));
         }
-        System.out.println("TOGGLETEAM " + teams);
-
-
         if (team == null) {
             team = teams.get(0);
         } else {
@@ -126,8 +122,6 @@ public class EditMapInventoryMenu extends GUIMenu {
                 team = teams.get(currentIndex + 1);
             }
         }
-
-        System.out.println("TOGGLETEAM " + team);
         return team;
     }
 }

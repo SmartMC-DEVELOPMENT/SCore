@@ -21,7 +21,7 @@ public class StartEditSessionCMD implements ItemActionExecutor {
         if (manager == null) return;
         player.closeInventory();
         manager.createSessionByName(player, mapName);
-        player.sendMessage(ChatUtil.color("&aYou are now editing map of " + mapName));
         new EditMapInventoryMenu(player, mapName).set(player);
+        player.sendMessage(ChatUtil.color("&aYou are now editing map of " + mapName));
     }
 }

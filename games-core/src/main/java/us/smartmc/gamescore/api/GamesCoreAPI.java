@@ -10,10 +10,7 @@ import us.smartmc.gamescore.cmd.EditMapCommand;
 import us.smartmc.gamescore.cmd.WandCommand;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.itemcmd.*;
-import us.smartmc.gamescore.listener.PlayerGameLogicListeners;
-import us.smartmc.gamescore.listener.PlayersManagerListeners;
-import us.smartmc.gamescore.listener.RegionsMetadataListeners;
-import us.smartmc.gamescore.listener.TestCustomRegionMetadataListener;
+import us.smartmc.gamescore.listener.*;
 import us.smartmc.gamescore.manager.GamesManager;
 import us.smartmc.gamescore.manager.map.MapsManager;
 import us.smartmc.gamescore.manager.player.PlayersManager;
@@ -69,7 +66,11 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
     @Override
     public void initialize(JavaPlugin plugin) {
         try {
-            registerListeners(new PlayerGameLogicListeners(), new PlayersManagerListeners(), new RegionsMetadataListeners());
+            registerListeners(
+                    new PlayerGameLogicListeners(),
+                    new PlayersManagerListeners(),
+                    new RegionsMetadataListeners(),
+                    new AdminManagerListeners());
         } catch (Exception e) {
             getLogger().severe("Error trying to register Listeners from default listeners package!");
             throw new RuntimeException(e);

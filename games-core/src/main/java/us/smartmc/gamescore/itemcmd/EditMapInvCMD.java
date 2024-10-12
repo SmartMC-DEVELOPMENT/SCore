@@ -70,10 +70,10 @@ public class EditMapInvCMD implements ItemActionExecutor {
         if (args.length == 1 && args[0].equals("maintenance")) {
             EditMapInventoryMenu menu = (EditMapInventoryMenu) GUIMenu.getSetGUI(handler.player());
             GameMap map = menu.getMap();
-            EditMapSessionsManager manager = MapManager.getManager(EditMapSessionsManager.class);
-            if (manager == null) return;
-            EditMapSession session = manager.get(handler.getPlayer().getUniqueId());
-            String message = session.toggleEnabled() ? "&aEnabled" : "&cDisabled";
+            boolean enabled = map.isEnabled();
+            map.getData().set(GameMapData.ENABLED, !enabled);
+            map.getData().save();
+            String message = !enabled ? "&aEnabled" : "&cDisabled";
             handler.clicker().sendMessage(ChatUtil.color(message));
             menu.load();
             return;

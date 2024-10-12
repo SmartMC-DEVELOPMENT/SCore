@@ -18,6 +18,7 @@ import us.smartmc.gamescore.listener.PlayerRegionSelectionListeners;
 import us.smartmc.gamescore.manager.GamesManager;
 import us.smartmc.gamescore.manager.GenericGameTeamsManager;
 import us.smartmc.gamescore.manager.ScoreboardsManager;
+import us.smartmc.gamescore.menu.EditMapInventoryMenu;
 import us.smartmc.test.cmd.LeaveCommand;
 import us.smartmc.test.cmd.PasteRegionCommand;
 import us.smartmc.test.game.TestGame;

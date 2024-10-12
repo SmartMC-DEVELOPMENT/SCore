@@ -40,15 +40,8 @@ public class EditorModeUtil {
     }
 
     public static void leaveEditorMode(Player player) {
-        {
-            // Menu set
-            GUIMenu menu = GUIMenu.getSetGUI(player);
-            if (menu == null) return;
-            if (menu instanceof EditMapInventoryMenu inv) {
-                inv.leave(player);
-                GUIMenu.unregisterSetGUI(player.getUniqueId());
-            }
-        }
+        // Menu
+        GUIMenu.unregisterSetGUI(player.getUniqueId());
         {
             // Edit session
             EditMapSessionsManager manager = MapManager.getManager(EditMapSessionsManager.class);

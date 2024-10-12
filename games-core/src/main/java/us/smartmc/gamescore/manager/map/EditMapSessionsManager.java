@@ -20,6 +20,12 @@ public class EditMapSessionsManager extends MapManager<UUID, EditMapSession> {
         put(player.getUniqueId(), session);
     }
 
+    @Override
+    public EditMapSession remove(Object key) {
+        get(key).leave();
+        return super.remove(key);
+    }
+
     public void loadMapAt(Player player, String mapId) {
         BackendConnection.getBackendConnection().ifPresent(connection -> {
             connection.getCuboid(getMapName(mapId)).thenAccept(res -> {

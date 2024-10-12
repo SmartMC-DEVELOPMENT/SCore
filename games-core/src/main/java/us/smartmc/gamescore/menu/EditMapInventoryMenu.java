@@ -5,7 +5,6 @@ import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
 import me.imsergioh.pluginsapi.instance.menu.GUIMenu;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import us.smartmc.gamescore.instance.game.map.GameMap;
 import us.smartmc.gamescore.instance.game.map.spawn.ListSpawnsHolder;
 import us.smartmc.gamescore.instance.game.team.GameTeam;
@@ -23,7 +22,6 @@ import java.util.List;
 public class EditMapInventoryMenu extends GUIMenu {
 
     private final GameMap map;
-    private final ItemStack[] oldContent;
 
     private GameTeam team;
 
@@ -31,7 +29,6 @@ public class EditMapInventoryMenu extends GUIMenu {
         super(player, 9 * 4, "Edit Map");
         MapsManager manager = MapsManager.getManager(MapsManager.class);
         this.map = manager != null ? manager.get(mapName) : null;
-        this.oldContent = player.getInventory().getContents();
     }
 
     @Override
@@ -133,11 +130,4 @@ public class EditMapInventoryMenu extends GUIMenu {
         System.out.println("TOGGLETEAM " + team);
         return team;
     }
-
-    public void leave(Player player) {
-        player.getInventory().setContents(oldContent);
-        EditMapSessionsManager manager = MapManager.getManager(EditMapSessionsManager.class);
-        manager.remove(player.getUniqueId());
-    }
-
 }

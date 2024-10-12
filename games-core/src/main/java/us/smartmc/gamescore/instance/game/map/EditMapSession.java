@@ -2,6 +2,7 @@ package us.smartmc.gamescore.instance.game.map;
 
 import lombok.Getter;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.map.EditMapSessionsManager;
 import us.smartmc.gamescore.manager.map.MapsManager;
@@ -15,11 +16,26 @@ public class EditMapSession {
     private final Player player;
     private final GameMap map;
 
+    private final boolean canFly;
+    private final ItemStack[] invContent;
+
     public EditMapSession(Player player, String mapName) {
         this.player = player;
         MapsManager manager = MapsManager.getManager(MapsManager.class);
         if (manager != null) this.map = manager.get(mapName);
         else this.map = null;
+
+        canFly = player.getAllowFlight();
+        invContent = player.getInventory().getContents();
+
+        player.setAllowFlight(true);
+        player.setFlying(true);
+    }
+
+    public void leave() {
+        player.setAllowFlight(canFly);
+        player.getInventory().clear();
+        player.getInventory().setContents(invContent);
     }
 
     public void setTeamsNames(Set<String> teamNames) {

@@ -13,6 +13,7 @@ import us.smartmc.gamescore.manager.map.MapsManager;
 import us.smartmc.gamescore.manager.player.PlayerRegionSelectionsManager;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Getter
 public class EditMapInventoryMenu extends GUIMenu {
@@ -66,9 +67,17 @@ public class EditMapInventoryMenu extends GUIMenu {
         String texture = map.isEnabled() ?
                 "ewogICJ0aW1lc3RhbXAiIDogMTcyNzI2NzEwNTQ3MywKICAicHJvZmlsZUlkIiA6ICI0M2NmNWJkNjUyMDM0YzU5ODVjMDIwYWI3NDE0OGQxYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJrYW1pbDQ0NSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS81YWVhZjRkNDRiMzhmNGI1NmFlY2JkZGRiM2I1ZjRhOWFhNzMzZjY2NzY0YmY0YzE1NjdjNjkxOGM0YTIxMzEwIgogICAgfQogIH0KfQ==" :
                 "ewogICJ0aW1lc3RhbXAiIDogMTcxOTE0NTkzNTI0MCwKICAicHJvZmlsZUlkIiA6ICI5ODY5ZmUyY2FjMjA0YmJmYjc1Y2Y1Mjk2ZTY0MDQ5MiIsCiAgInByb2ZpbGVOYW1lIiA6ICJIZW5yaXF1ZTkzIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzYwNDQwMGM2MWE5MjZiNWFhNDIyOGQ5ZmRjOWM1OWQxZGUyYTY4MjY4MDc1NDNkODE3NGQwODBlNTdiY2U5MDEiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==";
-        set(31, ItemBuilder.of(Material.SKULL_ITEM).data(3).skullTexture(texture)
+
+        List<String> lore = map.isEnabled() ? List.of("&7ENABLED") : List.of("&7DISABLED");
+
+        set(13, ItemBuilder.of(Material.SKULL_ITEM).data(3).skullTexture(texture)
                 .name(maintenancePrefix + "Maintenance")
+                .lore(lore)
                 .get(), "editMapInv maintenance");
+
+        set(17, ItemBuilder.of(Material.BED)
+                .name("&4Leave editor mode")
+                .get(), "editMapInv leave");
     }
 
     public void leave(Player player) {

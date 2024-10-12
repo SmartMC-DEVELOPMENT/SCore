@@ -1,3 +1,4 @@
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\map\spawn\MapSpawnsData.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\manager\IManagerValue.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\cmd\SchemsCommand.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\map\GameMapSession.java
@@ -31,6 +32,7 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\listener\Player
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\RegionsManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\player\PlayerScoreboard.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\player\statistic\IPlayerStatistic.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\map\spawn\IRegionSpawnHolder.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\manager\IMapManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\map\GameMapData.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\player\GamePlayerStats.java
@@ -47,6 +49,7 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\menu\ManageMeta
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\map\EditMapSessionsManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\player\PlayerScoreboardUpdateTask.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\menu\EditorColorTeamsMenu.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\map\spawn\ISpawnHolder.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\ScoreboardsManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\cuboid\BukkitCuboidConfig.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\itemcmd\AddCustomMetadataItemCMD.java
@@ -79,6 +82,7 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\event\game\Game
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\team\GenericGameTeamsManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\event\GameCoreEvent.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\map\MapsManager.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\map\spawn\SpawnType.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\team\ColorGameTeam.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\itemcmd\EditMapInvCMD.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\exception\NonExistentManagerExpection.java
@@ -91,6 +95,7 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\event\player\Ga
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\storage\saver\MongoDBSaver.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\serialization\BlockStateWrapper.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\player\GameCorePlayer.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\map\spawn\RegionSpawnHolder.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\player\statistic\PlayerStatistic.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\map\GameMap.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\team\ColorGameTeamColor.java
@@ -118,5 +123,7 @@ D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\serial
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\manager\player\PlayerRegionSelectionsManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\manager\SetManager.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\listener\PlayerRegionSelectionListeners.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\map\spawn\OneSpawnHolder.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\util\RegionUtils.java
+D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\util\EditorModeUtil.java
 D:\workspace\SCore\games-core\src\main\java\us\smartmc\gamescore\instance\game\team\GameTeam.java

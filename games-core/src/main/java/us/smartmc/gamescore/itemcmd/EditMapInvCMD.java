@@ -10,10 +10,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import us.smartmc.gamescore.instance.game.map.EditMapSession;
 import us.smartmc.gamescore.instance.game.map.GameMap;
 import us.smartmc.gamescore.instance.game.map.GameMapData;
-import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.map.EditMapSessionsManager;
 import us.smartmc.gamescore.menu.EditMapInventoryMenu;
 import us.smartmc.gamescore.menu.EditorColorTeamsMenu;
+import us.smartmc.gamescore.util.EditorModeUtil;
 
 public class EditMapInvCMD implements ItemActionExecutor {
 
@@ -76,6 +76,12 @@ public class EditMapInvCMD implements ItemActionExecutor {
             String message = !enabled ? "&aEnabled" : "&cDisabled";
             handler.clicker().sendMessage(ChatUtil.color(message));
             menu.load();
+            menu.set(handler.player());
+            return;
+        }
+
+        if (args.length == 1 && args[0].equals("leave")) {
+            EditorModeUtil.leaveEditorMode(handler.player());
             return;
         }
 

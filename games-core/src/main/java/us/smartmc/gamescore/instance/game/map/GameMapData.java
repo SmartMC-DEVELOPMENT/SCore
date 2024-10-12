@@ -1,6 +1,7 @@
 package us.smartmc.gamescore.instance.game.map;
 
 import org.bson.Document;
+import us.smartmc.gamescore.instance.game.map.spawn.MapSpawnsData;
 import us.smartmc.gamescore.instance.storage.MongoDBData;
 import us.smartmc.gamescore.manager.map.MapsManager;
 
@@ -17,6 +18,8 @@ public class GameMapData extends MongoDBData {
     public static final String TEAMS_NAMES = "teams_names";
 
     private final List<String> teamsNames = new ArrayList<>();
+
+    private MapSpawnsData spawnsData;
 
     public GameMapData(GameMap map, MapsManager manager) {
         super(manager.getDatabaseId(), manager.getCollectionId(), getQuery(map));
@@ -44,6 +47,7 @@ public class GameMapData extends MongoDBData {
         if (containsKey(TEAMS_NAMES)) {
             teamsNames.addAll(getList(TEAMS_NAMES, String.class));
         }
+        spawnsData = new MapSpawnsData(this);
     }
 
     public boolean isEnabled() {

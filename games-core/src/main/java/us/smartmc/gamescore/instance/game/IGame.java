@@ -1,6 +1,7 @@
 package us.smartmc.gamescore.instance.game;
 
 import me.imsergioh.pluginsapi.util.ChatUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -29,6 +30,7 @@ public interface IGame {
     UUID getSessionId();
 
     CountdownTimer getStartTimer();
+
     CountdownTimer getEndTimer();
 
     default void startWithCountdown() {
@@ -50,18 +52,25 @@ public interface IGame {
 
     boolean isMapPasted();
 
-    default Location pasteMap(World world) {return pasteMap(world, a->{});}
+    default Location pasteMap(World world) {
+        return pasteMap(world, a -> {
+        });
+    }
+
     Location pasteMap(World world, Consumer<BukkitCuboid> completeAction);
 
     void clearMapRegion();
 
     void start();
+
     void end();
 
     void setStatus(GameStatus status);
+
     GameStatus getStatus();
 
     void joinPlayer(GameCorePlayer player);
+
     void joinSpectatorViewer(GameCorePlayer player);
 
     void forEachPlayer(Consumer<GameCorePlayer> consumer);
@@ -75,7 +84,7 @@ public interface IGame {
 
     default void broadcastMessage(String message, Object... args) {
         forEachPlayer(gamePlayer -> {
-           gamePlayer.getBukkitPlayer().sendMessage(ChatUtil.parse(gamePlayer.getBukkitPlayer(), message, args));
+            gamePlayer.getBukkitPlayer().sendMessage(ChatUtil.parse(gamePlayer.getBukkitPlayer(), message, args));
         });
     }
 
@@ -105,13 +114,24 @@ public interface IGame {
     }
 
     void teleportToSpawn(Player player, GameTeam team);
+
     Vector3i getSpawnRelativePosition(GameTeam team);
 
     Set<GameCorePlayer> getPlayersByStatus(PlayerStatus status);
+
     Set<UUID> getPlayers();
 
+    default Location getWaitingLobbyLocation(World world, BukkitCuboid cuboid, int yAddition) {
+        int yCoord = cuboid.getMin().y + cuboid.getHeight() + yAddition;
+        Vector3i center = cuboid.getCenter();
+        Vector3i waitingLobbyPos = new Vector3i(center.x, yCoord, center.z);
+        return BukkitCuboid.intVectorToLoc(world, waitingLobbyPos);
+    }
+
     GameMapSession getGameMapSession();
+
     GameMapSessionsManager getGameMapSessionManager();
+
     GameSessionTeamsManager getGameSessionTeamsManager();
 
     default GamesManager getManager() {

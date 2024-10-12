@@ -1,6 +1,7 @@
 package us.smartmc.test.game;
 
 import me.imsergioh.pluginsapi.util.ChatUtil;
+import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -80,10 +81,7 @@ public class TestGame extends Game {
         if (!isMapPasted()) {
             pasteMap(Bukkit.getWorlds().get(0), cuboid -> {
                 teleportToSpawn(player.getBukkitPlayer(), team);
-                int yCoord = cuboid.getMin().y + cuboid.getHeight() + 10;
-                Vector3i center = cuboid.getCenter();
-                Vector3i waitingLobbyPos = new Vector3i(center.x, yCoord, center.z);
-                Location waitingLobbyLoc = BukkitCuboid.intVectorToLoc(Bukkit.getWorlds().get(0), waitingLobbyPos);
+                Location waitingLobbyLoc = getWaitingLobbyLocation(Bukkit.getWorlds().get(0), cuboid, 1);
                 waitingLobbySession = new WaitingLobbySession("test", this);
                 waitingLobbySession.pasteRegionAt(waitingLobbyLoc);
             });

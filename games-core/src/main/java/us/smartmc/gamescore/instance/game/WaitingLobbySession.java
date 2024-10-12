@@ -3,9 +3,11 @@ package us.smartmc.gamescore.instance.game;
 import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.joml.Vector3i;
 import us.smartmc.backend.gamescore.BackendConnection;
 import us.smartmc.backend.gamescore.CuboidSaveResponse;
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
+import us.smartmc.gamescore.instance.cuboid.Cuboid;
 import us.smartmc.gamescore.instance.cuboid.CuboidPaster;
 import us.smartmc.gamescore.instance.serialization.CuboidWrapper;
 import us.smartmc.gamescore.manager.map.EditMapSessionsManager;
@@ -39,14 +41,18 @@ public class WaitingLobbySession {
 
     public void pasteRegionAt(Location location, Consumer<BukkitCuboid> action) {
         BackendConnection.getBackendConnection().ifPresent(backendConnection -> {
-            EditMapSessionsManager editMapSessionsManager = EditMapSessionsManager.getManager(EditMapSessionsManager.class);
-            if (editMapSessionsManager == null) return;
-            backendConnection.getCuboid(editMapSessionsManager.getMapName(getBackendName(name))).thenAccept(res -> {
+            backendConnection.getCuboid(getBackendName(name)).thenAccept(res -> {
                 if (res.getWrapper() == null) return;
                 CuboidWrapper wrapper = res.getWrapper();
                 CuboidPaster paster = new CuboidPaster(wrapper);
-                cuboidReference = paster.pasteAt(location);
 
+                Vector3i wrapperMin = wrapper.getMin();
+                Vector3i wrapperMax = wrapper.getMax();
+                Cuboid cuboid = new Cuboid(wrapperMin, wrapperMax);
+                int width = cuboid.getWidth();
+                int depth = cuboid.getDepth();
+
+                cuboidReference = paster.pasteAt(location.clone().add(-width / 2, 0, -depth / 2));
                 {
                     // Action if not null
                     if (action == null) return;

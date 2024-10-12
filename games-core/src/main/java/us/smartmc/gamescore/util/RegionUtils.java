@@ -34,7 +34,7 @@ public class RegionUtils {
 
     public static void consumeBlocks(BukkitCuboidRegion region, Consumer<Block> consumer) {
         consumeRegion(region, vec -> {
-            Block block = Bukkit.getWorld(Objects.requireNonNull(region.getConfig().getWorld(Bukkit.getWorlds().get(0))).getName()).getBlockAt(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ());
+            Block block = Bukkit.getWorld(Objects.requireNonNull(region.getConfig().getWorld(region.getCuboid().getWorld())).getName()).getBlockAt(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ());
             consumer.accept(block);
         });
     }

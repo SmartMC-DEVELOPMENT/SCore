@@ -40,13 +40,13 @@ public class BukkitCuboidRegion extends CuboidRegion {
     }
 
     private Location getMaxLocation(BukkitCuboidConfig config) {
-        World world = config.getWorld(Bukkit.getWorlds().get(0));
+        World world = config.getWorld(cuboid.getWorld());
         Vector3i max = defaultCuboid.getMax();
         return new org.bukkit.Location(world, max.x, max.y, max.z);
     }
 
     private Location getMinLocation(BukkitCuboidConfig config) {
-        World world = config.getWorld(Bukkit.getWorlds().get(0));
+        World world = config.getWorld(cuboid.getWorld());
         Vector3i min = defaultCuboid.getMin();
         return new org.bukkit.Location(world, min.x, min.y, min.z);
     }

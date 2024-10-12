@@ -42,11 +42,13 @@ public class RegionSpawnHolder implements IRegionSpawnHolder {
     @Override
     public void setMinRelative(GameTeam team, Vector3i relativePosition) {
         getDocument(team).put("min", CuboidUtil.vectorToString(relativePosition));
+        spawnsData.getMapData().save();
     }
 
     @Override
     public void setMaxRelative(GameTeam team, Vector3i relativePosition) {
         getDocument(team).put("max", CuboidUtil.vectorToString(relativePosition));
+        spawnsData.getMapData().save();
     }
 
     @Override

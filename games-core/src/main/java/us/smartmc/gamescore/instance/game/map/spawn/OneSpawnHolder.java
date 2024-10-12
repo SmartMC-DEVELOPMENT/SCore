@@ -17,17 +17,6 @@ public class OneSpawnHolder implements ISpawnHolder {
     }
 
     @Override
-    public Vector3i getRelativePosition(GameTeam team, Vector3i minPositionReference) {
-        Vector3i relativePosition;
-        if (team == null) {
-            relativePosition = CuboidUtil.stringToVector(spawnsData.getString("position"));
-        } else {
-            relativePosition = CuboidUtil.stringToVector(spawnsData.getString(team.getName()));
-        }
-        return relativePosition;
-    }
-
-    @Override
     public void setPosition(GameTeam team, Vector3i relativePosition) {
         String strPosition = CuboidUtil.vectorToString(relativePosition);
         if (team == null) {
@@ -39,6 +28,18 @@ public class OneSpawnHolder implements ISpawnHolder {
         // Team
         String name = team.getName();
         spawnsData.put(name, strPosition);
+        spawnsData.getMapData().save();
+    }
+
+    @Override
+    public Vector3i getRelativePosition(GameTeam team, Vector3i minPositionReference) {
+        Vector3i relativePosition;
+        if (team == null) {
+            relativePosition = CuboidUtil.stringToVector(spawnsData.getString("position"));
+        } else {
+            relativePosition = CuboidUtil.stringToVector(spawnsData.getString(team.getName()));
+        }
+        return relativePosition;
     }
 
     private Document getDocument(GameTeam team) {

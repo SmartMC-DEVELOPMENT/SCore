@@ -1,5 +1,6 @@
 package us.smartmc.gamescore.instance.game.map;
 
+import lombok.Getter;
 import org.bson.Document;
 import us.smartmc.gamescore.instance.game.map.spawn.MapSpawnsData;
 import us.smartmc.gamescore.instance.storage.MongoDBData;
@@ -8,6 +9,7 @@ import us.smartmc.gamescore.manager.map.MapsManager;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class GameMapData extends MongoDBData {
 
     public static final String ENABLED = "enabled";
@@ -38,6 +40,7 @@ public class GameMapData extends MongoDBData {
     @Override
     public void save() {
         set(TEAMS_NAMES, teamsNames);
+        set("spawns", spawnsData);
         super.save();
     }
 
@@ -52,10 +55,6 @@ public class GameMapData extends MongoDBData {
 
     public boolean isEnabled() {
         return getBoolean(ENABLED);
-    }
-
-    public List<String> getTeamsNames() {
-        return teamsNames;
     }
 
     public int getTeamsLimit() {

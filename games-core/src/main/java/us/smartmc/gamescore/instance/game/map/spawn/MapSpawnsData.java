@@ -48,18 +48,17 @@ public class MapSpawnsData extends Document {
         return null;
     }
 
-    public boolean toggleTeamType() {
-        SpawnType type = getSpawnType();
-        SpawnType newType = switch (type) {
+    public SpawnType toggleSpawnType() {
+        SpawnType newType = switch (getSpawnType()) {
             case ONE_ALL -> SpawnType.ONE_TEAM;
-            case ONE_TEAM -> SpawnType.ONE_ALL;
+            case ONE_TEAM -> SpawnType.REGION_ALL;
             case REGION_ALL -> SpawnType.REGION_TEAM;
-            case REGION_TEAM -> SpawnType.REGION_ALL;
+            case REGION_TEAM -> SpawnType.LIST_ALL;
             case LIST_ALL -> SpawnType.LIST_TEAM;
-            case LIST_TEAM -> SpawnType.LIST_ALL;
+            case LIST_TEAM -> SpawnType.ONE_ALL;
         };
         put("type", newType.name());
-        return isTypeForTeam();
+        return getSpawnType();
     }
 
     public boolean isTypeForTeam() {

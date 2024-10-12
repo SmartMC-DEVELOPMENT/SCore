@@ -24,7 +24,6 @@ public class ListSpawnsHolder implements ISpawnsHolder {
         this.spawnsData = data;
     }
 
-
     @Override
     public void addPosition(GameTeam team, Vector3i relativePosition) {
         List<Vector3i> positions = getPositions(team);
@@ -55,6 +54,7 @@ public class ListSpawnsHolder implements ISpawnsHolder {
             list.add(CuboidUtil.vectorToString(vector3i));
         }
         getDocument(team).put("spawns", list);
+        spawnsData.getMapData().save();
     }
 
     private Document getDocument(GameTeam team) {

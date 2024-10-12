@@ -7,11 +7,15 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import us.smartmc.gamescore.instance.game.map.GameMap;
+import us.smartmc.gamescore.instance.game.map.spawn.ListSpawnsHolder;
+import us.smartmc.gamescore.instance.game.team.GameTeam;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.map.EditMapSessionsManager;
 import us.smartmc.gamescore.manager.map.MapsManager;
 import us.smartmc.gamescore.manager.player.PlayerRegionSelectionsManager;
+import us.smartmc.gamescore.manager.team.GenericGameTeamsManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +24,8 @@ public class EditMapInventoryMenu extends GUIMenu {
 
     private final GameMap map;
     private final ItemStack[] oldContent;
+
+    private GameTeam team;
 
     public EditMapInventoryMenu(Player player, String mapName) {
         super(player, 9 * 4, "Edit Map");
@@ -78,6 +84,44 @@ public class EditMapInventoryMenu extends GUIMenu {
         set(17, ItemBuilder.of(Material.BED)
                 .name("&4Leave editor mode")
                 .get(), "editMapInv leave");
+
+        String spawnTypeName = map.getData().getSpawnsData().getSpawnType().name();
+        set(29, ItemBuilder.of(Material.REDSTONE_WIRE)
+                .name("&bSpawnType selector:&a " + spawnTypeName)
+                .get(), "editMapInv toggleSpawnType");
+
+        set(30, ItemBuilder.of(Material.STICK)
+                .name("&bTeam selector: " + team.getName())
+                .get(), "editMapInv toggleTeam");
+
+        set(32, ItemBuilder.of(Material.ENDER_PORTAL_FRAME)
+                .name("&bAdd/Set Position")
+                .get(), "editMapInv addSetPosition");
+
+        if (map.getData().getSpawnsData().getHolder() instanceof ListSpawnsHolder) {
+            set(33, ItemBuilder.of(Material.ENDER_PORTAL_FRAME)
+                    .name("&bRemove last spawn position")
+                    .get(), "editMapInv removeLastPos");
+        } else {
+            set(33, null);
+        }
+    }
+
+    public GameTeam toggleTeam() {
+        List<GameTeam> teams = new ArrayList<>();
+        GenericGameTeamsManager manager = MapManager.getManager(GenericGameTeamsManager.class);
+        if (manager == null) return null;
+
+        for (String name : map.getData().getTeamsNames()) {
+            teams.add(manager.getGameTeam(name));
+        }
+
+        int currentIndex = (team == null ? -1 : teams.indexOf(team));
+        int nextIndex = (currentIndex + 1) % (teams.size() + 1);
+
+        team = (nextIndex == teams.size()) ? null : teams.get(nextIndex);
+
+        return team;
     }
 
     public void leave(Player player) {

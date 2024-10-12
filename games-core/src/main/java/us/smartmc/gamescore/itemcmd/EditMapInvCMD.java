@@ -8,6 +8,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.joml.Vector3i;
+import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 import us.smartmc.gamescore.instance.game.map.GameMap;
 import us.smartmc.gamescore.instance.game.map.GameMapData;
@@ -128,7 +129,8 @@ public class EditMapInvCMD implements ItemActionExecutor {
             Player player = handler.player();
             EditMapInventoryMenu menu = (EditMapInventoryMenu) GUIMenu.getSetGUI(handler.player());
             GameMap map = menu.getMap();
-            if (!EditorModeUtil.hasWandSelection(player)) {
+            PlayerRegionSelectSession selectSession = EditorModeUtil.getSelectionSession(player);
+            if (selectSession == null) {
                 player.sendMessage(ChatUtil.color("&cYou don't have a current selection! (Select the map region, save and add/set relative position)"));
                 return;
             }

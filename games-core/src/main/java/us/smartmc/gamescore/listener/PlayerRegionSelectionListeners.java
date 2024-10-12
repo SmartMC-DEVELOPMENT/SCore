@@ -34,8 +34,21 @@ public class PlayerRegionSelectionListeners implements Listener {
         event.setCancelled(true);
     }
 
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void handlePosition2(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        if (!PlayerRegionSelectionsManager.canWand(player)) return;
+        if (event.getClickedBlock() == null) return;
+        if (!event.getAction().name().contains("LEFT")) return;
+        PlayerRegionSelectionsManager manager = getManager();
+        PlayerRegionSelectSession selectSession = manager.getOrCreate(player.getUniqueId());
+        Block block = event.getClickedBlock();
+        selectSession.setPos2(block.getLocation());
+        event.setCancelled(true);
+    }
+
     @EventHandler
-    public void handlePosition2(BlockBreakEvent event) {
+    public void handlePosition2AtBreak(BlockBreakEvent event) {
         handlePos2(event.getPlayer(), event.getBlock().getLocation(), event);
     }
 

@@ -56,7 +56,7 @@ public class GameMapSession {
         xReferenceGrid = -1;
     }
 
-    public void pasteMapRegionAt(Location location) {
+    private void pasteMapRegionAt(Location location) {
         BackendConnection.getBackendConnection().ifPresent(backendConnection -> {
             EditMapSessionsManager editMapSessionsManager = EditMapSessionsManager.getManager(EditMapSessionsManager.class);
             if (editMapSessionsManager == null) return;

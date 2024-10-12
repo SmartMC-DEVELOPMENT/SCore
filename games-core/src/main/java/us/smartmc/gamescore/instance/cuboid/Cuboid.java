@@ -23,6 +23,14 @@ public class Cuboid {
         this.max = new Vector3i(xMax, yMax, zMax);
     }
 
+    public Vector3i getCenter() {
+        int centerX = (min.x() + max.x()) / 2;
+        int centerY = (min.y() + max.y()) / 2;
+        int centerZ = (min.z() + max.z()) / 2;
+
+        return new Vector3i(centerX, centerY, centerZ);
+    }
+
     public List<Vector3i> getVectors() {
         List<Vector3i> vectors = new ArrayList<>();
         for (int x = min.x(); x <= max.x(); x++) {
@@ -66,14 +74,24 @@ public class Cuboid {
                 vectorZ >= min.z() && vectorZ <= max.z();
     }
 
-    public double getVolume() {
-        return (max.x() - min.x() + 1) *
-                (max.y() - min.y() + 1) *
-                (max.z() - min.z() + 1);
+    public int getWidth() {
+        return Math.abs(max.x() - min.x());
+    }
+
+    public int getHeight() {
+        return Math.abs(max.y() - min.y());
+    }
+
+    public int getDepth() {
+        return Math.abs(max.z() - min.z());
+    }
+
+    public int getVolume() {
+        return getWidth() * getHeight() * getDepth();
     }
 
     public Vector3i[] getCorners() {
-        return new Vector3i[] {
+        return new Vector3i[]{
                 new Vector3i(min.x(), min.y(), min.z()),
                 new Vector3i(min.x(), min.y(), max.z()),
                 new Vector3i(min.x(), max.y(), min.z()),

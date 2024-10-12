@@ -1,6 +1,10 @@
 package us.smartmc.gamescore.util;
 
+import net.minecraft.server.v1_8_R3.ChatComponentText;
+import net.minecraft.server.v1_8_R3.IChatBaseComponent;
+import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,6 +18,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class BukkitUtil {
+
+    public static void sendActionBar(Player player, String message) {
+        IChatBaseComponent chat = new ChatComponentText(message);
+        PacketPlayOutChat packet = new PacketPlayOutChat(chat, (byte) 2);
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+    }
 
     public static void consumePlayer(UUID uuid, Consumer<Player> consumer) {
         getPlayer(uuid).ifPresent(consumer);

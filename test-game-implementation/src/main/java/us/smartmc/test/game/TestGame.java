@@ -5,10 +5,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.joml.Vector3i;
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 import us.smartmc.gamescore.instance.game.Game;
 import us.smartmc.gamescore.instance.game.GameStatus;
+import us.smartmc.gamescore.instance.game.WaitingLobbySession;
 import us.smartmc.gamescore.instance.game.map.GameMap;
 import us.smartmc.gamescore.instance.game.map.GameMapSession;
 import us.smartmc.gamescore.instance.game.map.spawn.ListSpawnsHolder;
@@ -35,6 +37,8 @@ public class TestGame extends Game {
 
     private final GameMap map;
 
+    private WaitingLobbySession waitingLobbySession;
+
     public TestGame() {
         super();
         world = Bukkit.getWorlds().get(0);
@@ -51,7 +55,7 @@ public class TestGame extends Game {
         }, 5000) {
         };
         MapsManager manager = MapManager.getManager(MapsManager.class);
-        map = manager.get("test_38");
+        map = manager.get("test_31");
         GameMapSessionsManager sessionsManager = MapManager.getManager(GameMapSessionsManager.class);
         sessionsManager.register(this, map);
     }
@@ -70,67 +74,21 @@ public class TestGame extends Game {
         String teamName = players.size() % 2 == 0 ? "blue" : "red";
         getGameSessionTeamsManager().put(player.getUUID(), teamName);
 
-        Object spawnsHolder = map.getData().getSpawnsData().getHolder();
         GenericGameTeamsManager teamsManager = MapManager.getManager(GenericGameTeamsManager.class);
+        GameTeam team = teamsManager.get(teamName);
 
-
-        if (session.getXReferenceGrid() == -1) {
-            session.whenPastedRegion(cuboid -> {
-                player.getBukkitPlayer().sendMessage("PASTING2 " + spawnsHolder.getClass().getName());
-                GameTeam team = teamsManager.get(teamName);
-                // One
-                if (spawnsHolder instanceof OneSpawnHolder oneHolder) {
-                    Vector3i position = oneHolder.getRelativePosition(team, BukkitCuboid.locToIntVector(cuboid.getMinLocation()));
-                    Location loc = cuboid.getGlobalLocation(position).add(0.5, 0, 0.5);
-                    player.getBukkitPlayer().teleport(loc);
-                        player.getBukkitPlayer().sendMessage("TELEPORTING TO " + loc);
-                }
-
-                // Region
-                if (spawnsHolder instanceof RegionSpawnHolder regionHolder) {
-                    Vector3i position = regionHolder.getNextRelativePosition(team, BukkitCuboid.locToIntVector(cuboid.getMinLocation()));
-                    Location loc = cuboid.getGlobalLocation(position).add(0.5, 0, 0.5);
-                    player.getBukkitPlayer().teleport(loc);
-                        player.getBukkitPlayer().sendMessage("TELEPORTING TO " + loc);
-                }
-
-                // List
-                if (spawnsHolder instanceof ListSpawnsHolder listHolder) {
-                    Vector3i position = listHolder.getRelativePosition(team, 0, BukkitCuboid.locToIntVector(cuboid.getMinLocation()));
-                    Location loc = cuboid.getGlobalLocation(position).add(0.5, 0, 0.5);
-                    player.getBukkitPlayer().teleport(loc);
-                        player.getBukkitPlayer().sendMessage("TELEPORTING TO " + loc);
-                }
+        if (!isMapPasted()) {
+            pasteMap(Bukkit.getWorlds().get(0), cuboid -> {
+                teleportToSpawn(player.getBukkitPlayer(), team);
+                int yCoord = cuboid.getMin().y + cuboid.getHeight() + 10;
+                Vector3i center = cuboid.getCenter();
+                Vector3i waitingLobbyPos = new Vector3i(center.x, yCoord, center.z);
+                Location waitingLobbyLoc = BukkitCuboid.intVectorToLoc(Bukkit.getWorlds().get(0), waitingLobbyPos);
+                waitingLobbySession = new WaitingLobbySession("test", this);
+                waitingLobbySession.pasteRegionAt(waitingLobbyLoc);
             });
-            sessionsManager.get(getSessionId()).pasteAtReferenceGridLocPoint(Bukkit.getWorlds().get(0));
         } else {
-            BukkitCuboid cuboid = session.getCuboidReference();
-            GameTeam team = teamsManager.get(teamName);
-            player.getBukkitPlayer().sendMessage("ALREADY PASTED " + spawnsHolder.getClass().getName());
-            // One
-            if (spawnsHolder instanceof OneSpawnHolder oneHolder) {
-                Vector3i position = oneHolder.getRelativePosition(team, BukkitCuboid.locToIntVector(cuboid.getMinLocation()));
-                Location loc = cuboid.getGlobalLocation(position).add(0.5, 0, 0.5);
-                player.getBukkitPlayer().teleport(loc);
-                player.getBukkitPlayer().sendMessage("TELEPORTING TO " + loc);
-            }
-
-            // Region
-            if (spawnsHolder instanceof RegionSpawnHolder regionHolder) {
-                Vector3i position = regionHolder.getNextRelativePosition(team, BukkitCuboid.locToIntVector(cuboid.getMinLocation()));
-                Location loc = cuboid.getGlobalLocation(position).add(0.5, 0, 0.5);
-                player.getBukkitPlayer().teleport(loc);
-                player.getBukkitPlayer().sendMessage("TELEPORTING TO " + loc);
-            }
-
-            // List
-            if (spawnsHolder instanceof ListSpawnsHolder listHolder) {
-                Vector3i position = listHolder.getRelativePosition(team, 0, BukkitCuboid.locToIntVector(cuboid.getMinLocation()));
-                Location loc = cuboid.getGlobalLocation(position).add(0.5, 0, 0.5);
-                player.getBukkitPlayer().teleport(loc);
-                player.getBukkitPlayer().sendMessage("TELEPORTING TO " + loc);
-            }
-
+            teleportToSpawn(player.getBukkitPlayer(), team);
         }
 
         if (status.equals(GameStatus.PLAYING)) {

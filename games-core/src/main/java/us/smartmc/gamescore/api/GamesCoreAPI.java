@@ -7,6 +7,7 @@ import me.imsergioh.pluginsapi.manager.ItemActionsManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.backend.gamescore.BackendConnection;
 import us.smartmc.gamescore.cmd.EditMapCommand;
+import us.smartmc.gamescore.cmd.SaveWaitingLobbyCommand;
 import us.smartmc.gamescore.cmd.WandCommand;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.itemcmd.*;
@@ -61,6 +62,8 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
         // Default Commands (Native in API)
         new EditMapCommand();
         new WandCommand();
+
+        new SaveWaitingLobbyCommand();
     }
 
     @Override

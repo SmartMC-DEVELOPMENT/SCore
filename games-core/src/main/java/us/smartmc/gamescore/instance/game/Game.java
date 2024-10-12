@@ -1,20 +1,34 @@
 package us.smartmc.gamescore.instance.game;
 
 import lombok.Getter;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.joml.Vector3i;
 import us.smartmc.gamescore.event.game.*;
 import us.smartmc.gamescore.event.player.GamePlayerGameJoinEvent;
 import us.smartmc.gamescore.event.player.GamePlayerGameLeaveEvent;
+import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
+import us.smartmc.gamescore.instance.game.map.GameMap;
+import us.smartmc.gamescore.instance.game.map.GameMapSession;
+import us.smartmc.gamescore.instance.game.map.spawn.ListSpawnsHolder;
+import us.smartmc.gamescore.instance.game.map.spawn.OneSpawnHolder;
+import us.smartmc.gamescore.instance.game.map.spawn.RegionSpawnHolder;
+import us.smartmc.gamescore.instance.game.team.GameTeam;
+import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.player.PlayerStatus;
 import us.smartmc.gamescore.instance.timer.CountdownTimer;
+import us.smartmc.gamescore.manager.map.GameMapSessionsManager;
 import us.smartmc.gamescore.manager.team.GameSessionTeamsManager;
 import us.smartmc.gamescore.util.BukkitUtil;
+import us.smartmc.gamescore.util.CuboidUtil;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class Game implements IGame {
 
@@ -93,6 +107,7 @@ public class Game implements IGame {
         player.setStatus(PlayerStatus.SPECTATOR_DEATH);
     }
 
+    @Override
     public void forEachPlayer(Consumer<GameCorePlayer> consumer) {
         for (UUID id : getPlayers()) {
             consumer.accept(GameCorePlayer.of(id));
@@ -119,6 +134,65 @@ public class Game implements IGame {
     @Override
     public GameStatus getStatus() {
         return status;
+    }
+
+    @Override
+    public void teleportToSpawn(Player player, GameTeam team) {
+        BukkitCuboid cuboid = getGameMapSession().getCuboidReference();
+        Vector3i position = getSpawnRelativePosition(team);
+        Location loc = cuboid.getGlobalLocation(position).add(0.5, 0, 0.5);
+        player.teleport(loc);
+        player.sendMessage("TELEPORTING TO " + loc);
+    }
+
+    @Override
+    public Vector3i getSpawnRelativePosition(GameTeam team) {
+        GameMap map = getGameMapSession().getMap();
+        Object spawnsHolder = map.getData().getSpawnsData().getHolder();
+        Vector3i position = null;
+        BukkitCuboid cuboid = getGameMapSession().getCuboidReference();
+        if (spawnsHolder instanceof OneSpawnHolder holder) {
+            position = holder.getRelativePosition(team, BukkitCuboid.locToIntVector(cuboid.getMinLocation()));
+        }
+        if (spawnsHolder instanceof RegionSpawnHolder holder) {
+            position = holder.getNextRelativePosition(team, BukkitCuboid.locToIntVector(cuboid.getMinLocation()));
+        }
+        if (spawnsHolder instanceof ListSpawnsHolder holder) {
+            position = holder.getRelativePosition(team, 0, BukkitCuboid.locToIntVector(cuboid.getMinLocation()));
+        }
+        return position;
+    }
+
+    @Override
+    public boolean isMapPasted() {
+        return getGameMapSession().getXReferenceGrid() != -1;
+    }
+
+    @Override
+    public void clearMapRegion() {
+        BukkitCuboid cuboid = getGameMapSession().getCuboidReference();
+        if (cuboid == null) return;
+        CuboidUtil.forEachBlock(cuboid, block -> {
+            if (block.getType().equals(Material.AIR)) return;
+            block.setType(Material.AIR);
+        });
+        getGameMapSession().liberateReferenceLocationIfSet();
+    }
+
+    @Override
+    public Location pasteMap(World world, Consumer<BukkitCuboid> completeAction) {
+        getGameMapSession().whenPastedRegion(completeAction);
+        return getGameMapSession().pasteAtReferenceGridLocPoint(world);
+    }
+
+    @Override
+    public GameMapSession getGameMapSession() {
+        return getGameMapSessionManager().get(getSessionId());
+    }
+
+    @Override
+    public GameMapSessionsManager getGameMapSessionManager() {
+        return MapManager.getManager(GameMapSessionsManager.class);
     }
 
     @Override

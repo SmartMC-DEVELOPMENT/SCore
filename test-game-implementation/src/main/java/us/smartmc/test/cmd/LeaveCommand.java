@@ -6,6 +6,9 @@ import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
 import us.smartmc.gamescore.instance.game.Game;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class LeaveCommand extends GamesCoreCommand {
 
     public LeaveCommand() {
@@ -26,5 +29,10 @@ public class LeaveCommand extends GamesCoreCommand {
     @Override
     public boolean perform(CommandSender sender, String s, String[] args) {
         return false;
+    }
+
+    @Override
+    public List<String> getAliases() {
+        return Arrays.asList("leave", "l", "abandonar", "mrworldwide");
     }
 }

@@ -1,4 +1,5 @@
 us\smartmc\gamescore\util\InventorySerializer.class
+us\smartmc\gamescore\instance\game\WaitingLobbySession.class
 us\smartmc\gamescore\instance\player\GameCorePlayer.class
 us\smartmc\gamescore\instance\serialization\BlockStateWrapper.class
 us\smartmc\gamescore\itemcmd\ListMetadataItemCMD.class
@@ -13,6 +14,7 @@ us\smartmc\gamescore\api\GamesCoreAPI.class
 us\smartmc\gamescore\instance\event\GameCoreGameEvent.class
 us\smartmc\gamescore\manager\map\GameMapSessionsManager.class
 us\smartmc\gamescore\instance\game\map\spawn\IRegionSpawnHolder.class
+us\smartmc\gamescore\cmd\SaveWaitingLobbyCommand.class
 us\smartmc\gamescore\instance\cuboid\BukkitCuboidRegion.class
 us\smartmc\gamescore\instance\event\GameCoreEvent.class
 us\smartmc\gamescore\instance\game\map\GameMap.class

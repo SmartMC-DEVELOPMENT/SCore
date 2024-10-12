@@ -41,7 +41,7 @@ public class ListSpawnsHolder implements ISpawnsHolder {
     public List<Vector3i> getPositions(GameTeam team) {
         List<Vector3i> list = new ArrayList<>();
         Document document = getDocument(team);
-        for (String str : document.getList("spawns", String.class)) {
+        for (String str : document.getList("spawns", String.class, new ArrayList<>())) {
             list.add(CuboidUtil.stringToVector(str));
         }
         return list;
@@ -59,6 +59,7 @@ public class ListSpawnsHolder implements ISpawnsHolder {
 
     private Document getDocument(GameTeam team) {
         Document doc;
+        if (spawnsData.getSpawnType().name().contains("_ALL")) team = null;
         if (team == null) {
             doc = spawnsData;
         } else {

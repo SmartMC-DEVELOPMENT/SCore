@@ -72,6 +72,7 @@ public class RegionSpawnHolder implements IRegionSpawnHolder {
     }
 
     private Document getDocument(GameTeam team) {
+        if (spawnsData.getSpawnType().name().contains("_ALL")) team = null;
         Document doc;
         if (team == null) {
             doc = spawnsData;

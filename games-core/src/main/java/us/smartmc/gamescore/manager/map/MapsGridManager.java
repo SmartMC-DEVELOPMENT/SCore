@@ -26,7 +26,7 @@ public class MapsGridManager {
     }
 
     public Location getLocationReferencePoint(World world) {
-        return new Location(world, getNewSlotIndex(), 70, new Random().nextInt(1000));
+        return new Location(world, getNewSlotIndex(), 70, 33);
     }
 
     private int getNewSlotIndex() {

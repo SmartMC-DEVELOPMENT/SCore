@@ -61,9 +61,6 @@ public class CoreCommandsManager extends MapManager<String, GamesCoreCommand> im
             field.setAccessible(true);
             SimpleCommandMap commandMap = (SimpleCommandMap) field.get(Bukkit.getServer());
             commandMap.register(name, command);
-            for (String alias : command.getAliases()) {
-                commandMap.register(alias, command);
-            }
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

@@ -1,7 +1,11 @@
 package us.smartmc.gamescore.manager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Server;
+import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.SimpleCommandMap;
+import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
@@ -12,6 +16,8 @@ import org.bukkit.event.server.ServerCommandEvent;
 import us.smartmc.gamescore.api.GamesCoreAPI;
 import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
 import us.smartmc.gamescore.instance.manager.MapManager;
+
+import java.lang.reflect.Field;
 
 public class CoreCommandsManager extends MapManager<String, GamesCoreCommand> implements Listener {
 
@@ -26,7 +32,6 @@ public class CoreCommandsManager extends MapManager<String, GamesCoreCommand> im
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onCommand(PlayerCommandPreprocessEvent event) {
-
         if (event.getMessage().startsWith("/")) {
             String label = event.getMessage().substring(1);
             perform(event.getPlayer(), label, event);
@@ -47,5 +52,21 @@ public class CoreCommandsManager extends MapManager<String, GamesCoreCommand> im
         if (label.startsWith(" ")) label = label.substring(1);
         get(name).execute(sender, label, args);
         event.setCancelled(true);
+    }
+
+    @Override
+    public GamesCoreCommand put(String name, GamesCoreCommand command) {
+        try {
+            Field field = CraftServer.class.getDeclaredField("commandMap");
+            field.setAccessible(true);
+            SimpleCommandMap commandMap = (SimpleCommandMap) field.get(Bukkit.getServer());
+            commandMap.register(name, command);
+            for (String alias : command.getAliases()) {
+                commandMap.register(alias, command);
+            }
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        return super.put(name, command);
     }
 }

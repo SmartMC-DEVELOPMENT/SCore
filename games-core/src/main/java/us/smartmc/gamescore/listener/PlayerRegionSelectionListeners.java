@@ -21,7 +21,7 @@ public class PlayerRegionSelectionListeners implements Listener {
         Bukkit.getPluginManager().registerEvents(new PlayerRegionSelectionListeners(), GamesCoreAPI.getApi().getPlugin());
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void handlePosition1(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!PlayerRegionSelectionsManager.canWand(player)) return;
@@ -34,12 +34,12 @@ public class PlayerRegionSelectionListeners implements Listener {
         event.setCancelled(true);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler
     public void handlePosition2(BlockBreakEvent event) {
         handlePos2(event.getPlayer(), event.getBlock().getLocation(), event);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void handlePosition2(BlockDamageEvent event) {
         handlePos2(event.getPlayer(), event.getBlock().getLocation(), event);
     }

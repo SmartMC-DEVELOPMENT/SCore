@@ -61,7 +61,7 @@ public class EditMapSessionsManager extends MapManager<UUID, EditMapSession> {
         });
     }
 
-    private String getMapName(String mapId) {
+    public String getMapName(String mapId) {
         return "/" + GamesCoreAPI.getApi().getGameId() + "/" + mapId;
     }
 

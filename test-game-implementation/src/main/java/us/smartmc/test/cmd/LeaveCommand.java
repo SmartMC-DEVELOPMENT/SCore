@@ -6,8 +6,6 @@ import us.smartmc.gamescore.instance.cmd.GamesCoreCommand;
 import us.smartmc.gamescore.instance.game.Game;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 
-import java.util.List;
-
 public class LeaveCommand extends GamesCoreCommand {
 
     public LeaveCommand() {

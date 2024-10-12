@@ -27,8 +27,8 @@ public class TestGame extends Game {
                 timer.performEnd();
                 return;
             }
-            players.forEach(gameCorePlayer -> {
-                gameCorePlayer.getBukkitPlayer().sendMessage(ChatUtil.color("&e&lEMPEZANDO EN &c&l" + timer.getSecondsLeft() + "s&e&l..."));
+            forEachPlayer(gamePlayer -> {
+                gamePlayer.getBukkitPlayer().sendMessage(ChatUtil.color("&e&lEMPEZANDO EN &c&l" + timer.getSecondsLeft() + "s&e&l..."));
             });
         }, 5000){};
     }
@@ -47,8 +47,8 @@ public class TestGame extends Game {
         super.joinPlayer(player);
         player.getBukkitPlayer().teleport(world.getSpawnLocation());
 
-        players.forEach(gameCorePlayer -> {
-            gameCorePlayer.getBukkitPlayer().sendMessage(ChatUtil.color("&ePlayer &b" + player.getBukkitPlayer().getName() + "&e has joined the game!"));
+        forEachPlayer(gamePlayer -> {
+            gamePlayer.getBukkitPlayer().sendMessage(ChatUtil.color("&ePlayer &b" + player.getBukkitPlayer().getName() + "&e has joined the game!"));
         });
 
         //String teamName = players.size() % 2 == 0 ? "blue" : "red";

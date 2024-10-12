@@ -16,6 +16,7 @@ public class CuboidSerializer {
     }
 
     public static void serialize(CuboidWrapper wrapper, File file) throws IOException {
+        FileUtil.createRequiredFilesFor(file);
         try (FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath());
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(wrapper);

@@ -53,6 +53,7 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
         ItemActionsManager.registerCommand("listRegionMetadata", new ListMetadataItemCMD());
         ItemActionsManager.registerCommand("startEditSession", new StartEditSessionCMD());
         ItemActionsManager.registerCommand("editMapSelectMenu", new EditMapSelectMenuCMD());
+        ItemActionsManager.registerCommand("editMapInv", new EditMapInvCMD());
 
         registerListeners(new TestCustomRegionMetadataListener());
 

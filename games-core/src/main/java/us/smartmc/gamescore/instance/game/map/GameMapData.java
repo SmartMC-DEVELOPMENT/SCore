@@ -4,6 +4,7 @@ import org.bson.Document;
 import us.smartmc.gamescore.instance.storage.MongoDBData;
 import us.smartmc.gamescore.manager.map.MapsManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameMapData extends MongoDBData {
@@ -14,6 +15,8 @@ public class GameMapData extends MongoDBData {
 
     public static final String TEAMS_LIMIT = "teams_limit";
     public static final String TEAMS_NAMES = "teams_names";
+
+    private final List<String> teamsNames = new ArrayList<>();
 
     public GameMapData(GameMap map, MapsManager manager) {
         super(manager.getDatabaseId(), manager.getCollectionId(), getQuery(map));
@@ -29,12 +32,26 @@ public class GameMapData extends MongoDBData {
         save();
     }
 
+    @Override
+    public void save() {
+        set(TEAMS_NAMES, teamsNames);
+        super.save();
+    }
+
+    @Override
+    public void load() {
+        super.load();
+        if (containsKey(TEAMS_NAMES)) {
+            teamsNames.addAll(getList(TEAMS_NAMES, String.class));
+        }
+    }
+
     public boolean isEnabled() {
         return getBoolean(ENABLED);
     }
 
     public List<String> getTeamsNames() {
-        return getList(TEAMS_NAMES, String.class);
+        return teamsNames;
     }
 
     public int getTeamsLimit() {

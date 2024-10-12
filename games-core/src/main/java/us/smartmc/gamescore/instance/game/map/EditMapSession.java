@@ -44,7 +44,6 @@ public class EditMapSession {
     }
 
     private void setAndSave(String key, Object value) {
-        map.getData().set(GameMapData.ENABLED, !map.isEnabled());
         map.getData().save();
     }
 

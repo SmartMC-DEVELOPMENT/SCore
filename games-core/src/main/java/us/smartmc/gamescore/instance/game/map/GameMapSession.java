@@ -10,6 +10,7 @@ import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 import us.smartmc.gamescore.instance.cuboid.CuboidPaster;
 import us.smartmc.gamescore.instance.game.Game;
 import us.smartmc.gamescore.instance.serialization.CuboidWrapper;
+import us.smartmc.gamescore.manager.map.EditMapSessionsManager;
 import us.smartmc.gamescore.manager.map.MapsGridManager;
 import us.smartmc.gamescore.manager.map.MapsManager;
 
@@ -49,12 +50,14 @@ public class GameMapSession {
 
     public void pasteMapRegionAt(Location location) {
         BackendConnection.getBackendConnection().ifPresent(backendConnection -> {
-            backendConnection.getCuboid(map.getName()).thenAccept(res -> {
+            EditMapSessionsManager editMapSessionsManager = EditMapSessionsManager.getManager(EditMapSessionsManager.class);
+            if (editMapSessionsManager == null) return;
+            backendConnection.getCuboid(editMapSessionsManager.getMapName(map.getName())).thenAccept(res -> {
                 CuboidWrapper wrapper = res.getWrapper();
                 CuboidPaster paster = new CuboidPaster(wrapper);
                 cuboidReference = paster.pasteAt(location);
                 borderReference = new BukkitCuboid(cuboidReference.getMinLocation().clone().add(-BORDER_ADDITION, -BORDER_ADDITION, -BORDER_ADDITION),
-                        cuboidReference.getMaxLocation().clone().add(BORDER_ADDITION, BORDER_ADDITION, BORDER_ADDITION) );
+                        cuboidReference.getMaxLocation().clone().add(BORDER_ADDITION, BORDER_ADDITION, BORDER_ADDITION));
             });
         });
     }

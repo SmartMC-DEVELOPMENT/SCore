@@ -25,20 +25,13 @@ public class EditMapSelectionMenu extends GUIMenu {
         loadControlItems();
     }
 
-    private List<GameMap> getTestingMaps(int amount) {
-        List<GameMap> maps = new ArrayList<>();
-        for (int i = 0; i < amount; i++) {
-            maps.add(new GameMap("test_" + i, MapsManager.getManager(MapsManager.class)));
-        }
-        return maps;
-    }
 
     @Override
     public void load() {
         MapsManager manager = MapsManager.getManager(MapsManager.class);
         if (manager == null) return;
 
-        List<GameMap> mapList = new ArrayList<>(getTestingMaps(120));
+        List<GameMap> mapList = new ArrayList<>(manager.values());
 
         int listIndex = endIndex * page - endIndex;
 
@@ -52,12 +45,19 @@ public class EditMapSelectionMenu extends GUIMenu {
 
     public void goToPage(int page) {
         this.page = page;
+        inventory.clear();
         loadControlItems();
         load();
     }
 
     public void loadControlItems() {
-        set(size - 1, ItemBuilder.of(Material.ARROW).name("&a>").get(), "editMapSelectMenu next");
+        int maxPage = (int) Math.ceil((double) getMapsSize() / (size - 9)) - 1;
+        if (page > maxPage) {
+            set(size - 1, null);
+        } else {
+            set(size - 1, ItemBuilder.of(Material.ARROW).name("&a>").get(), "editMapSelectMenu next");
+        }
+
         if (page >= 2) {
             set(size - 9, ItemBuilder.of(Material.ARROW).name("&a<").get(), "editMapSelectMenu previous");
         } else {
@@ -67,6 +67,10 @@ public class EditMapSelectionMenu extends GUIMenu {
 
     public ItemStack get(GameMap map) {
         return ItemBuilder.of(Material.STONE).name(map.getName()).get();
+    }
+
+    public int getMapsSize() {
+        return Objects.requireNonNull(MapsManager.getManager(MapsManager.class)).size();
     }
 
 }

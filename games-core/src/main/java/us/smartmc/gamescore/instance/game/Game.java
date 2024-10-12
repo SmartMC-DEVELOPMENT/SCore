@@ -13,6 +13,7 @@ import us.smartmc.gamescore.util.BukkitUtil;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Game implements IGame {
@@ -27,7 +28,7 @@ public class Game implements IGame {
     protected CountdownTimer startTimer, endTimer;
 
     @Getter
-    protected final Set<GameCorePlayer> players = new HashSet<>();
+    protected final Set<UUID> players = new HashSet<>();
 
     private final GameSessionTeamsManager teamsManager = new GameSessionTeamsManager();
 
@@ -50,7 +51,7 @@ public class Game implements IGame {
             BukkitUtil.callEvent(new GamePostStartEvent(this));
         }, 10);
         setStatus(GameStatus.PLAYING);
-        players.forEach(gamePlayer -> gamePlayer.setStatus(PlayerStatus.IN_GAME));
+        forEachPlayer(gamePlayer -> gamePlayer.setStatus(PlayerStatus.IN_GAME));
     }
 
     @Override
@@ -65,7 +66,8 @@ public class Game implements IGame {
 
     @Override
     public void joinPlayer(GameCorePlayer player) {
-        players.add(player);
+        if (players.contains(player.getUUID())) return;
+        players.add(player.getUUID());
         player.setCurrentGame(this);
         player.setStatus(PlayerStatus.PRE_GAME);
         BukkitUtil.callEvent(new GamePlayerGameJoinEvent(player));
@@ -78,7 +80,7 @@ public class Game implements IGame {
 
     @Override
     public void leavePlayer(GameCorePlayer player) {
-        players.remove(player);
+        players.remove(player.getUUID());
         teamsManager.remove(player.getUUID());
         player.setCurrentGame(null);
         BukkitUtil.callEvent(new GamePlayerGameLeaveEvent(player));
@@ -91,9 +93,20 @@ public class Game implements IGame {
         player.setStatus(PlayerStatus.SPECTATOR_DEATH);
     }
 
+    public void forEachPlayer(Consumer<GameCorePlayer> consumer) {
+        for (UUID id : getPlayers()) {
+            consumer.accept(GameCorePlayer.of(id));
+        }
+    }
+
     @Override
     public Set<GameCorePlayer> getPlayersByStatus(PlayerStatus status) {
-        return getPlayers().stream().filter(player -> player.getStatus().equals(status)).collect(Collectors.toSet());
+        Set<GameCorePlayer> list = new HashSet<>();
+        for (UUID id : getPlayers()) {
+            GameCorePlayer gamePlayer = GameCorePlayer.of(id);
+            if (gamePlayer.getStatus().equals(status)) list.add(gamePlayer);
+        }
+        return list;
     }
 
     @Override

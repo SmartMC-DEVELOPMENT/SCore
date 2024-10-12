@@ -52,7 +52,7 @@ public interface IGame {
     }
 
     Set<GameCorePlayer> getPlayersByStatus(PlayerStatus status);
-    Set<GameCorePlayer> getPlayers();
+    Set<UUID> getPlayers();
 
     GameSessionTeamsManager getGameSessionTeamsManager();
 

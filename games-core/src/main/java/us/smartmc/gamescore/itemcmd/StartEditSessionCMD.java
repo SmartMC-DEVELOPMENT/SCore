@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.manager.RegionsManager;
 import us.smartmc.gamescore.manager.map.EditMapSessionsManager;
+import us.smartmc.gamescore.menu.EditMapInventoryMenu;
 import us.smartmc.gamescore.menu.ManageMetadataRegionMenu;
 
 public class StartEditSessionCMD implements ItemActionExecutor {
@@ -18,7 +19,9 @@ public class StartEditSessionCMD implements ItemActionExecutor {
         String mapName = args[0];
         EditMapSessionsManager manager = MapManager.getManager(EditMapSessionsManager.class);
         if (manager == null) return;
+        player.closeInventory();
         manager.createSessionByName(player, mapName);
         player.sendMessage(ChatUtil.color("&aYou are now editing map of " + mapName));
+        new EditMapInventoryMenu(player, mapName).set(player);
     }
 }

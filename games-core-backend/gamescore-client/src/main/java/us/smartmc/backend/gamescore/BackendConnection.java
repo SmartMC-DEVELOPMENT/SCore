@@ -29,8 +29,6 @@ public class BackendConnection extends BackendClient {
 
     public void handleCuboidGetResponse(CuboidGetResponse response) {
         CompletableFuture<CuboidGetResponse> future = cuboidGetRequests.get(response.getName());
-        System.out.println("handleCuboidGetResponse " + future);
-        System.out.println("handleCuboidGetResponse " + cuboidGetRequests.keySet());
         if (future == null) return;
         future.complete(response);
     }

@@ -2,7 +2,7 @@ package us.smartmc.lobbycosmetics.menu;
 
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -22,7 +22,7 @@ import us.smartmc.lobbycosmetics.util.ItemsUtil;
 
 import java.util.*;
 
-public class CosmeticBuyMenu extends CoreMenu {
+public class CosmeticBuyMenu extends GUIMenu {
 
     private static final Map<UUID, ICosmetic> pendingRequests = new HashMap<>();
 

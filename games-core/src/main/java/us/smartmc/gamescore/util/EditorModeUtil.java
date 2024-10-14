@@ -4,13 +4,12 @@ import me.imsergioh.pluginsapi.instance.menu.GUIMenu;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.joml.Vector3i;
-import us.smartmc.gamescore.adminplayer.PlayerRegionSelectSession;
+import us.smartmc.gamescore.adminplayer.PlayerSelectSession;
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 import us.smartmc.gamescore.instance.game.map.EditMapSession;
 import us.smartmc.gamescore.instance.manager.MapManager;
-import us.smartmc.gamescore.manager.PlayerRegionSelectionsManager;
 import us.smartmc.gamescore.manager.map.EditMapSessionsManager;
-import us.smartmc.gamescore.menu.EditMapInventoryMenu;
+import us.smartmc.gamescore.manager.player.PlayerSelectionsManager;
 
 public class EditorModeUtil {
 
@@ -27,7 +26,7 @@ public class EditorModeUtil {
     }
 
     public static BukkitCuboid getBukkitCuboidFromSelection(Player player) {
-        PlayerRegionSelectSession session = getSelectionSession(player);
+        PlayerSelectSession session = getSelectionSession(player);
         if (session == null) return null;
         if (session.getPos1() == null || session.getPos2() == null) return null;
         return new BukkitCuboid(session.getPos1(), session.getPos2());
@@ -39,15 +38,15 @@ public class EditorModeUtil {
         return manager.get(player.getUniqueId());
     }
 
-    public static PlayerRegionSelectSession getSelectionSession(Player player) {
-        PlayerRegionSelectionsManager manager = MapManager.getManager(PlayerRegionSelectionsManager.class);
+    public static PlayerSelectSession getSelectionSession(Player player) {
+        PlayerSelectionsManager manager = MapManager.getManager(PlayerSelectionsManager.class);
         if (manager == null) return null;
         return manager.get(player.getUniqueId());
 
     }
 
     public static boolean hasWandSelection(Player player) {
-        PlayerRegionSelectSession session = getSelectionSession(player);
+        PlayerSelectSession session = getSelectionSession(player);
         if (session == null) return false;
         return session.getPos2() != null && session.getPos1() != null;
     }

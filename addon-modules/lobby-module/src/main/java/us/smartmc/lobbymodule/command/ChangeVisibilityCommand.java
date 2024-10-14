@@ -1,6 +1,6 @@
 package us.smartmc.lobbymodule.command;
 
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -36,11 +36,12 @@ public class ChangeVisibilityCommand extends AddonPluginCommand {
         // Update item in hand in case that it's a visibility item (INK_SACK in hand)
         ItemStack item = player.getItemInHand();
         if (!(item.getType().name().startsWith("INK") || item.getType().name().contains("DYE"))) return;
-        CoreMenu menu = corePlayer.getCurrentMenuSet();
+        GUIMenu menu = GUIMenu.getSetGUI(player);
         item = VisibilityManager.getVisibilityItem(player, nextVisibility).get(player);
         player.getInventory().setItemInHand(item);
-        menu.getActionManager().registerItemAction(player.getInventory().getHeldItemSlot(),
-                item, Arrays.asList("cmd changeVisibility"));
+        if (menu != null)
+            menu.getActionManager().registerItemAction(player.getInventory().getHeldItemSlot(),
+                    item, Arrays.asList("cmd changeVisibility"));
     }
 
     @Override

@@ -142,7 +142,6 @@ public class Game implements IGame {
         Vector3i position = getSpawnRelativePosition(team);
         Location loc = cuboid.getGlobalLocation(position).add(0.5, 0, 0.5);
         player.teleport(loc);
-        player.sendMessage("TELEPORTING TO " + loc);
     }
 
     @Override

@@ -72,13 +72,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.grinderwolf</groupId>
-            <artifactId>slimeworldmanager-api</artifactId>
-            <scope>system</scope>
-            <version>local</version>
-            <systemPath>D:/workspace2024/SCore/skyblock/lib/slimeworldmanager-plugin-2.8.0-SNAPSHOT.jar</systemPath>
-        </dependency>
-        <dependency>
             <groupId>us.smartmc.game</groupId>
             <artifactId>skyblock-common</artifactId>
             <version>1.0-SNAPSHOT</version>

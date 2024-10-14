@@ -1,7 +1,7 @@
 package us.smartmc.lobbymodule.handler;
 
 import lombok.Getter;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bson.Document;
 import org.bukkit.Bukkit;
@@ -25,7 +25,7 @@ public class LobbiesInfoManager extends AddonListener implements Listener {
 
     private static final String LOBBIES_INFO_CONTEXT = "lobby-module:lobbies-info";
 
-    private static final Set<CoreMenu> menus = new HashSet<>();
+    private static final Set<GUIMenu> menus = new HashSet<>();
 
     @Getter
     private static final TreeMap<String, Document> infos = new TreeMap<>();
@@ -91,7 +91,7 @@ public class LobbiesInfoManager extends AddonListener implements Listener {
         if (!(event.getPlayer() instanceof Player player)) return;
         CorePlayer corePlayer = CorePlayer.get(player);
         if (corePlayer == null) return;
-        CoreMenu menuOpen = corePlayer.getCurrentMenuOpen();
+        GUIMenu menuOpen = GUIMenu.getOpenGUI(player);
         if (menuOpen == null) return;
         menus.remove(menuOpen);
     }

@@ -3,7 +3,7 @@ package us.smartmc.lobbymodule.menu;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.instance.player.CorePlayerData;
 import org.bson.Document;
@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class LinkSocialsMenu extends CoreMenu {
+public class LinkSocialsMenu extends GUIMenu {
 
     private UUID targetUUID;
     @Getter
@@ -64,9 +64,6 @@ public class LinkSocialsMenu extends CoreMenu {
         register(30, LinkSocialType.INSTAGRAM);
         register(32, LinkSocialType.DISCORD);
 
-        if (initCorePlayer.getPreviousOpenMenu() != null) {
-            set(inventory.getSize() - 5, ItemBuilder.of(Material.BOOK).name("<lang.language.menuPrevious>").get(initPlayer), "openPrevious");
-        }
         document = null;
     }
 

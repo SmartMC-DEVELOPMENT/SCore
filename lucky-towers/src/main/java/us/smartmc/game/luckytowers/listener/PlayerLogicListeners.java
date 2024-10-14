@@ -3,7 +3,7 @@ package us.smartmc.game.luckytowers.listener;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.event.PlayerLanguageChangedEvent;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.util.ChatUtil;
@@ -63,7 +63,7 @@ public class PlayerLogicListeners implements Listener {
     public void reloadLanguageInventory(PlayerLanguageChangedEvent event) {
         CorePlayer corePlayer = event.getCorePlayer();
 
-        CoreMenu menu = corePlayer.getCurrentMenuSet();
+        GUIMenu menu = corePlayer.getCurrentMenuSet();
         if (menu == null) return;
 
         GamePlayer gamePlayer = GamePlayer.get(corePlayer.getUUID());

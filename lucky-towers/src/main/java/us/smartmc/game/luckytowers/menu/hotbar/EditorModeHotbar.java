@@ -1,6 +1,6 @@
 package us.smartmc.game.luckytowers.menu.hotbar;
 
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -9,7 +9,7 @@ import us.smartmc.game.luckytowers.messages.AdminItems;
 
 public class EditorModeHotbar extends GameMenu {
 
-    private final CoreMenu oldMenu;
+    private final GUIMenu oldMenu;
 
     public EditorModeHotbar(Player player) {
         super(player, 36, "editor");

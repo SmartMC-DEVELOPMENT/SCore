@@ -1,7 +1,7 @@
 package us.smartmc.core.menu.langmessages;
 
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
 import me.imsergioh.pluginsapi.language.MultiLanguageRegistry;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Arrays;
 import java.util.Set;
 
-public class LanguageHoldersMenu extends CoreMenu {
+public class LanguageHoldersMenu extends GUIMenu {
 
     public LanguageHoldersMenu(Player player) {
         super(player, 9 * 6, "Holders");

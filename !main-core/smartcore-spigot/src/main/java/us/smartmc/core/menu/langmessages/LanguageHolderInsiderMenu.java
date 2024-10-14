@@ -2,7 +2,7 @@ package us.smartmc.core.menu.langmessages;
 
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.language.LanguageMessagesHolder;
 import org.bson.Document;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LanguageHolderInsiderMenu extends CoreMenu {
+public class LanguageHolderInsiderMenu extends GUIMenu {
 
     private final LanguageMessagesHolder defaultLangHolder;
 

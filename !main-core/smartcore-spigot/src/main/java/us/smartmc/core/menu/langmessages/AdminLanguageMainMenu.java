@@ -1,7 +1,8 @@
 package us.smartmc.core.menu.langmessages;
 
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.menu.SetLanguageMenu;
 import org.bukkit.ChatColor;
@@ -11,7 +12,7 @@ import us.smartmc.core.util.EnumUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminLanguageMainMenu extends CoreMenu {
+public class AdminLanguageMainMenu extends GUIMenu {
 
     private Language selectedLanguage = Language.getDefault();
 

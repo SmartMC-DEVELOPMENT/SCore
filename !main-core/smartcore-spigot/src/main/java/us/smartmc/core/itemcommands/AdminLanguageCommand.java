@@ -2,8 +2,7 @@ package us.smartmc.core.itemcommands;
 
 import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
-import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;
 import us.smartmc.core.menu.langmessages.AdminLanguageMainMenu;
 
 public class AdminLanguageCommand implements ItemActionExecutor {
@@ -15,7 +14,7 @@ public class AdminLanguageCommand implements ItemActionExecutor {
 
         switch (cmdArg) {
             case "toggleLanguage" -> {
-                CoreMenu menu = CorePlayer.get(handler.getClicker()).getCurrentMenuOpen();
+                GUIMenu menu = GUIMenu.getOpenGUI(handler.player());
                 if (menu == null) return;
                 if (!(menu instanceof AdminLanguageMainMenu languageMainMenu)) return;
                 languageMainMenu.toggleSelectedLanguage();

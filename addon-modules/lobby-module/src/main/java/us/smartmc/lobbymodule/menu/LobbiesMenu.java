@@ -3,7 +3,7 @@ package us.smartmc.lobbymodule.menu;
 import com.google.common.collect.Lists;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bson.Document;
@@ -18,7 +18,7 @@ import us.smartmc.lobbymodule.messages.LobbyMessages;
 import java.util.*;
 
 
-public class LobbiesMenu extends CoreMenu {
+public class LobbiesMenu extends GUIMenu {
 
     private static final Map<Language, LobbiesMenu> menus = new HashMap<>();
 
@@ -44,7 +44,6 @@ public class LobbiesMenu extends CoreMenu {
     public void open(Player player) {
         this.load();
         player.playSound(player.getLocation(), Sound.CLICK, 0.1F, 2.5F);
-        CorePlayer.get(player).setCurrentMenuOpen(this);
         player.openInventory(inventory);
     }
 

@@ -3,6 +3,7 @@ package us.smartmc.lobbymodule.itemcommand;
 import me.imsergioh.pluginsapi.instance.ClickableComponent;
 import me.imsergioh.pluginsapi.instance.ItemActionExecutor;
 import me.imsergioh.pluginsapi.instance.item.ClickHandler;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import net.kyori.adventure.text.Component;
@@ -27,7 +28,7 @@ public class ShowSocialAction implements ItemActionExecutor {
             return;
         }
         String targetName = username;
-        if (clickerCorePlayer.getCurrentMenuOpen() instanceof LinkSocialsMenu menu) {
+        if (GUIMenu.getOpenGUI(handler.player()) instanceof LinkSocialsMenu menu) {
             targetName = menu.getTargetName();
         }
 

@@ -109,6 +109,7 @@ public class SmartCore extends JavaPlugin {
         try {
             backendClient = new BackendClient("127.0.0.1", 7723);
             backendClient.login("default", "SmartMC2024Ñ");
+
             new Thread(backendClient).start();
             ServicesManager.registerServices(true, new PlayersService());
         } catch (IOException e) {

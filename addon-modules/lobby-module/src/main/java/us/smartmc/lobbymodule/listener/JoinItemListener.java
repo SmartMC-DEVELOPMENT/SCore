@@ -2,6 +2,7 @@ package us.smartmc.lobbymodule.listener;
 
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.event.PlayerLanguageChangedEvent;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,7 +32,8 @@ public class JoinItemListener extends AddonListener implements Listener {
         if (player == null) {
             return;
         }
-        cPlayer.clearInventory();
+        player.getInventory().clear();
+        GUIMenu.unregisterSetGUI(player.getUniqueId());
         JoinItemMenu menu = new JoinItemMenu(player);
         menu.set(player);
     }

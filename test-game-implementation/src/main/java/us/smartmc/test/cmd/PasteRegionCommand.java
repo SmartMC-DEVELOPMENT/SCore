@@ -31,7 +31,6 @@ public class PasteRegionCommand extends GamesCoreCommand {
 
     @Override
     public boolean perform(CommandSender sender, String s, String[] args) {
-        System.out.println("ARGS=" + Arrays.toString(args));
         Location location = getLocationFromSender(sender, args);
 
         String name = args[0];

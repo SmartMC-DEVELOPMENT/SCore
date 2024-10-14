@@ -11,7 +11,6 @@ public class CuboidGetResponseListener extends BackendObjectListener<CuboidGetRe
     @Override
     public void onReceive(ConnectionHandler connectionHandler, CuboidGetResponse response) {
         BackendConnection.getBackendConnection().ifPresent(client -> {
-            System.out.println("OBTAINED " + response + " " + response.getName());
             client.handleCuboidGetResponse(response);
         });
     }

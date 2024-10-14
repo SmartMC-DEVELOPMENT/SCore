@@ -2,7 +2,7 @@ package us.smartmc.lobbymodule.menu;
 
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -12,7 +12,7 @@ import us.smartmc.lobbymodule.config.MinigamesConfig;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MinigamesMenu extends CoreMenu {
+public class MinigamesMenu extends GUIMenu {
 
     private static final Map<Language, MinigamesMenu> menus = new HashMap<>();
 

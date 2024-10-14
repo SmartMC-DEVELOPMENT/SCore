@@ -3,7 +3,7 @@ package us.smartmc.lobbycosmetics.menu;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
 import me.imsergioh.pluginsapi.language.Language;
 import me.imsergioh.pluginsapi.language.LanguageMessagesHolder;
 import org.bson.Document;
@@ -18,7 +18,7 @@ import us.smartmc.lobbycosmetics.message.CosmeticsMainMessages;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class CosmeticsAddonMenu extends CoreMenu implements ICosmeticAddonMenu {
+public abstract class CosmeticsAddonMenu extends GUIMenu implements ICosmeticAddonMenu {
 
     private static final CosmeticSectionHandler sectionsHandler = LobbyCosmetics.getSectionsHandler();
     private static final CosmeticSessionHandler sessionsHandler = LobbyCosmetics.getPlayerSessionsHandler();

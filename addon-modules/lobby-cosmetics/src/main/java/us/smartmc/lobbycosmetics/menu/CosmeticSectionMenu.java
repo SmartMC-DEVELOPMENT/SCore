@@ -3,7 +3,7 @@ package us.smartmc.lobbycosmetics.menu;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.CoreMenu;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.entity.Player;
 import us.smartmc.lobbycosmetics.LobbyCosmetics;
@@ -18,7 +18,7 @@ import us.smartmc.lobbycosmetics.instance.player.CosmeticPlayerSession;
 import java.util.Arrays;
 import java.util.List;
 
-public class CosmeticSectionMenu extends CoreMenu {
+public class CosmeticSectionMenu extends GUIMenu {
 
     private static final CosmeticSessionHandler sessionsHandler = LobbyCosmetics.getPlayerSessionsHandler();
 

@@ -19,7 +19,6 @@ public class RegionsManager extends MapManager<String, CuboidRegion> {
 
 
     private RegionsManager() {
-        System.out.println("CREATING REGIONSMANAGER");
         getRegionsDirectory().mkdirs();
         SyncUtil.async(() -> {
             for (File file : Objects.requireNonNull(getRegionsDirectory().listFiles())) {

@@ -92,7 +92,7 @@ public class EditMapInvCMD implements ItemActionExecutor {
 
             if (args[0].equals("maintenance")) {
                 boolean toSet = !map.isEnabled();
-                map.getData().set(GameMapData.ENABLED, toSet);
+                map.getData().put(GameMapData.ENABLED, toSet);
                 map.getData().save();
                 String message = !toSet ? "&aEnabled" : "&cDisabled";
                 handler.clicker().sendMessage(ChatUtil.color(message));
@@ -206,9 +206,9 @@ public class EditMapInvCMD implements ItemActionExecutor {
 
     private void addSubtract(Player clicker, boolean left, String key, GameMap map) {
         boolean add = !left;
-        int amount = map.getData().getInt(key);
+        int amount = map.getData().getInteger(key);
         int newAmount = add ? amount + 1 : amount - 1;
-        map.getData().set(key, newAmount);
+        map.getData().put(key, newAmount);
         map.getData().save();
         clicker.playSound(clicker.getLocation(), Sound.CLICK, 1, 1);
     }

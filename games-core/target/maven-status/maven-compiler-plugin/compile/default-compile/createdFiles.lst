@@ -14,6 +14,7 @@ us\smartmc\gamescore\api\GamesCoreAPI.class
 us\smartmc\gamescore\instance\event\GameCoreGameEvent.class
 us\smartmc\gamescore\manager\map\GameMapSessionsManager.class
 us\smartmc\gamescore\instance\game\map\spawn\IRegionSpawnHolder.class
+us\smartmc\gamescore\instance\storage\SBackendData.class
 us\smartmc\gamescore\cmd\SaveWaitingLobbyCommand.class
 us\smartmc\gamescore\instance\cuboid\BukkitCuboidRegion.class
 us\smartmc\gamescore\instance\event\GameCoreEvent.class

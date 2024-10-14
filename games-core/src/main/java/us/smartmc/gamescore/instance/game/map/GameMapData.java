@@ -3,14 +3,14 @@ package us.smartmc.gamescore.instance.game.map;
 import lombok.Getter;
 import org.bson.Document;
 import us.smartmc.gamescore.instance.game.map.spawn.MapSpawnsData;
-import us.smartmc.gamescore.instance.storage.MongoDBData;
+import us.smartmc.gamescore.instance.storage.SBackendData;
 import us.smartmc.gamescore.manager.map.MapsManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class GameMapData extends MongoDBData {
+public class GameMapData extends SBackendData {
 
     public static final String ENABLED = "enabled";
     public static final String MAX_PLAYERS = "max_players";
@@ -24,7 +24,7 @@ public class GameMapData extends MongoDBData {
     private MapSpawnsData spawnsData;
 
     public GameMapData(GameMap map, MapsManager manager) {
-        super(manager.getDatabaseId(), manager.getCollectionId(), getQuery(map));
+        super(manager.getDatabaseId() + "/" + manager.getCollectionId() + "/" + map.getName());
         load();
 
         registerDefault(ENABLED, false);
@@ -39,8 +39,8 @@ public class GameMapData extends MongoDBData {
 
     @Override
     public void save() {
-        set(TEAMS_NAMES, teamsNames);
-        set("spawns", spawnsData);
+        put(TEAMS_NAMES, teamsNames);
+        put("spawns", spawnsData);
         super.save();
     }
 
@@ -58,15 +58,15 @@ public class GameMapData extends MongoDBData {
     }
 
     public int getTeamsLimit() {
-        return getInt(TEAMS_LIMIT);
+        return getInteger(TEAMS_LIMIT);
     }
 
     public int getMinPlayers() {
-        return getInt(MIN_PLAYERS);
+        return getInteger(MIN_PLAYERS);
     }
 
     public int getMaxPlayers() {
-        return getInt(MAX_PLAYERS);
+        return getInteger(MAX_PLAYERS);
     }
 
     private static Document getQuery(GameMap map) {

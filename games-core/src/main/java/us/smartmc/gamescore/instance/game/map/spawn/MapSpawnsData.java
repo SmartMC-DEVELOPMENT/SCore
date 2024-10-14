@@ -19,7 +19,7 @@ public class MapSpawnsData extends Document {
     }
 
     public void load() {
-        putAll((Document) mapData.getData().getOrDefault("spawns", new Document()));
+        putAll((Document) mapData.getOrDefault("spawns", new Document()));
         // Type load / register
         if (!containsKey("type")) {
             put("type", SpawnType.ONE_ALL.name());
@@ -75,7 +75,7 @@ public class MapSpawnsData extends Document {
     }
 
     public void save() {
-        mapData.set("spawns", this);
+        mapData.put("spawns", this);
     }
 
 }

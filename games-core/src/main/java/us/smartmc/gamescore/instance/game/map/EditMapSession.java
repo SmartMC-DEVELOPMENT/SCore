@@ -76,7 +76,7 @@ public class EditMapSession {
     }
 
     private void setAndSave(String key, Object value) {
-        map.getData().set(key, value);
+        map.getData().put(key, value);
         map.getData().save();
     }
 

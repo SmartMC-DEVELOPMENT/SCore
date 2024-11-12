@@ -32,17 +32,17 @@ public class EditMapInventoryMenu extends GUIMenu {
 
     @Override
     public void load() {
-        set(0, ItemBuilder.of(Material.SKULL_ITEM).data(3).skullTexture("ewogICJ0aW1lc3RhbXAiIDogMTcyNDU4MjA4NDYwOCwKICAicHJvZmlsZUlkIiA6ICIxNTY3ODg4YTAwYWY0ODc2YjYyNTI3YTNiOGY3YTdlYSIsCiAgInByb2ZpbGVOYW1lIiA6ICJUb3NoaW9YdHJlbWUiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTNjNzZkZWZhN2E1M2FlNDI0ZjgzN2FhN2RmNmJhMzMwZmQ1ZWYzOGZjYTk4ZmQ0ZmEyNGFlODJkNzFmMzQ3MiIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9CiAgfQp9")
+        set(0, ItemBuilder.of(Material.PLAYER_HEAD).skullTexture("ewogICJ0aW1lc3RhbXAiIDogMTcyNDU4MjA4NDYwOCwKICAicHJvZmlsZUlkIiA6ICIxNTY3ODg4YTAwYWY0ODc2YjYyNTI3YTNiOGY3YTdlYSIsCiAgInByb2ZpbGVOYW1lIiA6ICJUb3NoaW9YdHJlbWUiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTNjNzZkZWZhN2E1M2FlNDI0ZjgzN2FhN2RmNmJhMzMwZmQ1ZWYzOGZjYTk4ZmQ0ZmEyNGFlODJkNzFmMzQ3MiIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9CiAgfQp9")
                         .name("&bMax Players &f(" + map.getData().getMaxPlayers() + ")")
                         .lore(Arrays.asList("&7Right-Click to &aadd", "&7Left-Click to &csubtract"))
                         .get(),
                 "editMapInv max");
-        set(1, ItemBuilder.of(Material.SKULL_ITEM).data(3).skullTexture("ewogICJ0aW1lc3RhbXAiIDogMTcyODU0MjQxNzMyOSwKICAicHJvZmlsZUlkIiA6ICJmMTA0NzMxZjljYTU0NmI0OTkzNjM4NTlkZWY5N2NjNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJ6aWFkODciLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDc1ZDc0OTYwNmJlYTdmZjUyYzYzYTQ4YzAwODJkYjg3N2JiZTUyMGI3NTg1MjM2Mjc5MDlmNTNhOGU1OTRjYyIKICAgIH0KICB9Cn0=")
+        set(1, ItemBuilder.of(Material.PLAYER_HEAD).skullTexture("ewogICJ0aW1lc3RhbXAiIDogMTcyODU0MjQxNzMyOSwKICAicHJvZmlsZUlkIiA6ICJmMTA0NzMxZjljYTU0NmI0OTkzNjM4NTlkZWY5N2NjNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJ6aWFkODciLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDc1ZDc0OTYwNmJlYTdmZjUyYzYzYTQ4YzAwODJkYjg3N2JiZTUyMGI3NTg1MjM2Mjc5MDlmNTNhOGU1OTRjYyIKICAgIH0KICB9Cn0=")
                         .name("&bMin Players &f(" + map.getData().getMinPlayers() + ")")
                         .lore(Arrays.asList("&7Right-Click to &aadd", "&7Left-Click to &csubtract"))
                         .get(),
                 "editMapInv min");
-        set(3, ItemBuilder.of(Material.WOOL).data(4)
+        set(3, ItemBuilder.of(Material.YELLOW_WOOL)
                         .name("&bTeams Limit &f(" + map.getData().getTeamsLimit() + ")")
                         .lore(Arrays.asList("&7Right-Click to &aadd", "&7Left-Click to &csubtract"))
                         .get(),
@@ -65,7 +65,7 @@ public class EditMapInventoryMenu extends GUIMenu {
                 "editMapInv save");
 
         // WorldEdit Wand + Custom GameCore Wand
-        set(5, ItemBuilder.of(Material.WOOD_AXE).get());
+        set(5, ItemBuilder.of(Material.WOODEN_AXE).get());
         set(8, PlayerSelectionsManager.wandItem);
 
         String maintenancePrefix = !map.isEnabled() ? "&a" : "&c";
@@ -75,12 +75,12 @@ public class EditMapInventoryMenu extends GUIMenu {
 
         List<String> lore = !map.isEnabled() ? List.of("&7ENABLED") : List.of("&7DISABLED");
 
-        set(13, ItemBuilder.of(Material.SKULL_ITEM).data(3).skullTexture(texture)
+        set(13, ItemBuilder.of(Material.PLAYER_HEAD).skullTexture(texture)
                 .name(maintenancePrefix + "Maintenance")
                 .lore(lore)
                 .get(), "editMapInv maintenance");
 
-        set(17, ItemBuilder.of(Material.BED)
+        set(17, ItemBuilder.of(Material.RED_BED)
                 .name("&4Leave editor mode")
                 .get(), "editMapInv leave");
 
@@ -94,7 +94,7 @@ public class EditMapInventoryMenu extends GUIMenu {
                 .name("&bTeam selector: " + teamName)
                 .get(), "editMapInv toggleTeam");
 
-        set(32, ItemBuilder.of(Material.ENDER_PORTAL_FRAME)
+        set(32, ItemBuilder.of(Material.END_PORTAL_FRAME)
                 .name("&bAdd/Set Position")
                 .get(), "editMapInv addSetPosition");
 

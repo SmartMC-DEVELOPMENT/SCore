@@ -3,27 +3,29 @@ package us.smartmc.smartcore.proxy.backend.service;
 import me.imsergioh.pluginsapi.manager.BungeeCordPluginsAPI;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import us.smartmc.backend.handler.ConnectionInputManager;
-import us.smartmc.backend.instance.service.BackendService;
+import us.smartmc.backend.instance.services.IBackendService;
 import us.smartmc.smartcore.proxy.SmartCoreBungeeCord;
 import us.smartmc.smartcore.proxy.backend.SendVelocityMessageCommand;
 import us.smartmc.smartcore.proxy.listener.BackendEssentialListeners;
 
 import java.util.UUID;
 
-public class PlayersService extends BackendService {
+public class PlayersService implements IBackendService {
 
     private static final SmartCoreBungeeCord plugin = SmartCoreBungeeCord.getPlugin();
 
+    private boolean loaded;
+
     @Override
     public void load() {
-        super.load();
+        loaded = true;
         ConnectionInputManager.registerCommands(new SendVelocityMessageCommand());
         BungeeCordPluginsAPI.proxy.getPluginManager().registerListener(plugin, new BackendEssentialListeners());
     }
 
     @Override
     public void unload() {
-        super.unload();
+        loaded = false;
     }
 
     public void registerPlayerContext(ProxiedPlayer player) {
@@ -42,5 +44,8 @@ public class PlayersService extends BackendService {
         return "proxyPlayer@" + id;
     }
 
-
+    @Override
+    public boolean isLoaded() {
+        return loaded;
+    }
 }

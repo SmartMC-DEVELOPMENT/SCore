@@ -73,7 +73,8 @@ public abstract class GamesCoreAPI implements IGamesCoreAPI {
                     new PlayerGameLogicListeners(),
                     new PlayersManagerListeners(),
                     new RegionsMetadataListeners(),
-                    new AdminManagerListeners());
+                    new AdminManagerListeners(),
+                    new WeatherWorldListeners());
         } catch (Exception e) {
             getLogger().severe("Error trying to register Listeners from default listeners package!");
             throw new RuntimeException(e);

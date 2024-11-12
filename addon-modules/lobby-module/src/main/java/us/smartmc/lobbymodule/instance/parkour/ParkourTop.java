@@ -5,6 +5,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 
 import me.imsergioh.pluginsapi.connection.MongoDBConnection;
+import me.imsergioh.pluginsapi.util.BukkitChatUtil;
 import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.LocationSerializer;
 import org.bson.Document;
@@ -84,13 +85,13 @@ public class ParkourTop {
 
             double seconds = millis / 1000.0;
             String formattedTime = String.format("%.2f", seconds);
-            lines.add(ChatUtil.parse((Player) null, "<lang.lobby.parkour_top_score>", currentTop, getNameFromId(uuid), formattedTime + "s"));
+            lines.add(ChatUtil.parse("<lang.lobby.parkour_top_score>", currentTop, getNameFromId(uuid), formattedTime + "s"));
             currentTop++;
         }
 
         // Fill until limit with blank tops
-        while (currentTop != TOP_LIMIT) {
-            lines.add(ChatUtil.parse((Player) null, "<lang.lobby.parkour_top_score>", currentTop, "-", "-"));
+        while (currentTop <= TOP_LIMIT) {
+            lines.add(ChatUtil.parse("<lang.lobby.parkour_top_score>", currentTop, "-", "-"));
             currentTop++;
         }
 

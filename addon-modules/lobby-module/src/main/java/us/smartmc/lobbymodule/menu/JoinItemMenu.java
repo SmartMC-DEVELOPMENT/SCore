@@ -31,7 +31,7 @@ public class JoinItemMenu extends ConfigurableMenu {
 
         set(1, parseHeadOwnerTo(headItem, initPlayer), "lobbyModule settings");
 
-        set(4, ItemBuilder.of(Material.SKULL_ITEM).data(3)
+        set(4, ItemBuilder.of(Material.PLAYER_HEAD)
                 .skullTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjYzMDI5Y2M4MTY3ODk3ZTY1MzVhM2M1NzM0YmJhYmFmZjE4OGQwOTA1ZjlkOTM1M2FmYWM2MmEwNmRhZGY4NiJ9fX0=")
                 .name("<lang.lobby.items.cosmetics.name>")
                 .lore("<lang.lobby.items.cosmetics.description>").get(initPlayer), "itemCosmetics");
@@ -50,8 +50,7 @@ public class JoinItemMenu extends ConfigurableMenu {
     }
 
     public ItemBuilder headItem(String name) {
-        return ItemBuilder.of(Material.SKULL_ITEM)
-                .data((byte) 3)
+        return ItemBuilder.of(Material.PLAYER_HEAD)
                 .name("<lang.lobby.items." + name + ".name>")
                 .lore("<lang.lobby.items." + name + ".description>");
     }

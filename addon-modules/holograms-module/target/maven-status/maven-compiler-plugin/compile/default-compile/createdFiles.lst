@@ -5,8 +5,8 @@ us\smartmc\addon\holograms\HologramsAddon.class
 us\smartmc\addon\holograms\manager\HologramUpdaterManager.class
 us\smartmc\addon\holograms\instance\hologram\IHologram.class
 us\smartmc\addon\holograms\listener\EssentialListeners.class
+us\smartmc\addon\holograms\adapter\HologramAdapter1_20.class
 us\smartmc\addon\holograms\instance\hologram\HologramHolder.class
-us\smartmc\addon\holograms\adapter\HologramAdapter1_8.class
 us\smartmc\addon\holograms\instance\hologram\ConfigurableHologram.class
 us\smartmc\addon\holograms\commands\HologramsCommand.class
 us\smartmc\addon\holograms\instance\hologram\IConfigurableHologram.class

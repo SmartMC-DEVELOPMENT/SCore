@@ -1,27 +1,18 @@
 package us.smartmc.test.game;
 
 import me.imsergioh.pluginsapi.util.ChatUtil;
-import me.imsergioh.pluginsapi.util.SyncUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
-import org.joml.Vector3i;
-import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 import us.smartmc.gamescore.instance.game.Game;
 import us.smartmc.gamescore.instance.game.GameStatus;
 import us.smartmc.gamescore.instance.game.WaitingLobbySession;
 import us.smartmc.gamescore.instance.game.map.GameMap;
 import us.smartmc.gamescore.instance.game.map.GameMapSession;
-import us.smartmc.gamescore.instance.game.map.spawn.ListSpawnsHolder;
-import us.smartmc.gamescore.instance.game.map.spawn.OneSpawnHolder;
-import us.smartmc.gamescore.instance.game.map.spawn.RegionSpawnHolder;
-import us.smartmc.gamescore.instance.game.team.GameTeam;
 import us.smartmc.gamescore.instance.manager.MapManager;
 import us.smartmc.gamescore.instance.player.GameCorePlayer;
 import us.smartmc.gamescore.instance.timer.CountdownTimer;
-import us.smartmc.gamescore.manager.GenericGameTeamsManager;
 import us.smartmc.gamescore.manager.map.GameMapSessionsManager;
 import us.smartmc.gamescore.manager.map.MapsManager;
 import us.smartmc.gamescore.util.BukkitUtil;
@@ -56,7 +47,7 @@ public class TestGame extends Game {
         }, 5000) {
         };
         MapsManager manager = MapManager.getManager(MapsManager.class);
-        map = manager.get("test_31");
+        map = manager.getOrCreate("test_31");
         GameMapSessionsManager sessionsManager = MapManager.getManager(GameMapSessionsManager.class);
         sessionsManager.register(this, map);
     }
@@ -69,24 +60,35 @@ public class TestGame extends Game {
     @Override
     public void joinPlayer(GameCorePlayer player) {
         GameMapSessionsManager sessionsManager = MapManager.getManager(GameMapSessionsManager.class);
-        GameMapSession session = sessionsManager.get(getSessionId());
 
         // Alternate team from blue to red
         String teamName = players.size() % 2 == 0 ? "blue" : "red";
         getGameSessionTeamsManager().put(player.getUUID(), teamName);
 
-        GenericGameTeamsManager teamsManager = MapManager.getManager(GenericGameTeamsManager.class);
-        GameTeam team = teamsManager.get(teamName);
 
-        if (!isMapPasted()) {
+        if (!getMainGame().isMapPasted()) {
+            player.getBukkitPlayer().sendMessage("Pasting...");
             pasteMap(Bukkit.getWorlds().get(0), cuboid -> {
-                teleportToSpawn(player.getBukkitPlayer(), team);
-                Location waitingLobbyLoc = getWaitingLobbyLocation(Bukkit.getWorlds().get(0), cuboid, 1);
-                waitingLobbySession = new WaitingLobbySession("test", this);
+                player.getBukkitPlayer().sendMessage("Pasted!");
+                Location waitingLobbyLoc = getWaitingLobbyLocation(Bukkit.getWorlds().get(0), cuboid, 10);
+
+                waitingLobbySession = new WaitingLobbySession("old", this);
                 waitingLobbySession.pasteRegionAt(waitingLobbyLoc);
+
+
+                new Thread(() -> {
+                    Location location = waitingLobbySession.getSpawn();
+                    while (location == null) {
+                        location = waitingLobbySession.getSpawn();
+                        System.out.println("Checking variable spawn");
+                    }
+
+                    player.getBukkitPlayer().teleport(location);
+                    player.getBukkitPlayer().sendMessage("Teleported to " + location.toString());
+                }).start();
+
+
             });
-        } else {
-            teleportToSpawn(player.getBukkitPlayer(), team);
         }
 
         if (status.equals(GameStatus.PLAYING)) {

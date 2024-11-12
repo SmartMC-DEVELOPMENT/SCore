@@ -6,7 +6,6 @@ import me.imsergioh.pluginsapi.instance.item.ClickHandler;
 import me.imsergioh.pluginsapi.instance.menu.GUIMenu;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import me.imsergioh.pluginsapi.util.ChatUtil;
-import net.kyori.adventure.text.Component;
 
 import org.bukkit.entity.Player;
 import us.smartmc.lobbymodule.LobbyModule;

@@ -17,7 +17,6 @@ import us.smartmc.gamescore.manager.map.MapsManager;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 @Getter
@@ -57,10 +56,14 @@ public class GameMapSession {
     }
 
     private void pasteMapRegionAt(Location location) {
+        System.out.println("Pasting map region at " + location.toString());
         BackendConnection.getBackendConnection().ifPresent(backendConnection -> {
+            System.out.println("pasteMapRegionAt 1");
             EditMapSessionsManager editMapSessionsManager = EditMapSessionsManager.getManager(EditMapSessionsManager.class);
             if (editMapSessionsManager == null) return;
+            System.out.println("pasteMapRegionAt 2");
             backendConnection.getCuboid(editMapSessionsManager.getMapName(map.getName())).thenAccept(res -> {
+                System.out.println("pasteMapRegionAt 3");
                 CuboidWrapper wrapper = res.getWrapper();
                 CuboidPaster paster = new CuboidPaster(wrapper);
                 cuboidReference = paster.pasteAt(location);
@@ -74,6 +77,7 @@ public class GameMapSession {
                 borderReference = new BukkitCuboid(cuboidReference.getMinLocation().clone().add(-BORDER_ADDITION, -BORDER_ADDITION, -BORDER_ADDITION),
                         cuboidReference.getMaxLocation().clone().add(BORDER_ADDITION, BORDER_ADDITION, BORDER_ADDITION));
             });
+            System.out.println("pasteMapRegionAt 4");
         });
     }
 

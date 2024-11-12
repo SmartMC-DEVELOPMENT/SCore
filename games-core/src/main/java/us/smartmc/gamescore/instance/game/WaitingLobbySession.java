@@ -6,13 +6,15 @@ import org.bukkit.Material;
 import org.joml.Vector3i;
 import us.smartmc.backend.gamescore.BackendConnection;
 import us.smartmc.backend.gamescore.CuboidSaveResponse;
+import us.smartmc.backend.instance.config.IDataConfig;
 import us.smartmc.gamescore.instance.cuboid.BukkitCuboid;
 import us.smartmc.gamescore.instance.cuboid.Cuboid;
 import us.smartmc.gamescore.instance.cuboid.CuboidPaster;
 import us.smartmc.gamescore.instance.serialization.CuboidWrapper;
-import us.smartmc.gamescore.manager.map.EditMapSessionsManager;
+import us.smartmc.gamescore.instance.storage.SBackendData;
 import us.smartmc.gamescore.util.CuboidUtil;
 
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @Getter
@@ -23,9 +25,22 @@ public class WaitingLobbySession {
 
     private BukkitCuboid cuboidReference;
 
+    @Getter
+    private Location spawn;
+
     public WaitingLobbySession(String name, Game game) {
         this.name = name;
         this.game = game;
+    }
+
+
+    private void requestSpawn() {
+        BackendConnection.getBackendConnection().ifPresent(connection -> {
+            connection.getConfig("/waitingLobby_spawns/" + name).thenAccept(config -> {
+                Vector3i vector = CuboidUtil.stringToVector((String) config.get("spawn"));
+                spawn = cuboidReference.getGlobalLocation(vector);
+            });
+        });
     }
 
     public void clearCuboidRegion() {
@@ -53,6 +68,7 @@ public class WaitingLobbySession {
                 int depth = cuboid.getDepth();
 
                 cuboidReference = paster.pasteAt(location.clone().add(-width / 2, 0, -depth / 2));
+                requestSpawn();
                 {
                     // Action if not null
                     if (action == null) return;
@@ -64,7 +80,13 @@ public class WaitingLobbySession {
         });
     }
 
-    public static void saveWaitingLobbyRegion(String name, BukkitCuboid cuboid, Consumer<CuboidSaveResponse> consumer) {
+    public static void saveWaitingLobbyRegion(String name, Location spawn, BukkitCuboid cuboid, Consumer<CuboidSaveResponse> consumer) {
+
+        SBackendData data = new SBackendData("/waitingLobby_spawns/" + name);
+        Vector3i relativeSpawn = cuboid.getRelativeCoordinates(spawn);
+        data.put("spawn", CuboidUtil.vectorToString(relativeSpawn));
+        data.save();
+
         BackendConnection.getBackendConnection().ifPresent(backendConnection -> {
             backendConnection.sendCuboid(getBackendName(name), cuboid).thenAccept(consumer);
         });

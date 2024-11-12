@@ -31,7 +31,7 @@ public class ChangeVisibilityCommand extends AddonPluginCommand {
         PlayerVisibility nextVisibility = VisibilityManager.getNext(VisibilityManager.getVisibility(player));
         CorePlayer corePlayer = CorePlayer.get(player);
         VisibilityManager.set(corePlayer, nextVisibility);
-        player.playSound(player.getLocation(), Sound.WOOD_CLICK, 1f, 0.75f);
+        player.playSound(player.getLocation(), Sound.BLOCK_BAMBOO_WOOD_BUTTON_CLICK_ON, 1f, 0.75f);
 
         // Update item in hand in case that it's a visibility item (INK_SACK in hand)
         ItemStack item = player.getItemInHand();

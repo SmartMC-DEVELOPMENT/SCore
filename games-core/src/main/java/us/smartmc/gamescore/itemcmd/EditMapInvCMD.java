@@ -210,7 +210,7 @@ public class EditMapInvCMD implements ItemActionExecutor {
         int newAmount = add ? amount + 1 : amount - 1;
         map.getData().put(key, newAmount);
         map.getData().save();
-        clicker.playSound(clicker.getLocation(), Sound.CLICK, 1, 1);
+        clicker.playSound(clicker.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
     }
 
     private static <T extends MapManager<?, ?>> Optional<T> getManager(Class<T> type) {

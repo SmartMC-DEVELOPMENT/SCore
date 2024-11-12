@@ -80,7 +80,7 @@
         <dependency>
             <groupId>us.smartmc.backend</groupId>
             <artifactId>sbackend-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>2.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

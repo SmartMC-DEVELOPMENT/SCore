@@ -95,7 +95,6 @@ public class CuboidPaster {
 
                     if (material != null) {
                         newBlock.setType(material);
-                        newBlock.setData(blockState.getTypeData());
                     }
                 }
 

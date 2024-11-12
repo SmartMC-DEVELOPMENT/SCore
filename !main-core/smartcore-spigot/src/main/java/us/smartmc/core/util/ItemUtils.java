@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public class ItemUtils {
 
-    public static final ItemStack wand = ItemBuilder.of(Material.GOLD_AXE).name("Hacha mágica de regiones").get();
+    public static final ItemStack wand = ItemBuilder.of(Material.GOLDEN_AXE).name("Hacha mágica de regiones").get();
 
     public static ItemStack skulltexture(ItemStack head, String texture) {
         SkullMeta meta = (SkullMeta) Objects.requireNonNull(head).getItemMeta();

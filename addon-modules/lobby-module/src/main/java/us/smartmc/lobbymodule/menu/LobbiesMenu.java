@@ -1,10 +1,8 @@
 package us.smartmc.lobbymodule.menu;
 
-import com.google.common.collect.Lists;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.item.ItemBuilder;
-import me.imsergioh.pluginsapi.instance.menu.GUIMenu;;
-import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.instance.menu.GUIMenu;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bson.Document;
 import org.bukkit.Material;
@@ -42,9 +40,9 @@ public class LobbiesMenu extends GUIMenu {
 
     @Override
     public void open(Player player) {
+        super.open(player);
         this.load();
-        player.playSound(player.getLocation(), Sound.CLICK, 0.1F, 2.5F);
-        player.openInventory(inventory);
+        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.1F, 2.5F);
     }
 
     @Override
@@ -67,12 +65,10 @@ public class LobbiesMenu extends GUIMenu {
             Material material = Material.QUARTZ_BLOCK;
             byte materialData = 0;
             String variableConnect = "<lang.minigames.clickToConnect>";
-            String labelCommand = "connectTo " + lobbyId;
             if (isSelf) {
                 material = Material.CLAY;
                 materialData = 14;
                 variableConnect = "<lang.lobby.already_connected>";
-                labelCommand = "closeInv";
             }
 
             int number = Integer.parseInt(lobbyId.replaceAll("[^0-9]", ""));
@@ -81,7 +77,7 @@ public class LobbiesMenu extends GUIMenu {
             set(slot, ItemBuilder.of(material).data(materialData).name(getItemName(isSelf), number)
                     .lore(Arrays.asList("&7" + count + "/" + lobbyInfoDocument.getInteger("max"), "&r",
                             variableConnect))
-                    .get(language), labelCommand);
+                    .get(language));
             slot++;
         }
     }

@@ -8,7 +8,6 @@ import me.imsergioh.pluginsapi.util.LocationSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import us.smartmc.core.SmartCore;
-import us.smartmc.core.util.ConfigUtils;
 import us.smartmc.lobbymodule.command.*;
 import us.smartmc.lobbymodule.config.LobbyConfig;
 import us.smartmc.lobbymodule.config.MinigamesConfig;
@@ -83,7 +82,8 @@ public class LobbyModule extends AddonPlugin {
                 new LobbiesInfoManager(),
                 new CancelListeners(),
                 new PlatesListener(),
-                new ParkourListeners());
+                new ParkourListeners(),
+                new ConnectLobbyListener());
         registerCommand(new ChangeVisibilityCommand());
 
         new WorldConfigManager();

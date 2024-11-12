@@ -9,6 +9,7 @@ public class ConnectToAction implements ItemActionExecutor {
     @Override
     public void execute(ClickHandler clickHandler, String label, String[] args) {
         String name = args[0];
+        System.out.println("Connecting " + clickHandler.player().name() + " to " + name);
         PluginUtils.redirectTo(clickHandler.player(), name);
     }
 }

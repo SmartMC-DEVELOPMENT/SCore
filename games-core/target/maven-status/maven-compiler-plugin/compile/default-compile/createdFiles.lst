@@ -30,6 +30,7 @@ us\smartmc\gamescore\itemcmd\AddCustomMetadataItemCMD$1.class
 us\smartmc\gamescore\instance\storage\saver\IDataSaver.class
 us\smartmc\gamescore\event\player\GamePlayerQuitEvent.class
 us\smartmc\gamescore\manager\player\PlayerSelectionsManager.class
+us\smartmc\gamescore\instance\world\VoidGenerator.class
 us\smartmc\gamescore\instance\GamesCoreLogger.class
 us\smartmc\gamescore\instance\game\map\spawn\MapSpawnsData$1.class
 us\smartmc\gamescore\event\game\GamePostEndEvent.class
@@ -75,6 +76,7 @@ us\smartmc\gamescore\instance\storage\saver\DataFileSaver.class
 us\smartmc\gamescore\instance\manager\MapManager.class
 us\smartmc\gamescore\manager\map\MapsGridManager.class
 us\smartmc\gamescore\instance\serialization\BlockStateWrapperBuilder.class
+us\smartmc\gamescore\manager\WeatherWorldManager.class
 us\smartmc\gamescore\instance\manager\IListManager.class
 us\smartmc\gamescore\instance\timer\Timer$1.class
 us\smartmc\gamescore\instance\manager\ListManager.class
@@ -96,6 +98,7 @@ us\smartmc\gamescore\instance\cuboid\CuboidRegionConfig.class
 us\smartmc\gamescore\instance\storage\ILocalFileConfig.class
 us\smartmc\gamescore\instance\storage\MongoDBData.class
 us\smartmc\gamescore\manager\map\EditMapSessionsManager.class
+us\smartmc\gamescore\manager\WeatherWorldManager$1.class
 us\smartmc\gamescore\event\player\GamePlayerGameLeaveEvent.class
 us\smartmc\gamescore\util\CuboidUtil.class
 us\smartmc\gamescore\listener\PlayersManagerListeners.class
@@ -103,6 +106,8 @@ us\smartmc\gamescore\instance\cuboid\BukkitCuboid.class
 us\smartmc\gamescore\instance\storage\loader\MongoDBLoader.class
 us\smartmc\gamescore\instance\cuboid\CuboidRegion.class
 us\smartmc\gamescore\api\IGamesCoreAPI.class
+us\smartmc\gamescore\listener\WeatherWorldListeners.class
+us\smartmc\gamescore\manager\TimeWorldManager.class
 us\smartmc\gamescore\manager\team\GameSessionTeamsManager.class
 us\smartmc\gamescore\event\game\GamePostStartEvent.class
 us\smartmc\gamescore\instance\player\statistic\IntegerStatistic.class
@@ -135,6 +140,7 @@ us\smartmc\gamescore\instance\game\map\spawn\SpawnType.class
 us\smartmc\gamescore\instance\game\team\GameTeam.class
 us\smartmc\gamescore\instance\storage\IData.class
 us\smartmc\gamescore\listener\PlayerRegionSelectionListeners.class
+us\smartmc\gamescore\manager\TimeWorldManager$1.class
 us\smartmc\gamescore\util\RegionUtils.class
 us\smartmc\gamescore\instance\storage\loader\YamlLoader.class
 us\smartmc\gamescore\instance\player\PlayerScoreboardUpdateTask.class

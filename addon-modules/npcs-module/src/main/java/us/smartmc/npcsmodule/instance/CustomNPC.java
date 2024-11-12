@@ -8,18 +8,22 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
-import me.imsergioh.pluginsapi.util.ChatUtil;
 import me.imsergioh.pluginsapi.util.LegacyChatUtil;
-import me.imsergioh.pluginsapi.util.SyncUtil;
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ClientInformation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.phys.Vec3;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
+
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
@@ -43,11 +47,10 @@ public class CustomNPC {
     private final NPCManager manager;
     @Getter
     private final String configId;
-    public final World world;
-    private final GameProfile gameProfile;
+    public final ServerLevel world;
 
     @Getter
-    private final EntityPlayer entityPlayer;
+    private final ServerPlayer npcPlayer;
 
     @Getter
     private Location bukkitLocation;
@@ -60,12 +63,9 @@ public class CustomNPC {
 
     private final Set<UUID> viewers = new HashSet<>();
 
-    public CustomNPC(NPCManager manager, World world, String configId, String name, Document configData) {
+    public CustomNPC(NPCManager manager, ServerLevel world, String configId, String name, Document configData) {
         this.manager = manager;
-        WorldServer worldServer = ((CraftWorld) world).getHandle();
-        this.gameProfile = new GameProfile(UUID.randomUUID(), name);
-        entityPlayer = new EntityPlayer(server, worldServer, gameProfile, new PlayerInteractManager(worldServer));
-        entityPlayer.playerConnection = new PlayerConnection(worldServer.getMinecraftServer(), new NetworkManager(null), entityPlayer);
+        this.npcPlayer = new ServerPlayer(server, world, new GameProfile(UUID.randomUUID(), name), ClientInformation.createDefault());
         this.configId = configId;
         this.configData = configData;
         // SET SKIN VALUE & SIGNATURE IF NOT NULL BOTH STRINGS
@@ -82,16 +82,16 @@ public class CustomNPC {
         setBukkitLocation(location);
         updateNMSLocation(location);
         configData.put("location", ConfigUtil.getLocationString(bukkitLocation, " "));
-        NPCManager.getManagers().stream().filter(m -> m.get(entityPlayer.getProfile().getName()) != null).forEach(manager -> {
+        NPCManager.getManagers().stream().filter(m -> m.get(npcPlayer.getGameProfile().getName()) != null).forEach(manager -> {
             manager.getConfig().put(configId, configData);
             manager.getConfig().save();
         });
     }
 
     public void setNameVisible(boolean active) {
-        entityPlayer.setCustomNameVisible(active);
+        npcPlayer.setCustomNameVisible(active);
         configData.put("nameVisible", active);
-        NPCManager.getManagers().stream().filter(m -> m.get(entityPlayer.getProfile().getName()) != null).forEach(manager -> {
+        NPCManager.getManagers().stream().filter(m -> m.get(npcPlayer.getGameProfile().getName()) != null).forEach(manager -> {
             manager.getConfig().put(configId, configData);
             manager.getConfig().save();
         });
@@ -110,90 +110,118 @@ public class CustomNPC {
     }
 
     public void showTo(Player player) {
-        EntityPlayer ep = parseEntity(player);
-        entityPlayer.displayName = "";
-        ep.displayName = entityPlayer.displayName;
+        if (viewers.contains(player.getUniqueId())) return;
+        viewers.add(player.getUniqueId());
+        player.hideEntity(SmartCore.getPlugin(), getBukkitEntity());
+        parseEntity(player);
+        npcPlayer.setCustomNameVisible(configData.getBoolean("nameVisible", true));
+        npcPlayer.getBukkitEntity().setCustomNameVisible(configData.getBoolean("nameVisible", true));
 
-        // LOCATION
-        ep.setLocation(entityPlayer.locX, entityPlayer.locY, entityPlayer.locZ,
-                entityPlayer.yaw, entityPlayer.pitch);
-        PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
+        // Info Update Packet
+        PacketContainer infoUpdatePacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
+        infoUpdatePacket.getPlayerInfoActions().write(0, EnumSet.of(EnumWrappers.PlayerInfoAction.ADD_PLAYER));
 
-        // SHOW ENTITY WITH CORRECT DATA
+        WrappedGameProfile profile = new WrappedGameProfile(npcPlayer.getUUID(), npcPlayer.getName().getString());
+        ((GameProfile) profile.getHandle()).getProperties().putAll(npcPlayer.getGameProfile().getProperties());
+        PlayerInfoData playerInfoData = new PlayerInfoData(profile,
+                0, EnumWrappers.NativeGameMode.SURVIVAL, WrappedChatComponent.fromText(npcPlayer.getName().getString()));
+        infoUpdatePacket.getPlayerInfoDataLists().write(1, Collections.singletonList(playerInfoData));
 
-        connection.sendPacket(new PacketPlayOutPlayerInfo(
-                PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER,
-                ep));
+        // Add Entity Packet
+        PacketContainer addEntityPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.SPAWN_ENTITY);
+        addEntityPacket.getModifier().writeDefaults();
+        addEntityPacket.getEntityTypeModifier().write(0, EntityType.PLAYER);
+        addEntityPacket.getIntegers().write(0, npcPlayer.getId());
+        addEntityPacket.getUUIDs().write(0, npcPlayer.getGameProfile().getId());
+        addEntityPacket.getDoubles().write(0, npcPlayer.getX());
+        addEntityPacket.getDoubles().write(1, npcPlayer.getY());
+        addEntityPacket.getDoubles().write(2, npcPlayer.getZ());
 
-        connection.sendPacket(new PacketPlayOutNamedEntitySpawn(ep));
+        // Head rotate
+        PacketContainer headRotationPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_HEAD_ROTATION);
+        headRotationPacket.getModifier().writeDefaults();
+        headRotationPacket.getIntegers().write(0, npcPlayer.getId());
+        headRotationPacket.getBytes().write(0, ((byte) (int) (getBukkitLocation().getYaw() * 256.0F / 360.0F)));
 
-        // REMOVE FROM TAB:
-        connection.sendPacket(new PacketPlayOutEntityMetadata(ep.getId(), ep.getDataWatcher(), true));
-        connection.sendPacket(new PacketPlayOutEntityHeadRotation(ep, (byte) ((ep.yaw * 256.0F) / 360.0F)));
+        // Body rotate
+        PacketContainer lookPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_LOOK);
+        lookPacket.getModifier().writeDefaults();
+        lookPacket.getIntegers().write(0, npcPlayer.getId());
+        lookPacket.getBytes().write(0, ((byte) (int) (getBukkitLocation().getYaw() * 256.0F / 360.0F)));
+        lookPacket.getBytes().write(1, ((byte) (int) (getBukkitLocation().getPitch() * 256.0F / 360.0F)));
 
+        // Metadata Packet
+        PacketContainer metadataPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_METADATA);
+        metadataPacket.getIntegers().write(0, npcPlayer.getId());
 
+        WrappedDataWatcher watcher = new WrappedDataWatcher(npcPlayer.getBukkitEntity());
+        List<WrappedWatchableObject> watchableObjects = watcher.getWatchableObjects();
+        metadataPacket.getWatchableCollectionModifier().write(0, watchableObjects);
 
-        // NAME VISIBLE:
-        if (!ep.getBukkitEntity().isCustomNameVisible()) {
-            ScoreboardTeam teamScore = new ScoreboardTeam(((CraftPlayer) player).getHandle().getScoreboard(), ep.getBukkitEntity().getName());
-            teamScore.setNameTagVisibility(ScoreboardTeamBase.EnumNameTagVisibility.NEVER);
-            teamScore.getPlayerNameSet().add(entityPlayer.getName());
-            connection.sendPacket(new PacketPlayOutScoreboardTeam(teamScore, 1));
-            connection.sendPacket(new PacketPlayOutScoreboardTeam(teamScore, 0));
-            connection.sendPacket(new PacketPlayOutScoreboardTeam(teamScore, List.of(entityPlayer.getName()), 3));
-
-            SyncUtil.later(() -> {
-                connection.sendPacket(new PacketPlayOutPlayerInfo(
-                        PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER,
-                        ep));
-            }, 1750);
+        try {
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, infoUpdatePacket);
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, addEntityPacket);
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, metadataPacket);
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, headRotationPacket);
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, lookPacket);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        Bukkit.getScheduler().runTaskLater(SpigotPluginsAPI.getPlugin(), () -> {
+            hideTagByPlayerScoreboard(player);
+        }, 6);
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                removeViewer(player);
+            }
+        }, 1000);
     }
 
     public void hideTagByPlayerScoreboard(Player player) {
-        if (!entityPlayer.getBukkitEntity().isCustomNameVisible()) {
+        if (!npcPlayer.isCustomNameVisible()) {
             Scoreboard scoreboard = player.getScoreboard();
             Team team = scoreboard.getTeam(HIDE_TAGS_TEAM_NAME);
             if (team == null) team = scoreboard.registerNewTeam(HIDE_TAGS_TEAM_NAME);
-            team.addEntry(entityPlayer.getBukkitEntity().getName());
+            team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
+            team.addEntry(npcPlayer.getBukkitEntity().getName());
         }
     }
 
     public void teleportTo(Location location) {
-        entityPlayer.move(location.getX(), location.getY(), location.getZ());
+        npcPlayer.moveTo(location.getX(), location.getY(), location.getZ());
         Bukkit.getOnlinePlayers().forEach(player -> {
-            if (!player.canSee(entityPlayer.getBukkitEntity())) return;
-            updateNPCPositionToPlayer(player, entityPlayer.getBukkitEntity().getLocation(),
-                    entityPlayer.onGround);
+            if (!player.canSee(npcPlayer.getBukkitEntity())) return;
+            updateNPCPositionToPlayer(player, npcPlayer.getBukkitEntity().getLocation(),
+                    npcPlayer.onGround);
         });
     }
 
     private void updateNMSLocation(Location loc) {
-        entityPlayer.setPosition(loc.getX(), loc.getY(), loc.getZ());
-        entityPlayer.teleportTo(loc, false);
+        npcPlayer.setPos(loc.getX(), loc.getY(), loc.getZ());
+        npcPlayer.teleportTo(((CraftWorld) loc.getWorld()).getHandle(), loc.getX(), loc.getY(), loc.getZ(), (byte) loc.getYaw() * 360.0F / 256.0F, (byte) loc.getPitch() * 360.F / 256.0F);
     }
 
-    private EntityPlayer parseEntity(Player player) {
+    private void parseEntity(Player player) {
         try {
             Field nameField = GameProfile.class.getDeclaredField("name");
             nameField.setAccessible(true);
-            nameField.set(entityPlayer.getProfile(), ChatUtil.parse(player, entityPlayer.getName()));
+            nameField.set(npcPlayer.getGameProfile(), LegacyChatUtil.parse(player, npcPlayer.getName().getString()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        try {
-            entityPlayer.getProfile().getProperties().put("textures", gameProfile.getProperties().get("textures").iterator().next());
-        } catch (Exception ignore) {
+        if (skinValue != null && skinSignature != null) {
+            setSkin(skinValue, skinSignature);
         }
-        entityPlayer.getDataWatcher().watch(10, (byte) 127);
-        return entityPlayer;
     }
 
     public void setSkin(String value, String signature) {
         skinValue = value;
         skinSignature = signature;
-        entityPlayer.getProfile().getProperties().removeAll("textures");
-        entityPlayer.getProfile().getProperties().put("textures", new Property("textures", skinValue, skinSignature));
+        npcPlayer.getGameProfile().getProperties().removeAll("textures");
+        npcPlayer.getGameProfile().getProperties().put("textures", new Property("textures", skinValue, skinSignature));
         configData.put("skinValue", skinValue);
         configData.put("skinSignature", skinSignature);
         manager.getConfig().put(configId, configData);
@@ -204,7 +232,7 @@ public class CustomNPC {
         World bukkitWorld = getBukkitLocation().getWorld();
         if (bukkitWorld == null) return;
         bukkitWorld.getPlayers().iterator().forEachRemaining(player -> {
-            if (!player.canSee(entityPlayer.getBukkitEntity())) return;
+            if (!player.canSee(npcPlayer.getBukkitEntity())) return;
             simulateAttackFor(player);
         });
 
@@ -218,22 +246,22 @@ public class CustomNPC {
     // Arreglar metodo para que el daño funcione correctamente (Si hago doble hit seguido no respeta el anterior hit)
     private void simulateAttackFor(Player player) {
         // Calcular la dirección del knockback
-        Vector direction = entityPlayer.getBukkitEntity().getLocation().toVector().subtract(player.getLocation().toVector()).normalize();
+        Vector direction = npcPlayer.getBukkitEntity().getLocation().toVector().subtract(player.getLocation().toVector()).normalize();
         double knockbackStrength = 0.55; // Puedes ajustar la fuerza del knockback según sea necesario
 
         // Aplicar el daño y la animación de daño
         PacketContainer damagePacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.DAMAGE_EVENT);
-        damagePacket.getIntegers().write(0, entityPlayer.getId());
+        damagePacket.getIntegers().write(0, npcPlayer.getId());
         ProtocolLibrary.getProtocolManager().sendServerPacket(player, damagePacket);
 
         // Aplicar el knockback
-        entityPlayer.move(direction.getX() * knockbackStrength, .6, direction.getZ() * knockbackStrength);
+        npcPlayer.setDeltaMovement(direction.getX() * knockbackStrength, .6, direction.getZ() * knockbackStrength);
 
         // Actualizar la posición del NPC para reflejar el knockback
-        entityPlayer.move(entityPlayer.locX, entityPlayer.locY, entityPlayer.locZ);
+        npcPlayer.move(MoverType.SELF, new Vec3(npcPlayer.getDeltaMovement().x, npcPlayer.getDeltaMovement().y, npcPlayer.getDeltaMovement().z));
 
-        updateNPCPositionToPlayer(player, entityPlayer.getBukkitEntity().getLocation(), entityPlayer.onGround);
-        //player.playSound(entityPlayer.getBukkitEntity().getLocation(), Sound., 1, 1);
+        updateNPCPositionToPlayer(player, npcPlayer.getBukkitEntity().getLocation(), npcPlayer.onGround);
+        player.playSound(npcPlayer.getBukkitEntity().getLocation(), Sound.ENTITY_PLAYER_HURT, 1, 1);
 
         if (gravityTask == null) {
             gravityTask = new NPCGravitySimulationTask(this);
@@ -244,7 +272,7 @@ public class CustomNPC {
     private void updateNPCPositionToPlayer(Player player, Location location, boolean onGround) {
         // Crear y enviar el paquete de posición del NPC
         PacketContainer positionPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_TELEPORT);
-        positionPacket.getIntegers().write(0, entityPlayer.getId());
+        positionPacket.getIntegers().write(0, npcPlayer.getId());
         positionPacket.getDoubles().write(0, location.getX());
         positionPacket.getDoubles().write(1, location.getY());
         positionPacket.getDoubles().write(2, location.getZ());
@@ -266,18 +294,18 @@ public class CustomNPC {
     }
 
     public Location getLocation() {
-        double x = entityPlayer.locX;
-        double y = entityPlayer.locY;
-        double z = entityPlayer.locZ;
-        return new Location(world, x, y, z);
+        double x = npcPlayer.getX();
+        double y = npcPlayer.getY();
+        double z = npcPlayer.getZ();
+        return new Location(world.getWorld(), x, y, z);
     }
 
     public String getName() {
-        return entityPlayer.getProfile().getName();
+        return npcPlayer.getGameProfile().getName();
     }
 
     public UUID getUUID() {
-        return entityPlayer.getProfile().getId();
+        return npcPlayer.getGameProfile().getId();
     }
 
     public static void setValue(Object packet, String fieldName, Object value) {
@@ -291,7 +319,7 @@ public class CustomNPC {
     }
 
     public CraftPlayer getBukkitEntity() {
-        return entityPlayer.getBukkitEntity();
+        return npcPlayer.getBukkitEntity();
     }
 
     public void setBukkitLocation(Location bukkitLocation) {

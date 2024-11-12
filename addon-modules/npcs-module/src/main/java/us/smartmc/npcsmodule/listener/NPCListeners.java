@@ -68,13 +68,13 @@ public class NPCListeners extends AddonListener implements Listener {
 
     @EventHandler
     public void onLangChange(PlayerLanguageChangedEvent event) {
-        /*NPCManager.forEach(npcManager -> {
+        NPCManager.forEach(npcManager -> {
             Bukkit.getScheduler().runTask(SpigotPluginsAPI.getPlugin(), () -> {
                 npcManager.values().forEach(npc -> {
                     npc.hideTagByPlayerScoreboard(event.getCorePlayer().getBukkitPlayer());
                 });
             });
-        });*/
+        });
     }
 
     private void removeAllViewer(Player player) {

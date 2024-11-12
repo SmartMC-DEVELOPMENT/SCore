@@ -3,28 +3,20 @@ package us.smartmc.addon.holograms;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import us.smartmc.addon.holograms.adapter.HologramAdapter1_8;
+import us.smartmc.addon.holograms.adapter.HologramAdapter1_20;
 import us.smartmc.addon.holograms.commands.HologramsCommand;
 import us.smartmc.addon.holograms.instance.config.MainConfig;
-import us.smartmc.addon.holograms.instance.hologram.Hologram;
-import us.smartmc.addon.holograms.instance.hologram.HologramBuilder;
 import us.smartmc.addon.holograms.instance.hologram.HologramHolder;
 import us.smartmc.addon.holograms.instance.hologram.IHologram;
 import us.smartmc.addon.holograms.listener.EssentialListeners;
 import us.smartmc.addon.holograms.manager.HologramUpdaterManager;
 import us.smartmc.addon.holograms.util.IHologramAdapter;
 import us.smartmc.addon.holograms.variable.TickVariable;
-import us.smartmc.core.SmartCore;
 import us.smartmc.smartaddons.plugin.AddonInfo;
 import us.smartmc.smartaddons.plugin.AddonPlugin;
 
 import java.io.File;
-import java.util.List;
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 @AddonInfo(name = "holograms-module", version = "1.0-DEV")
 public class HologramsAddon extends AddonPlugin {
@@ -44,7 +36,7 @@ public class HologramsAddon extends AddonPlugin {
     public void start() {
         plugin = this;
         getDataFolder().mkdirs();
-        hologramAdapter = new HologramAdapter1_8();
+        hologramAdapter = new HologramAdapter1_20();
         config = new MainConfig();
 
         holdersDirectory = new File(plugin.getDataFolder() + "/holders");

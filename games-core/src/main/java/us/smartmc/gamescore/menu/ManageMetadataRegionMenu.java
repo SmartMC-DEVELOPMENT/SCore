@@ -25,7 +25,7 @@ public class ManageMetadataRegionMenu extends GUIMenu {
 
         registerMetadata(19, "DENY@PVP", Material.DIAMOND_SWORD);
         registerMetadata(20, "DENY@DAMAGE", Material.REDSTONE);
-        registerMetadata(21, "DENY@BLOCK_PLACE", Material.GRASS);
+        registerMetadata(21, "DENY@BLOCK_PLACE", Material.GRASS_BLOCK);
 
         registerMetadata(23, "DENY@BLOCK_BREAK", Material.REDSTONE_BLOCK);
         registerMetadata(24, "DENY@BLOCKS", Material.STONE);

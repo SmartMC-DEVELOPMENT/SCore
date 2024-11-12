@@ -17,8 +17,8 @@ public class BackendConnection extends BackendClient {
 
     private static BackendConnection connection;
 
-    private static final Map<String, CompletableFuture<CuboidSaveResponse>> cuboidSendRequests = new HashMap<>();
-    private static final Map<String, CompletableFuture<CuboidGetResponse>> cuboidGetRequests = new HashMap<>();
+    private final Map<String, CompletableFuture<CuboidSaveResponse>> cuboidSendRequests = new HashMap<>();
+    private final Map<String, CompletableFuture<CuboidGetResponse>> cuboidGetRequests = new HashMap<>();
 
     public BackendConnection(String hostname, int port, String username, String password) throws IOException {
         super(hostname, port);
@@ -28,21 +28,23 @@ public class BackendConnection extends BackendClient {
     }
 
     public void handleCuboidGetResponse(CuboidGetResponse response) {
-        CompletableFuture<CuboidGetResponse> future = cuboidGetRequests.get(response.getName());
+        CompletableFuture<CuboidGetResponse> future = cuboidGetRequests.remove(response.getName());
         if (future == null) return;
         future.complete(response);
     }
 
     public void handleCuboidSaveResponse(CuboidSaveResponse response) {
-        CompletableFuture<CuboidSaveResponse> future = cuboidSendRequests.get(response.getName());
+        CompletableFuture<CuboidSaveResponse> future = cuboidSendRequests.remove(response.getName());
         if (future == null) return;
         future.complete(response);
     }
 
     public CompletableFuture<CuboidGetResponse> getCuboid(String name) {
+        System.out.println("Getting cuboid: " + name + " 1");
         CompletableFuture<CuboidGetResponse> future = new CompletableFuture<>();
         cuboidGetRequests.put(name, future);
         sendObject(new CuboidGetRequest(name));
+        System.out.println("Getting cuboid: " + name + " 2");
         return future;
     }
 

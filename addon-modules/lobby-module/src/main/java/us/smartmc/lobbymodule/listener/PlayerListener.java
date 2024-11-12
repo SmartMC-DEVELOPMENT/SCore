@@ -26,7 +26,7 @@ public class PlayerListener extends AddonListener implements Listener {
         Player player = event.getPlayer();
         if (!player.isOnline()) return;
         player.sendMessage(ChatUtil.parse(player, "<lang.lobby.join_embedmessage>", player.getName()).replace("{0}", player.getName()));
-        Sound sound = Sound.CLICK;
+        Sound sound = Sound.UI_BUTTON_CLICK;
         player.playSound(player.getLocation(), sound, 1, 1);
     }
 
@@ -49,7 +49,7 @@ public class PlayerListener extends AddonListener implements Listener {
     public void sendSubliminalSoundForJoining(PlayerJoinEvent event) {
         if (!isEnabled()) return;
         Player player = event.getPlayer();
-        player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 7.7F);
+        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 7.7F);
     }
 
     @EventHandler

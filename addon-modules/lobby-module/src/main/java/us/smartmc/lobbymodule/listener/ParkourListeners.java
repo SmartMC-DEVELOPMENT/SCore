@@ -30,8 +30,8 @@ public class ParkourListeners implements Listener {
     @EventHandler
     public void rewardPlayerTest(PlayerParkourEndedEvent event) {
         Player player = event.getPlayer();
-        player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 1);
-        player.playSound(player.getLocation(), Sound.FIREWORK_BLAST, 1, 1);
+        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+        player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_BLAST, 1, 1);
 
         if (event.getSession().hasReachedNewRecord()) {
             Bukkit.getPluginManager().callEvent(new PlayerParkourNewRecordEvent(event.getSession()));
@@ -63,7 +63,7 @@ public class ParkourListeners implements Listener {
     @EventHandler
     public void startParkour(PlayerInteractEvent event) {
         if (!event.getAction().equals(Action.PHYSICAL)) return;
-        if (!event.getClickedBlock().getType().equals(Material.GOLD_PLATE)) return;
+        if (!event.getClickedBlock().getType().equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE)) return;
         Player player = event.getPlayer();
         if (player.getLocation().getY() >= 75) return;
         if (PlayerParkourSession.isActive(player)) return;
@@ -73,7 +73,7 @@ public class ParkourListeners implements Listener {
     @EventHandler
     public void endParkour(PlayerInteractEvent event) {
         if (!event.getAction().equals(Action.PHYSICAL)) return;
-        if (!event.getClickedBlock().getType().equals(Material.GOLD_PLATE)) return;
+        if (!event.getClickedBlock().getType().equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE)) return;
         Player player = event.getPlayer();
         if (!PlayerParkourSession.isActive(player)) return;
         if (player.getLocation().getY() <= 75) return;

@@ -41,7 +41,7 @@ public class SaveWaitingLobbyCommand extends GamesCoreCommand {
         String name = args[0];
 
         BukkitCuboid cuboid = session.buildCuboid();
-        WaitingLobbySession.saveWaitingLobbyRegion(name, cuboid, res -> {
+        WaitingLobbySession.saveWaitingLobbyRegion(name, player.getLocation(), cuboid, res -> {
             if (res.getResponse() == CuboidSaveResponse.RequestResponse.ERROR) {
                 player.sendMessage(ChatUtil.color("&cFailed to save waiting lobby region!"));
                 return;

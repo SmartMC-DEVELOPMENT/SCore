@@ -7,6 +7,7 @@ D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\hologram\IConfigurableHologram.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\config\HologramHolderConfig.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\variable\TickVariable.java
+D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\adapter\HologramAdapter1_20.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\manager\HologramUpdaterManager.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\util\LocationUtils.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\listener\EssentialListeners.java
@@ -14,5 +15,4 @@ D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\hologram\HologramBuilder.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\HologramsAddon.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\util\NPCModuleUtil.java
-D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\adapter\HologramAdapter1_8.java
 D:\workspace\SCore\addon-modules\holograms-module\src\main\java\us\smartmc\addon\holograms\instance\config\MainConfig.java

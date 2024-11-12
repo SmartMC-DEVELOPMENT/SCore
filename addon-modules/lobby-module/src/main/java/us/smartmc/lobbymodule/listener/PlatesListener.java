@@ -17,7 +17,7 @@ public class PlatesListener extends AddonListener implements Listener {
     public void impulsePlayer(PlayerInteractEvent event) {
         if (!isEnabled()) return;
         if (!event.getAction().equals(Action.PHYSICAL)) return;
-        if (!event.getClickedBlock().getType().equals(Material.IRON_PLATE)) return;
+        if (!event.getClickedBlock().getType().equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE)) return;
         Player player = event.getPlayer();
 
         // Obtén la dirección en la que está mirando el jugador

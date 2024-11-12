@@ -6,7 +6,7 @@ import me.imsergioh.pluginsapi.language.Language;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
 import us.smartmc.npcsmodule.NPCSModule;
 import us.smartmc.npcsmodule.instance.ManagerRegistry;
 import us.smartmc.npcsmodule.instance.CustomNPC;
@@ -72,7 +72,7 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
             String skinSignature = null;
             if (data.containsKey("skinSignature")) skinSignature = data.getString("skinSignature");
             // TO DO: HERE PARSE VARIABLES TO NPC INSTANCE AND REGISTER IT
-            CustomNPC npc = new CustomNPC(this, location.getWorld(), key, name, data);
+            CustomNPC npc = new CustomNPC(this, ((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), key, name, data);
 
             if (skinValue != null) {
                 npc.setSkin(skinValue, skinSignature);
@@ -97,7 +97,7 @@ public class NPCManager extends ManagerRegistry<String, CustomNPC> {
         for (Language language : Language.values()) {
             for (CustomNPC npc : values()) {
                 if (npc == null) continue;
-                if (npc.getEntityPlayer().getId() == id) return npc;
+                if (npc.getNpcPlayer().getId() == id) return npc;
             }
         }
         return null;

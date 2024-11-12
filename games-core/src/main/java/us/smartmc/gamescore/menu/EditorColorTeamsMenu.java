@@ -33,7 +33,7 @@ public class EditorColorTeamsMenu extends GUIMenu {
     public void setTeam(int slot, ColorGameTeamColor team) {
         String name = team.getName();
         boolean isAdded = map.getData().getTeamsNames().contains(name);
-        ItemBuilder builder = ItemBuilder.of(Material.WOOL).name("&" + team.getCode() + name);
+        ItemBuilder builder = ItemBuilder.of(Material.WHITE_WOOL).name("&" + team.getCode() + name);
         List<String> lore = isAdded ? List.of("&cClick to disable") : List.of("&aClick to enable");
 
         if (isAdded) {

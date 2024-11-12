@@ -1,14 +1,14 @@
 package us.smartmc.gamescore.util;
 
-import net.minecraft.server.v1_8_R3.ChatComponentText;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent;
-import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.smartmc.gamescore.api.GamesCoreAPI;
+import us.smartmc.gamescore.instance.world.VoidGenerator;
 
 import java.util.Optional;
 import java.util.Timer;
@@ -19,10 +19,14 @@ import java.util.function.Consumer;
 
 public class BukkitUtil {
 
+    public static World createVoidWorld(String name) {
+        WorldCreator creator = new WorldCreator(name);
+        creator.generator(new VoidGenerator());
+        return creator.createWorld();
+    }
+
     public static void sendActionBar(Player player, String message) {
-        IChatBaseComponent chat = new ChatComponentText(message);
-        PacketPlayOutChat packet = new PacketPlayOutChat(chat, (byte) 2);
-        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+        player.sendActionBar(Component.text(message));
     }
 
     public static void consumePlayer(UUID uuid, Consumer<Player> consumer) {

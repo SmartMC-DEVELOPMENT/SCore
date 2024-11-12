@@ -1,9 +1,9 @@
 package us.smartmc.npcsmodule.command;
 
-import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.level.ServerPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.smartmc.core.SmartCore;
@@ -131,9 +131,9 @@ public class NPCCommand extends AddonPluginCommand {
     }
 
     public static void updateNPCVisibility(CustomNPC npc, boolean showAgain) {
-        EntityPlayer npcPlayer = npc.getEntityPlayer();
+        ServerPlayer npcPlayer = npc.getNpcPlayer();
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.hidePlayer(npcPlayer.getBukkitEntity());
+            player.hideEntity(SmartCore.getPlugin(), npcPlayer.getBukkitEntity());
             if (showAgain)
                 npc.showTo(player);
         }
@@ -150,7 +150,7 @@ public class NPCCommand extends AddonPluginCommand {
                     break;
                 }
                 // Find by entity name
-                if (managerNpc.getEntityPlayer().getProfile().getName().equals(id)) {
+                if (managerNpc.getNpcPlayer().getGameProfile().getName().equals(id)) {
                     npc = managerNpc;
                     break;
                 }

@@ -2,24 +2,26 @@ package us.smartmc.core.backend.service;
 
 import org.bukkit.entity.Player;
 import us.smartmc.backend.handler.ConnectionInputManager;
-import us.smartmc.backend.instance.service.BackendService;
+import us.smartmc.backend.instance.services.IBackendService;
 import us.smartmc.backend.service.players.common.PlayersServiceContexts;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.backend.SendBukkitMessageCommand;
 
 import java.util.UUID;
 
-public class PlayersService extends BackendService {
+public class PlayersService implements IBackendService {
+
+    private boolean loaded;
 
     @Override
     public void load() {
-        super.load();
+        loaded = true;
         ConnectionInputManager.registerCommands(new SendBukkitMessageCommand());
     }
 
     @Override
     public void unload() {
-        super.unload();
+        loaded = false;
     }
 
     public void registerPlayerContext(Player player) {
@@ -34,4 +36,8 @@ public class PlayersService extends BackendService {
         SmartCore.getPlugin().getBackendClient().unsubscribeContext(context);
     }
 
+    @Override
+    public boolean isLoaded() {
+        return loaded;
+    }
 }

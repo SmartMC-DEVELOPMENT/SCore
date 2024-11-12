@@ -7,7 +7,6 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedEnumEntityUseAction;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
-import org.bukkit.scheduler.BukkitRunnable;
 import us.smartmc.core.SmartCore;
 import org.bukkit.Bukkit;
 import us.smartmc.npcsmodule.event.NPCUseEntityEvent;
@@ -34,20 +33,15 @@ public class PlayerClickListener extends PacketAdapter {
             if (npc == null) return;
             UUID uuid = event.getPlayer().getUniqueId();
             if (clicking.contains(uuid)) return;
-
-            EnumWrappers.EntityUseAction action = event.getPacket().getEntityUseActions().read(0);  // Cambiado para 1.8
-
+            EnumWrappers.EntityUseAction action = event.getPacket().getEnumEntityUseActions().read(0).getAction();
             clicking.add(uuid);
 
-            // Ejecuta el evento en el siguiente tick de Bukkit
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    Bukkit.getPluginManager().callEvent(new NPCUseEntityEvent(npc, event.getPlayer(), action));
-                }
-            }.runTask(SpigotPluginsAPI.getPlugin());
+            int r = action.compareTo(EnumWrappers.EntityUseAction.INTERACT);
 
-            // Programa la eliminación del jugador del set de "clicking" después de 75 ms
+            Bukkit.getScheduler().runTask(SpigotPluginsAPI.getPlugin(), () -> {
+                Bukkit.getPluginManager()
+                        .callEvent(new NPCUseEntityEvent(npc, event.getPlayer(), action));
+            });
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -55,6 +49,7 @@ public class PlayerClickListener extends PacketAdapter {
                 }
             }, 75);
         });
+
     }
 }
 

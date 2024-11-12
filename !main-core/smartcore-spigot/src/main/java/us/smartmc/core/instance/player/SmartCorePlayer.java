@@ -7,17 +7,13 @@ import me.imsergioh.pluginsapi.connection.MongoDBConnection;
 import me.imsergioh.pluginsapi.connection.RedisConnection;
 import me.imsergioh.pluginsapi.event.PlayerUnloadEvent;
 import me.imsergioh.pluginsapi.instance.player.CorePlayer;
+import me.imsergioh.pluginsapi.util.BukkitChatUtil;
 import me.imsergioh.pluginsapi.util.ChatUtil;
-import net.minecraft.server.v1_8_R3.ChatComponentText;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent;
-import net.minecraft.server.v1_8_R3.Packet;
-import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
+import net.kyori.adventure.text.Component;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import us.smartmc.backend.connection.BackendClient;
 import us.smartmc.backend.handler.ServicesManager;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.backend.service.PlayersService;
@@ -45,18 +41,8 @@ public class SmartCorePlayer extends CorePlayer {
         });
     }
 
-    public void sendActionBar(String message) {
-        // Convert the Player to a CraftPlayer to access NMS methods
-        CraftPlayer craftPlayer = (CraftPlayer) bukkitPlayer;
-
-        // Create the chat component with the message
-        IChatBaseComponent chatComponent = new ChatComponentText(ChatUtil.parse(bukkitPlayer, message));
-
-        // Create the packet to send the chat message as an action bar (parameter 2 = 2 for action bar)
-        Packet<?> packet = new PacketPlayOutChat(chatComponent, (byte) 2);
-
-        // Send the packet to the player
-        craftPlayer.getHandle().playerConnection.sendPacket(packet);
+    public void sendActionBar(String message, Object... args) {
+        bukkitPlayer.sendActionBar(BukkitChatUtil.parse(bukkitPlayer, message, args));
     }
 
     @Override

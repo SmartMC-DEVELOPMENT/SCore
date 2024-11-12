@@ -1,5 +1,6 @@
 package us.smartmc.core.listener;
 
+import org.bukkit.event.player.PlayerInteractEvent;
 import us.smartmc.core.SmartCore;
 import us.smartmc.core.handler.AdminModeHandler;
 import org.bukkit.entity.Player;
@@ -29,7 +30,14 @@ public class AdminModeListeners implements Listener {
         event.setCancelled(false);
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onInteract(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        if (!handler.isActive(player)) return;
+        event.setCancelled(false);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onDrop(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
         if (!handler.isActive(player)) return;

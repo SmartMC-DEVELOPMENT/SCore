@@ -82,8 +82,8 @@ public class MinigamesConfig extends MongoDBPluginConfig {
                 .amount(amount)
                 .hideFlags();
 
-        if (configDoc.containsKey("skull-texture") && material.equals(Material.SKULL_ITEM)) {
-            builder.data(3).skullTexture(configDoc.getString("skull-texture"));
+        if (configDoc.containsKey("skull-texture") && material.equals(Material.PLAYER_HEAD)) {
+            builder.skullTexture(configDoc.getString("skull-texture"));
         }
 
         return builder.get(language);

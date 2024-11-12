@@ -1,7 +1,5 @@
 package us.smartmc.core.instance;
 
-import fr.minuskube.netherboard.Netherboard;
-import fr.minuskube.netherboard.bukkit.BPlayerBoard;
 import lombok.Getter;
 import me.imsergioh.pluginsapi.instance.FilePluginConfig;
 import me.imsergioh.pluginsapi.util.ChatUtil;
@@ -82,9 +80,9 @@ public class PluginScoreboard {
     }
 
     private BPlayerBoard getOrCreateBoard(Player player) {
-        BPlayerBoard board = Netherboard.instance().getBoard(player);
+        BPlayerBoard board = BPlayerBoard.get(player);
         if (board == null) {
-            board = Netherboard.instance().createBoard(player, ChatUtil.parse(player, getTitle()));
+            board = BPlayerBoard.create(player, getTitle());
         }
         return board;
     }

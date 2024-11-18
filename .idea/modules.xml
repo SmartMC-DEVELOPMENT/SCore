@@ -13,7 +13,6 @@
       <module fileurl="file://$PROJECT_DIR$/addon-modules/lobby-cosmetics/lobby-cosmetics.iml" filepath="$PROJECT_DIR$/addon-modules/lobby-cosmetics/lobby-cosmetics.iml" />
       <module fileurl="file://$PROJECT_DIR$/addon-modules/lobby-module/lobby-module.iml" filepath="$PROJECT_DIR$/addon-modules/lobby-module/lobby-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/login/login-spigot/login-spigot.iml" filepath="$PROJECT_DIR$/login/login-spigot/login-spigot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/addon-modules/npcs-module/npcs-module.iml" filepath="$PROJECT_DIR$/addon-modules/npcs-module/npcs-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" filepath="$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" />
       <module fileurl="file://$PROJECT_DIR$/sbackend-services/players-service/players-service.iml" filepath="$PROJECT_DIR$/sbackend-services/players-service/players-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/skyblock/skyblock-bukkit/skyblock-bukkit.iml" filepath="$PROJECT_DIR$/skyblock/skyblock-bukkit/skyblock-bukkit.iml" />

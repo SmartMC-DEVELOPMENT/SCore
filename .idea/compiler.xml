@@ -16,6 +16,7 @@
         <module name="skyblock-bukkit" />
         <module name="login-spigot" />
         <module name="npcs-module" />
+        <module name="survival-common" />
         <module name="bmotd-velocity" />
         <module name="smartcore-bungee" />
         <module name="skyblock-service" />
@@ -73,5 +74,10 @@
       <module name="test-module" target="17" />
       <module name="tonterias-module" target="17" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="survival-common" options="" />
+    </option>
   </component>
 </project>

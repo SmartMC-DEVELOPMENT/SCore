@@ -80,6 +80,7 @@
         <option value="$PROJECT_DIR$/smartbot/pom.xml" />
         <option value="$PROJECT_DIR$/test-game-implementation/pom.xml" />
         <option value="$PROJECT_DIR$/games-core-backend/pom.xml" />
+        <option value="$PROJECT_DIR$/survival-core/survival-common/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

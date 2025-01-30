@@ -4,8 +4,8 @@ package us.smartmc.npcsmodule.variables;
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
 import me.imsergioh.pluginsapi.instance.VariableListener;
 import me.imsergioh.pluginsapi.language.Language;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import us.smartmc.serverhandler.manager.BukkitOnlineCountManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,7 +31,7 @@ public class NPCEmbedsVariables extends VariableListener<Player> {
 
         if (matcher.find()) {
             String serverId = matcher.group(1);
-            int online = BukkitOnlineCountManager.getCountsOf(serverId);
+            int online = Bukkit.getOnlinePlayers().size();
 
             String path = "onlinePlayers";
 

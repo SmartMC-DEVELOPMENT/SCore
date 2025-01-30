@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import us.smartmc.npcsmodule.event.NPCUseEntityEvent;
@@ -17,26 +16,11 @@ import us.smartmc.npcsmodule.manager.NPCCommandManager;
 import us.smartmc.npcsmodule.manager.NPCManager;
 import us.smartmc.smartaddons.plugin.AddonListener;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
 public class NPCListeners extends AddonListener implements Listener {
-
-    private static final Set<UUID> recentJoined = new HashSet<>();
 
     @EventHandler
     public void removeViewer(PlayerQuitEvent event) {
         removeAllViewer(event.getPlayer());
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void registerRecentJoined(PlayerJoinEvent event) {
-        UUID uuid = event.getPlayer().getUniqueId();
-        recentJoined.add(uuid);
-        Bukkit.getScheduler().runTaskLater(SpigotPluginsAPI.getPlugin(), () -> {
-            recentJoined.remove(uuid);
-        }, 20);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -53,13 +37,12 @@ public class NPCListeners extends AddonListener implements Listener {
 
     @EventHandler
     public void onTeleport(PlayerTeleportEvent event) {
-        if (recentJoined.contains(event.getPlayer().getUniqueId())) return;
         Location to = event.getTo();
         Location from = event.getFrom();
         if (to == null) return;
         if (to.getWorld() == null || from.getWorld() == null) return;
         // Return if is the same world (Only send npcs if changes world BRO)
-        if (to.getWorld().getName().equals(from.getWorld().getName())) return;
+        //if (to.getWorld().getName().equals(from.getWorld().getName())) return;
 
         showAllNPCsToPlayer(event.getPlayer());
     }

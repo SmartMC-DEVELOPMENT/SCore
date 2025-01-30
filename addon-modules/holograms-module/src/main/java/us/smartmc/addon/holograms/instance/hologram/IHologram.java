@@ -1,7 +1,6 @@
 package us.smartmc.addon.holograms.instance.hologram;
 
 import org.bukkit.Location;
-import us.smartmc.core.exception.CorePluginException;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public interface IHologram {
 
     List<HologramArmorStand> getLinesArmorStands();
 
-    void assignToNPCLocation(String npcName) throws CorePluginException;
+    void assignToNPCLocation(String npcName) throws Exception;
 
     void addLine(String text);
 

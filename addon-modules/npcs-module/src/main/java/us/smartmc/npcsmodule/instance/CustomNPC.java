@@ -22,6 +22,7 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 
 import org.bukkit.entity.EntityType;
@@ -109,6 +110,10 @@ public class CustomNPC {
     }
 
     public void showTo(Player player) {
+        showTo(player, null);
+    }
+
+    public void showTo(Player player, Location location) {
         if (viewers.contains(player.getUniqueId())) return;
         viewers.add(player.getUniqueId());
         player.hideEntity(SpigotPluginsAPI.getPlugin(), getBukkitEntity());
@@ -140,22 +145,19 @@ public class CustomNPC {
         PacketContainer headRotationPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_HEAD_ROTATION);
         headRotationPacket.getModifier().writeDefaults();
         headRotationPacket.getIntegers().write(0, npcPlayer.getId());
-        headRotationPacket.getBytes().write(0, ((byte) (int) (getBukkitLocation().getYaw() * 256.0F / 360.0F)));
+        Location npcLocation = location != null ? location : npcPlayer.getBukkitEntity().getLocation(); // Obtén la Location del NPC
+        headRotationPacket.getBytes().write(0, ((byte) (int) (npcLocation.getYaw() * 256.0F / 360.0F)));
 
         // Body rotate
         PacketContainer lookPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_LOOK);
         lookPacket.getModifier().writeDefaults();
         lookPacket.getIntegers().write(0, npcPlayer.getId());
-        lookPacket.getBytes().write(0, ((byte) (int) (getBukkitLocation().getYaw() * 256.0F / 360.0F)));
-        lookPacket.getBytes().write(1, ((byte) (int) (getBukkitLocation().getPitch() * 256.0F / 360.0F)));
+        lookPacket.getBytes().write(0, ((byte) (int) (npcLocation.getYaw() * 256.0F / 360.0F)));
+        lookPacket.getBytes().write(1, ((byte) (int) (npcLocation.getPitch() * 256.0F / 360.0F)));
 
         // Metadata Packet
         PacketContainer metadataPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_METADATA);
         metadataPacket.getIntegers().write(0, npcPlayer.getId());
-
-        WrappedDataWatcher watcher = new WrappedDataWatcher(npcPlayer.getBukkitEntity());
-        List<WrappedWatchableObject> watchableObjects = watcher.getWatchableObjects();
-        metadataPacket.getWatchableCollectionModifier().write(0, watchableObjects);
 
         try {
             ProtocolLibrary.getProtocolManager().sendServerPacket(player, infoUpdatePacket);

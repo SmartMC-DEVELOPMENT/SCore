@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
 import us.smartmc.addon.holograms.util.NPCModuleUtil;
-import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.npcsmodule.instance.CustomNPC;
 
 import java.util.ArrayList;
@@ -59,9 +58,9 @@ public class Hologram implements IHologram {
     }
 
     @Override
-    public void assignToNPCLocation(String npcName) throws CorePluginException {
+    public void assignToNPCLocation(String npcName) throws Exception {
         CustomNPC npc = NPCModuleUtil.getFirstByName(npcName);
-        if (npc == null) throw new CorePluginException("No NPC found with name of '" + npcName + "'!");
+        if (npc == null) throw new Exception("No NPC found with name of '" + npcName + "'!");
         location = npc.getBukkitLocation().clone().add(0, -0.2, 0);
         removeAllStands();
     }

@@ -6,12 +6,9 @@ import org.bukkit.Location;
 import us.smartmc.addon.holograms.instance.config.HologramHolderConfig;
 import us.smartmc.addon.holograms.util.LocationUtils;
 import us.smartmc.addon.holograms.util.NPCModuleUtil;
-import us.smartmc.core.SmartCore;
-import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.npcsmodule.instance.CustomNPC;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ConfigurableHologram extends Hologram implements IConfigurableHologram {
@@ -44,7 +41,7 @@ public class ConfigurableHologram extends Hologram implements IConfigurableHolog
     }
 
     @Override
-    public void assignToNPCLocation(String npcName) throws CorePluginException {
+    public void assignToNPCLocation(String npcName) throws Exception {
         super.assignToNPCLocation(npcName);
         setup();
     }

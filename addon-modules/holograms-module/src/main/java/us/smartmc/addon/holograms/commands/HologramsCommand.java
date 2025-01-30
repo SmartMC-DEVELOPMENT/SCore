@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import us.smartmc.addon.holograms.instance.hologram.*;
-import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.smartaddons.plugin.AddonPluginCommand;
 
 import java.util.List;
@@ -93,7 +92,7 @@ public class HologramsCommand extends AddonPluginCommand {
                 try {
                     hologram.assignToNPCLocation(npcName);
                     sender.sendMessage(ChatUtil.parse("&aHologram location assigned to NPC!"));
-                } catch (CorePluginException e) {
+                } catch (Exception e) {
                     sender.sendMessage(ChatUtil.parse("&cError while trying to execute command! (" + e.getMessage() + ")"));
                 }
             }

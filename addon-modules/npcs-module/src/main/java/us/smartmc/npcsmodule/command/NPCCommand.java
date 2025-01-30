@@ -32,12 +32,16 @@ public class NPCCommand extends AddonPluginCommand {
         switch (args[0].toLowerCase()) {
             case "create", "add", "crear", "añadir" -> {
                 String idName = NPCUtil.getNameOrDefault(args[1]);
-                mainManager.register(idName, NPCUtil.getDefaultCustomNPC(mainManager, location, idName));
-                Bukkit.getScheduler().runTask(SpigotPluginsAPI.getPlugin(), () -> {
-                    mainManager.get(idName).setBukkitLocation(player.getLocation());
-                    updateNPCVisibility(mainManager.get(idName), true);
-                    player.sendMessage("Created!");
-                });
+                try {
+                    mainManager.register(idName, NPCUtil.getDefaultCustomNPC(mainManager, location, idName));
+                    Bukkit.getScheduler().runTask(SpigotPluginsAPI.getPlugin(), () -> {
+                        mainManager.get(idName).setBukkitLocation(player.getLocation());
+                        updateNPCVisibility(mainManager.get(idName), true);
+                        player.sendMessage("Created!");
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
             case "tp" -> {
                 CustomNPC npc = getCustomNPCById(args[1]);

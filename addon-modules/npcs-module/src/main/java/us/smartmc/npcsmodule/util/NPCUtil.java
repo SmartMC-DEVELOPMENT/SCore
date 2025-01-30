@@ -3,7 +3,6 @@ package us.smartmc.npcsmodule.util;
 import org.bson.Document;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
-import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.npcsmodule.instance.CustomNPC;
 import us.smartmc.npcsmodule.manager.NPCManager;
 
@@ -19,8 +18,8 @@ public class NPCUtil {
         return name == null ? "NPC-" + new Random().nextInt(1000) : name;
     }
 
-    public static CustomNPC getDefaultCustomNPC(NPCManager manager, Location location, String id) throws CorePluginException {
-        if (location.getWorld() == null) throw new CorePluginException("NPC could not created: Location world is null");
+    public static CustomNPC getDefaultCustomNPC(NPCManager manager, Location location, String id) throws Exception {
+        if (location.getWorld() == null) throw new Exception("NPC could not created: Location world is null");
 
         Document data = new Document("nameVisible", true);
         data.put("enabled", true);

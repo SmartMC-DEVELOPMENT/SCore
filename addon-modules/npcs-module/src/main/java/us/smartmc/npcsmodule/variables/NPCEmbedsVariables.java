@@ -2,11 +2,9 @@ package us.smartmc.npcsmodule.variables;
 
 
 import me.imsergioh.pluginsapi.handler.LanguagesHandler;
-import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import me.imsergioh.pluginsapi.instance.VariableListener;
 import me.imsergioh.pluginsapi.language.Language;
 import org.bukkit.entity.Player;
-import us.smartmc.core.instance.player.SmartCorePlayer;
 import us.smartmc.serverhandler.manager.BukkitOnlineCountManager;
 
 import java.util.regex.Matcher;
@@ -23,8 +21,6 @@ public class NPCEmbedsVariables extends VariableListener<Player> {
     @Override
     public String parse(Player player, String message) {
         if (!message.contains("<embed.online")) return message;
-        SmartCorePlayer corePlayer = SmartCorePlayer.get(player);
-        if (corePlayer != null) return parse(PlayerLanguages.get(player.getUniqueId()), message);
         return parse(Language.getDefault(), message);
     }
 

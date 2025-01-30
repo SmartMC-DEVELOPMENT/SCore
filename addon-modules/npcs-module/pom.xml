@@ -54,12 +54,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>us.smartmc.core</groupId>
-            <artifactId>smartcore-spigot</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>me.imsergioh.pluginsapi</groupId>
             <artifactId>spigot-core</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -94,6 +88,12 @@
             <artifactId>smartaddons-spigot</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>

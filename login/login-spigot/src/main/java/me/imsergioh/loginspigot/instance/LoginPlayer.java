@@ -68,7 +68,7 @@ public class LoginPlayer {
         LoginPlayer loginPlayer = LoginPlayersFactory.get(getPlayer());
         if (loginPlayer == null) return;
         Bukkit.getScheduler().runTaskLater(LoginSpigot.getPlugin(), () -> {
-            PluginUtils.redirectTo(getPlayer(), "lobby");
+            PluginUtils.redirectTo(getPlayer(), LoginSpigot.getPlugin().getRedirectServerName());
         }, 20);
     }
 

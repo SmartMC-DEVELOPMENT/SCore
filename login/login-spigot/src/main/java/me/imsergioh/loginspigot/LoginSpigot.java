@@ -4,6 +4,7 @@ import com.github.games647.fastlogin.bukkit.FastLoginBukkit;
 import com.github.games647.fastlogin.core.shared.FastLoginCore;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import lombok.Getter;
 import me.imsergioh.loginspigot.command.LoginCMD;
 import me.imsergioh.loginspigot.command.RegisterCMD;
 import me.imsergioh.loginspigot.listener.AuthPlayersListeners;
@@ -14,6 +15,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,11 +30,14 @@ import java.io.IOException;
 
 public final class LoginSpigot extends JavaPlugin implements Listener, CommandExecutor {
 
+    @Getter
     private static LoginSpigot plugin;
 
     boolean enabled = true;
 
+    @Getter
     private static FastLoginCore<Player, CommandSender, FastLoginBukkit> fastLoginCore;
+    @Getter
     private MongoClient mongoClient;
 
     @Override
@@ -134,15 +139,13 @@ public final class LoginSpigot extends JavaPlugin implements Listener, CommandEx
         event.setCancelled(true);
     }
 
-    public MongoClient getMongoClient() {
-        return mongoClient;
+    public String getRedirectServerName() {
+        FileConfiguration config = getConfig();
+
+        if (config.contains("redirectServerPrefix")) {
+            return config.getString("redirectServerPrefix");
+        }
+        return "lobby";
     }
 
-    public static FastLoginCore<Player, CommandSender, FastLoginBukkit> getFastLoginCore() {
-        return fastLoginCore;
-    }
-
-    public static LoginSpigot getPlugin() {
-        return plugin;
-    }
 }

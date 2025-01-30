@@ -2,9 +2,9 @@ package us.smartmc.npcsmodule.event;
 
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import lombok.Getter;
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import us.smartmc.core.SmartCore;
 import us.smartmc.npcsmodule.instance.CustomNPC;
 
 import java.util.HashSet;
@@ -28,7 +28,7 @@ public class NPCUseEntityEvent extends NPCEvent {
         if (npc.isVulnerable()) {
             if (action.equals(EnumWrappers.EntityUseAction.ATTACK)) {
                 if (firstAttackDelay.contains(npc.getNpcPlayer().getId())) return;
-                Bukkit.getScheduler().runTask(SmartCore.getPlugin(), npc::simulateAttack);
+                Bukkit.getScheduler().runTask(SpigotPluginsAPI.getPlugin(), npc::simulateAttack);
                 firstAttackDelay.add(npc.getNpcPlayer().getId());
                 new Timer().schedule(new TimerTask() {
                     @Override

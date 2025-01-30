@@ -1,13 +1,11 @@
 package us.smartmc.npcsmodule.command;
 
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import net.minecraft.server.level.ServerPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import us.smartmc.core.SmartCore;
-import us.smartmc.core.exception.CorePluginException;
 import us.smartmc.npcsmodule.instance.CustomNPC;
 import us.smartmc.npcsmodule.manager.NPCManager;
 import us.smartmc.npcsmodule.util.NPCUtil;
@@ -34,17 +32,12 @@ public class NPCCommand extends AddonPluginCommand {
         switch (args[0].toLowerCase()) {
             case "create", "add", "crear", "añadir" -> {
                 String idName = NPCUtil.getNameOrDefault(args[1]);
-                try {
-                    mainManager.register(idName, NPCUtil.getDefaultCustomNPC(mainManager, location, idName));
-                    Bukkit.getScheduler().runTask(SmartCore.getPlugin(), () -> {
-                        mainManager.get(idName).setBukkitLocation(player.getLocation());
-                        updateNPCVisibility(mainManager.get(idName), true);
-                        player.sendMessage("Created!");
-                    });
-                    mainManager.saveToConfig();
-                } catch (CorePluginException e) {
-                    player.sendMessage("Error ocurred: " + e.getMessage());
-                }
+                mainManager.register(idName, NPCUtil.getDefaultCustomNPC(mainManager, location, idName));
+                Bukkit.getScheduler().runTask(SpigotPluginsAPI.getPlugin(), () -> {
+                    mainManager.get(idName).setBukkitLocation(player.getLocation());
+                    updateNPCVisibility(mainManager.get(idName), true);
+                    player.sendMessage("Created!");
+                });
             }
             case "tp" -> {
                 CustomNPC npc = getCustomNPCById(args[1]);
@@ -133,7 +126,7 @@ public class NPCCommand extends AddonPluginCommand {
     public static void updateNPCVisibility(CustomNPC npc, boolean showAgain) {
         ServerPlayer npcPlayer = npc.getNpcPlayer();
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.hideEntity(SmartCore.getPlugin(), npcPlayer.getBukkitEntity());
+            player.hideEntity(SpigotPluginsAPI.getPlugin(), npcPlayer.getBukkitEntity());
             if (showAgain)
                 npc.showTo(player);
         }

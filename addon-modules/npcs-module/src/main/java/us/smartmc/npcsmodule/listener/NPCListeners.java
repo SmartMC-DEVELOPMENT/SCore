@@ -3,7 +3,6 @@ package us.smartmc.npcsmodule.listener;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.event.PlayerDataLoadedEvent;
 import me.imsergioh.pluginsapi.event.PlayerLanguageChangedEvent;
-import me.imsergioh.pluginsapi.instance.player.CorePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -13,7 +12,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import us.smartmc.core.SmartCore;
 import us.smartmc.npcsmodule.event.NPCUseEntityEvent;
 import us.smartmc.npcsmodule.manager.NPCCommandManager;
 import us.smartmc.npcsmodule.manager.NPCManager;
@@ -36,7 +34,7 @@ public class NPCListeners extends AddonListener implements Listener {
     public void registerRecentJoined(PlayerJoinEvent event) {
         UUID uuid = event.getPlayer().getUniqueId();
         recentJoined.add(uuid);
-        Bukkit.getScheduler().runTaskLater(SmartCore.getPlugin(), () -> {
+        Bukkit.getScheduler().runTaskLater(SpigotPluginsAPI.getPlugin(), () -> {
             recentJoined.remove(uuid);
         }, 20);
     }

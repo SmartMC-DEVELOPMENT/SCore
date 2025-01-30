@@ -3,8 +3,8 @@ package us.smartmc.npcsmodule;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
 import lombok.Getter;
+import me.imsergioh.pluginsapi.SpigotPluginsAPI;
 import me.imsergioh.pluginsapi.handler.VariablesHandler;
-import us.smartmc.core.SmartCore;
 import us.smartmc.npcsmodule.command.NPCCommand;
 import us.smartmc.npcsmodule.instance.NPCSConfig;
 import us.smartmc.npcsmodule.listener.NPCListeners;
@@ -34,7 +34,7 @@ public class NPCSModule extends AddonPlugin {
         new NPCManager();
         config = new NPCSConfig();
         new PluginMessages();
-        registerListeners(SmartCore.getPlugin(), new NPCListeners());
+        registerListeners(SpigotPluginsAPI.getPlugin(), new NPCListeners());
         playerClickListener = new PlayerClickListener();
         NPCCommandManager.register("server", new ServerCommand());
         NPCCommandManager.register("message", new MessageCommand());

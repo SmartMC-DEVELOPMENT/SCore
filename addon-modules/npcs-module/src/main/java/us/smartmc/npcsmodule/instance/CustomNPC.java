@@ -29,7 +29,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.bukkit.util.Vector;
-import us.smartmc.core.SmartCore;
 import us.smartmc.npcsmodule.manager.NPCManager;
 import us.smartmc.npcsmodule.util.ConfigUtil;
 
@@ -112,7 +111,7 @@ public class CustomNPC {
     public void showTo(Player player) {
         if (viewers.contains(player.getUniqueId())) return;
         viewers.add(player.getUniqueId());
-        player.hideEntity(SmartCore.getPlugin(), getBukkitEntity());
+        player.hideEntity(SpigotPluginsAPI.getPlugin(), getBukkitEntity());
         parseEntity(player);
         npcPlayer.setCustomNameVisible(configData.getBoolean("nameVisible", true));
         npcPlayer.getBukkitEntity().setCustomNameVisible(configData.getBoolean("nameVisible", true));

@@ -5,9 +5,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
-import com.comphenix.protocol.wrappers.WrappedEnumEntityUseAction;
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
-import us.smartmc.core.SmartCore;
 import org.bukkit.Bukkit;
 import us.smartmc.npcsmodule.event.NPCUseEntityEvent;
 import us.smartmc.npcsmodule.instance.CustomNPC;
@@ -20,7 +18,7 @@ public class PlayerClickListener extends PacketAdapter {
     private final Set<UUID> clicking = new HashSet<>();
 
     public PlayerClickListener() {
-        super(SmartCore.getPlugin(), PacketType.Play.Client.USE_ENTITY);
+        super(SpigotPluginsAPI.getPlugin(), PacketType.Play.Client.USE_ENTITY);
         // Registra este listener con ProtocoLib
         ProtocolLibrary.getProtocolManager().addPacketListener(this);
     }

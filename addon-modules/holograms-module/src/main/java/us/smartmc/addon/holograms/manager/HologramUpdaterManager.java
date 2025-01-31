@@ -1,7 +1,6 @@
 package us.smartmc.addon.holograms.manager;
 
 import me.imsergioh.pluginsapi.SpigotPluginsAPI;
-import me.imsergioh.pluginsapi.instance.PlayerLanguages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;

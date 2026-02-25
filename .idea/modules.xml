@@ -3,10 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SCore.iml" filepath="$PROJECT_DIR$/SCore.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bmotd-velocity/bmotd-velocity.iml" filepath="$PROJECT_DIR$/bmotd-velocity/bmotd-velocity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BMotd-Velocity/bmotd-velocity.iml" filepath="$PROJECT_DIR$/BMotd-Velocity/bmotd-velocity.iml" />
       <module fileurl="file://$PROJECT_DIR$/addon-modules/chat-module/chat-module.iml" filepath="$PROJECT_DIR$/addon-modules/chat-module/chat-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/events-core/events-core.iml" filepath="$PROJECT_DIR$/events-core/events-core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/games-core.iml" filepath="$PROJECT_DIR$/games-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/games-core/games-core.iml" filepath="$PROJECT_DIR$/games-core/games-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/games-core-backend.iml" filepath="$PROJECT_DIR$/games-core-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/gamescore-module.iml" filepath="$PROJECT_DIR$/gamescore-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/addon-modules/holograms-module/holograms-module.iml" filepath="$PROJECT_DIR$/addon-modules/holograms-module/holograms-module.iml" />
@@ -14,15 +14,14 @@
       <module fileurl="file://$PROJECT_DIR$/addon-modules/lobby-cosmetics/lobby-cosmetics.iml" filepath="$PROJECT_DIR$/addon-modules/lobby-cosmetics/lobby-cosmetics.iml" />
       <module fileurl="file://$PROJECT_DIR$/addon-modules/lobby-module/lobby-module.iml" filepath="$PROJECT_DIR$/addon-modules/lobby-module/lobby-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/login/login-spigot/login-spigot.iml" filepath="$PROJECT_DIR$/login/login-spigot/login-spigot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/random-battle/lucky-towers.iml" filepath="$PROJECT_DIR$/random-battle/lucky-towers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lucky-towers/lucky-towers.iml" filepath="$PROJECT_DIR$/lucky-towers/lucky-towers.iml" />
       <module fileurl="file://$PROJECT_DIR$/addon-modules/npcs-module/npcs-module.iml" filepath="$PROJECT_DIR$/addon-modules/npcs-module/npcs-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" filepath="$PROJECT_DIR$/server-handler/orchestrator/orchestrator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sbackend-services/players-service/players-service.iml" filepath="$PROJECT_DIR$/sbackend-services/players-service/players-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/skyblock/skyblock-bukkit/skyblock-bukkit.iml" filepath="$PROJECT_DIR$/skyblock/skyblock-bukkit/skyblock-bukkit.iml" />
-      <module fileurl="file://$PROJECT_DIR$/!main-core/smartcore-velocity/smartcore-bungee.iml" filepath="$PROJECT_DIR$/!main-core/smartcore-velocity/smartcore-bungee.iml" />
+      <module fileurl="file://$PROJECT_DIR$/!main-core/smartcore-bungee/smartcore-bungee.iml" filepath="$PROJECT_DIR$/!main-core/smartcore-bungee/smartcore-bungee.iml" />
       <module fileurl="file://$PROJECT_DIR$/!main-core/smartcore-spigot/smartcore-spigot.iml" filepath="$PROJECT_DIR$/!main-core/smartcore-spigot/smartcore-spigot.iml" />
       <module fileurl="file://$PROJECT_DIR$/staff-mode/staff-mode.iml" filepath="$PROJECT_DIR$/staff-mode/staff-mode.iml" />
-      <module fileurl="file://$PROJECT_DIR$/games-core/test-game-implementation/test-game-implementation.iml" filepath="$PROJECT_DIR$/games-core/test-game-implementation/test-game-implementation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test-game-implementation/test-game-implementation.iml" filepath="$PROJECT_DIR$/test-game-implementation/test-game-implementation.iml" />
       <module fileurl="file://$PROJECT_DIR$/testaaaa/testaaaa.iml" filepath="$PROJECT_DIR$/testaaaa/testaaaa.iml" />
     </modules>
   </component>
